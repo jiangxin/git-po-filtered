@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git 1.8.0\n"
+"Project-Id-Version: git 1.8.1\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2012-09-15 10:21+0800\n"
+"POT-Creation-Date: 2012-11-30 12:40+0800\n"
 "PO-Revision-Date: 2012-10-02 19:35+0200\n"
 "Last-Translator: Ralf Thielow <ralf.thielow@gmail.com>\n"
 "Language-Team: German <>\n"
@@ -122,6 +122,14 @@ msgstr "Programm"
 #: archive.c builtin/archive.c
 msgid "path to the remote git-upload-archive command"
 msgstr "Pfad zum externen \"git-upload-archive\"-Programm"
+
+#: attr.c
+msgid ""
+"Negative patterns are forbidden in git attributes\n"
+"Use '\\!' for literal leading exclamation."
+msgstr ""
+"Verneinende Muster sind in Git-Attributen verboten.\n"
+"Benutze '\\!' für führende Ausrufezeichen."
 
 #: bundle.c
 #, c-format
@@ -296,14 +304,19 @@ msgstr[1] "vor %lu Jahren"
 
 #: diff.c
 #, c-format
-msgid "  Failed to parse dirstat cut-off percentage '%.*s'\n"
+msgid "  Failed to parse dirstat cut-off percentage '%s'\n"
 msgstr ""
-"  Fehler beim Parsen des abgeschnittenen \"dirstat\" Prozentsatzes '%.*s'\n"
+"  Fehler beim Parsen des abgeschnittenen \"dirstat\" Prozentsatzes '%s'\n"
 
 #: diff.c
 #, c-format
-msgid "  Unknown dirstat parameter '%.*s'\n"
-msgstr "  Unbekannter \"dirstat\" Parameter '%.*s'\n"
+msgid "  Unknown dirstat parameter '%s'\n"
+msgstr "  Unbekannter \"dirstat\" Parameter '%s'\n"
+
+#: diff.c
+#, c-format
+msgid "Unknown value for 'diff.submodule' config variable: '%s'"
+msgstr "Unbekannter Wert in Konfigurationsvariable 'diff.dirstat': '%s'"
 
 #: diff.c
 #, c-format
@@ -315,31 +328,6 @@ msgstr ""
 "%s"
 
 #: diff.c
-msgid " 0 files changed"
-msgstr " 0 Dateien geändert"
-
-#: diff.c
-#, c-format
-msgid " %d file changed"
-msgid_plural " %d files changed"
-msgstr[0] " %d Datei geändert"
-msgstr[1] " %d Dateien geändert"
-
-#: diff.c
-#, c-format
-msgid ", %d insertion(+)"
-msgid_plural ", %d insertions(+)"
-msgstr[0] ", %d Zeile hinzugefügt(+)"
-msgstr[1] ", %d Zeilen hinzugefügt(+)"
-
-#: diff.c
-#, c-format
-msgid ", %d deletion(-)"
-msgid_plural ", %d deletions(-)"
-msgstr[0] ", %d Zeile entfernt(-)"
-msgstr[1] ", %d Zeilen entfernt(-)"
-
-#: diff.c
 #, c-format
 msgid ""
 "Failed to parse --dirstat/-X option parameter:\n"
@@ -347,6 +335,11 @@ msgid ""
 msgstr ""
 "Fehler beim Parsen des --dirstat/-X Optionsparameters:\n"
 "%s"
+
+#: diff.c
+#, c-format
+msgid "Failed to parse --submodule option parameter: '%s'"
+msgstr "Fehler beim Parsen des --submodule Optionsparameters: '%s'"
 
 #: gpg-interface.c
 msgid "could not run gpg."
@@ -429,6 +422,14 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Hast du eines von diesen gemeint?"
+
+#: merge.c
+msgid "failed to read the cache"
+msgstr "Lesen des Zwischenspeichers fehlgeschlagen"
+
+#: merge.c builtin/checkout.c builtin/clone.c
+msgid "unable to write new index file"
+msgstr "Konnte neue Bereitstellungsdatei nicht schreiben."
 
 #: merge-recursive.c
 #, c-format
@@ -717,6 +718,10 @@ msgstr[0] "Dein Zweig ist vor '%s' um %d Version.\n"
 msgstr[1] "Dein Zweig ist vor '%s' um %d Versionen.\n"
 
 #: remote.c
+msgid "  (use \"git push\" to publish your local commits)\n"
+msgstr "  (benutze \"git push\" um deine lokalen Versionen herauszubringen)\n"
+
+#: remote.c
 #, c-format
 msgid "Your branch is behind '%s' by %d commit, and can be fast-forwarded.\n"
 msgid_plural ""
@@ -726,6 +731,10 @@ msgstr[0] ""
 msgstr[1] ""
 "Dein Zweig ist zu '%s' um %d Versionen hinterher, und kann vorgespult "
 "werden.\n"
+
+#: remote.c
+msgid "  (use \"git pull\" to update your local branch)\n"
+msgstr "  (benutze \"git pull\" um deinen lokalen Zweig zu aktualisieren)\n"
 
 #: remote.c
 #, c-format
@@ -741,6 +750,11 @@ msgstr[0] ""
 msgstr[1] ""
 "Dein Zweig und '%s' sind divergiert,\n"
 "und haben jeweils %d und %d unterschiedliche Versionen.\n"
+
+#: remote.c
+msgid "  (use \"git pull\" to merge the remote branch into yours)\n"
+msgstr ""
+"  (benutze \"git pull\" um deinen Zweig mit dem externen zusammenzuführen)\n"
 
 #: sequencer.c builtin/merge.c
 #, c-format
@@ -2230,6 +2244,24 @@ msgstr ""
 "         '%s', obwohl er mit der Zweigspitze (HEAD) zusammengeführt wurde."
 
 #: builtin/branch.c
+#, c-format
+msgid "Couldn't look up commit object for '%s'"
+msgstr "Konnte Versionsobjekt für '%s' nicht nachschlagen."
+
+#: builtin/branch.c
+#, c-format
+msgid ""
+"The branch '%s' is not fully merged.\n"
+"If you are sure you want to delete it, run 'git branch -D %s'."
+msgstr ""
+"Der Zweig '%s' ist nicht vollständig zusammengeführt.\n"
+"Wenn du sicher bist diesen Zweig zu entfernen, führe 'git branch -D %s' aus."
+
+#: builtin/branch.c
+msgid "Update of config-file failed"
+msgstr "Aktualisierung der Konfigurationsdatei fehlgeschlagen."
+
+#: builtin/branch.c
 msgid "cannot use -a with -d"
 msgstr "kann -a nicht mit -d benutzen"
 
@@ -2255,20 +2287,6 @@ msgstr "Zweig '%s' nicht gefunden."
 
 #: builtin/branch.c
 #, c-format
-msgid "Couldn't look up commit object for '%s'"
-msgstr "Konnte Versionsobjekt für '%s' nicht nachschlagen."
-
-#: builtin/branch.c
-#, c-format
-msgid ""
-"The branch '%s' is not fully merged.\n"
-"If you are sure you want to delete it, run 'git branch -D %s'."
-msgstr ""
-"Der Zweig '%s' ist nicht vollständig zusammengeführt.\n"
-"Wenn du sicher bist diesen Zweig zu entfernen, führe 'git branch -D %s' aus."
-
-#: builtin/branch.c
-#, c-format
 msgid "Error deleting remote branch '%s'"
 msgstr "Fehler beim Entfernen des externen Zweiges '%s'"
 
@@ -2286,10 +2304,6 @@ msgstr "Externer Zweig %s entfernt (war %s).\n"
 #, c-format
 msgid "Deleted branch %s (was %s).\n"
 msgstr "Zweig %s entfernt (war %s).\n"
-
-#: builtin/branch.c
-msgid "Update of config-file failed"
-msgstr "Aktualisierung der Konfigurationsdatei fehlgeschlagen."
 
 #: builtin/branch.c
 #, c-format
@@ -2582,8 +2596,9 @@ msgid "git check-attr [-a | --all | attr...] [--] pathname..."
 msgstr "git check-attr [-a | --all | Attribut...] [--] Pfadname..."
 
 #: builtin/check-attr.c
-msgid "git check-attr --stdin [-a | --all | attr...] < <list-of-paths>"
-msgstr "git check-attr --stdin [-a | --all | Attribut...] < <Liste-von-Pfaden>"
+msgid "git check-attr --stdin [-z] [-a | --all | attr...] < <list-of-paths>"
+msgstr ""
+"git check-attr --stdin [-z] [-a | --all | Attribut...] < <Liste-von-Pfaden>"
 
 #: builtin/check-attr.c
 msgid "report all attributes set on file"
@@ -2709,10 +2724,6 @@ msgstr "beschädigte Bereitstellungsdatei"
 #, c-format
 msgid "path '%s' is unmerged"
 msgstr "Pfad '%s' ist nicht zusammengeführt."
-
-#: builtin/checkout.c builtin/clone.c builtin/merge.c
-msgid "unable to write new index file"
-msgstr "Konnte neue Bereitstellungsdatei nicht schreiben."
 
 #: builtin/checkout.c
 msgid "you need to resolve your current index first"
@@ -3563,6 +3574,10 @@ msgid "Paths with -a does not make sense."
 msgstr "Pfade mit -a machen keinen Sinn."
 
 #: builtin/commit.c
+msgid "--long and -z are incompatible"
+msgstr "--long und -z sind inkompatibel"
+
+#: builtin/commit.c
 msgid "show status concisely"
 msgstr "zeigt Status im Kurzformat"
 
@@ -3573,6 +3588,10 @@ msgstr "zeigt Zweiginformationen"
 #: builtin/commit.c builtin/push.c
 msgid "machine-readable output"
 msgstr "maschinenlesbare Ausgabe"
+
+#: builtin/commit.c
+msgid "show status in long format (default)"
+msgstr "zeigt Status im Langformat (Standard)"
 
 #: builtin/commit.c
 msgid "terminate entries with NUL"
@@ -4541,13 +4560,6 @@ msgstr "aktiviert \"auto-gc\" Modus"
 
 #: builtin/gc.c
 #, c-format
-msgid "Auto packing the repository for optimum performance.\n"
-msgstr ""
-"Die Datenbank des Projektarchivs wird für eine optimale Performance "
-"komprimiert.\n"
-
-#: builtin/gc.c
-#, c-format
 msgid ""
 "Auto packing the repository for optimum performance. You may also\n"
 "run \"git gc\" manually. See \"git help gc\" for more information.\n"
@@ -4747,6 +4759,10 @@ msgstr "zeigt Übereinstimmungen nur durch Beendigungsstatus an"
 #: builtin/grep.c
 msgid "show only matches from files that match all patterns"
 msgstr "zeigt nur Übereinstimmungen von Dateien, die allen Mustern entsprechen"
+
+#: builtin/grep.c
+msgid "show parse tree for grep expression"
+msgstr "zeigt geparsten Baum für \"grep\"-Ausdruck"
 
 #: builtin/grep.c
 msgid "pager"
@@ -5891,10 +5907,6 @@ msgstr "Ungültiger branch.%s.mergeoptions String: %s"
 #: builtin/merge.c
 msgid "git write-tree failed to write a tree"
 msgstr "\"git write-tree\" schlug beim Schreiben eines Baumes fehl"
-
-#: builtin/merge.c
-msgid "failed to read the cache"
-msgstr "Lesen des Zwischenspeichers fehlgeschlagen"
 
 #: builtin/merge.c
 msgid "Not handling anything other than two heads merge."
@@ -7258,10 +7270,6 @@ msgid "git remote add [<options>] <name> <url>"
 msgstr "git remote add [<Optionen>] <Name> <URL>"
 
 #: builtin/remote.c
-msgid "git remote set-head <name> (-a | -d | <branch>])"
-msgstr "git remote set-head <Name> (-a | -d | <Zweig>])"
-
-#: builtin/remote.c
 msgid "git remote set-branches <name> <branch>..."
 msgstr "git remote set-branches <Name> <Zweig>..."
 
@@ -7982,6 +7990,16 @@ msgstr "git rm [Optionen] [--] [<Datei>...]"
 #: builtin/rm.c
 #, c-format
 msgid ""
+"submodule '%s' (or one of its nested submodules) uses a .git directory\n"
+"(use 'rm -rf' if you really want to remove it including all of its history)"
+msgstr ""
+"Unterprojekt '%s' (oder ein geschachteltes Unterprojekt hiervon) verwendet\n"
+"ein .git-Verzeichnis (benutze 'rm -rf' wenn du dieses wirklich mitsamt\n"
+"seiner Historie löschen möchtest)"
+
+#: builtin/rm.c
+#, c-format
+msgid ""
 "'%s' has staged content different from both the file and the HEAD\n"
 "(use -f to force removal)"
 msgstr ""
@@ -8203,9 +8221,17 @@ msgid "git symbolic-ref [options] name [ref]"
 msgstr "git symbolic-ref [Optionen] name [ref]"
 
 #: builtin/symbolic-ref.c
+msgid "git symbolic-ref -d [-q] name"
+msgstr "git symbolic-ref -d [-q] name"
+
+#: builtin/symbolic-ref.c
 msgid "suppress error message for non-symbolic (detached) refs"
 msgstr ""
 "unterdrückt Fehlermeldungen für nicht-symbolische (losgelöste) Referenzen"
+
+#: builtin/symbolic-ref.c
+msgid "delete symbolic ref"
+msgstr "löscht symbolische Referenzen"
 
 #: builtin/symbolic-ref.c
 msgid "shorten ref output"
@@ -9145,6 +9171,12 @@ msgid "No rebase in progress?"
 msgstr "Kein Neuaufbau im Gange?"
 
 #: git-rebase.sh
+msgid "The --edit-todo action can only be used during interactive rebase."
+msgstr ""
+"Die --edit-todo Aktion kann nur während eines interaktiven Neuaufbaus "
+"benutzt werden."
+
+#: git-rebase.sh
 msgid "Cannot read HEAD"
 msgstr "Kann Zweigspitze (HEAD) nicht lesen"
 
@@ -9426,6 +9458,43 @@ msgstr "'$sm_path' existiert bereits und ist kein gültiges Git-Projektarchiv"
 
 #: git-submodule.sh
 #, sh-format
+msgid "A git directory for '$sm_name' is found locally with remote(s):"
+msgstr ""
+"Ein Git-Verzeichnis für '$sm_name' wurde lokal gefunden mit den "
+"Fernarchiv(en):"
+
+#: git-submodule.sh
+#, sh-format
+msgid ""
+"If you want to reuse this local git directory instead of cloning again from"
+msgstr ""
+"Wenn du dieses lokale Git-Verzeichnis wiederverwenden möchtest, anstatt "
+"erneut zu klonen"
+
+#: git-submodule.sh
+#, sh-format
+msgid ""
+"use the '--force' option. If the local git directory is not the correct repo"
+msgstr ""
+"benutze die Option '--force'. Wenn das lokale Git-Verzeichnis nicht das "
+"korrekte Projektarchiv ist"
+
+#: git-submodule.sh
+#, sh-format
+msgid ""
+"or you are unsure what this means choose another name with the '--name' "
+"option."
+msgstr ""
+"oder du dir unsicher bist, was das bedeutet, wähle einen anderen Namen mit "
+"der Option '--name'."
+
+#: git-submodule.sh
+#, sh-format
+msgid "Reactivating local git directory for submodule '$sm_name'."
+msgstr "Reaktiviere lokales Git-Verzeichnis für Unterprojekt '$sm_name'."
+
+#: git-submodule.sh
+#, sh-format
 msgid "Unable to checkout submodule '$sm_path'"
 msgstr "Unfähig Unterprojekt '$sm_path' auszuchecken"
 
@@ -9566,8 +9635,34 @@ msgstr "# Änderungen in Unterprojekt zum Eintragen:"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Synchronizing submodule url for '$name'"
-msgstr "Synchronisiere Unterprojekt-URL für '$name'"
+msgid "Synchronizing submodule url for '$prefix$sm_path'"
+msgstr "Synchronisiere Unterprojekt-URL für '$prefix$sm_path'"
+
+#~ msgid " 0 files changed"
+#~ msgstr " 0 Dateien geändert"
+
+#~ msgid " %d file changed"
+#~ msgid_plural " %d files changed"
+#~ msgstr[0] " %d Datei geändert"
+#~ msgstr[1] " %d Dateien geändert"
+
+#~ msgid ", %d insertion(+)"
+#~ msgid_plural ", %d insertions(+)"
+#~ msgstr[0] ", %d Zeile hinzugefügt(+)"
+#~ msgstr[1] ", %d Zeilen hinzugefügt(+)"
+
+#~ msgid ", %d deletion(-)"
+#~ msgid_plural ", %d deletions(-)"
+#~ msgstr[0] ", %d Zeile entfernt(-)"
+#~ msgstr[1] ", %d Zeilen entfernt(-)"
+
+#~ msgid "Auto packing the repository for optimum performance.\n"
+#~ msgstr ""
+#~ "Die Datenbank des Projektarchivs wird für eine optimale Performance "
+#~ "komprimiert.\n"
+
+#~ msgid "git remote set-head <name> (-a | -d | <branch>])"
+#~ msgstr "git remote set-head <Name> (-a | -d | <Zweig>])"
 
 #~ msgid " (use \"git add\" to track)"
 #~ msgstr " (benutze \"git add\" zum Beobachten)"
