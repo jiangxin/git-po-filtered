@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2013-01-25 12:33+0800\n"
+"POT-Creation-Date: 2013-02-14 14:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -276,6 +276,14 @@ msgid "gpg failed to sign the data"
 msgstr ""
 
 #, c-format
+msgid "could not create temporary file '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "failed writing detached signature to '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "'%s': unable to read %s"
 msgstr ""
 
@@ -292,6 +300,9 @@ msgid "available git commands in '%s'"
 msgstr ""
 
 msgid "git commands available from elsewhere on your $PATH"
+msgstr ""
+
+msgid "The most commonly used git commands are:"
 msgstr ""
 
 #, c-format
@@ -542,6 +553,14 @@ msgstr ""
 
 #, c-format
 msgid "    %s"
+msgstr ""
+
+#, c-format
+msgid "Path '%s' is in submodule '%.*s'"
+msgstr ""
+
+#, c-format
+msgid "'%s' is beyond a symbolic link"
 msgstr ""
 
 #, c-format
@@ -1043,7 +1062,11 @@ msgstr ""
 msgid ", behind "
 msgstr ""
 
-msgid "git add [options] [--] <filepattern>..."
+#, c-format
+msgid "failed to unlink '%s'"
+msgstr ""
+
+msgid "git add [options] [--] <pathspec>..."
 msgstr ""
 
 #, c-format
@@ -1057,19 +1080,11 @@ msgstr ""
 msgid "remove '%s'\n"
 msgstr ""
 
-#, c-format
-msgid "Path '%s' is in submodule '%.*s'"
-msgstr ""
-
 msgid "Unstaged changes after refreshing the index:"
 msgstr ""
 
 #, c-format
 msgid "pathspec '%s' did not match any files"
-msgstr ""
-
-#, c-format
-msgid "'%s' is beyond a symbolic link"
 msgstr ""
 
 msgid "Could not read the index"
@@ -1140,6 +1155,35 @@ msgid "no files added"
 msgstr ""
 
 msgid "adding files failed"
+msgstr ""
+
+#.
+#. * To be consistent with "git add -p" and most Git
+#. * commands, we should default to being tree-wide, but
+#. * this is not the original behavior and can't be
+#. * changed until users trained themselves not to type
+#. * "git add -u" or "git add -A". For now, we warn and
+#. * keep the old behavior. Later, this warning can be
+#. * turned into a die(...), and eventually we may
+#. * reallow the command with a new behavior.
+#.
+#, c-format
+msgid ""
+"The behavior of 'git add %s (or %s)' with no path argument from a\n"
+"subdirectory of the tree will change in Git 2.0 and should not be used "
+"anymore.\n"
+"To add content for the whole tree, run:\n"
+"\n"
+"  git add %s :/\n"
+"  (or git add %s :/)\n"
+"\n"
+"To restrict the command to the current directory, run:\n"
+"\n"
+"  git add %s .\n"
+"  (or git add %s .)\n"
+"\n"
+"With the current Git version, the command is restricted to the current "
+"directory."
 msgstr ""
 
 msgid "-A and -u are mutually incompatible"
@@ -1740,7 +1784,14 @@ msgstr ""
 msgid "[ahead %d, behind %d]"
 msgstr ""
 
+msgid " **** invalid ref ****"
+msgstr ""
+
 msgid "(no branch)"
+msgstr ""
+
+#, c-format
+msgid "object '%s' does not point to a commit"
 msgstr ""
 
 msgid "some refs could not be read"
@@ -1850,6 +1901,26 @@ msgstr ""
 msgid "--column and --verbose are incompatible"
 msgstr ""
 
+msgid "branch name required"
+msgstr ""
+
+msgid "Cannot give description to detached HEAD"
+msgstr ""
+
+msgid "cannot edit description of more than one branch"
+msgstr ""
+
+#, c-format
+msgid "No commit on branch '%s' yet."
+msgstr ""
+
+#, c-format
+msgid "No branch named '%s'."
+msgstr ""
+
+msgid "too many branches for a rename operation"
+msgstr ""
+
 #, c-format
 msgid "branch '%s' does not exist"
 msgstr ""
@@ -1938,6 +2009,24 @@ msgid "read file names from stdin"
 msgstr ""
 
 msgid "input paths are terminated by a null character"
+msgstr ""
+
+msgid "suppress progress reporting"
+msgstr ""
+
+msgid "cannot specify pathnames with --stdin"
+msgstr ""
+
+msgid "-z only makes sense with --stdin"
+msgstr ""
+
+msgid "no path specified"
+msgstr ""
+
+msgid "--quiet is only valid with a single pathname"
+msgstr ""
+
+msgid "cannot have both --quiet and --verbose"
 msgstr ""
 
 msgid "git checkout-index [options] [--] [<file>...]"
@@ -2112,9 +2201,6 @@ msgstr ""
 
 #, c-format
 msgid "Cannot switch branch to a non-commit '%s'"
-msgstr ""
-
-msgid "suppress progress reporting"
 msgstr ""
 
 msgid "branch"
@@ -2338,10 +2424,6 @@ msgid "failed to stat %s\n"
 msgstr ""
 
 #, c-format
-msgid "failed to unlink '%s'"
-msgstr ""
-
-#, c-format
 msgid "failed to create link '%s'"
 msgstr ""
 
@@ -2439,10 +2521,10 @@ msgstr ""
 msgid "--command must be the first argument"
 msgstr ""
 
-msgid "git commit [options] [--] <filepattern>..."
+msgid "git commit [options] [--] <pathspec>..."
 msgstr ""
 
-msgid "git status [options] [--] <filepattern>..."
+msgid "git status [options] [--] <pathspec>..."
 msgstr ""
 
 msgid ""
@@ -2557,14 +2639,16 @@ msgid ""
 "and try again.\n"
 msgstr ""
 
+#, c-format
 msgid ""
 "Please enter the commit message for your changes. Lines starting\n"
-"with '#' will be ignored, and an empty message aborts the commit.\n"
+"with '%c' will be ignored, and an empty message aborts the commit.\n"
 msgstr ""
 
+#, c-format
 msgid ""
 "Please enter the commit message for your changes. Lines starting\n"
-"with '#' will be kept; you may remove them yourself if you want to.\n"
+"with '%c' will be kept; you may remove them yourself if you want to.\n"
 "An empty message aborts the commit.\n"
 msgstr ""
 
@@ -3134,6 +3218,9 @@ msgstr ""
 msgid "deepen history of shallow clone"
 msgstr ""
 
+msgid "convert to a complete repository"
+msgstr ""
+
 msgid "dir"
 msgstr ""
 
@@ -3246,6 +3333,12 @@ msgid ""
 msgstr ""
 
 msgid "You need to specify a tag name."
+msgstr ""
+
+msgid "--depth and --unshallow cannot be used together"
+msgstr ""
+
+msgid "--unshallow on a complete repository does not make sense"
 msgstr ""
 
 msgid "fetch --all does not take a repository argument"
@@ -3619,9 +3712,6 @@ msgstr ""
 msgid ""
 "'%s': cmd for supported man viewer.\n"
 "Please consider using 'man.<tool>.path' instead."
-msgstr ""
-
-msgid "The most commonly used git commands are:"
 msgstr ""
 
 #, c-format
@@ -4401,11 +4491,12 @@ msgstr ""
 msgid "Not committing merge; use 'git commit' to complete the merge.\n"
 msgstr ""
 
+#, c-format
 msgid ""
 "Please enter a commit message to explain why this merge is necessary,\n"
 "especially if it merges an updated upstream into a topic branch.\n"
 "\n"
-"Lines starting with '#' will be ignored, and an empty message aborts\n"
+"Lines starting with '%c' will be ignored, and an empty message aborts\n"
 "the commit.\n"
 msgstr ""
 
@@ -4750,11 +4841,7 @@ msgstr ""
 msgid "unable to start 'show' for object '%s'"
 msgstr ""
 
-msgid "can't fdopen 'show' output fd"
-msgstr ""
-
-#, c-format
-msgid "failed to close pipe to 'show' for object '%s'"
+msgid "could not read 'show' output"
 msgstr ""
 
 #, c-format
@@ -5162,8 +5249,20 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Updates were rejected because the destination reference already exists\n"
-"in the remote."
+"Updates were rejected because the remote contains work that you do\n"
+"not have locally. This is usually caused by another repository pushing\n"
+"to the same ref. You may want to first merge the remote changes (e.g.,\n"
+"'git pull') before pushing again.\n"
+"See the 'Note about fast-forwards' in 'git push --help' for details."
+msgstr ""
+
+msgid "Updates were rejected because the tag already exists in the remote."
+msgstr ""
+
+msgid ""
+"You cannot update a remote ref that points at a non-commit object,\n"
+"or update a remote ref to make it point at a non-commit object,\n"
+"without using the '--force' option.\n"
 msgstr ""
 
 #, c-format
@@ -5239,6 +5338,9 @@ msgid "set upstream for git pull/status"
 msgstr ""
 
 msgid "prune locally removed refs"
+msgstr ""
+
+msgid "bypass pre-push hook"
 msgstr ""
 
 msgid "--delete is incompatible with --all, --mirror and --tags"
@@ -6099,21 +6201,19 @@ msgstr ""
 msgid "could not verify the tag '%s'"
 msgstr ""
 
+#, c-format
 msgid ""
 "\n"
-"#\n"
-"# Write a tag message\n"
-"# Lines starting with '#' will be ignored.\n"
-"#\n"
+"Write a tag message\n"
+"Lines starting with '%c' will be ignored.\n"
 msgstr ""
 
+#, c-format
 msgid ""
 "\n"
-"#\n"
-"# Write a tag message\n"
-"# Lines starting with '#' will be kept; you may remove them yourself if you "
+"Write a tag message\n"
+"Lines starting with '%c' will be kept; you may remove them yourself if you "
 "want to.\n"
-"#\n"
 msgstr ""
 
 msgid "unable to sign the tag"
@@ -6393,7 +6493,7 @@ msgstr ""
 msgid "Print lines matching a pattern"
 msgstr ""
 
-msgid "Create an empty git repository or reinitialize an existing one"
+msgid "Create an empty Git repository or reinitialize an existing one"
 msgstr ""
 
 msgid "Show commit logs"
@@ -7044,10 +7144,10 @@ msgstr ""
 msgid "blob"
 msgstr ""
 
-msgid "# Submodules changed but not updated:"
+msgid "Submodules changed but not updated:"
 msgstr ""
 
-msgid "# Submodule changes to be committed:"
+msgid "Submodule changes to be committed:"
 msgstr ""
 
 #, sh-format
