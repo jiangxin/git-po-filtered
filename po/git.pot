@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2013-01-25 12:33+0800\n"
+"POT-Creation-Date: 2013-02-14 14:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -341,6 +341,16 @@ msgstr ""
 msgid "gpg failed to sign the data"
 msgstr ""
 
+#: gpg-interface.c
+#, c-format
+msgid "could not create temporary file '%s': %s"
+msgstr ""
+
+#: gpg-interface.c
+#, c-format
+msgid "failed writing detached signature to '%s': %s"
+msgstr ""
+
 #: grep.c
 #, c-format
 msgid "'%s': unable to read %s"
@@ -363,6 +373,10 @@ msgstr ""
 
 #: help.c
 msgid "git commands available from elsewhere on your $PATH"
+msgstr ""
+
+#: help.c
+msgid "The most commonly used git commands are:"
 msgstr ""
 
 #: help.c
@@ -676,6 +690,16 @@ msgstr ""
 #: parse-options.c
 #, c-format
 msgid "    %s"
+msgstr ""
+
+#: pathspec.c
+#, c-format
+msgid "Path '%s' is in submodule '%.*s'"
+msgstr ""
+
+#: pathspec.c
+#, c-format
+msgid "'%s' is beyond a symbolic link"
 msgstr ""
 
 #: remote.c
@@ -1316,8 +1340,13 @@ msgstr ""
 msgid ", behind "
 msgstr ""
 
+#: compat/precompose_utf8.c builtin/clone.c
+#, c-format
+msgid "failed to unlink '%s'"
+msgstr ""
+
 #: builtin/add.c
-msgid "git add [options] [--] <filepattern>..."
+msgid "git add [options] [--] <pathspec>..."
 msgstr ""
 
 #: builtin/add.c
@@ -1335,22 +1364,12 @@ msgid "remove '%s'\n"
 msgstr ""
 
 #: builtin/add.c
-#, c-format
-msgid "Path '%s' is in submodule '%.*s'"
-msgstr ""
-
-#: builtin/add.c
 msgid "Unstaged changes after refreshing the index:"
 msgstr ""
 
 #: builtin/add.c builtin/rm.c
 #, c-format
 msgid "pathspec '%s' did not match any files"
-msgstr ""
-
-#: builtin/add.c
-#, c-format
-msgid "'%s' is beyond a symbolic link"
 msgstr ""
 
 #: builtin/add.c
@@ -1389,8 +1408,9 @@ msgstr ""
 msgid "dry run"
 msgstr ""
 
-#: builtin/add.c builtin/apply.c builtin/commit.c builtin/count-objects.c
-#: builtin/fsck.c builtin/log.c builtin/mv.c builtin/read-tree.c
+#: builtin/add.c builtin/apply.c builtin/check-ignore.c builtin/commit.c
+#: builtin/count-objects.c builtin/fsck.c builtin/log.c builtin/mv.c
+#: builtin/read-tree.c
 msgid "be verbose"
 msgstr ""
 
@@ -1447,6 +1467,36 @@ msgstr ""
 msgid "adding files failed"
 msgstr ""
 
+#.
+#. * To be consistent with "git add -p" and most Git
+#. * commands, we should default to being tree-wide, but
+#. * this is not the original behavior and can't be
+#. * changed until users trained themselves not to type
+#. * "git add -u" or "git add -A". For now, we warn and
+#. * keep the old behavior. Later, this warning can be
+#. * turned into a die(...), and eventually we may
+#. * reallow the command with a new behavior.
+#.
+#: builtin/add.c
+#, c-format
+msgid ""
+"The behavior of 'git add %s (or %s)' with no path argument from a\n"
+"subdirectory of the tree will change in Git 2.0 and should not be used "
+"anymore.\n"
+"To add content for the whole tree, run:\n"
+"\n"
+"  git add %s :/\n"
+"  (or git add %s :/)\n"
+"\n"
+"To restrict the command to the current directory, run:\n"
+"\n"
+"  git add %s .\n"
+"  (or git add %s .)\n"
+"\n"
+"With the current Git version, the command is restricted to the current "
+"directory."
+msgstr ""
+
 #: builtin/add.c
 msgid "-A and -u are mutually incompatible"
 msgstr ""
@@ -1465,7 +1515,8 @@ msgstr ""
 msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr ""
 
-#: builtin/add.c builtin/clean.c builtin/commit.c builtin/mv.c builtin/rm.c
+#: builtin/add.c builtin/check-ignore.c builtin/clean.c builtin/commit.c
+#: builtin/mv.c builtin/rm.c
 msgid "index file corrupt"
 msgstr ""
 
@@ -2210,7 +2261,16 @@ msgid "[ahead %d, behind %d]"
 msgstr ""
 
 #: builtin/branch.c
+msgid " **** invalid ref ****"
+msgstr ""
+
+#: builtin/branch.c
 msgid "(no branch)"
+msgstr ""
+
+#: builtin/branch.c
+#, c-format
+msgid "object '%s' does not point to a commit"
 msgstr ""
 
 #: builtin/branch.c
@@ -2355,6 +2415,32 @@ msgid "--column and --verbose are incompatible"
 msgstr ""
 
 #: builtin/branch.c
+msgid "branch name required"
+msgstr ""
+
+#: builtin/branch.c
+msgid "Cannot give description to detached HEAD"
+msgstr ""
+
+#: builtin/branch.c
+msgid "cannot edit description of more than one branch"
+msgstr ""
+
+#: builtin/branch.c
+#, c-format
+msgid "No commit on branch '%s' yet."
+msgstr ""
+
+#: builtin/branch.c
+#, c-format
+msgid "No branch named '%s'."
+msgstr ""
+
+#: builtin/branch.c
+msgid "too many branches for a rename operation"
+msgstr ""
+
+#: builtin/branch.c
 #, c-format
 msgid "branch '%s' does not exist"
 msgstr ""
@@ -2462,12 +2548,36 @@ msgstr ""
 msgid "use .gitattributes only from the index"
 msgstr ""
 
-#: builtin/check-attr.c builtin/hash-object.c
+#: builtin/check-attr.c builtin/check-ignore.c builtin/hash-object.c
 msgid "read file names from stdin"
 msgstr ""
 
-#: builtin/check-attr.c
+#: builtin/check-attr.c builtin/check-ignore.c
 msgid "input paths are terminated by a null character"
+msgstr ""
+
+#: builtin/check-ignore.c builtin/checkout.c builtin/gc.c
+msgid "suppress progress reporting"
+msgstr ""
+
+#: builtin/check-ignore.c
+msgid "cannot specify pathnames with --stdin"
+msgstr ""
+
+#: builtin/check-ignore.c
+msgid "-z only makes sense with --stdin"
+msgstr ""
+
+#: builtin/check-ignore.c
+msgid "no path specified"
+msgstr ""
+
+#: builtin/check-ignore.c
+msgid "--quiet is only valid with a single pathname"
+msgstr ""
+
+#: builtin/check-ignore.c
+msgid "cannot have both --quiet and --verbose"
 msgstr ""
 
 #: builtin/checkout-index.c
@@ -2686,10 +2796,6 @@ msgstr ""
 #: builtin/checkout.c
 #, c-format
 msgid "Cannot switch branch to a non-commit '%s'"
-msgstr ""
-
-#: builtin/checkout.c builtin/gc.c
-msgid "suppress progress reporting"
 msgstr ""
 
 #: builtin/checkout.c builtin/clone.c builtin/remote.c
@@ -2982,11 +3088,6 @@ msgstr ""
 
 #: builtin/clone.c
 #, c-format
-msgid "failed to unlink '%s'"
-msgstr ""
-
-#: builtin/clone.c
-#, c-format
 msgid "failed to create link '%s'"
 msgstr ""
 
@@ -3112,11 +3213,11 @@ msgid "--command must be the first argument"
 msgstr ""
 
 #: builtin/commit.c
-msgid "git commit [options] [--] <filepattern>..."
+msgid "git commit [options] [--] <pathspec>..."
 msgstr ""
 
 #: builtin/commit.c
-msgid "git status [options] [--] <filepattern>..."
+msgid "git status [options] [--] <pathspec>..."
 msgstr ""
 
 #: builtin/commit.c
@@ -3257,15 +3358,17 @@ msgid ""
 msgstr ""
 
 #: builtin/commit.c
+#, c-format
 msgid ""
 "Please enter the commit message for your changes. Lines starting\n"
-"with '#' will be ignored, and an empty message aborts the commit.\n"
+"with '%c' will be ignored, and an empty message aborts the commit.\n"
 msgstr ""
 
 #: builtin/commit.c
+#, c-format
 msgid ""
 "Please enter the commit message for your changes. Lines starting\n"
-"with '#' will be kept; you may remove them yourself if you want to.\n"
+"with '%c' will be kept; you may remove them yourself if you want to.\n"
 "An empty message aborts the commit.\n"
 msgstr ""
 
@@ -4010,6 +4113,10 @@ msgstr ""
 msgid "deepen history of shallow clone"
 msgstr ""
 
+#: builtin/fetch.c
+msgid "convert to a complete repository"
+msgstr ""
+
 #: builtin/fetch.c builtin/log.c
 msgid "dir"
 msgstr ""
@@ -4154,6 +4261,14 @@ msgstr ""
 
 #: builtin/fetch.c
 msgid "You need to specify a tag name."
+msgstr ""
+
+#: builtin/fetch.c
+msgid "--depth and --unshallow cannot be used together"
+msgstr ""
+
+#: builtin/fetch.c
+msgid "--unshallow on a complete repository does not make sense"
 msgstr ""
 
 #: builtin/fetch.c
@@ -4644,10 +4759,6 @@ msgstr ""
 msgid ""
 "'%s': cmd for supported man viewer.\n"
 "Please consider using 'man.<tool>.path' instead."
-msgstr ""
-
-#: builtin/help.c
-msgid "The most commonly used git commands are:"
 msgstr ""
 
 #: builtin/help.c
@@ -5654,11 +5765,12 @@ msgid "Not committing merge; use 'git commit' to complete the merge.\n"
 msgstr ""
 
 #: builtin/merge.c
+#, c-format
 msgid ""
 "Please enter a commit message to explain why this merge is necessary,\n"
 "especially if it merges an updated upstream into a topic branch.\n"
 "\n"
-"Lines starting with '#' will be ignored, and an empty message aborts\n"
+"Lines starting with '%c' will be ignored, and an empty message aborts\n"
 "the commit.\n"
 msgstr ""
 
@@ -6107,12 +6219,7 @@ msgid "unable to start 'show' for object '%s'"
 msgstr ""
 
 #: builtin/notes.c
-msgid "can't fdopen 'show' output fd"
-msgstr ""
-
-#: builtin/notes.c
-#, c-format
-msgid "failed to close pipe to 'show' for object '%s'"
+msgid "could not read 'show' output"
 msgstr ""
 
 #: builtin/notes.c
@@ -6625,8 +6732,22 @@ msgstr ""
 
 #: builtin/push.c
 msgid ""
-"Updates were rejected because the destination reference already exists\n"
-"in the remote."
+"Updates were rejected because the remote contains work that you do\n"
+"not have locally. This is usually caused by another repository pushing\n"
+"to the same ref. You may want to first merge the remote changes (e.g.,\n"
+"'git pull') before pushing again.\n"
+"See the 'Note about fast-forwards' in 'git push --help' for details."
+msgstr ""
+
+#: builtin/push.c
+msgid "Updates were rejected because the tag already exists in the remote."
+msgstr ""
+
+#: builtin/push.c
+msgid ""
+"You cannot update a remote ref that points at a non-commit object,\n"
+"or update a remote ref to make it point at a non-commit object,\n"
+"without using the '--force' option.\n"
 msgstr ""
 
 #: builtin/push.c
@@ -6723,6 +6844,10 @@ msgstr ""
 
 #: builtin/push.c
 msgid "prune locally removed refs"
+msgstr ""
+
+#: builtin/push.c
+msgid "bypass pre-push hook"
 msgstr ""
 
 #: builtin/push.c
@@ -7832,22 +7957,20 @@ msgid "could not verify the tag '%s'"
 msgstr ""
 
 #: builtin/tag.c
+#, c-format
 msgid ""
 "\n"
-"#\n"
-"# Write a tag message\n"
-"# Lines starting with '#' will be ignored.\n"
-"#\n"
+"Write a tag message\n"
+"Lines starting with '%c' will be ignored.\n"
 msgstr ""
 
 #: builtin/tag.c
+#, c-format
 msgid ""
 "\n"
-"#\n"
-"# Write a tag message\n"
-"# Lines starting with '#' will be kept; you may remove them yourself if you "
+"Write a tag message\n"
+"Lines starting with '%c' will be kept; you may remove them yourself if you "
 "want to.\n"
-"#\n"
 msgstr ""
 
 #: builtin/tag.c
@@ -8218,7 +8341,7 @@ msgid "Print lines matching a pattern"
 msgstr ""
 
 #: common-cmds.h
-msgid "Create an empty git repository or reinitialize an existing one"
+msgid "Create an empty Git repository or reinitialize an existing one"
 msgstr ""
 
 #: common-cmds.h
@@ -9031,11 +9154,11 @@ msgid "blob"
 msgstr ""
 
 #: git-submodule.sh
-msgid "# Submodules changed but not updated:"
+msgid "Submodules changed but not updated:"
 msgstr ""
 
 #: git-submodule.sh
-msgid "# Submodule changes to be committed:"
+msgid "Submodule changes to be committed:"
 msgstr ""
 
 #: git-submodule.sh
