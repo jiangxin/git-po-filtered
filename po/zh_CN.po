@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2013-04-30 08:25+0800\n"
-"PO-Revision-Date: 2013-04-12 09:23+0800\n"
+"POT-Creation-Date: 2013-07-26 14:19+0800\n"
+"PO-Revision-Date: 2013-08-03 14:13+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/gotgit/git/>\n"
 "Language: zh_CN\n"
@@ -561,6 +561,11 @@ msgstr[1] ""
 "\n"
 "您指的是这其中的某一个么？"
 
+#: help.c
+#, c-format
+msgid "%s: %s - %s"
+msgstr "%s：%s - %s"
+
 #: merge.c
 msgid "failed to read the cache"
 msgstr "无法读取缓存"
@@ -823,6 +828,27 @@ msgstr "不能解析对象 '%s'"
 msgid "Unable to write index."
 msgstr "不能写入索引。"
 
+#: notes-utils.c
+msgid "Cannot commit uninitialized/unreferenced notes tree"
+msgstr "不能提交未初始化/未引用的注解树"
+
+#: notes-utils.c
+#, c-format
+msgid "Bad notes.rewriteMode value: '%s'"
+msgstr "坏的 notes.rewriteMode 值：'%s'"
+
+#: notes-utils.c
+#, c-format
+msgid "Refusing to rewrite notes in %s (outside of refs/notes/)"
+msgstr "拒绝向 %s（在 refs/notes/ 之外）写入注解"
+
+#. TRANSLATORS: The first %s is the name of the
+#. environment variable, the second %s is its value
+#: notes-utils.c
+#, c-format
+msgid "Bad %s value: '%s'"
+msgstr "坏的 %s 值：'%s'"
+
 #: object.c
 #, c-format
 msgid "unable to parse object: %s"
@@ -907,6 +933,15 @@ msgstr[1] ""
 #: remote.c
 msgid "  (use \"git pull\" to merge the remote branch into yours)\n"
 msgstr "  （使用 \"git pull\" 来合并远程分支）\n"
+
+#: run-command.c
+msgid "open /dev/null failed"
+msgstr "不能打开 /dev/null"
+
+#: run-command.c
+#, c-format
+msgid "dup2(%d,%d) failed"
+msgstr "不能调用 dup2(%d,%d)"
 
 #: sequencer.c builtin/merge.c
 #, c-format
@@ -1153,6 +1188,27 @@ msgid "Can't cherry-pick into empty head"
 msgstr "不能拣选到空分支"
 
 #: sha1_name.c
+msgid ""
+"Git normally never creates a ref that ends with 40 hex characters\n"
+"because it will be ignored when you just specify 40-hex. These refs\n"
+"may be created by mistake. For example,\n"
+"\n"
+"  git checkout -b $br $(git rev-parse ...)\n"
+"\n"
+"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
+"examine these refs and maybe delete them. Turn this message off by\n"
+"running \"git config advice.object_name_warning false\""
+msgstr ""
+"Git 通常不会创建一个以40位十六进制字符命名的引用，因为当你提供40位\n"
+"十六进制字符时将被忽略。不过这些引用也可能被错误地创建。例如：\n"
+"\n"
+"  git checkout -b $br $(git rev-parse ...)\n"
+"\n"
+"当 \"$br\" 空白时一个40位十六进制的引用将被创建。请检查这些引用，\n"
+"可能需要删除它们。用 \"git config advice.object_name_warning false\"命令关闭"
+"本消息通知。"
+
+#: sha1_name.c
 msgid "HEAD does not point to a branch"
 msgstr "HEAD 没有指向一个分支"
 
@@ -1383,8 +1439,8 @@ msgstr "当前的补丁为空。"
 
 #  译者：注意保持前导空格
 #: wt-status.c
-msgid "  (fix conflicts and then run \"git am --resolved\")"
-msgstr "  （解决冲突，然后运行 \"git am --resolved\"）"
+msgid "  (fix conflicts and then run \"git am --continue\")"
+msgstr "  （解决冲突，然后运行 \"git am --continue\"）"
 
 #  译者：注意保持前导空格
 #: wt-status.c
@@ -1466,8 +1522,18 @@ msgstr "您正在做拣选操作。"
 
 #  译者：注意保持前导空格
 #: wt-status.c
-msgid "  (all conflicts fixed: run \"git commit\")"
-msgstr "  （解决所有冲突后，执行 \"git commit\"）"
+msgid "  (fix conflicts and run \"git cherry-pick --continue\")"
+msgstr "  （解决冲突并运行 \"git cherry-pick --continue\"）"
+
+#  译者：注意保持前导空格
+#: wt-status.c
+msgid "  (all conflicts fixed: run \"git cherry-pick --continue\")"
+msgstr "  （所有冲突已解决：运行 \"git cherry-pick --continue\"）"
+
+#  译者：注意保持前导空格
+#: wt-status.c
+msgid "  (use \"git cherry-pick --abort\" to cancel the cherry-pick operation)"
+msgstr "  （使用 \"git cherry-pick --abort\" 以取消拣选操作）"
 
 #: wt-status.c
 #, c-format
@@ -1506,6 +1572,10 @@ msgstr "  （使用 \"git bisect reset\" 以回到原有分支）"
 #: wt-status.c
 msgid "On branch "
 msgstr "位于分支 "
+
+#: wt-status.c
+msgid "rebase in progress; onto "
+msgstr "变基正在进行中；至 "
 
 #: wt-status.c
 msgid "HEAD detached at "
@@ -2110,8 +2180,8 @@ msgstr "不能从索引中移除 %s"
 
 #: builtin/apply.c
 #, c-format
-msgid "corrupt patch for subproject %s"
-msgstr "子项目 %s 损坏的补丁"
+msgid "corrupt patch for submodule %s"
+msgstr "子模组 %s 损坏的补丁"
 
 #: builtin/apply.c
 #, c-format
@@ -2947,6 +3017,10 @@ msgid "suppress progress reporting"
 msgstr "不显示进度报告"
 
 #: builtin/check-ignore.c
+msgid "show non-matching input paths"
+msgstr "显示未匹配的输入路径"
+
+#: builtin/check-ignore.c
 msgid "cannot specify pathnames with --stdin"
 msgstr "不能同时提供路径及 --stdin 参数"
 
@@ -2965,6 +3039,27 @@ msgstr "参数 --quiet 只在提供一个路径名时有效"
 #: builtin/check-ignore.c
 msgid "cannot have both --quiet and --verbose"
 msgstr "不能同时提供 --quiet 和 --verbose 参数"
+
+#: builtin/check-ignore.c
+msgid "--non-matching is only valid with --verbose"
+msgstr "--non-matching 选项只在使用 --verbose 时有效"
+
+#: builtin/check-mailmap.c
+msgid "git check-mailmap [options] <contact>..."
+msgstr "git check-mailmap [选项] <联系地址>..."
+
+#: builtin/check-mailmap.c
+msgid "also read contacts from stdin"
+msgstr "还从标准输入读取联系地址"
+
+#: builtin/check-mailmap.c
+#, c-format
+msgid "unable to parse contact: %s"
+msgstr "不能解析联系地址：%s"
+
+#: builtin/check-mailmap.c
+msgid "no contacts specified"
+msgstr "未指定联系地址"
 
 #: builtin/checkout-index.c
 msgid "git checkout-index [options] [--] [<file>...]"
@@ -3302,8 +3397,10 @@ msgstr ""
 "git checkout：在从索引检出时，--ours/--theirs、--force 和 --merge 不兼容。"
 
 #: builtin/clean.c
-msgid "git clean [-d] [-f] [-n] [-q] [-e <pattern>] [-x | -X] [--] <paths>..."
-msgstr "git clean [-d] [-f] [-n] [-q] [-e <模式>] [-x | -X] [--] <路径>..."
+msgid ""
+"git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] <paths>..."
+msgstr ""
+"git clean [-d] [-f] [-i] [-n] [-q] [-e <模式>] [-x | -X] [--] <路径>..."
 
 #: builtin/clean.c
 #, c-format
@@ -3331,12 +3428,112 @@ msgid "failed to remove %s"
 msgstr "无法删除 %s"
 
 #: builtin/clean.c
+msgid ""
+"Prompt help:\n"
+"1          - select a numbered item\n"
+"foo        - select item based on unique prefix\n"
+"           - (empty) select nothing"
+msgstr ""
+"帮助：\n"
+"1          - 通过编号选择一个选项\n"
+"foo        - 通过标题选择一个选项\n"
+"           - （空）什么也不选择"
+
+#: builtin/clean.c
+msgid ""
+"Prompt help:\n"
+"1          - select a single item\n"
+"3-5        - select a range of items\n"
+"2-3,6-9    - select multiple ranges\n"
+"foo        - select item based on unique prefix\n"
+"-...       - unselect specified items\n"
+"*          - choose all items\n"
+"           - (empty) finish selecting"
+msgstr ""
+"帮助：\n"
+"1          - 选择一个选项\n"
+"3-5        - 选择一个范围内的所有选项\n"
+"2-3,6-9    - 选择多个范围内的所有选项\n"
+"foo        - 通过标题选择一个选项\n"
+"-...       - 反选特定的选项\n"
+"*          - 选择所有选项\n"
+"           - （空）结束选择"
+
+#: builtin/clean.c
+#, c-format
+msgid "Huh (%s)?"
+msgstr "嗯（%s）？"
+
+#: builtin/clean.c
+#, c-format
+msgid "Input ignore patterns>> "
+msgstr "输入模版以排除条目>> "
+
+#: builtin/clean.c
+#, c-format
+msgid "WARNING: Cannot find items matched by: %s"
+msgstr "警告：无法找到和 %s 匹配的条目"
+
+#: builtin/clean.c
+msgid "Select items to delete"
+msgstr "选择要删除的条目"
+
+#: builtin/clean.c
+#, c-format
+msgid "remove %s? "
+msgstr "删除 %s？"
+
+#: builtin/clean.c
+msgid "Bye."
+msgstr "再见。"
+
+#: builtin/clean.c
+msgid ""
+"clean               - start cleaning\n"
+"filter by pattern   - exclude items from deletion\n"
+"select by numbers   - select items to be deleted by numbers\n"
+"ask each            - confirm each deletion (like \"rm -i\")\n"
+"quit                - stop cleaning\n"
+"help                - this screen\n"
+"?                   - help for prompt selection"
+msgstr ""
+"clean               - 开始清理\n"
+"filter by pattern   - 通过模版排除要删除的条目\n"
+"select by numbers   - 通过数字选择要删除的条目\n"
+"ask each            - 针对删除逐一询问（就像 \"rm -i\"）\n"
+"quit                - 停止删除并退出\n"
+"help                - 显示本帮助\n"
+"?                   - 显示如何在提示符下选择的帮助"
+
+#: builtin/clean.c
+msgid "*** Commands ***"
+msgstr "*** 命令 ***"
+
+#: builtin/clean.c
+msgid "What now"
+msgstr "请选择"
+
+#: builtin/clean.c
+msgid "Would remove the following item:"
+msgid_plural "Would remove the following items:"
+msgstr[0] "将删除如下条目："
+msgstr[1] "将删除如下条目："
+
+#: builtin/clean.c
+msgid "No more files to clean, exiting."
+msgstr "没有要清理的文件，退出。"
+
+#: builtin/clean.c
 msgid "do not print names of files removed"
 msgstr "不打印删除文件的名称"
 
 #: builtin/clean.c
 msgid "force"
 msgstr "强制"
+
+#: builtin/clean.c
+msgid "interactive cleaning"
+msgstr "交互式清除"
 
 #: builtin/clean.c
 msgid "remove whole directories"
@@ -3365,16 +3562,17 @@ msgstr "-x 和 -X 不能同时使用"
 
 #: builtin/clean.c
 msgid ""
-"clean.requireForce set to true and neither -n nor -f given; refusing to clean"
+"clean.requireForce set to true and neither -i, -n nor -f given; refusing to "
+"clean"
 msgstr ""
-"clean.requireForce 设置为 true 且未提供 -n 或 -f 选项，拒绝执行清理动作"
+"clean.requireForce 设置为 true 且未提供 -i、-n 或 -f 选项，拒绝执行清理动作"
 
 #: builtin/clean.c
 msgid ""
-"clean.requireForce defaults to true and neither -n nor -f given; refusing to "
-"clean"
+"clean.requireForce defaults to true and neither -i, -n nor -f given; "
+"refusing to clean"
 msgstr ""
-"clean.requireForce 默认为 true 且未提供 -n 或 -f 选项，拒绝执行清理动作"
+"clean.requireForce 默认为 true 且未提供 -i、-n 或 -f 选项，拒绝执行清理动作"
 
 #: builtin/clone.c
 msgid "git clone [options] [--] <repo> [<dir>]"
@@ -3524,8 +3722,18 @@ msgid "Could not find remote branch %s to clone."
 msgstr "不能发现要克隆的远程分支 %s。"
 
 #: builtin/clone.c
+#, c-format
+msgid "Checking connectivity... "
+msgstr "检查连接... "
+
+#: builtin/clone.c
 msgid "remote did not send all necessary objects"
 msgstr "远程没有发送所有必须的对象"
+
+#: builtin/clone.c
+#, c-format
+msgid "done\n"
+msgstr "完成\n"
 
 #: builtin/clone.c
 msgid "remote HEAD refers to nonexistent ref, unable to checkout.\n"
@@ -3560,6 +3768,10 @@ msgstr "版本库 '%s' 不存在"
 #: builtin/clone.c
 msgid "--depth is ignored in local clones; use file:// instead."
 msgstr "--depth 在本地克隆被忽略，改为 file:// 协议试试。"
+
+#: builtin/clone.c
+msgid "--local is ignored"
+msgstr "--local 被忽略"
 
 #: builtin/clone.c
 #, c-format
@@ -3862,6 +4074,10 @@ msgid "Invalid untracked files mode '%s'"
 msgstr "无效的未追踪文件参数 '%s'"
 
 #: builtin/commit.c
+msgid "--long and -z are incompatible"
+msgstr "--long 和 -z 选项不兼容"
+
+#: builtin/commit.c
 msgid "Using both --reset-author and --author does not make sense"
 msgstr "同时使用 --reset-author 和 --author 没有意义"
 
@@ -3917,10 +4133,6 @@ msgstr "无效的清理模式 %s"
 #: builtin/commit.c
 msgid "Paths with -a does not make sense."
 msgstr "路径和 -a 选项同时使用没有意义。"
-
-#: builtin/commit.c
-msgid "--long and -z are incompatible"
-msgstr "--long 和 -z 选项不兼容"
 
 #: builtin/commit.c
 msgid "show status concisely"
@@ -4207,6 +4419,14 @@ msgid "use given config file"
 msgstr "使用指定的配置文件"
 
 #: builtin/config.c
+msgid "blob-id"
+msgstr "数据对象ID"
+
+#: builtin/config.c
+msgid "read config from given blob object"
+msgstr "从给定的数据对象读取配置"
+
+#: builtin/config.c
 msgid "Action"
 msgstr "操作"
 
@@ -4407,6 +4627,10 @@ msgid "always use long format"
 msgstr "始终使用长提交号格式"
 
 #: builtin/describe.c
+msgid "only follow first parent"
+msgstr "只跟随第一个父提交"
+
+#: builtin/describe.c
 msgid "only output exact matches"
 msgstr "只输出精确匹配"
 
@@ -4460,11 +4684,6 @@ msgstr "不是一个 git 版本库"
 #, c-format
 msgid "invalid object '%s' given."
 msgstr "提供了无效对象 '%s'。"
-
-#: builtin/diff.c
-#, c-format
-msgid "more than %d trees given: '%s'"
-msgstr "提供了超过 %d 个树对象：'%s'"
 
 #: builtin/diff.c
 #, c-format
@@ -5903,6 +6122,14 @@ msgid "add Cc: header"
 msgstr "添加抄送"
 
 #: builtin/log.c
+msgid "ident"
+msgstr "ident"
+
+#: builtin/log.c
+msgid "set From address to <ident> (or committer ident if absent)"
+msgstr "设置 From 地址为 <ident>（如若不提供，用提交者ID做为地址）"
+
+#: builtin/log.c
 msgid "message-id"
 msgstr "message-id"
 
@@ -5937,6 +6164,11 @@ msgstr "添加一个签名"
 #: builtin/log.c
 msgid "don't print the patch filenames"
 msgstr "不要打印补丁文件名"
+
+#: builtin/log.c
+#, c-format
+msgid "invalid ident line: %s"
+msgstr "包含无效的身份标识：%s"
 
 #: builtin/log.c
 msgid "-n and -k are mutually exclusive."
@@ -6334,13 +6566,8 @@ msgstr "当前分支没有定义默认的上游分支。"
 
 #: builtin/merge.c
 #, c-format
-msgid "No remote tracking branch for %s from %s"
-msgstr "%s 没有来自 %s 的远程跟踪分支"
-
-#: builtin/merge.c
-#, c-format
-msgid "%s - not something we can merge"
-msgstr "%s - 不能被合并"
+msgid "No remote-tracking branch for %s from %s"
+msgstr "对于 %s 没有来自 %s 的远程跟踪分支"
 
 #: builtin/merge.c
 msgid "There is no merge to abort (MERGE_HEAD missing)."
@@ -6375,10 +6602,6 @@ msgid "You cannot combine --squash with --no-ff."
 msgstr "您不能将 --squash 与 --no-ff 同时使用。"
 
 #: builtin/merge.c
-msgid "You cannot combine --no-ff with --ff-only."
-msgstr "您不能将 --no-ff 与 --ff-only 同时使用。"
-
-#: builtin/merge.c
 msgid "No commit specified and merge.defaultToUpstream not set."
 msgstr "未指定提交并且 merge.defaultToUpstream 未设置。"
 
@@ -6393,6 +6616,11 @@ msgstr "尚不支持到空分支的压缩提交"
 #: builtin/merge.c
 msgid "Non-fast-forward commit does not make sense into an empty head"
 msgstr "到空分支的非快进式提交没有意义"
+
+#: builtin/merge.c
+#, c-format
+msgid "%s - not something we can merge"
+msgstr "%s - 不能被合并"
 
 #: builtin/merge.c
 #, c-format
@@ -6661,6 +6889,10 @@ msgstr "从标准输入读取"
 msgid "allow to print `undefined` names"
 msgstr "允许打印 `未定义` 的名称"
 
+#: builtin/name-rev.c
+msgid "dereference tags in the input (internal use)"
+msgstr "反向解析输入中的 tags（内部使用）"
+
 #: builtin/notes.c
 msgid "git notes [--ref <notes_ref>] [list [<object>]]"
 msgstr "git notes [--ref <注解引用>] [list [<对象>]]"
@@ -6826,27 +7058,6 @@ msgstr "无法解析 '%s' 为一个有效引用。"
 #, c-format
 msgid "Failed to read object '%s'."
 msgstr "无法读取对象 '%s'。"
-
-#: builtin/notes.c
-msgid "Cannot commit uninitialized/unreferenced notes tree"
-msgstr "不能提交未初始化/未引用的注解树"
-
-#: builtin/notes.c
-#, c-format
-msgid "Bad notes.rewriteMode value: '%s'"
-msgstr "坏的 notes.rewriteMode 值：'%s'"
-
-#: builtin/notes.c
-#, c-format
-msgid "Refusing to rewrite notes in %s (outside of refs/notes/)"
-msgstr "拒绝向 %s（在 refs/notes/ 之外）写入注解"
-
-#. TRANSLATORS: The first %s is the name of the
-#. environment variable, the second %s is its value
-#: builtin/notes.c
-#, c-format
-msgid "Bad %s value: '%s'"
-msgstr "坏的 %s 值：'%s'"
 
 #: builtin/notes.c
 #, c-format
@@ -7303,12 +7514,12 @@ msgstr "您没有为推送指定任何引用表达式，并且 push.default 为 
 #: builtin/push.c
 msgid ""
 "Updates were rejected because the tip of your current branch is behind\n"
-"its remote counterpart. Merge the remote changes (e.g. 'git pull')\n"
-"before pushing again.\n"
+"its remote counterpart. Integrate the remote changes (e.g.\n"
+"'git pull ...') before pushing again.\n"
 "See the 'Note about fast-forwards' in 'git push --help' for details."
 msgstr ""
 "更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。\n"
-"再次推送前，先与远程变更合并（如 'git pull'）。详见\n"
+"再次推送前，先与远程变更合并（如 'git pull ...'）。详见\n"
 "'git push --help' 中的 'Note about fast-forwards' 小节。"
 
 #: builtin/push.c
@@ -7326,25 +7537,25 @@ msgstr ""
 #: builtin/push.c
 msgid ""
 "Updates were rejected because a pushed branch tip is behind its remote\n"
-"counterpart. Check out this branch and merge the remote changes\n"
-"(e.g. 'git pull') before pushing again.\n"
+"counterpart. Check out this branch and integrate the remote changes\n"
+"(e.g. 'git pull ...') before pushing again.\n"
 "See the 'Note about fast-forwards' in 'git push --help' for details."
 msgstr ""
 "更新被拒绝，因为推送的一个分支的最新提交落后于其对应的远程分支。\n"
-"检出该分支并与远程变更合并（如 'git pull'），然后再推送。详见\n"
+"检出该分支并整合远程变更（如 'git pull ...'），然后再推送。详见\n"
 "'git push --help' 中的 'Note about fast-forwards' 小节。"
 
 #: builtin/push.c
 msgid ""
 "Updates were rejected because the remote contains work that you do\n"
 "not have locally. This is usually caused by another repository pushing\n"
-"to the same ref. You may want to first merge the remote changes (e.g.,\n"
-"'git pull') before pushing again.\n"
+"to the same ref. You may want to first integrate the remote changes\n"
+"(e.g., 'git pull ...') before pushing again.\n"
 "See the 'Note about fast-forwards' in 'git push --help' for details."
 msgstr ""
 "更新被拒绝，因为远程版本库包含您本地尚不存在的提交。这通常是因为另外\n"
-"一个版本库已推送了相同的引用。再次推送前，您可能需要先合并远程变更\n"
-"（如 'git pull'）。\n"
+"一个版本库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更\n"
+"（如 'git pull ...'）。\n"
 "详见 'git push --help' 中的 'Note about fast-forwards' 小节。"
 
 #: builtin/push.c
@@ -7553,6 +7764,16 @@ msgstr "跳过应用稀疏检出过滤器"
 #: builtin/read-tree.c
 msgid "debug unpack-trees"
 msgstr "调试 unpack-trees"
+
+#: builtin/reflog.c
+#, c-format
+msgid "%s' for '%s' is not a valid timestamp"
+msgstr "'%2$s' 的值 '%1$s' 不是一个有效的时间戳"
+
+#: builtin/reflog.c
+#, c-format
+msgid "'%s' is not a valid timestamp"
+msgstr "'%s' 不是一个有效的时间戳"
 
 #: builtin/remote.c
 msgid "git remote [-v | --verbose]"
@@ -8323,40 +8544,60 @@ msgid "git rm [options] [--] <file>..."
 msgstr "git rm [选项] [--] <文件>..."
 
 #: builtin/rm.c
-#, c-format
 msgid ""
-"submodule '%s' (or one of its nested submodules) uses a .git directory\n"
+"the following submodule (or one of its nested submodules)\n"
+"uses a .git directory:"
+msgid_plural ""
+"the following submodules (or one of its nested submodules)\n"
+"use a .git directory:"
+msgstr[0] "如下子模组（或一个其嵌套子模组）使用了一个 .git 目录："
+msgstr[1] "如下子模组（或一个其嵌套子模组）使用了一个 .git 目录："
+
+#: builtin/rm.c
+msgid ""
+"\n"
 "(use 'rm -rf' if you really want to remove it including all of its history)"
 msgstr ""
-"子模组 '%s'（或者它的一个嵌套子模组）使用一个 .git 目录\n"
+"\n"
 "（使用 'rm -rf' 命令如果您真的想删除它及其全部历史）"
 
 #: builtin/rm.c
-#, c-format
 msgid ""
-"'%s' has staged content different from both the file and the HEAD\n"
+"the following file has staged content different from both the\n"
+"file and the HEAD:"
+msgid_plural ""
+"the following files have staged content different from both the\n"
+"file and the HEAD:"
+msgstr[0] "如下文件其暂存的内容和工作区及 HEAD 中的都不一样："
+msgstr[1] "如下文件其暂存的内容和工作区及 HEAD 中的都不一样："
+
+#: builtin/rm.c
+msgid ""
+"\n"
 "(use -f to force removal)"
 msgstr ""
-"'%s' 暂存的内容和工作区及 HEAD 中的都不一样\n"
+"\n"
 "（使用 -f 强制删除）"
 
 #: builtin/rm.c
-#, c-format
-msgid ""
-"'%s' has changes staged in the index\n"
-"(use --cached to keep the file, or -f to force removal)"
-msgstr ""
-"'%s' 有变更已暂存至索引中\n"
-"（使用 --cached 保存文件，或用 -f 强制删除）"
+msgid "the following file has changes staged in the index:"
+msgid_plural "the following files have changes staged in the index:"
+msgstr[0] "如下文件相对索引区的内容有修改"
+msgstr[1] "如下文件相对索引区的内容有修改"
 
 #: builtin/rm.c
-#, c-format
 msgid ""
-"'%s' has local modifications\n"
+"\n"
 "(use --cached to keep the file, or -f to force removal)"
 msgstr ""
-"'%s' 有本地修改\n"
-"（使用 --cached 保存文件，或用 -f 强制删除）"
+"\n"
+"（使用 --cached 保留本地文件，或用 -f 强制删除）"
+
+#: builtin/rm.c
+msgid "the following file has local modifications:"
+msgid_plural "the following files have local modifications:"
+msgstr[0] "如下文件有本地修改："
+msgstr[1] "如下文件有本地修改："
 
 #: builtin/rm.c
 msgid "do not list removed files"
@@ -8486,8 +8727,8 @@ msgid "show merges reachable from only one tip"
 msgstr "显示仅一个分支可访问的合并提交"
 
 #: builtin/show-branch.c
-msgid "show commits where no parent comes before its children"
-msgstr "显示提交时以时间为序且父提交不能领先子提交"
+msgid "topologically sort, maintaining date order where possible"
+msgstr "拓扑方式排序，并尽可能地保持日期顺序"
 
 #: builtin/show-branch.c
 msgid "<n>[,<base>]"
@@ -8522,8 +8763,8 @@ msgid "stricter reference checking, requires exact ref path"
 msgstr "更严格的引用检测，需要精确的引用路径"
 
 #: builtin/show-ref.c
-msgid "show the HEAD reference"
-msgstr "显示 HEAD 引用"
+msgid "show the HEAD reference, even if it would be filtered out"
+msgstr "显示 HEAD 引用，即使被过滤掉"
 
 #: builtin/show-ref.c
 msgid "dereference tags into object IDs"
@@ -8959,6 +9200,10 @@ msgstr ""
 "'git help <命令>' 或 'git help <指南>' 来查看给定的子命令帮助或指南。"
 
 #: parse-options.h
+msgid "expiry date"
+msgstr "逾期日期"
+
+#: parse-options.h
 msgid "no-op (backward compatibility)"
 msgstr "空操作（向后兼容）"
 
@@ -9027,8 +9272,8 @@ msgid "Move or rename a file, a directory, or a symlink"
 msgstr "移动或重命名一个文件、目录或符号链接"
 
 #: common-cmds.h
-msgid "Fetch from and merge with another repository or a local branch"
-msgstr "获取并合并另外的版本库或一个本地分支"
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "获取并整合另外的版本库或一个本地分支"
 
 #: common-cmds.h
 msgid "Update remote refs along with associated objects"
@@ -9071,11 +9316,11 @@ msgstr "您好像在上一次 'am' 失败后移动了 HEAD。未回退至 ORIG_H
 #: git-am.sh
 #, sh-format
 msgid ""
-"When you have resolved this problem, run \"$cmdline --resolved\".\n"
+"When you have resolved this problem, run \"$cmdline --continue\".\n"
 "If you prefer to skip this patch, run \"$cmdline --skip\" instead.\n"
 "To restore the original branch and stop patching, run \"$cmdline --abort\"."
 msgstr ""
-"当您解决了此问题后，执行 \"$cmdline --resolved\"。\n"
+"当您解决了此问题后，执行 \"$cmdline --continue\"。\n"
 "如果您想跳过此补丁，则执行 \"$cmdline --skip\"。\n"
 "要恢复原分支并停止打补丁，执行 \"$cmdline --abort\"。"
 
@@ -9131,11 +9376,20 @@ msgstr ""
 #: git-am.sh
 #, sh-format
 msgid "previous rebase directory $dotest still exists but mbox given."
-msgstr "之前的变基目录 $dotest 仍然存在但给出了mbox。"
+msgstr "之前的变基目录 $dotest 仍然存在，但却提供了 mbox。"
 
 #: git-am.sh
 msgid "Please make up your mind. --skip or --abort?"
 msgstr "请下决心。--skip 或是 --abort ？"
+
+#: git-am.sh
+#, sh-format
+msgid ""
+"Stray $dotest directory found.\n"
+"Use \"git am --abort\" to remove it."
+msgstr ""
+"发现了错误的 $dotest 目录。\n"
+"使用 \"git am --abort\" 删除它。"
 
 #: git-am.sh
 msgid "Resolve operation not in progress, we are not resuming."
@@ -9429,6 +9683,25 @@ msgstr ""
 "要恢复原分支并停止变基，执行 \"git rebase --abort\"。"
 
 #: git-rebase.sh
+msgid "Applied autostash."
+msgstr "成功应用 autostash。"
+
+#: git-rebase.sh
+#, sh-format
+msgid "Cannot store $stash_sha1"
+msgstr "无法保存 $stash_sha1"
+
+#: git-rebase.sh
+msgid ""
+"Applying autostash resulted in conflicts.\n"
+"Your changes are safe in the stash.\n"
+"You can run \"git stash pop\" or \"git stash drop\" it at any time.\n"
+msgstr ""
+"应用 autostash 导致冲突。\n"
+"您的修改安全地保存在 stash 中。\n"
+"您可以在任何时候运行 \"git stash pop\" 或 \"git stash drop\"。\n"
+
+#: git-rebase.sh
 msgid "The pre-rebase hook refused to rebase."
 msgstr "钩子 pre-rebase 拒绝变基。"
 
@@ -9510,6 +9783,15 @@ msgid "fatal: no such branch: $branch_name"
 msgstr "严重错误：无此分支：$branch_name"
 
 #: git-rebase.sh
+msgid "Cannot autostash"
+msgstr "无法 autostash"
+
+#: git-rebase.sh
+#, sh-format
+msgid "Created autostash: $stash_abbrev"
+msgstr "创建了 autostash: $stash_abbrev"
+
+#: git-rebase.sh
 msgid "Please commit or stash them."
 msgstr "请提交或为它们保存进度。"
 
@@ -9566,6 +9848,11 @@ msgstr "无法删除临时索引（不应发生）"
 msgid "Cannot record working tree state"
 msgstr "不能记录工作区状态"
 
+#: git-stash.sh
+#, sh-format
+msgid "Cannot update $ref_stash with $w_commit"
+msgstr "无法用 $w_commit 更新 $ref_stash"
+
 #. TRANSLATORS: $option is an invalid option, like
 #. `--blah-blah'. The 7 spaces at the beginning of the
 #. second line correspond to "error: ". So you should line
@@ -9588,6 +9875,17 @@ msgstr ""
 #: git-stash.sh
 msgid "No local changes to save"
 msgstr "没有要保存的本地修改"
+
+#: git-stash.sh
+msgid ""
+"The following untracked files would NOT be saved but need to be removed by "
+"stash save:"
+msgstr "如下未跟踪文件将不会被保存但是将会因为进度保存而需要被删除："
+
+#: git-stash.sh
+msgid ""
+"Aborting. Consider using either the --force or --include-untracked option."
+msgstr "终止。考虑使用 --force 或者 --include-untracked 选项。"
 
 #: git-stash.sh
 msgid "Cannot initialize stash"
@@ -9688,6 +9986,10 @@ msgid "Gitdir '$a' is part of the submodule path '$b' or vice versa"
 msgstr "Gitdir '$a' 在子模组路径 '$b' 之下或相反"
 
 #: git-submodule.sh
+msgid "Relative path can only be used from the toplevel of the working tree"
+msgstr "只能在工作区的顶级目录中使用相对路径"
+
+#: git-submodule.sh
 #, sh-format
 msgid "repo URL: '$repo' must be absolute or begin with ./|../"
 msgstr "版本库URL：'$repo' 必须是绝对路径或以 ./|../ 起始"
@@ -9764,33 +10066,33 @@ msgstr "无法注册子模组 '$sm_path'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Entering '$prefix$sm_path'"
-msgstr "正在进入 '$prefix$sm_path'"
+msgid "Entering '$prefix$displaypath'"
+msgstr "正在进入 '$prefix$displaypath'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Stopping at '$sm_path'; script returned non-zero status."
-msgstr "停止于 '$sm_path'，脚本返回非零值。"
+msgid "Stopping at '$prefix$displaypath'; script returned non-zero status."
+msgstr "停止于 '$prefix$displaypath'，脚本返回非零值。"
 
 #: git-submodule.sh
 #, sh-format
-msgid "No url found for submodule path '$sm_path' in .gitmodules"
-msgstr "在 .gitmodules 中未找到子模组路径 '$sm_path' 的 url"
+msgid "No url found for submodule path '$displaypath' in .gitmodules"
+msgstr "在 .gitmodules 中未找到子模组路径 '$displaypath' 的 url"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Failed to register url for submodule path '$sm_path'"
-msgstr "无法为子模组路径 '$sm_path' 注册 url"
+msgid "Failed to register url for submodule path '$displaypath'"
+msgstr "无法为子模组路径 '$displaypath' 注册 url"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule '$name' ($url) registered for path '$sm_path'"
-msgstr "子模组 '$name' ($url) 已为路径 '$sm_path' 注册"
+msgid "Submodule '$name' ($url) registered for path '$displaypath'"
+msgstr "子模组 '$name' ($url) 未对路径 '$displaypath' 注册"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Failed to register update mode for submodule path '$sm_path'"
-msgstr "无法为子模组路径 '$sm_path' 注册更新模式"
+msgid "Failed to register update mode for submodule path '$displaypath'"
+msgstr "无法为子模组路径 '$displaypath' 注册更新模式"
 
 #: git-submodule.sh
 #, sh-format
@@ -9799,8 +10101,8 @@ msgstr "使用 '.' 如果您真的想要对所有子模组取消初始化"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule work tree '$sm_path' contains a .git directory"
-msgstr "子模组工作区 '$sm_path' 包含一个 .git 目录"
+msgid "Submodule work tree '$displaypath' contains a .git directory"
+msgstr "子模组工作区 '$displaypath' 包含一个 .git 目录"
 
 #: git-submodule.sh
 #, sh-format
@@ -9811,43 +10113,43 @@ msgstr "（使用 'rm -rf' 命令如果您真的想删除它及其全部历史�
 #: git-submodule.sh
 #, sh-format
 msgid ""
-"Submodule work tree '$sm_path' contains local modifications; use '-f' to "
+"Submodule work tree '$displaypath' contains local modifications; use '-f' to "
 "discard them"
-msgstr "子模组工作区 '$sm_path' 包含本地修改；使用 '-f' 丢弃它们"
+msgstr "子模组工作区 '$displaypath' 包含本地修改；使用 '-f' 丢弃它们"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Cleared directory '$sm_path'"
-msgstr "已清除目录 '$sm_path'"
+msgid "Cleared directory '$displaypath'"
+msgstr "已清除目录 '$displaypath'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Could not remove submodule work tree '$sm_path'"
-msgstr "无法移除子模组工作区 '$sm_path'"
+msgid "Could not remove submodule work tree '$displaypath'"
+msgstr "无法移除子模组工作区 '$displaypath'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Could not create empty submodule directory '$sm_path'"
-msgstr "不能创建空的子模组目录 '$sm_path'"
+msgid "Could not create empty submodule directory '$displaypath'"
+msgstr "不能创建空的子模组目录 '$displaypath'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule '$name' ($url) unregistered for path '$sm_path'"
-msgstr "子模组 '$name' ($url) 未对路径 '$sm_path' 注册"
+msgid "Submodule '$name' ($url) unregistered for path '$displaypath'"
+msgstr "子模组 '$name' ($url) 未对路径 '$displaypath' 注册"
 
 #: git-submodule.sh
 #, sh-format
 msgid ""
-"Submodule path '$prefix$sm_path' not initialized\n"
+"Submodule path '$displaypath' not initialized\n"
 "Maybe you want to use 'update --init'?"
 msgstr ""
-"子模组路径 '$prefix$sm_path' 没有初始化\n"
+"子模组路径 '$displaypath' 没有初始化\n"
 "也许您想用 'update --init'？"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Unable to find current revision in submodule path '$prefix$sm_path'"
-msgstr "无法在子模组路径 '$prefix$sm_path' 中找到当前版本"
+msgid "Unable to find current revision in submodule path '$displaypath'"
+msgstr "无法在子模组路径 '$displaypath' 中找到当前版本"
 
 #: git-submodule.sh
 #, sh-format
@@ -9856,43 +10158,54 @@ msgstr "无法在子模组路径 '$sm_path' 中获取"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Unable to fetch in submodule path '$prefix$sm_path'"
-msgstr "无法在子模组路径 '$prefix$sm_path' 中获取"
+msgid "Unable to fetch in submodule path '$displaypath'"
+msgstr "无法在子模组路径 '$displaypath' 中获取"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Unable to rebase '$sha1' in submodule path '$prefix$sm_path'"
-msgstr "无法在子模组路径 '$prefix$sm_path' 中变基 '$sha1'"
+msgid "Unable to rebase '$sha1' in submodule path '$displaypath'"
+msgstr "无法在子模组路径 '$displaypath' 中变基 '$sha1'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule path '$prefix$sm_path': rebased into '$sha1'"
-msgstr "子模组路径 '$prefix$sm_path'：变基至 '$sha1'"
+msgid "Submodule path '$displaypath': rebased into '$sha1'"
+msgstr "子模组路径 '$displaypath'：变基至 '$sha1'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Unable to merge '$sha1' in submodule path '$prefix$sm_path'"
-msgstr "无法合并 '$sha1' 到子模组路径 '$prefix$sm_path' 中"
+msgid "Unable to merge '$sha1' in submodule path '$displaypath'"
+msgstr "无法合并 '$sha1' 到子模组路径 '$displaypath' 中"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule path '$prefix$sm_path': merged in '$sha1'"
-msgstr "子模组路径 '$prefix$sm_path'：已合并入 '$sha1'"
+msgid "Submodule path '$displaypath': merged in '$sha1'"
+msgstr "子模组路径 '$displaypath'：已合并入 '$sha1'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Unable to checkout '$sha1' in submodule path '$prefix$sm_path'"
-msgstr "无法在子模组路径 '$prefix$sm_path' 中检出 '$sha1'"
+msgid ""
+"Execution of '$command $sha1' failed in submodule  path '$prefix$sm_path'"
+msgstr "在子模组路径 '$prefix$sm_path' 中执行 '$command $sha1' 失败"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Submodule path '$prefix$sm_path': checked out '$sha1'"
-msgstr "子模组路径 '$prefix$sm_path'：检出 '$sha1'"
+msgid "Submodule path '$prefix$sm_path': '$command $sha1'"
+msgstr "子模组路径 '$prefix$sm_path': '$command $sha1'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Failed to recurse into submodule path '$prefix$sm_path'"
-msgstr "无法递归进子模组路径 '$prefix$sm_path'"
+msgid "Unable to checkout '$sha1' in submodule path '$displaypath'"
+msgstr "无法在子模组路径 '$displaypath' 中检出 '$sha1'"
+
+#: git-submodule.sh
+#, sh-format
+msgid "Submodule path '$displaypath': checked out '$sha1'"
+msgstr "子模组路径 '$displaypath'：检出 '$sha1'"
+
+#: git-submodule.sh
+#, sh-format
+msgid "Failed to recurse into submodule path '$displaypath'"
+msgstr "无法递归进子模组路径 '$displaypath'"
 
 #: git-submodule.sh
 msgid "The --cached option cannot be used with the --files option"
@@ -9907,20 +10220,20 @@ msgstr "意外的模式 $mod_dst"
 #  译者：注意保持前导空格
 #: git-submodule.sh
 #, sh-format
-msgid "  Warn: $name doesn't contain commit $sha1_src"
-msgstr "  警告：$name 未包含提交 $sha1_src"
+msgid "  Warn: $display_name doesn't contain commit $sha1_src"
+msgstr "  警告：$display_name 未包含提交 $sha1_src"
 
 #  译者：注意保持前导空格
 #: git-submodule.sh
 #, sh-format
-msgid "  Warn: $name doesn't contain commit $sha1_dst"
-msgstr "  警告：$name 未包含提交 $sha1_dst"
+msgid "  Warn: $display_name doesn't contain commit $sha1_dst"
+msgstr "  警告：$display_name 未包含提交 $sha1_dst"
 
 #  译者：注意保持前导空格
 #: git-submodule.sh
 #, sh-format
-msgid "  Warn: $name doesn't contain commits $sha1_src and $sha1_dst"
-msgstr "  警告：$name 未包含提交 $sha1_src 和 $sha1_dst"
+msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
+msgstr "  警告：$display_name 未包含提交 $sha1_src 和 $sha1_dst"
 
 #: git-submodule.sh
 msgid "blob"
@@ -9941,8 +10254,101 @@ msgstr "无法递归进子模组路径 '$sm_path'"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Synchronizing submodule url for '$prefix$sm_path'"
-msgstr "为 '$prefix$sm_path' 同步子模组 url"
+msgid "Synchronizing submodule url for '$displaypath'"
+msgstr "为 '$displaypath' 同步子模组 url"
+
+#~ msgid ""
+#~ "the following submodule (or one of its nested submodule)\n"
+#~ "uses a .git directory:"
+#~ msgid_plural ""
+#~ "the following submodules (or one of its nested submodule)\n"
+#~ "use a .git directory:"
+#~ msgstr[0] "如下子模组（或一个其嵌套的子模组）使用了一个 .git 目录："
+#~ msgstr[1] "如下子模组（或一个其嵌套的子模组）使用了一个 .git 目录："
+
+#~ msgid "Cannot change unmerged .gitmodules, resolve merge conflicts first"
+#~ msgstr "无法修改未合并的 .gitmodules，先解决合并冲突"
+
+#~ msgid "Could not find section in .gitmodules where path=%s"
+#~ msgstr "无法在 .gitmodules 中找到 path=%s 的小节"
+
+#~ msgid "Could not update .gitmodules entry %s"
+#~ msgstr "不能更新 .gitmodules 条目 %s"
+
+#~ msgid "Could not remove .gitmodules entry for %s"
+#~ msgstr "无法移除 %s 的 .gitmodules 条目"
+
+#~ msgid "could not find .gitmodules in index"
+#~ msgstr "无法在索引中找到 .gitmodules"
+
+#~ msgid "reading updated .gitmodules failed"
+#~ msgstr "读取更新后的 .gitmodules 失败"
+
+#~ msgid "unable to stat updated .gitmodules"
+#~ msgstr "不能枚举更新后的 .gitmodules"
+
+#~ msgid "unable to remove .gitmodules from index"
+#~ msgstr "不能从索引中移除 .gitmodules"
+
+#~ msgid "adding updated .gitmodules failed"
+#~ msgstr "添加更新后的 .gitmodules 失败"
+
+#~ msgid "staging updated .gitmodules failed"
+#~ msgstr "将更新后 .gitmodules 添加暂存区失败"
+
+#~ msgid "Could not set core.worktree in %s"
+#~ msgstr "不能在 %s 中设置 core.worktree"
+
+#  译者：注意保持前导空格
+#~ msgid "  (fix conflicts and then run \"git am --resolved\")"
+#~ msgstr "  （解决冲突，然后运行 \"git am --resolved\"）"
+
+#  译者：注意保持前导空格
+#~ msgid "  (all conflicts fixed: run \"git commit\")"
+#~ msgstr "  （解决所有冲突后，执行 \"git commit\"）"
+
+#~ msgid "more than %d trees given: '%s'"
+#~ msgstr "提供了超过 %d 个树对象：'%s'"
+
+#~ msgid "You cannot combine --no-ff with --ff-only."
+#~ msgstr "您不能将 --no-ff 与 --ff-only 同时使用。"
+
+#~ msgid "Huh? Directory %s is in index and no submodule?"
+#~ msgstr "嗯？目录 %s 在索引中并且不是子模组？"
+
+#~ msgid ""
+#~ "submodule '%s' (or one of its nested submodules) uses a .git directory\n"
+#~ "(use 'rm -rf' if you really want to remove it including all of its "
+#~ "history)"
+#~ msgstr ""
+#~ "子模组 '%s'（或者它的一个嵌套子模组）使用一个 .git 目录\n"
+#~ "（使用 'rm -rf' 命令如果您真的想删除它及其全部历史）"
+
+#~ msgid ""
+#~ "'%s' has changes staged in the index\n"
+#~ "(use --cached to keep the file, or -f to force removal)"
+#~ msgstr ""
+#~ "'%s' 有变更已暂存至索引中\n"
+#~ "（使用 --cached 保存文件，或用 -f 强制删除）"
+
+#~ msgid "show commits where no parent comes before its children"
+#~ msgstr "显示提交时以时间为序且父提交不能领先子提交"
+
+#~ msgid "show the HEAD reference"
+#~ msgstr "显示 HEAD 引用"
+
+#~ msgid "Submodule '$name' ($url) registered for path '$sm_path'"
+#~ msgstr "子模组 '$name' ($url) 已为路径 '$sm_path' 注册"
+
+#~ msgid "Change flags"
+#~ msgstr "修改参数"
+
+#~ msgid ""
+#~ "NOTE: no more files to clean; press \"t\" to toggle flags of git-clean."
+#~ msgstr "注意：没有要清理的文件；尝试按 \"t\" 切换 git-clean 的选项。"
+
+#~ msgid "Failed to recurse into submodule path '$prefix$sm_path'"
+#~ msgstr "无法递归进子模组路径 '$prefix$sm_path'"
 
 #~ msgid "git shortlog [-n] [-s] [-e] [-w] [rev-opts] [--] [<commit-id>... ]"
 #~ msgstr "git shortlog [-n] [-s] [-e] [-w] [版本选项] [--] [<提交号>... ]"
@@ -9963,10 +10369,6 @@ msgstr "为 '$prefix$sm_path' 同步子模组 url"
 
 #~ msgid "new files yourself (see 'git help status')."
 #~ msgstr "（参见 'git help status'）。"
-
-#, fuzzy
-#~ msgid "aaaSynchronizing submodule url for '$prefix$sm_path'"
-#~ msgstr "为 '$prefix$sm_path' 同步子模组 url"
 
 #~ msgid "use any ref in .git/refs"
 #~ msgstr "使用 .git/refs 里的任意引用"
