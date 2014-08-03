@@ -128,8 +128,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git master\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2014-04-19 12:50+0800\n"
-"PO-Revision-Date: 2014-08-03 11:53+0300\n"
+"POT-Creation-Date: 2014-08-03 12:04+0300\n"
+"PO-Revision-Date: 2014-08-03 12:03+0300\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -143,12 +143,12 @@ msgstr ""
 msgid "hint: %.*s\n"
 msgstr "Подсказка: %.*s\n"
 
+# TRANSFER
 #: advice.c
 msgid ""
-"Fix them up in the work tree,\n"
-"and then use 'git add/rm <file>' as\n"
-"appropriate to mark resolution and make a commit,\n"
-"or use 'git commit -a'."
+"Fix them up in the work tree, and then use 'git add/rm <file>'\n"
+"as appropriate to mark resolution and make a commit, or use\n"
+"'git commit -a'."
 msgstr ""
 "Редактирайте ги в работното дърво, и тогава ползвайте „git add/rm ФАЙЛ“\n"
 "за да отбележите коригирането им и ги подадете или просто ползвайте:\n"
@@ -582,6 +582,16 @@ msgid ""
 msgstr ""
 "Грешки в настройката „diff.dirstat“:\n"
 "%s"
+
+#: diff.c
+#, c-format
+msgid "external diff died, stopping at %s"
+msgstr ""
+"външната програма за разлики завърши неуспешно. Спиране на работата при „%s“"
+
+#: diff.c
+msgid "--follow requires exactly one pathspec"
+msgstr "Опцията „--follow“ изисква точно един път"
 
 #: diff.c
 #, c-format
@@ -1247,6 +1257,10 @@ msgstr "Локалните ви промени ще бъдат презапис�
 #: sequencer.c
 msgid "Commit your changes or stash them to proceed."
 msgstr "Подайте или скатайте промените, за да продължите"
+
+#: sequencer.c
+msgid "Failed to lock HEAD during fast_forward_to"
+msgstr "Указателят „HEAD“ не може да бъде заключен при тривиално сливане"
 
 #. TRANSLATORS: %s will be "revert" or "cherry-pick"
 #: sequencer.c
@@ -2022,11 +2036,6 @@ msgstr "изтрит"
 msgid "behind "
 msgstr "назад с "
 
-#: compat/precompose_utf8.c builtin/clone.c
-#, c-format
-msgid "failed to unlink '%s'"
-msgstr "неуспешно изтриване на „%s“"
-
 #: builtin/add.c
 msgid "git add [options] [--] <pathspec>..."
 msgstr "git add [ОПЦИЯ…] [--] ПЪТ…"
@@ -2049,7 +2058,7 @@ msgstr "изтриване на „%s“\n"
 msgid "Unstaged changes after refreshing the index:"
 msgstr "Промени, които и след обновяването на индекса не са добавени към него:"
 
-#: builtin/add.c
+#: builtin/add.c builtin/rev-parse.c
 msgid "Could not read the index"
 msgstr "Индексът не може да бъде прочетен"
 
@@ -2837,6 +2846,16 @@ msgid "Process only line range n,m, counting from 1"
 msgstr ""
 "Информация само за редовете в интервала от n до m включително. Броенето "
 "започва от 1"
+
+#. TRANSLATORS: This string is used to tell us the maximum
+#. display width for a relative timestamp in "git blame"
+#. output.  For C locale, "4 years, 11 months ago", which
+#. takes 22 places, is the longest among various forms of
+#. relative timestamps, but your language may need more or
+#. fewer display columns.
+#: builtin/blame.c
+msgid "4 years, 11 months ago"
+msgstr "преди 4 години и 11 месеца"
 
 #: builtin/branch.c
 msgid "git branch [options] [-r | -a] [--merged | --no-merged]"
@@ -4052,6 +4071,11 @@ msgstr "не може да бъде получена информация чре
 
 #: builtin/clone.c
 #, c-format
+msgid "failed to unlink '%s'"
+msgstr "неуспешно изтриване на „%s“"
+
+#: builtin/clone.c
+#, c-format
 msgid "failed to create link '%s'"
 msgstr "връзката „%s“ не може да бъде създадена"
 
@@ -4343,8 +4367,21 @@ msgstr "неправилен параметър към опцията „--autho
 
 #: builtin/commit.c
 #, c-format
+msgid "invalid date format: %s"
+msgstr "неправилен формат на дата: %s"
+
+#: builtin/commit.c
+#, c-format
 msgid "Malformed ident string: '%s'"
 msgstr "Неправилен низ за идентичност: „%s“"
+
+#: builtin/commit.c
+msgid ""
+"unable to select a comment character that is not used\n"
+"in the current commit message"
+msgstr ""
+"не може да се избере знак за коментар — в текущото съобщение за подаване са "
+"използвани всички подобни знаци"
 
 #: builtin/commit.c
 #, c-format
@@ -4364,10 +4401,6 @@ msgstr "съобщението за подаване не бе прочетен�
 #, c-format
 msgid "could not read log file '%s'"
 msgstr "файлът със съобщението за подаване „%s“ не може да бъде прочетен"
-
-#: builtin/commit.c
-msgid "commit has empty message"
-msgstr "подаване с празно съобщение"
 
 #: builtin/commit.c
 msgid "could not read MERGE_MSG"
@@ -4439,17 +4472,20 @@ msgstr ""
 "с „%c“, също ще бъдат включени — може да ги изтриете вие. Празно \n"
 "съобщение преустановява подаването.\n"
 
-# FIXME check - does not look like original
 #: builtin/commit.c
 #, c-format
-msgid "%sAuthor:    %s"
-msgstr "%sАвтор:   %s"
+msgid "%sAuthor:    %.*s <%.*s>"
+msgstr "%sАвтор:   %.*s <%.*s>"
 
-# FIXME check - does not look like original
 #: builtin/commit.c
 #, c-format
-msgid "%sCommitter: %s"
-msgstr "%sПодаващ: %s"
+msgid "%sDate:      %s"
+msgstr "%sДата:    %s"
+
+#: builtin/commit.c
+#, c-format
+msgid "%sCommitter: %.*s <%.*s>"
+msgstr "%sПодаващ: %.*s <%.*s>"
 
 #: builtin/commit.c
 msgid "Cannot read index"
@@ -5169,6 +5205,14 @@ msgstr "Използване на маркер за завършване на п
 msgid "Skip output of blob data"
 msgstr "Без извеждане на съдържанието на обектите BLOB"
 
+#: builtin/fast-export.c
+msgid "refspec"
+msgstr "указател на версия"
+
+#: builtin/fast-export.c
+msgid "Apply refspec to exported refs"
+msgstr "Прилагане на указателя на версия към изнесените указатели"
+
 #: builtin/fetch.c
 msgid "git fetch [<options>] [<repository> [<refspec>...]]"
 msgstr "git fetch [ОПЦИЯ…] [ХРАНИЛИЩЕ [УКАЗАТЕЛ…]]"
@@ -5256,6 +5300,14 @@ msgstr "стандартен режим на рекурсия"
 #: builtin/fetch.c
 msgid "accept refs that update .git/shallow"
 msgstr "приемане на указатели, които обновяват „.git/shallow“"
+
+#: builtin/fetch.c
+msgid "refmap"
+msgstr "карта с указатели"
+
+#: builtin/fetch.c
+msgid "specify fetch refmap"
+msgstr "указване на картата с указатели за доставяне"
 
 #: builtin/fetch.c
 msgid "Couldn't find remote ref HEAD"
@@ -5634,11 +5686,6 @@ msgstr "git grep [ОПЦИЯ…] [-e] ШАБЛОН [ВЕРСИЯ…] [[--] ПЪ�
 #, c-format
 msgid "grep: failed to create thread: %s"
 msgstr "grep: неуспешно създаване на нишка: %s"
-
-#: builtin/grep.c
-#, c-format
-msgid "Failed to chdir: %s"
-msgstr "Неуспешна смяна на директория: %s"
 
 #: builtin/grep.c
 #, c-format
@@ -6029,14 +6076,26 @@ msgstr "употреба: %s%s"
 msgid "`git %s' is aliased to `%s'"
 msgstr "„git %s“ е синоним на „%s“"
 
+# FIXME merge with next?
+#: builtin/index-pack.c
+#, c-format
+msgid "unable to open %s"
+msgstr "обектът „%s“ не може да бъде отворен"
+
 #: builtin/index-pack.c
 #, c-format
 msgid "object type mismatch at %s"
 msgstr "неправилен вид на обекта „%s“"
 
 #: builtin/index-pack.c
-msgid "object of unexpected type"
-msgstr "неправилен вид на обекта"
+#, c-format
+msgid "did not receive expected object %s"
+msgstr "очакваният обект „%s“ не бе получен"
+
+#: builtin/index-pack.c
+#, c-format
+msgid "object %s: expected type %s, found %s"
+msgstr "неправилен вид на обекта „%s“: очакваше се „%s“, а бе получен „%s“"
 
 #: builtin/index-pack.c
 #, c-format
@@ -6691,6 +6750,10 @@ msgid "add a signature"
 msgstr "добавяне на поле за подпис"
 
 #: builtin/log.c
+msgid "add a signature from a file"
+msgstr "добавяне на подпис от файл"
+
+#: builtin/log.c
 msgid "don't print the patch filenames"
 msgstr "без извеждане на имената на кръпките"
 
@@ -6728,6 +6791,11 @@ msgstr ""
 #, c-format
 msgid "Could not create directory '%s'"
 msgstr "Директорията „%s“ не може да бъде създадена"
+
+#: builtin/log.c
+#, c-format
+msgid "unable to read signature file '%s'"
+msgstr "файлът „%s“ с подпис не може да бъде прочетен"
 
 #: builtin/log.c
 msgid "Failed to create output files"
@@ -9086,6 +9154,10 @@ msgid "git replace [-f] <object> <replacement>"
 msgstr "git replace [-f] ОБЕКТ ЗАМЯНА"
 
 #: builtin/replace.c
+msgid "git replace [-f] --edit <object>"
+msgstr "git replace [-f] --edit ОБЕКТ"
+
+#: builtin/replace.c
 msgid "git replace -d <object>..."
 msgstr "git replace -d ОБЕКТ…"
 
@@ -9102,8 +9174,16 @@ msgid "delete replace refs"
 msgstr "изтриване на указателите за замяна"
 
 #: builtin/replace.c
+msgid "edit existing object"
+msgstr "редактиране на съществуващ обект"
+
+#: builtin/replace.c
 msgid "replace the ref if it exists"
 msgstr "замяна на указателя, ако съществува"
+
+#: builtin/replace.c
+msgid "do not pretty-print contents for --edit"
+msgstr "без форматирано извеждане на съдържанието — за опцията „--edit“"
 
 #: builtin/replace.c
 msgid "use this format"
@@ -9724,23 +9804,27 @@ msgstr "етикетът „%s“ не може да бъде проверен"
 #, c-format
 msgid ""
 "\n"
-"Write a tag message\n"
+"Write a message for tag:\n"
+"  %s\n"
 "Lines starting with '%c' will be ignored.\n"
 msgstr ""
 "\n"
-"Въведете съобщение за етикет.\n"
+"Въведете съобщение за етикета.\n"
+"  %s\n"
 "Редовете, които започват с „%c“, ще бъдат пропуснати.\n"
 
 #: builtin/tag.c
 #, c-format
 msgid ""
 "\n"
-"Write a tag message\n"
+"Write a message for tag:\n"
+"  %s\n"
 "Lines starting with '%c' will be kept; you may remove them yourself if you "
 "want to.\n"
 msgstr ""
 "\n"
 "Въведете съобщение за етикет.\n"
+"  %s\n"
 "Редовете, които започват с „%c“, също ще бъдат включени — може да ги "
 "изтриете вие.\n"
 
@@ -10024,6 +10108,10 @@ msgstr ""
 msgid "write index in this format"
 msgstr "записване на индекса в този формат"
 
+#: builtin/update-index.c
+msgid "enable or disable split index"
+msgstr "включване или изключване на разделянето на индекса"
+
 #: builtin/update-ref.c
 msgid "git update-ref [options] -d <refname> [<oldval>]"
 msgstr "git update-ref [ОПЦИЯ…] -d ИМЕ_НА_УКАЗАТЕЛ [СТАРА_СТОЙНОСТ]"
@@ -10062,6 +10150,14 @@ msgstr "git update-server-info [--force]"
 #: builtin/update-server-info.c
 msgid "update the info files from scratch"
 msgstr "обновяване на информационните файлове от нулата"
+
+#: builtin/verify-commit.c
+msgid "git verify-commit [-v|--verbose] <commit>..."
+msgstr "git verify-tag [-v|--verbose] ПОДАВАНЕ…"
+
+#: builtin/verify-commit.c
+msgid "print commit contents"
+msgstr "извеждане на съдържанието на подаването"
 
 #: builtin/verify-pack.c
 msgid "git verify-pack [-v|--verbose] [-s|--stat-only] <pack>..."
