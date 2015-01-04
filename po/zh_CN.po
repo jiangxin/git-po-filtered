@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2014-11-20 09:42+0800\n"
-"PO-Revision-Date: 2014-11-20 16:10+0800\n"
+"POT-Creation-Date: 2015-01-13 14:05+0800\n"
+"PO-Revision-Date: 2015-01-13 14:21+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/gotgit/git/>\n"
 "Language: zh_CN\n"
@@ -2091,10 +2091,6 @@ msgid "Use -f if you really want to add them.\n"
 msgstr "使用 -f 参数如果您确实要添加它们。\n"
 
 #: builtin/add.c
-msgid "no files added"
-msgstr "没有文件被添加"
-
-#: builtin/add.c
 msgid "adding files failed"
 msgstr "添加文件失败"
 
@@ -3031,8 +3027,8 @@ msgid "edit the description for the branch"
 msgstr "标记分支的描述"
 
 #: builtin/branch.c
-msgid "force creation (when already exists)"
-msgstr "强制创建（当已经存在）"
+msgid "force creation, move/rename, deletion"
+msgstr "强制创建、移动/重命名、删除"
 
 #: builtin/branch.c
 msgid "print only not merged branches"
@@ -3875,6 +3871,10 @@ msgstr "创建一个指定深度的浅克隆"
 msgid "clone only one branch, HEAD or --branch"
 msgstr "只克隆一个分支、HEAD 或 --branch"
 
+#: builtin/clone.c
+msgid "use --reference only while cloning"
+msgstr "仅在克隆时参考 --reference 指向的本地版本库"
+
 #: builtin/clone.c builtin/init-db.c
 msgid "gitdir"
 msgstr "git目录"
@@ -3974,6 +3974,14 @@ msgid "unable to checkout working tree"
 msgstr "不能检出工作区"
 
 #: builtin/clone.c
+msgid "cannot repack to clean up"
+msgstr "无法执行 repack 来清理"
+
+#: builtin/clone.c
+msgid "cannot unlink temporary alternates file"
+msgstr "无法删除临时的 alternates 文件"
+
+#: builtin/clone.c
 msgid "Too many arguments."
 msgstr "太多参数。"
 
@@ -4029,6 +4037,10 @@ msgstr "克隆到纯版本库 '%s'...\n"
 #, c-format
 msgid "Cloning into '%s'...\n"
 msgstr "正克隆到 '%s'...\n"
+
+#: builtin/clone.c
+msgid "--dissociate given, but there is no --reference"
+msgstr "提供了参数 --dissociate，但未提供 --reference"
 
 #: builtin/clone.c
 msgid "--depth is ignored in local clones; use file:// instead."
@@ -4248,11 +4260,6 @@ msgstr "非法的 --author 参数"
 #, c-format
 msgid "invalid date format: %s"
 msgstr "无效的日期格式：%s"
-
-#: builtin/commit.c
-#, c-format
-msgid "Malformed ident string: '%s'"
-msgstr "非法的身份字符串：'%s'"
 
 #: builtin/commit.c
 msgid ""
@@ -4781,16 +4788,12 @@ msgid "open an editor"
 msgstr "打开一个编辑器"
 
 #: builtin/config.c
-msgid "slot"
-msgstr "slot"
+msgid "find the color configured: slot [default]"
+msgstr "获得配置的颜色：配置 [默认]"
 
 #: builtin/config.c
-msgid "find the color configured: [default]"
-msgstr "找到配置的颜色：[默认]"
-
-#: builtin/config.c
-msgid "find the color setting: [stdout-is-tty]"
-msgstr "找到颜色设置：[stdout-is-tty]"
+msgid "find the color setting: slot [stdout-is-tty]"
+msgstr "获得颜色设置：配置 [stdout-is-tty]"
 
 #: builtin/config.c
 msgid "Type"
@@ -5394,8 +5397,8 @@ msgid "quote placeholders suitably for python"
 msgstr "引用占位符适用于 python"
 
 #: builtin/for-each-ref.c
-msgid "quote placeholders suitably for tcl"
-msgstr "引用占位符适用于 tcl"
+msgid "quote placeholders suitably for Tcl"
+msgstr "引用占位符适用于 Tcl"
 
 #: builtin/for-each-ref.c
 msgid "show only <n> matched refs"
@@ -7363,11 +7366,11 @@ msgstr "git notes [--ref <注解引用>] [list [<对象>]]"
 
 #: builtin/notes.c
 msgid ""
-"git notes [--ref <notes_ref>] add [-f] [-m <msg> | -F <file> | (-c | -C) "
-"<object>] [<object>]"
+"git notes [--ref <notes_ref>] add [-f] [--allow-empty] [-m <msg> | -F <file> "
+"| (-c | -C) <object>] [<object>]"
 msgstr ""
-"git notes [--ref <注解引用>] add [-f] [-m <说明> | -F <文件> | (-c | -C) <对"
-"象>] [<对象>]"
+"git notes [--ref <注解引用>] add [-f] [--allow-empty] [-m <说明> | -F <文件> "
+"| (-c | -C) <对象>] [<对象>]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes_ref>] copy [-f] <from-object> <to-object>"
@@ -7375,15 +7378,15 @@ msgstr "git notes [--ref <注解引用>] copy [-f] <源对象> <目标对象>"
 
 #: builtin/notes.c
 msgid ""
-"git notes [--ref <notes_ref>] append [-m <msg> | -F <file> | (-c | -C) "
-"<object>] [<object>]"
+"git notes [--ref <notes_ref>] append [--allow-empty] [-m <msg> | -F <file> | "
+"(-c | -C) <object>] [<object>]"
 msgstr ""
-"git notes [--ref <注解引用>] append [-m <说明> | -F <文件> | (-c | -C) <对象"
-">] [<对象>]"
+"git notes [--ref <注解引用>] append [--allow-empty] [-m <说明> | -F <文件> | "
+"(-c | -C) <对象>] [<对象>]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes_ref>] edit [<object>]"
-msgstr "git notes [--ref <注解引用>] edit [<对象>]"
+msgid "git notes [--ref <notes_ref>] edit [--allow-empty] [<object>]"
+msgstr "git notes [--ref <注解引用>] edit [--allow-empty] [<对象>]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes_ref>] show [<object>]"
@@ -7490,11 +7493,6 @@ msgid "Please supply the note contents using either -m or -F option"
 msgstr "请通过 -m 或 -F 选项为注解提供内容"
 
 #: builtin/notes.c
-#, c-format
-msgid "Removing note for object %s\n"
-msgstr "删除对象 %s 的注解\n"
-
-#: builtin/notes.c
 msgid "unable to write note object"
 msgstr "不能写注解对象"
 
@@ -7568,6 +7566,10 @@ msgid "reuse specified note object"
 msgstr "重用指定的注解对象"
 
 #: builtin/notes.c
+msgid "allow storing empty note"
+msgstr "允许保存空白注释"
+
+#: builtin/notes.c
 msgid "replace existing notes"
 msgstr "替换已存在的注解"
 
@@ -7582,6 +7584,11 @@ msgstr "不能添加注解。发现对象 %s 已存在注解。使用 '-f' 覆�
 #, c-format
 msgid "Overwriting existing notes for object %s\n"
 msgstr "覆盖对象 %s 现存注解\n"
+
+#: builtin/notes.c
+#, c-format
+msgid "Removing note for object %s\n"
+msgstr "删除对象 %s 的注解\n"
 
 #: builtin/notes.c
 msgid "read objects from stdin"
@@ -7828,6 +7835,10 @@ msgstr "将比给定 <时间> 新的无法访问的对象解包"
 #: builtin/pack-objects.c
 msgid "create thin packs"
 msgstr "创建精简包"
+
+#: builtin/pack-objects.c
+msgid "create packs suitable for shallow fetches"
+msgstr "创建适合浅克隆版本库获取的包"
 
 #: builtin/pack-objects.c
 msgid "ignore packs that have companion .keep file"
@@ -10942,6 +10953,18 @@ msgstr "无法递归进子模组路径 '$sm_path'"
 #, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "为 '$displaypath' 同步子模组 url"
+
+#~ msgid "no files added"
+#~ msgstr "没有文件被添加"
+
+#~ msgid "force creation (when already exists)"
+#~ msgstr "强制创建（当已经存在）"
+
+#~ msgid "Malformed ident string: '%s'"
+#~ msgstr "非法的身份字符串：'%s'"
+
+#~ msgid "slot"
+#~ msgstr "slot"
 
 #~ msgid "Failed to lock ref for update"
 #~ msgstr "无法为更新锁定引用"
