@@ -73,8 +73,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2014-11-20 09:42+0800\n"
-"PO-Revision-Date: 2014-11-20 16:10+0800\n"
+"POT-Creation-Date: 2015-01-13 14:05+0800\n"
+"PO-Revision-Date: 2015-01-13 20:21+0100\n"
 "Last-Translator: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language-Team: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language: fr\n"
@@ -2187,10 +2187,6 @@ msgid "Use -f if you really want to add them.\n"
 msgstr "Utilisez -f si vous voulez réellement les ajouter.\n"
 
 #: builtin/add.c
-msgid "no files added"
-msgstr "aucun fichier ajouté"
-
-#: builtin/add.c
 msgid "adding files failed"
 msgstr "échec de l'ajout de fichiers"
 
@@ -3157,8 +3153,8 @@ msgid "edit the description for the branch"
 msgstr "éditer la description de la branche"
 
 #: builtin/branch.c
-msgid "force creation (when already exists)"
-msgstr "forcer la création (même si la cible existe)"
+msgid "force creation, move/rename, deletion"
+msgstr "forcer la création, le déplacement/renommage, ou la suppression"
 
 #: builtin/branch.c
 msgid "print only not merged branches"
@@ -3617,7 +3613,7 @@ msgstr "erreur interne lors du parcours des révisions"
 
 #: builtin/checkout.c
 msgid "Previous HEAD position was"
-msgstr "La position précédente de HEAD était sur "
+msgstr "La position précédente de HEAD était sur"
 
 #: builtin/checkout.c
 msgid "You are on a branch yet to be born"
@@ -4020,6 +4016,10 @@ msgstr "créer un clone superficiel de cette profondeur"
 msgid "clone only one branch, HEAD or --branch"
 msgstr "cloner seulement une branche, HEAD ou --branch"
 
+#: builtin/clone.c
+msgid "use --reference only while cloning"
+msgstr "utiliser seulement --reference pour cloner"
+
 #: builtin/clone.c builtin/init-db.c
 msgid "gitdir"
 msgstr "gitdir"
@@ -4121,6 +4121,14 @@ msgid "unable to checkout working tree"
 msgstr "impossible d'extraire la copie de travail"
 
 #: builtin/clone.c
+msgid "cannot repack to clean up"
+msgstr "impossible de remballer pour nettoyer"
+
+#: builtin/clone.c
+msgid "cannot unlink temporary alternates file"
+msgstr "impossible de unlinker le fichier temporaire alternates"
+
+#: builtin/clone.c
 msgid "Too many arguments."
 msgstr "Trop d'arguments."
 
@@ -4177,6 +4185,10 @@ msgstr "Clonage dans le dépôt nu '%s'\n"
 #, c-format
 msgid "Cloning into '%s'...\n"
 msgstr "Clonage dans '%s'...\n"
+
+#: builtin/clone.c
+msgid "--dissociate given, but there is no --reference"
+msgstr "--dissociate est spécifié, mais --reference est absent"
 
 #: builtin/clone.c
 msgid "--depth is ignored in local clones; use file:// instead."
@@ -4406,11 +4418,6 @@ msgstr "paramètre --author mal formé"
 #, c-format
 msgid "invalid date format: %s"
 msgstr "format de date invalide : %s"
-
-#: builtin/commit.c
-#, c-format
-msgid "Malformed ident string: '%s'"
-msgstr "Chaîne ident mal formée : '%s'"
 
 #: builtin/commit.c
 msgid ""
@@ -4950,16 +4957,12 @@ msgid "open an editor"
 msgstr "ouvrir un éditeur"
 
 #: builtin/config.c
-msgid "slot"
-msgstr "emplacement"
+msgid "find the color configured: slot [default]"
+msgstr "trouver la couleur configurée : slot [par défaut]"
 
 #: builtin/config.c
-msgid "find the color configured: [default]"
-msgstr "trouver la couleur configurée : [par défaut]"
-
-#: builtin/config.c
-msgid "find the color setting: [stdout-is-tty]"
-msgstr "trouver le réglage de la couleur : [stdout-est-tty]"
+msgid "find the color setting: slot [stdout-is-tty]"
+msgstr "trouver le réglage de la couleur : slot [stdout-est-tty]"
 
 #: builtin/config.c
 msgid "Type"
@@ -5569,8 +5572,8 @@ msgid "quote placeholders suitably for python"
 msgstr "échapper les champs réservés pour python"
 
 #: builtin/for-each-ref.c
-msgid "quote placeholders suitably for tcl"
-msgstr "échapper les champs réservés pour tcl"
+msgid "quote placeholders suitably for Tcl"
+msgstr "échapper les champs réservés pour compatibilité avec Tcl"
 
 #: builtin/for-each-ref.c
 msgid "show only <n> matched refs"
@@ -7586,11 +7589,11 @@ msgstr "git notes [--ref <références_notes>] [list [<object>]]"
 
 #: builtin/notes.c
 msgid ""
-"git notes [--ref <notes_ref>] add [-f] [-m <msg> | -F <file> | (-c | -C) "
-"<object>] [<object>]"
+"git notes [--ref <notes_ref>] add [-f] [--allow-empty] [-m <msg> | -F <file> "
+"| (-c | -C) <object>] [<object>]"
 msgstr ""
-"git notes [--ref <références_notes>] add [-f] [-m <message> | -F <fichier> | "
-"(-c | -C) <objet>] [<objet>]"
+"git notes [--ref <références_notes>] add [-f] [--allow-empty] [-m <message> "
+"| -F <fichier> | (-c | -C) <objet>] [<objet>]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes_ref>] copy [-f] <from-object> <to-object>"
@@ -7599,15 +7602,15 @@ msgstr ""
 
 #: builtin/notes.c
 msgid ""
-"git notes [--ref <notes_ref>] append [-m <msg> | -F <file> | (-c | -C) "
-"<object>] [<object>]"
+"git notes [--ref <notes_ref>] append [--allow-empty] [-m <msg> | -F <file> | "
+"(-c | -C) <object>] [<object>]"
 msgstr ""
-"git notes [--ref <références_notes>] append [-m <message> | -F <fichier> | (-"
-"c | -C) <objet>] [<objet>]"
+"git notes [--ref <références_notes>] append [--allow-empty] [-m <message> | -"
+"F <fichier> | (-c | -C) <objet>] [<objet>]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes_ref>] edit [<object>]"
-msgstr "git notes [--ref <références_notes>] edit [<objet>]"
+msgid "git notes [--ref <notes_ref>] edit [--allow-empty] [<object>]"
+msgstr "git notes [--ref <références_notes>] edit [--allow-empty] [<objet>]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes_ref>] show [<object>]"
@@ -7716,11 +7719,6 @@ msgid "Please supply the note contents using either -m or -F option"
 msgstr "Veuillez fournir le contenu de la note en utilisant l'option -m ou -F"
 
 #: builtin/notes.c
-#, c-format
-msgid "Removing note for object %s\n"
-msgstr "Suppression de la note pour l'objet %s\n"
-
-#: builtin/notes.c
 msgid "unable to write note object"
 msgstr "impossible d'écrire l'objet note"
 
@@ -7794,6 +7792,10 @@ msgid "reuse specified note object"
 msgstr "réutiliser l'objet de note spécifié"
 
 #: builtin/notes.c
+msgid "allow storing empty note"
+msgstr "permettre de stocker une note vide"
+
+#: builtin/notes.c
 msgid "replace existing notes"
 msgstr "remplacer les notes existantes"
 
@@ -7810,6 +7812,11 @@ msgstr ""
 #, c-format
 msgid "Overwriting existing notes for object %s\n"
 msgstr "Écrasement des notes existantes pour l'objet %s\n"
+
+#: builtin/notes.c
+#, c-format
+msgid "Removing note for object %s\n"
+msgstr "Suppression de la note pour l'objet %s\n"
 
 #: builtin/notes.c
 msgid "read objects from stdin"
@@ -8072,6 +8079,10 @@ msgstr "dépaqueter les objets inaccessibles plus récents que <heure>"
 #: builtin/pack-objects.c
 msgid "create thin packs"
 msgstr "créer des paquets légers"
+
+#: builtin/pack-objects.c
+msgid "create packs suitable for shallow fetches"
+msgstr "créer des paquets permettant des récupérations superficielles"
 
 #: builtin/pack-objects.c
 msgid "ignore packs that have companion .keep file"
@@ -11338,6 +11349,18 @@ msgstr "Échec de parcours dans le chemin du sous-module '$sm_path'"
 #, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Synchronisation de l'URL sous-module pour '$displaypath'"
+
+#~ msgid "no files added"
+#~ msgstr "aucun fichier ajouté"
+
+#~ msgid "force creation (when already exists)"
+#~ msgstr "forcer la création (même si la cible existe)"
+
+#~ msgid "Malformed ident string: '%s'"
+#~ msgstr "Chaîne ident mal formée : '%s'"
+
+#~ msgid "slot"
+#~ msgstr "emplacement"
 
 #~ msgid "Failed to lock ref for update"
 #~ msgstr "Échec du verrouillage de la référence pour mise à jour"
