@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git 2.5.0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-06-27 19:17+0800\n"
-"PO-Revision-Date: 2015-06-28 18:49+0100\n"
+"POT-Creation-Date: 2015-07-14 07:19+0800\n"
+"PO-Revision-Date: 2015-07-15 12:51+0100\n"
 "Last-Translator: Peter Krefting <peter@softwolves.pp.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -3586,30 +3586,6 @@ msgid "You are on a branch yet to be born"
 msgstr "Du är på en gren som ännu inte är född"
 
 #: builtin/checkout.c
-msgid "no branch specified"
-msgstr "inget grennamn angavs"
-
-#: builtin/checkout.c
-#, c-format
-msgid "'%s' already exists"
-msgstr "\"%s\" finns redan"
-
-#: builtin/checkout.c builtin/clone.c
-#, c-format
-msgid "could not create leading directories of '%s'"
-msgstr "kunde inte skapa inledande kataloger för \"%s\""
-
-#: builtin/checkout.c
-#, c-format
-msgid "could not create directory of '%s'"
-msgstr "kunde inte skapa katalogen \"%s\""
-
-#: builtin/checkout.c
-#, c-format
-msgid "Enter %s (identifier %s)"
-msgstr "Går in i %s (identifieraren %s)"
-
-#: builtin/checkout.c
 #, c-format
 msgid "'%s' is already checked out at '%s'"
 msgstr "\"%s\" är redan utcheckad på \"%s\""
@@ -3648,7 +3624,7 @@ msgstr "\"%s\" kan inte användas med \"%s\""
 msgid "Cannot switch branch to a non-commit '%s'"
 msgstr "Kan inte växla gren till icke-incheckningen \"%s\""
 
-#: builtin/checkout.c builtin/clone.c builtin/remote.c
+#: builtin/checkout.c builtin/clone.c builtin/remote.c builtin/worktree.c
 msgid "branch"
 msgstr "gren"
 
@@ -3715,10 +3691,6 @@ msgstr "begränsa inte sökvägar till endast glesa poster"
 #: builtin/checkout.c
 msgid "second guess 'git checkout <no-such-branch>'"
 msgstr "förutspå \"git checkout <gren-saknas>\""
-
-#: builtin/checkout.c
-msgid "check a branch out in a separate working directory"
-msgstr "checka ut en gren i separat arbetskatalog"
 
 #: builtin/checkout.c
 msgid "do not check if another worktree is holding the given ref"
@@ -4107,11 +4079,11 @@ msgid "Could not find remote branch %s to clone."
 msgstr "Kunde inte hitta fjärrgrenen %s för att klona."
 
 # Vague original, not networking-related, but rather related to the actual
-# objects in the database.
+# objects downloaded.
 #: builtin/clone.c
 #, c-format
 msgid "Checking connectivity... "
-msgstr "Kontrollerar konnektivitet..."
+msgstr "Kontrollerar om vi fick alla objekt..."
 
 #: builtin/clone.c
 msgid "remote did not send all necessary objects"
@@ -4170,6 +4142,11 @@ msgstr "destinationssökvägen \"%s\" finns redan och är inte en tom katalog."
 #, c-format
 msgid "working tree '%s' already exists."
 msgstr "arbetsträdet \"%s\" finns redan."
+
+#: builtin/clone.c builtin/worktree.c
+#, c-format
+msgid "could not create leading directories of '%s'"
+msgstr "kunde inte skapa inledande kataloger för \"%s\""
 
 #: builtin/clone.c
 #, c-format
@@ -8080,55 +8057,17 @@ msgstr "Tar bort duplicerade objekt"
 msgid "git prune [-n] [-v] [--expire <time>] [--] [<head>...]"
 msgstr "git prune [-n] [-v] [--expire <tid>] [--] [<huvud>...]"
 
-#: builtin/prune.c
-#, c-format
-msgid "Removing worktrees/%s: not a valid directory"
-msgstr "Tar bort worktrees/%s: inte en giltig katalog"
-
-#: builtin/prune.c
-#, c-format
-msgid "Removing worktrees/%s: gitdir file does not exist"
-msgstr "Tar bort worktrees/%s: gitdir-filen existerar inte"
-
-#: builtin/prune.c
-#, c-format
-msgid "Removing worktrees/%s: unable to read gitdir file (%s)"
-msgstr "Tar bort worktrees/%s: kan inte läsa gitdir-filen (%s)"
-
-#: builtin/prune.c
-#, c-format
-msgid "Removing worktrees/%s: invalid gitdir file"
-msgstr "Tar bort worktrees/%s: felaktig gitdir-fil"
-
-#: builtin/prune.c
-#, c-format
-msgid "Removing worktrees/%s: gitdir file points to non-existent location"
-msgstr "Tar bort worktrees/%s: gitdir-filen pekar på en ickeexisterande plats"
-
-#: builtin/prune.c
-#, c-format
-msgid "failed to remove: %s"
-msgstr "misslyckades ta bort: %s"
-
-#: builtin/prune.c
+#: builtin/prune.c builtin/worktree.c
 msgid "do not remove, show only"
 msgstr "ta inte bort, bara visa"
 
-#: builtin/prune.c
+#: builtin/prune.c builtin/worktree.c
 msgid "report pruned objects"
 msgstr "rapportera borttagna objekt"
 
-#: builtin/prune.c
-msgid "prune .git/worktrees"
-msgstr "rensa .git/worktrees"
-
-#: builtin/prune.c
+#: builtin/prune.c builtin/worktree.c
 msgid "expire objects older than <time>"
 msgstr "låt tid gå ut för objekt äldre än <tid>"
-
-#: builtin/prune.c
-msgid "--worktrees does not take extra arguments"
-msgstr "--worktrees tar inte ytterligare argument"
 
 #: builtin/push.c
 msgid "git push [<options>] [<repository> [<refspec>...]]"
@@ -10212,6 +10151,84 @@ msgstr "git verify-tag [-v | --verbose] <tagg>..."
 msgid "print tag contents"
 msgstr "visa innehåll för tag"
 
+#: builtin/worktree.c
+msgid "git worktree add [<options>] <path> <branch>"
+msgstr "git worktree add [<flaggor>] <sökväg> <gren>"
+
+#: builtin/worktree.c
+msgid "git worktree prune [<options>]"
+msgstr "git worktree prune [<flaggor>]"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Removing worktrees/%s: not a valid directory"
+msgstr "Tar bort worktrees/%s: inte en giltig katalog"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Removing worktrees/%s: gitdir file does not exist"
+msgstr "Tar bort worktrees/%s: gitdir-filen existerar inte"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Removing worktrees/%s: unable to read gitdir file (%s)"
+msgstr "Tar bort worktrees/%s: kan inte läsa gitdir-filen (%s)"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Removing worktrees/%s: invalid gitdir file"
+msgstr "Tar bort worktrees/%s: felaktig gitdir-fil"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Removing worktrees/%s: gitdir file points to non-existent location"
+msgstr "Tar bort worktrees/%s: gitdir-filen pekar på en ickeexisterande plats"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to remove: %s"
+msgstr "misslyckades ta bort: %s"
+
+#: builtin/worktree.c
+#, c-format
+msgid "'%s' already exists"
+msgstr "\"%s\" finns redan"
+
+#: builtin/worktree.c
+#, c-format
+msgid "could not create directory of '%s'"
+msgstr "kunde inte skapa katalogen \"%s\""
+
+#: builtin/worktree.c
+msgid "unable to resolve HEAD"
+msgstr "kan inte bestämma HEAD"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Enter %s (identifier %s)"
+msgstr "Går in i %s (identifieraren %s)"
+
+#: builtin/worktree.c
+msgid "checkout <branch> even if already checked out in other worktree"
+msgstr ""
+"checka ut <gren> även om den redan är utcheckad i en annan arbetskatalog"
+
+#: builtin/worktree.c
+msgid "create a new branch"
+msgstr "skapa en ny gren"
+
+#: builtin/worktree.c
+msgid "create or reset a branch"
+msgstr "skapa eller återställ en gren"
+
+#: builtin/worktree.c
+msgid "detach HEAD at named commit"
+msgstr "koppla från HEAD vid namngiven incheckning"
+
+#: builtin/worktree.c
+msgid "-b and -B are mutually exclusive"
+msgstr "-b och -B kan inte användas samtidigt"
+
 #: builtin/write-tree.c
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
 msgstr "git write-tree [--missing-ok] [--prefix=<prefix>/]"
@@ -10275,8 +10292,8 @@ msgid "List, create, or delete branches"
 msgstr "Visa, skapa eller ta bort grenar"
 
 #: common-cmds.h
-msgid "Checkout a branch or paths to the working tree"
-msgstr "Checka ut en gren eller filer i arbetskatalogen"
+msgid "Switch branches or restore working tree files"
+msgstr "Byt till en ny gren eller återställ filer i arbetskatalogen"
 
 #: common-cmds.h
 msgid "Clone a repository into a new directory"
@@ -11338,6 +11355,18 @@ msgstr "Misslyckades rekursera in i undermodulsökvägen \"$sm_path\""
 #, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Synkroniserar undermodul-url för \"$displaypath\""
+
+#~ msgid "no branch specified"
+#~ msgstr "inget grennamn angavs"
+
+#~ msgid "check a branch out in a separate working directory"
+#~ msgstr "checka ut en gren i separat arbetskatalog"
+
+#~ msgid "prune .git/worktrees"
+#~ msgstr "rensa .git/worktrees"
+
+#~ msgid "--worktrees does not take extra arguments"
+#~ msgstr "--worktrees tar inte ytterligare argument"
 
 #~ msgid "The most commonly used git commands are:"
 #~ msgstr "De mest använda git-kommandona är:"
