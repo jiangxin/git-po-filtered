@@ -1,7 +1,7 @@
 # French translations for Git.
 # Copyright (C) 2015 Jean-Noël Avila <jn.avila@free.fr>
 # This file is distributed under the same license as the Git package.
-# Jean-Noël Avila <jn.avila@free.fr>, 2013.
+# Jean-Noël Avila <jn.avila@free.fr>, 2015.
 # Sébastien Helleu <flashcode@flashtux.org>, 2013.
 #
 # French translations of common Git words used in this file:
@@ -73,8 +73,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-07-14 07:19+0800\n"
-"PO-Revision-Date: 2015-07-14 23:02+0200\n"
+"POT-Creation-Date: 2015-09-05 09:16+0800\n"
+"PO-Revision-Date: 2015-09-10 20:48+0200\n"
 "Last-Translator: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language-Team: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language: fr\n"
@@ -95,6 +95,18 @@ msgid ""
 msgstr ""
 "Corrigez-les puis lancez 'git add/rm <fichier>'\n"
 "si nécessaire pour marquer la résolution et valider."
+
+#: advice.c builtin/merge.c
+msgid "You have not concluded your merge (MERGE_HEAD exists)."
+msgstr "Vous n'avez pas terminé votre fusion (MERGE_HEAD existe)."
+
+#: advice.c
+msgid "Please, commit your changes before you can merge."
+msgstr "Veuillez valider vos changements avant de pouvoir fusionner."
+
+#: advice.c
+msgid "Exiting because of unfinished merge."
+msgstr "Abandon à cause d'une fusion non terminée."
 
 #: archive.c
 msgid "git archive [<options>] <tree-ish> [<path>...]"
@@ -312,6 +324,11 @@ msgstr "Nom d'objet ambigu : '%s'."
 msgid "Not a valid branch point: '%s'."
 msgstr "Point d'embranchement invalide : '%s'."
 
+#: branch.c
+#, c-format
+msgid "'%s' is already checked out at '%s'"
+msgstr "'%s' est déjà extrait dans '%s'"
+
 #: bundle.c
 #, c-format
 msgid "'%s' does not look like a v2 bundle file"
@@ -394,7 +411,7 @@ msgstr "l'index de groupe a disparu"
 msgid "invalid color value: %.*s"
 msgstr "Valeur invalide de couleur : %.*s"
 
-#: commit.c
+#: commit.c builtin/am.c
 #, c-format
 msgid "could not parse %s"
 msgstr "impossible d'analyser %s"
@@ -714,19 +731,11 @@ msgstr[1] ""
 msgid "%s: %s - %s"
 msgstr "%s: %s - %s"
 
-#: lockfile.c
-msgid "BUG: reopen a lockfile that is still open"
-msgstr "BUG: réouverture d'un fichier verrou déjà ouvert"
-
-#: lockfile.c
-msgid "BUG: reopen a lockfile that has been committed"
-msgstr "BUG: réouverture d'un fichier verrou validé"
-
 #: merge.c
 msgid "failed to read the cache"
 msgstr "impossible de lire le cache"
 
-#: merge.c builtin/checkout.c builtin/clone.c
+#: merge.c builtin/am.c builtin/checkout.c builtin/clone.c
 msgid "unable to write new index file"
 msgstr "impossible d'écrire le nouveau fichier d'index"
 
@@ -1129,6 +1138,30 @@ msgstr ""
 "GIT_INDEX_VERSION est renseigné, mais la valeur est invalide.\n"
 "Utilisation de la version %i"
 
+#: refs.c builtin/merge.c
+#, c-format
+msgid "Could not open '%s' for writing"
+msgstr "Impossible d'ouvrir '%s' en écriture"
+
+#: refs.c
+#, c-format
+msgid "could not delete reference %s: %s"
+msgstr "Impossible de supprimer la référence %s : %s"
+
+#: refs.c
+#, c-format
+msgid "could not delete references: %s"
+msgstr "impossible de supprimer les références : %s"
+
+#: refs.c
+#, c-format
+msgid "could not remove reference %s"
+msgstr "impossible de supprimer la référence %s"
+
+#: ref-filter.c
+msgid "unable to parse format"
+msgstr "impossible d'analyser le format"
+
 #: remote.c
 #, c-format
 msgid "Cannot fetch both %s and %s to %s"
@@ -1255,6 +1288,15 @@ msgstr ""
 "  (utilisez \"git pull\" pour fusionner la branche distante dans la vôtre)\n"
 
 #: revision.c
+msgid "your current branch appears to be broken"
+msgstr "votre branche actuelle semble cassée"
+
+#: revision.c
+#, c-format
+msgid "your current branch '%s' does not have any commits yet"
+msgstr "votre branche actuelle '%s' ne contient encore aucun commit"
+
+#: revision.c
 msgid "--first-parent is incompatible with --bisect"
 msgstr "--first-parent est incompatible avec --bisect"
 
@@ -1276,18 +1318,16 @@ msgid "the receiving end does not support --signed push"
 msgstr "Le receveur ne gère pas les poussées avec --signed"
 
 #: send-pack.c
+msgid ""
+"not sending a push certificate since the receiving end does not support --"
+"signed push"
+msgstr ""
+"pas d'envoi de certificat de poussée car le receveur ne gère pas les "
+"poussées avec --signed"
+
+#: send-pack.c
 msgid "the receiving end does not support --atomic push"
 msgstr "Le receveur ne gère pas les poussées avec --atomic"
-
-#: sequencer.c builtin/merge.c
-#, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Impossible d'ouvrir '%s' en écriture"
-
-#: sequencer.c builtin/merge.c
-#, c-format
-msgid "Could not write to '%s'"
-msgstr "Impossible d'écrire dans '%s'"
 
 #: sequencer.c
 msgid ""
@@ -1444,7 +1484,7 @@ msgstr "Feuille d'instruction inutilisable : %s"
 msgid "Invalid key: %s"
 msgstr "Clé invalide: %s"
 
-#: sequencer.c
+#: sequencer.c builtin/pull.c
 #, c-format
 msgid "Invalid value for %s: %s"
 msgstr "Valeur invalide pour %s : %s"
@@ -1611,6 +1651,11 @@ msgstr "impossible de lire le fichier d'entrée '%s'"
 msgid "could not read from stdin"
 msgstr "Impossible de lire depuis l'entrée standard"
 
+#: transport-helper.c
+#, c-format
+msgid "Could not read ref %s"
+msgstr "impossible de lire la réf %s"
+
 #: unpack-trees.c
 msgid "Checking out files"
 msgstr "Extraction des fichiers"
@@ -1646,6 +1691,21 @@ msgstr "segment de chemin '..' invalide"
 
 #: wrapper.c
 #, c-format
+msgid "could not open '%s' for reading and writing"
+msgstr "impossible d'ouvrir '%s' en lecture/écriture"
+
+#: wrapper.c
+#, c-format
+msgid "could not open '%s' for writing"
+msgstr "impossible d'ouvrir '%s' en écriture"
+
+#: wrapper.c builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
+#, c-format
+msgid "could not open '%s' for reading"
+msgstr "impossible d'ouvrir '%s' en lecture"
+
+#: wrapper.c
+#, c-format
 msgid "unable to access '%s': %s"
 msgstr "impossible d'accéder à '%s' : %s"
 
@@ -1674,7 +1734,7 @@ msgstr "impossible d'accéder au répertoire de travail courant"
 msgid "could not open %s for writing"
 msgstr "Impossible d'ouvrir '%s' en écriture"
 
-#: wrapper.c
+#: wrapper.c builtin/am.c
 #, c-format
 msgid "could not write to %s"
 msgstr "Impossible d'écrire dans %s"
@@ -1883,6 +1943,37 @@ msgid "  (use \"git am --abort\" to restore the original branch)"
 msgstr "  (utilisez \"git am --abort\" pour restaurer la branche d'origine)"
 
 #: wt-status.c
+msgid "No commands done."
+msgstr "Aucune commande réalisée."
+
+#: wt-status.c
+#, c-format
+msgid "Last command done (%d command done):"
+msgid_plural "Last commands done (%d commands done):"
+msgstr[0] "Dernière commande effectuée (%d commande effectuée) :"
+msgstr[1] "Dernières commandes effectuées (%d commandes effectuées) :"
+
+#: wt-status.c
+#, c-format
+msgid "  (see more in file %s)"
+msgstr "  (voir plus dans le fichier %s)"
+
+#: wt-status.c
+msgid "No commands remaining."
+msgstr "Aucune commande restante."
+
+#: wt-status.c
+#, c-format
+msgid "Next command to do (%d remaining command):"
+msgid_plural "Next commands to do (%d remaining commands):"
+msgstr[0] "Prochaine commande à effectuer (%d commande restante) :"
+msgstr[1] "Prochaines commandes à effectuer (%d commandes restantes) :"
+
+#: wt-status.c
+msgid "  (use \"git rebase --edit-todo\" to view and edit)"
+msgstr "  (utilisez \"git rebase --edit-todo\" pour voir et éditer)"
+
+#: wt-status.c
 #, c-format
 msgid "You are currently rebasing branch '%s' on '%s'."
 msgstr "Vous êtes en train de rebaser la branche '%s' sur '%s'."
@@ -1999,6 +2090,10 @@ msgstr "  (utilisez \"git bisect reset\" pour revenir à la branche d'origine)"
 #: wt-status.c
 msgid "On branch "
 msgstr "Sur la branche "
+
+#: wt-status.c
+msgid "interactive rebase in progress; onto "
+msgstr "rebasage interactif en cours ; sur "
 
 #: wt-status.c
 msgid "rebase in progress; onto "
@@ -2184,7 +2279,8 @@ msgstr ""
 "Les chemins suivants sont ignorés par un de vos fichiers .gitignore :\n"
 
 #: builtin/add.c builtin/clean.c builtin/fetch.c builtin/mv.c
-#: builtin/prune-packed.c builtin/push.c builtin/remote.c builtin/rm.c
+#: builtin/prune-packed.c builtin/pull.c builtin/push.c builtin/remote.c
+#: builtin/rm.c builtin/send-pack.c
 msgid "dry run"
 msgstr "simuler l'action"
 
@@ -2277,6 +2373,410 @@ msgstr "fichier d'index corrompu"
 #: builtin/add.c builtin/apply.c builtin/mv.c builtin/rm.c
 msgid "Unable to write new index file"
 msgstr "Impossible d'écrire le nouveau fichier d'index"
+
+#: builtin/am.c
+#, c-format
+msgid "could not stat %s"
+msgstr "stat impossible de %s"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c
+#, c-format
+msgid "could not read '%s'"
+msgstr "impossible de lire '%s'"
+
+#: builtin/am.c
+msgid "could not parse author script"
+msgstr "impossible d'analyser le script author"
+
+#: builtin/am.c
+#, c-format
+msgid "'%s' was deleted by the applypatch-msg hook"
+msgstr "'%s' a été effacé par le crochet applypatch-msg"
+
+#: builtin/am.c builtin/notes.c
+#, c-format
+msgid "Malformed input line: '%s'."
+msgstr "Ligne en entrée malformée : '%s'."
+
+#: builtin/am.c builtin/notes.c
+#, c-format
+msgid "Failed to copy notes from '%s' to '%s'"
+msgstr "Impossible de copier les notes de '%s' vers '%s'"
+
+#: builtin/am.c
+msgid "fseek failed"
+msgstr "échec de fseek"
+
+#: builtin/am.c
+#, c-format
+msgid "could not open '%s' for reading: %s"
+msgstr "impossible d'ouvrir '%s' en lecture : %s"
+
+#: builtin/am.c
+#, c-format
+msgid "could not open '%s' for writing: %s"
+msgstr "impossible d'ouvrir '%s' en écriture : %s"
+
+#: builtin/am.c
+#, c-format
+msgid "could not parse patch '%s'"
+msgstr "impossible d'analyser le patch '%s'"
+
+#: builtin/am.c
+msgid "Only one StGIT patch series can be applied at once"
+msgstr "Seulement une série de patchs StGIT peut être appliquée à la fois"
+
+#: builtin/am.c
+msgid "invalid timestamp"
+msgstr "horodatage invalide"
+
+#: builtin/am.c
+msgid "invalid Date line"
+msgstr "ligne de Date invalide"
+
+#: builtin/am.c
+msgid "invalid timezone offset"
+msgstr "décalage horaire invalide"
+
+#: builtin/am.c
+msgid "Patch format detection failed."
+msgstr "Échec de détection du format du patch."
+
+#: builtin/am.c builtin/clone.c
+#, c-format
+msgid "failed to create directory '%s'"
+msgstr "échec de la création du répertoire '%s'"
+
+#: builtin/am.c
+msgid "Failed to split patches."
+msgstr "Échec de découpage des patchs."
+
+#: builtin/am.c builtin/commit.c
+msgid "unable to write index file"
+msgstr "impossible d'écrire le fichier d'index"
+
+#: builtin/am.c
+#, c-format
+msgid "When you have resolved this problem, run \"%s --continue\"."
+msgstr "Quand vous avez résolu ce problème, lancez \"%s --continue\"."
+
+#: builtin/am.c
+#, c-format
+msgid "If you prefer to skip this patch, run \"%s --skip\" instead."
+msgstr "Si vous préférez plutôt sauter ce patch, lancez \"%s --skip\"."
+
+#: builtin/am.c
+#, c-format
+msgid "To restore the original branch and stop patching, run \"%s --abort\"."
+msgstr ""
+"Pour restaurer la branche originale et arrêter de patcher, lancez \"%s --"
+"abort\"."
+
+#: builtin/am.c
+msgid "Patch is empty. Was it split wrong?"
+msgstr "Le patch est vide. Le découpage était-il bon ?"
+
+#: builtin/am.c builtin/log.c
+#, c-format
+msgid "invalid ident line: %s"
+msgstr "ligne d'identification invalide : %s"
+
+#: builtin/am.c
+#, c-format
+msgid "unable to parse commit %s"
+msgstr "impossible d'analyser le commit %s"
+
+#: builtin/am.c
+msgid "Repository lacks necessary blobs to fall back on 3-way merge."
+msgstr ""
+"Le dépôt n'a pas les blobs nécessaires pour un retour à une fusion à 3 "
+"points."
+
+#: builtin/am.c
+msgid "Using index info to reconstruct a base tree..."
+msgstr ""
+"Utilisation de l'information de l'index pour reconstruire un arbre de base..."
+
+#: builtin/am.c
+msgid ""
+"Did you hand edit your patch?\n"
+"It does not apply to blobs recorded in its index."
+msgstr ""
+"Avez-vous édité le patch à la main ?\n"
+"Il ne s'applique pas aux blobs enregistrés dans son index."
+
+#: builtin/am.c
+msgid "Falling back to patching base and 3-way merge..."
+msgstr "Retour à un patch de la base et fusion à 3 points..."
+
+#: builtin/am.c
+msgid "Failed to merge in the changes."
+msgstr "Échec d'intégration des modifications."
+
+#: builtin/am.c builtin/merge.c
+msgid "git write-tree failed to write a tree"
+msgstr "git write-tree a échoué à écrire un arbre"
+
+#: builtin/am.c
+msgid "applying to an empty history"
+msgstr "application à un historique vide"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c
+msgid "failed to write commit object"
+msgstr "échec de l'écriture de l'objet commit"
+
+#: builtin/am.c
+#, c-format
+msgid "cannot resume: %s does not exist."
+msgstr "impossible de continuer : %s n'existe pas."
+
+#: builtin/am.c
+msgid "cannot be interactive without stdin connected to a terminal."
+msgstr ""
+"impossible d'être interactif sans entrée standard connectée à un terminal."
+
+#: builtin/am.c
+msgid "Commit Body is:"
+msgstr "Le corps de la validation est :"
+
+#. TRANSLATORS: Make sure to include [y], [n], [e], [v] and [a]
+#. in your translation. The program will only accept English
+#. input at this point.
+#.
+#: builtin/am.c
+msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
+msgstr "Appliquer ? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all : "
+
+#: builtin/am.c
+#, c-format
+msgid "Dirty index: cannot apply patches (dirty: %s)"
+msgstr "Index sale : impossible d'appliquer des patchs (sales : %s)"
+
+#: builtin/am.c
+#, c-format
+msgid "Applying: %.*s"
+msgstr "Application de  %.*s"
+
+#: builtin/am.c
+msgid "No changes -- Patch already applied."
+msgstr "Pas de changement -- Patch déjà appliqué."
+
+#: builtin/am.c
+#, c-format
+msgid "Patch failed at %s %.*s"
+msgstr "le patch a échoué à %s %.*s"
+
+#: builtin/am.c
+#, c-format
+msgid "The copy of the patch that failed is found in: %s"
+msgstr "La copie du patch qui a échoué se trouve dans : %s"
+
+#: builtin/am.c
+msgid ""
+"No changes - did you forget to use 'git add'?\n"
+"If there is nothing left to stage, chances are that something else\n"
+"already introduced the same changes; you might want to skip this patch."
+msgstr ""
+"Aucun changement - avez-vous oublié d'utiliser 'git add' ?\n"
+"S'il n'y a plus rien à indexer, il se peut qu'autre chose ait déjà\n"
+"introduit les mêmes changements ; vous pourriez avoir envie de sauter ce "
+"patch."
+
+#: builtin/am.c
+msgid ""
+"You still have unmerged paths in your index.\n"
+"Did you forget to use 'git add'?"
+msgstr ""
+"Vous avez toujours des chemins non fusionnés dans votre index\n"
+"Auriez-vous oublié de faire 'git add' ?"
+
+#: builtin/am.c builtin/reset.c
+#, c-format
+msgid "Could not parse object '%s'."
+msgstr "Impossible d'analyser l'objet '%s'."
+
+#: builtin/am.c
+msgid "failed to clean index"
+msgstr "échec du nettoyage de l'index"
+
+#: builtin/am.c
+msgid ""
+"You seem to have moved HEAD since the last 'am' failure.\n"
+"Not rewinding to ORIG_HEAD"
+msgstr ""
+"Vous semblez avoir déplacé la HEAD depuis le dernier échec de 'am'.\n"
+"Pas de retour à ORIG_HEAD"
+
+#: builtin/am.c
+#, c-format
+msgid "Invalid value for --patch-format: %s"
+msgstr "Valeur invalide pour --patch-format : %s"
+
+#: builtin/am.c
+msgid "git am [options] [(<mbox>|<Maildir>)...]"
+msgstr "git am [<options>] [(<mbox>|<Maildir>)...]"
+
+#: builtin/am.c
+msgid "git am [options] (--continue | --skip | --abort)"
+msgstr "git am [options] (--continue | --quit | -- abort)\""
+
+#: builtin/am.c
+msgid "run interactively"
+msgstr "exécution interactive"
+
+#: builtin/am.c
+msgid "historical option -- no-op"
+msgstr "option historique -- no-op"
+
+#: builtin/am.c
+msgid "allow fall back on 3way merging if needed"
+msgstr "permettre de revenir à une fusion à 3 points si nécessaire"
+
+#: builtin/am.c builtin/init-db.c builtin/prune-packed.c builtin/repack.c
+msgid "be quiet"
+msgstr "être silencieux"
+
+#: builtin/am.c
+msgid "add a Signed-off-by line to the commit message"
+msgstr "ajouter une ligne Signed-off-by au message de validation"
+
+#: builtin/am.c
+msgid "recode into utf8 (default)"
+msgstr "recoder en utf-8 (par défaut)"
+
+#: builtin/am.c
+msgid "pass -k flag to git-mailinfo"
+msgstr "passer l'option -k à git-mailinfo"
+
+#: builtin/am.c
+msgid "pass -b flag to git-mailinfo"
+msgstr "passer l'option -b à git-mailinfo"
+
+#: builtin/am.c
+msgid "pass -m flag to git-mailinfo"
+msgstr "passer l'option -m à git-mailinfo"
+
+#: builtin/am.c
+msgid "pass --keep-cr flag to git-mailsplit for mbox format"
+msgstr "passer l'option --keep-cr à git-mailsplit fpour le format mbox"
+
+#: builtin/am.c
+msgid "do not pass --keep-cr flag to git-mailsplit independent of am.keepcr"
+msgstr ""
+"ne pas passer l'option --keep-cr à git-mailsplit indépendamment de am.keepcr"
+
+#: builtin/am.c
+msgid "strip everything before a scissors line"
+msgstr "retirer tout le contenu avant la ligne des ciseaux"
+
+#: builtin/am.c builtin/apply.c
+msgid "action"
+msgstr "action"
+
+#: builtin/am.c
+msgid "pass it through git-apply"
+msgstr "le passer jusqu'à git-apply"
+
+#: builtin/am.c builtin/apply.c
+msgid "root"
+msgstr "racine"
+
+#: builtin/am.c builtin/apply.c builtin/clone.c builtin/fetch.c builtin/pull.c
+msgid "path"
+msgstr "chemin"
+
+#: builtin/am.c builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c
+#: builtin/pull.c builtin/repack.c builtin/show-branch.c builtin/show-ref.c
+#: builtin/tag.c parse-options.h
+msgid "n"
+msgstr "n"
+
+#: builtin/am.c builtin/apply.c
+msgid "num"
+msgstr "num"
+
+#: builtin/am.c builtin/for-each-ref.c builtin/replace.c
+msgid "format"
+msgstr "format"
+
+#: builtin/am.c
+msgid "format the patch(es) are in"
+msgstr "format de présentation des patchs"
+
+#: builtin/am.c
+msgid "override error message when patch failure occurs"
+msgstr "surcharger le message d'erreur lors d'un échec d'application de patch"
+
+#: builtin/am.c
+msgid "continue applying patches after resolving a conflict"
+msgstr "continuer à appliquer les patchs après résolution d'un conflit"
+
+#: builtin/am.c
+msgid "synonyms for --continue"
+msgstr "synonymes de --continue"
+
+#: builtin/am.c
+msgid "skip the current patch"
+msgstr "sauter le patch courant"
+
+#: builtin/am.c
+msgid "restore the original branch and abort the patching operation."
+msgstr ""
+"restaurer la branche originale et abandonner les applications de patch."
+
+#: builtin/am.c
+msgid "lie about committer date"
+msgstr "mentir sur la date de validation"
+
+#: builtin/am.c
+msgid "use current timestamp for author date"
+msgstr "utiliser l'horodatage actuel pour la date d'auteur"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c builtin/tag.c
+msgid "key-id"
+msgstr "id de clé"
+
+#: builtin/am.c
+msgid "GPG-sign commits"
+msgstr "signer les commits avec GPG"
+
+#: builtin/am.c
+msgid "(internal use for git-rebase)"
+msgstr "(utilisation interne pour git-rebase)"
+
+#: builtin/am.c
+msgid ""
+"The -b/--binary option has been a no-op for long time, and\n"
+"it will be removed. Please do not use it anymore."
+msgstr ""
+"L'option -b/--binary ne fait plus rien depuis longtemps,\n"
+"et elle sera supprimée. Veuillez ne plus l'utiliser."
+
+#: builtin/am.c
+msgid "failed to read the index"
+msgstr "échec à la lecture de l'index"
+
+#: builtin/am.c
+#, c-format
+msgid "previous rebase directory %s still exists but mbox given."
+msgstr ""
+"le répertoire précédent de rebasage %s existe toujours mais mbox donnée."
+
+#: builtin/am.c
+#, c-format
+msgid ""
+"Stray %s directory found.\n"
+"Use \"git am --abort\" to remove it."
+msgstr ""
+"Répertoire abandonné %s trouvé.\n"
+"Utilisez \"git am --abort\" pour le supprimer."
+
+#: builtin/am.c
+msgid "Resolve operation not in progress, we are not resuming."
+msgstr ""
+"Pas de résolution de l'opération en cours, nous ne sommes pas dans une "
+"reprise."
 
 #: builtin/apply.c
 msgid "git apply [<options>] [<patch>...]"
@@ -2631,10 +3131,6 @@ msgstr "entrée non reconnue"
 msgid "unable to read index file"
 msgstr "lecture du fichier d'index impossible"
 
-#: builtin/apply.c builtin/clone.c builtin/fetch.c
-msgid "path"
-msgstr "chemin"
-
 #: builtin/apply.c
 msgid "don't apply changes matching the given path"
 msgstr "ne pas appliquer les modifications qui correspondent au chemin donné"
@@ -2642,10 +3138,6 @@ msgstr "ne pas appliquer les modifications qui correspondent au chemin donné"
 #: builtin/apply.c
 msgid "apply changes matching the given path"
 msgstr "appliquer les modifications qui correspondent au chemin donné"
-
-#: builtin/apply.c
-msgid "num"
-msgstr "num"
 
 #: builtin/apply.c
 msgid "remove <num> leading slashes from traditional diff paths"
@@ -2706,10 +3198,6 @@ msgid "ensure at least <n> lines of context match"
 msgstr "s'assurer d'au moins <n> lignes de correspondance de contexte"
 
 #: builtin/apply.c
-msgid "action"
-msgstr "action"
-
-#: builtin/apply.c
 msgid "detect new or modified lines that have whitespace errors"
 msgstr ""
 "détecter des lignes nouvelles ou modifiées qui contiennent des erreurs "
@@ -2744,10 +3232,6 @@ msgstr ""
 #: builtin/apply.c
 msgid "do not trust the line counts in the hunk headers"
 msgstr "ne pas se fier au compte de lignes dans les en-têtes de section"
-
-#: builtin/apply.c
-msgid "root"
-msgstr "racine"
 
 #: builtin/apply.c
 msgid "prepend <root> to all filenames"
@@ -3424,6 +3908,10 @@ msgid "allow -s and -t to work with broken/corrupt objects"
 msgstr "autoriser -s et -t à travailler sur des objets cassés/corrompus"
 
 #: builtin/cat-file.c
+msgid "buffer --batch output"
+msgstr "bufferiser la sortie de --batch"
+
+#: builtin/cat-file.c
 msgid "show info and content of objects fed from the standard input"
 msgstr ""
 "afficher l'information et le contenu des objets passés en entrée standard"
@@ -3437,6 +3925,10 @@ msgid "follow in-tree symlinks (used with --batch or --batch-check)"
 msgstr ""
 "suivre les liens symbolique internes à la copie de travail (utilisé avec --"
 "batch ou --batch-check)"
+
+#: builtin/cat-file.c
+msgid "show all objects with --batch or --batch-check"
+msgstr "montrer tous les objets avec --batch ou --batch-check"
 
 #: builtin/check-attr.c
 msgid "git check-attr [-a | --all | <attr>...] [--] <pathname>..."
@@ -3633,8 +4125,8 @@ msgstr "vous devez d'abord résoudre votre index courant"
 
 #: builtin/checkout.c
 #, c-format
-msgid "Can not do reflog for '%s'\n"
-msgstr "Impossible de faire un reflog pour '%s'\n"
+msgid "Can not do reflog for '%s': %s\n"
+msgstr "Impossible de faire un reflog pour '%s' : %s\n"
 
 #: builtin/checkout.c
 msgid "HEAD is now at"
@@ -3736,15 +4228,10 @@ msgstr "Vous êtes sur une branche qui doit encore naître"
 
 #: builtin/checkout.c
 #, c-format
-msgid "'%s' is already checked out at '%s'"
-msgstr "'%s' est déjà extrait dans '%s'"
-
-#: builtin/checkout.c
-#, c-format
 msgid "only one reference expected, %d given."
 msgstr "une seule référence attendue, %d fournies."
 
-#: builtin/checkout.c
+#: builtin/checkout.c builtin/worktree.c
 #, c-format
 msgid "invalid reference: %s"
 msgstr "référence invalide : %s"
@@ -4070,7 +4557,8 @@ msgstr ""
 msgid "git clone [<options>] [--] <repo> [<dir>]"
 msgstr "git clone [<options>] [--] <dépôt> [<répertoire>]"
 
-#: builtin/clone.c builtin/fetch.c builtin/merge.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/merge.c builtin/pull.c
+#: builtin/push.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "forcer l'affichage de l'état d'avancement"
 
@@ -4134,7 +4622,7 @@ msgstr "extraire <branche> au lieu de la HEAD du répertoire distant"
 msgid "path to git-upload-pack on the remote"
 msgstr "chemin vers git-upload-pack sur le serveur distant"
 
-#: builtin/clone.c builtin/fetch.c builtin/grep.c
+#: builtin/clone.c builtin/fetch.c builtin/grep.c builtin/pull.c
 msgid "depth"
 msgstr "profondeur"
 
@@ -4176,11 +4664,6 @@ msgstr "le dépôt de référence '%s' est superficiel"
 #, c-format
 msgid "reference repository '%s' is grafted"
 msgstr "le dépôt de référence '%s' est greffé"
-
-#: builtin/clone.c
-#, c-format
-msgid "failed to create directory '%s'"
-msgstr "échec de la création du répertoire '%s'"
 
 #: builtin/clone.c builtin/diff.c
 #, c-format
@@ -4495,10 +4978,6 @@ msgid "interactive add failed"
 msgstr "échec de l'ajout interactif"
 
 #: builtin/commit.c
-msgid "unable to write index file"
-msgstr "impossible d'écrire le fichier d'index"
-
-#: builtin/commit.c
 msgid "unable to update temporary index"
 msgstr "impossible de mettre à jour l'index temporaire"
 
@@ -4579,11 +5058,6 @@ msgstr "impossible de lire MERGE_MSG"
 #: builtin/commit.c
 msgid "could not read SQUASH_MSG"
 msgstr "impossible de lire SQUASH_MSG"
-
-#: builtin/commit.c builtin/merge.c
-#, c-format
-msgid "could not read '%s'"
-msgstr "impossible de lire '%s'"
 
 #: builtin/commit.c
 msgid "could not write commit template"
@@ -4896,11 +5370,7 @@ msgstr "comment éliminer les espaces et les commentaires # du message"
 msgid "include status in commit message template"
 msgstr "inclure le statut dans le modèle de message de validation"
 
-#: builtin/commit.c builtin/merge.c builtin/revert.c builtin/tag.c
-msgid "key-id"
-msgstr "id de clé"
-
-#: builtin/commit.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/merge.c builtin/pull.c builtin/revert.c
 msgid "GPG sign commit"
 msgstr "signer la validation avec GPG"
 
@@ -4956,11 +5426,6 @@ msgstr "accepter d'enregistrer une modification avec un message vide"
 msgid "could not parse HEAD commit"
 msgstr "impossible d'analyser le commit HEAD"
 
-#: builtin/commit.c builtin/merge.c
-#, c-format
-msgid "could not open '%s' for reading"
-msgstr "impossible d'ouvrir '%s' en lecture"
-
 #: builtin/commit.c
 #, c-format
 msgid "Corrupt MERGE_HEAD file (%s)"
@@ -4984,10 +5449,6 @@ msgstr "Abandon de la validation ; vous n'avez pas édité le message\n"
 #, c-format
 msgid "Aborting commit due to empty commit message.\n"
 msgstr "Abandon de la validation du à un message de validation vide\n"
-
-#: builtin/commit.c builtin/merge.c
-msgid "failed to write commit object"
-msgstr "échec de l'écriture de l'objet commit"
 
 #: builtin/commit.c
 msgid ""
@@ -5119,6 +5580,10 @@ msgstr "Autre"
 #: builtin/config.c
 msgid "terminate values with NUL byte"
 msgstr "terminer les valeurs avec un caractère NUL"
+
+#: builtin/config.c
+msgid "show variable names only"
+msgstr "n'afficher que les noms de variable"
 
 #: builtin/config.c
 msgid "respect include directives on lookup"
@@ -5396,19 +5861,19 @@ msgstr "git fetch --multiple [<options>] [(<dépôt> | <groupe>)...]"
 msgid "git fetch --all [<options>]"
 msgstr "git fetch --all [<options>]"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "fetch from all remotes"
 msgstr "récupérer depuis tous le dépôts distants"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
 msgstr "ajouter à .git/FETCH_HEAD au lieu de l'écraser"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "path to upload pack on remote end"
 msgstr "chemin vers lequel télécharger le paquet sur le poste distant"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "force overwrite of local branch"
 msgstr "forcer l'écrasement de la branche locale"
 
@@ -5416,7 +5881,7 @@ msgstr "forcer l'écrasement de la branche locale"
 msgid "fetch from multiple remotes"
 msgstr "récupérer depuis plusieurs dépôts distants"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "fetch all tags and associated objects"
 msgstr "récupérer toutes les étiquettes et leurs objets associés"
 
@@ -5424,21 +5889,21 @@ msgstr "récupérer toutes les étiquettes et leurs objets associés"
 msgid "do not fetch all tags (--no-tags)"
 msgstr "ne pas récupérer toutes les étiquettes (--no-tags)"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "prune remote-tracking branches no longer on remote"
 msgstr ""
 "éliminer les branches de suivi distant si la branche n'existe plus dans le "
 "dépôt distant"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "on-demand"
 msgstr "à la demande"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "control recursive fetching of submodules"
 msgstr "contrôler la récupération récursive dans les sous-modules"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "keep downloaded pack"
 msgstr "conserver le paquet téléchargé"
 
@@ -5446,11 +5911,11 @@ msgstr "conserver le paquet téléchargé"
 msgid "allow updating of HEAD ref"
 msgstr "permettre la mise à jour de la référence HEAD"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "deepen history of shallow clone"
 msgstr "approfondir l'historique d'un clone superficiel"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "convert to a complete repository"
 msgstr "convertir en un dépôt complet"
 
@@ -5466,15 +5931,15 @@ msgstr "préfixer ceci à la sortie du chemin du sous-module"
 msgid "default mode for recursion"
 msgstr "mode par défaut pour la récursion"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "accept refs that update .git/shallow"
 msgstr "accepter les références qui mettent à jour .git/shallow"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "refmap"
 msgstr "correspondance de référence"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "specify fetch refmap"
 msgstr "spécifier une correspondance de référence pour la récupération"
 
@@ -5655,11 +6120,6 @@ msgid ""
 msgstr ""
 "git fmt-merge-msg [-m <message>] [--log[=<n>] | --no-log] [--file <fichier>]"
 
-#: builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c builtin/repack.c
-#: builtin/show-branch.c builtin/show-ref.c builtin/tag.c parse-options.h
-msgid "n"
-msgstr "n"
-
 #: builtin/fmt-merge-msg.c
 msgid "populate log with at most <n> entries from shortlog"
 msgstr "peupler le journal avec au plus <n> éléments depuis le journal court"
@@ -5679,10 +6139,6 @@ msgstr "utiliser <texte> comme début de message"
 #: builtin/fmt-merge-msg.c
 msgid "file to read from"
 msgstr "fichier d'où lire"
-
-#: builtin/for-each-ref.c
-msgid "unable to parse format"
-msgstr "impossible d'analyser le format"
 
 #: builtin/for-each-ref.c
 msgid "git for-each-ref [<options>] [<pattern>]"
@@ -5707,10 +6163,6 @@ msgstr "échapper les champs réservés pour compatibilité avec Tcl"
 #: builtin/for-each-ref.c
 msgid "show only <n> matched refs"
 msgstr "n'afficher que <n> références correspondant"
-
-#: builtin/for-each-ref.c builtin/replace.c
-msgid "format"
-msgstr "format"
 
 #: builtin/for-each-ref.c
 msgid "format to use for the output"
@@ -5764,6 +6216,10 @@ msgstr "considérer les reflogs comme nœuds tête (par défaut)"
 #: builtin/fsck.c
 msgid "also consider packs and alternate objects"
 msgstr "inspecter aussi les objets pack et alternatifs"
+
+#: builtin/fsck.c
+msgid "check only connectivity"
+msgstr "ne vérifier que la connectivité"
 
 #: builtin/fsck.c
 msgid "enable more strict checking"
@@ -6655,10 +7111,6 @@ msgstr "permissions"
 msgid "specify that the git repository is to be shared amongst several users"
 msgstr "spécifier que le dépôt git sera partagé entre plusieurs utilisateurs"
 
-#: builtin/init-db.c builtin/prune-packed.c builtin/repack.c
-msgid "be quiet"
-msgstr "être silencieux"
-
 #: builtin/init-db.c
 #, c-format
 msgid "cannot mkdir %s"
@@ -6932,11 +7384,6 @@ msgid "don't print the patch filenames"
 msgstr "ne pas afficher les noms de fichiers des patchs"
 
 #: builtin/log.c
-#, c-format
-msgid "invalid ident line: %s"
-msgstr "ligne d'identification invalide : %s"
-
-#: builtin/log.c
 msgid "-n and -k are mutually exclusive."
 msgstr "-n et -k sont mutuellement exclusifs."
 
@@ -7155,33 +7602,33 @@ msgstr "Les stratégies disponibles sont :"
 msgid "Available custom strategies are:"
 msgstr "Les stratégies personnalisées sont :"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "do not show a diffstat at the end of the merge"
 msgstr "ne pas afficher un diffstat à la fin de la fusion"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "show a diffstat at the end of the merge"
 msgstr "afficher un diffstat à la fin de la fusion"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "(synonym to --stat)"
 msgstr "(synonyme de --stat)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "add (at most <n>) entries from shortlog to merge commit message"
 msgstr ""
 "ajouter (au plus <n>) éléments du journal court au message de validation de "
 "la fusion"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "create a single commit instead of doing a merge"
 msgstr "créer une validation unique au lieu de faire une fusion"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "perform a commit if the merge succeeds (default)"
 msgstr "effectuer une validation si la fusion réussit (défaut)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "edit message before committing"
 msgstr "éditer le message avant la validation"
 
@@ -7189,7 +7636,7 @@ msgstr "éditer le message avant la validation"
 msgid "allow fast-forward (default)"
 msgstr "autoriser l'avance rapide (défaut)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "abort if fast-forward is not possible"
 msgstr "abandonner si l'avance rapide n'est pas possible"
 
@@ -7197,19 +7644,19 @@ msgstr "abandonner si l'avance rapide n'est pas possible"
 msgid "Verify that the named commit has a valid GPG signature"
 msgstr "Vérifier que la validation a une signature GPG valide"
 
-#: builtin/merge.c builtin/notes.c builtin/revert.c
+#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/revert.c
 msgid "strategy"
 msgstr "stratégie"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "merge strategy to use"
 msgstr "stratégie de fusion à utiliser"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "option=value"
 msgstr "option=valeur"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "option for selected merge strategy"
 msgstr "option pour la stratégie de fusion sélectionnée"
 
@@ -7249,6 +7696,11 @@ msgid "Squash commit -- not updating HEAD\n"
 msgstr "Validation compressée -- HEAD non mise à jour\n"
 
 #: builtin/merge.c
+#, c-format
+msgid "Could not write to '%s'"
+msgstr "Impossible d'écrire dans '%s'"
+
+#: builtin/merge.c
 msgid "Writing SQUASH_MSG"
 msgstr "Écriture de SQUASH_MSG"
 
@@ -7270,10 +7722,6 @@ msgstr "'%s' ne pointe pas sur un commit"
 #, c-format
 msgid "Bad branch.%s.mergeoptions string: %s"
 msgstr "Mauvaise chaîne branch.%s.mergeoptions : %s"
-
-#: builtin/merge.c
-msgid "git write-tree failed to write a tree"
-msgstr "git write-tree a échoué à écrire un arbre"
 
 #: builtin/merge.c
 msgid "Not handling anything other than two heads merge."
@@ -7372,10 +7820,6 @@ msgid ""
 msgstr ""
 "Vous n'avez pas terminé votre fusion (MERGE_HEAD existe).\n"
 "Veuillez valider vos modifications avant de pouvoir fusionner."
-
-#: builtin/merge.c git-pull.sh
-msgid "You have not concluded your merge (MERGE_HEAD exists)."
-msgstr "Vous n'avez pas terminé votre fusion (MERGE_HEAD existe)."
 
 #: builtin/merge.c
 msgid ""
@@ -7887,16 +8331,6 @@ msgid "Cannot read note data from non-blob object '%s'."
 msgstr "Impossible de lire les informations de note d'un objet non-blob '%s'."
 
 #: builtin/notes.c
-#, c-format
-msgid "Malformed input line: '%s'."
-msgstr "Ligne en entrée malformée : '%s'."
-
-#: builtin/notes.c
-#, c-format
-msgid "Failed to copy notes from '%s' to '%s'"
-msgstr "Impossible de copier les notes de '%s' vers '%s'"
-
-#: builtin/notes.c
 msgid "too many parameters"
 msgstr "trop de paramètres"
 
@@ -8022,6 +8456,11 @@ msgstr "abandonner la fusion de notes"
 
 #: builtin/notes.c
 #, c-format
+msgid "A notes merge into %s is already in-progress at %s"
+msgstr "Une fusion de notes dans %s est déjà en cours avec %s"
+
+#: builtin/notes.c
+#, c-format
 msgid "Object %s has no note\n"
 msgstr "L'objet %s n'a pas de note\n"
 
@@ -8048,14 +8487,18 @@ msgid "Unknown subcommand: %s"
 msgstr "Sous-commande inconnue : %s"
 
 #: builtin/pack-objects.c
-msgid "git pack-objects --stdout [options...] [< ref-list | < object-list]"
+msgid ""
+"git pack-objects --stdout [<options>...] [< <ref-list> | < <object-list>]"
 msgstr ""
-"git pack-objects --stdout [options...] [< liste-références | < liste-objets]"
+"git pack-objects --stdout [options...] [< <liste-références> | < <liste-"
+"objets>]"
 
 #: builtin/pack-objects.c
-msgid "git pack-objects [options...] base-name [< ref-list | < object-list]"
+msgid ""
+"git pack-objects [<options>...] <base-name> [< <ref-list> | < <object-list>]"
 msgstr ""
-"git pack-objects [options...] base-name [< liste-références | < liste-objets]"
+"git pack-objects [options...] base-name [< <liste-références> | < <liste-"
+"objets>]"
 
 #: builtin/pack-objects.c
 #, c-format
@@ -8085,16 +8528,6 @@ msgstr "version d'index non supportée %s"
 #, c-format
 msgid "bad index version '%s'"
 msgstr "mauvaise version d'index '%s'"
-
-#: builtin/pack-objects.c
-#, c-format
-msgid "option %s does not accept negative form"
-msgstr "l'option %s n'accepte pas de valeur négative"
-
-#: builtin/pack-objects.c
-#, c-format
-msgid "unable to parse value '%s' for option %s"
-msgstr "impossible d'analyser la valeur '%s' pour l'option %s"
 
 #: builtin/pack-objects.c
 msgid "do not show progress meter"
@@ -8279,6 +8712,174 @@ msgstr "afficher les objets éliminés"
 #: builtin/prune.c builtin/worktree.c
 msgid "expire objects older than <time>"
 msgstr "faire expirer les objets plus vieux que <heure>"
+
+#: builtin/pull.c
+msgid "git pull [options] [<repository> [<refspec>...]]"
+msgstr "git pull [<options>] [<dépôt> [<spécification-de-référence>...]]"
+
+#: builtin/pull.c
+msgid "Options related to merging"
+msgstr "Options relatives à la fusion"
+
+#: builtin/pull.c
+msgid "false|true|preserve"
+msgstr "false|true|preserve"
+
+#: builtin/pull.c
+msgid "incorporate changes by rebasing rather than merging"
+msgstr "incorporer les modifications en rebasant plutôt qu'en fusionnant"
+
+#: builtin/pull.c builtin/revert.c
+msgid "allow fast-forward"
+msgstr "autoriser l'avance rapide"
+
+#: builtin/pull.c
+msgid "verify that the named commit has a valid GPG signature"
+msgstr "vérifier que le commit nommé a une signature GPG valide"
+
+#: builtin/pull.c
+msgid "Options related to fetching"
+msgstr "Options relatives au rapatriement"
+
+#: builtin/pull.c
+#, c-format
+msgid "Invalid value for pull.ff: %s"
+msgstr "Valeur invalide pour pull.ff : %s"
+
+#: builtin/pull.c
+msgid "Cannot pull with rebase: You have unstaged changes."
+msgstr ""
+"impossible de tirer avec rebasage. Vous avez des modifications non indexées."
+
+#: builtin/pull.c
+msgid "Additionally, your index contains uncommitted changes."
+msgstr "De plus, votre index contient des modifications non validées."
+
+#: builtin/pull.c
+msgid "Cannot pull with rebase: Your index contains uncommitted changes."
+msgstr ""
+"impossible de tirer avec rebasage : votre index contient des modifications "
+"non validées."
+
+#: builtin/pull.c
+msgid ""
+"There is no candidate for rebasing against among the refs that you just "
+"fetched."
+msgstr ""
+"Il n'y a pas de candidate sur laquelle rebaser parmi les références que vous "
+"venez de récupérer."
+
+#: builtin/pull.c
+msgid ""
+"There are no candidates for merging among the refs that you just fetched."
+msgstr ""
+"Il n'y a pas de candidate avec laquelle fusionner parmi les références que "
+"vous venez de récupérer."
+
+#: builtin/pull.c
+msgid ""
+"Generally this means that you provided a wildcard refspec which had no\n"
+"matches on the remote end."
+msgstr ""
+"Généralement, cela signifie que vous avez indiqué un spécificateur\n"
+"de référence joker qui n'a pas eu de correspondance sur le serveur distant."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"You asked to pull from the remote '%s', but did not specify\n"
+"a branch. Because this is not the default configured remote\n"
+"for your current branch, you must specify a branch on the command line."
+msgstr ""
+"Vous avez demandé de tirer depuis le dépôt distant '%s', mais sans indiquer\n"
+"la branche. Comme ce n'est pas le dépôt distant par défaut dans la "
+"configuration\n"
+"pour la branche actuelle, vous devez spécifier la branche avec la commande."
+
+#: builtin/pull.c
+msgid "You are not currently on a branch."
+msgstr "Vous n'êtes actuellement sur aucune branche."
+
+#: builtin/pull.c
+msgid "Please specify which branch you want to rebase against."
+msgstr "Veuillez spécifier sur quelle branche vous souhaiter rebaser."
+
+#: builtin/pull.c
+msgid "Please specify which branch you want to merge with."
+msgstr "Veuillez spécifier une branche avec laquelle fusionner."
+
+#: builtin/pull.c
+msgid "See git-pull(1) for details."
+msgstr "Référez-vous à git-pull(1) pour de plus amples détails."
+
+#: builtin/pull.c
+msgid "There is no tracking information for the current branch."
+msgstr "Pas d'information de suivi distant pour la branche actuelle."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"If you wish to set tracking information for this branch you can do so with:\n"
+"\n"
+"    git branch --set-upstream-to=%s/<branch> %s\n"
+msgstr ""
+"Si vous souhaitez indiquer l'information de suivi distant pour cette "
+"branche, vous pouvez le faire avec :\n"
+"\n"
+"git branch --set-uptream-to=%s/<branche> %s\n"
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"Your configuration specifies to merge with the ref '%s'\n"
+"from the remote, but no such ref was fetched."
+msgstr ""
+"Votre information de configuration indique de fusionner avec la référence "
+"'%s'\n"
+"du serveur distant, mais cette référence n'a pas été récupérée."
+
+#: builtin/pull.c
+msgid "Updating an unborn branch with changes added to the index."
+msgstr ""
+"Mise à jour d'une branche non encore créée avec les changements ajoutés dans "
+"l'index."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"fetch updated the current branch head.\n"
+"fast-forwarding your working tree from\n"
+"commit %s."
+msgstr ""
+"la récupération a mis à jour la tête de la branche actuelle.\n"
+"avance rapide de votre copie de travail\n"
+"depuis le commit %s."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"Cannot fast-forward your working tree.\n"
+"After making sure that you saved anything precious from\n"
+"$ git diff %s\n"
+"output, run\n"
+"$ git reset --hard\n"
+"to recover."
+msgstr ""
+"Avance rapide de votre arbre de travail impossible.\n"
+"Après vous être assuré que toute modification précieuse a été sauvegardée "
+"avec\n"
+"$ git diff %s\n"
+"lancez\n"
+"$ git reset --hard\n"
+"pour régénérer."
+
+#: builtin/pull.c
+msgid "Cannot merge multiple branches into empty head."
+msgstr "Impossible de fusionner de multiples branches sur une tête vide."
+
+#: builtin/pull.c
+msgid "Cannot rebase onto multiple branches."
+msgstr "Impossible de rebaser sur de multiples branches."
 
 #: builtin/push.c
 msgid "git push [<options>] [<repository> [<refspec>...]]"
@@ -8557,11 +9158,11 @@ msgstr "--all et --mirror sont incompatibles"
 msgid "repository"
 msgstr "dépôt"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "push all refs"
 msgstr "pousser toutes les références"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "mirror all refs"
 msgstr "refléter toutes les références"
 
@@ -8574,15 +9175,15 @@ msgid "push tags (can't be used with --all or --mirror)"
 msgstr ""
 "pousser les étiquettes (ne peut pas être utilisé avec --all ou --mirror)"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "force updates"
 msgstr "forcer les mises à jour"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "refname>:<expect"
 msgstr "nom de référence>:<attendu"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "require old value of ref to be at this value"
 msgstr "exiger que l'ancienne valeur de la référence soit à cette valeur"
 
@@ -8590,11 +9191,11 @@ msgstr "exiger que l'ancienne valeur de la référence soit à cette valeur"
 msgid "control recursive pushing of submodules"
 msgstr "contrôler la poussée récursive des sous-modules"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "use thin pack"
 msgstr "utiliser un empaquetage léger"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "receive pack program"
 msgstr "recevoir le programme d'empaquetage"
 
@@ -8614,11 +9215,11 @@ msgstr "éviter d'utiliser le crochet pre-push"
 msgid "push missing but relevant tags"
 msgstr "pousser les étiquettes manquantes mais pertinentes"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "GPG sign the push"
 msgstr "signer la poussée avec GPG"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "request atomic transaction on remote side"
 msgstr "demande une transaction atomique sur le serveur distant"
 
@@ -8632,12 +9233,12 @@ msgstr "--delete n'a pas de sens sans aucune référence"
 
 #: builtin/read-tree.c
 msgid ""
-"git read-tree [[-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>] "
+"git read-tree [(-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>) "
 "[-u [--exclude-per-directory=<gitignore>] | -i]] [--no-sparse-checkout] [--"
 "index-output=<file>] (--empty | <tree-ish1> [<tree-ish2> [<tree-ish3>]])"
 msgstr ""
-"git read-tree [[-m [--trivial] [--aggressive] | --reset | --"
-"prefix=<préfixe>] [-u [--exclude-per-directory=<gitignore>] | -i]] [--no-"
+"git read-tree [(-m [--trivial] [--aggressive] | --reset | --"
+"prefix=<préfixe>) [-u [--exclude-per-directory=<gitignore>] | -i]] [--no-"
 "sparse-checkout] [--index-output=<fichier>] (--empty | <arbre ou apparenté "
 "1> [<arbre ou apparenté 2> [<arbre ou apparenté 3>]])"
 
@@ -8707,8 +9308,8 @@ msgstr "déboguer unpack-trees"
 
 #: builtin/reflog.c
 #, c-format
-msgid "%s' for '%s' is not a valid timestamp"
-msgstr "%s' pour '%s' n'est pas un horodatage valide"
+msgid "'%s' for '%s' is not a valid timestamp"
+msgstr "'%s' pour '%s' n'est pas un horodatage valide"
 
 #: builtin/reflog.c
 #, c-format
@@ -8932,11 +9533,6 @@ msgstr "échec de suppression de '%s'"
 #, c-format
 msgid "creating '%s' failed"
 msgstr "échec de création de '%s'"
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not remove branch %s"
-msgstr "Impossible de supprimer la branche %s"
 
 #: builtin/remote.c
 msgid ""
@@ -9475,11 +10071,6 @@ msgstr "Échec de résolution de '%s' comme une révision valide."
 
 #: builtin/reset.c
 #, c-format
-msgid "Could not parse object '%s'."
-msgstr "Impossible d'analyser l'objet '%s'."
-
-#: builtin/reset.c
-#, c-format
 msgid "Failed to resolve '%s' as a valid tree."
 msgstr "Échec de résolution de '%s' comme un arbre valide."
 
@@ -9519,6 +10110,10 @@ msgstr "Impossible de réinitialiser le fichier d'index à la révision '%s'."
 #: builtin/reset.c
 msgid "Could not write new index file."
 msgstr "Impossible d'écrire le nouveau fichier d'index."
+
+#: builtin/rev-list.c
+msgid "rev-list does not support display of notes"
+msgstr "rev-list ne supporte l'affichage des notes"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -9611,10 +10206,6 @@ msgstr "option pour la stratégie de fusion"
 #: builtin/revert.c
 msgid "append commit name"
 msgstr "ajouter le nom de validation"
-
-#: builtin/revert.c
-msgid "allow fast-forward"
-msgstr "autoriser l'avance rapide"
 
 #: builtin/revert.c
 msgid "preserve initially empty commits"
@@ -9744,6 +10335,35 @@ msgstr "pas de suppression récursive de '%s' sans -r"
 #, c-format
 msgid "git rm: unable to remove %s"
 msgstr "git rm : impossible de supprimer %s"
+
+#: builtin/send-pack.c
+msgid ""
+"git send-pack [--all | --mirror] [--dry-run] [--force] [--receive-pack=<git-"
+"receive-pack>] [--verbose] [--thin] [--atomic] [<host>:]<directory> "
+"[<ref>...]\n"
+"  --all and explicit <ref> specification are mutually exclusive."
+msgstr ""
+"git send-pack [--all | --mirror] [--dry-run] [--force] [--receive-pack=<git-"
+"receive-pack>] [--verbose] [--thin] [--atomic] [<hôte>:]<répertoire> "
+"[<référence>...]\n"
+"  --all et la spécification explicite de <référence> sont mutuellement "
+"exclusifs."
+
+#: builtin/send-pack.c
+msgid "remote name"
+msgstr "nom distant"
+
+#: builtin/send-pack.c
+msgid "use stateless RPC protocol"
+msgstr "utiliser un protocole RPC sans état"
+
+#: builtin/send-pack.c
+msgid "read refs from stdin"
+msgstr "lire les références depuis l'entrée standard"
+
+#: builtin/send-pack.c
+msgid "print status from remote helper"
+msgstr "afficher les messages du greffon de protocole distant"
 
 #: builtin/shortlog.c
 msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
@@ -10097,6 +10717,10 @@ msgstr "utiliser une autre clé pour signer l'étiquette"
 msgid "replace the tag if exists"
 msgstr "remplacer l'étiquette si elle existe"
 
+#: builtin/tag.c builtin/update-ref.c
+msgid "create_reflog"
+msgstr "créer le reflog"
+
 #: builtin/tag.c
 msgid "Tag listing options"
 msgstr "Options d'affichage des étiquettes"
@@ -10405,6 +11029,10 @@ msgstr "git verify-commit [-v | --verbose] <commit>..."
 msgid "print commit contents"
 msgstr "afficher le contenu du commit"
 
+#: builtin/verify-commit.c builtin/verify-tag.c
+msgid "print raw gpg status output"
+msgstr "afficher les messages bruts de gpg"
+
 #: builtin/verify-pack.c
 msgid "git verify-pack [-v | --verbose] [-s | --stat-only] <pack>..."
 msgstr "git verify-pack [-v | --verbose] [-s | --stat-only] <pack>..."
@@ -10477,13 +11105,9 @@ msgid "could not create directory of '%s'"
 msgstr "impossible de créer le répertoire de '%s'"
 
 #: builtin/worktree.c
-msgid "unable to resolve HEAD"
-msgstr "impossible de résoudre HEAD"
-
-#: builtin/worktree.c
 #, c-format
-msgid "Enter %s (identifier %s)"
-msgstr "Saisir %s (identifiant %s)"
+msgid "Preparing %s (identifier %s)"
+msgstr "Préparation de %s (identifiant %s)"
 
 #: builtin/worktree.c
 msgid "checkout <branch> even if already checked out in other worktree"
@@ -10504,8 +11128,8 @@ msgid "detach HEAD at named commit"
 msgstr "détacher la HEAD au commit nommé"
 
 #: builtin/worktree.c
-msgid "-b and -B are mutually exclusive"
-msgstr "-b et -B sont mutuellement exclusifs"
+msgid "-b, -B, and --detach are mutually exclusive"
+msgstr "-b, -B et --detach sont mutuellement exclusifs"
 
 #: builtin/write-tree.c
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
@@ -10563,7 +11187,7 @@ msgid "Add file contents to the index"
 msgstr "Ajouter le contenu de fichiers dans l'index"
 
 #: common-cmds.h
-msgid "Find by binary search the change that introduced a bug"
+msgid "Use binary search to find the commit that introduced a bug"
 msgstr "Trouver par recherche binaire la modification qui a introduit un bogue"
 
 #: common-cmds.h
@@ -10671,190 +11295,6 @@ msgid "update the index with reused conflict resolution if possible"
 msgstr ""
 "met à jour l'index avec les résolutions de conflit réutilisées si possible"
 
-#: git-am.sh
-msgid "You need to set your committer info first"
-msgstr "Vous devez d'abord définir vos informations de validateur"
-
-#: git-am.sh
-msgid ""
-"You seem to have moved HEAD since the last 'am' failure.\n"
-"Not rewinding to ORIG_HEAD"
-msgstr ""
-"Vous semblez avoir déplacé la HEAD depuis le dernier échec de 'am'.\n"
-"Pas de retour à ORIG_HEAD"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"When you have resolved this problem, run \"$cmdline --continue\".\n"
-"If you prefer to skip this patch, run \"$cmdline --skip\" instead.\n"
-"To restore the original branch and stop patching, run \"$cmdline --abort\"."
-msgstr ""
-"Lorsque vous aurez résolu ce problème, lancez \"$cmdline --continue\".\n"
-"Si vous préférez sauter ce patch, lancez \"$cmdline --skip\" à la place.\n"
-"Pour restaurer la branche d'origine et stopper le patchage, lancez "
-"\"$cmdline --abort\"."
-
-#: git-am.sh
-msgid "Cannot fall back to three-way merge."
-msgstr "Impossible de retourner à une fusion à 3 points."
-
-#: git-am.sh
-msgid "Repository lacks necessary blobs to fall back on 3-way merge."
-msgstr ""
-"Le dépôt n'a pas les blobs nécessaires pour un retour à une fusion à 3 "
-"points."
-
-#: git-am.sh
-msgid "Using index info to reconstruct a base tree..."
-msgstr ""
-"Utilisation de l'information de l'index pour reconstruire un arbre de base..."
-
-#: git-am.sh
-msgid ""
-"Did you hand edit your patch?\n"
-"It does not apply to blobs recorded in its index."
-msgstr ""
-"Avez-vous édité le patch à la main ?\n"
-"Il ne s'applique pas aux blobs enregistrés dans son index."
-
-#: git-am.sh
-msgid "Falling back to patching base and 3-way merge..."
-msgstr "Retour à un patch de la base et fusion à 3 points..."
-
-#: git-am.sh
-msgid "Failed to merge in the changes."
-msgstr "Échec d'intégration des modifications."
-
-#: git-am.sh
-msgid "Only one StGIT patch series can be applied at once"
-msgstr "Seulement une série de patchs StGIT peut être appliquée à la fois"
-
-#: git-am.sh
-#, sh-format
-msgid "Patch format $patch_format is not supported."
-msgstr "Le format de patch $patch_format n'est pas supporté."
-
-#: git-am.sh
-msgid "Patch format detection failed."
-msgstr "Échec de détection du format du patch."
-
-#: git-am.sh
-msgid ""
-"The -b/--binary option has been a no-op for long time, and\n"
-"it will be removed. Please do not use it anymore."
-msgstr ""
-"L'option -b/--binary ne fait plus rien depuis longtemps,\n"
-"et elle sera supprimée. Veuillez ne plus l'utiliser."
-
-#: git-am.sh
-#, sh-format
-msgid "previous rebase directory $dotest still exists but mbox given."
-msgstr ""
-"le répertoire précédent de rebasage $dotest existe toujours mais mbox donnée."
-
-#: git-am.sh
-msgid "Please make up your mind. --skip or --abort?"
-msgstr "Décidez-vous. --skip ou --abort ?"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"Stray $dotest directory found.\n"
-"Use \"git am --abort\" to remove it."
-msgstr ""
-"Répertoire abandonné $dotest trouvé.\n"
-"Utilisez \"git am --abort\" pour le supprimer."
-
-#: git-am.sh
-msgid "Resolve operation not in progress, we are not resuming."
-msgstr ""
-"Pas de résolution de l'opération en cours, nous ne sommes pas dans une "
-"reprise."
-
-#: git-am.sh
-#, sh-format
-msgid "Dirty index: cannot apply patches (dirty: $files)"
-msgstr "Index sale : impossible d'appliquer des patchs (sales : $files)"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"Patch is empty.  Was it split wrong?\n"
-"If you would prefer to skip this patch, instead run \"$cmdline --skip\".\n"
-"To restore the original branch and stop patching run \"$cmdline --abort\"."
-msgstr ""
-"Le patch est vide.  Était-il mal découpé ?\n"
-"Si vous préférez sauter ce patch, lancez plutôt \"$cmdline --skip\".\n"
-"Pour restaurer la branche d'origine et stopper le patchage, lancez "
-"\"$cmdline --abort\"."
-
-#: git-am.sh
-msgid "Patch does not have a valid e-mail address."
-msgstr "Le patch n'a pas d'adresse e-mail valide."
-
-#: git-am.sh
-msgid "cannot be interactive without stdin connected to a terminal."
-msgstr ""
-"impossible d'être interactif sans entrée standard connectée à un terminal."
-
-#: git-am.sh
-msgid "Commit Body is:"
-msgstr "Le corps de la validation est :"
-
-#. TRANSLATORS: Make sure to include [y], [n], [e], [v] and [a]
-#. in your translation. The program will only accept English
-#. input at this point.
-#: git-am.sh
-msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all "
-msgstr "Appliquer ? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all "
-
-#: git-am.sh
-#, sh-format
-msgid "Applying: $FIRSTLINE"
-msgstr "Application : $FIRSTLINE"
-
-#: git-am.sh
-msgid ""
-"No changes - did you forget to use 'git add'?\n"
-"If there is nothing left to stage, chances are that something else\n"
-"already introduced the same changes; you might want to skip this patch."
-msgstr ""
-"Aucun changement - avez-vous oublié d'utiliser 'git add' ?\n"
-"S'il n'y a plus rien à indexer, il se peut qu'autre chose ait déjà\n"
-"introduit les mêmes changements ; vous pourriez avoir envie de sauter ce "
-"patch."
-
-#: git-am.sh
-msgid ""
-"You still have unmerged paths in your index\n"
-"did you forget to use 'git add'?"
-msgstr ""
-"Vous avez toujours des chemins non fusionnés dans votre index\n"
-"auriez-vous oublié de faire 'git add' ?"
-
-#: git-am.sh
-msgid "No changes -- Patch already applied."
-msgstr "Pas de changement -- Patch déjà appliqué."
-
-#: git-am.sh
-#, sh-format
-msgid "Patch failed at $msgnum $FIRSTLINE"
-msgstr "Le patch a échoué à $msgnum $FIRSTLINE"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"The copy of the patch that failed is found in:\n"
-"   $dotest/patch"
-msgstr ""
-"La copie du patch qui a échoué se trouve dans :\n"
-"   $dotest/patch"
-
-#: git-am.sh
-msgid "applying to an empty history"
-msgstr "application à un historique vide"
-
 #: git-bisect.sh
 msgid "You need to start by \"git bisect start\""
 msgstr "Vous devez démarrer avec \"git bisect start\""
@@ -10916,12 +11356,14 @@ msgid "Bad rev input: $rev"
 msgstr "Mauvaise révision en entrée : $rev"
 
 #: git-bisect.sh
-msgid "'git bisect bad' can take only one argument."
-msgstr "'git bisect bad' n'accepte qu'un seul argument."
+#, sh-format
+msgid "'git bisect $TERM_BAD' can take only one argument."
+msgstr "'git bisect $TERM_BAD' n'accepte qu'un seul argument."
 
 #: git-bisect.sh
-msgid "Warning: bisecting only with a bad commit."
-msgstr "Attention : bissection avec seulement une mauvaise validation."
+#, sh-format
+msgid "Warning: bisecting only with a $TERM_BAD commit."
+msgstr "Attention : bissection avec seulement une validation $TERM_BAD."
 
 #. TRANSLATORS: Make sure to include [Y] and [n] in your
 #. translation. The program will only accept English input
@@ -10931,22 +11373,28 @@ msgid "Are you sure [Y/n]? "
 msgstr "Êtes-vous sûr [Y/n] ? "
 
 #: git-bisect.sh
+#, sh-format
 msgid ""
-"You need to give me at least one good and one bad revision.\n"
-"(You can use \"git bisect bad\" and \"git bisect good\" for that.)"
+"You need to give me at least one $bad_syn and one $good_syn revision.\n"
+"(You can use \"git bisect $bad_syn\" and \"git bisect $good_syn\" for that.)"
 msgstr ""
-"Vous devez me donner au moins une bonne et une mauvaise révision.\n"
-"(Vous pouvez utiliser \"git bisect bad\" et \"git bisect good\" pour cela.)"
+"Vous devez me donner au moins une révision $bad_syn et une révision "
+"$good_syn.\n"
+"(Vous pouvez utiliser \"git bisect $bad_syn\" et \"git bisect $good_syn\" "
+"pour cela.)"
 
 #: git-bisect.sh
+#, sh-format
 msgid ""
 "You need to start by \"git bisect start\".\n"
-"You then need to give me at least one good and one bad revision.\n"
-"(You can use \"git bisect bad\" and \"git bisect good\" for that.)"
+"You then need to give me at least one $good_syn and one $bad_syn revision.\n"
+"(You can use \"git bisect $bad_syn\" and \"git bisect $good_syn\" for that.)"
 msgstr ""
 "Vous devez démarrer avec \"git bisect start\".\n"
-"Puis vous devez me donner au moins une bonne et une mauvaise révision.\n"
-"(Vous pouvez utiliser \"git bisect bad\" et \"git bisect good\" pour cela.)"
+"Puis vous devez me donner au moins une révision $good_syn et une révision "
+"$bad_syn.\n"
+"(Vous pouvez utiliser \"git bisect $bad_syn\" et \"git bisect $good_syn\" "
+"pour cela.)"
 
 #: git-bisect.sh
 msgid "We are not bisecting."
@@ -11010,53 +11458,12 @@ msgstr ""
 msgid "bisect run success"
 msgstr "succès de la bissection"
 
-#: git-pull.sh
-msgid ""
-"Pull is not possible because you have unmerged files.\n"
-"Please, fix them up in the work tree, and then use 'git add/rm <file>'\n"
-"as appropriate to mark resolution and make a commit."
-msgstr ""
-"Le tirage n'est pas possible car vous avez des fichiers non fusionnés.\n"
-"Veuillez les corriger dans votre copie de travail, utiliser alors 'git add/"
-"rm <fichier>'\n"
-"si nécessaire pour marquer comme résolu et valider."
-
-#: git-pull.sh
-msgid "Pull is not possible because you have unmerged files."
-msgstr "Le pull n'est pas possible car vous avez des fichiers non fusionnés."
-
-#: git-pull.sh
-msgid ""
-"You have not concluded your merge (MERGE_HEAD exists).\n"
-"Please, commit your changes before you can merge."
-msgstr ""
-"Vous n'avez pas terminé votre fusion (MERGE_HEAD existe).\n"
-"Veuillez valider vos changements avant de pouvoir fusionner."
-
-#: git-pull.sh
-msgid "updating an unborn branch with changes added to the index"
-msgstr ""
-"mise à jour d'une branche non encore créée avec les changements ajoutés dans "
-"l'index"
-
-#: git-pull.sh
+#: git-bisect.sh
 #, sh-format
-msgid ""
-"Warning: fetch updated the current branch head.\n"
-"Warning: fast-forwarding your working tree from\n"
-"Warning: commit $orig_head."
+msgid "Invalid command: you're currently in a $TERM_BAD/$TERM_GOOD bisect."
 msgstr ""
-"Attention : fetch a mis à jour la tête de la branche courante.\n"
-"Attention : mise à jour en avance rapide de votre copie de travail\n"
-"Attention : depuis la validation $orig_head."
-
-#: git-pull.sh
-msgid "Cannot merge multiple branches into empty head"
-msgstr "Impossible de fusionner de multiples branches sur une tête vide"
-
-#: git-pull.sh
-msgid "Cannot rebase onto multiple branches"
-msgstr "Impossible de rebaser sur de multiples branches"
+"Commande invalide : vous êtes actuellement dans une bissection $TERM_BAD/"
+"$TERM_GOOD."
 
 #: git-rebase.sh
 msgid ""
@@ -11614,7 +12021,7 @@ msgstr "Chemin de sous-module '$displaypath' : fusionné dans '$sha1'"
 #: git-submodule.sh
 #, sh-format
 msgid ""
-"Execution of '$command $sha1' failed in submodule  path '$prefix$sm_path'"
+"Execution of '$command $sha1' failed in submodule path '$prefix$sm_path'"
 msgstr ""
 "L'exécution de '$command $sha1' a échoué dans le chemin de sous-module "
 "'$prefix$sm_path'"
@@ -11669,6 +12076,77 @@ msgstr "Échec de parcours dans le chemin du sous-module '$sm_path'"
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Synchronisation de l'URL sous-module pour '$displaypath'"
 
+#~ msgid "BUG: reopen a lockfile that is still open"
+#~ msgstr "BUG: réouverture d'un fichier verrou déjà ouvert"
+
+#~ msgid "BUG: reopen a lockfile that has been committed"
+#~ msgstr "BUG: réouverture d'un fichier verrou validé"
+
+#~ msgid "option %s does not accept negative form"
+#~ msgstr "l'option %s n'accepte pas de valeur négative"
+
+#~ msgid "unable to parse value '%s' for option %s"
+#~ msgstr "impossible d'analyser la valeur '%s' pour l'option %s"
+
+#~ msgid "unable to resolve HEAD"
+#~ msgstr "impossible de résoudre HEAD"
+
+#~ msgid "-b and -B are mutually exclusive"
+#~ msgstr "-b et -B sont mutuellement exclusifs"
+
+#~ msgid "You need to set your committer info first"
+#~ msgstr "Vous devez d'abord définir vos informations de validateur"
+
+#~ msgid ""
+#~ "When you have resolved this problem, run \"$cmdline --continue\".\n"
+#~ "If you prefer to skip this patch, run \"$cmdline --skip\" instead.\n"
+#~ "To restore the original branch and stop patching, run \"$cmdline --abort"
+#~ "\"."
+#~ msgstr ""
+#~ "Lorsque vous aurez résolu ce problème, lancez \"$cmdline --continue\".\n"
+#~ "Si vous préférez sauter ce patch, lancez \"$cmdline --skip\" à la place.\n"
+#~ "Pour restaurer la branche d'origine et stopper le patchage, lancez "
+#~ "\"$cmdline --abort\"."
+
+#~ msgid "Patch format $patch_format is not supported."
+#~ msgstr "Le format de patch $patch_format n'est pas supporté."
+
+#~ msgid "Please make up your mind. --skip or --abort?"
+#~ msgstr "Décidez-vous. --skip ou --abort ?"
+
+#~ msgid ""
+#~ "Patch is empty.  Was it split wrong?\n"
+#~ "If you would prefer to skip this patch, instead run \"$cmdline --skip\".\n"
+#~ "To restore the original branch and stop patching run \"$cmdline --abort\"."
+#~ msgstr ""
+#~ "Le patch est vide.  Était-il mal découpé ?\n"
+#~ "Si vous préférez sauter ce patch, lancez plutôt \"$cmdline --skip\".\n"
+#~ "Pour restaurer la branche d'origine et stopper le patchage, lancez "
+#~ "\"$cmdline --abort\"."
+
+#~ msgid "Patch does not have a valid e-mail address."
+#~ msgstr "Le patch n'a pas d'adresse e-mail valide."
+
+#~ msgid "Applying: $FIRSTLINE"
+#~ msgstr "Application : $FIRSTLINE"
+
+#~ msgid "Patch failed at $msgnum $FIRSTLINE"
+#~ msgstr "Le patch a échoué à $msgnum $FIRSTLINE"
+
+#~ msgid ""
+#~ "Pull is not possible because you have unmerged files.\n"
+#~ "Please, fix them up in the work tree, and then use 'git add/rm <file>'\n"
+#~ "as appropriate to mark resolution and make a commit."
+#~ msgstr ""
+#~ "Le tirage n'est pas possible car vous avez des fichiers non fusionnés.\n"
+#~ "Veuillez les corriger dans votre copie de travail, utiliser alors 'git "
+#~ "add/rm <fichier>'\n"
+#~ "si nécessaire pour marquer comme résolu et valider."
+
+#~ msgid "Pull is not possible because you have unmerged files."
+#~ msgstr ""
+#~ "Le pull n'est pas possible car vous avez des fichiers non fusionnés."
+
 #~ msgid "no branch specified"
 #~ msgstr "aucune branche spécifiée"
 
@@ -11692,9 +12170,6 @@ msgstr "Synchronisation de l'URL sous-module pour '$displaypath'"
 
 #~ msgid "Invalid gc.pruneexpire: '%s'"
 #~ msgstr "gc.pruneexpire invalide : '%s'"
-
-#~ msgid "server does not support --atomic push"
-#~ msgstr "le serveur ne gère pas push --atomic"
 
 #~ msgid "(detached from %s)"
 #~ msgstr "(détaché de %s)"
