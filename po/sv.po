@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git 2.5.0\n"
+"Project-Id-Version: git 2.6.0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-07-14 07:19+0800\n"
-"PO-Revision-Date: 2015-07-15 12:51+0100\n"
+"POT-Creation-Date: 2015-09-05 09:16+0800\n"
+"PO-Revision-Date: 2015-09-09 21:45+0100\n"
 "Last-Translator: Peter Krefting <peter@softwolves.pp.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -30,6 +30,18 @@ msgid ""
 msgstr ""
 "Rätta dem i din arbetskatalog och använd sedan \"git add/rm <fil>\"\n"
 "som lämpligt för att ange lösning och checka in."
+
+#: advice.c builtin/merge.c
+msgid "You have not concluded your merge (MERGE_HEAD exists)."
+msgstr "Du har inte avslutat sammanslagningen (MERGE_HEAD finns)."
+
+#: advice.c
+msgid "Please, commit your changes before you can merge."
+msgstr "Ange ett incheckningsmeddelande för dina ändringar."
+
+#: advice.c
+msgid "Exiting because of unfinished merge."
+msgstr "Avslutar på grund av ofullbordad sammanslagning."
 
 #: archive.c
 msgid "git archive [<options>] <tree-ish> [<path>...]"
@@ -240,6 +252,11 @@ msgstr "Objektnamnet är tvetydigt: \"%s\"."
 msgid "Not a valid branch point: '%s'."
 msgstr "Avgreningspunkten är inte giltig: \"%s\""
 
+#: branch.c
+#, c-format
+msgid "'%s' is already checked out at '%s'"
+msgstr "\"%s\" är redan utcheckad på \"%s\""
+
 #: bundle.c
 #, c-format
 msgid "'%s' does not look like a v2 bundle file"
@@ -322,7 +339,7 @@ msgstr "index-pack dog"
 msgid "invalid color value: %.*s"
 msgstr "felaktigt färgvärde: %.*s"
 
-#: commit.c
+#: commit.c builtin/am.c
 #, c-format
 msgid "could not parse %s"
 msgstr "kunde inte tolka %s"
@@ -636,19 +653,11 @@ msgstr[1] ""
 msgid "%s: %s - %s"
 msgstr "%s: %s - %s"
 
-#: lockfile.c
-msgid "BUG: reopen a lockfile that is still open"
-msgstr "FEL: återöppna en låsfil som fortfarande är öppen"
-
-#: lockfile.c
-msgid "BUG: reopen a lockfile that has been committed"
-msgstr "FEL: återöppna en låsfil som har överlämnats"
-
 #: merge.c
 msgid "failed to read the cache"
 msgstr "misslyckades läsa cachen"
 
-#: merge.c builtin/checkout.c builtin/clone.c
+#: merge.c builtin/am.c builtin/checkout.c builtin/clone.c
 msgid "unable to write new index file"
 msgstr "kunde inte skriva ny indexfil"
 
@@ -1046,6 +1055,30 @@ msgstr ""
 "GIT_INDEX_VERSION satt, men värdet är ogiltigt.\n"
 "Använder version %i"
 
+#: refs.c builtin/merge.c
+#, c-format
+msgid "Could not open '%s' for writing"
+msgstr "Kunde inte öppna \"%s\" för skrivning"
+
+#: refs.c
+#, c-format
+msgid "could not delete reference %s: %s"
+msgstr "kunde inte ta bort referensen %s: %s"
+
+#: refs.c
+#, c-format
+msgid "could not delete references: %s"
+msgstr "kunde inte ta bort referenser: %s"
+
+#: refs.c
+#, c-format
+msgid "could not remove reference %s"
+msgstr "kunde inte ta bort referensen %s"
+
+#: ref-filter.c
+msgid "unable to parse format"
+msgstr "kan inte tolka formatet"
+
 #: remote.c
 #, c-format
 msgid "Cannot fetch both %s and %s to %s"
@@ -1166,6 +1199,15 @@ msgid "  (use \"git pull\" to merge the remote branch into yours)\n"
 msgstr "  (använd \"git pull\" för att slå ihop fjärrgrenen med din egen)\n"
 
 #: revision.c
+msgid "your current branch appears to be broken"
+msgstr "din nuvarande gren verkar vara trasig"
+
+#: revision.c
+#, c-format
+msgid "your current branch '%s' does not have any commits yet"
+msgstr "din nuvarande gren \"%s\" innehåller ännu inte några incheckningar"
+
+#: revision.c
 msgid "--first-parent is incompatible with --bisect"
 msgstr "--first-parent är inkompatibelt med --bisect"
 
@@ -1187,18 +1229,16 @@ msgid "the receiving end does not support --signed push"
 msgstr "mottagarsidan stöder inte push med --signed"
 
 #: send-pack.c
+msgid ""
+"not sending a push certificate since the receiving end does not support --"
+"signed push"
+msgstr ""
+"sänder inte push-certifikat eftersom mottagarsidan inte stlder push med --"
+"signed"
+
+#: send-pack.c
 msgid "the receiving end does not support --atomic push"
 msgstr "mottagarsidan stöder inte push med --atomic"
-
-#: sequencer.c builtin/merge.c
-#, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Kunde inte öppna \"%s\" för skrivning"
-
-#: sequencer.c builtin/merge.c
-#, c-format
-msgid "Could not write to '%s'"
-msgstr "Kunde inte skriva till \"%s\""
 
 #: sequencer.c
 msgid ""
@@ -1353,7 +1393,7 @@ msgstr "Oanvändbart manus: %s"
 msgid "Invalid key: %s"
 msgstr "Felaktig nyckel: %s"
 
-#: sequencer.c
+#: sequencer.c builtin/pull.c
 #, c-format
 msgid "Invalid value for %s: %s"
 msgstr "Felaktigt värde för %s: %s"
@@ -1516,6 +1556,11 @@ msgstr "kunde inte läsa indatafilen \"%s\""
 msgid "could not read from stdin"
 msgstr "Kunde inte läsa från standard in"
 
+#: transport-helper.c
+#, c-format
+msgid "Could not read ref %s"
+msgstr "Kunde inte läsa referensen %s"
+
 #: unpack-trees.c
 msgid "Checking out files"
 msgstr "Checkar ut filer"
@@ -1551,6 +1596,21 @@ msgstr "felaktigt \"..\"-sökvägssegment"
 
 #: wrapper.c
 #, c-format
+msgid "could not open '%s' for reading and writing"
+msgstr "kunde inte öppna \"%s\" för läsning och skrivning"
+
+#: wrapper.c
+#, c-format
+msgid "could not open '%s' for writing"
+msgstr "kunde inte öppna \"%s\" för skrivning"
+
+#: wrapper.c builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
+#, c-format
+msgid "could not open '%s' for reading"
+msgstr "kunde inte öppna \"%s\" för läsning"
+
+#: wrapper.c
+#, c-format
 msgid "unable to access '%s': %s"
 msgstr "kan inte komma åt \"%s\": %s"
 
@@ -1577,7 +1637,7 @@ msgstr "kan inte hämta aktuell arbetskatalog"
 msgid "could not open %s for writing"
 msgstr "kunde inte öppna %s för skrivning"
 
-#: wrapper.c
+#: wrapper.c builtin/am.c
 #, c-format
 msgid "could not write to %s"
 msgstr "kunde inte skriva till %s"
@@ -1783,6 +1843,37 @@ msgid "  (use \"git am --abort\" to restore the original branch)"
 msgstr "  (använd \"git am --abort\" för att återställa ursprungsgrenen)"
 
 #: wt-status.c
+msgid "No commands done."
+msgstr "Inga kommandon utförda."
+
+#: wt-status.c
+#, c-format
+msgid "Last command done (%d command done):"
+msgid_plural "Last commands done (%d commands done):"
+msgstr[0] "Sista kommandot utfört (%d kommando utfört):"
+msgstr[1] "Sista kommandot utfört (%d kommandon utfört):"
+
+#: wt-status.c
+#, c-format
+msgid "  (see more in file %s)"
+msgstr "  (se fler i filen %s)"
+
+#: wt-status.c
+msgid "No commands remaining."
+msgstr "Inga kommandon återstår."
+
+#: wt-status.c
+#, c-format
+msgid "Next command to do (%d remaining command):"
+msgid_plural "Next commands to do (%d remaining commands):"
+msgstr[0] "Nästa kommando att utföra (%d kommando återstår):"
+msgstr[1] "Följande kommandon att utföra (%d kommandon återstår):"
+
+#: wt-status.c
+msgid "  (use \"git rebase --edit-todo\" to view and edit)"
+msgstr "  (använd \"git rebase --edit-todo\" för att visa och redigera)"
+
+#: wt-status.c
 #, c-format
 msgid "You are currently rebasing branch '%s' on '%s'."
 msgstr "Du håller på att ombasera grenen \"%s\" ovanpå \"%s\"."
@@ -1897,6 +1988,10 @@ msgstr ""
 #: wt-status.c
 msgid "On branch "
 msgstr "På grenen "
+
+#: wt-status.c
+msgid "interactive rebase in progress; onto "
+msgstr "interaktiv ombasering pågår; ovanpå"
 
 #: wt-status.c
 msgid "rebase in progress; onto "
@@ -2076,7 +2171,8 @@ msgid "The following paths are ignored by one of your .gitignore files:\n"
 msgstr "Följande sökvägar ignoreras av en av dina .gitignore-filer:\n"
 
 #: builtin/add.c builtin/clean.c builtin/fetch.c builtin/mv.c
-#: builtin/prune-packed.c builtin/push.c builtin/remote.c builtin/rm.c
+#: builtin/prune-packed.c builtin/pull.c builtin/push.c builtin/remote.c
+#: builtin/rm.c builtin/send-pack.c
 msgid "dry run"
 msgstr "testkörning"
 
@@ -2165,6 +2261,403 @@ msgstr "indexfilen trasig"
 #: builtin/add.c builtin/apply.c builtin/mv.c builtin/rm.c
 msgid "Unable to write new index file"
 msgstr "Kunde inte skriva ny indexfil"
+
+#: builtin/am.c
+#, c-format
+msgid "could not stat %s"
+msgstr "kunde inte ta status på %s"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c
+#, c-format
+msgid "could not read '%s'"
+msgstr "kunde inte läsa \"%s\""
+
+#: builtin/am.c
+msgid "could not parse author script"
+msgstr "kunde inte tolka författarskript"
+
+#: builtin/am.c
+#, c-format
+msgid "'%s' was deleted by the applypatch-msg hook"
+msgstr "\"%s\" togs bort av kroken applypatch-msg"
+
+#: builtin/am.c builtin/notes.c
+#, c-format
+msgid "Malformed input line: '%s'."
+msgstr "Felaktig indatarad: \"%s\"."
+
+#: builtin/am.c builtin/notes.c
+#, c-format
+msgid "Failed to copy notes from '%s' to '%s'"
+msgstr "Misslyckades kopiera anteckningar från \"%s\" till \"%s\""
+
+#: builtin/am.c
+msgid "fseek failed"
+msgstr "\"fseek\" misslyckades"
+
+#: builtin/am.c
+#, c-format
+msgid "could not open '%s' for reading: %s"
+msgstr "kunde inte öppna \"%s\" för läsning: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "could not open '%s' for writing: %s"
+msgstr "Kunde inte öppna \"%s\" för skrivning: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "could not parse patch '%s'"
+msgstr "kunde inte tolka patchen \"%s\""
+
+#: builtin/am.c
+msgid "Only one StGIT patch series can be applied at once"
+msgstr "Endast en StGIT-patchserie kan tillämpas åt gången"
+
+#: builtin/am.c
+msgid "invalid timestamp"
+msgstr "ogiltig tidsstämpel"
+
+#: builtin/am.c
+msgid "invalid Date line"
+msgstr "ogiltig \"Date\"-rad"
+
+#: builtin/am.c
+msgid "invalid timezone offset"
+msgstr "ogiltig tidszons-offset"
+
+#: builtin/am.c
+msgid "Patch format detection failed."
+msgstr "Misslyckades detektera patchformat."
+
+#: builtin/am.c builtin/clone.c
+#, c-format
+msgid "failed to create directory '%s'"
+msgstr "misslyckades skapa katalogen \"%s\""
+
+#: builtin/am.c
+msgid "Failed to split patches."
+msgstr "Misslyckades dela patchar."
+
+#: builtin/am.c builtin/commit.c
+msgid "unable to write index file"
+msgstr "kan inte skriva indexfil"
+
+#: builtin/am.c
+#, c-format
+msgid "When you have resolved this problem, run \"%s --continue\"."
+msgstr "När du har löst problemet, kör \"%s --continue\"."
+
+#: builtin/am.c
+#, c-format
+msgid "If you prefer to skip this patch, run \"%s --skip\" instead."
+msgstr "Om du hellre vill hoppa över patchen, kör \"%s --skip\" i stället."
+
+#: builtin/am.c
+#, c-format
+msgid "To restore the original branch and stop patching, run \"%s --abort\"."
+msgstr ""
+"För att återgå till ursprunglig gren och sluta patcha, kör \"%s --abort\"."
+
+#: builtin/am.c
+msgid "Patch is empty. Was it split wrong?"
+msgstr "Patchen är tom. Delades den upp felaktigt?"
+
+#: builtin/am.c builtin/log.c
+#, c-format
+msgid "invalid ident line: %s"
+msgstr "ogiltig ident-rad: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "unable to parse commit %s"
+msgstr "kunde inte tolka incheckningen %s"
+
+#: builtin/am.c
+msgid "Repository lacks necessary blobs to fall back on 3-way merge."
+msgstr ""
+"Arkivet saknar objekt som behövs för att falla tillbaka på 3-"
+"vägssammanslagning."
+
+#: builtin/am.c
+msgid "Using index info to reconstruct a base tree..."
+msgstr "Använder indexinfo för att återskapa ett basträd..."
+
+#: builtin/am.c
+msgid ""
+"Did you hand edit your patch?\n"
+"It does not apply to blobs recorded in its index."
+msgstr ""
+"Har du handredigerat din patch?\n"
+"Den kan inte tillämpas på blobbar som antecknats i dess index."
+
+#: builtin/am.c
+msgid "Falling back to patching base and 3-way merge..."
+msgstr ""
+"Faller tillbaka på att patcha grundversionen och trevägssammanslagning..."
+
+#: builtin/am.c
+msgid "Failed to merge in the changes."
+msgstr "Misslyckades slå ihop ändringarna."
+
+#: builtin/am.c builtin/merge.c
+msgid "git write-tree failed to write a tree"
+msgstr "git write-tree misslyckades skriva ett träd"
+
+#: builtin/am.c
+msgid "applying to an empty history"
+msgstr "tillämpar på en tom historik"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c
+msgid "failed to write commit object"
+msgstr "kunde inte skriva incheckningsobjekt"
+
+#: builtin/am.c
+#, c-format
+msgid "cannot resume: %s does not exist."
+msgstr "kan inte återuppta: %s finns inte."
+
+#: builtin/am.c
+msgid "cannot be interactive without stdin connected to a terminal."
+msgstr ""
+"kan inte vara interaktiv om standard in inte är ansluten till en terminal."
+
+#: builtin/am.c
+msgid "Commit Body is:"
+msgstr "Incheckningskroppen är:"
+
+#. TRANSLATORS: Make sure to include [y], [n], [e], [v] and [a]
+#. in your translation. The program will only accept English
+#. input at this point.
+#.
+#: builtin/am.c
+msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
+msgstr "Tillämpa? Y=ja/N=nej/E=redigera/V=visa patch/A=godta alla: "
+
+#: builtin/am.c
+#, c-format
+msgid "Dirty index: cannot apply patches (dirty: %s)"
+msgstr "Smutsigt index: kan inte tillämpa patchar (smutsiga: %s)"
+
+#: builtin/am.c
+#, c-format
+msgid "Applying: %.*s"
+msgstr "Tillämpar: %.*s"
+
+#: builtin/am.c
+msgid "No changes -- Patch already applied."
+msgstr "Inga ändringar -- Patchen har redan tillämpats."
+
+#: builtin/am.c
+#, c-format
+msgid "Patch failed at %s %.*s"
+msgstr "Patch misslyckades på %s %.*s"
+
+#: builtin/am.c
+#, c-format
+msgid "The copy of the patch that failed is found in: %s"
+msgstr "En kopia av patchen som misslyckades finns i: %s"
+
+#: builtin/am.c
+msgid ""
+"No changes - did you forget to use 'git add'?\n"
+"If there is nothing left to stage, chances are that something else\n"
+"already introduced the same changes; you might want to skip this patch."
+msgstr ""
+"Inga ändringar - glömde du använda \"git add\"?\n"
+"Om det inte är något kvar att köa kan det hända att något annat redan\n"
+"introducerat samma ändringar; kanske du bör hoppa över patchen."
+
+#: builtin/am.c
+msgid ""
+"You still have unmerged paths in your index.\n"
+"Did you forget to use 'git add'?"
+msgstr ""
+"Du har fortfarande sökvägar som inte slagits samman i ditt index.\n"
+"Glömde du använda \"git add\"?"
+
+#: builtin/am.c builtin/reset.c
+#, c-format
+msgid "Could not parse object '%s'."
+msgstr "Kan inte tolka objektet \"%s\""
+
+#: builtin/am.c
+msgid "failed to clean index"
+msgstr "misslyckades städa upp indexet"
+
+#: builtin/am.c
+msgid ""
+"You seem to have moved HEAD since the last 'am' failure.\n"
+"Not rewinding to ORIG_HEAD"
+msgstr ""
+"Du verkar ha flyttat HEAD sedan \"am\" sist misslyckades.\n"
+"Återställer inte till ORIG_HEAD"
+
+#: builtin/am.c
+#, c-format
+msgid "Invalid value for --patch-format: %s"
+msgstr "Felaktigt värde för --patch-format: %s"
+
+#: builtin/am.c
+msgid "git am [options] [(<mbox>|<Maildir>)...]"
+msgstr "git am [flaggor] [(<mbox>|<Maildir>)...]"
+
+#: builtin/am.c
+msgid "git am [options] (--continue | --skip | --abort)"
+msgstr "git am [flaggor] (--continue | --skip | --abort)"
+
+#: builtin/am.c
+msgid "run interactively"
+msgstr "kör interaktivt"
+
+#: builtin/am.c
+msgid "historical option -- no-op"
+msgstr "historisk flagga -- no-op"
+
+#: builtin/am.c
+msgid "allow fall back on 3way merging if needed"
+msgstr "tillåt falla tillbaka på trevägssammanslagning om nödvändigt"
+
+#: builtin/am.c builtin/init-db.c builtin/prune-packed.c builtin/repack.c
+msgid "be quiet"
+msgstr "var tyst"
+
+#: builtin/am.c
+msgid "add a Signed-off-by line to the commit message"
+msgstr "lägg till \"Signed-off-by\"-rad i incheckningsmeddelandet"
+
+#: builtin/am.c
+msgid "recode into utf8 (default)"
+msgstr "koda om till utf8 (standard)"
+
+#: builtin/am.c
+msgid "pass -k flag to git-mailinfo"
+msgstr "sänd flaggan -k till git-mailinfo"
+
+#: builtin/am.c
+msgid "pass -b flag to git-mailinfo"
+msgstr "sänd flaggan -b till git-mailinfo"
+
+#: builtin/am.c
+msgid "pass -m flag to git-mailinfo"
+msgstr "sänd flaggan -m till git-mailinfo"
+
+#: builtin/am.c
+msgid "pass --keep-cr flag to git-mailsplit for mbox format"
+msgstr "sänd flaggan --keep-cr till git-mailsplit för mbox-formatet"
+
+#: builtin/am.c
+msgid "do not pass --keep-cr flag to git-mailsplit independent of am.keepcr"
+msgstr "sänd inte flaggan --keep-cr till git-mailsplit oberoende av am.keepcr"
+
+#: builtin/am.c
+msgid "strip everything before a scissors line"
+msgstr "ta bort allting före en saxlinje"
+
+#: builtin/am.c builtin/apply.c
+msgid "action"
+msgstr "åtgärd"
+
+#: builtin/am.c
+msgid "pass it through git-apply"
+msgstr "sänd det genom git-apply"
+
+#: builtin/am.c builtin/apply.c
+msgid "root"
+msgstr "rot"
+
+#: builtin/am.c builtin/apply.c builtin/clone.c builtin/fetch.c builtin/pull.c
+msgid "path"
+msgstr "sökväg"
+
+#: builtin/am.c builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c
+#: builtin/pull.c builtin/repack.c builtin/show-branch.c builtin/show-ref.c
+#: builtin/tag.c parse-options.h
+msgid "n"
+msgstr "n"
+
+#: builtin/am.c builtin/apply.c
+msgid "num"
+msgstr "antal"
+
+#: builtin/am.c builtin/for-each-ref.c builtin/replace.c
+msgid "format"
+msgstr "format"
+
+#: builtin/am.c
+msgid "format the patch(es) are in"
+msgstr "format för patch(ar)"
+
+#: builtin/am.c
+msgid "override error message when patch failure occurs"
+msgstr "överstyr felmeddelanden när patchfel uppstår"
+
+#: builtin/am.c
+msgid "continue applying patches after resolving a conflict"
+msgstr "fortsätt applicera patchar efter att ha löst en konflikt"
+
+#: builtin/am.c
+msgid "synonyms for --continue"
+msgstr "synonymer till --continue"
+
+#: builtin/am.c
+msgid "skip the current patch"
+msgstr "hoppa över den aktuella grenen"
+
+#: builtin/am.c
+msgid "restore the original branch and abort the patching operation."
+msgstr "återställ originalgrenen och avbryt patchningen."
+
+#: builtin/am.c
+msgid "lie about committer date"
+msgstr "ljug om incheckningsdatum"
+
+#: builtin/am.c
+msgid "use current timestamp for author date"
+msgstr "använd nuvarande tidsstämpel för författardatum"
+
+#: builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c builtin/tag.c
+msgid "key-id"
+msgstr "nyckel-id"
+
+#: builtin/am.c
+msgid "GPG-sign commits"
+msgstr "GPG-signera incheckningar"
+
+#: builtin/am.c
+msgid "(internal use for git-rebase)"
+msgstr "(används internt av git-rebase)"
+
+#: builtin/am.c
+msgid ""
+"The -b/--binary option has been a no-op for long time, and\n"
+"it will be removed. Please do not use it anymore."
+msgstr ""
+"Flaggan -b/--binary har varit utan funktion länge, och\n"
+"kommer tas bort. Vi ber dig att inte använda den längre."
+
+#: builtin/am.c
+msgid "failed to read the index"
+msgstr "misslyckades läsa indexet"
+
+#: builtin/am.c
+#, c-format
+msgid "previous rebase directory %s still exists but mbox given."
+msgstr "tidigare rebase-katalog %s finns fortfarande, men mbox angavs."
+
+#: builtin/am.c
+#, c-format
+msgid ""
+"Stray %s directory found.\n"
+"Use \"git am --abort\" to remove it."
+msgstr ""
+"Kvarbliven katalog %s hittades.\n"
+"Använd \"git am --abort\" för att ta bort den."
+
+#: builtin/am.c
+msgid "Resolve operation not in progress, we are not resuming."
+msgstr "Lösningsoperation pågår inte, vi återupptar inte."
 
 #: builtin/apply.c
 msgid "git apply [<options>] [<patch>...]"
@@ -2508,10 +3001,6 @@ msgstr "indata känns inte igen"
 msgid "unable to read index file"
 msgstr "kan inte läsa indexfilen"
 
-#: builtin/apply.c builtin/clone.c builtin/fetch.c
-msgid "path"
-msgstr "sökväg"
-
 #: builtin/apply.c
 msgid "don't apply changes matching the given path"
 msgstr "tillämpa inte ändringar som motsvarar given sökväg"
@@ -2519,10 +3008,6 @@ msgstr "tillämpa inte ändringar som motsvarar given sökväg"
 #: builtin/apply.c
 msgid "apply changes matching the given path"
 msgstr "tillämpa ändringar som motsvarar given sökväg"
-
-#: builtin/apply.c
-msgid "num"
-msgstr "antal"
 
 #: builtin/apply.c
 msgid "remove <num> leading slashes from traditional diff paths"
@@ -2581,10 +3066,6 @@ msgid "ensure at least <n> lines of context match"
 msgstr "se till att åtminstone <n> rader sammanhang är lika"
 
 #: builtin/apply.c
-msgid "action"
-msgstr "åtgärd"
-
-#: builtin/apply.c
 msgid "detect new or modified lines that have whitespace errors"
 msgstr "detektera nya eller ändrade rader som har fel i blanktecken"
 
@@ -2615,10 +3096,6 @@ msgstr "tolerera felaktigt detekterade saknade nyradstecken vid filslut"
 #: builtin/apply.c
 msgid "do not trust the line counts in the hunk headers"
 msgstr "lite inte på antalet linjer i styckehuvuden"
-
-#: builtin/apply.c
-msgid "root"
-msgstr "rot"
 
 #: builtin/apply.c
 msgid "prepend <root> to all filenames"
@@ -3285,6 +3762,10 @@ msgid "allow -s and -t to work with broken/corrupt objects"
 msgstr "låter -s och -t att fungera med trasiga/sönderskrivna objekt"
 
 #: builtin/cat-file.c
+msgid "buffer --batch output"
+msgstr "buffra utdata från --batch"
+
+#: builtin/cat-file.c
 msgid "show info and content of objects fed from the standard input"
 msgstr "visa information och innehåll för objekt som listas på standard in"
 
@@ -3296,6 +3777,10 @@ msgstr "visa information för objekt som listas på standard in"
 msgid "follow in-tree symlinks (used with --batch or --batch-check)"
 msgstr ""
 "följ symboliska länkar i trädet (använd med --batch eller --batch-check)"
+
+#: builtin/cat-file.c
+msgid "show all objects with --batch or --batch-check"
+msgstr "visa alla objekt med --batch eller --batch-check"
 
 #: builtin/check-attr.c
 msgid "git check-attr [-a | --all | <attr>...] [--] <pathname>..."
@@ -3486,8 +3971,8 @@ msgstr "du måste lösa ditt befintliga index först"
 
 #: builtin/checkout.c
 #, c-format
-msgid "Can not do reflog for '%s'\n"
-msgstr "Kan inte skapa referenslog för \"%s\"\n"
+msgid "Can not do reflog for '%s': %s\n"
+msgstr "Kan inte skapa referenslogg för \"%s\": %s\n"
 
 #: builtin/checkout.c
 msgid "HEAD is now at"
@@ -3587,15 +4072,10 @@ msgstr "Du är på en gren som ännu inte är född"
 
 #: builtin/checkout.c
 #, c-format
-msgid "'%s' is already checked out at '%s'"
-msgstr "\"%s\" är redan utcheckad på \"%s\""
-
-#: builtin/checkout.c
-#, c-format
 msgid "only one reference expected, %d given."
 msgstr "endast en referens förväntades, %d gavs."
 
-#: builtin/checkout.c
+#: builtin/checkout.c builtin/worktree.c
 #, c-format
 msgid "invalid reference: %s"
 msgstr "felaktig referens: %s"
@@ -3921,7 +4401,8 @@ msgstr ""
 msgid "git clone [<options>] [--] <repo> [<dir>]"
 msgstr "git clone [<flaggor>] [--] <arkiv> [<kat>]"
 
-#: builtin/clone.c builtin/fetch.c builtin/merge.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/merge.c builtin/pull.c
+#: builtin/push.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "tvinga förloppsrapportering"
 
@@ -3985,7 +4466,7 @@ msgstr "checka ut <gren> istället för fjärrens HEAD"
 msgid "path to git-upload-pack on the remote"
 msgstr "sökväg till git-upload-pack på fjärren"
 
-#: builtin/clone.c builtin/fetch.c builtin/grep.c
+#: builtin/clone.c builtin/fetch.c builtin/grep.c builtin/pull.c
 msgid "depth"
 msgstr "djup"
 
@@ -4027,11 +4508,6 @@ msgstr "referensarkivet \"%s\" är grunt"
 #, c-format
 msgid "reference repository '%s' is grafted"
 msgstr "referensarkivet \"%s\" är ympat"
-
-#: builtin/clone.c
-#, c-format
-msgid "failed to create directory '%s'"
-msgstr "misslyckades skapa katalogen \"%s\""
 
 #: builtin/clone.c builtin/diff.c
 #, c-format
@@ -4342,10 +4818,6 @@ msgid "interactive add failed"
 msgstr "interaktiv tilläggning misslyckades"
 
 #: builtin/commit.c
-msgid "unable to write index file"
-msgstr "kan inte skriva indexfil"
-
-#: builtin/commit.c
 msgid "unable to update temporary index"
 msgstr "kan inte uppdatera temporärt index"
 
@@ -4426,11 +4898,6 @@ msgstr "kunde inte läsa MERGE_MSG"
 #: builtin/commit.c
 msgid "could not read SQUASH_MSG"
 msgstr "kunde inte läsa SQUASH_MSG"
-
-#: builtin/commit.c builtin/merge.c
-#, c-format
-msgid "could not read '%s'"
-msgstr "kunde inte läsa \"%s\""
 
 #: builtin/commit.c
 msgid "could not write commit template"
@@ -4739,11 +5206,7 @@ msgstr "hur blanksteg och #kommentarer skall tas bort från meddelande"
 msgid "include status in commit message template"
 msgstr "inkludera status i mallen för incheckningsmeddelandet"
 
-#: builtin/commit.c builtin/merge.c builtin/revert.c builtin/tag.c
-msgid "key-id"
-msgstr "nyckel-id"
-
-#: builtin/commit.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/merge.c builtin/pull.c builtin/revert.c
 msgid "GPG sign commit"
 msgstr "GPG-signera incheckning"
 
@@ -4799,11 +5262,6 @@ msgstr "ok att registrera en ändring med tomt meddelande"
 msgid "could not parse HEAD commit"
 msgstr "kunde inte tolka HEAD:s incheckning"
 
-#: builtin/commit.c builtin/merge.c
-#, c-format
-msgid "could not open '%s' for reading"
-msgstr "kunde inte öppna \"%s\" för läsning"
-
 #: builtin/commit.c
 #, c-format
 msgid "Corrupt MERGE_HEAD file (%s)"
@@ -4827,10 +5285,6 @@ msgstr "Avbryter incheckning; meddelandet inte redigerat.\n"
 #, c-format
 msgid "Aborting commit due to empty commit message.\n"
 msgstr "Avbryter på grund av tomt incheckningsmeddelande.\n"
-
-#: builtin/commit.c builtin/merge.c
-msgid "failed to write commit object"
-msgstr "kunde inte skriva incheckningsobjekt"
 
 #: builtin/commit.c
 msgid ""
@@ -4962,6 +5416,10 @@ msgstr "Andra"
 #: builtin/config.c
 msgid "terminate values with NUL byte"
 msgstr "terminera värden med NUL-byte"
+
+#: builtin/config.c
+msgid "show variable names only"
+msgstr "visa endast variabelnamn"
 
 #: builtin/config.c
 msgid "respect include directives on lookup"
@@ -5236,19 +5694,19 @@ msgstr "git fetch --multiple [<flaggor>] [(<arkiv> | <grupp>)...]"
 msgid "git fetch --all [<options>]"
 msgstr "git fetch --all [<flaggor>]"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "fetch from all remotes"
 msgstr "hämta från alla fjärrar"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
 msgstr "lägg till i .git/FETCH_HEAD istället för att skriva över"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "path to upload pack on remote end"
 msgstr "sökväg till upload pack på fjärren"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "force overwrite of local branch"
 msgstr "tvinga överskrivning av lokal gren"
 
@@ -5256,7 +5714,7 @@ msgstr "tvinga överskrivning av lokal gren"
 msgid "fetch from multiple remotes"
 msgstr "hämta från flera fjärrar"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "fetch all tags and associated objects"
 msgstr "hämta alla taggar och associerade objekt"
 
@@ -5264,19 +5722,19 @@ msgstr "hämta alla taggar och associerade objekt"
 msgid "do not fetch all tags (--no-tags)"
 msgstr "hämta inte alla taggar (--no-tags)"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "prune remote-tracking branches no longer on remote"
 msgstr "rensa fjärrspårande grenar ej längre på fjärren"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "on-demand"
 msgstr "on-demand"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "control recursive fetching of submodules"
 msgstr "styr rekursiv hämtning av undermoduler"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "keep downloaded pack"
 msgstr "behåll hämtade paket"
 
@@ -5284,11 +5742,11 @@ msgstr "behåll hämtade paket"
 msgid "allow updating of HEAD ref"
 msgstr "tillåt uppdatering av HEAD-referens"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "deepen history of shallow clone"
 msgstr "fördjupa historik för grund klon"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "convert to a complete repository"
 msgstr "konvertera till komplett arkiv"
 
@@ -5304,15 +5762,15 @@ msgstr "lägg till i början av undermodulens sökvägsutdata"
 msgid "default mode for recursion"
 msgstr "standardläge för rekursion"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "accept refs that update .git/shallow"
 msgstr "tar emot referenser som uppdaterar .git/shallow"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "refmap"
 msgstr "referenskarta"
 
-#: builtin/fetch.c
+#: builtin/fetch.c builtin/pull.c
 msgid "specify fetch refmap"
 msgstr "ange referenskarta för \"fetch\""
 
@@ -5490,11 +5948,6 @@ msgid ""
 msgstr ""
 "git fmt-merge-msg [-m <meddelande>] [--log[=<n>] | --no-log] [--file <fil>]"
 
-#: builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c builtin/repack.c
-#: builtin/show-branch.c builtin/show-ref.c builtin/tag.c parse-options.h
-msgid "n"
-msgstr "n"
-
 #: builtin/fmt-merge-msg.c
 msgid "populate log with at most <n> entries from shortlog"
 msgstr "fyll i loggen med som mest <n> poster från shortlog"
@@ -5514,10 +5967,6 @@ msgstr "inled meddelande med <text>"
 #: builtin/fmt-merge-msg.c
 msgid "file to read from"
 msgstr "fil att läsa från"
-
-#: builtin/for-each-ref.c
-msgid "unable to parse format"
-msgstr "kan inte tolka formatet"
 
 #: builtin/for-each-ref.c
 msgid "git for-each-ref [<options>] [<pattern>]"
@@ -5542,10 +5991,6 @@ msgstr "citera platshållare passande för Tcl"
 #: builtin/for-each-ref.c
 msgid "show only <n> matched refs"
 msgstr "visa endast <n> träffade refs"
-
-#: builtin/for-each-ref.c builtin/replace.c
-msgid "format"
-msgstr "format"
 
 #: builtin/for-each-ref.c
 msgid "format to use for the output"
@@ -5600,6 +6045,12 @@ msgstr "gör refloggar till huvudnoder (standard)"
 #: builtin/fsck.c
 msgid "also consider packs and alternate objects"
 msgstr "ta även hänsyn till paket och alternativa objekt"
+
+# Vague original, not networking-related, but rather related to the actual
+# objects in the database.
+#: builtin/fsck.c
+msgid "check only connectivity"
+msgstr "kontrollera endast konnektivitet"
 
 #: builtin/fsck.c
 msgid "enable more strict checking"
@@ -6474,10 +6925,6 @@ msgstr "behörigheter"
 msgid "specify that the git repository is to be shared amongst several users"
 msgstr "ange att git-arkivet skall delas bland flera användare"
 
-#: builtin/init-db.c builtin/prune-packed.c builtin/repack.c
-msgid "be quiet"
-msgstr "var tyst"
-
 #: builtin/init-db.c
 #, c-format
 msgid "cannot mkdir %s"
@@ -6746,11 +7193,6 @@ msgid "don't print the patch filenames"
 msgstr "visa inte filnamn för patchar"
 
 #: builtin/log.c
-#, c-format
-msgid "invalid ident line: %s"
-msgstr "ogiltig ident-rad: %s"
-
-#: builtin/log.c
 msgid "-n and -k are mutually exclusive."
 msgstr "-n och -k kan inte användas samtidigt."
 
@@ -6962,32 +7404,32 @@ msgstr "Tillgängliga strategier är:"
 msgid "Available custom strategies are:"
 msgstr "Tillgängliga skräddarsydda strategier är:"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "do not show a diffstat at the end of the merge"
 msgstr "visa inte en diffstat när sammanslagningen är färdig"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "show a diffstat at the end of the merge"
 msgstr "visa en diffstat när sammanslagningen är färdig"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "(synonym to --stat)"
 msgstr "(synonym till --stat)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "add (at most <n>) entries from shortlog to merge commit message"
 msgstr ""
 "lägg till (som mest <n>) poster från shortlog till incheckningsmeddelandet"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "create a single commit instead of doing a merge"
 msgstr "skapa en ensam incheckning istället för en sammanslagning"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "perform a commit if the merge succeeds (default)"
 msgstr "utför en incheckning om sammanslagningen lyckades (standard)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "edit message before committing"
 msgstr "redigera meddelande innan incheckning"
 
@@ -6995,7 +7437,7 @@ msgstr "redigera meddelande innan incheckning"
 msgid "allow fast-forward (default)"
 msgstr "tillåt snabbspolning (standard)"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "abort if fast-forward is not possible"
 msgstr "avbryt om snabbspolning inte är möjlig"
 
@@ -7003,19 +7445,19 @@ msgstr "avbryt om snabbspolning inte är möjlig"
 msgid "Verify that the named commit has a valid GPG signature"
 msgstr "Bekräfta att den namngivna incheckningen har en giltig GPG-signatur"
 
-#: builtin/merge.c builtin/notes.c builtin/revert.c
+#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/revert.c
 msgid "strategy"
 msgstr "strategi"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "merge strategy to use"
 msgstr "sammanslagningsstrategi att använda"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "option=value"
 msgstr "alternativ=värde"
 
-#: builtin/merge.c
+#: builtin/merge.c builtin/pull.c
 msgid "option for selected merge strategy"
 msgstr "alternativ för vald sammanslagningsstrategi"
 
@@ -7054,6 +7496,11 @@ msgid "Squash commit -- not updating HEAD\n"
 msgstr "Tillplattningsincheckning -- uppdaterar inte HEAD\n"
 
 #: builtin/merge.c
+#, c-format
+msgid "Could not write to '%s'"
+msgstr "Kunde inte skriva till \"%s\""
+
+#: builtin/merge.c
 msgid "Writing SQUASH_MSG"
 msgstr "Skriver SQUASH_MSG"
 
@@ -7075,10 +7522,6 @@ msgstr "\"%s\" verkar inte peka på en incheckning"
 #, c-format
 msgid "Bad branch.%s.mergeoptions string: %s"
 msgstr "Felaktig branch.%s.mergeoptions-sträng: %s"
-
-#: builtin/merge.c
-msgid "git write-tree failed to write a tree"
-msgstr "git write-tree misslyckades skriva ett träd"
 
 #: builtin/merge.c
 msgid "Not handling anything other than two heads merge."
@@ -7175,10 +7618,6 @@ msgid ""
 msgstr ""
 "Du har inte avslutat sammanslagningen (MERGE_HEAD finns).\n"
 "Checka in dina ändringar innan du slår ihop."
-
-#: builtin/merge.c git-pull.sh
-msgid "You have not concluded your merge (MERGE_HEAD exists)."
-msgstr "Du har inte avslutat sammanslagningen (MERGE_HEAD finns)."
 
 #: builtin/merge.c
 msgid ""
@@ -7688,16 +8127,6 @@ msgid "Cannot read note data from non-blob object '%s'."
 msgstr "kan inte läsa anteckningsdata från icke-blob-objektet \"%s\"."
 
 #: builtin/notes.c
-#, c-format
-msgid "Malformed input line: '%s'."
-msgstr "Felaktig indatarad: \"%s\"."
-
-#: builtin/notes.c
-#, c-format
-msgid "Failed to copy notes from '%s' to '%s'"
-msgstr "Misslyckades kopiera anteckningar från \"%s\" till \"%s\""
-
-#: builtin/notes.c
 msgid "too many parameters"
 msgstr "för många parametrar"
 
@@ -7824,6 +8253,11 @@ msgstr "avbryt sammanslagning av anteckningar"
 
 #: builtin/notes.c
 #, c-format
+msgid "A notes merge into %s is already in-progress at %s"
+msgstr "Sammanslagning av anteckningar till %s är redan igångsatt på %s"
+
+#: builtin/notes.c
+#, c-format
 msgid "Object %s has no note\n"
 msgstr "Objektet %s har ingen anteckning\n"
 
@@ -7849,12 +8283,16 @@ msgid "Unknown subcommand: %s"
 msgstr "Okänt underkommando: %s"
 
 #: builtin/pack-objects.c
-msgid "git pack-objects --stdout [options...] [< ref-list | < object-list]"
-msgstr "git pack-objects --stdout [flaggor...] [< reflista | < objektlista]"
+msgid ""
+"git pack-objects --stdout [<options>...] [< <ref-list> | < <object-list>]"
+msgstr ""
+"git pack-objects --stdout [<flaggor>...] [< <reflista> | < <objektlista>]"
 
 #: builtin/pack-objects.c
-msgid "git pack-objects [options...] base-name [< ref-list | < object-list]"
-msgstr "git pack-objects [flaggor...] basnamn [< reflista | < objektlista]"
+msgid ""
+"git pack-objects [<options>...] <base-name> [< <ref-list> | < <object-list>]"
+msgstr ""
+"git pack-objects [<flaggor>...] <basnamn> [< <reflista> | < <objektlista>]"
 
 #: builtin/pack-objects.c
 #, c-format
@@ -7882,16 +8320,6 @@ msgstr "indexversionen %s stöds ej"
 #, c-format
 msgid "bad index version '%s'"
 msgstr "felaktig indexversion \"%s\""
-
-#: builtin/pack-objects.c
-#, c-format
-msgid "option %s does not accept negative form"
-msgstr "flaggan %s godtar inte negativ form"
-
-#: builtin/pack-objects.c
-#, c-format
-msgid "unable to parse value '%s' for option %s"
-msgstr "kunde inte tolka värdet \"%s\" för flaggan %s"
 
 #: builtin/pack-objects.c
 msgid "do not show progress meter"
@@ -8068,6 +8496,166 @@ msgstr "rapportera borttagna objekt"
 #: builtin/prune.c builtin/worktree.c
 msgid "expire objects older than <time>"
 msgstr "låt tid gå ut för objekt äldre än <tid>"
+
+#: builtin/pull.c
+msgid "git pull [options] [<repository> [<refspec>...]]"
+msgstr "git pull [flaggor] [<arkiv> [<refspec>...]]"
+
+#: builtin/pull.c
+msgid "Options related to merging"
+msgstr "Alternativ gällande sammanslagning"
+
+#: builtin/pull.c
+msgid "false|true|preserve"
+msgstr "false|true|preserve"
+
+#: builtin/pull.c
+msgid "incorporate changes by rebasing rather than merging"
+msgstr "inlemma ändringar genom ombasering i stället för sammanslagning"
+
+#: builtin/pull.c builtin/revert.c
+msgid "allow fast-forward"
+msgstr "tillåt snabbspolning"
+
+#: builtin/pull.c
+msgid "verify that the named commit has a valid GPG signature"
+msgstr "bekräfta att den namngivna incheckningen har en giltig GPG-signatur"
+
+#: builtin/pull.c
+msgid "Options related to fetching"
+msgstr "Alternativ gällande hämtningar"
+
+#: builtin/pull.c
+#, c-format
+msgid "Invalid value for pull.ff: %s"
+msgstr "Felaktigt värde för pull.ff: %s"
+
+#: builtin/pull.c
+msgid "Cannot pull with rebase: You have unstaged changes."
+msgstr "Kan inte hämta med ombasering: Du har oköade ändringar."
+
+#: builtin/pull.c
+msgid "Additionally, your index contains uncommitted changes."
+msgstr "Dessutom innehåller dit index ändringar som inte har checkats in."
+
+#: builtin/pull.c
+msgid "Cannot pull with rebase: Your index contains uncommitted changes."
+msgstr ""
+"Kan inte hämta med ombasering: Ditt index innehåller oincheckade ändringar."
+
+#: builtin/pull.c
+msgid ""
+"There is no candidate for rebasing against among the refs that you just "
+"fetched."
+msgstr ""
+"Det finns ingen kandidat för ombasering bland referenserna du precis har "
+"hämtat."
+
+#: builtin/pull.c
+msgid ""
+"There are no candidates for merging among the refs that you just fetched."
+msgstr ""
+"Det finns ingen kandidat för sammanslagning bland referenserna du precis har "
+"hämtat."
+
+#: builtin/pull.c
+msgid ""
+"Generally this means that you provided a wildcard refspec which had no\n"
+"matches on the remote end."
+msgstr ""
+"Det betyder vanligtvis att du använt en jokertecken-refspec som inte\n"
+"motsvarade något i fjärränden."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"You asked to pull from the remote '%s', but did not specify\n"
+"a branch. Because this is not the default configured remote\n"
+"for your current branch, you must specify a branch on the command line."
+msgstr ""
+"Du bad om att hämta från fjärren \"%s\", men angav inte någon\n"
+"gren. Eftersom det inte är den fjärr som är konfigurerad som\n"
+"standard för aktuell gren måste du ange en gren på kommandoraden."
+
+#: builtin/pull.c
+msgid "You are not currently on a branch."
+msgstr "Du är inte på någon gren för närvarande."
+
+#: builtin/pull.c
+msgid "Please specify which branch you want to rebase against."
+msgstr "Ange vilken gren du vill ombasera mot."
+
+#: builtin/pull.c
+msgid "Please specify which branch you want to merge with."
+msgstr "Ange vilken gren du vill slå samman med."
+
+#: builtin/pull.c
+msgid "See git-pull(1) for details."
+msgstr "Se git-pull(1) för detaljer."
+
+#: builtin/pull.c
+msgid "There is no tracking information for the current branch."
+msgstr "Det finns ingen spårningsinformation för aktuell gren."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"If you wish to set tracking information for this branch you can do so with:\n"
+"\n"
+"    git branch --set-upstream-to=%s/<branch> %s\n"
+msgstr ""
+"Om du vill ange spårningsinformation för grenen kan du göra det med:\n"
+"\n"
+" git branch --set-upstream-to=%s/<gren> %s\n"
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"Your configuration specifies to merge with the ref '%s'\n"
+"from the remote, but no such ref was fetched."
+msgstr ""
+"Dina inställningar anger sammanslagning med referensen \"%s\"\n"
+"från fjärren, men någon sådan referens togs inte emot."
+
+#: builtin/pull.c
+msgid "Updating an unborn branch with changes added to the index."
+msgstr "Uppdaterar en ofödd gren med ändringar som lagts till i indexet."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"fetch updated the current branch head.\n"
+"fast-forwarding your working tree from\n"
+"commit %s."
+msgstr ""
+"fetch uppdaterade huvudet för aktuell gren.\n"
+"snabbspolar din arbetskatalog från\n"
+"incheckningen %s."
+
+#: builtin/pull.c
+#, c-format
+msgid ""
+"Cannot fast-forward your working tree.\n"
+"After making sure that you saved anything precious from\n"
+"$ git diff %s\n"
+"output, run\n"
+"$ git reset --hard\n"
+"to recover."
+msgstr ""
+"Kan inte snabbspola din arbetskatalog.\n"
+"När du är säker på att du har sparat allt värdefullt i utdata från\n"
+"$ git diff %s\n"
+"kör du\n"
+"$ git reset --hard\n"
+"för att återgå."
+
+#: builtin/pull.c
+msgid "Cannot merge multiple branches into empty head."
+msgstr "Kan inte slå ihop flera grenar i ett tomt huvud."
+
+#: builtin/pull.c
+msgid "Cannot rebase onto multiple branches."
+msgstr "Kan inte ombasera ovanpå flera grenar."
 
 #: builtin/push.c
 msgid "git push [<options>] [<repository> [<refspec>...]]"
@@ -8327,11 +8915,11 @@ msgstr "--all och --mirror är inkompatibla"
 msgid "repository"
 msgstr "arkiv"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "push all refs"
 msgstr "sänd alla referenser"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "mirror all refs"
 msgstr "spegla alla referenser"
 
@@ -8343,15 +8931,15 @@ msgstr "ta bort referenser"
 msgid "push tags (can't be used with --all or --mirror)"
 msgstr "sänd taggar (kan inte användas med --all eller --mirror)"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "force updates"
 msgstr "tvinga uppdateringar"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "refname>:<expect"
 msgstr "refnamn>:<förvänta"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "require old value of ref to be at this value"
 msgstr "kräv att ref:s tidigare värde är detta"
 
@@ -8359,11 +8947,11 @@ msgstr "kräv att ref:s tidigare värde är detta"
 msgid "control recursive pushing of submodules"
 msgstr "styr rekursiv insändning av undermoduler"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "use thin pack"
 msgstr "använd tunna paket"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "receive pack program"
 msgstr "program för att ta emot paket"
 
@@ -8383,11 +8971,11 @@ msgstr "förbigå pre-push-krok"
 msgid "push missing but relevant tags"
 msgstr "sänd in saknade men relevanta taggar"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "GPG sign the push"
 msgstr "GPG-signera insändningen"
 
-#: builtin/push.c
+#: builtin/push.c builtin/send-pack.c
 msgid "request atomic transaction on remote side"
 msgstr "begär atomiska transaktioner på fjärrsidan"
 
@@ -8401,11 +8989,11 @@ msgstr "--delete kan inte användas utan referenser"
 
 #: builtin/read-tree.c
 msgid ""
-"git read-tree [[-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>] "
+"git read-tree [(-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>) "
 "[-u [--exclude-per-directory=<gitignore>] | -i]] [--no-sparse-checkout] [--"
 "index-output=<file>] (--empty | <tree-ish1> [<tree-ish2> [<tree-ish3>]])"
 msgstr ""
-"git read-tree [[-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>] "
+"git read-tree [(-m [--trivial] [--aggressive] | --reset | --prefix=<prefix>) "
 "[-u [--exclude-per-directory=<gitignore>] | -i]] [--no-sparse-checkout] [--"
 "index-output=<fil>] (--empty | <träd-igt1> [<träd-igt2> [<träd-igt3>]])"
 
@@ -8475,7 +9063,7 @@ msgstr "felsök unpack-trees"
 
 #: builtin/reflog.c
 #, c-format
-msgid "%s' for '%s' is not a valid timestamp"
+msgid "'%s' for '%s' is not a valid timestamp"
 msgstr "\"%s\" för \"%s\" är inte en giltig tidsstämpel"
 
 #: builtin/reflog.c
@@ -8693,11 +9281,6 @@ msgstr "misslyckades ta bort \"%s\""
 #, c-format
 msgid "creating '%s' failed"
 msgstr "misslyckades skapa \"%s\""
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not remove branch %s"
-msgstr "Kunde inte ta bort grenen %s"
 
 #: builtin/remote.c
 msgid ""
@@ -9227,11 +9810,6 @@ msgstr "Kunde inte slå upp \"%s\" som en giltig revision."
 
 #: builtin/reset.c
 #, c-format
-msgid "Could not parse object '%s'."
-msgstr "Kan inte tolka objektet \"%s\""
-
-#: builtin/reset.c
-#, c-format
 msgid "Failed to resolve '%s' as a valid tree."
 msgstr "Kunde inte slå upp \"%s\" som ett giltigt träd."
 
@@ -9270,6 +9848,10 @@ msgstr "Kunde inte återställa indexfilen till versionen \"%s\"."
 #: builtin/reset.c
 msgid "Could not write new index file."
 msgstr "Kunde inte skriva ny indexfil."
+
+#: builtin/rev-list.c
+msgid "rev-list does not support display of notes"
+msgstr "rev-list stöder inte visning av anteckningar"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -9362,10 +9944,6 @@ msgstr "alternativ för sammanslagningsstrategi"
 #: builtin/revert.c
 msgid "append commit name"
 msgstr "lägg till incheckningsnamn"
-
-#: builtin/revert.c
-msgid "allow fast-forward"
-msgstr "tillåt snabbspolning"
 
 #: builtin/revert.c
 msgid "preserve initially empty commits"
@@ -9491,6 +10069,34 @@ msgstr "tar inte bort \"%s\" rekursivt utan -r"
 #, c-format
 msgid "git rm: unable to remove %s"
 msgstr "git rm: kan inte ta bort %s"
+
+#: builtin/send-pack.c
+msgid ""
+"git send-pack [--all | --mirror] [--dry-run] [--force] [--receive-pack=<git-"
+"receive-pack>] [--verbose] [--thin] [--atomic] [<host>:]<directory> "
+"[<ref>...]\n"
+"  --all and explicit <ref> specification are mutually exclusive."
+msgstr ""
+"git send-pack [--all | --mirror] [--dry-run] [--force] [--receive-pack=<git-"
+"receive-pack>] [--verbose] [--thin] [--atomic] [<värd>:]<katalog> "
+"[<ref>...]\n"
+"  --all och explicit angiven <ref> är ömsesidigt uteslutande."
+
+#: builtin/send-pack.c
+msgid "remote name"
+msgstr "fjärrnamn"
+
+#: builtin/send-pack.c
+msgid "use stateless RPC protocol"
+msgstr "använd tillståndslöst RPC-protokoll"
+
+#: builtin/send-pack.c
+msgid "read refs from stdin"
+msgstr "läs referenser från standard in"
+
+#: builtin/send-pack.c
+msgid "print status from remote helper"
+msgstr "visa status från fjärrhjälpare"
 
 #: builtin/shortlog.c
 msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
@@ -9835,6 +10441,10 @@ msgstr "använd annan nyckel för att signera taggen"
 msgid "replace the tag if exists"
 msgstr "ersätt taggen om den finns"
 
+#: builtin/tag.c builtin/update-ref.c
+msgid "create_reflog"
+msgstr "create_reflog"
+
 #: builtin/tag.c
 msgid "Tag listing options"
 msgstr "Alternativ för listning av taggar"
@@ -10131,6 +10741,10 @@ msgstr "git verify-commit [-v | --verbose] <incheckning>..."
 msgid "print commit contents"
 msgstr "visa innehåll för incheckning"
 
+#: builtin/verify-commit.c builtin/verify-tag.c
+msgid "print raw gpg status output"
+msgstr "visa råa gpg-statusdata"
+
 #: builtin/verify-pack.c
 msgid "git verify-pack [-v | --verbose] [-s | --stat-only] <pack>..."
 msgstr "git verify-pack [-v | --verbose] [-s | --stat-only] <paket>..."
@@ -10200,13 +10814,9 @@ msgid "could not create directory of '%s'"
 msgstr "kunde inte skapa katalogen \"%s\""
 
 #: builtin/worktree.c
-msgid "unable to resolve HEAD"
-msgstr "kan inte bestämma HEAD"
-
-#: builtin/worktree.c
 #, c-format
-msgid "Enter %s (identifier %s)"
-msgstr "Går in i %s (identifieraren %s)"
+msgid "Preparing %s (identifier %s)"
+msgstr "Förbereder %s (identifieraren %s)"
 
 #: builtin/worktree.c
 msgid "checkout <branch> even if already checked out in other worktree"
@@ -10226,8 +10836,8 @@ msgid "detach HEAD at named commit"
 msgstr "koppla från HEAD vid namngiven incheckning"
 
 #: builtin/worktree.c
-msgid "-b and -B are mutually exclusive"
-msgstr "-b och -B kan inte användas samtidigt"
+msgid "-b, -B, and --detach are mutually exclusive"
+msgstr "-b, -B och --detach är ömsesidigt uteslutande"
 
 #: builtin/write-tree.c
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
@@ -10284,8 +10894,8 @@ msgid "Add file contents to the index"
 msgstr "Lägg filinnehåll till indexet"
 
 #: common-cmds.h
-msgid "Find by binary search the change that introduced a bug"
-msgstr "Binärsök för att hitta ändringen som introducerade ett fel"
+msgid "Use binary search to find the commit that introduced a bug"
+msgstr "Använd binärsökning för att hitta ändringen som introducerade ett fel"
 
 #: common-cmds.h
 msgid "List, create, or delete branches"
@@ -10387,184 +10997,6 @@ msgstr "använd <n> siffror för att visa SHA-1:or"
 msgid "update the index with reused conflict resolution if possible"
 msgstr "uppdatera indexet med återanvänd konfliktlösning om möjligt"
 
-#: git-am.sh
-msgid "You need to set your committer info first"
-msgstr "Du måste ställa in din incheckarinformation först"
-
-#: git-am.sh
-msgid ""
-"You seem to have moved HEAD since the last 'am' failure.\n"
-"Not rewinding to ORIG_HEAD"
-msgstr ""
-"Du verkar ha flyttat HEAD sedan \"am\" sist misslyckades.\n"
-"Återställer inte till ORIG_HEAD"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"When you have resolved this problem, run \"$cmdline --continue\".\n"
-"If you prefer to skip this patch, run \"$cmdline --skip\" instead.\n"
-"To restore the original branch and stop patching, run \"$cmdline --abort\"."
-msgstr ""
-"När du har löst problemet kör du \"$cmdline --continue\".\n"
-"Om du vill hoppa över patchen kör du istället \"$cmdline --skip\".\n"
-"För att återställa originalgrenen och avbryta kör du \"$cmdline --abort\"."
-
-#: git-am.sh
-msgid "Cannot fall back to three-way merge."
-msgstr "Kan inte falla tillbaka på trevägssammanslagning."
-
-#: git-am.sh
-msgid "Repository lacks necessary blobs to fall back on 3-way merge."
-msgstr ""
-"Arkivet saknar objekt som behövs för att falla tillbaka på 3-"
-"vägssammanslagning."
-
-#: git-am.sh
-msgid "Using index info to reconstruct a base tree..."
-msgstr "Använder indexinfo för att återskapa ett basträd..."
-
-#: git-am.sh
-msgid ""
-"Did you hand edit your patch?\n"
-"It does not apply to blobs recorded in its index."
-msgstr ""
-"Har du handredigerat din patch?\n"
-"Den kan inte tillämpas på blobbar som antecknats i dess index."
-
-#: git-am.sh
-msgid "Falling back to patching base and 3-way merge..."
-msgstr ""
-"Faller tillbaka på att patcha grundversionen och trevägssammanslagning..."
-
-#: git-am.sh
-msgid "Failed to merge in the changes."
-msgstr "Misslyckades slå ihop ändringarna."
-
-#: git-am.sh
-msgid "Only one StGIT patch series can be applied at once"
-msgstr "Endast en StGIT-patchserie kan tillämpas åt gången"
-
-#: git-am.sh
-#, sh-format
-msgid "Patch format $patch_format is not supported."
-msgstr "Patchformatet $patch_format stöds inte."
-
-#: git-am.sh
-msgid "Patch format detection failed."
-msgstr "Misslyckades detektera patchformat."
-
-#: git-am.sh
-msgid ""
-"The -b/--binary option has been a no-op for long time, and\n"
-"it will be removed. Please do not use it anymore."
-msgstr ""
-"Flaggan -b/--binary har varit utan funktion länge, och\n"
-"kommer tas bort. Vi ber dig att inte använda den längre."
-
-#: git-am.sh
-#, sh-format
-msgid "previous rebase directory $dotest still exists but mbox given."
-msgstr "tidigare rebase-katalog $dotest finns fortfarande, men mbox angavs."
-
-#: git-am.sh
-msgid "Please make up your mind. --skip or --abort?"
-msgstr "Bestäm dig. --skip eller --abort?"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"Stray $dotest directory found.\n"
-"Use \"git am --abort\" to remove it."
-msgstr ""
-"Kvarbliven katalog $dotest hittades.\n"
-"Använd \"git am --abort\" för att ta bort den."
-
-#: git-am.sh
-msgid "Resolve operation not in progress, we are not resuming."
-msgstr "Lösningsoperation pågår inte, vi återupptar inte."
-
-#: git-am.sh
-#, sh-format
-msgid "Dirty index: cannot apply patches (dirty: $files)"
-msgstr "Smutsigt index: kan inte tillämpa patchar (smutsiga: $files)"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"Patch is empty.  Was it split wrong?\n"
-"If you would prefer to skip this patch, instead run \"$cmdline --skip\".\n"
-"To restore the original branch and stop patching run \"$cmdline --abort\"."
-msgstr ""
-"Patchen är tom. Delades den upp felaktigt?\n"
-"Om du vill hoppa över patchen kör du istället \"$cmdline --skip\".\n"
-"För att återställa originalgrenen och avbryta kör du \"$cmdline --abort\"."
-
-#: git-am.sh
-msgid "Patch does not have a valid e-mail address."
-msgstr "Patchen har inte någon giltig e-postadress."
-
-#: git-am.sh
-msgid "cannot be interactive without stdin connected to a terminal."
-msgstr ""
-"kan inte vara interaktiv om standard in inte är ansluten till en terminal."
-
-#: git-am.sh
-msgid "Commit Body is:"
-msgstr "Incheckningskroppen är:"
-
-#. TRANSLATORS: Make sure to include [y], [n], [e], [v] and [a]
-#. in your translation. The program will only accept English
-#. input at this point.
-#: git-am.sh
-msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all "
-msgstr "Tillämpa? Y=ja/N=nej/E=redigera/V=visa patch/A=godta alla "
-
-#: git-am.sh
-#, sh-format
-msgid "Applying: $FIRSTLINE"
-msgstr "Tillämpar: $FIRSTLINE"
-
-#: git-am.sh
-msgid ""
-"No changes - did you forget to use 'git add'?\n"
-"If there is nothing left to stage, chances are that something else\n"
-"already introduced the same changes; you might want to skip this patch."
-msgstr ""
-"Inga ändringar - glömde du använda \"git add\"?\n"
-"Om det inte är något kvar att köa kan det hända att något annat redan\n"
-"introducerat samma ändringar; kanske du bör hoppa över patchen."
-
-#: git-am.sh
-msgid ""
-"You still have unmerged paths in your index\n"
-"did you forget to use 'git add'?"
-msgstr ""
-"Du har fortfarande sökvägar som inte slagits samman i ditt index\n"
-"glömde du använda \"git add\"?"
-
-#: git-am.sh
-msgid "No changes -- Patch already applied."
-msgstr "Inga ändringar -- Patchen har redan tillämpats."
-
-#: git-am.sh
-#, sh-format
-msgid "Patch failed at $msgnum $FIRSTLINE"
-msgstr "Patchen misslyckades vid $msgnum $FIRSTLINE"
-
-#: git-am.sh
-#, sh-format
-msgid ""
-"The copy of the patch that failed is found in:\n"
-"   $dotest/patch"
-msgstr ""
-"En kopia av patchen som misslyckades finns i:\n"
-"   $dotest/patch"
-
-#: git-am.sh
-msgid "applying to an empty history"
-msgstr "tillämpar på en tom historik"
-
 #: git-bisect.sh
 msgid "You need to start by \"git bisect start\""
 msgstr "Du måste starta med \"git bisect start\""
@@ -10627,12 +11059,15 @@ msgid "Bad rev input: $rev"
 msgstr "Felaktig rev-indata: $rev"
 
 #: git-bisect.sh
-msgid "'git bisect bad' can take only one argument."
-msgstr "\"git bisect bad\" kan bara ta ett argument."
+#, sh-format
+msgid "'git bisect $TERM_BAD' can take only one argument."
+msgstr "\"git bisect $TERM_BAD\" kan bara ta ett argument."
 
 #: git-bisect.sh
-msgid "Warning: bisecting only with a bad commit."
-msgstr "Varning: utför \"bisect\" med endast en dålig incheckning"
+#, sh-format
+msgid "Warning: bisecting only with a $TERM_BAD commit."
+msgstr ""
+"Varning: utför \"bisect\" med endast en dålig (\"$TERM_BAD\") incheckning"
 
 #. TRANSLATORS: Make sure to include [Y] and [n] in your
 #. translation. The program will only accept English input
@@ -10642,22 +11077,28 @@ msgid "Are you sure [Y/n]? "
 msgstr "Är du säker [Y=ja/N=nej]? "
 
 #: git-bisect.sh
+#, sh-format
 msgid ""
-"You need to give me at least one good and one bad revision.\n"
-"(You can use \"git bisect bad\" and \"git bisect good\" for that.)"
+"You need to give me at least one $bad_syn and one $good_syn revision.\n"
+"(You can use \"git bisect $bad_syn\" and \"git bisect $good_syn\" for that.)"
 msgstr ""
-"Du måste ange åtminstone en bra och en dålig version.\n"
-"(Du kan använda \"git bisect bad\" och \"git bisect good\" för detta.)"
+"Du måste ange åtminstone en dålig (\"$bad_syn\") och en bra (\"$good_syn\") "
+"version.\n"
+"(Du kan använda \"git bisect $bad_syn\" och \"git bisect $good_syn\" för "
+"detta.)"
 
 #: git-bisect.sh
+#, sh-format
 msgid ""
 "You need to start by \"git bisect start\".\n"
-"You then need to give me at least one good and one bad revision.\n"
-"(You can use \"git bisect bad\" and \"git bisect good\" for that.)"
+"You then need to give me at least one $good_syn and one $bad_syn revision.\n"
+"(You can use \"git bisect $bad_syn\" and \"git bisect $good_syn\" for that.)"
 msgstr ""
 "Du måste starta med \"git bisect start\".\n"
-"Du måste sedan ange åtminstone en bra och en dålig version.\n"
-"(Du kan använda \"git bisect bad\" och \"git bisect good\" för detta.)"
+"Du måste sedan ange åtminstone en bra (\"$good_syn\") och en dålig "
+"(\"$bad_syn\") version.\n"
+"(Du kan använda \"git bisect $bad_syn\" och \"git bisect $good_syn\" för "
+"detta.)"
 
 #: git-bisect.sh
 msgid "We are not bisecting."
@@ -10721,50 +11162,11 @@ msgstr ""
 msgid "bisect run success"
 msgstr "\"bisect\"-körningen lyckades"
 
-#: git-pull.sh
-msgid ""
-"Pull is not possible because you have unmerged files.\n"
-"Please, fix them up in the work tree, and then use 'git add/rm <file>'\n"
-"as appropriate to mark resolution and make a commit."
-msgstr ""
-"Du kan inte göra en \"pull\" då du har ändringar som inte checkats in.\n"
-"Rätta dem i din arbetskatalog och använd sedan \"git add/rm <fil>\"\n"
-"där det är lämpligt för att ange lösning och checka in."
-
-#: git-pull.sh
-msgid "Pull is not possible because you have unmerged files."
-msgstr "Du kan inte göra en \"pull\" då du har ändringar som inte checkats in."
-
-#: git-pull.sh
-msgid ""
-"You have not concluded your merge (MERGE_HEAD exists).\n"
-"Please, commit your changes before you can merge."
-msgstr ""
-"Du har inte avslutat sammanslagningen (MERGE_HEAD finns).\n"
-"Checka in dina ändringar innan du kan slå ihop."
-
-#: git-pull.sh
-msgid "updating an unborn branch with changes added to the index"
-msgstr "uppdaterar en ofödd gren med ändringar som lagts till i indexet"
-
-#: git-pull.sh
+#: git-bisect.sh
 #, sh-format
-msgid ""
-"Warning: fetch updated the current branch head.\n"
-"Warning: fast-forwarding your working tree from\n"
-"Warning: commit $orig_head."
+msgid "Invalid command: you're currently in a $TERM_BAD/$TERM_GOOD bisect."
 msgstr ""
-"Varning: fetch uppdaterade huvudet för aktuell gren.\n"
-"Varning: snabbspolar din arbetskatalog från\n"
-"Varning: incheckningen $orig_head."
-
-#: git-pull.sh
-msgid "Cannot merge multiple branches into empty head"
-msgstr "Kan inte slå ihop flera grenar i ett tomt huvud."
-
-#: git-pull.sh
-msgid "Cannot rebase onto multiple branches"
-msgstr "Kan inte utföra en \"rebase\" ovanpå flera grenar"
+"Ogiltigt kommando: du utför just nu en \"bisect\" med $TERM_BAD/$TERM_GOOD."
 
 #: git-rebase.sh
 msgid ""
@@ -11302,7 +11704,7 @@ msgstr "Undermodulsökvägen \"$displaypath\": sammanslagen i \"$sha1\""
 #: git-submodule.sh
 #, sh-format
 msgid ""
-"Execution of '$command $sha1' failed in submodule  path '$prefix$sm_path'"
+"Execution of '$command $sha1' failed in submodule path '$prefix$sm_path'"
 msgstr ""
 "Misslyckades köra \"$command $sha1\" i undermodulsökvägen \"$prefix$sm_path\""
 
@@ -11356,6 +11758,81 @@ msgstr "Misslyckades rekursera in i undermodulsökvägen \"$sm_path\""
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Synkroniserar undermodul-url för \"$displaypath\""
 
+#~ msgid "BUG: reopen a lockfile that is still open"
+#~ msgstr "FEL: återöppna en låsfil som fortfarande är öppen"
+
+#~ msgid "BUG: reopen a lockfile that has been committed"
+#~ msgstr "FEL: återöppna en låsfil som har överlämnats"
+
+#~ msgid "option %s does not accept negative form"
+#~ msgstr "flaggan %s godtar inte negativ form"
+
+#~ msgid "unable to parse value '%s' for option %s"
+#~ msgstr "kunde inte tolka värdet \"%s\" för flaggan %s"
+
+#~ msgid "unable to resolve HEAD"
+#~ msgstr "kan inte bestämma HEAD"
+
+#~ msgid "-b and -B are mutually exclusive"
+#~ msgstr "-b och -B kan inte användas samtidigt"
+
+#~ msgid "You need to set your committer info first"
+#~ msgstr "Du måste ställa in din incheckarinformation först"
+
+#~ msgid ""
+#~ "When you have resolved this problem, run \"$cmdline --continue\".\n"
+#~ "If you prefer to skip this patch, run \"$cmdline --skip\" instead.\n"
+#~ "To restore the original branch and stop patching, run \"$cmdline --abort"
+#~ "\"."
+#~ msgstr ""
+#~ "När du har löst problemet kör du \"$cmdline --continue\".\n"
+#~ "Om du vill hoppa över patchen kör du istället \"$cmdline --skip\".\n"
+#~ "För att återställa originalgrenen och avbryta kör du \"$cmdline --abort\"."
+
+#~ msgid "Patch format $patch_format is not supported."
+#~ msgstr "Patchformatet $patch_format stöds inte."
+
+#~ msgid "Please make up your mind. --skip or --abort?"
+#~ msgstr "Bestäm dig. --skip eller --abort?"
+
+#~ msgid ""
+#~ "Patch is empty.  Was it split wrong?\n"
+#~ "If you would prefer to skip this patch, instead run \"$cmdline --skip\".\n"
+#~ "To restore the original branch and stop patching run \"$cmdline --abort\"."
+#~ msgstr ""
+#~ "Patchen är tom. Delades den upp felaktigt?\n"
+#~ "Om du vill hoppa över patchen kör du istället \"$cmdline --skip\".\n"
+#~ "För att återställa originalgrenen och avbryta kör du \"$cmdline --abort\"."
+
+#~ msgid "Patch does not have a valid e-mail address."
+#~ msgstr "Patchen har inte någon giltig e-postadress."
+
+#~ msgid "Applying: $FIRSTLINE"
+#~ msgstr "Tillämpar: $FIRSTLINE"
+
+#~ msgid "Patch failed at $msgnum $FIRSTLINE"
+#~ msgstr "Patchen misslyckades vid $msgnum $FIRSTLINE"
+
+#~ msgid ""
+#~ "Pull is not possible because you have unmerged files.\n"
+#~ "Please, fix them up in the work tree, and then use 'git add/rm <file>'\n"
+#~ "as appropriate to mark resolution and make a commit."
+#~ msgstr ""
+#~ "Du kan inte göra en \"pull\" då du har ändringar som inte checkats in.\n"
+#~ "Rätta dem i din arbetskatalog och använd sedan \"git add/rm <fil>\"\n"
+#~ "där det är lämpligt för att ange lösning och checka in."
+
+#~ msgid "Pull is not possible because you have unmerged files."
+#~ msgstr ""
+#~ "Du kan inte göra en \"pull\" då du har ändringar som inte checkats in."
+
+#~ msgid ""
+#~ "You have not concluded your merge (MERGE_HEAD exists).\n"
+#~ "Please, commit your changes before you can merge."
+#~ msgstr ""
+#~ "Du har inte avslutat sammanslagningen (MERGE_HEAD finns).\n"
+#~ "Checka in dina ändringar innan du kan slå ihop."
+
 #~ msgid "no branch specified"
 #~ msgstr "inget grennamn angavs"
 
@@ -11379,9 +11856,6 @@ msgstr "Synkroniserar undermodul-url för \"$displaypath\""
 
 #~ msgid "Invalid gc.pruneexpire: '%s'"
 #~ msgstr "Ogiltig gc.pruneexpire: '%s'"
-
-#~ msgid "server does not support --atomic push"
-#~ msgstr "servern stöder inte push med --atomic"
 
 #~ msgid "(detached from %s)"
 #~ msgstr "(frånkopplad från %s)"
@@ -11737,9 +12211,6 @@ msgstr "Synkroniserar undermodul-url för \"$displaypath\""
 
 #~ msgid "cherry-pick"
 #~ msgstr "cherry-pick"
-
-#~ msgid "Please enter the commit message for your changes."
-#~ msgstr "Ange ett incheckningsmeddelande för dina ändringar."
 
 #~ msgid "Could not extract email from committer identity."
 #~ msgstr "Kunde inte extrahera e-postadress från incheckarens identitet."
