@@ -87,6 +87,7 @@
 #   pickaxe                          |  挖掘
 #   plumbing                         |  管件（Git 底层核心命令的别称）
 #   porcelain                        |  瓷件（Git 上层封装命令的别称）
+#   precious-objects repo            |  珍品仓库
 #   prune                            |  清除
 #   pull                             |  拉，拉取
 #   push                             |  推，推送
@@ -134,8 +135,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-09-15 06:45+0800\n"
-"PO-Revision-Date: 2015-09-15 21:49+0800\n"
+"POT-Creation-Date: 2015-12-11 23:36+0800\n"
+"PO-Revision-Date: 2015-12-14 22:12+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -158,7 +159,7 @@ msgstr ""
 msgid "You have not concluded your merge (MERGE_HEAD exists)."
 msgstr "您尚未结束您的合并（存在 MERGE_HEAD）。"
 
-msgid "Please, commit your changes before you can merge."
+msgid "Please, commit your changes before merging."
 msgstr "请在合并前先提交您的修改。"
 
 msgid "Exiting because of unfinished merge."
@@ -901,6 +902,14 @@ msgstr "    %s"
 msgid "-NUM"
 msgstr "-数字"
 
+#, c-format
+msgid "malformed object name '%s'"
+msgstr "非法的对象名 '%s'"
+
+#, c-format
+msgid "Could not make %s writable by group"
+msgstr "不能设置 %s 为组可写"
+
 msgid "global 'glob' and 'noglob' pathspec settings are incompatible"
 msgstr "全局的 'glob' 和 'noglob' 路径规格设置不兼容"
 
@@ -989,8 +998,44 @@ msgstr "无法删除引用：%s"
 msgid "could not remove reference %s"
 msgstr "无法删除引用 %s"
 
+#, c-format
+msgid "format: %%(end) atom used without corresponding atom"
+msgstr "格式：使用了 %%(end) 元素却没有它的对应元素"
+
+#, c-format
+msgid "positive value expected contents:lines=%s"
+msgstr "要为 contents:lines=%s 提供一个正数"
+
+#, c-format
+msgid "expected format: %%(color:<color>)"
+msgstr "期望的格式：%%(color:<color>)"
+
 msgid "unable to parse format"
 msgstr "不能解析格式"
+
+#, c-format
+msgid "expected format: %%(align:<width>,<position>)"
+msgstr "期望的格式：%%(align:<width>,<position>)"
+
+#, c-format
+msgid "improper format entered align:%s"
+msgstr "输入了不正确的格式 align:%s"
+
+#, c-format
+msgid "positive width expected with the %%(align) atom"
+msgstr "元素 %%(align) 需要一个正数的宽度"
+
+#, c-format
+msgid "malformed object at '%s'"
+msgstr "非法的对象于 '%s'"
+
+#, c-format
+msgid "format: %%(end) atom missing"
+msgstr "格式：缺少 %%(end) 元素"
+
+#, c-format
+msgid "malformed object name %s"
+msgstr "非法的对象名 %s"
 
 #, c-format
 msgid "Cannot fetch both %s and %s to %s"
@@ -1808,12 +1853,12 @@ msgstr "无文件要提交（使用 -u 显示未跟踪的文件）\n"
 msgid "nothing to commit, working directory clean\n"
 msgstr "无文件要提交，干净的工作区\n"
 
-msgid "HEAD (no branch)"
-msgstr "HEAD（非分支）"
-
 #  译者：注意保持句尾空格
 msgid "Initial commit on "
 msgstr "初始提交于 "
+
+msgid "HEAD (no branch)"
+msgstr "HEAD（非分支）"
 
 msgid "gone"
 msgstr "丢失"
@@ -2119,11 +2164,11 @@ msgstr "您好像在上一次 'am' 失败后移动了 HEAD。未回退至 ORIG_H
 msgid "Invalid value for --patch-format: %s"
 msgstr "无效的 --patch-format 值：%s"
 
-msgid "git am [options] [(<mbox>|<Maildir>)...]"
-msgstr "git am [选项] [(<mbox>|<Maildir>)...]"
+msgid "git am [<options>] [(<mbox>|<Maildir>)...]"
+msgstr "git am [<选项>] [(<mbox>|<Maildir>)...]"
 
-msgid "git am [options] (--continue | --skip | --abort)"
-msgstr "git am [选项] (--continue | --skip | --abort)"
+msgid "git am [<options>] (--continue | --skip | --abort)"
+msgstr "git am [<选项>] (--continue | --skip | --abort)"
 
 msgid "run interactively"
 msgstr "以交互式方式运行"
@@ -2743,6 +2788,9 @@ msgstr "git branch [<选项>] [-r] (-d | -D) <分支名>..."
 msgid "git branch [<options>] (-m | -M) [<old-branch>] <new-branch>"
 msgstr "git branch [<选项>] (-m | -M) [<旧分支>] <新分支>"
 
+msgid "git branch [<options>] [-r | -a] [--points-at]"
+msgstr "git branch [<选项>] [-r | -a] [--points-at]"
+
 #  译者：保持原换行格式，在输出时 %s 的替代内容会让字符串变长
 #, c-format
 msgid ""
@@ -2811,10 +2859,6 @@ msgid "Deleted branch %s (was %s).\n"
 msgstr "已删除分支 %s（曾为 %s）。\n"
 
 #, c-format
-msgid "branch '%s' does not point at a commit"
-msgstr "分支 '%s' 未指向一个提交"
-
-#, c-format
 msgid "[%s: gone]"
 msgstr "[%s: 丢失]"
 
@@ -2868,13 +2912,6 @@ msgstr "（头指针分离自 %s）"
 msgid "(no branch)"
 msgstr "（非分支）"
 
-#, c-format
-msgid "object '%s' does not point to a commit"
-msgstr "对象 '%s' 没有指向一个提交"
-
-msgid "some refs could not be read"
-msgstr "一些引用不能读取"
-
 msgid "cannot rename the current branch while not on any."
 msgstr "无法重命名当前分支因为不处于任何分支上。"
 
@@ -2895,10 +2932,6 @@ msgstr "分支重命名为 %s，但 HEAD 没有更新！"
 
 msgid "Branch is renamed, but update of config-file failed"
 msgstr "分支被重命名，但更新 config 文件失败"
-
-#, c-format
-msgid "malformed object name %s"
-msgstr "非法的对象名 %s"
 
 #, c-format
 msgid "could not write branch description template: %s"
@@ -2924,9 +2957,6 @@ msgstr "使用彩色输出"
 
 msgid "act on remote-tracking branches"
 msgstr "作用于远程跟踪分支"
-
-msgid "commit"
-msgstr "提交"
 
 msgid "print only branches that contain the commit"
 msgstr "只打印包含该提交的分支"
@@ -2961,14 +2991,26 @@ msgstr "标记分支的描述"
 msgid "force creation, move/rename, deletion"
 msgstr "强制创建、移动/重命名、删除"
 
-msgid "print only not merged branches"
-msgstr "只打印没有合并的分支"
+msgid "print only branches that are merged"
+msgstr "只打印已经合并的分支"
 
-msgid "print only merged branches"
-msgstr "只打印合并的分支"
+msgid "print only branches that are not merged"
+msgstr "只打印尚未合并的分支"
 
 msgid "list branches in columns"
 msgstr "以列的方式显示分支"
+
+msgid "key"
+msgstr "key"
+
+msgid "field name to sort on"
+msgstr "排序的字段名"
+
+msgid "object"
+msgstr "对象"
+
+msgid "print only branches of the object"
+msgstr "只打印指向该对象的分支"
 
 msgid "Failed to resolve HEAD as a valid ref."
 msgstr "无法将 HEAD 解析为有效引用。"
@@ -3073,11 +3115,8 @@ msgstr ""
 "git cat-file (-t [--allow-unknown-type]|-s [--allow-unknown-type]|-e|-p|<类型"
 ">|--textconv) <对象>"
 
-msgid ""
-"git cat-file (--batch | --batch-check) [--follow-symlinks] < <list-of-"
-"objects>"
-msgstr ""
-"git cat-file (--batch | --batch-check) [--follow-symlinks] < <对象列表>"
+msgid "git cat-file (--batch | --batch-check) [--follow-symlinks]"
+msgstr "git cat-file (--batch | --batch-check) [--follow-symlinks]"
 
 msgid "<type> can be one of: blob, tree, commit, tag"
 msgstr "<类型> 可以是其中之一：blob、tree、commit、tag"
@@ -3118,8 +3157,8 @@ msgstr "使用 --batch 或 --batch-check 参数显示所有对象"
 msgid "git check-attr [-a | --all | <attr>...] [--] <pathname>..."
 msgstr "git check-attr [-a | --all | <属性>...] [--] <路径名>..."
 
-msgid "git check-attr --stdin [-z] [-a | --all | <attr>...] < <list-of-paths>"
-msgstr "git check-attr --stdin [-z] [-a | --all | <属性>...] < <路径列表>"
+msgid "git check-attr --stdin [-z] [-a | --all | <attr>...]"
+msgstr "git check-attr --stdin [-z] [-a | --all | <属性>...]"
 
 msgid "report all attributes set on file"
 msgstr "报告设置在文件上的所有属性"
@@ -3426,6 +3465,9 @@ msgstr "二次猜测'git checkout <无此分支>'"
 msgid "do not check if another worktree is holding the given ref"
 msgstr "不检查指定的引用是否被其他工作区所占用"
 
+msgid "force progress reporting"
+msgstr "强制显示进度报告"
+
 msgid "-b, -B and --orphan are mutually exclusive"
 msgstr "-b、-B 和 --orphan 是互斥的"
 
@@ -3607,9 +3649,6 @@ msgstr ""
 msgid "git clone [<options>] [--] <repo> [<dir>]"
 msgstr "git clone [<选项>] [--] <仓库> [<路径>]"
 
-msgid "force progress reporting"
-msgstr "强制显示进度报告"
-
 msgid "don't create a checkout"
 msgstr "不创建一个检出"
 
@@ -3675,6 +3714,10 @@ msgstr "key=value"
 
 msgid "set config inside the new repository"
 msgstr "在新仓库中设置配置信息"
+
+#, c-format
+msgid "reference repository '%s' as a linked checkout is not supported yet."
+msgstr "尚不支持将参考仓库 '%s' 作为一个链接检出。"
 
 #, c-format
 msgid "reference repository '%s' is not a local repository."
@@ -3788,9 +3831,6 @@ msgstr "克隆到纯仓库 '%s'...\n"
 #, c-format
 msgid "Cloning into '%s'...\n"
 msgstr "正克隆到 '%s'...\n"
-
-msgid "--dissociate given, but there is no --reference"
-msgstr "提供了参数 --dissociate，但未提供 --reference"
 
 msgid "--depth is ignored in local clones; use file:// instead."
 msgstr "--depth 在本地克隆被忽略，改为 file:// 协议试试。"
@@ -4200,6 +4240,9 @@ msgstr "说明"
 
 msgid "commit message"
 msgstr "提交说明"
+
+msgid "commit"
+msgstr "提交"
 
 msgid "reuse and edit message from specified commit"
 msgstr "重用并编辑指定提交的提交说明"
@@ -4828,6 +4871,15 @@ msgstr "从文件中读取"
 msgid "git for-each-ref [<options>] [<pattern>]"
 msgstr "git for-each-ref [<选项>] [<模式>]"
 
+msgid "git for-each-ref [--points-at <object>]"
+msgstr "git for-each-ref [--points-at <对象>]"
+
+msgid "git for-each-ref [(--merged | --no-merged) [<object>]]"
+msgstr "git for-each-ref [(--merged | --no-merged) [<对象>]]"
+
+msgid "git for-each-ref [--contains [<object>]]"
+msgstr "git for-each-ref [--contains [<对象>]]"
+
 msgid "quote placeholders suitably for shells"
 msgstr "引用占位符适用于 shells"
 
@@ -4846,11 +4898,17 @@ msgstr "只显示 <n> 个匹配的引用"
 msgid "format to use for the output"
 msgstr "输出格式"
 
-msgid "key"
-msgstr "key"
+msgid "print only refs which points at the given object"
+msgstr "只打印指向给定对象的引用"
 
-msgid "field name to sort on"
-msgstr "排序的字段名"
+msgid "print only refs that are merged"
+msgstr "只打印已经合并的引用"
+
+msgid "print only refs that are not merged"
+msgstr "只打印没有合并的引用"
+
+msgid "print only refs which contain the commit"
+msgstr "只打印包含该提交的引用"
 
 msgid "Checking connectivity"
 msgstr "检查连接中"
@@ -4907,6 +4965,19 @@ msgstr "无效 %s：'%s'"
 #, c-format
 msgid "insanely long object directory %.*s"
 msgstr "不正常的长对象目录 %.*s"
+
+#, c-format
+msgid ""
+"The last gc run reported the following. Please correct the root cause\n"
+"and remove %s.\n"
+"Automatic cleanup will not be performed until the file is removed.\n"
+"\n"
+"%s"
+msgstr ""
+"最后一次 gc 操作报告如下信息。请检查原因并删除 %s。\n"
+"在该文件被删除之前，自动清理将不会执行。\n"
+"\n"
+"%s"
 
 msgid "prune unreferenced objects"
 msgstr "清除未引用的对象"
@@ -5092,9 +5163,6 @@ msgstr "分页显示匹配的文件"
 msgid "allow calling of grep(1) (ignored by this build)"
 msgstr "允许调用 grep(1)（本次构建忽略）"
 
-msgid "show usage"
-msgstr "显示用法"
-
 msgid "no pattern given."
 msgstr "未提供模式匹配。"
 
@@ -5120,8 +5188,8 @@ msgstr ""
 "git hash-object [-t <类型>] [-w] [--path=<文件> | --no-filters] [--stdin] "
 "[--] <文件>..."
 
-msgid "git hash-object  --stdin-paths < <list-of-paths>"
-msgstr "git hash-object  --stdin-paths < <路径列表>"
+msgid "git hash-object  --stdin-paths"
+msgstr "git hash-object  --stdin-paths"
 
 msgid "type"
 msgstr "类型"
@@ -5468,14 +5536,6 @@ msgid "--verify with no packfile name given"
 msgstr "--verify 没有提供包文件名参数"
 
 #, c-format
-msgid "Could not make %s writable by group"
-msgstr "不能设置 %s 为组可写"
-
-#, c-format
-msgid "insanely long template name %s"
-msgstr "太长的模版名 %s"
-
-#, c-format
 msgid "cannot stat '%s'"
 msgstr "不能枚举 '%s' 状态"
 
@@ -5492,10 +5552,6 @@ msgid "cannot readlink '%s'"
 msgstr "不能读取链接 '%s'"
 
 #, c-format
-msgid "insanely long symlink %s"
-msgstr "太长的符号链接 %s"
-
-#, c-format
 msgid "cannot symlink '%s' '%s'"
 msgstr "不能自 '%s' 到 '%s' 创建符号链接"
 
@@ -5508,20 +5564,12 @@ msgid "ignoring template %s"
 msgstr "忽略模版 %s"
 
 #, c-format
-msgid "insanely long template path %s"
-msgstr "太长的模版路径 %s"
-
-#, c-format
 msgid "templates not found %s"
 msgstr "模版未找到 %s"
 
 #, c-format
 msgid "not copying templates of a wrong format version %d from '%s'"
 msgstr "没有从 '%2$s' 复制带有错误版本 %1$d 的模版"
-
-#, c-format
-msgid "insane git directory %s"
-msgstr "不正常的 git 目录 %s"
 
 #, c-format
 msgid "%s already exists"
@@ -6494,9 +6542,6 @@ msgstr "注解内容作为一个字符串"
 msgid "note contents in a file"
 msgstr "注解内容到一个文件中"
 
-msgid "object"
-msgstr "对象"
-
 msgid "reuse and edit specified note object"
 msgstr "重用和编辑指定的注解对象"
 
@@ -6758,7 +6803,10 @@ msgstr "报告清除的对象"
 msgid "expire objects older than <time>"
 msgstr "使早于给定时间的对象过期"
 
-msgid "git pull [options] [<repository> [<refspec>...]]"
+msgid "cannot prune in a precious-objects repo"
+msgstr "不能在珍品仓库中执行清理操作"
+
+msgid "git pull [<options>] [<repository> [<refspec>...]]"
 msgstr "git pull [<选项>] [<仓库> [<引用规格>...]]"
 
 msgid "Options related to merging"
@@ -7247,6 +7295,9 @@ msgstr "git remote [-v | --verbose] update [-p | --prune] [(<组> | <远程>)...
 msgid "git remote set-branches [--add] <name> <branch>..."
 msgstr "git remote set-branches [--add] <名称> <分支>..."
 
+msgid "git remote get-url [--push] [--all] <name>"
+msgstr "git remote get-url [--push] [--all] <名称>"
+
 msgid "git remote set-url [--push] <name> <newurl> [<oldurl>]"
 msgstr "git remote set-url [--push] <名称> <新的地址> [<旧的地址>]"
 
@@ -7569,6 +7620,16 @@ msgstr "添加分支"
 msgid "no remote specified"
 msgstr "未指定远程"
 
+msgid "query push URLs rather than fetch URLs"
+msgstr "查询推送 URL 地址，而非获取 URL 地址"
+
+msgid "return all URLs"
+msgstr "返回所有 URL 地址"
+
+#, c-format
+msgid "no URLs configured for remote '%s'"
+msgstr "没有给远程仓库 '%s' 设定 URL"
+
 msgid "manipulate push URLs"
 msgstr "操作推送 URLS"
 
@@ -7645,6 +7706,9 @@ msgstr "每个包文件的最大尺寸"
 
 msgid "repack objects in packs marked with .keep"
 msgstr "对标记为 .keep 的包中的对象重新打包"
+
+msgid "cannot delete packs in a precious-objects repo"
+msgstr "不能删除珍品仓库中的打包文件"
 
 #, c-format
 msgid "removing '%s' failed"
@@ -8103,8 +8167,8 @@ msgstr ""
 "git show-ref [-q | --quiet] [--verify] [--head] [-d | --dereference] [-s | --"
 "hash[=<n>]] [--abbrev[=<n>]] [--tags] [--heads] [--] [<模式>...]"
 
-msgid "git show-ref --exclude-existing[=<pattern>] < <ref-list>"
-msgstr "git show-ref --exclude-existing[=<模式>] < <引用列表>"
+msgid "git show-ref --exclude-existing[=<pattern>]"
+msgstr "git show-ref --exclude-existing[=<模式>]"
 
 msgid "only show tags (can be combined with heads)"
 msgstr "只显示标签（可以和头共用）"
@@ -8129,6 +8193,77 @@ msgstr "不打印结果到标准输出（例如与 --verify 参数共用）"
 
 msgid "show refs from stdin that aren't in local repository"
 msgstr "显示从标准输入中读入的不在本地仓库中的引用"
+
+msgid "git stripspace [-s | --strip-comments]"
+msgstr "git stripspace [-s | --strip-comments]"
+
+msgid "git stripspace [-c | --comment-lines]"
+msgstr "git stripspace [-c | --comment-lines]"
+
+msgid "skip and remove all lines starting with comment character"
+msgstr "跳过和移除所有的注释行"
+
+msgid "prepend comment character and blank to each line"
+msgstr "为每一行的行首添加注释符和空格"
+
+msgid "alternative anchor for relative paths"
+msgstr "相对路径的替代锚记（anchor）"
+
+msgid "git submodule--helper list [--prefix=<path>] [<path>...]"
+msgstr "git submodule--helper list [--prefix=<路径>] [<路径>...]"
+
+msgid "git submodule--helper name <path>"
+msgstr "git submodule--helper name <路径>"
+
+#, c-format
+msgid "no submodule mapping found in .gitmodules for path '%s'"
+msgstr "在 .gitmodules 中没有发现路径 '%s' 的子模组映射"
+
+msgid "where the new submodule will be cloned to"
+msgstr "新的子模组将要克隆的路径"
+
+msgid "name of the new submodule"
+msgstr "新子模组的名称"
+
+msgid "url where to clone the submodule from"
+msgstr "克隆子模组的 url 地址"
+
+msgid "depth for shallow clones"
+msgstr "浅克隆的深度"
+
+msgid ""
+"git submodule--helper clone [--prefix=<path>] [--quiet] [--reference "
+"<repository>] [--name <name>] [--url <url>][--depth <depth>] [--] [<path>...]"
+msgstr ""
+"git submodule--helper clone [--prefix=<路径>] [--quiet] [--reference <仓库>] "
+"[--name <名字>] [--url <地址>][--depth <深度>] [--] [<路径>...]"
+
+#, c-format
+msgid "could not create directory '%s'"
+msgstr "不能创建目录 '%s'"
+
+#, c-format
+msgid "clone of '%s' into submodule path '%s' failed"
+msgstr "无法克隆 '%s' 到子模组路径 '%s'"
+
+#, c-format
+msgid "cannot open file '%s'"
+msgstr "无法打开文件 '%s'"
+
+#, c-format
+msgid "could not close file %s"
+msgstr "无法关闭文件 %s"
+
+#, c-format
+msgid "could not get submodule directory for '%s'"
+msgstr "无法得到 '%s' 的子模组目录"
+
+msgid "fatal: submodule--helper subcommand must be called with a subcommand"
+msgstr "严重错误：submodule-helper 子命令必须由另外的子命令调用"
+
+#, c-format
+msgid "fatal: '%s' is not a valid submodule--helper subcommand"
+msgstr "严重错误：'%s' 不是一个有效的 submodule--helper 子命令"
 
 msgid "git symbolic-ref [<options>] <name> [<ref>]"
 msgstr "git symbolic-ref [<选项>] <名称> [<引用>]"
@@ -8162,16 +8297,13 @@ msgstr "git tag -d <标签名>..."
 
 msgid ""
 "git tag -l [-n[<num>]] [--contains <commit>] [--points-at <object>]\n"
-"\t\t[<pattern>...]"
+"\t\t[--format=<format>] [--[no-]merged [<commit>]] [<pattern>...]"
 msgstr ""
-"git tag -l [-n[<数字>]] [--contains <提交>] [--points-at <对象>] [<模式>...]"
+"git tag -l [-n[<数字>]] [--contains <提交>] [--points-at <对象>]\n"
+"\t\t[--format=<格式>] [--[no-]merged [<提交>]] [<模式>...]"
 
 msgid "git tag -v <tagname>..."
 msgstr "git tag -v <标签名>..."
-
-#, c-format
-msgid "malformed object at '%s'"
-msgstr "非法的对象于 '%s'"
 
 #, c-format
 msgid "tag name too long: %.*s..."
@@ -8214,14 +8346,6 @@ msgstr ""
 "  %s\n"
 "以 '%c' 开头的行将被保留，如果您愿意也可以删除它们。\n"
 
-#, c-format
-msgid "unsupported sort specification '%s'"
-msgstr "不支持的排序规格 '%s'"
-
-#, c-format
-msgid "unsupported sort specification '%s' in variable '%s'"
-msgstr "不支持变量 '%2$s' 的排序规格 '%1$s'"
-
 msgid "unable to sign the tag"
 msgstr "无法签署标签"
 
@@ -8240,13 +8364,6 @@ msgstr "无标签说明？"
 #, c-format
 msgid "The tag message has been left in %s\n"
 msgstr "标签说明被保留在 %s\n"
-
-msgid "switch 'points-at' requires an object"
-msgstr "开关 'points-at' 需要一个对象"
-
-#, c-format
-msgid "malformed object name '%s'"
-msgstr "非法的对象名 '%s'"
 
 msgid "list tag names"
 msgstr "列出标签名称"
@@ -8287,20 +8404,20 @@ msgstr "标签列表选项"
 msgid "show tag list in columns"
 msgstr "以列的方式显示标签列表"
 
-msgid "sort tags"
-msgstr "排序标签"
-
 msgid "print only tags that contain the commit"
 msgstr "只打印包含提交的标签"
+
+msgid "print only tags that are merged"
+msgstr "只打印已经合并的标签"
+
+msgid "print only tags that are not merged"
+msgstr "只打印尚未合并的标签"
 
 msgid "print only tags of the object"
 msgstr "只打印对象的标签"
 
 msgid "--column and -n are incompatible"
 msgstr "--column 和 -n 不兼容"
-
-msgid "--sort and -n are incompatible"
-msgstr "--sort 和 -n 不兼容"
 
 msgid "-n option is only allowed with -l."
 msgstr "-n 选项只允许和 -l 同时使用。"
@@ -8310,6 +8427,9 @@ msgstr "--contains 选项只允许和 -l 同时使用。"
 
 msgid "--points-at option is only allowed with -l."
 msgstr "--points-at 选项只允许和 -l 同时使用。"
+
+msgid "--merged and --no-merged option are only allowed with -l"
+msgstr "选项 --merged 和 --no-merged 只能和 -l 共用"
 
 msgid "only one -F or -m option is allowed."
 msgstr "只允许一个 -F 或 -m 选项。"
@@ -8521,11 +8641,14 @@ msgstr "git verify-tag [-v | --verbose] <标签>..."
 msgid "print tag contents"
 msgstr "打印标签内容"
 
-msgid "git worktree add [<options>] <path> <branch>"
-msgstr "git worktree add [<选项>] <路径> <分支>"
+msgid "git worktree add [<options>] <path> [<branch>]"
+msgstr "git worktree add [<选项>] <路径> [<分支>]"
 
 msgid "git worktree prune [<options>]"
 msgstr "git worktree prune [<选项>]"
+
+msgid "git worktree list [<options>]"
+msgstr "git worktree list [<选项>]"
 
 #, c-format
 msgid "Removing worktrees/%s: not a valid directory"
@@ -8829,9 +8952,35 @@ msgstr ""
 msgid "bisect run success"
 msgstr "二分查找运行成功"
 
+msgid "please use two different terms"
+msgstr "请使用两个不同的术语"
+
+#, sh-format
+msgid "'$term' is not a valid term"
+msgstr "'$term' 不是一个有效的名称"
+
+#, sh-format
+msgid "can't use the builtin command '$term' as a term"
+msgstr "不能使用内置命令 '$term' 作为术语"
+
+#, sh-format
+msgid "can't change the meaning of term '$term'"
+msgstr "不能修改术语 '$term' 的含义"
+
 #, sh-format
 msgid "Invalid command: you're currently in a $TERM_BAD/$TERM_GOOD bisect."
 msgstr "无效的命令：您当前正处于一个 $TERM_BAD/$TERM_GOOD 二分查找。"
+
+msgid "no terms defined"
+msgstr "未定义术语"
+
+#, sh-format
+msgid ""
+"invalid argument $arg for 'git bisect terms'.\n"
+"Supported options are: --term-good|--term-old and --term-bad|--term-new."
+msgstr ""
+"参数 $arg 对命令 'git bisect terms' 无效。\n"
+"支持的选项有：--term-good|--term-old 和 --term-bad|--term-new。"
 
 msgid ""
 "When you have resolved this problem, run \"git rebase --continue\".\n"
@@ -9069,18 +9218,6 @@ msgstr "（为恢复数据输入 \"git stash apply\"）"
 msgid "cannot strip one component off url '$remoteurl'"
 msgstr "无法从 url '$remoteurl' 剥离一个组件"
 
-#, sh-format
-msgid "No submodule mapping found in .gitmodules for path '$sm_path'"
-msgstr "未在 .gitmodules 中发现路径 '$sm_path' 的子模组映射"
-
-#, sh-format
-msgid "Clone of '$url' into submodule path '$sm_path' failed"
-msgstr "无法克隆 '$url' 到子模组路径 '$sm_path'"
-
-#, sh-format
-msgid "Gitdir '$a' is part of the submodule path '$b' or vice versa"
-msgstr "Gitdir '$a' 在子模组路径 '$b' 之下或相反"
-
 msgid "Relative path can only be used from the toplevel of the working tree"
 msgstr "只能在工作区的顶级目录中使用相对路径"
 
@@ -9294,6 +9431,51 @@ msgstr "无法递归进子模组路径 '$sm_path'"
 #, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "为 '$displaypath' 同步子模组 url"
+
+#~ msgid "show usage"
+#~ msgstr "显示用法"
+
+#~ msgid "branch '%s' does not point at a commit"
+#~ msgstr "分支 '%s' 未指向一个提交"
+
+#~ msgid "object '%s' does not point to a commit"
+#~ msgstr "对象 '%s' 没有指向一个提交"
+
+#~ msgid "print only merged branches"
+#~ msgstr "只打印合并的分支"
+
+#~ msgid "--dissociate given, but there is no --reference"
+#~ msgstr "提供了参数 --dissociate，但未提供 --reference"
+
+#~ msgid "insanely long template name %s"
+#~ msgstr "太长的模版名 %s"
+
+#~ msgid "insanely long symlink %s"
+#~ msgstr "太长的符号链接 %s"
+
+#~ msgid "insanely long template path %s"
+#~ msgstr "太长的模版路径 %s"
+
+#~ msgid "insane git directory %s"
+#~ msgstr "不正常的 git 目录 %s"
+
+#~ msgid "unsupported sort specification '%s'"
+#~ msgstr "不支持的排序规格 '%s'"
+
+#~ msgid "unsupported sort specification '%s' in variable '%s'"
+#~ msgstr "不支持变量 '%2$s' 的排序规格 '%1$s'"
+
+#~ msgid "switch 'points-at' requires an object"
+#~ msgstr "开关 'points-at' 需要一个对象"
+
+#~ msgid "sort tags"
+#~ msgstr "排序标签"
+
+#~ msgid "--sort and -n are incompatible"
+#~ msgstr "--sort 和 -n 不兼容"
+
+#~ msgid "Gitdir '$a' is part of the submodule path '$b' or vice versa"
+#~ msgstr "Gitdir '$a' 在子模组路径 '$b' 之下或相反"
 
 #~ msgid "false|true|preserve"
 #~ msgstr "false|true|preserve"
