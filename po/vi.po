@@ -2,14 +2,14 @@
 # Bản dịch tiếng Việt dành cho GIT-CORE.
 # This file is distributed under the same license as the git-core package.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2012.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2012, 2013, 2014, 2015.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git v2.7.0-rc0\n"
+"Project-Id-Version: git v2.8.0-rc0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-12-11 23:36+0800\n"
-"PO-Revision-Date: 2015-12-12 14:31+0700\n"
+"POT-Creation-Date: 2016-02-28 20:31+0800\n"
+"PO-Revision-Date: 2016-02-29 07:44+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -148,6 +148,19 @@ msgstr ""
 
 #: branch.c
 #, c-format
+msgid ""
+"\n"
+"After fixing the error cause you may try to fix up\n"
+"the remote tracking information by invoking\n"
+"\"git branch --set-upstream-to=%s%s%s\"."
+msgstr ""
+"\n"
+"Sau khi sửa nguyên nhân lỗi bạn có lẻ cần thử sửa\n"
+"thông tin theo dõi máy chủ bằng cách gọi lệnh\n"
+"\"git branch --set-upstream-to=%s%s%s\"."
+
+#: branch.c
+#, c-format
 msgid "Not setting branch %s as its own upstream."
 msgstr "Chưa cài đặt nhánh %s như là thượng nguồn của nó."
 
@@ -191,6 +204,10 @@ msgstr ""
 #, c-format
 msgid "Branch %s set up to track local ref %s."
 msgstr "Nhánh %s cài đặt để theo dõi tham chiếu nội bộ %s."
+
+#: branch.c
+msgid "Unable to write upstream branch configuration"
+msgstr "Không thể ghi cấu hình nhánh thượng nguồn"
 
 #: branch.c
 #, c-format
@@ -359,13 +376,13 @@ msgstr "hết bộ nhớ"
 
 #: config.c
 #, c-format
-msgid "bad config file line %d in %s"
-msgstr "tập tin cấu hình sai tại dòng %d trong %s"
+msgid "bad config line %d in %s %s"
+msgstr "tập tin cấu hình sai tại dòng %d trong %s %s"
 
 #: config.c
 #, c-format
-msgid "bad numeric config value '%s' for '%s' in %s: %s"
-msgstr "sai giá trị bằng số của cấu hình “%s” cho “%s” trong %s: %s"
+msgid "bad numeric config value '%s' for '%s' in %s %s: %s"
+msgstr "sai giá trị bằng số của cấu hình “%s” cho “%s” trong %s %s: %s"
 
 #: config.c
 #, c-format
@@ -409,6 +426,11 @@ msgstr "sai biến cấu hình “%s” trong tập tin “%s” tại dòng %d"
 #, c-format
 msgid "%s has multiple values"
 msgstr "%s có đa giá trị"
+
+#: config.c
+#, c-format
+msgid "Could not set '%s' to '%s'"
+msgstr "Không thể đặt “%s” thành “%s”"
 
 #: connected.c
 msgid "Could not run 'git rev-list'"
@@ -544,8 +566,8 @@ msgid "failed to get kernel name and information"
 msgstr "gặp lỗi khi lấy tên và thông tin của nhân"
 
 #: dir.c
-msgid "Untracked cache is disabled on this system."
-msgstr "Bộ nhớ tạm không theo vết bị tắt trên hệ thống này."
+msgid "Untracked cache is disabled on this system or location."
+msgstr "Bộ nhớ tạm không theo vết bị tắt trên hệ thống hay vị trí này."
 
 #: gpg-interface.c
 msgid "could not run gpg."
@@ -1082,8 +1104,18 @@ msgstr "không thể gỡ bỏ tham chiếu: %s"
 
 #: ref-filter.c
 #, c-format
-msgid "format: %%(end) atom used without corresponding atom"
-msgstr "định dạng: nguyên tử %%(end) được dùng mà không có nguyên tử tương ứng"
+msgid "expected format: %%(color:<color>)"
+msgstr "cần định dạng: %%(color:<color>)"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized color: %%(color:%s)"
+msgstr "không nhận ra màu: %%(màu:%s)"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized format: %%(%s)"
+msgstr "không nhận ra định dạng: %%(%s)"
 
 #: ref-filter.c
 #, c-format
@@ -1092,12 +1124,13 @@ msgstr "cần nội dung mang giá trị dương:lines=%s"
 
 #: ref-filter.c
 #, c-format
-msgid "expected format: %%(color:<color>)"
-msgstr "cần định dạng: %%(color:<color>)"
+msgid "unrecognized %%(contents) argument: %s"
+msgstr "đối số không được thừa nhận %%(contents): %s"
 
 #: ref-filter.c
-msgid "unable to parse format"
-msgstr "không thể phân tích định dạng"
+#, c-format
+msgid "unrecognized %%(objectname) argument: %s"
+msgstr "đối số không được thừa nhận %%(objectname): %s"
 
 #: ref-filter.c
 #, c-format
@@ -1106,13 +1139,28 @@ msgstr "cần định dạng: %%(align:<width>,<position>)"
 
 #: ref-filter.c
 #, c-format
-msgid "improper format entered align:%s"
-msgstr "định dạng không đúng chỗ căn chỉnh:%s"
+msgid "unrecognized position:%s"
+msgstr "vị trí không được thừa nhận:%s"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized width:%s"
+msgstr "chiều rộng không được thừa nhận:%s"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized %%(align) argument: %s"
+msgstr "đối số không được thừa nhận %%(align): %s"
 
 #: ref-filter.c
 #, c-format
 msgid "positive width expected with the %%(align) atom"
 msgstr "cần giá trị độ rộng dương với nguyên tử %%(align)"
+
+#: ref-filter.c
+#, c-format
+msgid "format: %%(end) atom used without corresponding atom"
+msgstr "định dạng: nguyên tử %%(end) được dùng mà không có nguyên tử tương ứng"
 
 #: ref-filter.c
 #, c-format
@@ -1581,11 +1629,6 @@ msgstr "Không thể gỡ bỏ mục .gitmodules dành cho %s"
 msgid "staging updated .gitmodules failed"
 msgstr "gặp lỗi khi tổ chức .gitmodules đã cập nhật"
 
-#: submodule.c
-#, c-format
-msgid "Could not set core.worktree in %s"
-msgstr "Không thể đặt “core.worktree” trong “%s”."
-
 #: trailer.c
 #, c-format
 msgid "unknown value '%s' for key '%s'"
@@ -1609,6 +1652,30 @@ msgstr "không đọc được tập tin đầu vào “%s”"
 #: trailer.c
 msgid "could not read from stdin"
 msgstr "không thể đọc từ đầu vào tiêu chuẩn"
+
+#: trailer.c builtin/am.c
+#, c-format
+msgid "could not stat %s"
+msgstr "không thể lấy thông tin thống kê về %s"
+
+#: trailer.c
+#, c-format
+msgid "file %s is not a regular file"
+msgstr "\"%s\" không phải là tập tin bình thường"
+
+#: trailer.c
+#, c-format
+msgid "file %s is not writable by user"
+msgstr "tập tin %s người dùng không thể ghi được"
+
+#: trailer.c
+msgid "could not open temporary file"
+msgstr "không thể tạo tập tin tạm thời"
+
+#: trailer.c
+#, c-format
+msgid "could not rename temporary file to %s"
+msgstr "không thể đổi tên tập tin tạm thời thành %s"
 
 #: transport-helper.c
 #, c-format
@@ -1672,15 +1739,6 @@ msgstr "không thể truy cập “%s”: %s"
 #, c-format
 msgid "unable to access '%s'"
 msgstr "không thể truy cập “%s”"
-
-#: wrapper.c
-#, c-format
-msgid "unable to look up current user in the passwd file: %s"
-msgstr "không tìm thấy người dùng hiện tại trong tập tin passwd: %s"
-
-#: wrapper.c
-msgid "no such user"
-msgstr "không có người dùng như vậy"
 
 #: wrapper.c
 msgid "unable to get current working directory"
@@ -2339,11 +2397,6 @@ msgstr "tập tin ghi bảng mục lục bị hỏng"
 #: builtin/add.c builtin/apply.c builtin/mv.c builtin/rm.c
 msgid "Unable to write new index file"
 msgstr "Không thể ghi tập tin lưu bảng mục lục mới"
-
-#: builtin/am.c
-#, c-format
-msgid "could not stat %s"
-msgstr "không thể lấy thông tin thống kê về %s"
 
 #: builtin/am.c builtin/commit.c builtin/merge.c
 #, c-format
@@ -3272,6 +3325,10 @@ msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<rev-opts> được mô tả trong tài liệu git-rev-list(1)"
 
 #: builtin/blame.c
+msgid "Blaming lines"
+msgstr "Các dòng blame"
+
+#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr "Hiển thị các mục “blame” như là chúng ta thấy chúng, tăng dần"
 
@@ -3287,6 +3344,10 @@ msgstr "Không coi các lần chuyển giao gốc là giới hạn (Mặc địn
 #: builtin/blame.c
 msgid "Show work cost statistics"
 msgstr "Hiển thị thống kê công sức làm việc"
+
+#: builtin/blame.c
+msgid "Force progress reporting"
+msgstr "Ép buộc báo cáo tiến triển công việc"
 
 #: builtin/blame.c
 msgid "Show output score for blame entries"
@@ -3943,6 +4004,10 @@ msgid "git checkout-index [<options>] [--] [<file>...]"
 msgstr "git checkout-index [<các-tùy-chọn>] [--] [<tập-tin>…]"
 
 #: builtin/checkout-index.c
+msgid "stage should be between 1 and 3 or all"
+msgstr "stage nên giữa 1 và 3 hay all"
+
+#: builtin/checkout-index.c
 msgid "check out all files in the index"
 msgstr "lấy ra toàn bộ các tập tin trong bảng mục lục"
 
@@ -4564,6 +4629,14 @@ msgstr "khóa=giá_trị"
 #: builtin/clone.c
 msgid "set config inside the new repository"
 msgstr "đặt cấu hình bên trong một kho chứa mới"
+
+#: builtin/clone.c builtin/fetch.c builtin/push.c
+msgid "use IPv4 addresses only"
+msgstr "chỉ dùng địa chỉ IPv4"
+
+#: builtin/clone.c builtin/fetch.c builtin/push.c
+msgid "use IPv6 addresses only"
+msgstr "chỉ dùng địa chỉ IPv6"
 
 #: builtin/clone.c
 #, c-format
@@ -5529,6 +5602,12 @@ msgid "respect include directives on lookup"
 msgstr "tôn trọng kể cà các hướng trong tìm kiếm"
 
 #: builtin/config.c
+msgid "show origin of config (file, standard input, blob, command line)"
+msgstr ""
+"hiển thị nguyên gốc của cấu hình (tập tin, đầu vào tiêu chuẩn, blob, dòng "
+"lệnh)"
+
+#: builtin/config.c
 msgid "unable to parse default color value"
 msgstr "không thể phân tích giá trị màu mặc định"
 
@@ -5824,6 +5903,10 @@ msgstr "lấy tất cả các thẻ cùng với các đối tượng liên quan 
 #: builtin/fetch.c
 msgid "do not fetch all tags (--no-tags)"
 msgstr "không lấy tất cả các thẻ (--no-tags)"
+
+#: builtin/fetch.c
+msgid "number of submodules fetched in parallel"
+msgstr "số lượng mô-đun-con được lấy đồng thời"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "prune remote-tracking branches no longer on remote"
@@ -6280,6 +6363,11 @@ msgstr "grep: gặp lỗi tạo tuyến (thread): %s"
 
 #: builtin/grep.c
 #, c-format
+msgid "invalid number of threads specified (%d) for %s"
+msgstr "số tuyến đã cho không hợp lệ (%d) cho %s"
+
+#: builtin/grep.c
+#, c-format
 msgid "unable to read tree (%s)"
 msgstr "không thể đọc cây (%s)"
 
@@ -6420,6 +6508,10 @@ msgid "show <n> context lines after matches"
 msgstr "hiển thị <n> dòng nội dung sau khớp"
 
 #: builtin/grep.c
+msgid "use <n> worker threads"
+msgstr "dùng <n> tuyến trình làm việc"
+
+#: builtin/grep.c
 msgid "shortcut for -C NUM"
 msgstr "dạng viết tắt của -C SỐ"
 
@@ -6470,6 +6562,11 @@ msgstr "cho phép gọi grep(1) (bị bỏ qua bởi lần dịch này)"
 #: builtin/grep.c
 msgid "no pattern given."
 msgstr "chưa chỉ ra mẫu."
+
+#: builtin/grep.c builtin/index-pack.c
+#, c-format
+msgid "invalid number of threads specified (%d)"
+msgstr "số tuyến chỉ ra không hợp lệ (%d)"
 
 #: builtin/grep.c
 msgid "--open-files-in-pager only works on the worktree"
@@ -6886,11 +6983,6 @@ msgstr "sai pack.indexversion=%<PRIu32>"
 
 #: builtin/index-pack.c
 #, c-format
-msgid "invalid number of threads specified (%d)"
-msgstr "số tuyến chỉ ra không hợp lệ (%d)"
-
-#: builtin/index-pack.c
-#, c-format
 msgid "no threads support, ignoring %s"
 msgstr "không hỗ trợ đa tuyến, bỏ qua %s"
 
@@ -7060,11 +7152,15 @@ msgstr "không thể truy cập cây (tree) làm việc “%s”"
 
 #: builtin/interpret-trailers.c
 msgid ""
-"git interpret-trailers [--trim-empty] [(--trailer <token>[(=|:)<value>])...] "
-"[<file>...]"
+"git interpret-trailers [--in-place] [--trim-empty] [(--trailer "
+"<token>[(=|:)<value>])...] [<file>...]"
 msgstr ""
-"git interpret-trailers [--trim-empty] [(--trailer <thẻ>[(=|:)<giá-trị>])…] "
-"[<tập-tin>…]"
+"git interpret-trailers [--in-place] [--trim-empty] [(--trailer "
+"<thẻ>[(=|:)<giá-trị>])…] [<tập-tin>…]"
+
+#: builtin/interpret-trailers.c
+msgid "edit files in place"
+msgstr "sửa các tập tin tại chỗ"
 
 #: builtin/interpret-trailers.c
 msgid "trim empty trailers"
@@ -7077,6 +7173,10 @@ msgstr "bộ dò vết"
 #: builtin/interpret-trailers.c
 msgid "trailer(s) to add"
 msgstr "bộ dò vết cần thêm"
+
+#: builtin/interpret-trailers.c
+msgid "no input file given for in-place editing"
+msgstr "không đưa ra tập tin đầu vào để sửa tại-chỗ"
 
 #: builtin/log.c
 msgid "git log [<options>] [<revision-range>] [[--] <path>...]"
@@ -7220,6 +7320,10 @@ msgstr "không strip/add [VÁ]"
 #: builtin/log.c
 msgid "don't output binary diffs"
 msgstr "không kết xuất diff (những khác biệt) nhị phân"
+
+#: builtin/log.c
+msgid "output all-zero hash in From header"
+msgstr "xuất mọi mã băm all-zero trong phần đầu From"
 
 #: builtin/log.c
 msgid "don't include a patch matching a commit upstream"
@@ -7404,6 +7508,10 @@ msgid "show 'other' directories' names only"
 msgstr "chỉ hiển thị tên của các thư mục “khác”"
 
 #: builtin/ls-files.c
+msgid "show line endings of files"
+msgstr "hiển thị kết thúc dòng của các tập tin"
+
+#: builtin/ls-files.c
 msgid "don't show empty directories"
 msgstr "không hiển thị thư mục rỗng"
 
@@ -7451,6 +7559,52 @@ msgstr ""
 #: builtin/ls-files.c
 msgid "show debugging data"
 msgstr "hiển thị dữ liệu gỡ lỗi"
+
+#: builtin/ls-remote.c
+msgid ""
+"git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<exec>]\n"
+"                     [-q | --quiet] [--exit-code] [--get-url]\n"
+"                     [--symref] [<repository> [<refs>...]]"
+msgstr ""
+"git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<exec>]\n"
+"                     [-q | --quiet] [--exit-code] [--get-url]\n"
+"                     [--symref] [<kho> [<các tham chiếu>…]]"
+
+#: builtin/ls-remote.c
+msgid "do not print remote URL"
+msgstr "không hiển thị URL máy chủ"
+
+#: builtin/ls-remote.c
+msgid "exec"
+msgstr "thực thi"
+
+#: builtin/ls-remote.c
+msgid "path of git-upload-pack on the remote host"
+msgstr "đường dẫn của git-upload-pack trên máy chủ"
+
+#: builtin/ls-remote.c
+msgid "limit to tags"
+msgstr "giới hạn tới các thẻ"
+
+#: builtin/ls-remote.c
+msgid "limit to heads"
+msgstr "giới hạn cho các đầu"
+
+#: builtin/ls-remote.c
+msgid "do not show peeled tags"
+msgstr "không hiển thị thẻ bị peel (gọt bỏ)"
+
+#: builtin/ls-remote.c
+msgid "take url.<base>.insteadOf into account"
+msgstr "lấy url.<base>.insteadOf vào trong tài khoản"
+
+#: builtin/ls-remote.c
+msgid "exit with exit code 2 if no matching refs are found"
+msgstr "thoát với mã là 2 nếu không tìm thấy tham chiếu nào khớp"
+
+#: builtin/ls-remote.c
+msgid "show underlying ref in addition to the object pointed by it"
+msgstr "hiển thị tham chiếu nằm dưới để thêm vào đối tượng được chỉ bởi nó"
 
 #: builtin/ls-tree.c
 msgid "git ls-tree [<options>] <tree-ish> [<path>...]"
@@ -8647,6 +8801,10 @@ msgid "Options related to fetching"
 msgstr "Các tùy chọn liên quan đến lệnh lấy về"
 
 #: builtin/pull.c
+msgid "number of submodules pulled in parallel"
+msgstr "số lượng mô-đun-con được đẩy lên đồng thời"
+
+#: builtin/pull.c
 #, c-format
 msgid "Invalid value for pull.ff: %s"
 msgstr "Giá trị không hợp lệ cho pull.ff: %s"
@@ -8877,52 +9035,6 @@ msgstr ""
 "(upstream) của\n"
 "nhánh hiện tại “%s” của bạn, mà không báo cho tôi biết là cái gì được push\n"
 "để cập nhật nhánh máy chủ nào."
-
-#: builtin/push.c
-msgid ""
-"push.default is unset; its implicit value has changed in\n"
-"Git 2.0 from 'matching' to 'simple'. To squelch this message\n"
-"and maintain the traditional behavior, use:\n"
-"\n"
-"  git config --global push.default matching\n"
-"\n"
-"To squelch this message and adopt the new behavior now, use:\n"
-"\n"
-"  git config --global push.default simple\n"
-"\n"
-"When push.default is set to 'matching', git will push local branches\n"
-"to the remote branches that already exist with the same name.\n"
-"\n"
-"Since Git 2.0, Git defaults to the more conservative 'simple'\n"
-"behavior, which only pushes the current branch to the corresponding\n"
-"remote branch that 'git pull' uses to update the current branch.\n"
-"\n"
-"See 'git help config' and search for 'push.default' for further "
-"information.\n"
-"(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode\n"
-"'current' instead of 'simple' if you sometimes use older versions of Git)"
-msgstr ""
-"biến push.default chưa được đặt; giá trị ngầm định của nó\n"
-"đã được thay đổi trong Git 2.0 từ “matching” thành “simple”.\n"
-"Để không hiển thị nhắc nhở này và duy trì cách xử lý cũ, hãy chạy lệnh:\n"
-"\n"
-"  git config --global push.default matching\n"
-"\n"
-"Để không hiển thị nhắc nhở này và áp dụng cách ứng xử mới, hãy chạy lệnh:\n"
-"\n"
-"  git config --global push.default simple\n"
-"\n"
-"Khi push.default được đặt thành “matching”, git sẽ đẩy các nhánh nội bộ\n"
-"lên các nhánh trên máy chủ, cái mà đã sẵn có và cùng tên.\n"
-"\n"
-"Trong 2.0, Git sẽ mặc định duy trì các ứng xử “simple”,\n"
-"cái này chỉ đẩy những nhánh hiện hành lên các nhánh tương ứng\n"
-"trên máy chủ cái mà lệnh “git pull” dùng để cập nhật nhánh hiện tại.\n"
-"\n"
-"Xem “git help config” và tìm đến “push.default” để có thêm thông tin.\n"
-"(chế độ “simple” được bắt đầu sử dụng từ Git 1.7.11. Sử dụng chế độ tương "
-"tự\n"
-"“current” thay vì “simple” nếu bạn thỉnh thoảng phải sử dụng bản Git cũ)"
 
 #: builtin/push.c
 msgid ""
@@ -9373,11 +9485,6 @@ msgstr "(xóa)"
 
 #: builtin/remote.c
 #, c-format
-msgid "Could not append '%s' to '%s'"
-msgstr "Không thể nối thêm “%s” vào “%s”"
-
-#: builtin/remote.c
-#, c-format
 msgid "No such remote: %s"
 msgstr "Không có máy chủ nào như thế: %s"
 
@@ -9385,11 +9492,6 @@ msgstr "Không có máy chủ nào như thế: %s"
 #, c-format
 msgid "Could not rename config section '%s' to '%s'"
 msgstr "Không thể đổi tên phần của cấu hình từ “%s” thành “%s”"
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not remove config section '%s'"
-msgstr "Không thể gỡ bỏ phần cấu hình “%s”"
 
 #: builtin/remote.c
 #, c-format
@@ -9401,16 +9503,6 @@ msgstr ""
 "Không cập nhật “non-default fetch respec”\n"
 "\t%s\n"
 "\tXin hãy cập nhật phần cấu hình một cách thủ công nếu thấy cần thiết."
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not append '%s'"
-msgstr "Không thể nối thêm “%s”"
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not set '%s'"
-msgstr "Không thể đặt “%s”"
 
 #: builtin/remote.c
 #, c-format
@@ -9436,6 +9528,11 @@ msgstr[0] ""
 
 #: builtin/remote.c
 #, c-format
+msgid "Could not remove config section '%s'"
+msgstr "Không thể gỡ bỏ phần cấu hình “%s”"
+
+#: builtin/remote.c
+#, c-format
 msgid " new (next fetch will store in remotes/%s)"
 msgstr " mới (lần lấy về tiếp theo sẽ lưu trong remotes/%s)"
 
@@ -9458,8 +9555,8 @@ msgstr "branch.%s.merge không hợp lệ; không thể cải tổ về phía > 
 
 #: builtin/remote.c
 #, c-format
-msgid "rebases onto remote %s"
-msgstr "thực hiện rebase trên máy chủ %s"
+msgid "rebases interactively onto remote %s"
+msgstr "thực hiện rebase một cách tương tác trên máy chủ %s"
 
 #: builtin/remote.c
 #, c-format
@@ -10252,11 +10349,6 @@ msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
 msgstr "git shortlog [<các-tùy-chọn>] [<vùng-xét-duyệt>] [[--] [<đường-dẫn>…]]"
 
 #: builtin/shortlog.c
-#, c-format
-msgid "Missing author: %s"
-msgstr "Thiếu tên tác giả: %s"
-
-#: builtin/shortlog.c
 msgid "sort output according to the number of commits per author"
 msgstr "sắp xếp kết xuất tuân theo số lượng chuyển giao trên mỗi tác giả"
 
@@ -10417,8 +10509,8 @@ msgid "skip and remove all lines starting with comment character"
 msgstr "giữ và xóa bỏ mọi dòng bắt đầu bằng ký tự ghi chú"
 
 #: builtin/stripspace.c
-msgid "prepend comment character and blank to each line"
-msgstr "treo trước ký tự ghi chú và để trắng cho từng dòng"
+msgid "prepend comment character and space to each line"
+msgstr "treo trước ký tự ghi chú và ký tự khoảng trắng cho từng dòng"
 
 #: builtin/submodule--helper.c
 msgid "alternative anchor for relative paths"
@@ -10766,8 +10858,8 @@ msgstr "gặp lỗi khi xóa thư mục %s"
 
 #: builtin/update-index.c
 #, c-format
-msgid "Testing "
-msgstr "Đang thử"
+msgid "Testing mtime in '%s' "
+msgstr "Đang kiểm thử mtime trong “%s”"
 
 #: builtin/update-index.c
 msgid "directory stat info does not change after adding a new file"
@@ -10924,8 +11016,21 @@ msgid "enable/disable untracked cache"
 msgstr "bật/tắt bộ đệm không theo vết"
 
 #: builtin/update-index.c
+msgid "test if the filesystem supports untracked cache"
+msgstr "kiểm tra xem hệ thống tập tin có hỗ trợ đệm không theo dõi hay không"
+
+#: builtin/update-index.c
 msgid "enable untracked cache without testing the filesystem"
 msgstr "bật bộ đệm không theo vết mà không kiểm tra hệ thống tập tin"
+
+#: builtin/update-index.c
+msgid "Untracked cache disabled"
+msgstr "Nhớ đệm không theo vết bị tắt"
+
+#: builtin/update-index.c
+#, c-format
+msgid "Untracked cache enabled for '%s'"
+msgstr "Nhớ đệm không theo vết được bật cho “%s”"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -11101,6 +11206,10 @@ msgstr ""
 "“git help -a” và “git help -g” liệt kê các câu lệnh con sẵn có và một số\n"
 "hướng dẫn về khái niệm. Xem “git help <lệnh>” hay “git help <khái-niệm>”\n"
 "để xem các đặc tả cho lệnh hay khái niệm cụ thể."
+
+#: http.c
+msgid "Public key pinning not supported with cURL < 7.44.0"
+msgstr "Chốt khóa công không được hỗ trợ với cURL < 7.44.0"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
@@ -12017,6 +12126,79 @@ msgstr "Gặp lỗi khi đệ quy vào trong đường dẫn mô-đun-con “$sm
 #, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Url Mô-đun-con đồng bộ hóa cho “$displaypath”"
+
+#~ msgid "unable to parse format"
+#~ msgstr "không thể phân tích định dạng"
+
+#~ msgid "improper format entered align:%s"
+#~ msgstr "định dạng không đúng chỗ căn chỉnh:%s"
+
+#~ msgid "Could not set core.worktree in %s"
+#~ msgstr "Không thể đặt “core.worktree” trong “%s”."
+
+#~ msgid ""
+#~ "push.default is unset; its implicit value has changed in\n"
+#~ "Git 2.0 from 'matching' to 'simple'. To squelch this message\n"
+#~ "and maintain the traditional behavior, use:\n"
+#~ "\n"
+#~ "  git config --global push.default matching\n"
+#~ "\n"
+#~ "To squelch this message and adopt the new behavior now, use:\n"
+#~ "\n"
+#~ "  git config --global push.default simple\n"
+#~ "\n"
+#~ "When push.default is set to 'matching', git will push local branches\n"
+#~ "to the remote branches that already exist with the same name.\n"
+#~ "\n"
+#~ "Since Git 2.0, Git defaults to the more conservative 'simple'\n"
+#~ "behavior, which only pushes the current branch to the corresponding\n"
+#~ "remote branch that 'git pull' uses to update the current branch.\n"
+#~ "\n"
+#~ "See 'git help config' and search for 'push.default' for further "
+#~ "information.\n"
+#~ "(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode\n"
+#~ "'current' instead of 'simple' if you sometimes use older versions of Git)"
+#~ msgstr ""
+#~ "biến push.default chưa được đặt; giá trị ngầm định của nó\n"
+#~ "đã được thay đổi trong Git 2.0 từ “matching” thành “simple”.\n"
+#~ "Để không hiển thị nhắc nhở này và duy trì cách xử lý cũ, hãy chạy lệnh:\n"
+#~ "\n"
+#~ "  git config --global push.default matching\n"
+#~ "\n"
+#~ "Để không hiển thị nhắc nhở này và áp dụng cách ứng xử mới, hãy chạy "
+#~ "lệnh:\n"
+#~ "\n"
+#~ "  git config --global push.default simple\n"
+#~ "\n"
+#~ "Khi push.default được đặt thành “matching”, git sẽ đẩy các nhánh nội bộ\n"
+#~ "lên các nhánh trên máy chủ, cái mà đã sẵn có và cùng tên.\n"
+#~ "\n"
+#~ "Trong 2.0, Git sẽ mặc định duy trì các ứng xử “simple”,\n"
+#~ "cái này chỉ đẩy những nhánh hiện hành lên các nhánh tương ứng\n"
+#~ "trên máy chủ cái mà lệnh “git pull” dùng để cập nhật nhánh hiện tại.\n"
+#~ "\n"
+#~ "Xem “git help config” và tìm đến “push.default” để có thêm thông tin.\n"
+#~ "(chế độ “simple” được bắt đầu sử dụng từ Git 1.7.11. Sử dụng chế độ tương "
+#~ "tự\n"
+#~ "“current” thay vì “simple” nếu bạn thỉnh thoảng phải sử dụng bản Git cũ)"
+
+#~ msgid "Could not append '%s'"
+#~ msgstr "Không thể nối thêm “%s”"
+
+#~ msgid "Could not set '%s'"
+#~ msgstr "Không thể đặt “%s”"
+
+#~ msgid "unable to look up current user in the passwd file: %s"
+#~ msgstr "không tìm thấy người dùng hiện tại trong tập tin passwd: %s"
+
+#~ msgid "no such user"
+#~ msgstr "không có người dùng như vậy"
+
+#~ msgid "Missing author: %s"
+#~ msgstr "Thiếu tên tác giả: %s"
+
+#~ msgid "Testing "
+#~ msgstr "Đang thử"
 
 #~ msgid "branch '%s' does not point at a commit"
 #~ msgstr "nhánh “%s” không chỉ đến một lần chuyển giao nào cả"
