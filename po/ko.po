@@ -57,8 +57,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2015-12-22 22:50+0800\n"
-"PO-Revision-Date: 2016-01-03 18:50+0900\n"
+"POT-Creation-Date: 2016-02-28 20:31+0800\n"
+"PO-Revision-Date: 2016-03-03 13:07+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Git Korean translation <http://github.com/changwoo/git-l10n-"
 "ko>\n"
@@ -193,6 +193,19 @@ msgstr ""
 
 #: branch.c
 #, c-format
+msgid ""
+"\n"
+"After fixing the error cause you may try to fix up\n"
+"the remote tracking information by invoking\n"
+"\"git branch --set-upstream-to=%s%s%s\"."
+msgstr ""
+"\n"
+"오류를 수정한 다음 원격 추적 정보를\n"
+"\"git branch --set-upstream-to=%s%s%s\" 명령을\n"
+"실행해 수정할 수 있습니다."
+
+#: branch.c
+#, c-format
 msgid "Not setting branch %s as its own upstream."
 msgstr "%s 브랜치를 자신의 업스트림으로 지정하지 않음."
 
@@ -240,6 +253,10 @@ msgstr ""
 #, c-format
 msgid "Branch %s set up to track local ref %s."
 msgstr "%s 브랜치가 로컬의 %s 레퍼런스를 따라가도록 설정되었습니다."
+
+#: branch.c
+msgid "Unable to write upstream branch configuration"
+msgstr "업스트림 브랜치 설정을 쓸 수 없습니다"
 
 #: branch.c
 #, c-format
@@ -405,13 +422,13 @@ msgstr "메모리 바닥남"
 
 #: config.c
 #, c-format
-msgid "bad config file line %d in %s"
-msgstr "%2$s 파일 %1$d번 줄에 잘못된 설정"
+msgid "bad config line %d in %s %s"
+msgstr "%2$s %3$s %1$d번 줄에 잘못된 설정"
 
 #: config.c
 #, c-format
-msgid "bad numeric config value '%s' for '%s' in %s: %s"
-msgstr "잘못된 수치 설정 값 '%s' (키 '%s', %s 파일): %s"
+msgid "bad numeric config value '%s' for '%s' in %s %s: %s"
+msgstr "잘못된 수치 설정 값 '%s' (키 '%s', %s %s): %s"
 
 #: config.c
 #, c-format
@@ -455,6 +472,11 @@ msgstr "'%2$s' 파일의 %3$d번 줄 '%1$s' 설정 변수가 잘못되었습니�
 #, c-format
 msgid "%s has multiple values"
 msgstr "%s은(는) 여러 개 값이 있습니다"
+
+#: config.c
+#, c-format
+msgid "Could not set '%s' to '%s'"
+msgstr "'%s'을(를) '%s'에 설정할 수 없습니다"
 
 #: connected.c
 msgid "Could not run 'git rev-list'"
@@ -590,8 +612,8 @@ msgid "failed to get kernel name and information"
 msgstr "커널 이름과 정보를 가져오는데 실패했습니다"
 
 #: dir.c
-msgid "Untracked cache is disabled on this system."
-msgstr "이 시스템에서는 추적되지 않는 캐시를 사용하지 않습니다."
+msgid "Untracked cache is disabled on this system or location."
+msgstr "이 시스템 또는 위치에서는 추적되지 않는 캐시를 사용하지 않습니다."
 
 #: gpg-interface.c
 msgid "could not run gpg."
@@ -1123,8 +1145,18 @@ msgstr "%s 레퍼런스를 제거할 수 없습니다"
 
 #: ref-filter.c
 #, c-format
-msgid "format: %%(end) atom used without corresponding atom"
-msgstr "형식: %%(end) 아톰이 대응되는 아톰 없이 사용되었습니다"
+msgid "expected format: %%(color:<color>)"
+msgstr "예상한 형식: %%(color:<색>)"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized color: %%(color:%s)"
+msgstr "인식할 수 없는 색: %%(color:%s)"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized format: %%(%s)"
+msgstr "알 수 없는 형식: %%(%s)"
 
 #: ref-filter.c
 #, c-format
@@ -1133,12 +1165,13 @@ msgstr "'contents:lines=%s'에서 0보다 큰 값이 와야 합니다"
 
 #: ref-filter.c
 #, c-format
-msgid "expected format: %%(color:<color>)"
-msgstr "예상한 형식: %%(color:<색>)"
+msgid "unrecognized %%(contents) argument: %s"
+msgstr "알 수 없는 %%(contents) 인자: %s"
 
 #: ref-filter.c
-msgid "unable to parse format"
-msgstr "형식을 파싱할 수 없습니다"
+#, c-format
+msgid "unrecognized %%(objectname) argument: %s"
+msgstr "알 수 없는 %%(objectname) 인자: %s"
 
 #: ref-filter.c
 #, c-format
@@ -1147,13 +1180,28 @@ msgstr "예상한 형식: %%(align:<너비>,<위치>)"
 
 #: ref-filter.c
 #, c-format
-msgid "improper format entered align:%s"
-msgstr "align:%s 잘못된 형식이 입력되었습니다"
+msgid "unrecognized position:%s"
+msgstr "인식할 수 없는 위치:%s"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized width:%s"
+msgstr "인식할 수 없는 너비:%s"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized %%(align) argument: %s"
+msgstr "인식할 수 없는 %%(align) 인자:%s"
 
 #: ref-filter.c
 #, c-format
 msgid "positive width expected with the %%(align) atom"
 msgstr "%%(align) 아톰에 너비가 0보다 커야 합니다"
+
+#: ref-filter.c
+#, c-format
+msgid "format: %%(end) atom used without corresponding atom"
+msgstr "형식: %%(end) 아톰이 대응되는 아톰 없이 사용되었습니다"
 
 #: ref-filter.c
 #, c-format
@@ -1611,11 +1659,6 @@ msgstr "%s에 대한 .gitmodules 항목을 제거할 수 없습니다"
 msgid "staging updated .gitmodules failed"
 msgstr "업데이트한 .gitmodules를 커밋할 사항으로 표시하는데 실패"
 
-#: submodule.c
-#, c-format
-msgid "Could not set core.worktree in %s"
-msgstr "%s에서 core.worktree를 설정할 수 없습니다"
-
 #: trailer.c
 #, c-format
 msgid "unknown value '%s' for key '%s'"
@@ -1639,6 +1682,30 @@ msgstr "'%s' 입력 파일을 읽을 수 없습니다"
 #: trailer.c
 msgid "could not read from stdin"
 msgstr "표준 입력에서 읽을 수 없습니다"
+
+#: trailer.c builtin/am.c
+#, c-format
+msgid "could not stat %s"
+msgstr "%s에 대해 stat()할 수 없습니다"
+
+#: trailer.c
+#, c-format
+msgid "file %s is not a regular file"
+msgstr "'%s' 파일이 일반 파일이 아닙니다"
+
+#: trailer.c
+#, c-format
+msgid "file %s is not writable by user"
+msgstr "사용자가 %s 파일에 쓸 수 없습니다"
+
+#: trailer.c
+msgid "could not open temporary file"
+msgstr "임시 파일을 열 수 없습니다: %s"
+
+#: trailer.c
+#, c-format
+msgid "could not rename temporary file to %s"
+msgstr "임시 파일 이름을 '%s'(으)로 바꿀 수 없습니다"
 
 #: transport-helper.c
 #, c-format
@@ -2332,11 +2399,6 @@ msgstr "인덱스 파일이 손상되었습니다"
 #: builtin/add.c builtin/apply.c builtin/mv.c builtin/rm.c
 msgid "Unable to write new index file"
 msgstr "새 인덱스 파일에 쓸 수 없습니다"
-
-#: builtin/am.c
-#, c-format
-msgid "could not stat %s"
-msgstr "%s에 대해 stat()할 수 없습니다"
 
 #: builtin/am.c builtin/commit.c builtin/merge.c
 #, c-format
@@ -3258,8 +3320,12 @@ msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<리비전-옵션>은 git-rev-list(1)에 설명되어 있습니다"
 
 #: builtin/blame.c
+msgid "Blaming lines"
+msgstr "블레임 줄"
+
+#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
-msgstr "blame 항목을 찾자마자 점진적으로 표시합니다"
+msgstr "블레임 항목을 찾자마자 점진적으로 표시합니다"
 
 #: builtin/blame.c
 msgid "Show blank SHA-1 for boundary commits (Default: off)"
@@ -3274,8 +3340,12 @@ msgid "Show work cost statistics"
 msgstr "작업 비용 통계를 표시합니다"
 
 #: builtin/blame.c
+msgid "Force progress reporting"
+msgstr "강제로 진행 상황을 표시합니다"
+
+#: builtin/blame.c
 msgid "Show output score for blame entries"
-msgstr "blame 항목에 대해 출력 점수를 표시합니다"
+msgstr "블레임 항목에 대해 출력 점수를 표시합니다"
 
 #: builtin/blame.c
 msgid "Show original filename (Default: auto)"
@@ -3928,6 +3998,10 @@ msgid "git checkout-index [<options>] [--] [<file>...]"
 msgstr "git checkout-index [<옵션>] [--] [<파일>...]"
 
 #: builtin/checkout-index.c
+msgid "stage should be between 1 and 3 or all"
+msgstr "스테이지는 1에서 3 사이의 값이거나 all이어야 합니다"
+
+#: builtin/checkout-index.c
 msgid "check out all files in the index"
 msgstr "인덱스의 모든 파일을 가져옵니다"
 
@@ -4544,6 +4618,14 @@ msgstr "키=값"
 #: builtin/clone.c
 msgid "set config inside the new repository"
 msgstr "새 저장소 안에서 설정합니다"
+
+#: builtin/clone.c builtin/fetch.c builtin/push.c
+msgid "use IPv4 addresses only"
+msgstr "IPv4 주소만 사용합니다"
+
+#: builtin/clone.c builtin/fetch.c builtin/push.c
+msgid "use IPv6 addresses only"
+msgstr "IPv6 주소만 사용합니다"
 
 #: builtin/clone.c
 #, c-format
@@ -5479,6 +5561,10 @@ msgid "respect include directives on lookup"
 msgstr "찾아볼 때 include 지시어를 고려합니다"
 
 #: builtin/config.c
+msgid "show origin of config (file, standard input, blob, command line)"
+msgstr "설정의 출처를 표시합니다 (파일, 표준 입력, 블롭, 명령행)"
+
+#: builtin/config.c
 msgid "unable to parse default color value"
 msgstr "기본 색 값을 파싱할 수 없습니다"
 
@@ -5774,6 +5860,10 @@ msgstr "모든 태그와 관련 오브젝트를 가져옵니다"
 #: builtin/fetch.c
 msgid "do not fetch all tags (--no-tags)"
 msgstr "모든 태그를 가져오지 않습니다 (--no-tags)"
+
+#: builtin/fetch.c
+msgid "number of submodules fetched in parallel"
+msgstr "병렬적으로 받아오는 하위모듈 개수"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "prune remote-tracking branches no longer on remote"
@@ -6223,6 +6313,11 @@ msgstr "grep: 스레드를 만드는데 실패했습니다: %s"
 
 #: builtin/grep.c
 #, c-format
+msgid "invalid number of threads specified (%d) for %s"
+msgstr "잘못된 스레드 수를 %2$s에 대해 지정했습니다 (%1$d)"
+
+#: builtin/grep.c
+#, c-format
 msgid "unable to read tree (%s)"
 msgstr "트리를 읽을 수 없습니다 (%s)"
 
@@ -6362,6 +6457,10 @@ msgid "show <n> context lines after matches"
 msgstr "일치하는 부분 뒤에 컨텍스트를 <n>줄 표시합니다"
 
 #: builtin/grep.c
+msgid "use <n> worker threads"
+msgstr "<n>개의 작업 스레드를 사용합니다"
+
+#: builtin/grep.c
 msgid "shortcut for -C NUM"
 msgstr "-C NUM 옵션의 줄임"
 
@@ -6412,6 +6511,11 @@ msgstr "grep(1) 실행을 허용합니다 (이 빌드에서는 무시)"
 #: builtin/grep.c
 msgid "no pattern given."
 msgstr "패턴을 지정하지 않았습니다."
+
+#: builtin/grep.c builtin/index-pack.c
+#, c-format
+msgid "invalid number of threads specified (%d)"
+msgstr "잘못된 스레드 수를 지정했습니다 (%d)"
 
 #: builtin/grep.c
 msgid "--open-files-in-pager only works on the worktree"
@@ -6827,11 +6931,6 @@ msgstr "잘못된 pack.indexversion=%<PRIu32>"
 
 #: builtin/index-pack.c
 #, c-format
-msgid "invalid number of threads specified (%d)"
-msgstr "잘못된 스레드 수를 지정했습니다 (%d)"
-
-#: builtin/index-pack.c
-#, c-format
 msgid "no threads support, ignoring %s"
 msgstr "스레드 기능이 없습니다. %s 무시"
 
@@ -7001,11 +7100,15 @@ msgstr "작업 폴더 '%s'에 접근할 수 없습니다"
 
 #: builtin/interpret-trailers.c
 msgid ""
-"git interpret-trailers [--trim-empty] [(--trailer <token>[(=|:)<value>])...] "
-"[<file>...]"
+"git interpret-trailers [--in-place] [--trim-empty] [(--trailer "
+"<token>[(=|:)<value>])...] [<file>...]"
 msgstr ""
-"git interpret-trailers [--trim-empty] [(--trailer <토큰>[(=|:)<값>])...] [<파"
-"일>...]"
+"git interpret-trailers [--in-place] [--trim-empty] [(--trailer <토큰>[(=|:)<"
+"값>])...] [<파일>...]"
+
+#: builtin/interpret-trailers.c
+msgid "edit files in place"
+msgstr "파일을 직접 편집합니다"
 
 #: builtin/interpret-trailers.c
 msgid "trim empty trailers"
@@ -7018,6 +7121,10 @@ msgstr "트레일러"
 #: builtin/interpret-trailers.c
 msgid "trailer(s) to add"
 msgstr "추가할 트레일러"
+
+#: builtin/interpret-trailers.c
+msgid "no input file given for in-place editing"
+msgstr "파일 직접 편집에 입력 파일을 지정하지 않았습니다"
 
 #: builtin/log.c
 msgid "git log [<options>] [<revision-range>] [[--] <path>...]"
@@ -7346,6 +7453,10 @@ msgid "show 'other' directories' names only"
 msgstr "기타 디렉터리의 이름만 표시합니다"
 
 #: builtin/ls-files.c
+msgid "show line endings of files"
+msgstr "파일의 줄 끝을 표시합니다"
+
+#: builtin/ls-files.c
 msgid "don't show empty directories"
 msgstr "빈 디렉터리 표시하지 않기"
 
@@ -7392,6 +7503,52 @@ msgstr "<트리-따위> 뒤로 제거한 경로가 있다고 가정합니다"
 #: builtin/ls-files.c
 msgid "show debugging data"
 msgstr "디버깅 데이터를 표시합니다"
+
+#: builtin/ls-remote.c
+msgid ""
+"git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<exec>]\n"
+"                     [-q | --quiet] [--exit-code] [--get-url]\n"
+"                     [--symref] [<repository> [<refs>...]]"
+msgstr ""
+"git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<실행>]\n"
+"                     [-q | --quiet] [--exit-code] [--get-url]\n"
+"                     [--symref] [<저장소> [<레퍼런스>...]]"
+
+#: builtin/ls-remote.c
+msgid "do not print remote URL"
+msgstr "원격 URL을 표시하지 않습니다"
+
+#: builtin/ls-remote.c
+msgid "exec"
+msgstr "실행"
+
+#: builtin/ls-remote.c
+msgid "path of git-upload-pack on the remote host"
+msgstr "원격 호스트의 git-upload-pack 경로"
+
+#: builtin/ls-remote.c
+msgid "limit to tags"
+msgstr "태그에 한정"
+
+#: builtin/ls-remote.c
+msgid "limit to heads"
+msgstr "헤드에 한정"
+
+#: builtin/ls-remote.c
+msgid "do not show peeled tags"
+msgstr "벗겨진 태그를 표시하지 않습니다"
+
+#: builtin/ls-remote.c
+msgid "take url.<base>.insteadOf into account"
+msgstr "url.<베이스>.insteadOf 설정을 고려합니다"
+
+#: builtin/ls-remote.c
+msgid "exit with exit code 2 if no matching refs are found"
+msgstr "해당하는 레퍼런스가 없으면 코드 2번으로 끝냅니다"
+
+#: builtin/ls-remote.c
+msgid "show underlying ref in addition to the object pointed by it"
+msgstr "레퍼런스와 레퍼런스가 가리키는 오브젝트를 표시합니다"
 
 #: builtin/ls-tree.c
 msgid "git ls-tree [<options>] <tree-ish> [<path>...]"
@@ -8570,6 +8727,10 @@ msgid "Options related to fetching"
 msgstr "가져오기 관련 옵션"
 
 #: builtin/pull.c
+msgid "number of submodules pulled in parallel"
+msgstr "병렬적으로 풀을 실행할 하위모듈 개수"
+
+#: builtin/pull.c
 #, c-format
 msgid "Invalid value for pull.ff: %s"
 msgstr "pull.ff에 대해 잘못된 값: %s"
@@ -8791,52 +8952,6 @@ msgstr ""
 
 #: builtin/push.c
 msgid ""
-"push.default is unset; its implicit value has changed in\n"
-"Git 2.0 from 'matching' to 'simple'. To squelch this message\n"
-"and maintain the traditional behavior, use:\n"
-"\n"
-"  git config --global push.default matching\n"
-"\n"
-"To squelch this message and adopt the new behavior now, use:\n"
-"\n"
-"  git config --global push.default simple\n"
-"\n"
-"When push.default is set to 'matching', git will push local branches\n"
-"to the remote branches that already exist with the same name.\n"
-"\n"
-"Since Git 2.0, Git defaults to the more conservative 'simple'\n"
-"behavior, which only pushes the current branch to the corresponding\n"
-"remote branch that 'git pull' uses to update the current branch.\n"
-"\n"
-"See 'git help config' and search for 'push.default' for further "
-"information.\n"
-"(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode\n"
-"'current' instead of 'simple' if you sometimes use older versions of Git)"
-msgstr ""
-"push.default를 설정하지 않았습니다. 묵시적 값은 깃 2.0에서\n"
-"'matching'에서 'simple'로 바뀌었습니다. 이 메시지를 표시하지\n"
-"않고 과거의 동작을 유지하려면 다음과 같이 하십시오:\n"
-"\n"
-"  git config --global push.default matching\n"
-"\n"
-"이 메시지를 표시하지 않고 새 동작을 받아들이려면 다음과 같이\n"
-"하십시오:\n"
-"\n"
-"  git config --global push.default simple\n"
-"\n"
-"push.default가 'matching'으로 설정되면, 로컬 브랜치를 이미 같은 이름이\n"
-"있는 리모트 브랜치로 푸시합니다.\n"
-"\n"
-"깃 2.0부터 더 보수적인 'simple' 동작이 기본값입니다. 여기서는 현재\n"
-"브랜치를 'git pull'에서 현재 브랜치를 업데이트할 때 사용하는 해당\n"
-"리모트 브랜치로 푸시합니다.\n"
-"\n"
-"더 자세한 정보는 'git help config'에서 'push.default' 설명을 보십시오.\n"
-"('simple' 모드는 깃 1.7.11에 추가되었습니다. 과거 버전의 깃을 사용하게\n"
-"되면 비슷한 'current' 모드를 사용하십시오.)"
-
-#: builtin/push.c
-msgid ""
 "You didn't specify any refspecs to push, and push.default is \"nothing\"."
 msgstr ""
 "푸시할 레퍼런스명세를 지정하지 않았고, push.default 값이 'nothing'입니다."
@@ -8984,10 +9099,6 @@ msgstr "레퍼런스이름>:<예상"
 #: builtin/push.c builtin/send-pack.c
 msgid "require old value of ref to be at this value"
 msgstr "레퍼런스의 과거 값이 이 값이어야 합니다"
-
-#: builtin/push.c
-msgid "check|on-demand|no"
-msgstr "check|on-demand|no"
 
 #: builtin/push.c
 msgid "control recursive pushing of submodules"
@@ -9283,11 +9394,6 @@ msgstr "(삭제)"
 
 #: builtin/remote.c
 #, c-format
-msgid "Could not append '%s' to '%s'"
-msgstr "'%s'을(를) '%s'에 추가할 수 없습니다"
-
-#: builtin/remote.c
-#, c-format
 msgid "No such remote: %s"
 msgstr "그런 리모트가 없습니다: %s"
 
@@ -9295,11 +9401,6 @@ msgstr "그런 리모트가 없습니다: %s"
 #, c-format
 msgid "Could not rename config section '%s' to '%s'"
 msgstr "설정 섹션을 '%s'에서 '%s'(으)로 바꿀 수 없습니다"
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not remove config section '%s'"
-msgstr "설정 섹션 '%s'을(를) 제거할 수 없습니다"
 
 #: builtin/remote.c
 #, c-format
@@ -9311,16 +9412,6 @@ msgstr ""
 "기본값이 아닌 가져오기 레퍼런스명세를 업데이트하지 않습니다\n"
 "\t%s\n"
 "\t필요하면 설정을 수동으로 업데이트하십시오."
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not append '%s'"
-msgstr "'%s'에 덧붙일 수 없습니다"
-
-#: builtin/remote.c
-#, c-format
-msgid "Could not set '%s'"
-msgstr "'%s'을(를) 설정할 수 없습니다"
 
 #: builtin/remote.c
 #, c-format
@@ -9346,6 +9437,11 @@ msgstr[0] ""
 
 #: builtin/remote.c
 #, c-format
+msgid "Could not remove config section '%s'"
+msgstr "설정 섹션 '%s'을(를) 제거할 수 없습니다"
+
+#: builtin/remote.c
+#, c-format
 msgid " new (next fetch will store in remotes/%s)"
 msgstr " 새 항목 (다음 가져오기는 remotes/%s 아래 저장됩니다)"
 
@@ -9368,8 +9464,8 @@ msgstr "잘못된 branch.%s.merge 값. 여러 개 브랜치로 리베이스할 �
 
 #: builtin/remote.c
 #, c-format
-msgid "rebases onto remote %s"
-msgstr "리베이스: 리모트 %s"
+msgid "rebases interactively onto remote %s"
+msgstr "리모트 %s 위로 대화식으로 리베이스합니다"
 
 #: builtin/remote.c
 #, c-format
@@ -10161,11 +10257,6 @@ msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
 msgstr "git shortlog [<옵션>] [<리비전-범위>] [[--] [<경로>...]]"
 
 #: builtin/shortlog.c
-#, c-format
-msgid "Missing author: %s"
-msgstr "작성자 정보가 없습니다: %s"
-
-#: builtin/shortlog.c
 msgid "sort output according to the number of commits per author"
 msgstr "작성자별 커밋 수에 따라 정렬합니다"
 
@@ -10322,8 +10413,8 @@ msgid "skip and remove all lines starting with comment character"
 msgstr "주석 문자로 시작하는 모든 줄을 건너뛰고 제거합니다"
 
 #: builtin/stripspace.c
-msgid "prepend comment character and blank to each line"
-msgstr "각 줄의 앞에 주석 문자를 붙이고 빈 줄로 만듭니다"
+msgid "prepend comment character and space to each line"
+msgstr "각 줄의 앞에 주석 문자와 공백을 붙입니다"
 
 #: builtin/submodule--helper.c
 msgid "alternative anchor for relative paths"
@@ -10667,8 +10758,8 @@ msgstr "%s 디렉터리를 삭제하는데 실패했습니다"
 
 #: builtin/update-index.c
 #, c-format
-msgid "Testing "
-msgstr "테스트중 "
+msgid "Testing mtime in '%s' "
+msgstr "'%s' 안의 수정 시각을 확인하는 중입니다"
 
 #: builtin/update-index.c
 msgid "directory stat info does not change after adding a new file"
@@ -10820,8 +10911,21 @@ msgid "enable/disable untracked cache"
 msgstr "추적하지 않는 캐시 사용을 켜거나 끕니다"
 
 #: builtin/update-index.c
+msgid "test if the filesystem supports untracked cache"
+msgstr "파일 시스템이 추적하지 않는 캐시를 지원하는지 검사합니다"
+
+#: builtin/update-index.c
 msgid "enable untracked cache without testing the filesystem"
 msgstr "파일 시스템 테스트 없이 추적하지 않는 캐시를 사용합니다"
+
+#: builtin/update-index.c
+msgid "Untracked cache disabled"
+msgstr "추적되지 않는 캐시를 사용하지 않습니다"
+
+#: builtin/update-index.c
+#, c-format
+msgid "Untracked cache enabled for '%s'"
+msgstr "'%s'에 대해 추적되지 않는 캐시를 사용하지 않습니다"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -10997,6 +11101,10 @@ msgstr ""
 "'git help -a' 및 'git help -g' 명령을 실행하면 하위 명령어와 개념 설명서의\n"
 "목록을 볼 수 있습니다. 특정 하위 명령어나 개념에 대해 읽어 보려면 'git help\n"
 "<명령>' 또는 'git help <개념>' 명령을 실행하십시오."
+
+#: http.c
+msgid "Public key pinning not supported with cURL < 7.44.0"
+msgstr "공개 키 고정은 cURL 7.44.0 앞 버전에서는 지원하지 않습니다"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
