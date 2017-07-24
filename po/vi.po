@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git v2.13.0\n"
+"Project-Id-Version: git v2.14.0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-05-05 09:35+0800\n"
-"PO-Revision-Date: 2017-05-05 13:38+0700\n"
+"POT-Creation-Date: 2017-07-15 11:57+0800\n"
+"PO-Revision-Date: 2017-07-15 13:51+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -153,6 +153,14 @@ msgstr "git apply: git-diff sai - tên tập tin cũ không nhất quán trên d
 #, c-format
 msgid "git apply: bad git-diff - expected /dev/null on line %d"
 msgstr "git apply: git-diff sai - cần “/dev/null” trên dòng %d"
+
+#, c-format
+msgid "invalid mode on line %d: %s"
+msgstr "chế độ không hợp lệ trên dòng %d: %s"
+
+#, c-format
+msgid "inconsistent header lines %d and %d"
+msgstr "phần đầu mâu thuẫn dòng %d và %d"
 
 #, c-format
 msgid "recount: unexpected line: %.*s"
@@ -681,10 +689,6 @@ msgstr ""
 "Dùng “\\!” cho các chuỗi văn bản có dấu chấm than dẫn đầu."
 
 #, c-format
-msgid "Could not open file '%s'"
-msgstr "Không thể mở tập tin “%s”"
-
-#, c-format
 msgid "Badly quoted content in file '%s': %s"
 msgstr "nội dung được trích dẫn sai tập tin “%s”: %s"
 
@@ -777,12 +781,40 @@ msgid "(roughly %d step)"
 msgid_plural "(roughly %d steps)"
 msgstr[0] "(ước chừng %d bước)"
 
-#. TRANSLATORS: the last %s will be replaced with
-#. "(roughly %d steps)" translation
+#. TRANSLATORS: the last %s will be replaced with "(roughly %d
+#. steps)" translation.
+#.
 #, c-format
 msgid "Bisecting: %d revision left to test after this %s\n"
 msgid_plural "Bisecting: %d revisions left to test after this %s\n"
 msgstr[0] "Bisecting: còn %d điểm xét duyệt để kiểm sau %s này\n"
+
+msgid "--contents and --reverse do not blend well."
+msgstr "tùy chọn--contents và --reverse không được trộn vào nhau."
+
+msgid "cannot use --contents with final commit object name"
+msgstr "không thể dùng --contents với tên đối tượng chuyển giao cuối cùng"
+
+msgid "--reverse and --first-parent together require specified latest commit"
+msgstr ""
+"--reverse và --first-parent cùng nhau cần chỉ định lần chuyển giao cuối"
+
+msgid "revision walk setup failed"
+msgstr "cài đặt việc di chuyển qua các điểm xét duyệt gặp lỗi"
+
+msgid ""
+"--reverse --first-parent together require range along first-parent chain"
+msgstr ""
+"--reverse --first-parent cùng nhau yêu cầu vùng cùng với chuỗi cha-mẹ-đầu-"
+"tiên"
+
+#, c-format
+msgid "no such path %s in %s"
+msgstr "không có đường dẫn %s trong “%s”"
+
+#, c-format
+msgid "cannot read blob %s for path %s"
+msgstr "không thể đọc blob %s cho đường dẫn “%s”"
 
 #, c-format
 msgid ""
@@ -914,9 +946,6 @@ msgstr "không thể mở “%s”"
 
 msgid "Repository lacks these prerequisite commits:"
 msgstr "Kho chứa thiếu những lần chuyển giao tiên quyết này:"
-
-msgid "revision walk setup failed"
-msgstr "cài đặt việc di chuyển qua các điểm xét duyệt gặp lỗi"
 
 #, c-format
 msgid "The bundle contains this ref:"
@@ -1157,51 +1186,14 @@ msgstr "LF nên thay bằng CRLF trong %s"
 msgid "in the future"
 msgstr "trong tương lai"
 
-#, c-format
-msgid "%lu second ago"
-msgid_plural "%lu seconds ago"
-msgstr[0] "%lu giây trước"
-
-#, c-format
-msgid "%lu minute ago"
-msgid_plural "%lu minutes ago"
-msgstr[0] "%lu phút trước"
-
-#, c-format
-msgid "%lu hour ago"
-msgid_plural "%lu hours ago"
-msgstr[0] "%lu giờ trước"
-
-#, c-format
-msgid "%lu day ago"
-msgid_plural "%lu days ago"
-msgstr[0] "%lu ngày trước"
-
-#, c-format
-msgid "%lu week ago"
-msgid_plural "%lu weeks ago"
-msgstr[0] "%lu tuần trước"
-
-#, c-format
-msgid "%lu month ago"
-msgid_plural "%lu months ago"
-msgstr[0] "%lu tháng trước"
-
-#, c-format
-msgid "%lu year"
-msgid_plural "%lu years"
-msgstr[0] "%lu năm"
+msgid "%"
+msgid_plural "%"
+msgstr[0] "%"
 
 #. TRANSLATORS: "%s" is "<n> years"
-#, c-format
-msgid "%s, %lu month ago"
-msgid_plural "%s, %lu months ago"
-msgstr[0] "%s, %lu tháng trước"
-
-#, c-format
-msgid "%lu year ago"
-msgid_plural "%lu years ago"
-msgstr[0] "%lu năm trước"
+msgid "%s, %"
+msgid_plural "%s, %"
+msgstr[0] "%s, %"
 
 #, c-format
 msgid "failed to read orderfile '%s'"
@@ -1479,20 +1471,37 @@ msgid "Uh oh. Your system reports no Git commands at all."
 msgstr "Ối chà. Hệ thống của bạn báo rằng chẳng có lệnh Git nào cả."
 
 #, c-format
-msgid ""
-"WARNING: You called a Git command named '%s', which does not exist.\n"
-"Continuing under the assumption that you meant '%s'"
-msgstr ""
-"CẢNH BÁO: Bạn đã gọi lệnh Git có tên “%s”, mà nó lại không có sẵn.\n"
-"Tiếp tục và coi rằng ý bạn là “%s”"
+msgid "WARNING: You called a Git command named '%s', which does not exist."
+msgstr "CẢNH BÁO: Bạn đã gọi lệnh Git có tên “%s”, mà nó lại không có sẵn."
 
 #, c-format
-msgid "in %0.1f seconds automatically..."
-msgstr "trong %0.1f giây một cách tự động…"
+msgid "Continuing under the assumption that you meant '%s'."
+msgstr "Tiếp tục và coi rằng ý bạn là “%s”."
+
+#, c-format
+msgid "Continuing in %0.1f seconds, assuming that you meant '%s'."
+msgstr "Tiếp tục trong %0.1f giây,và coi rằng ý bạn là “%s”."
 
 #, c-format
 msgid "git: '%s' is not a git command. See 'git --help'."
 msgstr "git: “%s” không phải là một lệnh của git. Xem “git --help”."
+
+msgid ""
+"\n"
+"The most similar command is"
+msgid_plural ""
+"\n"
+"The most similar commands are"
+msgstr[0] ""
+"\n"
+"Những lệnh giống nhất là"
+
+msgid "git version [<options>]"
+msgstr "git version [<các-tùy-chọn>]"
+
+#, c-format
+msgid "%s: %s - %s"
+msgstr "%s: %s - %s"
 
 msgid ""
 "\n"
@@ -1503,10 +1512,6 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "Có phải ý bạn là một trong số những cái này không?"
-
-#, c-format
-msgid "%s: %s - %s"
-msgstr "%s: %s - %s"
 
 msgid ""
 "\n"
@@ -1822,8 +1827,10 @@ msgstr "Giá trị notes.rewriteMode sai: “%s”"
 msgid "Refusing to rewrite notes in %s (outside of refs/notes/)"
 msgstr "Từ chối ghi đè ghi chú trong %s (nằm ngoài refs/notes/)"
 
-#. TRANSLATORS: The first %s is the name of the
-#. environment variable, the second %s is its value
+#. TRANSLATORS: The first %s is the name of
+#. the environment variable, the second %s is
+#. its value.
+#.
 #, c-format
 msgid "Bad %s value: '%s'"
 msgstr "Giá trị %s sai: “%s”"
@@ -1840,7 +1847,8 @@ msgid "usage: %s"
 msgstr "cách dùng: %s"
 
 #. TRANSLATORS: the colon here should align with the
-#. one in "usage: %s" translation
+#. one in "usage: %s" translation.
+#.
 #, c-format
 msgid "   or: %s"
 msgstr "     hoặc: %s"
@@ -1901,10 +1909,6 @@ msgid "Unimplemented pathspec magic '%c' in '%s'"
 msgstr "Chưa viết mã cho số màu nhiệm đặc tả đường dẫn “%c” trong “%s”"
 
 #, c-format
-msgid "Pathspec '%s' is in submodule '%.*s'"
-msgstr "Đặc tả đường dẫn “%s” thì ở trong mô-đun-con “%.*s”"
-
-#, c-format
 msgid "%s: 'literal' and 'glob' are incompatible"
 msgstr "%s: “literal” và “glob” xung khắc nhau"
 
@@ -1949,6 +1953,10 @@ msgid ""
 msgstr ""
 "GIT_INDEX_VERSION được đặt, nhưng giá trị của nó lại không hợp lệ.\n"
 "Dùng phiên bản %i"
+
+#, c-format
+msgid "could not close '%s'"
+msgstr "không thể đóng “%s”"
 
 #, c-format
 msgid "could not stat '%s'"
@@ -2120,14 +2128,16 @@ msgstr "(không nhánh, đang cải tổ %s)"
 msgid "(no branch, bisect started on %s)"
 msgstr "(không nhánh, di chuyển nửa bước được bắt đầu tại %s)"
 
-#. TRANSLATORS: make sure this matches
-#. "HEAD detached at " in wt-status.c
+#. TRANSLATORS: make sure this matches "HEAD
+#. detached at " in wt-status.c
+#.
 #, c-format
 msgid "(HEAD detached at %s)"
 msgstr "(HEAD được tách rời tại %s)"
 
-#. TRANSLATORS: make sure this matches
-#. "HEAD detached from " in wt-status.c
+#. TRANSLATORS: make sure this matches "HEAD
+#. detached from " in wt-status.c
+#.
 #, c-format
 msgid "(HEAD detached from %s)"
 msgstr "(HEAD được tách rời từ %s)"
@@ -2274,10 +2284,6 @@ msgid "open /dev/null failed"
 msgstr "gặp lỗi khi mở “/dev/null”"
 
 #, c-format
-msgid "dup2(%d,%d) failed"
-msgstr "dup2(%d,%d) gặp lỗi"
-
-#, c-format
 msgid "unable to parse remote unpack status: %s"
 msgstr "không thể phân tích tình trạng unpack máy chủ: %s"
 
@@ -2365,7 +2371,7 @@ msgid "%s: fast-forward"
 msgstr "%s: chuyển-tiếp-nhanh"
 
 #. TRANSLATORS: %s will be "revert", "cherry-pick" or
-#. * "rebase -i".
+#. "rebase -i".
 #.
 #, c-format
 msgid "%s: Unable to write new index file"
@@ -2645,8 +2651,8 @@ msgstr ""
 "\n"
 
 #, c-format
-msgid "Applied autostash."
-msgstr "Đã áp dụng autostash."
+msgid "Applied autostash.\n"
+msgstr "Đã áp dụng autostash.\n"
 
 #, c-format
 msgid "cannot store %s"
@@ -2877,6 +2883,14 @@ msgstr "gặp lỗi khi tổ chức .gitmodules đã cập nhật"
 
 msgid "negative values not allowed for submodule.fetchJobs"
 msgstr "không cho phép giá trị âm ở submodule.fetchJobs"
+
+#, c-format
+msgid "in unpopulated submodule '%s'"
+msgstr "Trong mô-đun-con không có gì “%s”"
+
+#, c-format
+msgid "Pathspec '%s' is in submodule '%.*s'"
+msgstr "Đặc tả đường dẫn “%s” thì ở trong mô-đun-con “%.*s”"
 
 #, c-format
 msgid "'%s' not recognized as a git repository"
@@ -3421,6 +3435,11 @@ msgstr "nội dung bị sửa đổi, "
 msgid "untracked content, "
 msgstr "nội dung chưa được theo dõi, "
 
+#, c-format
+msgid "Your stash currently has %d entry"
+msgid_plural "Your stash currently has %d entries"
+msgstr[0] "Bạn hiện nay ở trong phần cất đi đang có %d mục"
+
 msgid "Submodules changed but not updated:"
 msgstr "Những mô-đun-con đã bị thay đổi nhưng chưa được cập nhật:"
 
@@ -3611,6 +3630,9 @@ msgstr "Hiện tại chẳng ở nhánh nào cả."
 msgid "Initial commit"
 msgstr "Lần chuyển giao khởi tạo"
 
+msgid "No commits yet"
+msgstr "Vẫn chưa chuyển giao"
+
 msgid "Untracked files"
 msgstr "Những tập tin chưa được theo dõi"
 
@@ -3681,8 +3703,8 @@ msgstr ""
 msgid "nothing to commit, working tree clean\n"
 msgstr "không có gì để chuyển giao, thư mục làm việc sạch sẽ\n"
 
-msgid "Initial commit on "
-msgstr "Lần chuyển giao khởi tạo trên "
+msgid "No commits yet on "
+msgstr "Vẫn không thực hiện lệnh chuyển giao nào"
 
 msgid "HEAD (no branch)"
 msgstr "HEAD (không nhánh)"
@@ -3804,6 +3826,43 @@ msgstr "(+/-)x"
 msgid "override the executable bit of the listed files"
 msgstr "ghi đè lên bít thi hành của các tập tin được liệt kê"
 
+msgid "warn when adding an embedded repository"
+msgstr "cảnh báo khi thêm một kho nhúng"
+
+#, c-format
+msgid ""
+"You've added another git repository inside your current repository.\n"
+"Clones of the outer repository will not contain the contents of\n"
+"the embedded repository and will not know how to obtain it.\n"
+"If you meant to add a submodule, use:\n"
+"\n"
+"\tgit submodule add <url> %s\n"
+"\n"
+"If you added this path by mistake, you can remove it from the\n"
+"index with:\n"
+"\n"
+"\tgit rm --cached %s\n"
+"\n"
+"See \"git help submodule\" for more information."
+msgstr ""
+"Bạn vừa thêm một kho git vào bên trong kho hiện tại của bạn.\n"
+"Các bản sao của kho ngoài sẽ không chứa các nội dung của\n"
+"kho nhúng và sẽ không biết làm thế nào để lấy nó.\n"
+"Nếu ý bạn là thêm một mô-đun-con, hãy chạy:\n"
+"\n"
+"\tgit submodule add <url> %s\n"
+"\n"
+"Nếu bạn đã thêm miếng vá này chỉ là sai sót, bạn có thể xóa bỏ\n"
+"nó khỏi mục lục bằng:\n"
+"\n"
+"\tgit rm --cached %s\n"
+"\n"
+"Xem \"git help submodule\" để biết thêm chi tiết."
+
+#, c-format
+msgid "adding embedded git repository: %s"
+msgstr "thêm cần một kho git nhúng: %s"
+
 #, c-format
 msgid "Use -f if you really want to add them.\n"
 msgstr "Sử dụng tùy chọn -f nếu bạn thực sự muốn thêm chúng vào.\n"
@@ -3892,12 +3951,12 @@ msgstr ""
 msgid "To restore the original branch and stop patching, run \"%s --abort\"."
 msgstr "Để phục hồi lại nhánh gốc và dừng vá, hãy chạy \"%s --abort\"."
 
-msgid "Patch is empty. Was it split wrong?"
-msgstr "Miếng vá trống rỗng. Quá trình chia nhỏ miếng vá có lỗi?"
+msgid "Patch is empty."
+msgstr "Miếng vá trống rỗng."
 
 #, c-format
-msgid "invalid ident line: %s"
-msgstr "dòng thụt lề không hợp lệ: %s"
+msgid "invalid ident line: %.*s"
+msgstr "dòng thụt lề không hợp lệ: %.*s"
 
 #, c-format
 msgid "unable to parse commit %s"
@@ -3983,10 +4042,15 @@ msgstr ""
 
 msgid ""
 "You still have unmerged paths in your index.\n"
-"Did you forget to use 'git add'?"
+"You should 'git add' each file with resolved conflicts to mark them as "
+"such.\n"
+"You might run `git rm` on a file to accept \"deleted by them\" for it."
 msgstr ""
-"Bạn vẫn có những đường dẫn chưa được hòa trộn trong bảng mục lục của mình.\n"
-"Bạn đã quên sử dụng lệnh “git add” à?"
+"Bạn vẫn có những đường dẫn chưa hòa trộn trong chỉ mục của bạn.\n"
+"Bạn nên “git add” từng tập tin với các xung đột đã được giải quyết để đánh "
+"dấu chúng là thế.\n"
+"Bạn có lẽ muốn chạy “git rm“ trên một tập tin để chấp nhận \"được xóa bởi họ"
+"\" cho nó."
 
 #, c-format
 msgid "Could not parse object '%s'."
@@ -4158,9 +4222,6 @@ msgstr "git blame [<các-tùy-chọn>] [<rev-opts>] [<rev>] [--] <tập-tin>"
 msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<rev-opts> được mô tả trong tài liệu git-rev-list(1)"
 
-msgid "Blaming lines"
-msgstr "Các dòng blame"
-
 msgid "Show blame entries as we find them, incrementally"
 msgstr "Hiển thị các mục “blame” như là chúng ta thấy chúng, tăng dần"
 
@@ -4242,43 +4303,24 @@ msgid "--progress can't be used with --incremental or porcelain formats"
 msgstr ""
 "--progress không được dùng cùng với --incremental hay các định dạng porcelain"
 
-#. TRANSLATORS: This string is used to tell us the maximum
-#. display width for a relative timestamp in "git blame"
-#. output.  For C locale, "4 years, 11 months ago", which
-#. takes 22 places, is the longest among various forms of
-#. relative timestamps, but your language may need more or
-#. fewer display columns.
+#. TRANSLATORS: This string is used to tell us the
+#. maximum display width for a relative timestamp in
+#. "git blame" output.  For C locale, "4 years, 11
+#. months ago", which takes 22 places, is the longest
+#. among various forms of relative timestamps, but
+#. your language may need more or fewer display
+#. columns.
+#.
 msgid "4 years, 11 months ago"
 msgstr "4 năm, 11 tháng trước"
-
-msgid "--contents and --reverse do not blend well."
-msgstr "tùy chọn--contents và --reverse không được trộn vào nhau."
-
-msgid "cannot use --contents with final commit object name"
-msgstr "không thể dùng --contents với tên đối tượng chuyển giao cuối cùng"
-
-msgid "--reverse and --first-parent together require specified latest commit"
-msgstr ""
-"--reverse và --first-parent cùng nhau cần chỉ định lần chuyển giao cuối"
-
-msgid ""
-"--reverse --first-parent together require range along first-parent chain"
-msgstr ""
-"--reverse --first-parent cùng nhau yêu cầu vùng cùng với chuỗi cha-mẹ-đầu-"
-"tiên"
-
-#, c-format
-msgid "no such path %s in %s"
-msgstr "không có đường dẫn %s trong “%s”"
-
-#, c-format
-msgid "cannot read blob %s for path %s"
-msgstr "không thể đọc blob %s cho đường dẫn “%s”"
 
 #, c-format
 msgid "file %s has only %lu line"
 msgid_plural "file %s has only %lu lines"
 msgstr[0] "tập tin %s chỉ có %lu dòng"
+
+msgid "Blaming lines"
+msgstr "Các dòng blame"
 
 msgid "git branch [<options>] [-r | -a] [--merged | --no-merged]"
 msgstr "git branch [<các-tùy-chọn>] [-r | -a] [--merged | --no-merged]"
@@ -4973,13 +5015,10 @@ msgid "invalid path specification"
 msgstr "đường dẫn đã cho không hợp lệ"
 
 #, c-format
-msgid ""
-"Cannot update paths and switch to branch '%s' at the same time.\n"
-"Did you intend to checkout '%s' which can not be resolved as commit?"
+msgid "'%s' is not a commit and a branch '%s' cannot be created from it"
 msgstr ""
-"Không thể cập nhật và chuyển thành nhánh “%s” cùng lúc\n"
-"Bạn đã có ý định checkout “%s” cái mà không thể được phân giải như là lần "
-"chuyển giao?"
+"“%s” không phải là một lần chuyển giao và một nhánh'%s” không thể được tạo "
+"từ đó"
 
 #, c-format
 msgid "git checkout: --detach does not take a path argument '%s'"
@@ -5218,6 +5257,11 @@ msgstr "làm sâu hơn lịch sử của bản sao shallow, bằng điểm xét 
 
 msgid "clone only one branch, HEAD or --branch"
 msgstr "chỉ nhân bản một nhánh, HEAD hoặc --branch"
+
+msgid "don't clone any tags, and make later fetches not to follow them"
+msgstr ""
+"đứng có nhân bản bất kỳ nhánh nào, và làm cho những lần lấy về sau không "
+"theo chúng nữa"
 
 msgid "any cloned submodules will be shallow"
 msgstr "mọi mô-đun-con nhân bản sẽ là shallow (nông)"
@@ -5718,11 +5762,6 @@ msgstr ""
 msgid "No paths with --include/--only does not make sense."
 msgstr "Không đường dẫn với các tùy chọn --include/--only không hợp lý."
 
-msgid "Explicit paths specified without -i or -o; assuming --only paths..."
-msgstr ""
-"Những đường dẫn rõ ràng được chỉ ra không có tùy chọn -i cũng không -o; coi "
-"là --only những đường dẫn"
-
 #, c-format
 msgid "Invalid cleanup mode %s"
 msgstr "Chế độ dọn dẹp không hợp lệ %s"
@@ -5735,6 +5774,9 @@ msgstr "hiển thị trạng thái ở dạng súc tích"
 
 msgid "show branch information"
 msgstr "hiển thị thông tin nhánh"
+
+msgid "show stash information"
+msgstr "hiển thị thông tin về tạm cất"
 
 msgid "version"
 msgstr "phiên bản"
@@ -6045,6 +6087,9 @@ msgstr ""
 "# Vui lòng sửa lại cho thích hợp và bỏ dấu ghi chú các dòng sau:\n"
 "#\tname = %s\n"
 "#\temail = %s\n"
+
+msgid "--local can only be used inside a git repository"
+msgstr "--local chỉ có thể được dùng bên trong một kho git"
 
 #, c-format
 msgid "cannot create configuration file %s"
@@ -6405,8 +6450,12 @@ msgstr "tmục"
 msgid "prepend this to submodule path output"
 msgstr "soạn sẵn cái này cho kết xuất đường dẫn mô-đun-con"
 
-msgid "default mode for recursion"
-msgstr "chế độ mặc định cho đệ qui"
+msgid ""
+"default for recursive fetching of submodules (lower priority than config "
+"files)"
+msgstr ""
+"mặc định cho việc lấy đệ quy các mô-đun-con (có mức ưu tiên thấp hơn các tập "
+"tin cấu hình config)"
 
 msgid "accept refs that update .git/shallow"
 msgstr "chấp nhận tham chiếu cập nhật .git/shallow"
@@ -6742,6 +6791,14 @@ msgstr "grep: gặp lỗi tạo tuyến (thread): %s"
 msgid "invalid number of threads specified (%d) for %s"
 msgstr "số tuyến đã cho không hợp lệ (%d) cho %s"
 
+#. TRANSLATORS: %s is the configuration
+#. variable for tweaking threads, currently
+#. grep.threads
+#.
+#, c-format
+msgid "no threads support, ignoring %s"
+msgstr "không hỗ trợ đa tuyến, bỏ qua %s"
+
 #, c-format
 msgid "unable to read tree (%s)"
 msgstr "không thể đọc cây (%s)"
@@ -6906,6 +6963,9 @@ msgstr "không thể phân giải điểm xét duyệt: %s"
 #, c-format
 msgid "invalid number of threads specified (%d)"
 msgstr "số tuyến chỉ ra không hợp lệ (%d)"
+
+msgid "no threads support, ignoring --threads"
+msgstr "không hỗ trợ đa tuyến, bỏ qua --threads"
 
 msgid "--open-files-in-pager only works on the worktree"
 msgstr "--open-files-in-pager chỉ làm việc trên cây-làm-việc"
@@ -7238,10 +7298,6 @@ msgstr "không thể lưu trữ tập tin ghi mục lục"
 #, c-format
 msgid "bad pack.indexversion=%<PRIu32>"
 msgstr "sai pack.indexversion=%<PRIu32>"
-
-#, c-format
-msgid "no threads support, ignoring %s"
-msgstr "không hỗ trợ đa tuyến, bỏ qua %s"
 
 #, c-format
 msgid "Cannot open existing pack file '%s'"
@@ -7612,6 +7668,10 @@ msgstr "thêm chữ ký từ một tập tin"
 msgid "don't print the patch filenames"
 msgstr "không hiển thị các tên tập tin của miếng vá"
 
+#, c-format
+msgid "invalid ident line: %s"
+msgstr "dòng thụt lề không hợp lệ: %s"
+
 msgid "-n and -k are mutually exclusive."
 msgstr "-n và  -k loại từ lẫn nhau."
 
@@ -7792,6 +7852,10 @@ msgstr "dùng tên đường dẫn đầy đủ"
 msgid "list entire tree; not just current directory (implies --full-name)"
 msgstr "liệt kê cây mục tin; không chỉ thư mục hiện hành (ngụ ý --full-name)"
 
+#, c-format
+msgid "empty mbox: '%s'"
+msgstr "mbox trống rỗng: “%s”"
+
 msgid "git merge [<options>] [<commit>...]"
 msgstr "git merge [<các-tùy-chọn>] [<commit>…]"
 
@@ -7971,10 +8035,6 @@ msgstr "Không nhánh mạng theo dõi cho %s từ %s"
 #, c-format
 msgid "Bad value '%s' in environment '%s'"
 msgstr "Giá trị sai “%s” trong biến môi trường “%s”"
-
-#, c-format
-msgid "could not close '%s'"
-msgstr "không thể đóng “%s”"
 
 #, c-format
 msgid "not something we can merge in %s: %s"
@@ -8442,8 +8502,9 @@ msgstr "dòng đầu vào dị hình: “%s”."
 msgid "failed to copy notes from '%s' to '%s'"
 msgstr "gặp lỗi khi sao chép ghi chú (note) từ “%s” sang “%s”"
 
-#. TRANSLATORS: the first %s will be replaced by a
-#. git notes command: 'add', 'merge', 'remove', etc.
+#. TRANSLATORS: the first %s will be replaced by a git
+#. notes command: 'add', 'merge', 'remove', etc.
+#.
 #, c-format
 msgid "refusing to %s notes in %s (outside of refs/notes/)"
 msgstr "từ chối %s ghi chú trong %s (nằm ngoài refs/notes/)"
@@ -8803,6 +8864,9 @@ msgstr "Giá trị không hợp lệ %s: %s"
 msgid "git pull [<options>] [<repository> [<refspec>...]]"
 msgstr "git pull [<các-tùy-chọn>] [<kho-chứa> [<refspec>…]]"
 
+msgid "control for recursive fetching of submodules"
+msgstr "điều khiển việc lấy về đệ quy của các mô-đun-con"
+
 msgid "Options related to merging"
 msgstr "Các tùy chọn liên quan đến hòa trộn"
 
@@ -8940,6 +9004,10 @@ msgstr "Không thể hòa trộn nhiều nhánh vào trong một head trống r�
 
 msgid "Cannot rebase onto multiple branches."
 msgstr "Không thể thực hiện lệnh rebase (cải tổ) trên nhiều nhánh."
+
+msgid "cannot rebase with locally recorded submodule modifications"
+msgstr ""
+"không thể cải tổ với các thay đổi mô-đun-con được ghi lại một cách cục bộ"
 
 msgid "git push [<options>] [<repository> [<refspec>...]]"
 msgstr "git push [<các-tùy-chọn>] [<kho-chứa> [<refspec>…]]"
@@ -9580,8 +9648,10 @@ msgstr "  URL để lấy về: %s"
 msgid "(no URL)"
 msgstr "(không có URL)"
 
-#. TRANSLATORS: the colon ':' should align with
-#. the one in "  Fetch URL: %s" translation
+#. TRANSLATORS: the colon ':' should align
+#. with the one in " Fetch URL: %s"
+#. translation.
+#.
 #, c-format
 msgid "  Push  URL: %s"
 msgstr "  URL để đẩy lên: %s"
@@ -9776,6 +9846,9 @@ msgstr "giống như trên, nhưng giới hạn kích thước bộ nhớ hay v�
 
 msgid "limits the maximum delta depth"
 msgstr "giới hạn độ sâu tối đa của “delta”"
+
+msgid "limits the maximum number of threads"
+msgstr "giới hạn số lượng tối đa tuyến trình"
 
 msgid "maximum size of each packfile"
 msgstr "kích thước tối đa cho từng tập tin gói"
@@ -10487,9 +10560,6 @@ msgstr "đệ quy vào trong mô-đun-con"
 
 msgid "git submodule--helper embed-git-dir [<path>...]"
 msgstr "git submodule--helper embed-git-dir [</đường/dẫn>…]"
-
-msgid "submodule--helper subcommand must be called with a subcommand"
-msgstr "lệnh con submodule--helper phải được gọi với một lệnh con"
 
 #, c-format
 msgid "%s doesn't support --super-prefix"
@@ -11392,6 +11462,9 @@ msgstr ""
 msgid "Could not move back to $head_name"
 msgstr "Không thể quay trở lại $head_name"
 
+msgid "Applied autostash."
+msgstr "Đã áp dụng autostash."
+
 #, sh-format
 msgid "Cannot store $stash_sha1"
 msgstr "Không thể lưu $stash_sha1"
@@ -11562,8 +11635,8 @@ msgstr "Không thể gỡ bỏ các thay đổi cây-làm-việc"
 msgid "unknown option: $opt"
 msgstr "không hiểu tùy chọn: $opt"
 
-msgid "No stash found."
-msgstr "Không tìm thấy lần chuyển giao cất đi (stash) nào."
+msgid "No stash entries found."
+msgstr "Không tìm thấy các mục tạm cất (stash) nào."
 
 #, sh-format
 msgid "Too many revisions specified: $REV"
@@ -11593,8 +11666,8 @@ msgstr "Xung đột trong bảng mục lục. Hãy thử mà không dùng tùy c
 msgid "Could not save index tree"
 msgstr "Không thể ghi lại cây chỉ mục"
 
-msgid "Could not restore untracked files from stash"
-msgstr "Không thể phục hồi các tập tin chưa theo dõi từ stash"
+msgid "Could not restore untracked files from stash entry"
+msgstr "Không thể phục hồi các tập tin chưa theo dõi từ mục cất đi (stash)"
 
 msgid "Cannot unstage modified files"
 msgstr "Không thể bỏ ra khỏi bệ phóng các tập tin đã được sửa chữa"
@@ -11602,8 +11675,8 @@ msgstr "Không thể bỏ ra khỏi bệ phóng các tập tin đã được s�
 msgid "Index was not unstashed."
 msgstr "Bảng mục lục đã không được bỏ stash."
 
-msgid "The stash is kept in case you need it again."
-msgstr "stash được giữ trong trường hợp bạn lại cần nó."
+msgid "The stash entry is kept in case you need it again."
+msgstr "Các mục tạm cất (stash) được giữ trong trường hợp bạn lại cần nó."
 
 #, sh-format
 msgid "Dropped ${REV} ($s)"
@@ -12886,6 +12959,10 @@ msgstr "Máy phục vụ SMTP chưa được định nghĩa một cách thích h
 msgid "Server does not support STARTTLS! %s"
 msgstr "Máy chủ không hỗ trợ STARTTLS! %s"
 
+#, perl-format
+msgid "STARTTLS failed! %s"
+msgstr "STARTTLS gặp lỗi! %s"
+
 msgid "Unable to initialize SMTP properly. Check config and use --smtp-debug."
 msgstr ""
 "Không thể khởi tạo SMTP một cách đúng đắn. Kiểm tra cấu hình và dùng --smtp-"
@@ -12969,6 +13046,84 @@ msgstr "Bỏ qua %s với hậu tố sao lưu dự phòng “%s”.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Bạn có thực sự muốn gửi %s? [y|N]: "
+
+#~ msgid "Could not open file '%s'"
+#~ msgstr "Không thể mở tập tin “%s”"
+
+#~ msgid "%lu second ago"
+#~ msgid_plural "%lu seconds ago"
+#~ msgstr[0] "%lu giây trước"
+
+#~ msgid "%lu minute ago"
+#~ msgid_plural "%lu minutes ago"
+#~ msgstr[0] "%lu phút trước"
+
+#~ msgid "%lu hour ago"
+#~ msgid_plural "%lu hours ago"
+#~ msgstr[0] "%lu giờ trước"
+
+#~ msgid "%lu day ago"
+#~ msgid_plural "%lu days ago"
+#~ msgstr[0] "%lu ngày trước"
+
+#~ msgid "%lu week ago"
+#~ msgid_plural "%lu weeks ago"
+#~ msgstr[0] "%lu tuần trước"
+
+#~ msgid "%lu month ago"
+#~ msgid_plural "%lu months ago"
+#~ msgstr[0] "%lu tháng trước"
+
+#~ msgid "%lu year"
+#~ msgid_plural "%lu years"
+#~ msgstr[0] "%lu năm"
+
+#~ msgid "%s, %lu month ago"
+#~ msgid_plural "%s, %lu months ago"
+#~ msgstr[0] "%s, %lu tháng trước"
+
+#~ msgid "%lu year ago"
+#~ msgid_plural "%lu years ago"
+#~ msgstr[0] "%lu năm trước"
+
+#~ msgid "in %0.1f seconds automatically..."
+#~ msgstr "trong %0.1f giây một cách tự động…"
+
+#~ msgid "dup2(%d,%d) failed"
+#~ msgstr "dup2(%d,%d) gặp lỗi"
+
+#~ msgid "Initial commit on "
+#~ msgstr "Lần chuyển giao khởi tạo trên "
+
+#~ msgid "Patch is empty. Was it split wrong?"
+#~ msgstr "Miếng vá trống rỗng. Quá trình chia nhỏ miếng vá có lỗi?"
+
+#~ msgid ""
+#~ "You still have unmerged paths in your index.\n"
+#~ "Did you forget to use 'git add'?"
+#~ msgstr ""
+#~ "Bạn vẫn có những đường dẫn chưa được hòa trộn trong bảng mục lục của "
+#~ "mình.\n"
+#~ "Bạn đã quên sử dụng lệnh “git add” à?"
+
+#~ msgid ""
+#~ "Cannot update paths and switch to branch '%s' at the same time.\n"
+#~ "Did you intend to checkout '%s' which can not be resolved as commit?"
+#~ msgstr ""
+#~ "Không thể cập nhật và chuyển thành nhánh “%s” cùng lúc\n"
+#~ "Bạn đã có ý định checkout “%s” cái mà không thể được phân giải như là lần "
+#~ "chuyển giao?"
+
+#~ msgid "Explicit paths specified without -i or -o; assuming --only paths..."
+#~ msgstr ""
+#~ "Những đường dẫn rõ ràng được chỉ ra không có tùy chọn -i cũng không -o; "
+#~ "coi là --only những đường dẫn"
+
+#~ msgid "default mode for recursion"
+#~ msgstr "chế độ mặc định cho đệ qui"
+
+#~ msgid "submodule--helper subcommand must be called with a subcommand"
+#~ msgstr "lệnh con submodule--helper phải được gọi với một lệnh con"
 
 #~ msgid "tag: tagging "
 #~ msgstr "thẻ: đang đánh thẻ"
