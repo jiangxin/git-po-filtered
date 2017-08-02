@@ -10,6 +10,7 @@
 #   - Thynson <lanxingcan AT gmail.com>
 #   - ws3389 <willsmith3389 AT gmail.com>
 #   - Wang Sheng <wangsheng2008love AT 163.com>
+#   - 依云 <lilydjwg AT gmail.com>
 #   - Yichao Yu <yyc1992 AT gmail.com>
 #   - Zhuang Ya <zhuangya AT me.com>
 #
@@ -112,7 +113,7 @@
 #   smart HTTP protocol              |  智能 HTTP 协议
 #   squash                           |  压缩
 #   stage                            |  n. 暂存区（即索引）; v. 暂存
-#   stash                            |  n. 进度保存; v. 保存进度
+#   stash                            |  n. 贮藏区; v. 贮藏
 #   submodule                        |  子模组
 #   symref                           |  符号引用
 #   tag                              |  n. 标签; v. 打标签
@@ -135,8 +136,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-05-05 09:35+0800\n"
-"PO-Revision-Date: 2017-05-09 21:54+0800\n"
+"POT-Creation-Date: 2017-07-24 21:54+0800\n"
+"PO-Revision-Date: 2017-08-02 08:00+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -290,6 +291,16 @@ msgstr "git apply：错误的 git-diff - 第 %d 行上旧文件名不一致"
 #, c-format
 msgid "git apply: bad git-diff - expected /dev/null on line %d"
 msgstr "git apply：错误的 git-diff - 第 %d 行处应为 /dev/null"
+
+#: apply.c
+#, c-format
+msgid "invalid mode on line %d: %s"
+msgstr "第 %d 行包含无效文件模式：%s"
+
+#: apply.c
+#, c-format
+msgid "inconsistent header lines %d and %d"
+msgstr "不一致的文件头，%d 行和 %d 行"
 
 #: apply.c
 #, c-format
@@ -690,8 +701,8 @@ msgstr[1] "抑制下仍有 %d 个空白字符误用"
 #, c-format
 msgid "%d line adds whitespace errors."
 msgid_plural "%d lines add whitespace errors."
-msgstr[0] "%d 行有空白字符误用。"
-msgstr[1] "%d 行有空白字符误用。"
+msgstr[0] "%d 行新增了空白字符误用。"
+msgstr[1] "%d 行新增了空白字符误用。"
 
 #: apply.c
 #, c-format
@@ -953,11 +964,6 @@ msgstr ""
 
 #: bisect.c
 #, c-format
-msgid "Could not open file '%s'"
-msgstr "不能打开文件 '%s'"
-
-#: bisect.c
-#, c-format
 msgid "Badly quoted content in file '%s': %s"
 msgstr "文件 '%s' 包含错误的引用格式：%s"
 
@@ -1065,14 +1071,47 @@ msgid_plural "(roughly %d steps)"
 msgstr[0] "（大概 %d 步）"
 msgstr[1] "（大概 %d 步）"
 
-#. TRANSLATORS: the last %s will be replaced with
-#. "(roughly %d steps)" translation
+#. TRANSLATORS: the last %s will be replaced with "(roughly %d
+#. steps)" translation.
+#.
 #: bisect.c
 #, c-format
 msgid "Bisecting: %d revision left to test after this %s\n"
 msgid_plural "Bisecting: %d revisions left to test after this %s\n"
 msgstr[0] "二分查找中：在此之后，还剩 %d 个版本待测试 %s\n"
 msgstr[1] "二分查找中：在此之后，还剩 %d 个版本待测试 %s\n"
+
+#: blame.c
+msgid "--contents and --reverse do not blend well."
+msgstr "--contents 和 --reverse 不能混用。"
+
+#: blame.c
+msgid "cannot use --contents with final commit object name"
+msgstr "不能将 --contents 和最终的提交对象名共用"
+
+#: blame.c
+msgid "--reverse and --first-parent together require specified latest commit"
+msgstr "--reverse 和 --first-parent 共用，需要指定最新的提交"
+
+#: blame.c bundle.c ref-filter.c sequencer.c builtin/commit.c builtin/log.c
+#: builtin/merge.c builtin/shortlog.c
+msgid "revision walk setup failed"
+msgstr "版本遍历设置失败"
+
+#: blame.c
+msgid ""
+"--reverse --first-parent together require range along first-parent chain"
+msgstr "--reverse 和 --first-parent 共用，需要第一祖先链上的提交范围"
+
+#: blame.c
+#, c-format
+msgid "no such path %s in %s"
+msgstr "在 %2$s 中无此路径 %1$s"
+
+#: blame.c
+#, c-format
+msgid "cannot read blob %s for path %s"
+msgstr "不能为路径 %2$s 读取数据对象 %1$s"
 
 #: branch.c
 #, c-format
@@ -1225,11 +1264,6 @@ msgstr "不能打开 '%s'"
 #: bundle.c
 msgid "Repository lacks these prerequisite commits:"
 msgstr "仓库中缺少这些必备的提交："
-
-#: bundle.c ref-filter.c sequencer.c builtin/blame.c builtin/commit.c
-#: builtin/log.c builtin/merge.c builtin/shortlog.c
-msgid "revision walk setup failed"
-msgstr "版本遍历设置失败"
 
 #: bundle.c
 #, c-format
@@ -1528,67 +1562,67 @@ msgstr "在将来"
 
 #: date.c
 #, c-format
-msgid "%lu second ago"
-msgid_plural "%lu seconds ago"
-msgstr[0] "%lu 秒钟前"
-msgstr[1] "%lu 秒钟前"
+msgid "%<PRIuMAX> second ago"
+msgid_plural "%<PRIuMAX> seconds ago"
+msgstr[0] "%<PRIuMAX> 秒钟前"
+msgstr[1] "%<PRIuMAX> 秒钟前"
 
 #: date.c
 #, c-format
-msgid "%lu minute ago"
-msgid_plural "%lu minutes ago"
-msgstr[0] "%lu 分钟前"
-msgstr[1] "%lu 分钟前"
+msgid "%<PRIuMAX> minute ago"
+msgid_plural "%<PRIuMAX> minutes ago"
+msgstr[0] "%<PRIuMAX> 分钟前"
+msgstr[1] "%<PRIuMAX> 分钟前"
 
 #: date.c
 #, c-format
-msgid "%lu hour ago"
-msgid_plural "%lu hours ago"
-msgstr[0] "%lu 小时前"
-msgstr[1] "%lu 小时前"
+msgid "%<PRIuMAX> hour ago"
+msgid_plural "%<PRIuMAX> hours ago"
+msgstr[0] "%<PRIuMAX> 小时前"
+msgstr[1] "%<PRIuMAX> 小时前"
 
 #: date.c
 #, c-format
-msgid "%lu day ago"
-msgid_plural "%lu days ago"
-msgstr[0] "%lu 天前"
-msgstr[1] "%lu 天前"
+msgid "%<PRIuMAX> day ago"
+msgid_plural "%<PRIuMAX> days ago"
+msgstr[0] "%<PRIuMAX> 天前"
+msgstr[1] "%<PRIuMAX> 天前"
 
 #: date.c
 #, c-format
-msgid "%lu week ago"
-msgid_plural "%lu weeks ago"
-msgstr[0] "%lu 周前"
-msgstr[1] "%lu 周前"
+msgid "%<PRIuMAX> week ago"
+msgid_plural "%<PRIuMAX> weeks ago"
+msgstr[0] "%<PRIuMAX> 周前"
+msgstr[1] "%<PRIuMAX> 周前"
 
 #: date.c
 #, c-format
-msgid "%lu month ago"
-msgid_plural "%lu months ago"
-msgstr[0] "%lu 个月前"
-msgstr[1] "%lu 个月前"
+msgid "%<PRIuMAX> month ago"
+msgid_plural "%<PRIuMAX> months ago"
+msgstr[0] "%<PRIuMAX> 个月前"
+msgstr[1] "%<PRIuMAX> 个月前"
 
 #: date.c
 #, c-format
-msgid "%lu year"
-msgid_plural "%lu years"
-msgstr[0] "%lu 年"
-msgstr[1] "%lu 年"
+msgid "%<PRIuMAX> year"
+msgid_plural "%<PRIuMAX> years"
+msgstr[0] "%<PRIuMAX> 年"
+msgstr[1] "%<PRIuMAX> 年"
 
 #. TRANSLATORS: "%s" is "<n> years"
 #: date.c
 #, c-format
-msgid "%s, %lu month ago"
-msgid_plural "%s, %lu months ago"
-msgstr[0] "%s %lu 个月前"
-msgstr[1] "%s %lu 个月前"
+msgid "%s, %<PRIuMAX> month ago"
+msgid_plural "%s, %<PRIuMAX> months ago"
+msgstr[0] "%s %<PRIuMAX> 个月前"
+msgstr[1] "%s %<PRIuMAX> 个月前"
 
 #: date.c
 #, c-format
-msgid "%lu year ago"
-msgid_plural "%lu years ago"
-msgstr[0] "%lu 年前"
-msgstr[1] "%lu 年前"
+msgid "%<PRIuMAX> year ago"
+msgid_plural "%<PRIuMAX> years ago"
+msgstr[0] "%<PRIuMAX> 年前"
+msgstr[1] "%<PRIuMAX> 年前"
 
 #: diffcore-order.c
 #, c-format
@@ -1937,22 +1971,46 @@ msgstr "唉呀，您的系统中未发现 Git 命令。"
 
 #: help.c
 #, c-format
-msgid ""
-"WARNING: You called a Git command named '%s', which does not exist.\n"
-"Continuing under the assumption that you meant '%s'"
-msgstr ""
-"警告：您运行一个不存在的 Git 命令 '%s'。继续执行假定您要运行的\n"
-"是 '%s'"
+msgid "WARNING: You called a Git command named '%s', which does not exist."
+msgstr "警告：您运行了一个并不存在的 Git 命令 '%s'。"
 
 #: help.c
 #, c-format
-msgid "in %0.1f seconds automatically..."
-msgstr "在 %0.1f 秒钟后自动运行..."
+msgid "Continuing under the assumption that you meant '%s'."
+msgstr "假定你想要的是 '%s' 并继续。"
+
+#: help.c
+#, c-format
+msgid "Continuing in %0.1f seconds, assuming that you meant '%s'."
+msgstr "假定你想要的是 '%2$s'，在 %1$0.1f 秒钟后继续。"
 
 #: help.c
 #, c-format
 msgid "git: '%s' is not a git command. See 'git --help'."
 msgstr "git：'%s' 不是一个 git 命令。参见 'git --help'。"
+
+#: help.c
+msgid ""
+"\n"
+"The most similar command is"
+msgid_plural ""
+"\n"
+"The most similar commands are"
+msgstr[0] ""
+"\n"
+"最相似的命令是"
+msgstr[1] ""
+"\n"
+"最相似的命令是"
+
+#: help.c
+msgid "git version [<options>]"
+msgstr "git version [<选项>]"
+
+#: help.c
+#, c-format
+msgid "%s: %s - %s"
+msgstr "%s：%s - %s"
 
 #: help.c
 msgid ""
@@ -1967,11 +2025,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "您指的是这其中的某一个么？"
-
-#: help.c
-#, c-format
-msgid "%s: %s - %s"
-msgstr "%s：%s - %s"
 
 #: ident.c
 msgid ""
@@ -2348,8 +2401,10 @@ msgstr "坏的 notes.rewriteMode 值：'%s'"
 msgid "Refusing to rewrite notes in %s (outside of refs/notes/)"
 msgstr "拒绝向 %s（在 refs/notes/ 之外）写入注解"
 
-#. TRANSLATORS: The first %s is the name of the
-#. environment variable, the second %s is its value
+#. TRANSLATORS: The first %s is the name of
+#. the environment variable, the second %s is
+#. its value.
+#.
 #: notes-utils.c
 #, c-format
 msgid "Bad %s value: '%s'"
@@ -2370,7 +2425,8 @@ msgid "usage: %s"
 msgstr "用法：%s"
 
 #. TRANSLATORS: the colon here should align with the
-#. one in "usage: %s" translation
+#. one in "usage: %s" translation.
+#.
 #: parse-options.c
 #, c-format
 msgid "   or: %s"
@@ -2444,11 +2500,6 @@ msgstr "路径规格 '%2$s' 中包含未实现的神奇前缀 '%1$c'"
 
 #: pathspec.c
 #, c-format
-msgid "Pathspec '%s' is in submodule '%.*s'"
-msgstr "路径规格 '%s' 在子模组 '%.*s' 中"
-
-#: pathspec.c
-#, c-format
 msgid "%s: 'literal' and 'glob' are incompatible"
 msgstr "%s：'literal' 和 'glob' 不兼容"
 
@@ -2502,6 +2553,11 @@ msgstr ""
 "设置了 GIT_INDEX_VERSION，但是取值无效。\n"
 "使用版本 %i"
 
+#: read-cache.c builtin/merge.c
+#, c-format
+msgid "could not close '%s'"
+msgstr "不能关闭 '%s'"
+
 #: read-cache.c sequencer.c
 #, c-format
 msgid "could not stat '%s'"
@@ -2517,7 +2573,7 @@ msgstr "不能打开 git 目录：%s"
 msgid "unable to unlink: %s"
 msgstr "无法删除：%s"
 
-#: refs.c builtin/merge.c
+#: refs.c
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "无法打开 '%s' 进行写入"
@@ -2715,15 +2771,17 @@ msgstr "（非分支，正变基 %s）"
 msgid "(no branch, bisect started on %s)"
 msgstr "（非分支，二分查找开始于 %s）"
 
-#. TRANSLATORS: make sure this matches
-#. "HEAD detached at " in wt-status.c
+#. TRANSLATORS: make sure this matches "HEAD
+#. detached at " in wt-status.c
+#.
 #: ref-filter.c
 #, c-format
 msgid "(HEAD detached at %s)"
 msgstr "（头指针分离于 %s）"
 
-#. TRANSLATORS: make sure this matches
-#. "HEAD detached from " in wt-status.c
+#. TRANSLATORS: make sure this matches "HEAD
+#. detached from " in wt-status.c
+#.
 #: ref-filter.c
 #, c-format
 msgid "(HEAD detached from %s)"
@@ -2904,11 +2962,6 @@ msgstr "--first-parent 与 --bisect 不兼容"
 msgid "open /dev/null failed"
 msgstr "不能打开 /dev/null"
 
-#: run-command.c
-#, c-format
-msgid "dup2(%d,%d) failed"
-msgstr "不能调用 dup2(%d,%d)"
-
 #: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
@@ -3007,7 +3060,7 @@ msgstr "您的本地修改将被%s覆盖。"
 
 #: sequencer.c
 msgid "commit your changes or stash them to proceed."
-msgstr "提交您的修改或保存进度后再继续。"
+msgstr "提交您的修改或贮藏后再继续。"
 
 #: sequencer.c
 #, c-format
@@ -3015,7 +3068,7 @@ msgid "%s: fast-forward"
 msgstr "%s：快进"
 
 #. TRANSLATORS: %s will be "revert", "cherry-pick" or
-#. * "rebase -i".
+#. "rebase -i".
 #.
 #: sequencer.c
 #, c-format
@@ -3345,15 +3398,15 @@ msgid ""
 msgstr ""
 "执行成功：%s\n"
 "但是在索引和/或工作区中存在变更\n"
-"提交或暂存修改，然后运行\n"
+"提交或贮藏修改，然后运行\n"
 "\n"
 "  git rebase --continue\n"
 "\n"
 
-#: sequencer.c git-rebase.sh
+#: sequencer.c
 #, c-format
-msgid "Applied autostash."
-msgstr "成功应用 autostash。"
+msgid "Applied autostash.\n"
+msgstr "已应用 autostash。\n"
 
 #: sequencer.c
 #, c-format
@@ -3368,7 +3421,7 @@ msgid ""
 "You can run \"git stash pop\" or \"git stash drop\" at any time.\n"
 msgstr ""
 "应用 autostash 导致冲突。\n"
-"您的修改安全地保存在 stash 中。\n"
+"您的修改安全地保存在贮藏区中。\n"
 "您可以在任何时候运行 \"git stash pop\" 或 \"git stash drop\"。\n"
 
 #: sequencer.c
@@ -3622,6 +3675,16 @@ msgstr "submodule.fetchJobs 不允许为负值"
 
 #: submodule.c
 #, c-format
+msgid "in unpopulated submodule '%s'"
+msgstr "位于未检出的子模组 '%s'"
+
+#: submodule.c
+#, c-format
+msgid "Pathspec '%s' is in submodule '%.*s'"
+msgstr "路径规格 '%s' 在子模组 '%.*s' 中"
+
+#: submodule.c
+#, c-format
 msgid "'%s' not recognized as a git repository"
 msgstr "无法将 '%s' 识别为一个 git 仓库"
 
@@ -3819,7 +3882,7 @@ msgid ""
 "%%sPlease commit your changes or stash them before you switch branches."
 msgstr ""
 "您对下列文件的本地修改将被检出操作覆盖：\n"
-"%%s请在切换分支前提交您的修改或者保存进度。"
+"%%s请在切换分支前提交或贮藏您的修改。"
 
 #: unpack-trees.c
 #, c-format
@@ -3837,7 +3900,7 @@ msgid ""
 "%%sPlease commit your changes or stash them before you merge."
 msgstr ""
 "您对下列文件的本地修改将被合并操作覆盖：\n"
-"%%s请在合并前提交您的修改或者保存进度。"
+"%%s请在合并前提交或贮藏您的修改。"
 
 #: unpack-trees.c
 #, c-format
@@ -3855,7 +3918,7 @@ msgid ""
 "%%sPlease commit your changes or stash them before you %s."
 msgstr ""
 "您对下列文件的本地修改将被 %s 覆盖：\n"
-"%%s请在 %s 之前提交您的修改或者保存进度。"
+"%%s请在 %s 之前提交或贮藏您的修改。"
 
 #: unpack-trees.c
 #, c-format
@@ -4086,7 +4149,7 @@ msgstr "无法打开 '%s' 进行读写"
 msgid "could not open '%s' for writing"
 msgstr "无法打开 '%s' 进行写入"
 
-#: wrapper.c builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
+#: wrapper.c builtin/am.c builtin/merge.c
 #, c-format
 msgid "could not open '%s' for reading"
 msgstr "无法打开 '%s' 进行读取"
@@ -4249,6 +4312,13 @@ msgstr "修改的内容, "
 #: wt-status.c
 msgid "untracked content, "
 msgstr "未跟踪的内容, "
+
+#: wt-status.c
+#, c-format
+msgid "Your stash currently has %d entry"
+msgid_plural "Your stash currently has %d entries"
+msgstr[0] "您的贮藏区当前有 %d 条记录"
+msgstr[1] "您的贮藏区当前有 %d 条记录"
 
 #: wt-status.c
 msgid "Submodules changed but not updated:"
@@ -4495,6 +4565,10 @@ msgid "Initial commit"
 msgstr "初始提交"
 
 #: wt-status.c
+msgid "No commits yet"
+msgstr "尚无提交"
+
+#: wt-status.c
 msgid "Untracked files"
 msgstr "未跟踪的文件"
 
@@ -4571,10 +4645,9 @@ msgstr "无文件要提交（使用 -u 显示未跟踪的文件）\n"
 msgid "nothing to commit, working tree clean\n"
 msgstr "无文件要提交，干净的工作区\n"
 
-#  译者：注意保持句尾空格
 #: wt-status.c
-msgid "Initial commit on "
-msgstr "初始提交于 "
+msgid "No commits yet on "
+msgstr "尚无提交在 "
 
 #: wt-status.c
 msgid "HEAD (no branch)"
@@ -4725,6 +4798,44 @@ msgid "override the executable bit of the listed files"
 msgstr "覆盖列表里文件的可执行位"
 
 #: builtin/add.c
+msgid "warn when adding an embedded repository"
+msgstr "创建一个嵌入式仓库时给予警告"
+
+#: builtin/add.c
+#, c-format
+msgid ""
+"You've added another git repository inside your current repository.\n"
+"Clones of the outer repository will not contain the contents of\n"
+"the embedded repository and will not know how to obtain it.\n"
+"If you meant to add a submodule, use:\n"
+"\n"
+"\tgit submodule add <url> %s\n"
+"\n"
+"If you added this path by mistake, you can remove it from the\n"
+"index with:\n"
+"\n"
+"\tgit rm --cached %s\n"
+"\n"
+"See \"git help submodule\" for more information."
+msgstr ""
+"您在当前仓库中添加了另外一个Git仓库。克隆外层的仓库将不包含嵌入仓库的内容，并"
+"且不知道该如何获取它。\n"
+"如果您要添加一个子模组，使用：\n"
+"\n"
+"\tgit submodule add <url> %s\n"
+"\n"
+"如果您不小心添加了这个路径，可以用下面的命令将其从索引中删除：\n"
+"\n"
+"\tgit rm --cached %s\n"
+"\n"
+"参见 \"git help submodule\" 获取更多信息。"
+
+#: builtin/add.c
+#, c-format
+msgid "adding embedded git repository: %s"
+msgstr "正在添加嵌入式 git 仓库：%s"
+
+#: builtin/add.c
 #, c-format
 msgid "Use -f if you really want to add them.\n"
 msgstr "使用 -f 参数如果您确实要添加它们。\n"
@@ -4839,13 +4950,13 @@ msgid "To restore the original branch and stop patching, run \"%s --abort\"."
 msgstr "若要复原至原始分支并停止补丁操作，执行 \"%s --abort\"。"
 
 #: builtin/am.c
-msgid "Patch is empty. Was it split wrong?"
-msgstr "补丁为空。是不是切分错误？"
+msgid "Patch is empty."
+msgstr "补丁为空。"
 
-#: builtin/am.c builtin/log.c
+#: builtin/am.c
 #, c-format
-msgid "invalid ident line: %s"
-msgstr "包含无效的身份标识：%s"
+msgid "invalid ident line: %.*s"
+msgstr "无效的身份标识：%.*s"
 
 #: builtin/am.c
 #, c-format
@@ -4947,10 +5058,13 @@ msgstr ""
 #: builtin/am.c
 msgid ""
 "You still have unmerged paths in your index.\n"
-"Did you forget to use 'git add'?"
+"You should 'git add' each file with resolved conflicts to mark them as "
+"such.\n"
+"You might run `git rm` on a file to accept \"deleted by them\" for it."
 msgstr ""
-"您的索引中仍有未合并的路径。\n"
-"您是否忘了执行 'git add'？"
+"在您的索引中仍存在未合并的路径。\n"
+"您应该对已经冲突解决的每一个文件执行 'git add' 来标记已经完成。 \n"
+"你可以对 \"由他们删除\" 的文件执行 `git rm` 命令。"
 
 #: builtin/am.c builtin/reset.c
 #, c-format
@@ -5173,10 +5287,6 @@ msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<版本选项> 的文档记录在 git-rev-list(1) 中"
 
 #: builtin/blame.c
-msgid "Blaming lines"
-msgstr "追踪代码行"
-
-#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr "增量式地显示发现的 blame 条目"
 
@@ -5280,42 +5390,17 @@ msgstr "只处理行范围在 n 和 m 之间的，从 1 开始"
 msgid "--progress can't be used with --incremental or porcelain formats"
 msgstr "--progress 不能和 --incremental 或 --porcelain 同时使用"
 
-#. TRANSLATORS: This string is used to tell us the maximum
-#. display width for a relative timestamp in "git blame"
-#. output.  For C locale, "4 years, 11 months ago", which
-#. takes 22 places, is the longest among various forms of
-#. relative timestamps, but your language may need more or
-#. fewer display columns.
+#. TRANSLATORS: This string is used to tell us the
+#. maximum display width for a relative timestamp in
+#. "git blame" output.  For C locale, "4 years, 11
+#. months ago", which takes 22 places, is the longest
+#. among various forms of relative timestamps, but
+#. your language may need more or fewer display
+#. columns.
+#.
 #: builtin/blame.c
 msgid "4 years, 11 months ago"
 msgstr "4 年 11 个月前"
-
-#: builtin/blame.c
-msgid "--contents and --reverse do not blend well."
-msgstr "--contents 和 --reverse 不能混用。"
-
-#: builtin/blame.c
-msgid "cannot use --contents with final commit object name"
-msgstr "不能将 --contents 和最终的提交对象名共用"
-
-#: builtin/blame.c
-msgid "--reverse and --first-parent together require specified latest commit"
-msgstr "--reverse 和 --first-parent 共用，需要指定最新的提交"
-
-#: builtin/blame.c
-msgid ""
-"--reverse --first-parent together require range along first-parent chain"
-msgstr "--reverse 和 --first-parent 共用，需要第一祖先链上的提交范围"
-
-#: builtin/blame.c
-#, c-format
-msgid "no such path %s in %s"
-msgstr "在 %2$s 中无此路径 %1$s"
-
-#: builtin/blame.c
-#, c-format
-msgid "cannot read blob %s for path %s"
-msgstr "不能为路径 %2$s 读取数据对象 %1$s"
 
 #: builtin/blame.c
 #, c-format
@@ -5323,6 +5408,10 @@ msgid "file %s has only %lu line"
 msgid_plural "file %s has only %lu lines"
 msgstr[0] "文件 %s 只有 %lu 行"
 msgstr[1] "文件 %s 只有 %lu 行"
+
+#: builtin/blame.c
+msgid "Blaming lines"
+msgstr "追踪代码行"
 
 #: builtin/branch.c
 msgid "git branch [<options>] [-r | -a] [--merged | --no-merged]"
@@ -6209,12 +6298,8 @@ msgstr "无效的路径规格"
 
 #: builtin/checkout.c
 #, c-format
-msgid ""
-"Cannot update paths and switch to branch '%s' at the same time.\n"
-"Did you intend to checkout '%s' which can not be resolved as commit?"
-msgstr ""
-"不能同时更新路径并切换到分支'%s'。\n"
-"您是想要检出 '%s' 但其未能解析为提交么？"
+msgid "'%s' is not a commit and a branch '%s' cannot be created from it"
+msgstr "'%s' 不是一个提交，不能基于它创建分支 '%s'"
 
 #: builtin/checkout.c
 #, c-format
@@ -6509,6 +6594,10 @@ msgstr "深化浅克隆的历史，除了特定版本"
 #: builtin/clone.c
 msgid "clone only one branch, HEAD or --branch"
 msgstr "只克隆一个分支、HEAD 或 --branch"
+
+#: builtin/clone.c
+msgid "don't clone any tags, and make later fetches not to follow them"
+msgstr "不要克隆任何标签，并且后续获取操作也不下载它们"
 
 #: builtin/clone.c
 msgid "any cloned submodules will be shallow"
@@ -7075,10 +7164,6 @@ msgstr "只能用一个 --include/--only/--all/--interactive/--patch 选项。"
 msgid "No paths with --include/--only does not make sense."
 msgstr "参数 --include/--only 不跟路径没有意义。"
 
-#: builtin/commit.c
-msgid "Explicit paths specified without -i or -o; assuming --only paths..."
-msgstr "指定了明确的路径而没有使用 -i 或 -o 选项，认为是 --only paths..."
-
 #: builtin/commit.c builtin/tag.c
 #, c-format
 msgid "Invalid cleanup mode %s"
@@ -7095,6 +7180,10 @@ msgstr "以简洁的格式显示状态"
 #: builtin/commit.c
 msgid "show branch information"
 msgstr "显示分支信息"
+
+#: builtin/commit.c
+msgid "show stash information"
+msgstr "显示贮藏区信息"
 
 #: builtin/commit.c
 msgid "version"
@@ -7484,6 +7573,10 @@ msgstr ""
 "# Please adapt and uncomment the following lines:\n"
 "#\tname = %s\n"
 "#\temail = %s\n"
+
+#: builtin/config.c
+msgid "--local can only be used inside a git repository"
+msgstr "--local 只能在一个仓库内使用"
 
 #: builtin/config.c
 #, c-format
@@ -7909,7 +8002,7 @@ msgstr "清除远程已经不存在的分支的跟踪分支"
 msgid "on-demand"
 msgstr "on-demand"
 
-#: builtin/fetch.c builtin/pull.c
+#: builtin/fetch.c
 msgid "control recursive fetching of submodules"
 msgstr "控制子模组的递归抓取"
 
@@ -7942,8 +8035,10 @@ msgid "prepend this to submodule path output"
 msgstr "在子模组路径输出的前面加上此目录"
 
 #: builtin/fetch.c
-msgid "default mode for recursion"
-msgstr "递归的默认模式"
+msgid ""
+"default for recursive fetching of submodules (lower priority than config "
+"files)"
+msgstr "递归获取子模组的缺省值（比配置文件优先级低）"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "accept refs that update .git/shallow"
@@ -8359,6 +8454,15 @@ msgstr "grep：无法创建线程：%s"
 msgid "invalid number of threads specified (%d) for %s"
 msgstr "为 %2$s 设定的线程数 (%1$d) 无效"
 
+#. TRANSLATORS: %s is the configuration
+#. variable for tweaking threads, currently
+#. grep.threads
+#.
+#: builtin/grep.c builtin/index-pack.c
+#, c-format
+msgid "no threads support, ignoring %s"
+msgstr "没有线程支持，忽略 %s"
+
 #: builtin/grep.c
 #, c-format
 msgid "unable to read tree (%s)"
@@ -8576,6 +8680,10 @@ msgstr "不能解析版本：%s"
 #, c-format
 msgid "invalid number of threads specified (%d)"
 msgstr "指定的线程数无效（%d）"
+
+#: builtin/grep.c
+msgid "no threads support, ignoring --threads"
+msgstr "没有线程支持，忽略 --threads"
 
 #: builtin/grep.c
 msgid "--open-files-in-pager only works on the worktree"
@@ -9005,11 +9113,6 @@ msgstr "无法存储索引文件"
 #, c-format
 msgid "bad pack.indexversion=%<PRIu32>"
 msgstr "坏的 pack.indexversion=%<PRIu32>"
-
-#: builtin/index-pack.c
-#, c-format
-msgid "no threads support, ignoring %s"
-msgstr "没有线程支持，忽略 %s"
 
 #: builtin/index-pack.c
 #, c-format
@@ -9483,6 +9586,11 @@ msgid "don't print the patch filenames"
 msgstr "不要打印补丁文件名"
 
 #: builtin/log.c
+#, c-format
+msgid "invalid ident line: %s"
+msgstr "包含无效的身份标识：%s"
+
+#: builtin/log.c
 msgid "-n and -k are mutually exclusive."
 msgstr "-n 和 -k 互斥。"
 
@@ -9712,6 +9820,11 @@ msgstr "使用文件的全路径"
 msgid "list entire tree; not just current directory (implies --full-name)"
 msgstr "列出整个树；不仅仅当前目录（隐含 --full-name）"
 
+#: builtin/mailsplit.c
+#, c-format
+msgid "empty mbox: '%s'"
+msgstr "空的 mbox：'%s'"
+
 #: builtin/merge.c
 msgid "git merge [<options>] [<commit>...]"
 msgstr "git merge [<选项>] [<提交>...]"
@@ -9817,11 +9930,11 @@ msgstr "允许合并不相关的历史"
 
 #: builtin/merge.c
 msgid "could not run stash."
-msgstr "不能进行进度保存。"
+msgstr "不能运行贮藏。"
 
 #: builtin/merge.c
 msgid "stash failed"
-msgstr "进度保存失败"
+msgstr "贮藏失败"
 
 #: builtin/merge.c
 #, c-format
@@ -9930,11 +10043,6 @@ msgstr "对于 %s 没有来自 %s 的远程跟踪分支"
 #, c-format
 msgid "Bad value '%s' in environment '%s'"
 msgstr "环境 '%2$s' 中存在坏的取值 '%1$s'"
-
-#: builtin/merge.c
-#, c-format
-msgid "could not close '%s'"
-msgstr "不能关闭 '%s'"
 
 #: builtin/merge.c
 #, c-format
@@ -10225,7 +10333,7 @@ msgstr "目录 %s 在索引中并且不是子模组？"
 
 #: builtin/mv.c builtin/rm.c
 msgid "Please stage your changes to .gitmodules or stash them to proceed"
-msgstr "请将您的修改暂存到 .gitmodules 中或保存进度后再继续"
+msgstr "请将您的修改暂存到 .gitmodules 中或贮藏后再继续"
 
 #: builtin/mv.c
 #, c-format
@@ -10525,8 +10633,9 @@ msgstr "非法的输入行：'%s'。"
 msgid "failed to copy notes from '%s' to '%s'"
 msgstr "从 '%s' 拷贝注解到 '%s' 时失败"
 
-#. TRANSLATORS: the first %s will be replaced by a
-#. git notes command: 'add', 'merge', 'remove', etc.
+#. TRANSLATORS: the first %s will be replaced by a git
+#. notes command: 'add', 'merge', 'remove', etc.
+#.
 #: builtin/notes.c
 #, c-format
 msgid "refusing to %s notes in %s (outside of refs/notes/)"
@@ -10976,6 +11085,10 @@ msgid "git pull [<options>] [<repository> [<refspec>...]]"
 msgstr "git pull [<选项>] [<仓库> [<引用规格>...]]"
 
 #: builtin/pull.c
+msgid "control for recursive fetching of submodules"
+msgstr "控制子模组的递归获取"
+
+#: builtin/pull.c
 msgid "Options related to merging"
 msgstr "和合并相关的选项"
 
@@ -10989,7 +11102,7 @@ msgstr "允许快进式"
 
 #: builtin/pull.c
 msgid "automatically stash/stash pop before and after rebase"
-msgstr "自动在变基操作前后执行 stash/stash pop"
+msgstr "变基操作前后执行自动贮藏和弹出贮藏"
 
 #: builtin/pull.c
 msgid "Options related to fetching"
@@ -11091,7 +11204,7 @@ msgstr "变基式拉取"
 
 #: builtin/pull.c
 msgid "please commit or stash them."
-msgstr "请提交或为它们保存进度。"
+msgstr "请提交或贮藏它们。"
 
 #: builtin/pull.c
 #, c-format
@@ -11127,6 +11240,10 @@ msgstr "无法将多个分支合并到空分支。"
 #: builtin/pull.c
 msgid "Cannot rebase onto multiple branches."
 msgstr "无法变基到多个分支。"
+
+#: builtin/pull.c
+msgid "cannot rebase with locally recorded submodule modifications"
+msgstr "本地子模组中有修改，无法变基"
 
 #: builtin/push.c
 msgid "git push [<options>] [<repository> [<refspec>...]]"
@@ -11878,8 +11995,10 @@ msgstr "  获取地址：%s"
 msgid "(no URL)"
 msgstr "(无 URL)"
 
-#. TRANSLATORS: the colon ':' should align with
-#. the one in "  Fetch URL: %s" translation
+#. TRANSLATORS: the colon ':' should align
+#. with the one in " Fetch URL: %s"
+#. translation.
+#.
 #: builtin/remote.c
 #, c-format
 msgid "  Push  URL: %s"
@@ -12137,6 +12256,10 @@ msgstr "和上面的相似，但限制内存大小而非条目数"
 #: builtin/repack.c
 msgid "limits the maximum delta depth"
 msgstr "限制最大增量深度"
+
+#: builtin/repack.c
+msgid "limits the maximum number of threads"
+msgstr "限制最大线程数"
 
 #: builtin/repack.c
 msgid "maximum size of each packfile"
@@ -13029,10 +13152,6 @@ msgstr "在子模组中递归"
 #: builtin/submodule--helper.c
 msgid "git submodule--helper embed-git-dir [<path>...]"
 msgstr "git submodule--helper embed-git-dir [<路径>...]"
-
-#: builtin/submodule--helper.c
-msgid "submodule--helper subcommand must be called with a subcommand"
-msgstr "submodule-helper 子命令必须由另外的子命令调用"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -14155,6 +14274,10 @@ msgid "Could not move back to $head_name"
 msgstr "无法移回 $head_name"
 
 #: git-rebase.sh
+msgid "Applied autostash."
+msgstr "成功应用 autostash。"
+
+#: git-rebase.sh
 #, sh-format
 msgid "Cannot store $stash_sha1"
 msgstr "无法保存 $stash_sha1"
@@ -14242,7 +14365,7 @@ msgstr "创建了 autostash: $stash_abbrev"
 
 #: git-rebase.sh
 msgid "Please commit or stash them."
-msgstr "请提交或为它们保存进度。"
+msgstr "请提交或贮藏修改。"
 
 #: git-rebase.sh
 #, sh-format
@@ -14334,7 +14457,7 @@ msgstr "没有要保存的本地修改"
 
 #: git-stash.sh
 msgid "Cannot initialize stash"
-msgstr "无法初始化 stash"
+msgstr "无法初始化贮藏"
 
 #: git-stash.sh
 msgid "Cannot save the current status"
@@ -14355,8 +14478,8 @@ msgid "unknown option: $opt"
 msgstr "未知选项: $opt"
 
 #: git-stash.sh
-msgid "No stash found."
-msgstr "未发现 stash。"
+msgid "No stash entries found."
+msgstr "未发现贮藏条目。"
 
 #: git-stash.sh
 #, sh-format
@@ -14371,12 +14494,12 @@ msgstr "$reference 不是一个有效的引用"
 #: git-stash.sh
 #, sh-format
 msgid "'$args' is not a stash-like commit"
-msgstr "'$args' 不是 stash 样提交"
+msgstr "'$args' 不是贮藏式提交"
 
 #: git-stash.sh
 #, sh-format
 msgid "'$args' is not a stash reference"
-msgstr "'$args' 不是一个 stash 引用"
+msgstr "'$args' 不是一个贮藏引用"
 
 #: git-stash.sh
 msgid "unable to refresh index"
@@ -14384,7 +14507,7 @@ msgstr "无法刷新索引"
 
 #: git-stash.sh
 msgid "Cannot apply a stash in the middle of a merge"
-msgstr "无法在合并过程中恢复进度"
+msgstr "无法在合并过程应用贮藏"
 
 #: git-stash.sh
 msgid "Conflicts in index. Try without --index."
@@ -14395,8 +14518,8 @@ msgid "Could not save index tree"
 msgstr "不能保存索引树"
 
 #: git-stash.sh
-msgid "Could not restore untracked files from stash"
-msgstr "无法从进度保存中恢复未跟踪文件"
+msgid "Could not restore untracked files from stash entry"
+msgstr "无法从贮藏条目中恢复未跟踪文件"
 
 #: git-stash.sh
 msgid "Cannot unstage modified files"
@@ -14404,11 +14527,11 @@ msgstr "无法将修改的文件取消暂存"
 
 #: git-stash.sh
 msgid "Index was not unstashed."
-msgstr "索引的进度没有被恢复。"
+msgstr "索引未从贮藏中恢复。"
 
 #: git-stash.sh
-msgid "The stash is kept in case you need it again."
-msgstr "暂存被保留以备您再次需要。"
+msgid "The stash entry is kept in case you need it again."
+msgstr "贮藏条目被保留以备您再次需要。"
 
 #: git-stash.sh
 #, sh-format
@@ -14418,7 +14541,7 @@ msgstr "丢弃了 ${REV} ($s)"
 #: git-stash.sh
 #, sh-format
 msgid "${REV}: Could not drop stash entry"
-msgstr "${REV}：不能丢弃进度条目"
+msgstr "${REV}：无法丢弃贮藏条目"
 
 #: git-stash.sh
 msgid "No branch name specified"
@@ -14882,7 +15005,7 @@ msgid ""
 "\tgit rebase --continue"
 msgstr ""
 "执行成功：$rest\n"
-"但是在索引和/或工作区中存在变更。提交或暂存修改，然后运行\n"
+"但是在索引和/或工作区中存在变更。提交或贮藏修改，然后运行\n"
 "\n"
 "\tgit rebase --continue"
 
@@ -15214,7 +15337,7 @@ msgstr "如果补丁能干净地应用，编辑块将立即标记为暂存。"
 msgid ""
 "If the patch applies cleanly, the edited hunk will immediately be\n"
 "marked for stashing."
-msgstr "如果补丁能干净地应用，编辑块将立即标记为保存进度。"
+msgstr "如果补丁能干净地应用，编辑块将立即标记为贮藏。"
 
 #: git-add--interactive.perl
 msgid ""
@@ -15863,6 +15986,11 @@ msgid "Server does not support STARTTLS! %s"
 msgstr "服务器不支持 STARTTLS！%s"
 
 #: git-send-email.perl
+#, perl-format
+msgid "STARTTLS failed! %s"
+msgstr "STARTTLS 失败！%s"
+
+#: git-send-email.perl
 msgid "Unable to initialize SMTP properly. Check config and use --smtp-debug."
 msgstr "无法正确地初始化 SMTP。检查配置并使用 --smtp-debug。"
 
@@ -15965,143 +16093,3 @@ msgstr "略过 %s 含备份后缀 '%s'。\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "您真的要发送 %s？[y|N]："
-
-#~ msgid "tag: tagging "
-#~ msgstr "tag: tagging "
-
-#~ msgid "object of unknown type"
-#~ msgstr "未知类型的对象"
-
-#~ msgid "commit object"
-#~ msgstr "提交对象"
-
-#~ msgid "tree object"
-#~ msgstr "树对象"
-
-#~ msgid "blob object"
-#~ msgstr "数据对象"
-
-#~ msgid "other tag object"
-#~ msgstr "其它标签对象"
-
-#~ msgid ""
-#~ "There is nothing to exclude from by :(exclude) patterns.\n"
-#~ "Perhaps you forgot to add either ':/' or '.' ?"
-#~ msgstr ""
-#~ "没有为 :(exclude) 模式提供要忽略的内容。也许您忘记了\n"
-#~ "添加 ':/' 或 '.' ？"
-
-#~ msgid "unrecognized format: %%(%s)"
-#~ msgstr "未能识别的格式：%%(%s)"
-
-#~ msgid ":strip= requires a positive integer argument"
-#~ msgstr ":strip= 需要一个正整型参数"
-
-#~ msgid "ref '%s' does not have %ld components to :strip"
-#~ msgstr "引用 '%s' 未提供用于 :strip 的 %ld 个组件"
-
-#~ msgid "unknown %.*s format %s"
-#~ msgstr "未知的 %.*s 格式 %s"
-
-#~ msgid "[%s: gone]"
-#~ msgstr "[%s: 丢失]"
-
-#~ msgid "[%s]"
-#~ msgstr "[%s]"
-
-#~ msgid "[%s: behind %d]"
-#~ msgstr "[%s：落后 %d]"
-
-#~ msgid "[%s: ahead %d]"
-#~ msgstr "[%s：领先 %d]"
-
-#~ msgid "[%s: ahead %d, behind %d]"
-#~ msgstr "[%s：领先 %d，落后 %d]"
-
-#~ msgid " **** invalid ref ****"
-#~ msgstr " **** 无效引用 ****"
-
-#~ msgid "insanely long object directory %.*s"
-#~ msgstr "不正常的长对象目录 %.*s"
-
-#~ msgid "git merge [<options>] <msg> HEAD <commit>"
-#~ msgstr "git merge [<选项>] <说明> HEAD <提交>"
-
-#~ msgid "'%s' is not a commit"
-#~ msgstr "'%s' 不是一个提交"
-
-#~ msgid "cannot open file '%s'"
-#~ msgstr "无法打开文件 '%s'"
-
-#~ msgid "could not close file %s"
-#~ msgstr "无法关闭文件 %s"
-
-#~ msgid "tag name too long: %.*s..."
-#~ msgstr "标签名称太长：%.*s..."
-
-#~ msgid "tag header too big."
-#~ msgstr "标签头信息太大。"
-
-#~ msgid ""
-#~ "If the patch applies cleanly, the edited hunk will immediately be\n"
-#~ "marked for discarding"
-#~ msgstr "如果补丁能干净地应用，编辑块将立即标记为丢弃"
-
-#~ msgid "Use an experimental blank-line-based heuristic to improve diffs"
-#~ msgstr "使用一个试验性的基于空行的启发式算法改进差异显示"
-
-#~ msgid "Clever... amending the last one with dirty index."
-#~ msgstr "聪明... 用脏索引修补最后一个提交。"
-
-#~ msgid ""
-#~ "the following submodule (or one of its nested submodules)\n"
-#~ "uses a .git directory:"
-#~ msgid_plural ""
-#~ "the following submodules (or one of their nested submodules)\n"
-#~ "use a .git directory:"
-#~ msgstr[0] "以下子模组（或一个其嵌套子模组）使用了一个 .git 目录："
-#~ msgstr[1] "以下子模组（或一个其嵌套子模组）使用了一个 .git 目录："
-
-#~ msgid ""
-#~ "\n"
-#~ "(use 'rm -rf' if you really want to remove it including all of its "
-#~ "history)"
-#~ msgstr ""
-#~ "\n"
-#~ "（使用 'rm -rf' 命令如果您真的想删除它及其全部历史）"
-
-#~ msgid "Could not write to %s"
-#~ msgstr "不能写入 %s"
-
-#~ msgid "Error wrapping up %s."
-#~ msgstr "错误收尾 %s。"
-
-#~ msgid "Your local changes would be overwritten by cherry-pick."
-#~ msgstr "您的本地修改将被拣选操作覆盖。"
-
-#~ msgid "Cannot revert during another revert."
-#~ msgstr "不能在回退中执行另一回退。"
-
-#~ msgid "Cannot cherry-pick during another cherry-pick."
-#~ msgstr "不能在拣选过程中执行另一拣选。"
-
-#~ msgid "Could not parse line %d."
-#~ msgstr "不能解析第 %d 行。"
-
-#~ msgid "Could not open %s"
-#~ msgstr "不能打开 %s"
-
-#~ msgid "Could not read %s."
-#~ msgstr "不能读取 %s。"
-
-#~ msgid "Could not format %s."
-#~ msgstr "不能格式化 %s。"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s：%s"
-
-#~ msgid "cannot open %s: %s"
-#~ msgstr "不能打开 %s：%s"
-
-#~ msgid "You need to set your committer info first"
-#~ msgstr "您需要先设置您的提交者信息"
