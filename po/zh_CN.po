@@ -121,6 +121,7 @@
 #   tagger                           |  打标签者
 #   topic branch                     |  主题分支
 #   track                            |  跟踪
+#   trailer                          |  尾部署名
 #   tree                             |  树（工作区或树对象）
 #   tree object                      |  树对象
 #   tree-ish (also treeish)          |  树对象（或可以解析为一树对象）
@@ -136,8 +137,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-07-24 21:54+0800\n"
-"PO-Revision-Date: 2017-08-02 08:00+0800\n"
+"POT-Creation-Date: 2017-10-17 09:44+0800\n"
+"PO-Revision-Date: 2017-10-24 09:43+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -788,7 +789,7 @@ msgstr "路径以 NUL 字符分隔"
 msgid "ensure at least <n> lines of context match"
 msgstr "确保至少匹配 <n> 行上下文"
 
-#: apply.c builtin/am.c
+#: apply.c builtin/am.c builtin/interpret-trailers.c
 msgid "action"
 msgstr "动作"
 
@@ -1132,43 +1133,43 @@ msgstr "未设置分支 %s 作为它自己的上游。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track remote branch %s from %s by rebasing."
-msgstr "分支 %1$s 设置为使用变基来跟踪来自 %3$s 的远程分支 %2$s。"
+msgid "Branch '%s' set up to track remote branch '%s' from '%s' by rebasing."
+msgstr "分支 '%1$s' 设置为使用变基来跟踪来自 '%3$s' 的远程分支 '%2$s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track remote branch %s from %s."
-msgstr "分支 %1$s 设置为跟踪来自 %3$s 的远程分支 %2$s。"
+msgid "Branch '%s' set up to track remote branch '%s' from '%s'."
+msgstr "分支 '%1$s' 设置为跟踪来自 '%3$s' 的远程分支 '%2$s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track local branch %s by rebasing."
-msgstr "分支 %s 设置为使用变基来跟踪本地分支 %s。"
+msgid "Branch '%s' set up to track local branch '%s' by rebasing."
+msgstr "分支 '%s' 设置为使用变基来跟踪本地分支 '%s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track local branch %s."
-msgstr "分支 %s 设置为跟踪本地分支 %s。"
+msgid "Branch '%s' set up to track local branch '%s'."
+msgstr "分支 '%s' 设置为跟踪本地分支 '%s。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track remote ref %s by rebasing."
-msgstr "分支 %s 设置为使用变基来跟踪远程引用 %s。"
+msgid "Branch '%s' set up to track remote ref '%s' by rebasing."
+msgstr "分支 '%s' 设置为使用变基来跟踪远程引用 '%s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track remote ref %s."
-msgstr "分支 %s 设置为跟踪远程引用 %s。"
+msgid "Branch '%s' set up to track remote ref '%s'."
+msgstr "分支 '%s' 设置为跟踪远程引用 '%s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track local ref %s by rebasing."
-msgstr "分支 %s 设置为使用变基来跟踪本地引用 %s。"
+msgid "Branch '%s' set up to track local ref '%s' by rebasing."
+msgstr "分支 '%s' 设置为使用变基来跟踪本地引用 '%s'。"
 
 #: branch.c
 #, c-format
-msgid "Branch %s set up to track local ref %s."
-msgstr "分支 %s 设置为跟踪本地引用 %s。"
+msgid "Branch '%s' set up to track local ref '%s'."
+msgstr "分支 '%s' 设置为跟踪本地引用 '%s'。"
 
 #: branch.c
 msgid "Unable to write upstream branch configuration"
@@ -1651,6 +1652,13 @@ msgid "  Unknown dirstat parameter '%s'\n"
 msgstr "  未知的 dirstat 参数 '%s'\n"
 
 #: diff.c
+msgid ""
+"color moved setting must be one of 'no', 'default', 'zebra', 'dimmed_zebra', "
+"'plain'"
+msgstr ""
+"代码移动的颜色设置必须是 'no'、'default'、'zebra'、'dimmed_zebra' 或 'plain'"
+
+#: diff.c
 #, c-format
 msgid "Unknown value for 'diff.submodule' config variable: '%s'"
 msgstr "配置变量 'diff.submodule' 未知的取值：'%s'"
@@ -1722,6 +1730,10 @@ msgstr "不能为 %s 创建目录"
 #, c-format
 msgid "could not migrate git directory from '%s' to '%s'"
 msgstr "不能从 '%s' 迁移 git 目录到 '%s'"
+
+#: entry.c
+msgid "Filtering content"
+msgstr "过滤内容"
 
 #: entry.c
 #, c-format
@@ -2339,7 +2351,7 @@ msgid "Adding %s"
 msgstr "添加 %s"
 
 #: merge-recursive.c
-msgid "Already up-to-date!"
+msgid "Already up to date!"
 msgstr "已经是最新的！"
 
 #: merge-recursive.c
@@ -2414,6 +2426,20 @@ msgstr "坏的 %s 值：'%s'"
 #, c-format
 msgid "unable to parse object: %s"
 msgstr "不能解析对象：%s"
+
+#: packfile.c
+msgid "offset before end of packfile (broken .idx?)"
+msgstr "偏移量在包文件结束之前（损坏的 .idx？）"
+
+#: packfile.c
+#, c-format
+msgid "offset before start of pack index for %s (corrupt index?)"
+msgstr "偏移量在 %s 的包索引开始之前（损坏的索引？）"
+
+#: packfile.c
+#, c-format
+msgid "offset beyond end of pack index for %s (truncated index?)"
+msgstr "偏移量越过了 %s 的包索引的结尾（被截断的索引？）"
 
 #: parse-options.c
 msgid "..."
@@ -2584,18 +2610,18 @@ msgstr "在隔离环境中禁止更新引用"
 
 #: refs/files-backend.c
 #, c-format
+msgid "could not remove reference %s"
+msgstr "无法删除引用 %s"
+
+#: refs/files-backend.c refs/packed-backend.c
+#, c-format
 msgid "could not delete reference %s: %s"
 msgstr "无法删除引用 %s：%s"
 
-#: refs/files-backend.c
+#: refs/files-backend.c refs/packed-backend.c
 #, c-format
 msgid "could not delete references: %s"
 msgstr "无法删除引用：%s"
-
-#: refs/files-backend.c
-#, c-format
-msgid "could not remove reference %s"
-msgstr "无法删除引用 %s"
 
 #: ref-filter.c wt-status.c
 msgid "gone"
@@ -2653,8 +2679,8 @@ msgstr "%%(subject) 不带参数"
 
 #: ref-filter.c
 #, c-format
-msgid "%%(trailers) does not take arguments"
-msgstr "%%(trailers) 不带参数"
+msgid "unknown %%(trailers) argument: %s"
+msgstr "未知的 %%(trailers) 参数：%s"
 
 #: ref-filter.c
 #, c-format
@@ -2898,7 +2924,7 @@ msgstr "  （使用 \"git branch --unset-upstream\" 来修复）\n"
 
 #: remote.c
 #, c-format
-msgid "Your branch is up-to-date with '%s'.\n"
+msgid "Your branch is up to date with '%s'.\n"
 msgstr "您的分支与上游分支 '%s' 一致。\n"
 
 #: remote.c
@@ -3501,6 +3527,89 @@ msgstr "%s：错误的版本"
 msgid "can't revert as initial commit"
 msgstr "不能作为初始提交回退"
 
+#: sequencer.c
+msgid "make_script: unhandled options"
+msgstr "make_script：有未能处理的选项"
+
+#: sequencer.c
+msgid "make_script: error preparing revisions"
+msgstr "make_script：准备版本时错误"
+
+#: sequencer.c
+#, c-format
+msgid "unusable todo list: '%s'"
+msgstr "不可用的待办列表：'%s'"
+
+#: sequencer.c
+#, c-format
+msgid "unable to open '%s' for writing"
+msgstr "无法以写入方式打开 '%s'"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"unrecognized setting %s for option rebase.missingCommitsCheck. Ignoring."
+msgstr "选项 rebase.missingCommitsCheck 的值 %s 无法识别。已忽略。"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"Warning: some commits may have been dropped accidentally.\n"
+"Dropped commits (newer to older):\n"
+msgstr ""
+"警告：一些提交可能被意外丢弃。\n"
+"丢弃的提交（从新到旧）：\n"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"To avoid this message, use \"drop\" to explicitly remove a commit.\n"
+"\n"
+"Use 'git config rebase.missingCommitsCheck' to change the level of "
+"warnings.\n"
+"The possible behaviours are: ignore, warn, error.\n"
+"\n"
+msgstr ""
+"为避免这条信息，使用 \"drop\" 指令显式地删除一个提交。\n"
+"\n"
+"使用 'git config rebase.missingCommitsCheck' 来修改警告级别。\n"
+"可选值有：ignore、warn、error。\n"
+"\n"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"You can fix this with 'git rebase --edit-todo' and then run 'git rebase --"
+"continue'.\n"
+"Or you can abort the rebase with 'git rebase --abort'.\n"
+msgstr ""
+"您可以用 'git rebase --edit-todo' 修正，然后执行 'git rebase --continue'。\n"
+"或者您可以用 'git rebase --abort' 终止变基。\n"
+
+#: sequencer.c
+#, c-format
+msgid "could not parse commit '%s'"
+msgstr "不能解析提交 '%s'"
+
+#: sequencer.c wrapper.c builtin/am.c
+#, c-format
+msgid "could not open '%s' for writing"
+msgstr "无法打开 '%s' 进行写入"
+
+#: sequencer.c
+#, c-format
+msgid "could not truncate '%s'"
+msgstr "无法截断 '%s'"
+
+#: sequencer.c
+msgid "the script was already rearranged."
+msgstr "脚本已经重新编排。"
+
+#: sequencer.c
+#, c-format
+msgid "could not finish '%s'"
+msgstr "无法结束 '%s'"
+
 #: setup.c
 #, c-format
 msgid ""
@@ -3602,20 +3711,6 @@ msgstr "参考仓库 '%s' 是一个浅克隆"
 msgid "reference repository '%s' is grafted"
 msgstr "参考仓库 '%s' 已被嫁接"
 
-#: sha1_file.c
-msgid "offset before end of packfile (broken .idx?)"
-msgstr "偏移量在包文件结束之前（损坏的 .idx？）"
-
-#: sha1_file.c
-#, c-format
-msgid "offset before start of pack index for %s (corrupt index?)"
-msgstr "偏移量在 %s 的包索引开始之前（损坏的索引？）"
-
-#: sha1_file.c
-#, c-format
-msgid "offset beyond end of pack index for %s (truncated index?)"
-msgstr "偏移量越过了 %s 的包索引的结尾（被截断的索引？）"
-
 #: sha1_name.c
 #, c-format
 msgid "short SHA1 %s is ambiguous"
@@ -3670,10 +3765,6 @@ msgid "staging updated .gitmodules failed"
 msgstr "将更新后 .gitmodules 添加暂存区失败"
 
 #: submodule.c
-msgid "negative values not allowed for submodule.fetchJobs"
-msgstr "submodule.fetchJobs 不允许为负值"
-
-#: submodule.c
 #, c-format
 msgid "in unpopulated submodule '%s'"
 msgstr "位于未检出的子模组 '%s'"
@@ -3682,6 +3773,15 @@ msgstr "位于未检出的子模组 '%s'"
 #, c-format
 msgid "Pathspec '%s' is in submodule '%.*s'"
 msgstr "路径规格 '%s' 在子模组 '%.*s' 中"
+
+#: submodule.c
+#, c-format
+msgid "submodule entry '%s' (%s) is a %s, not a commit"
+msgstr "子模组条目 '%s' (%s) 是一个 %s，不是一个提交"
+
+#: submodule.c builtin/branch.c builtin/submodule--helper.c
+msgid "Failed to resolve HEAD as a valid ref."
+msgstr "无法将 HEAD 解析为有效引用。"
 
 #: submodule.c
 #, c-format
@@ -3747,6 +3847,10 @@ msgstr "BUG：返回的路径和当前路径不匹配？"
 #, c-format
 msgid "ls-tree returned unexpected return code %d"
 msgstr "ls-tree 返回未知返回值 %d"
+
+#: submodule-config.c
+msgid "negative values not allowed for submodule.fetchjobs"
+msgstr "submodule.fetchjobs 不允许为负值"
 
 #: submodule-config.c
 #, c-format
@@ -4056,7 +4160,7 @@ msgstr "条目 '%s' 和 '%s' 重叠。无法合并。"
 #: unpack-trees.c
 #, c-format
 msgid ""
-"Cannot update sparse checkout: the following entries are not up-to-date:\n"
+"Cannot update sparse checkout: the following entries are not up to date:\n"
 "%s"
 msgstr ""
 "无法更新稀疏检出：如下条目不是最新：\n"
@@ -4095,11 +4199,6 @@ msgstr ""
 #, c-format
 msgid "Aborting\n"
 msgstr "终止中\n"
-
-#: unpack-trees.c
-#, c-format
-msgid "submodule update strategy not supported for submodule '%s'"
-msgstr "子模组 %s 不支持子模组更新策略"
 
 #: unpack-trees.c
 msgid "Checking out files"
@@ -4143,11 +4242,6 @@ msgstr "无法读取 '%s'"
 #, c-format
 msgid "could not open '%s' for reading and writing"
 msgstr "无法打开 '%s' 进行读写"
-
-#: wrapper.c builtin/am.c
-#, c-format
-msgid "could not open '%s' for writing"
-msgstr "无法打开 '%s' 进行写入"
 
 #: wrapper.c builtin/am.c builtin/merge.c
 #, c-format
@@ -4330,11 +4424,11 @@ msgstr "要提交的子模组变更："
 
 #: wt-status.c
 msgid ""
-"Do not touch the line above.\n"
-"Everything below will be removed."
+"Do not modify or remove the line above.\n"
+"Everything below it will be ignored."
 msgstr ""
-"不要改动上面的一行。\n"
-"下面的所有内容均将被删除。"
+"不要改动或删除上面的一行。\n"
+"其下所有内容都将被忽略。"
 
 #: wt-status.c
 msgid "You have unmerged paths."
@@ -5430,6 +5524,10 @@ msgid "git branch [<options>] (-m | -M) [<old-branch>] <new-branch>"
 msgstr "git branch [<选项>] (-m | -M) [<旧分支>] <新分支>"
 
 #: builtin/branch.c
+msgid "git branch [<options>] (-c | -C) [<old-branch>] <new-branch>"
+msgstr "git branch [<选项>] (-c | -C) [<老分支>] <新分支>"
+
+#: builtin/branch.c
 msgid "git branch [<options>] [-r | -a] [--points-at]"
 msgstr "git branch [<选项>] [-r | -a] [--points-at]"
 
@@ -5473,7 +5571,7 @@ msgstr ""
 
 #: builtin/branch.c
 msgid "Update of config-file failed"
-msgstr "无法更新 config 文件"
+msgstr "更新配置文件失败"
 
 #: builtin/branch.c
 msgid "cannot use -a with -d"
@@ -5518,6 +5616,10 @@ msgstr "已删除远程跟踪分支 %s（曾为 %s）。\n"
 msgid "Deleted branch %s (was %s).\n"
 msgstr "已删除分支 %s（曾为 %s）。\n"
 
+#: builtin/branch.c builtin/tag.c
+msgid "unable to parse format string"
+msgstr "不能解析格式化字符串"
+
 #: builtin/branch.c
 #, c-format
 msgid "Branch %s is being rebased at %s"
@@ -5527,6 +5629,10 @@ msgstr "分支 %s 正被变基到 %s"
 #, c-format
 msgid "Branch %s is being bisected at %s"
 msgstr "分支 %s 正被二分查找于 %s"
+
+#: builtin/branch.c
+msgid "cannot copy the current branch while not on any."
+msgstr "无法拷贝当前分支因为不处于任何分支上。"
 
 #: builtin/branch.c
 msgid "cannot rename the current branch while not on any."
@@ -5542,9 +5648,18 @@ msgid "Branch rename failed"
 msgstr "分支重命名失败"
 
 #: builtin/branch.c
+msgid "Branch copy failed"
+msgstr "分支拷贝失败"
+
+#: builtin/branch.c
+#, c-format
+msgid "Copied a misnamed branch '%s' away"
+msgstr "已将错误命名的分支 '%s' 复制"
+
+#: builtin/branch.c
 #, c-format
 msgid "Renamed a misnamed branch '%s' away"
-msgstr "重命名掉一个错误命名的旧分支 '%s'"
+msgstr "已将错误命名的分支 '%s' 重命名"
 
 #: builtin/branch.c
 #, c-format
@@ -5553,7 +5668,11 @@ msgstr "分支重命名为 %s，但 HEAD 没有更新！"
 
 #: builtin/branch.c
 msgid "Branch is renamed, but update of config-file failed"
-msgstr "分支被重命名，但更新 config 文件失败"
+msgstr "分支被重命名，但更新配置文件失败"
+
+#: builtin/branch.c
+msgid "Branch is copied, but update of config-file failed"
+msgstr "分支已拷贝，但更新配置文件失败"
 
 #: builtin/branch.c
 #, c-format
@@ -5583,8 +5702,8 @@ msgid "set up tracking mode (see git-pull(1))"
 msgstr "设置跟踪模式（参见 git-pull(1)）"
 
 #: builtin/branch.c
-msgid "change upstream info"
-msgstr "改变上游信息"
+msgid "do not use"
+msgstr "不要使用"
 
 #: builtin/branch.c
 msgid "upstream"
@@ -5639,6 +5758,14 @@ msgid "move/rename a branch, even if target exists"
 msgstr "移动/重命名一个分支，即使目标已存在"
 
 #: builtin/branch.c
+msgid "copy a branch and its reflog"
+msgstr "拷贝一个分支和它的引用日志"
+
+#: builtin/branch.c
+msgid "copy a branch, even if target exists"
+msgstr "拷贝一个分支，即使目标已存在"
+
+#: builtin/branch.c
 msgid "list branch names"
 msgstr "列出分支名"
 
@@ -5690,10 +5817,6 @@ msgstr "排序和过滤属于大小写不敏感"
 msgid "format to use for the output"
 msgstr "输出格式"
 
-#: builtin/branch.c
-msgid "Failed to resolve HEAD as a valid ref."
-msgstr "无法将 HEAD 解析为有效引用。"
-
 #: builtin/branch.c builtin/clone.c
 msgid "HEAD not found below refs/heads!"
 msgstr "HEAD 没有位于 /refs/heads 之下！"
@@ -5725,12 +5848,16 @@ msgid "No branch named '%s'."
 msgstr "没有分支 '%s'。"
 
 #: builtin/branch.c
-msgid "too many branches for a rename operation"
-msgstr "为重命名操作提供了太多的分支名"
+msgid "too many branches for a copy operation"
+msgstr "为拷贝操作提供了太多的分支名"
 
 #: builtin/branch.c
-msgid "too many branches to set new upstream"
-msgstr "为设置新上游提供了太多的分支名"
+msgid "too many arguments for a rename operation"
+msgstr "为重命名操作提供了太多的参数"
+
+#: builtin/branch.c
+msgid "too many arguments to set new upstream"
+msgstr "为设置新上游提供了太多的参数"
 
 #: builtin/branch.c
 #, c-format
@@ -5749,8 +5876,8 @@ msgid "branch '%s' does not exist"
 msgstr "分支 '%s' 不存在"
 
 #: builtin/branch.c
-msgid "too many branches to unset upstream"
-msgstr "为取消上游设置操作提供了太多的分支名"
+msgid "too many arguments to unset upstream"
+msgstr "为取消上游设置操作提供了太多的参数"
 
 #: builtin/branch.c
 msgid "could not unset upstream of HEAD when it does not point to any branch."
@@ -5770,23 +5897,11 @@ msgid "-a and -r options to 'git branch' do not make sense with a branch name"
 msgstr "'git branch' 的 -a 和 -r 选项带一个分支名参数没有意义"
 
 #: builtin/branch.c
-#, c-format
 msgid ""
-"The --set-upstream flag is deprecated and will be removed. Consider using --"
-"track or --set-upstream-to\n"
+"the '--set-upstream' option is no longer supported. Please use '--track' or "
+"'--set-upstream-to' instead."
 msgstr ""
-"选项 --set-upstream 已弃用并将被移除。考虑使用 --track 或 --set-upstream-to\n"
-
-#: builtin/branch.c
-#, c-format
-msgid ""
-"\n"
-"If you wanted to make '%s' track '%s', do this:\n"
-"\n"
-msgstr ""
-"\n"
-"如果你想用 '%s' 跟踪 '%s', 这么做：\n"
-"\n"
+"不再支持选项 '--set-upstream'。请使用 '--track' 或 '--set-upstream-to'。"
 
 #: builtin/bundle.c
 #, c-format
@@ -7309,7 +7424,7 @@ msgstr "使用 autosquash 格式的提交说明用以压缩至指定的提交"
 msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr "现在将该提交的作者改为我（和 -C/-c/--amend 参数共用）"
 
-#: builtin/commit.c builtin/log.c builtin/revert.c
+#: builtin/commit.c builtin/log.c builtin/merge.c builtin/revert.c
 msgid "add Signed-off-by:"
 msgstr "添加 Signed-off-by: 签名"
 
@@ -7406,13 +7521,13 @@ msgstr "不能读取提交说明：%s"
 
 #: builtin/commit.c
 #, c-format
-msgid "Aborting commit; you did not edit the message.\n"
-msgstr "终止提交；您未更改来自模版的提交说明。\n"
+msgid "Aborting commit due to empty commit message.\n"
+msgstr "终止提交因为提交说明为空。\n"
 
 #: builtin/commit.c
 #, c-format
-msgid "Aborting commit due to empty commit message.\n"
-msgstr "终止提交因为提交说明为空。\n"
+msgid "Aborting commit; you did not edit the message.\n"
+msgstr "终止提交；您未更改来自模版的提交说明。\n"
 
 #: builtin/commit.c
 msgid ""
@@ -8284,6 +8399,10 @@ msgstr "引用占位符适用于 Tcl"
 msgid "show only <n> matched refs"
 msgstr "只显示 <n> 个匹配的引用"
 
+#: builtin/for-each-ref.c builtin/tag.c
+msgid "respect format colors"
+msgstr "遵照格式中的颜色输出"
+
 #: builtin/for-each-ref.c
 msgid "print only refs which points at the given object"
 msgstr "只打印指向给定对象的引用"
@@ -8498,14 +8617,6 @@ msgstr "忽略 '.gitignore' 包含的文件"
 #: builtin/grep.c
 msgid "recursively search in each submodule"
 msgstr "在每一个子模组中递归搜索"
-
-#: builtin/grep.c
-msgid "basename"
-msgstr "基本名"
-
-#: builtin/grep.c
-msgid "prepend parent project's basename to output"
-msgstr "在输出中以父项目的基本名为前缀"
 
 #: builtin/grep.c
 msgid "show non-matching lines"
@@ -8866,8 +8977,8 @@ msgstr "最常用的 Git 向导有：\n"
 
 #: builtin/help.c
 #, c-format
-msgid "`git %s' is aliased to `%s'"
-msgstr "`git %s' 是 `%s' 的别名"
+msgid "'%s' is aliased to '%s'"
+msgstr "'%s' 是 '%s' 的别名"
 
 #: builtin/help.c
 #, c-format
@@ -9292,15 +9403,47 @@ msgstr "在原位编辑文件"
 
 #: builtin/interpret-trailers.c
 msgid "trim empty trailers"
-msgstr "删除空签名"
+msgstr "删除空的尾部署名"
+
+#: builtin/interpret-trailers.c
+msgid "where to place the new trailer"
+msgstr "在哪里放置新的尾部署名"
+
+#: builtin/interpret-trailers.c
+msgid "action if trailer already exists"
+msgstr "当尾部署名已经存在时所采取的动作"
+
+#: builtin/interpret-trailers.c
+msgid "action if trailer is missing"
+msgstr "当尾部署名缺失时所采取的动作"
+
+#: builtin/interpret-trailers.c
+msgid "output only the trailers"
+msgstr "只输出尾部署名"
+
+#: builtin/interpret-trailers.c
+msgid "do not apply config rules"
+msgstr "不要应用配置规则"
+
+#: builtin/interpret-trailers.c
+msgid "join whitespace-continued values"
+msgstr "连接空白折行的值"
+
+#: builtin/interpret-trailers.c
+msgid "set parsing options"
+msgstr "设置解析选项"
 
 #: builtin/interpret-trailers.c
 msgid "trailer"
-msgstr "签名"
+msgstr "尾部署名"
 
 #: builtin/interpret-trailers.c
 msgid "trailer(s) to add"
-msgstr "要添加的签名"
+msgstr "要添加的尾部署名"
+
+#: builtin/interpret-trailers.c
+msgid "--trailer with --only-input does not make sense"
+msgstr "--trailer 和 --only-input 同时使用没有意义"
 
 #: builtin/interpret-trailers.c
 msgid "no input file given for in-place editing"
@@ -9586,6 +9729,10 @@ msgid "don't print the patch filenames"
 msgstr "不要打印补丁文件名"
 
 #: builtin/log.c
+msgid "show progress while generating patches"
+msgstr "在生成补丁时显示进度"
+
+#: builtin/log.c
 #, c-format
 msgid "invalid ident line: %s"
 msgstr "包含无效的身份标识：%s"
@@ -9623,6 +9770,10 @@ msgstr "不能创建目录 '%s'"
 #, c-format
 msgid "unable to read signature file '%s'"
 msgstr "无法读取签名文件 '%s'"
+
+#: builtin/log.c
+msgid "Generating patches"
+msgstr "生成补丁"
 
 #: builtin/log.c
 msgid "Failed to create output files"
@@ -9929,6 +10080,10 @@ msgid "allow merging unrelated histories"
 msgstr "允许合并不相关的历史"
 
 #: builtin/merge.c
+msgid "verify commit-msg hook"
+msgstr "校验 commit-msg 钩子"
+
+#: builtin/merge.c
 msgid "could not run stash."
 msgstr "不能运行贮藏。"
 
@@ -10139,7 +10294,7 @@ msgid "refusing to merge unrelated histories"
 msgstr "拒绝合并无关的历史"
 
 #: builtin/merge.c
-msgid "Already up-to-date."
+msgid "Already up to date."
 msgstr "已经是最新的。"
 
 #: builtin/merge.c
@@ -10158,7 +10313,7 @@ msgid "Nope.\n"
 msgstr "无。\n"
 
 #: builtin/merge.c
-msgid "Already up-to-date. Yeeah!"
+msgid "Already up to date. Yeeah!"
 msgstr "已经是最新的。耶！"
 
 #: builtin/merge.c
@@ -11607,12 +11762,40 @@ msgid "git rebase--helper [<options>]"
 msgstr "git rebase--helper [<选项>]"
 
 #: builtin/rebase--helper.c
+msgid "keep empty commits"
+msgstr "保持空提交"
+
+#: builtin/rebase--helper.c
 msgid "continue rebase"
 msgstr "继续变基"
 
 #: builtin/rebase--helper.c
 msgid "abort rebase"
 msgstr "中止变基"
+
+#: builtin/rebase--helper.c
+msgid "make rebase script"
+msgstr "制作变基脚本"
+
+#: builtin/rebase--helper.c
+msgid "shorten SHA-1s in the todo list"
+msgstr "缩短待办列表中的哈希值"
+
+#: builtin/rebase--helper.c
+msgid "expand SHA-1s in the todo list"
+msgstr "扩展待办列表中的哈希值"
+
+#: builtin/rebase--helper.c
+msgid "check the todo list"
+msgstr "检查待办列表"
+
+#: builtin/rebase--helper.c
+msgid "skip unnecessary picks"
+msgstr "跳过不必要的拣选"
+
+#: builtin/rebase--helper.c
+msgid "rearrange fixup/squash lines"
+msgstr "重新排列 fixup/squash 行"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -13181,7 +13364,7 @@ msgstr "删除符号引用"
 
 #: builtin/symbolic-ref.c
 msgid "shorten ref output"
-msgstr "简短的引用输出"
+msgstr "缩短引用输出"
 
 #: builtin/symbolic-ref.c builtin/update-ref.c
 msgid "reason"
@@ -13719,6 +13902,13 @@ msgstr "删除 worktrees/%s：无法读取 gitdir 文件 (%s)"
 
 #: builtin/worktree.c
 #, c-format
+msgid ""
+"Removing worktrees/%s: short read (expected %<PRIuMAX> bytes, read "
+"%<PRIuMAX>)"
+msgstr "删除工作树/%s：读取过短（期望 %<PRIuMAX> 字节，读取 %<PRIuMAX>）"
+
+#: builtin/worktree.c
+#, c-format
 msgid "Removing worktrees/%s: invalid gitdir file"
 msgstr "删除 worktrees/%s：无效的 gitdir 文件"
 
@@ -14240,7 +14430,7 @@ msgstr "无法找到和 $pretty_name 的基线提交"
 
 #: git-merge-octopus.sh
 #, sh-format
-msgid "Already up-to-date with $pretty_name"
+msgid "Already up to date with $pretty_name"
 msgstr "已经和 $pretty_name 保持一致"
 
 #: git-merge-octopus.sh
@@ -14259,14 +14449,16 @@ msgstr "简单合并未生效，尝试自动合并。"
 
 #: git-rebase.sh
 msgid ""
-"When you have resolved this problem, run \"git rebase --continue\".\n"
-"If you prefer to skip this patch, run \"git rebase --skip\" instead.\n"
-"To check out the original branch and stop rebasing, run \"git rebase --abort"
-"\"."
+"Resolve all conflicts manually, mark them as resolved with\n"
+"\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
+"You can instead skip this commit: run \"git rebase --skip\".\n"
+"To abort and get back to the state before \"git rebase\", run \"git rebase --"
+"abort\"."
 msgstr ""
-"当您解决了此问题后，执行 \"git rebase --continue\"。\n"
-"如果您想跳过此补丁，则执行 \"git rebase --skip\"。\n"
-"要恢复原分支并停止变基，执行 \"git rebase --abort\"。"
+"手工解决所有冲突，执行 \"git add/rm <conflicted_files>\" 标记\n"
+"冲突已解决，然后执行 \"git rebase --continue\"。您也可以执行\n"
+"\"git rebase --skip\" 命令跳过这个提交。如果想要终止执行并回到\n"
+"\"git rebase\" 执行之前的状态，执行 \"git rebase --abort\"。"
 
 #: git-rebase.sh
 #, sh-format
@@ -14813,28 +15005,27 @@ msgstr "变基中（$new_count/$total）"
 msgid ""
 "\n"
 "Commands:\n"
-" p, pick = use commit\n"
-" r, reword = use commit, but edit the commit message\n"
-" e, edit = use commit, but stop for amending\n"
-" s, squash = use commit, but meld into previous commit\n"
-" f, fixup = like \"squash\", but discard this commit's log message\n"
-" x, exec = run command (the rest of the line) using shell\n"
-" d, drop = remove commit\n"
+"p, pick = use commit\n"
+"r, reword = use commit, but edit the commit message\n"
+"e, edit = use commit, but stop for amending\n"
+"s, squash = use commit, but meld into previous commit\n"
+"f, fixup = like \"squash\", but discard this commit's log message\n"
+"x, exec = run command (the rest of the line) using shell\n"
+"d, drop = remove commit\n"
 "\n"
 "These lines can be re-ordered; they are executed from top to bottom.\n"
 msgstr ""
 "\n"
 "命令:\n"
-" p, pick = 使用提交\n"
-" r, reword = 使用提交，但修改提交说明\n"
-" e, edit = 使用提交，但停止以便进行提交修补\n"
-" s, squash = 使用提交，但和前一个版本融合\n"
-" f, fixup = 类似于 \"squash\"，但丢弃提交说明日志\n"
-" x, exec = 使用 shell 运行命令（此行剩余部分）\n"
-" d, drop = 删除提交\n"
+"p, pick = 使用提交\n"
+"r, reword = 使用提交，但修改提交说明\n"
+"e, edit = 使用提交，但停止以便进行提交修补\n"
+"s, squash = 使用提交，但和前一个版本融合\n"
+"f, fixup = 类似于 \"squash\"，但丢弃提交说明日志\n"
+"x, exec = 使用 shell 运行命令（此行剩余部分）\n"
+"d, drop = 删除提交\n"
 "\n"
 "这些行可以被重新排序；它们会被从上至下地执行。\n"
-"\n"
 
 #: git-rebase--interactive.sh
 msgid ""
@@ -15024,67 +15215,8 @@ msgid "Successfully rebased and updated $head_name."
 msgstr "成功变基并更新 $head_name。"
 
 #: git-rebase--interactive.sh
-msgid "Could not skip unnecessary pick commands"
-msgstr "不能跳过不必要的拣选命令"
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid ""
-"Warning: the SHA-1 is missing or isn't a commit in the following line:\n"
-" - $line"
-msgstr ""
-"警告：缺失 SHA-1 或者在下面一行中不是一个提交：\n"
-" - $line"
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid ""
-"Warning: the command isn't recognized in the following line:\n"
-" - $line"
-msgstr ""
-"警告：下面一行中的命令未能被识别：\n"
-" - $line"
-
-#: git-rebase--interactive.sh
 msgid "could not detach HEAD"
 msgstr "不能检出为分离头指针"
-
-#: git-rebase--interactive.sh
-msgid ""
-"Warning: some commits may have been dropped accidentally.\n"
-"Dropped commits (newer to older):"
-msgstr "警告：一些提交可能被意外丢弃。丢弃的提交（从新到旧）："
-
-#: git-rebase--interactive.sh
-msgid ""
-"To avoid this message, use \"drop\" to explicitly remove a commit.\n"
-"\n"
-"Use 'git config rebase.missingCommitsCheck' to change the level of "
-"warnings.\n"
-"The possible behaviours are: ignore, warn, error."
-msgstr ""
-"为避免这条信息，使用 \"drop\" 指令显式地删除一个提交。\n"
-"\n"
-"使用 'git config rebase.missingCommitsCheck' 来修改警告级别。\n"
-"可选值有：ignore、warn、error。"
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid ""
-"Unrecognized setting $check_level for option rebase.missingCommitsCheck. "
-"Ignoring."
-msgstr "选项 rebase.missingCommitsCheck 的值 $check_level 无法被识别。已忽略。"
-
-#: git-rebase--interactive.sh
-msgid ""
-"You can fix this with 'git rebase --edit-todo' and then run 'git rebase --"
-"continue'."
-msgstr ""
-"您可以用 'git rebase --edit-todo' 修正问题然后执行 'git rebase --continue'。"
-
-#: git-rebase--interactive.sh
-msgid "Or you can abort the rebase with 'git rebase --abort'."
-msgstr "或者您可以使用 'git rebase --abort' 命令终止变基操作。"
 
 #: git-rebase--interactive.sh
 msgid "Could not remove CHERRY_PICK_HEAD"
@@ -15143,7 +15275,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"您正在修改运行中的交互式变基的 todo 文件。若要在编辑结束后继续变基，\n"
+"您正在修改运行中的交互式变基待办列表。若要在编辑结束后继续变基，\n"
 "请执行：\n"
 "    git rebase --continue\n"
 "\n"
