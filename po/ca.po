@@ -11,16 +11,18 @@
 #   amend            |  esmenar
 #   broken           |  malmès
 #   delta            |  diferència
-#   dry              |  simulació
 #   deprecated       |  en desús
+#   dry              |  simulació
 #   fatal            |  fatal
+#   hook             |  lligam
 #   hunk             |  tros
 #   not supported    |  no està admès
 #   repository       |  dipòsit
+#   setting          |  paràmetre
 #   skip             |  ometre
 #   squelch          |  silenciar
-#   setting          |  paràmetre
 #   token            |  testimoni
+#   unset            |  desassignar
 #
 # Alguns termes que són comandes específiques del git i d'àmbit molt tècnic
 # hem decidit no traduir-los per facilitar-ne la compressió a l'usuari i perquè
@@ -39,6 +41,7 @@
 #   stage            |  «stage»
 #   stash            |  «sta»
 #   squash           |  «squash»
+#   trailer          |  «trailer»
 #   unstage          |  «unstage»
 msgid ""
 msgstr ""
@@ -130,7 +133,7 @@ msgstr "opció d'espai en blanc «%s» no reconeguda"
 
 #, c-format
 msgid "unrecognized whitespace ignore option '%s'"
-msgstr "opció d'ignora l'espai en blanc «%s» no reconeguda"
+msgstr "opció ignora l'espai en blanc «%s» no reconeguda"
 
 msgid "--reject and --3way cannot be used together."
 msgstr "--reject i --3way no es poden usar junts."
@@ -1063,6 +1066,7 @@ msgstr "memòria esgotada"
 
 msgid "relative config include conditionals must come from files"
 msgstr ""
+"els condicionals d'inclusió de configuració relatius han de venir de fitxers"
 
 #, c-format
 msgid "bad config line %d in blob %s"
@@ -1156,10 +1160,12 @@ msgstr "%s no vàlid: «%s»"
 #, c-format
 msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
 msgstr ""
+"valor «%s» a core.untrackedCache desconegut; utilitzant el valor per defecte "
+"«keep»"
 
 #, c-format
 msgid "splitIndex.maxPercentChange value '%d' should be between 0 and 100"
-msgstr ""
+msgstr "valor «%d» a splitIndex.maxPercentChange ha d'estar entre 0 i 100"
 
 #, c-format
 msgid "unable to parse '%s' from command-line config"
@@ -1183,7 +1189,7 @@ msgstr "no s'ha pogut establir «%s» a «%s»"
 
 #, c-format
 msgid "could not unset '%s'"
-msgstr "no s'ha pogut desestablir «%s»"
+msgstr "no s'ha pogut desassignar «%s»"
 
 msgid "The remote end hung up upon initial contact"
 msgstr "El costat remot ha penjat en el moment de contacte inicial"
@@ -1320,6 +1326,8 @@ msgid ""
 "color moved setting must be one of 'no', 'default', 'zebra', 'dimmed_zebra', "
 "'plain'"
 msgstr ""
+"el paràmetre de color en moviment ha de ser «no», «default», «zebra», "
+"«dimmed_zebra» o «plain»"
 
 #, c-format
 msgid "Unknown value for 'diff.submodule' config variable: '%s'"
@@ -1677,7 +1685,7 @@ msgstr "no s'ha pogut detectar automàticament el nom («%s» rebut)"
 
 #, c-format
 msgid "empty ident name (for <%s>) not allowed"
-msgstr ""
+msgstr "nom d'identitat buit (per <%s>) no és permès"
 
 #, c-format
 msgid "name consists only of disallowed characters: %s"
@@ -2116,7 +2124,7 @@ msgid "Could not open '%s' for writing"
 msgstr "No s'ha pogut obrir «%s» per a escriptura"
 
 msgid "ref updates forbidden inside quarantine environment"
-msgstr ""
+msgstr "no està permès actualitzar les referències en un entorn de quarantena"
 
 #, c-format
 msgid "could not remove reference %s"
@@ -2173,9 +2181,9 @@ msgstr "%%(body) no accepta paràmetres"
 msgid "%%(subject) does not take arguments"
 msgstr "%%(subject) no accepta paràmetres"
 
-#, fuzzy, c-format
+#, c-format
 msgid "unknown %%(trailers) argument: %s"
-msgstr "paràmetre de reflexió desconegut: %s"
+msgstr "paràmetre %%(trailers) desconegut: %s"
 
 #, c-format
 msgid "positive value expected contents:lines=%s"
@@ -3183,7 +3191,7 @@ msgid "could not read input file '%s'"
 msgstr "no s'ha pogut llegir el fitxer d'entrada «%s»"
 
 msgid "could not read from stdin"
-msgstr "no s'ha pogut llegir des d'stdin"
+msgstr "no s'ha pogut llegir des de stdin"
 
 #, c-format
 msgid "could not stat %s"
@@ -3988,7 +3996,7 @@ msgid "update tracked files"
 msgstr "actualitza els fitxers seguits"
 
 msgid "record only the fact that the path will be added later"
-msgstr "registra només el fet de que el camí s'afegirà més tard"
+msgstr "registra només el fet que el camí s'afegirà més tard"
 
 msgid "add changes from all tracked and untracked files"
 msgstr "afegeix els canvis de tots els fitxers seguits i no seguits"
@@ -4032,6 +4040,19 @@ msgid ""
 "\n"
 "See \"git help submodule\" for more information."
 msgstr ""
+"Heu afegit un altre dipòsit git dins del dipòsit actual.\n"
+"Els clons de dipòsits externs no contindran els continguts de\n"
+"del dipòsit incrustat i no saben com obtenir-ho.\n"
+"Si volíeu afegir un submòdul, useu:\n"
+"\n"
+"\tgit submodule add <url> %s\n"
+"\n"
+"Si heu afegit aquest camí per error, podeu suprimir-lo de\n"
+" l'índex amb:\n"
+"\n"
+"\tgit rm --cached %s\n"
+"\n"
+"Vegeu \"git help submodule\" per a més informació."
 
 #, c-format
 msgid "adding embedded git repository: %s"
@@ -4070,7 +4091,7 @@ msgstr "no s'ha pogut analitzar l'script d'autor"
 
 #, c-format
 msgid "'%s' was deleted by the applypatch-msg hook"
-msgstr "s'ha suprimit «%s» pel ganxo applypatch-msg"
+msgstr "s'ha suprimit «%s» pel lligam applypatch-msg"
 
 #, c-format
 msgid "Malformed input line: '%s'."
@@ -4222,6 +4243,11 @@ msgid ""
 "such.\n"
 "You might run `git rm` on a file to accept \"deleted by them\" for it."
 msgstr ""
+"Encara teniu camins sense fusionar a l'índex.\n"
+"Heu de fer 'git add' a cada fitxer amb conflictes resolts per marcar-los com "
+"a tal.\n"
+"Podeu executar `git rm` en un fitxer per acceptar \"suprimit per ells\" pel "
+"fitxer."
 
 #, c-format
 msgid "Could not parse object '%s'."
@@ -4669,7 +4695,7 @@ msgid "change the upstream info"
 msgstr "canvia la informació de font"
 
 msgid "Unset the upstream info"
-msgstr "Desestableix la informació de font"
+msgstr "Desassigna la informació de font"
 
 msgid "use colored output"
 msgstr "usa sortida colorada"
@@ -4793,11 +4819,11 @@ msgid "branch '%s' does not exist"
 msgstr "la branca «%s» no existeix"
 
 msgid "too many arguments to unset upstream"
-msgstr "hi ha massa arguments per a desestablir la font"
+msgstr "hi ha massa arguments per a desassignar la font"
 
 msgid "could not unset upstream of HEAD when it does not point to any branch."
 msgstr ""
-"no s'ha pogut desestablir la font de HEAD perquè no assenyala cap branca."
+"no s'ha pogut desassignar la font de HEAD perquè no assenyala cap branca."
 
 #, c-format
 msgid "Branch '%s' has no upstream information"
@@ -4902,7 +4928,7 @@ msgid "use .gitattributes only from the index"
 msgstr "usa .gitattributes només des de l'índex"
 
 msgid "read file names from stdin"
-msgstr "llegeix els noms de fitxer d'stdin"
+msgstr "llegeix els noms de fitxer de stdin"
 
 msgid "terminate input and output records by a NUL character"
 msgstr "acaba els registres d'entrada i de sortida amb un caràcter NUL"
@@ -4938,7 +4964,7 @@ msgid "git check-mailmap [<options>] <contact>..."
 msgstr "git check-mailmap [<opcions>] <contacte>..."
 
 msgid "also read contacts from stdin"
-msgstr "també llegeix els contactes des d'stdin"
+msgstr "també llegeix els contactes des de stdin"
 
 #, c-format
 msgid "unable to parse contact: %s"
@@ -5224,6 +5250,8 @@ msgstr "especificació de camí no vàlida"
 #, c-format
 msgid "'%s' is not a commit and a branch '%s' cannot be created from it"
 msgstr ""
+"«%s» no és una comissió i la branca «%s» no es pot crear a partir d'aquesta "
+"comissió"
 
 #, c-format
 msgid "git checkout: --detach does not take a path argument '%s'"
@@ -5466,6 +5494,7 @@ msgstr "clona només una branca, HEAD o --branch"
 
 msgid "don't clone any tags, and make later fetches not to follow them"
 msgstr ""
+"no cloneu cap etiqueta, i feu que els «fetch» següents no els segueixen"
 
 msgid "any cloned submodules will be shallow"
 msgstr "qualsevol submòdul clonat serà superficial"
@@ -6104,7 +6133,7 @@ msgid "commit only specified files"
 msgstr "comet només els fitxers especificats"
 
 msgid "bypass pre-commit and commit-msg hooks"
-msgstr "evita els ganxos de precomissió i missatge de comissió"
+msgstr "evita els lligams de precomissió i missatge de comissió"
 
 msgid "show what would be committed"
 msgstr "mostra què es cometria"
@@ -6113,7 +6142,7 @@ msgid "amend previous commit"
 msgstr "esmena la comissió anterior"
 
 msgid "bypass post-rewrite hook"
-msgstr "evita el ganxo de post escriptura"
+msgstr "evita el lligam de post escriptura"
 
 msgid "ok to record an empty change"
 msgstr "està bé registrar un canvi buit"
@@ -6468,6 +6497,8 @@ msgid ""
 "combined diff formats('-c' and '--cc') are not supported in\n"
 "directory diff mode('-d' and '--dir-diff')."
 msgstr ""
+"els formats de diff combinats ('-c' and '--cc') no són admesos \n"
+"en el mode diff per directoris ('-d' and '--dir-diff')."
 
 #, c-format
 msgid "both files modified: '%s' and '%s'."
@@ -6509,6 +6540,8 @@ msgid ""
 "make 'git-difftool' exit when an invoked diff tool returns a non - zero exit "
 "code"
 msgstr ""
+"fes que 'git-difftool' surti quan l'eina de diff invocada torna un codi de "
+"sortida diferent a zero"
 
 msgid "<command>"
 msgstr "<command>"
@@ -6631,6 +6664,8 @@ msgid ""
 "default for recursive fetching of submodules (lower priority than config "
 "files)"
 msgstr ""
+"per defecte per a l'obtenció recursiva de submòduls (prioritat més baixa que "
+"els fitxers de configuració)"
 
 msgid "accept refs that update .git/shallow"
 msgstr "accepta les referències que actualitzin .git/shallow"
@@ -7175,7 +7210,7 @@ msgid "write the object into the object database"
 msgstr "escriu l'objecte a la base de dades d'objectes"
 
 msgid "read the object from stdin"
-msgstr "llegeix l'objecte des d'stdin"
+msgstr "llegeix l'objecte des de stdin"
 
 msgid "store file as is without filters"
 msgstr "emmagatzema el fitxer tal com és sense filtres"
@@ -7512,7 +7547,7 @@ msgid "--fix-thin cannot be used without --stdin"
 msgstr "--fix-thin no es pot usar sense --stdin"
 
 msgid "--stdin requires a git repository"
-msgstr "--stdin requereix d'un dipòsit git"
+msgstr "--stdin requereix un dipòsit git"
 
 msgid "--verify with no packfile name given"
 msgstr "s'ha donat --verify sense nom de fitxer de paquet"
@@ -7628,25 +7663,22 @@ msgid "trim empty trailers"
 msgstr "escurça els remolcs buits"
 
 msgid "where to place the new trailer"
-msgstr ""
+msgstr "on ubica"
 
-#, fuzzy
 msgid "action if trailer already exists"
-msgstr "l'arbre de treball '%s' ja existeix."
+msgstr "acció si el «trailer» ja existeix"
 
 msgid "action if trailer is missing"
-msgstr ""
+msgstr "acció si el «trailer» falta"
 
-#, fuzzy
 msgid "output only the trailers"
-msgstr "escurça els remolcs buits"
+msgstr "mostra només els «trailer»"
 
-#, fuzzy
 msgid "do not apply config rules"
-msgstr "cerca les variables de configuració"
+msgstr "no apliquis les regles de configuració"
 
 msgid "join whitespace-continued values"
-msgstr ""
+msgstr "uneix els valors continus amb espais en blanc"
 
 msgid "set parsing options"
 msgstr "estableix les opcions d'anàlisis"
@@ -7657,9 +7689,8 @@ msgstr "remolc"
 msgid "trailer(s) to add"
 msgstr "remolcs a afegir"
 
-#, fuzzy
 msgid "--trailer with --only-input does not make sense"
-msgstr "--name-only no té sentit"
+msgstr "--trailer amb --only-input no té sentit"
 
 msgid "no input file given for in-place editing"
 msgstr "no s'ha donat cap fitxer d'entrada per a edició in situ"
@@ -8156,9 +8187,8 @@ msgstr "continua la fusió en curs actual"
 msgid "allow merging unrelated histories"
 msgstr "permet fusionar històries no relacionades"
 
-#, fuzzy
 msgid "verify commit-msg hook"
-msgstr "evita els ganxos de precomissió i missatge de comissió"
+msgstr "verifica el lligam de missatge de comissió"
 
 msgid "could not run stash."
 msgstr "no s'ha pogut executar «stash»."
@@ -8577,7 +8607,7 @@ msgid "list all commits reachable from all refs"
 msgstr "llista totes les comissions abastables de totes les referències"
 
 msgid "read from stdin"
-msgstr "llegeix d'stdin"
+msgstr "llegeix de stdin"
 
 msgid "allow to print `undefined` names (default)"
 msgstr "permet imprimir els noms `undefined` (per defecte)"
@@ -8776,7 +8806,7 @@ msgid "Removing note for object %s\n"
 msgstr "S'està eliminant la nota de l'objecte %s\n"
 
 msgid "read objects from stdin"
-msgstr "llegeix els objectes des d'stdin"
+msgstr "llegeix els objectes des de stdin"
 
 msgid "load rewriting config for <command> (implies --stdin)"
 msgstr ""
@@ -9245,6 +9275,8 @@ msgstr "No es pot fer «rebase» sobre múltiples branques."
 
 msgid "cannot rebase with locally recorded submodule modifications"
 msgstr ""
+"no es pot fer «rebase» amb modificacions als submòduls enregistrades "
+"localment"
 
 msgid "git push [<options>] [<repository> [<refspec>...]]"
 msgstr "git push [<opcions>] [<dipòsit> [<especificació-de-referència>...]]"
@@ -9473,7 +9505,7 @@ msgid "prune locally removed refs"
 msgstr "poda les referències eliminades localment"
 
 msgid "bypass pre-push hook"
-msgstr "evita el ganxo de prepujada"
+msgstr "evita el lligam de prepujada"
 
 msgid "push missing but relevant tags"
 msgstr "puja les etiquetes absents però rellevants"
@@ -9580,12 +9612,11 @@ msgstr "expandeix els SHA-1 en la llista per a fer"
 msgid "check the todo list"
 msgstr "comprova la llista a fer"
 
-#, fuzzy
 msgid "skip unnecessary picks"
-msgstr "No s'ha pogut ometre ordres innecessaris d'elecció"
+msgstr "omet els «picks» no necessaris"
 
 msgid "rearrange fixup/squash lines"
-msgstr ""
+msgstr "reorganitza les línies «fixup/pick»"
 
 msgid "git receive-pack <git-dir>"
 msgstr "git receive-pack <git-dir>"
@@ -9616,7 +9647,7 @@ msgstr ""
 "recomana això a menys que hàgiu decidit actualitzar el seu arbre en\n"
 "alguna altra manera per a coincidir amb el que hàgiu pujat.\n"
 "\n"
-"Per a silenciar aquest missatge i mantenir el el comportament\n"
+"Per a silenciar aquest missatge i mantenir el comportament\n"
 "predeterminat, establiu la variable de configuració\n"
 "'receive.denyCurrentBranch' a 'refuse'."
 
@@ -10069,6 +10100,10 @@ msgid ""
 "Incremental repacks are incompatible with bitmap indexes.  Use\n"
 "--no-write-bitmap-index or disable the pack.writebitmaps configuration."
 msgstr ""
+"Els re-empaquetaments incrementals són incompatibles amb els índexs de "
+"bitmaps.  Useu\n"
+"--no-write-bitmap-index o inhabiliteu el paràmetre de configuració pack."
+"writebitmaps."
 
 msgid "pack everything in a single pack"
 msgstr "empaqueta-ho tot en un únic paquet"
@@ -10269,7 +10304,7 @@ msgid "reset HEAD but keep local changes"
 msgstr "restableix HEAD però retén els canvis locals"
 
 msgid "record only the fact that removed paths will be added later"
-msgstr "registra només el fet de que els camins eliminats s'afegiran després"
+msgstr "registra només el fet que els camins eliminats s'afegiran després"
 
 #, c-format
 msgid "Failed to resolve '%s' as a valid revision."
@@ -10486,7 +10521,7 @@ msgid "use stateless RPC protocol"
 msgstr "usa el protocol RPC sense estat"
 
 msgid "read refs from stdin"
-msgstr "llegeix les referències des d'stdin"
+msgstr "llegeix les referències des de stdin"
 
 msgid "print status from remote helper"
 msgstr "imprimeix l'estat des de l'ajudant remot"
@@ -10495,7 +10530,7 @@ msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
 msgstr "git shortlog [<opcions>] [<rang-de-revisions>] [[--] [<camí>...]]"
 
 msgid "Group by committer rather than author"
-msgstr ""
+msgstr "Agrupa per «comiitter» en comptes de per autor"
 
 msgid "sort output according to the number of commits per author"
 msgstr "ordena la sortida segons el nombre de comissions per autor"
@@ -10654,7 +10689,7 @@ msgid "do not print results to stdout (useful with --verify)"
 msgstr "no imprimeixis els resultats a stdout (útil amb --verify)"
 
 msgid "show refs from stdin that aren't in local repository"
-msgstr "mostra les referències d'stdin que no siguin en el dipòsit local"
+msgstr "mostra les referències de stdin que no siguin en el dipòsit local"
 
 msgid "git stripspace [-s | --strip-comments]"
 msgstr "git stripspace [-s | --strip-comments]"
@@ -10696,6 +10731,8 @@ msgid ""
 "could not lookup configuration '%s'. Assuming this repository is its own "
 "authoritative upstream."
 msgstr ""
+"no s'ha pogut trobar la configuració «%s». S'assumeix que aquest dipòsit és "
+"el seu dipòsit font autoritzat."
 
 #, c-format
 msgid "Failed to register url for submodule path '%s'"
@@ -11232,7 +11269,7 @@ msgid "stdin has NUL-terminated arguments"
 msgstr "stdin té paràmetres acabats amb NUL"
 
 msgid "read updates from stdin"
-msgstr "llegeix les actualitzacions des d'stdin"
+msgstr "llegeix les actualitzacions des de stdin"
 
 msgid "git update-server-info [--force]"
 msgstr "git update-server-info [--force]"
@@ -11296,6 +11333,8 @@ msgid ""
 "Removing worktrees/%s: short read (expected %<PRIuMAX> bytes, read "
 "%<PRIuMAX>)"
 msgstr ""
+"S'estan suprimint els arbres de treball/%s: lectura curta (s'esperaven "
+"%<PRIuMAX> bytes, llegits %<PRIuMAX>)"
 
 #, c-format
 msgid "Removing worktrees/%s: invalid gitdir file"
@@ -11420,7 +11459,7 @@ msgstr ""
 
 #, c-format
 msgid "negative value for http.postbuffer; defaulting to %d"
-msgstr ""
+msgstr "valor negatiu per http.postbuffer; utilitzant el valor %d"
 
 msgid "Delegation control is not supported with cURL < 7.22.0"
 msgstr "No s'admet el control de delegació amb el cURL < 7.22.0"
@@ -11764,7 +11803,7 @@ msgid "Cannot store $stash_sha1"
 msgstr "No es pot emmagatzemar $stash_sha1"
 
 msgid "The pre-rebase hook refused to rebase."
-msgstr "El ganxo pre-«rebase» ha refusat a fer «rebase»."
+msgstr "El lligam pre-«rebase» ha refusat a fer «rebase»."
 
 msgid "It looks like git-am is in progress. Cannot rebase."
 msgstr "Sembla que git-am està en curs. No es pot fer «rebase»."
@@ -11965,8 +12004,7 @@ msgid "Index was not unstashed."
 msgstr "L'índex no estava sense emmagatzemar."
 
 msgid "The stash entry is kept in case you need it again."
-msgstr ""
-"Es conserva l'entrada «stash» en cas de que la necessiteu altra vegada."
+msgstr "Es conserva l'entrada «stash» en cas que la necessiteu altra vegada."
 
 #, sh-format
 msgid "Dropped ${REV} ($s)"
@@ -12340,8 +12378,8 @@ msgid ""
 msgstr ""
 "No s'ha pogut esmenar la comissió després d'escollir amb èxit $sha1... "
 "$rest\n"
-"Això és probablement a causa d'un missatge de comissió buit, o el ganxo de\n"
-"precomissió ha fallat. Si el ganxo de precomissió ha fallat, pot ser que\n"
+"Això és probablement a causa d'un missatge de comissió buit, o el lligam de\n"
+"precomissió ha fallat. Si el lligam de precomissió ha fallat, pot ser que\n"
 "necessiteu resoldre el problema abans que pugueu canviar el missatge de\n"
 "comissió."
 
@@ -12552,7 +12590,7 @@ msgstr "No s'ha pogut determinar el camí absolut del directori de git"
 #. TRANSLATORS: you can adjust this to align "git add -i" status menu
 #, perl-format
 msgid "%12s %12s %s"
-msgstr ""
+msgstr "%12s %12s %s"
 
 msgid "staged"
 msgstr "staged"
@@ -12737,6 +12775,11 @@ msgid ""
 "a - apply this hunk and all later hunks in the file\n"
 "d - do not apply this hunk or any of the later hunks in the file"
 msgstr ""
+"y - aplica aquest tros a l'índex\n"
+"n - no apliquis aquest tros a l'índex\n"
+"q - surt; no apliquis aquest tros ni cap dels pendents\n"
+"a - aplica aquest tros i tots els trossos posteriors en el fitxer\n"
+"d - no apliquis aquest tros ni cap dels trossos posteriors en el fitxer"
 
 msgid ""
 "y - discard this hunk from worktree\n"
@@ -12745,6 +12788,11 @@ msgid ""
 "a - discard this hunk and all later hunks in the file\n"
 "d - do not discard this hunk or any of the later hunks in the file"
 msgstr ""
+"y - descarta aquest tros de l'arbre de treball\n"
+"n - no descartis aquest tros des de l'arbre de treball\n"
+"q - surt; no apliquis aquest tros ni cap dels pendents\n"
+"a - descarta aquest tros i tots els trossos posteriors en el fitxer\n"
+"d - no descartis aquest tros ni cap dels trossos posteriors en el fitxer"
 
 msgid ""
 "y - discard this hunk from index and worktree\n"
@@ -12753,6 +12801,11 @@ msgid ""
 "a - discard this hunk and all later hunks in the file\n"
 "d - do not discard this hunk or any of the later hunks in the file"
 msgstr ""
+"y - descarta aquest tros de l'índex i de l'arbre de treball\n"
+"n - no descartis aquest tros des de l'índex i de l'arbre de treball\n"
+"q - surt; no apliquis aquest tros ni cap dels pendents\n"
+"a - descarta aquest tros i tots els trossos posteriors en el fitxer\n"
+"d - no descartis aquest tros ni cap dels trossos posteriors en el fitxer"
 
 msgid ""
 "y - apply this hunk to index and worktree\n"
@@ -12761,6 +12814,11 @@ msgid ""
 "a - apply this hunk and all later hunks in the file\n"
 "d - do not apply this hunk or any of the later hunks in the file"
 msgstr ""
+"y - aplica aquest tros a l'índex i l'arbre de treball\n"
+"n - no apliquis aquest tros des de l'índex i de l'arbre de treball\n"
+"q - surt; no apliquis aquest tros ni cap dels pendents\n"
+"a - aplica aquest tros i tots els trossos posteriors en el fitxer\n"
+"d - no apliquis aquest tros ni cap dels trossos posteriors en el fitxer"
 
 msgid ""
 "g - select a hunk to go to\n"
@@ -12773,6 +12831,15 @@ msgid ""
 "e - manually edit the current hunk\n"
 "? - print help\n"
 msgstr ""
+"g - selecciona el tros on voleu anar\n"
+"/ - cerca un tros que coincideixi amb l'expressió regular donada\n"
+"j - deixa aquest tros sense decidir, veure el tros sense decidir següent\n"
+"J - deixa aquest tros sense decidir, veure el tros següent\n"
+"k - deixa aquest tros sense decidir, veure el tros sense decidir anterior\n"
+"K - deixa aquest tros sense decidir, veure el tros anterior\n"
+"s - divideix el tros actual en trossos més petits\n"
+"e - edita manualment el tros actual\n"
+"? - mostra l'ajuda\n"
 
 msgid "The selected hunks do not apply to the index!\n"
 msgstr "Els trossos seleccionats no apliquen a l'índex\n"
@@ -12938,6 +13005,14 @@ msgid ""
 "add untracked - add contents of untracked files to the staged set of "
 "changes\n"
 msgstr ""
+"status        - mostra els camins amb canvis\n"
+"update        - afegeix l'estat de l'arbre de treball al conjunt de canvis "
+"«staged»\n"
+"revert        - reverteix el conjunt de canvis de «staged» a la versió HEAD\n"
+"patch         - selecciona trossos i actualitza'ls selectivament\n"
+"diff          - mostra la diferència entre HEAD i l'índex\n"
+"add untracked - afegeix el contingut dels fitxers no seguits al conjunt de "
+"canvis «staged»\n"
 
 msgid "missing --"
 msgstr "manca --"
@@ -13090,6 +13165,10 @@ msgid ""
 "has the template subject '*** SUBJECT HERE ***'. Pass --force if you really "
 "want to send.\n"
 msgstr ""
+"S'ha refusat a enviar perquè el pedaç\n"
+"\t%s\n"
+"perquè la plantilla té l'assumpte '*** SUBJECT HERE ***'. Passeu --force si "
+"realment voleu enviar-lo.\n"
 
 msgid "To whom should the emails be sent (if anyone)?"
 msgstr ""
@@ -13159,7 +13238,7 @@ msgstr "El servidor no admet STARTTLS! %s"
 
 #, perl-format
 msgid "STARTTLS failed! %s"
-msgstr ""
+msgstr "STARTTLS ha fallat! %s"
 
 msgid "Unable to initialize SMTP properly. Check config and use --smtp-debug."
 msgstr ""
