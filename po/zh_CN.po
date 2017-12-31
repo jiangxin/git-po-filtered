@@ -3,6 +3,7 @@
 # Copyright (C) 2012,2013 Jiang Xin <worldhello.net AT gmail.com>
 # This file is distributed under the same license as the Git package.
 # Contributors:
+# 	- Fangyi Zhou <fangyi.zhou AT yuriko.moe>
 #   - Jiang Xin <worldhello.net AT gmail.com>
 #   - Lian Cheng <rhythm.mail AT gmail.com>
 #   - Ray Chen <oldsharp AT gmail.com>
@@ -137,8 +138,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-10-17 09:44+0800\n"
-"PO-Revision-Date: 2017-12-02 17:15+0800\n"
+"POT-Creation-Date: 2018-01-07 07:50+0800\n"
+"PO-Revision-Date: 2018-01-09 09:53+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -789,7 +790,7 @@ msgstr "路径以 NUL 字符分隔"
 msgid "ensure at least <n> lines of context match"
 msgstr "确保至少匹配 <n> 行上下文"
 
-#: apply.c builtin/am.c builtin/interpret-trailers.c
+#: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
 msgid "action"
 msgstr "动作"
 
@@ -1432,6 +1433,11 @@ msgstr "无法扩展 '%s' 中的用户目录"
 
 #: config.c
 #, c-format
+msgid "'%s' for '%s' is not a valid timestamp"
+msgstr "'%2$s' 的值 '%1$s' 不是一个有效的时间戳"
+
+#: config.c
+#, c-format
 msgid "bad zlib compression level %d"
 msgstr "错误的 zlib 压缩级别 %d"
 
@@ -1730,6 +1736,11 @@ msgstr "不能为 %s 创建目录"
 #, c-format
 msgid "could not migrate git directory from '%s' to '%s'"
 msgstr "不能从 '%s' 迁移 git 目录到 '%s'"
+
+#: editor.c
+#, c-format
+msgid "hint: Waiting for your editor to close the file...%c"
+msgstr "提示：等待您的编辑器关闭文件...%c"
 
 #: entry.c
 msgid "Filtering content"
@@ -2096,6 +2107,15 @@ msgstr "姓名中仅包含禁用字符：%s"
 msgid "invalid date format: %s"
 msgstr "无效的日期格式：%s"
 
+#: list-objects-filter-options.c
+msgid "multiple object filter types cannot be combined"
+msgstr "不能混用多种对象过滤类型"
+
+#: list-objects-filter-options.c
+#, c-format
+msgid "invalid filter-spec expression '%s'"
+msgstr "无效的 filter-spec 表达式 '%s'"
+
 #: lockfile.c
 #, c-format
 msgid ""
@@ -2351,6 +2371,11 @@ msgid "Adding %s"
 msgstr "添加 %s"
 
 #: merge-recursive.c
+#, c-format
+msgid "Dirty index: cannot merge (dirty: %s)"
+msgstr "脏索引：不能合并（脏文件：%s）"
+
+#: merge-recursive.c
 msgid "Already up to date!"
 msgstr "已经是最新的！"
 
@@ -2545,14 +2570,6 @@ msgid "%s: pathspec magic not supported by this command: %s"
 msgstr "%s：路径规格神奇前缀不被此命令支持：%s"
 
 #: pathspec.c
-msgid ""
-"empty strings as pathspecs will be made invalid in upcoming releases. please "
-"use . instead if you meant to match all paths"
-msgstr ""
-"在下一个版本中，使用空字符串作为路径规格将被视作非法。如果要匹配所有路径，\n"
-"请代之以 ."
-
-#: pathspec.c
 #, c-format
 msgid "pathspec '%s' is beyond a symbolic link"
 msgstr "路径规格 '%s' 位于符号链接中"
@@ -2579,7 +2596,7 @@ msgstr ""
 "设置了 GIT_INDEX_VERSION，但是取值无效。\n"
 "使用版本 %i"
 
-#: read-cache.c builtin/merge.c
+#: read-cache.c sequencer.c wrapper.c builtin/merge.c
 #, c-format
 msgid "could not close '%s'"
 msgstr "不能关闭 '%s'"
@@ -2988,6 +3005,15 @@ msgstr "--first-parent 与 --bisect 不兼容"
 msgid "open /dev/null failed"
 msgstr "不能打开 /dev/null"
 
+#: run-command.c
+#, c-format
+msgid ""
+"The '%s' hook was ignored because it's not set as executable.\n"
+"You can disable this warning with `git config advice.ignoredHook false`."
+msgstr ""
+"因为没有将钩子 '%s' 设置为可执行，钩子被忽略。您可以通过\n"
+"配置 `git config advice.ignoredHook false` 来关闭这条警告。"
+
 #: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
@@ -3059,7 +3085,7 @@ msgstr ""
 msgid "could not lock '%s'"
 msgstr "不能锁定 '%s'"
 
-#: sequencer.c
+#: sequencer.c wrapper.c
 #, c-format
 msgid "could not write to '%s'"
 msgstr "不能写入 '%s'"
@@ -3102,12 +3128,12 @@ msgid "%s: Unable to write new index file"
 msgstr "%s：无法写入新索引文件"
 
 #: sequencer.c
-msgid "could not resolve HEAD commit\n"
-msgstr "不能解析 HEAD 提交\n"
+msgid "could not resolve HEAD commit"
+msgstr "不能解析 HEAD 提交"
 
 #: sequencer.c
-msgid "unable to update cache tree\n"
-msgstr "不能更新缓存树\n"
+msgid "unable to update cache tree"
+msgstr "不能更新缓存树"
 
 #: sequencer.c
 #, c-format
@@ -3140,13 +3166,13 @@ msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid "could not parse commit %s\n"
-msgstr "不能解析提交 %s\n"
+msgid "could not parse commit %s"
+msgstr "不能解析提交 %s"
 
 #: sequencer.c
 #, c-format
-msgid "could not parse parent commit %s\n"
-msgstr "不能解析父提交 %s\n"
+msgid "could not parse parent commit %s"
+msgstr "不能解析父提交 %s"
 
 #: sequencer.c
 #, c-format
@@ -3275,6 +3301,16 @@ msgstr "git %s：无法读取索引"
 #, c-format
 msgid "git %s: failed to refresh the index"
 msgstr "git %s：无法刷新索引"
+
+#: sequencer.c
+#, c-format
+msgid "%s does not accept arguments: '%s'"
+msgstr "%s 不接受参数：'%s'"
+
+#: sequencer.c
+#, c-format
+msgid "missing arguments for %s"
+msgstr "缺少 %s 的参数"
 
 #: sequencer.c
 #, c-format
@@ -3542,11 +3578,6 @@ msgstr "不可用的待办列表：'%s'"
 
 #: sequencer.c
 #, c-format
-msgid "unable to open '%s' for writing"
-msgstr "无法以写入方式打开 '%s'"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "unrecognized setting %s for option rebase.missingCommitsCheck. Ignoring."
 msgstr "选项 rebase.missingCommitsCheck 的值 %s 无法识别。已忽略。"
@@ -3586,11 +3617,6 @@ msgstr ""
 "您可以用 'git rebase --edit-todo' 修正，然后执行 'git rebase --continue'。\n"
 "或者您可以用 'git rebase --abort' 终止变基。\n"
 
-#: sequencer.c
-#, c-format
-msgid "could not parse commit '%s'"
-msgstr "不能解析提交 '%s'"
-
 #: sequencer.c wrapper.c builtin/am.c
 #, c-format
 msgid "could not open '%s' for writing"
@@ -3598,17 +3624,12 @@ msgstr "无法打开 '%s' 进行写入"
 
 #: sequencer.c
 #, c-format
-msgid "could not truncate '%s'"
-msgstr "无法截断 '%s'"
+msgid "could not parse commit '%s'"
+msgstr "不能解析提交 '%s'"
 
 #: sequencer.c
 msgid "the script was already rearranged."
 msgstr "脚本已经重新编排。"
-
-#: sequencer.c
-#, c-format
-msgid "could not finish '%s'"
-msgstr "无法结束 '%s'"
 
 #: setup.c
 #, c-format
@@ -4257,16 +4278,6 @@ msgstr "不能访问 '%s'"
 msgid "unable to get current working directory"
 msgstr "不能获取当前工作目录"
 
-#: wrapper.c
-#, c-format
-msgid "could not write to %s"
-msgstr "不能写入 %s"
-
-#: wrapper.c
-#, c-format
-msgid "could not close %s"
-msgstr "不能关闭 %s"
-
 #: wt-status.c
 msgid "Unmerged paths:"
 msgstr "未合并的路径："
@@ -4860,6 +4871,10 @@ msgid "update tracked files"
 msgstr "更新已跟踪的文件"
 
 #: builtin/add.c
+msgid "renormalize EOL of tracked files (implies -u)"
+msgstr "对已跟踪文件（暗含 -u）重新归一换行符"
+
+#: builtin/add.c
 msgid "record only the fact that the path will be added later"
 msgstr "只记录，该路径稍后再添加"
 
@@ -4962,8 +4977,8 @@ msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "也许您想要执行 'git add .'？\n"
 
 #: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/mv.c builtin/reset.c builtin/rm.c
-#: builtin/submodule--helper.c
+#: builtin/commit.c builtin/diff-tree.c builtin/mv.c builtin/reset.c
+#: builtin/rm.c builtin/submodule--helper.c
 msgid "index file corrupt"
 msgstr "索引文件损坏"
 
@@ -5365,12 +5380,63 @@ msgid "git bisect--helper --next-all [--no-checkout]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
+msgid "git bisect--helper --write-terms <bad_term> <good_term>"
+msgstr "git bisect--helper --write-terms <坏-术语> <好-术语>"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-clean-state"
+msgstr "git bisect--helper --bisect-clean-state"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s' is not a valid term"
+msgstr "'%s' 不是一个有效的术语"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't use the builtin command '%s' as a term"
+msgstr "不能使用内置命令 '%s' 作为术语"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't change the meaning of the term '%s'"
+msgstr "不能修改术语 '%s' 的含义"
+
+#: builtin/bisect--helper.c
+msgid "please use two different terms"
+msgstr "请使用两个不同的术语"
+
+#: builtin/bisect--helper.c
+msgid "could not open the file BISECT_TERMS"
+msgstr "不能打开文件 BISECT_TERMS"
+
+#: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
 msgstr "执行 'git bisect next'"
 
 #: builtin/bisect--helper.c
+msgid "write the terms to .git/BISECT_TERMS"
+msgstr "将术语写入 .git/BISECT_TERMS"
+
+#: builtin/bisect--helper.c
+msgid "cleanup the bisection state"
+msgstr "清除二分查找状态"
+
+#: builtin/bisect--helper.c
+msgid "check for expected revs"
+msgstr "检查预期的版本"
+
+#: builtin/bisect--helper.c
 msgid "update BISECT_HEAD instead of checking out the current commit"
 msgstr "更新 BISECT_HEAD 而非检出当前提交"
+
+#: builtin/bisect--helper.c
+msgid "--write-terms requires two arguments"
+msgstr "--write-terms 需要两个参数"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-clean-state requires no arguments"
+msgstr "--bisect-clean-state 不需要参数"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -5653,8 +5719,8 @@ msgstr "分支拷贝失败"
 
 #: builtin/branch.c
 #, c-format
-msgid "Copied a misnamed branch '%s' away"
-msgstr "已将错误命名的分支 '%s' 复制"
+msgid "Created a copy of a misnamed branch '%s'"
+msgstr "已为错误命名的分支 '%s' 创建了一个副本"
 
 #: builtin/branch.c
 #, c-format
@@ -5887,10 +5953,6 @@ msgstr "无法取消 HEAD 的上游设置因为它没有指向一个分支"
 #, c-format
 msgid "Branch '%s' has no upstream information"
 msgstr "分支 '%s' 没有上游信息"
-
-#: builtin/branch.c
-msgid "it does not make sense to create 'HEAD' manually"
-msgstr "手工创建 'HEAD' 没有意义"
 
 #: builtin/branch.c
 msgid "-a and -r options to 'git branch' do not make sense with a branch name"
@@ -6575,8 +6637,8 @@ msgstr "交互式清除"
 msgid "remove whole directories"
 msgstr "删除整个目录"
 
-#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/ls-files.c
-#: builtin/name-rev.c builtin/show-ref.c
+#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/log.c
+#: builtin/ls-files.c builtin/name-rev.c builtin/show-ref.c
 msgid "pattern"
 msgstr "模式"
 
@@ -6734,11 +6796,11 @@ msgstr "key=value"
 msgid "set config inside the new repository"
 msgstr "在新仓库中设置配置信息"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv4 addresses only"
 msgstr "只使用 IPv4 地址"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv6 addresses only"
 msgstr "只使用 IPv6 地址"
 
@@ -6911,11 +6973,6 @@ msgstr "源仓库是浅克隆，忽略 --local"
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local 被忽略"
-
-#: builtin/clone.c
-#, c-format
-msgid "Don't know how to clone %s"
-msgstr "不知道如何克隆 %s"
 
 #: builtin/clone.c
 #, c-format
@@ -7232,6 +7289,11 @@ msgstr "--author '%s' 不是 '姓名 <邮箱>' 格式，且未能在现有作者
 
 #: builtin/commit.c
 #, c-format
+msgid "Invalid ignored mode '%s'"
+msgstr "无效的忽略模式 '%s'"
+
+#: builtin/commit.c
+#, c-format
 msgid "Invalid untracked files mode '%s'"
 msgstr "无效的未追踪文件参数 '%s'"
 
@@ -7325,8 +7387,11 @@ msgid "show untracked files, optional modes: all, normal, no. (Default: all)"
 msgstr "显示未跟踪的文件，“模式”的可选参数：all、normal、no。（默认：all）"
 
 #: builtin/commit.c
-msgid "show ignored files"
-msgstr "显示忽略的文件"
+msgid ""
+"show ignored files, optional modes: traditional, matching, no. (Default: "
+"traditional)"
+msgstr ""
+"显示已忽略的文件，可选模式：traditional、matching、no。（默认：traditional）"
 
 #: builtin/commit.c parse-options.h
 msgid "when"
@@ -7344,12 +7409,20 @@ msgid "list untracked files in columns"
 msgstr "以列的方式显示未跟踪的文件"
 
 #: builtin/commit.c
+msgid "Unsupported combination of ignored and untracked-files arguments"
+msgstr "不支持已忽略和未跟踪文件参数的组合"
+
+#: builtin/commit.c
 msgid "couldn't look up newly created commit"
 msgstr "无法找到新创建的提交"
 
 #: builtin/commit.c
 msgid "could not parse newly created commit"
 msgstr "不能解析新创建的提交"
+
+#: builtin/commit.c
+msgid "unable to resolve HEAD after creating commit"
+msgstr "创建提交后，不能解析 HEAD"
 
 #: builtin/commit.c
 msgid "detached HEAD"
@@ -7424,7 +7497,8 @@ msgstr "使用 autosquash 格式的提交说明用以压缩至指定的提交"
 msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr "现在将该提交的作者改为我（和 -C/-c/--amend 参数共用）"
 
-#: builtin/commit.c builtin/log.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/log.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c
 msgid "add Signed-off-by:"
 msgstr "添加 Signed-off-by: 签名"
 
@@ -7651,6 +7725,10 @@ msgid "value is a path (file or directory name)"
 msgstr "值是一个路径（文件或目录名）"
 
 #: builtin/config.c
+msgid "value is an expiry date"
+msgstr "值是一个到期日期"
+
+#: builtin/config.c
 msgid "Other"
 msgstr "其它"
 
@@ -7750,16 +7828,6 @@ msgstr "附注标签 %s 没有嵌入名称"
 msgid "tag '%s' is really '%s' here"
 msgstr "标签 '%s' 的确是在 '%s'"
 
-#: builtin/describe.c builtin/log.c
-#, c-format
-msgid "Not a valid object name %s"
-msgstr "不是一个有效的对象名 %s"
-
-#: builtin/describe.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s 不是一个有效的 '%s' 对象"
-
 #: builtin/describe.c
 #, c-format
 msgid "no tag exactly matches '%s'"
@@ -7767,8 +7835,8 @@ msgstr "没有标签准确匹配 '%s'"
 
 #: builtin/describe.c
 #, c-format
-msgid "searching to describe %s\n"
-msgstr "搜索描述 %s\n"
+msgid "No exact match on refs or tags, searching to describe\n"
+msgstr "没有精确匹配到引用或标签，继续搜索进行描述\n"
 
 #: builtin/describe.c
 #, c-format
@@ -7806,6 +7874,21 @@ msgid ""
 msgstr ""
 "发现多于 %i 个标签，列出最近的 %i 个\n"
 "在 %s 放弃搜索\n"
+
+#: builtin/describe.c
+#, c-format
+msgid "describe %s\n"
+msgstr "描述 %s\n"
+
+#: builtin/describe.c builtin/log.c
+#, c-format
+msgid "Not a valid object name %s"
+msgstr "不是一个有效的对象名 %s"
+
+#: builtin/describe.c
+#, c-format
+msgid "%s is neither a commit nor blob"
+msgstr "%s 既不是提交也不是数据对象"
 
 #: builtin/describe.c
 msgid "find the tag that comes after the commit"
@@ -8279,11 +8362,6 @@ msgstr "选项 \"%s\" 的值 \"%s\" 对于 %s 是无效的"
 #, c-format
 msgid "Option \"%s\" is ignored for %s\n"
 msgstr "选项 \"%s\" 为 %s 所忽略\n"
-
-#: builtin/fetch.c
-#, c-format
-msgid "Don't know how to fetch from %s"
-msgstr "不知道如何从 %s 获取"
 
 #: builtin/fetch.c
 #, c-format
@@ -9475,6 +9553,14 @@ msgid "Use mail map file"
 msgstr "使用邮件映射文件"
 
 #: builtin/log.c
+msgid "only decorate refs that match <pattern>"
+msgstr "只修饰与 <模式> 匹配的引用"
+
+#: builtin/log.c
+msgid "do not decorate refs that match <pattern>"
+msgstr "不修饰和 <模式> 匹配的引用"
+
+#: builtin/log.c
 msgid "decorate options"
 msgstr "修饰选项"
 
@@ -9800,6 +9886,10 @@ msgstr "用标签标识文件的状态"
 #: builtin/ls-files.c
 msgid "use lowercase letters for 'assume unchanged' files"
 msgstr "使用小写字母表示 '假设未改变的' 文件"
+
+#: builtin/ls-files.c
+msgid "use lowercase letters for 'fsmonitor clean' files"
+msgstr "使用小写字母表示 'fsmonitor clean' 文件"
 
 #: builtin/ls-files.c
 msgid "show cached files in the output (default)"
@@ -10663,8 +10753,8 @@ msgid "git notes [--ref <notes-ref>] remove [<object>...]"
 msgstr "git notes [--ref <注解引用>] remove [<对象>...]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes-ref>] prune [-n | -v]"
-msgstr "git notes [--ref <注解引用>] prune [-n | -v]"
+msgid "git notes [--ref <notes-ref>] prune [-n] [-v]"
+msgstr "git notes [--ref <注解引用>] prune [-n] [-v]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes-ref>] get-ref"
@@ -11045,6 +11135,10 @@ msgid "Compressing objects"
 msgstr "压缩对象中"
 
 #: builtin/pack-objects.c
+msgid "invalid value for --missing"
+msgstr "选项 --missing 的值无效"
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "unsupported index version %s"
 msgstr "不支持的索引版本 %s"
@@ -11191,6 +11285,10 @@ msgid "write a bitmap index together with the pack index"
 msgstr "在建立包索引的同时创建 bitmap 索引"
 
 #: builtin/pack-objects.c
+msgid "handling for missing objects"
+msgstr "处理丢失的对象"
+
+#: builtin/pack-objects.c
 msgid "Counting objects"
 msgstr "对象计数中"
 
@@ -11215,8 +11313,8 @@ msgid "Removing duplicate objects"
 msgstr "正在删除重复对象"
 
 #: builtin/prune.c
-msgid "git prune [-n] [-v] [--expire <time>] [--] [<head>...]"
-msgstr "git prune [-n] [-v] [--expire <时间>] [--] [<头>...]"
+msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
+msgstr "git prune [-n] [-v] [--progress] [--expire <时间>] [--] [<head>...]"
 
 #: builtin/prune.c
 msgid "report pruned objects"
@@ -11778,12 +11876,12 @@ msgid "make rebase script"
 msgstr "制作变基脚本"
 
 #: builtin/rebase--helper.c
-msgid "shorten SHA-1s in the todo list"
-msgstr "缩短待办列表中的哈希值"
+msgid "shorten commit ids in the todo list"
+msgstr "缩短待办列表中的提交号"
 
 #: builtin/rebase--helper.c
-msgid "expand SHA-1s in the todo list"
-msgstr "扩展待办列表中的哈希值"
+msgid "expand commit ids in the todo list"
+msgstr "扩展待办列表中的提交号"
 
 #: builtin/rebase--helper.c
 msgid "check the todo list"
@@ -11796,6 +11894,10 @@ msgstr "跳过不必要的拣选"
 #: builtin/rebase--helper.c
 msgid "rearrange fixup/squash lines"
 msgstr "重新排列 fixup/squash 行"
+
+#: builtin/rebase--helper.c
+msgid "insert exec commands in todo list"
+msgstr "在待办列表中插入 exec 执行命令"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -11853,11 +11955,6 @@ msgstr "静默模式"
 #: builtin/receive-pack.c
 msgid "You must specify a directory."
 msgstr "您必须指定一个目录。"
-
-#: builtin/reflog.c
-#, c-format
-msgid "'%s' for '%s' is not a valid timestamp"
-msgstr "'%2$s' 的值 '%1$s' 不是一个有效的时间戳"
 
 #: builtin/reflog.c
 #, c-format
@@ -12686,8 +12783,21 @@ msgid "Could not write new index file."
 msgstr "不能写入新的索引文件。"
 
 #: builtin/rev-list.c
+msgid "object filtering requires --objects"
+msgstr "对象过滤需要 --objects"
+
+#: builtin/rev-list.c
+#, c-format
+msgid "invalid sparse value '%s'"
+msgstr "无效的稀疏值 '%s'"
+
+#: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
 msgstr "rev-list 不支持显示注解"
+
+#: builtin/rev-list.c
+msgid "cannot combine --use-bitmap-index with object filtering"
+msgstr "不能将 --use-bitmap-index 和对象过滤组合使用"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -13188,20 +13298,48 @@ msgstr "无法为子模组 '%s' 注册更新模式"
 
 #: builtin/submodule--helper.c
 msgid "Suppress output for initializing a submodule"
-msgstr "初始化子模组时抑制输出"
+msgstr "取消子模组初始化的输出"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper init [<path>]"
 msgstr "git submodule--helper init [<路径>]"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper name <path>"
-msgstr "git submodule--helper name <路径>"
-
-#: builtin/submodule--helper.c
 #, c-format
 msgid "no submodule mapping found in .gitmodules for path '%s'"
 msgstr "在 .gitmodules 中没有发现路径 '%s' 的子模组映射"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not resolve HEAD ref inside the submodule '%s'"
+msgstr "无法解析子模组 '%s' 的 HEAD 引用"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to recurse into submodule '%s'"
+msgstr "无法递归子模组 '%s'"
+
+#: builtin/submodule--helper.c
+msgid "Suppress submodule status output"
+msgstr "取消子模组状态输出"
+
+#: builtin/submodule--helper.c
+msgid ""
+"Use commit stored in the index instead of the one stored in the submodule "
+"HEAD"
+msgstr "使用存储在索引中的提交，而非存储在子模组 HEAD 中的提交"
+
+#: builtin/submodule--helper.c
+msgid "recurse into nested submodules"
+msgstr "在嵌套子模组中递归"
+
+#: builtin/submodule--helper.c
+msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
+msgstr "git submodule status [--quiet] [--cached] [--recursive] [<路径>...]"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper name <path>"
+msgstr "git submodule--helper name <路径>"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -13759,6 +13897,22 @@ msgid "enable untracked cache without testing the filesystem"
 msgstr "无需检测文件系统，启用对未跟踪文件的缓存"
 
 #: builtin/update-index.c
+msgid "write out the index even if is not flagged as changed"
+msgstr "即使没有被标记为已更改，也要写出索引"
+
+#: builtin/update-index.c
+msgid "enable or disable file system monitor"
+msgstr "启用或禁用文件系统监控"
+
+#: builtin/update-index.c
+msgid "mark files as fsmonitor valid"
+msgstr "标记文件为 fsmonitor 有效"
+
+#: builtin/update-index.c
+msgid "clear fsmonitor valid bit"
+msgstr "清除 fsmonitor 有效位"
+
+#: builtin/update-index.c
 msgid ""
 "core.splitIndex is set to false; remove or change it, if you really want to "
 "enable split index"
@@ -13796,6 +13950,23 @@ msgstr ""
 #, c-format
 msgid "Untracked cache enabled for '%s'"
 msgstr "缓存未跟踪文件在 '%s' 启用"
+
+#: builtin/update-index.c
+msgid "core.fsmonitor is unset; set it if you really want to enable fsmonitor"
+msgstr "core.fsmonitor 未设置；如果想要启用 fsmonitor 请设置"
+
+#: builtin/update-index.c
+msgid "fsmonitor enabled"
+msgstr "fsmonitor 被启用"
+
+#: builtin/update-index.c
+msgid ""
+"core.fsmonitor is set; remove it if you really want to disable fsmonitor"
+msgstr "core.fsmonitor 已设置；如果想要禁用 fsmonitor 请移除设置"
+
+#: builtin/update-index.c
+msgid "fsmonitor disabled"
+msgstr "fsmonitor 被禁用"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -13961,8 +14132,20 @@ msgid "keep the new working tree locked"
 msgstr "锁定新工作区"
 
 #: builtin/worktree.c
+msgid "set up tracking mode (see git-branch(1))"
+msgstr "设置跟踪模式（参见 git-branch(1)）"
+
+#: builtin/worktree.c
+msgid "try to match the new branch name with a remote-tracking branch"
+msgstr "尝试为新分支名匹配一个远程跟踪分支"
+
+#: builtin/worktree.c
 msgid "-b, -B, and --detach are mutually exclusive"
 msgstr "-b、-B 和 --detach 是互斥的"
+
+#: builtin/worktree.c
+msgid "--[no-]track can only be used if a new branch is created"
+msgstr "只能在创建新分支时使用选项 --[no-]track "
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -14083,6 +14266,14 @@ msgstr ""
 #, c-format
 msgid "redirecting to %s"
 msgstr "重定向到 %s"
+
+#: list-objects-filter-options.h
+msgid "args"
+msgstr "参数"
+
+#: list-objects-filter-options.h
+msgid "object filtering"
+msgstr "对象过滤"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
@@ -14342,6 +14533,10 @@ msgid "?? what are you talking about?"
 msgstr "?? 您在说什么?"
 
 #: git-bisect.sh
+msgid "bisect run failed: no command provided."
+msgstr "二分查找运行失败：没有提供命令。"
+
+#: git-bisect.sh
 #, sh-format
 msgid "running $command"
 msgstr "运行 $command"
@@ -14371,25 +14566,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "二分查找运行成功"
-
-#: git-bisect.sh
-msgid "please use two different terms"
-msgstr "请使用两个不同的术语"
-
-#: git-bisect.sh
-#, sh-format
-msgid "'$term' is not a valid term"
-msgstr "'$term' 不是一个有效的名称"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't use the builtin command '$term' as a term"
-msgstr "不能使用内置命令 '$term' 作为术语"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't change the meaning of term '$term'"
-msgstr "不能修改术语 '$term' 的含义"
 
 #: git-bisect.sh
 #, sh-format
@@ -14479,8 +14655,8 @@ msgid "The pre-rebase hook refused to rebase."
 msgstr "钩子 pre-rebase 拒绝变基操作。"
 
 #: git-rebase.sh
-msgid "It looks like git-am is in progress. Cannot rebase."
-msgstr "似乎正处于在 git-am 的执行过程中。无法变基。"
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr "看起来 'git-am' 正在执行中。无法变基。"
 
 #: git-rebase.sh
 msgid "No rebase in progress?"
@@ -14523,8 +14699,8 @@ msgstr ""
 
 #: git-rebase.sh
 #, sh-format
-msgid "invalid upstream $upstream_name"
-msgstr "无效的上游 $upstream_name"
+msgid "invalid upstream '$upstream_name'"
+msgstr "无效的上游 '$upstream_name'"
 
 #: git-rebase.sh
 #, sh-format
@@ -14543,8 +14719,8 @@ msgstr "没有指向一个有效的提交：$onto_name"
 
 #: git-rebase.sh
 #, sh-format
-msgid "fatal: no such branch: $branch_name"
-msgstr "严重错误：无此分支：$branch_name"
+msgid "fatal: no such branch/commit '$branch_name'"
+msgstr "严重错误：无此分支/提交 '$branch_name'"
 
 #: git-rebase.sh
 msgid "Cannot autostash"
@@ -14561,8 +14737,18 @@ msgstr "请提交或贮藏修改。"
 
 #: git-rebase.sh
 #, sh-format
+msgid "HEAD is up to date."
+msgstr "HEAD 是最新的。"
+
+#: git-rebase.sh
+#, sh-format
 msgid "Current branch $branch_name is up to date."
 msgstr "当前分支 $branch_name 是最新的。"
+
+#: git-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr "HEAD 是最新的，强制变基。"
 
 #: git-rebase.sh
 #, sh-format
@@ -14620,24 +14806,10 @@ msgstr "不能记录工作区状态"
 msgid "Cannot update $ref_stash with $w_commit"
 msgstr "无法用 $w_commit 更新 $ref_stash"
 
-#. TRANSLATORS: $option is an invalid option, like
-#. `--blah-blah'. The 7 spaces at the beginning of the
-#. second line correspond to "error: ". So you should line
-#. up the second line with however many characters the
-#. translation of "error: " takes in your language. E.g. in
-#. English this is:
-#.
-#. $ git stash save --blah-blah 2>&1 | head -n 2
-#. error: unknown option for 'stash save': --blah-blah
-#. To provide a message, use git stash save -- '--blah-blah'
 #: git-stash.sh
 #, sh-format
-msgid ""
-"error: unknown option for 'stash save': $option\n"
-"       To provide a message, use git stash save -- '$option'"
-msgstr ""
-"错误：'stash save' 的未知选项：$option\n"
-"      要提供一个描述信息，使用 git stash save -- '$option'"
+msgid "error: unknown option for 'stash push': $option"
+msgstr "错误：'stash push' 的未知选项：$option"
 
 #: git-stash.sh
 msgid "Can't use --patch and --include-untracked or --all at the same time"
@@ -14983,11 +15155,6 @@ msgstr "  警告：$display_name 未包含提交 $sha1_src 和 $sha1_dst"
 
 #: git-submodule.sh
 #, sh-format
-msgid "Failed to recurse into submodule path '$sm_path'"
-msgstr "无法递归进子模组路径 '$sm_path'"
-
-#: git-submodule.sh
-#, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "为 '$displaypath' 同步子模组 url"
 
@@ -15305,6 +15472,10 @@ msgstr "不能标记为交互式"
 #: git-rebase--interactive.sh
 msgid "Could not init rewritten commits"
 msgstr "不能对重写提交进行初始化"
+
+#: git-rebase--interactive.sh
+msgid "Could not generate todo list"
+msgstr "无法生成待办列表"
 
 #: git-rebase--interactive.sh
 #, sh-format
@@ -16225,3 +16396,54 @@ msgstr "略过 %s 含备份后缀 '%s'。\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "您真的要发送 %s？[y|N]："
+
+#~ msgid ""
+#~ "empty strings as pathspecs will be made invalid in upcoming releases. "
+#~ "please use . instead if you meant to match all paths"
+#~ msgstr ""
+#~ "在下一个版本中，使用空字符串作为路径规格将被视作非法。如果要匹配所有路"
+#~ "径，\n"
+#~ "请代之以 ."
+
+#~ msgid "unable to open '%s' for writing"
+#~ msgstr "无法以写入方式打开 '%s'"
+
+#~ msgid "could not truncate '%s'"
+#~ msgstr "无法截断 '%s'"
+
+#~ msgid "could not finish '%s'"
+#~ msgstr "无法结束 '%s'"
+
+#~ msgid "could not close %s"
+#~ msgstr "不能关闭 %s"
+
+#~ msgid "Copied a misnamed branch '%s' away"
+#~ msgstr "已将错误命名的分支 '%s' 复制"
+
+#~ msgid "it does not make sense to create 'HEAD' manually"
+#~ msgstr "手工创建 'HEAD' 没有意义"
+
+#~ msgid "Don't know how to clone %s"
+#~ msgstr "不知道如何克隆 %s"
+
+#~ msgid "show ignored files"
+#~ msgstr "显示忽略的文件"
+
+#~ msgid "%s is not a valid '%s' object"
+#~ msgstr "%s 不是一个有效的 '%s' 对象"
+
+#~ msgid "Don't know how to fetch from %s"
+#~ msgstr "不知道如何从 %s 获取"
+
+#~ msgid "'$term' is not a valid term"
+#~ msgstr "'$term' 不是一个有效的名称"
+
+#~ msgid ""
+#~ "error: unknown option for 'stash save': $option\n"
+#~ "       To provide a message, use git stash save -- '$option'"
+#~ msgstr ""
+#~ "错误：'stash save' 的未知选项：$option\n"
+#~ "      要提供一个描述信息，使用 git stash save -- '$option'"
+
+#~ msgid "Failed to recurse into submodule path '$sm_path'"
+#~ msgstr "无法递归进子模组路径 '$sm_path'"
