@@ -1,14 +1,14 @@
 # Swedish translations for Git.
-# Copyright (C) 2010-2017 Peter krefting <peter@softwolves.pp.se>
+# Copyright (C) 2010-2018 Peter Krefting <peter@softwolves.pp.se>
 # This file is distributed under the same license as the Git package.
-# Peter Krefting <peter@softwolves.pp.se>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
+# Peter Krefting <peter@softwolves.pp.se>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git 2.15.0\n"
+"Project-Id-Version: git 2.16.0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-10-17 09:44+0800\n"
-"PO-Revision-Date: 2017-10-18 19:34+0100\n"
+"POT-Creation-Date: 2017-12-31 10:45+0800\n"
+"PO-Revision-Date: 2018-01-01 09:36+0100\n"
 "Last-Translator: Peter Krefting <peter@softwolves.pp.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -684,7 +684,7 @@ msgstr "sökvägar avdelas med NUL-tecken"
 msgid "ensure at least <n> lines of context match"
 msgstr "se till att åtminstone <n> rader sammanhang är lika"
 
-#: apply.c builtin/am.c builtin/interpret-trailers.c
+#: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
 msgid "action"
 msgstr "åtgärd"
 
@@ -1350,6 +1350,11 @@ msgstr "misslyckades expandera användarkatalog i: \"%s\""
 
 #: config.c
 #, c-format
+msgid "'%s' for '%s' is not a valid timestamp"
+msgstr "\"%s\" för \"%s\" är inte en giltig tidsstämpel"
+
+#: config.c
+#, c-format
 msgid "bad zlib compression level %d"
 msgstr "felaktigt zlib-komprimeringsgrad %d"
 
@@ -1653,6 +1658,11 @@ msgstr "kunde inte skapa kataloger för %s"
 #, c-format
 msgid "could not migrate git directory from '%s' to '%s'"
 msgstr "kunde inte migrera git-katalog från \"%s\" till \"%s\""
+
+#: editor.c
+#, c-format
+msgid "hint: Waiting for your editor to close the file...%c"
+msgstr "tips: Väntar på att textredigeringsprogrammet skall stänga filen...%c"
 
 #: entry.c
 msgid "Filtering content"
@@ -2020,6 +2030,15 @@ msgstr "namnet består enbart av ej tillåtna tecken: %s"
 #, c-format
 msgid "invalid date format: %s"
 msgstr "felaktigt datumformat: %s"
+
+#: list-objects-filter-options.c
+msgid "multiple object filter types cannot be combined"
+msgstr "flera objektfiltertyper kan inte kombineras"
+
+#: list-objects-filter-options.c
+#, c-format
+msgid "invalid filter-spec expression '%s'"
+msgstr "ogiltig filterspec-utryck \"%s\""
 
 #: lockfile.c
 #, c-format
@@ -2475,14 +2494,6 @@ msgid "%s: pathspec magic not supported by this command: %s"
 msgstr "%s: sökvägsuttrycket hanteras inte av det här kommandot: %s"
 
 #: pathspec.c
-msgid ""
-"empty strings as pathspecs will be made invalid in upcoming releases. please "
-"use . instead if you meant to match all paths"
-msgstr ""
-"tomma strängar som sökvägsangivelser kommer bli ogiltiga i en kommande "
-"utgåva. använd istället . om du vill träffa alla sökvägar"
-
-#: pathspec.c
 #, c-format
 msgid "pathspec '%s' is beyond a symbolic link"
 msgstr "sökvägsangivelsen \"%s\" är på andra sidan av en symbolisk länk"
@@ -2509,7 +2520,7 @@ msgstr ""
 "GIT_INDEX_VERSION satt, men värdet är ogiltigt.\n"
 "Använder version %i"
 
-#: read-cache.c builtin/merge.c
+#: read-cache.c sequencer.c wrapper.c builtin/merge.c
 #, c-format
 msgid "could not close '%s'"
 msgstr "kunde inte stänga \"%s\""
@@ -2918,6 +2929,15 @@ msgstr "--first-parent är inkompatibelt med --bisect"
 msgid "open /dev/null failed"
 msgstr "misslyckades öppna /dev/null"
 
+#: run-command.c
+#, c-format
+msgid ""
+"The '%s' hook was ignored because it's not set as executable.\n"
+"You can disable this warning with `git config advice.ignoredHook false`."
+msgstr ""
+"Kroken \"%s\" ignorerades eftersom den inte är markerad som körbar.\n"
+"Du kan inaktivera varningen med \"git config advice.ignoredHook false\"."
+
 #: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
@@ -2992,7 +3012,7 @@ msgstr ""
 msgid "could not lock '%s'"
 msgstr "kunde inte låsa \"%s\""
 
-#: sequencer.c
+#: sequencer.c wrapper.c
 #, c-format
 msgid "could not write to '%s'"
 msgstr "kunde inte skriva till \"%s\""
@@ -3477,11 +3497,6 @@ msgstr "oanvändbar todo-lista: %s"
 
 #: sequencer.c
 #, c-format
-msgid "unable to open '%s' for writing"
-msgstr "kunde inte öppna \"%s\" för skrivning"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "unrecognized setting %s for option rebase.missingCommitsCheck. Ignoring."
 msgstr ""
@@ -3527,11 +3542,6 @@ msgstr ""
 "continue\".\n"
 "Avbryt ombaseringen med \"git rebase --abort\".\n"
 
-#: sequencer.c
-#, c-format
-msgid "could not parse commit '%s'"
-msgstr "kunde inte tolka incheckningen\" %s\""
-
 #: sequencer.c wrapper.c builtin/am.c
 #, c-format
 msgid "could not open '%s' for writing"
@@ -3539,17 +3549,12 @@ msgstr "kunde inte öppna \"%s\" för skrivning"
 
 #: sequencer.c
 #, c-format
-msgid "could not truncate '%s'"
-msgstr "kunde inte trunkera \"%s\""
+msgid "could not parse commit '%s'"
+msgstr "kunde inte tolka incheckningen\" %s\""
 
 #: sequencer.c
 msgid "the script was already rearranged."
 msgstr "skriptet har redan omordnats."
-
-#: sequencer.c
-#, c-format
-msgid "could not finish '%s'"
-msgstr "kunde inte avsluta \"%s\""
 
 #: setup.c
 #, c-format
@@ -3852,7 +3857,7 @@ msgstr "filen %s är inte skrivbar av användaren"
 
 #: trailer.c
 msgid "could not open temporary file"
-msgstr "kunde inte öppna temporär file"
+msgstr "kunde inte öppna temporär fil"
 
 #: trailer.c
 #, c-format
@@ -4218,16 +4223,6 @@ msgstr "kan inte komma åt \"%s\""
 #: wrapper.c
 msgid "unable to get current working directory"
 msgstr "kan inte hämta aktuell arbetskatalog"
-
-#: wrapper.c
-#, c-format
-msgid "could not write to %s"
-msgstr "kunde inte skriva till %s"
-
-#: wrapper.c
-#, c-format
-msgid "could not close %s"
-msgstr "kunde inte stänga %s"
 
 #: wt-status.c
 msgid "Unmerged paths:"
@@ -4803,6 +4798,10 @@ msgid "update tracked files"
 msgstr "uppdatera spårade filer"
 
 #: builtin/add.c
+msgid "renormalize EOL of tracked files (implies -u)"
+msgstr "åternormalisera radslut i spårade filer (implicerar -u)"
+
+#: builtin/add.c
 msgid "record only the fact that the path will be added later"
 msgstr "registrera endast att sökvägen kommer läggas till senare"
 
@@ -4907,8 +4906,8 @@ msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "Kanske menade du att skriva \"git add .\"?\n"
 
 #: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/mv.c builtin/reset.c builtin/rm.c
-#: builtin/submodule--helper.c
+#: builtin/commit.c builtin/diff-tree.c builtin/mv.c builtin/reset.c
+#: builtin/rm.c builtin/submodule--helper.c
 msgid "index file corrupt"
 msgstr "indexfilen trasig"
 
@@ -5317,12 +5316,63 @@ msgid "git bisect--helper --next-all [--no-checkout]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
+msgid "git bisect--helper --write-terms <bad_term> <good_term>"
+msgstr "git bisect--helper --write-terms <term-för-fel> <term-för-rätt>"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-clean-state"
+msgstr "git bisect--helper --bisect-clean-state"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s' is not a valid term"
+msgstr "\"%s\" är inte en giltig term"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't use the builtin command '%s' as a term"
+msgstr "kan inte använda det inbyggda kommandot \"%s\" som term"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't change the meaning of the term '%s'"
+msgstr "kan inte ändra betydelsen av termen \"%s\""
+
+#: builtin/bisect--helper.c
+msgid "please use two different terms"
+msgstr "termerna måste vara olika"
+
+#: builtin/bisect--helper.c
+msgid "could not open the file BISECT_TERMS"
+msgstr "kunde inte öppna filen BISECT_TERMS"
+
+#: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
 msgstr "utför 'git bisect next'"
 
 #: builtin/bisect--helper.c
+msgid "write the terms to .git/BISECT_TERMS"
+msgstr "skriv termerna i .git/BISECT_TERMS"
+
+#: builtin/bisect--helper.c
+msgid "cleanup the bisection state"
+msgstr "städar upp bisect-tillstånd"
+
+#: builtin/bisect--helper.c
+msgid "check for expected revs"
+msgstr "kontrollera för förväntade versioner"
+
+#: builtin/bisect--helper.c
 msgid "update BISECT_HEAD instead of checking out the current commit"
 msgstr "uppdatera BISECT_HEAD istället för att checka ut aktuell incheckning"
+
+#: builtin/bisect--helper.c
+msgid "--write-terms requires two arguments"
+msgstr "--write-terms kräver två argument"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-clean-state requires no arguments"
+msgstr "--bisect-clean-state tar inga argument"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -5604,8 +5654,8 @@ msgstr "Misslyckades kopiera gren"
 
 #: builtin/branch.c
 #, c-format
-msgid "Copied a misnamed branch '%s' away"
-msgstr "Kopierade bort en felaktigt namngiven gren \"%s\""
+msgid "Created a copy of a misnamed branch '%s'"
+msgstr "Skapade kopia av felaktigt namngiven gren \"%s\""
 
 #: builtin/branch.c
 #, c-format
@@ -5840,10 +5890,6 @@ msgstr ""
 #, c-format
 msgid "Branch '%s' has no upstream information"
 msgstr "Grenen \"%s\" har ingen uppströmsinformation"
-
-#: builtin/branch.c
-msgid "it does not make sense to create 'HEAD' manually"
-msgstr "kan inte skapa \"HEAD\" manuellt"
 
 #: builtin/branch.c
 msgid "-a and -r options to 'git branch' do not make sense with a branch name"
@@ -6536,8 +6582,8 @@ msgstr "städa interaktivt"
 msgid "remove whole directories"
 msgstr "ta bort hela kataloger"
 
-#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/ls-files.c
-#: builtin/name-rev.c builtin/show-ref.c
+#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/log.c
+#: builtin/ls-files.c builtin/name-rev.c builtin/show-ref.c
 msgid "pattern"
 msgstr "mönster"
 
@@ -6697,11 +6743,11 @@ msgstr "nyckel=värde"
 msgid "set config inside the new repository"
 msgstr "ställ in konfiguration i det nya arkivet"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv4 addresses only"
 msgstr "använd endast IPv4-adresser"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv6 addresses only"
 msgstr "använd endast IPv6-adresser"
 
@@ -6877,11 +6923,6 @@ msgstr "källarkivet är grunt, ignorerar --local"
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local ignoreras"
-
-#: builtin/clone.c
-#, c-format
-msgid "Don't know how to clone %s"
-msgstr "Vet inte hur man klonar %s"
 
 #: builtin/clone.c
 #, c-format
@@ -7208,6 +7249,11 @@ msgstr ""
 
 #: builtin/commit.c
 #, c-format
+msgid "Invalid ignored mode '%s'"
+msgstr "Ogiltigt ignorerat läge \"%s\""
+
+#: builtin/commit.c
+#, c-format
 msgid "Invalid untracked files mode '%s'"
 msgstr "Ogiltigt läge för ospårade filer: \"%s\""
 
@@ -7299,11 +7345,15 @@ msgstr "läge"
 
 #: builtin/commit.c
 msgid "show untracked files, optional modes: all, normal, no. (Default: all)"
-msgstr "visa ospårade filer, valfria lägen: alla, normal, no. (Standard: all)"
+msgstr "visa ospårade filer, valfria lägen: all, normal, no. (Standard: all)"
 
 #: builtin/commit.c
-msgid "show ignored files"
-msgstr "visa ignorerade filer"
+msgid ""
+"show ignored files, optional modes: traditional, matching, no. (Default: "
+"traditional)"
+msgstr ""
+"visa ignorerade filer, valfria lägen: traditional, matching, no (Standard: "
+"traditional)"
 
 #: builtin/commit.c parse-options.h
 msgid "when"
@@ -7322,12 +7372,20 @@ msgid "list untracked files in columns"
 msgstr "visa ospårade filer i spalter"
 
 #: builtin/commit.c
+msgid "Unsupported combination of ignored and untracked-files arguments"
+msgstr "Kombinationen av argument för ignorerade och ospårade filer stöds ej"
+
+#: builtin/commit.c
 msgid "couldn't look up newly created commit"
 msgstr "kunde inte slå upp en precis skapad incheckning"
 
 #: builtin/commit.c
 msgid "could not parse newly created commit"
 msgstr "kunde inte tolka en precis skapad incheckning"
+
+#: builtin/commit.c
+msgid "unable to resolve HEAD after creating commit"
+msgstr "kunde inte bestämma HEAD efter att ha skapat incheckning"
 
 #: builtin/commit.c
 msgid "detached HEAD"
@@ -7404,7 +7462,8 @@ msgstr ""
 msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr "jag är nu författare av incheckningen (används med -C/-c/--amend)"
 
-#: builtin/commit.c builtin/log.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/log.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c
 msgid "add Signed-off-by:"
 msgstr "lägg till Signed-off-by:"
 
@@ -7632,6 +7691,10 @@ msgid "value is a path (file or directory name)"
 msgstr "värdet är en sökväg (fil- eller katalognamn)"
 
 #: builtin/config.c
+msgid "value is an expiry date"
+msgstr "värdet är ett utgångsdatum"
+
+#: builtin/config.c
 msgid "Other"
 msgstr "Andra"
 
@@ -7731,16 +7794,6 @@ msgstr "den annoterade taggen %s har inget inbäddat namn"
 msgid "tag '%s' is really '%s' here"
 msgstr "taggen \"%s\" är i verkligheten \"%s\" här"
 
-#: builtin/describe.c builtin/log.c
-#, c-format
-msgid "Not a valid object name %s"
-msgstr "Objektnamnet är inte giltigt: %s"
-
-#: builtin/describe.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s är inte ett giltigt \"%s\"-objekt"
-
 #: builtin/describe.c
 #, c-format
 msgid "no tag exactly matches '%s'"
@@ -7748,8 +7801,9 @@ msgstr "ingen tagg motsvarar \"%s\" exakt"
 
 #: builtin/describe.c
 #, c-format
-msgid "searching to describe %s\n"
-msgstr "söker för att beskriva %s\n"
+msgid "No exact match on refs or tags, searching to describe\n"
+msgstr ""
+"Ingen exakt träff mot referenser eller taggar, söker för att beskriva\n"
 
 #: builtin/describe.c
 #, c-format
@@ -7787,6 +7841,21 @@ msgid ""
 msgstr ""
 "mer än %i taggar hittades; listar de %i senaste\n"
 "gav upp sökningen vid %s\n"
+
+#: builtin/describe.c
+#, c-format
+msgid "describe %s\n"
+msgstr "beskriva %s\n"
+
+#: builtin/describe.c builtin/log.c
+#, c-format
+msgid "Not a valid object name %s"
+msgstr "Objektnamnet är inte giltigt: %s"
+
+#: builtin/describe.c
+#, c-format
+msgid "%s is neither a commit nor blob"
+msgstr "%s är varken incheckning eller blob"
 
 #: builtin/describe.c
 msgid "find the tag that comes after the commit"
@@ -8262,11 +8331,6 @@ msgstr "Flaggan \"%s\" och värdet \"%s\" är inte giltigt för %s"
 #, c-format
 msgid "Option \"%s\" is ignored for %s\n"
 msgstr "Flaggan \"%s\" ignoreras för %s\n"
-
-#: builtin/fetch.c
-#, c-format
-msgid "Don't know how to fetch from %s"
-msgstr "Vet inte hur man hämtar från %s"
 
 #: builtin/fetch.c
 #, c-format
@@ -9470,6 +9534,14 @@ msgid "Use mail map file"
 msgstr "Använd e-postmappningsfil"
 
 #: builtin/log.c
+msgid "only decorate refs that match <pattern>"
+msgstr "dekorera endast referenser som motsvarar <mönster>"
+
+#: builtin/log.c
+msgid "do not decorate refs that match <pattern>"
+msgstr "dekorera inte referenser som motsvarar <mönster>"
+
+#: builtin/log.c
 msgid "decorate options"
 msgstr "dekoreringsflaggor"
 
@@ -9796,6 +9868,10 @@ msgstr "identifiera filstatus med taggar"
 #: builtin/ls-files.c
 msgid "use lowercase letters for 'assume unchanged' files"
 msgstr "använd små bokstäver för \"anta oförändrade\"-filer"
+
+#: builtin/ls-files.c
+msgid "use lowercase letters for 'fsmonitor clean' files"
+msgstr "använd små bokstäver för \"fsmonitor clean\"-filer"
 
 #: builtin/ls-files.c
 msgid "show cached files in the output (default)"
@@ -10671,8 +10747,8 @@ msgid "git notes [--ref <notes-ref>] remove [<object>...]"
 msgstr "git notes [--ref <anteckningsref>] remove [<objekt>...]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes-ref>] prune [-n | -v]"
-msgstr "git notes [--ref <anteckningsref>] prune [-n | -v]"
+msgid "git notes [--ref <notes-ref>] prune [-n] [-v]"
+msgstr "git notes [--ref <anteckningsref>] prune [-n] [-v]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes-ref>] get-ref"
@@ -11065,6 +11141,10 @@ msgid "Compressing objects"
 msgstr "Komprimerar objekt"
 
 #: builtin/pack-objects.c
+msgid "invalid value for --missing"
+msgstr "ogiltigt värde för --missing"
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "unsupported index version %s"
 msgstr "indexversionen %s stöds ej"
@@ -11211,6 +11291,10 @@ msgid "write a bitmap index together with the pack index"
 msgstr "använd bitkartindex tillsammans med packindexet"
 
 #: builtin/pack-objects.c
+msgid "handling for missing objects"
+msgstr "hantering av saknade objekt"
+
+#: builtin/pack-objects.c
 msgid "Counting objects"
 msgstr "Räknar objekt"
 
@@ -11235,8 +11319,8 @@ msgid "Removing duplicate objects"
 msgstr "Tar bort duplicerade objekt"
 
 #: builtin/prune.c
-msgid "git prune [-n] [-v] [--expire <time>] [--] [<head>...]"
-msgstr "git prune [-n] [-v] [--expire <tid>] [--] [<huvud>...]"
+msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
+msgstr "git prune [-n] [-v] [--progress] [--expire <tid>] [--] [<huvud>...]"
 
 #: builtin/prune.c
 msgid "report pruned objects"
@@ -11819,12 +11903,12 @@ msgid "make rebase script"
 msgstr "skapa ombaseringsskript"
 
 #: builtin/rebase--helper.c
-msgid "shorten SHA-1s in the todo list"
-msgstr "förkorta SHA-1 i todo-listan"
+msgid "shorten commit ids in the todo list"
+msgstr "förkorta inchecknings-id i todo-listan"
 
 #: builtin/rebase--helper.c
-msgid "expand SHA-1s in the todo list"
-msgstr "utöka SHA-1 i todo-listan"
+msgid "expand commit ids in the todo list"
+msgstr "utöka inchecknings-id i todo-listan"
 
 #: builtin/rebase--helper.c
 msgid "check the todo list"
@@ -11837,6 +11921,10 @@ msgstr "hoppa över onödiga \"pick\"-kommandon"
 #: builtin/rebase--helper.c
 msgid "rearrange fixup/squash lines"
 msgstr "ordna om fixup-/squash-rader"
+
+#: builtin/rebase--helper.c
+msgid "insert exec commands in todo list"
+msgstr "lägg in exec-kommandon i todo-listan"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -11900,11 +11988,6 @@ msgstr "tyst"
 #: builtin/receive-pack.c
 msgid "You must specify a directory."
 msgstr "Du måste ange en katalog."
-
-#: builtin/reflog.c
-#, c-format
-msgid "'%s' for '%s' is not a valid timestamp"
-msgstr "\"%s\" för \"%s\" är inte en giltig tidsstämpel"
 
 #: builtin/reflog.c
 #, c-format
@@ -12736,8 +12819,21 @@ msgid "Could not write new index file."
 msgstr "Kunde inte skriva ny indexfil."
 
 #: builtin/rev-list.c
+msgid "object filtering requires --objects"
+msgstr "objektfiltrering kräver --objects"
+
+#: builtin/rev-list.c
+#, c-format
+msgid "invalid sparse value '%s'"
+msgstr "ogiltigt värde för sparse: \"%s\""
+
+#: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
 msgstr "rev-list stöder inte visning av anteckningar"
+
+#: builtin/rev-list.c
+msgid "cannot combine --use-bitmap-index with object filtering"
+msgstr "kan inte kombinera --use-bitmap-index med objektfiltrering"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -13252,13 +13348,43 @@ msgid "git submodule--helper init [<path>]"
 msgstr "git submodule--helper init [<sökväg>]"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper name <path>"
-msgstr "git submodule--helper name <sökväg>"
-
-#: builtin/submodule--helper.c
 #, c-format
 msgid "no submodule mapping found in .gitmodules for path '%s'"
 msgstr "hittade ingen undermodulmappning i .gitmodules för sökvägen \"%s\""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not resolve HEAD ref inside the submodule '%s'"
+msgstr "kunde inte bestämma HEAD:s incheckning i undermodulen \"%s\""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to recurse into submodule '%s'"
+msgstr "misslyckades rekursera in i undermodulen \"%s\""
+
+#: builtin/submodule--helper.c
+msgid "Suppress submodule status output"
+msgstr "Hindra statusutskrift för undermodul"
+
+#: builtin/submodule--helper.c
+msgid ""
+"Use commit stored in the index instead of the one stored in the submodule "
+"HEAD"
+msgstr ""
+"Visa incheckning från indexet istället för den som lagrats i undermodulens "
+"HEAD"
+
+#: builtin/submodule--helper.c
+msgid "recurse into nested submodules"
+msgstr "rekursera in i nästlade undermoduler"
+
+#: builtin/submodule--helper.c
+msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
+msgstr "git submodule status [--quitet] [--cached] [--recursive] [<sökväg>...]"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper name <path>"
+msgstr "git submodule--helper name <sökväg>"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -13824,6 +13950,22 @@ msgid "enable untracked cache without testing the filesystem"
 msgstr "aktivera ospårad cache utan att testa filsystemet"
 
 #: builtin/update-index.c
+msgid "write out the index even if is not flagged as changed"
+msgstr "skriv ut indexet även om det inte angivits som ändrat"
+
+#: builtin/update-index.c
+msgid "enable or disable file system monitor"
+msgstr "aktivera eller inaktivera filsystemsövervakning"
+
+#: builtin/update-index.c
+msgid "mark files as fsmonitor valid"
+msgstr "markera filer som \"fsmonitor valid\""
+
+#: builtin/update-index.c
+msgid "clear fsmonitor valid bit"
+msgstr "töm \"fsmonitor valid\"-bit"
+
+#: builtin/update-index.c
 msgid ""
 "core.splitIndex is set to false; remove or change it, if you really want to "
 "enable split index"
@@ -13863,6 +14005,24 @@ msgstr ""
 #, c-format
 msgid "Untracked cache enabled for '%s'"
 msgstr "Ospårad cache är aktiverad för \"%s\""
+
+#: builtin/update-index.c
+msgid "core.fsmonitor is unset; set it if you really want to enable fsmonitor"
+msgstr "core.fsmonitor inte satt; sätt om du verkligen vill aktivera fsmonitor"
+
+#: builtin/update-index.c
+msgid "fsmonitor enabled"
+msgstr "fsmonitor aktiverat"
+
+#: builtin/update-index.c
+msgid ""
+"core.fsmonitor is set; remove it if you really want to disable fsmonitor"
+msgstr ""
+"core.fsmonitor är satt; ta bort om du verkligen vill inaktivera fsmonitor"
+
+#: builtin/update-index.c
+msgid "fsmonitor disabled"
+msgstr "fsmonitor inaktiverat"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -14031,8 +14191,20 @@ msgid "keep the new working tree locked"
 msgstr "låt arbetskatalogen förbli låst"
 
 #: builtin/worktree.c
+msgid "set up tracking mode (see git-branch(1))"
+msgstr "ställ in spårningsläge (se git-branch(1))"
+
+#: builtin/worktree.c
+msgid "try to match the new branch name with a remote-tracking branch"
+msgstr "försök matcha namn på ny gren mot en fjärrspårande gren"
+
+#: builtin/worktree.c
 msgid "-b, -B, and --detach are mutually exclusive"
 msgstr "-b, -B och --detach är ömsesidigt uteslutande"
+
+#: builtin/worktree.c
+msgid "--[no-]track can only be used if a new branch is created"
+msgstr "--[no-]track kan endast användas när ny gran skapas"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -14153,6 +14325,14 @@ msgstr ""
 #, c-format
 msgid "redirecting to %s"
 msgstr "omdirigerar till %s"
+
+#: list-objects-filter-options.h
+msgid "args"
+msgstr "argument"
+
+#: list-objects-filter-options.h
+msgid "object filtering"
+msgstr "objektfiltrering"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
@@ -14418,6 +14598,10 @@ msgid "?? what are you talking about?"
 msgstr "?? vad menar du?"
 
 #: git-bisect.sh
+msgid "bisect run failed: no command provided."
+msgstr "bisect-körning misslyckades: inget kommando gavs."
+
+#: git-bisect.sh
 #, sh-format
 msgid "running $command"
 msgstr "kör $command"
@@ -14447,25 +14631,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "\"bisect\"-körningen lyckades"
-
-#: git-bisect.sh
-msgid "please use two different terms"
-msgstr "termerna måste vara olika"
-
-#: git-bisect.sh
-#, sh-format
-msgid "'$term' is not a valid term"
-msgstr "\"$term\" är inte en giltig term"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't use the builtin command '$term' as a term"
-msgstr "kan inte använda det inbyggda kommandot \"$term\" som term"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't change the meaning of term '$term'"
-msgstr "kan inte ändra betydelsen av termen \"$term\""
 
 #: git-bisect.sh
 #, sh-format
@@ -14559,8 +14724,8 @@ msgid "The pre-rebase hook refused to rebase."
 msgstr "Kroken pre-rebase vägrade ombaseringen."
 
 #: git-rebase.sh
-msgid "It looks like git-am is in progress. Cannot rebase."
-msgstr "Det verkar som en git-am körs. Kan inte ombasera."
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr "Det verkar som en \"git am\" körs. Kan inte ombasera."
 
 #: git-rebase.sh
 msgid "No rebase in progress?"
@@ -14605,8 +14770,8 @@ msgstr ""
 
 #: git-rebase.sh
 #, sh-format
-msgid "invalid upstream $upstream_name"
-msgstr "ogiltig uppström $upstream_name"
+msgid "invalid upstream '$upstream_name'"
+msgstr "ogiltig uppström \"$upstream_name\""
 
 #: git-rebase.sh
 #, sh-format
@@ -14625,8 +14790,8 @@ msgstr "Peka på en giltig incheckning: $onto_name"
 
 #: git-rebase.sh
 #, sh-format
-msgid "fatal: no such branch: $branch_name"
-msgstr "ödesdigert: ingen sådan gren: $branch_name"
+msgid "fatal: no such branch/commit '$branch_name'"
+msgstr "ödesdigert: ingen sådan gren/incheckning: $branch_name"
 
 #: git-rebase.sh
 msgid "Cannot autostash"
@@ -14643,8 +14808,18 @@ msgstr "Checka in eller använd \"stash\" på dem."
 
 #: git-rebase.sh
 #, sh-format
+msgid "HEAD is up to date."
+msgstr "HEAD är à jour."
+
+#: git-rebase.sh
+#, sh-format
 msgid "Current branch $branch_name is up to date."
 msgstr "Aktuell gren $branch_name är à jour."
+
+#: git-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr "HEAD är à jour, ombasering framtvingad."
 
 #: git-rebase.sh
 #, sh-format
@@ -14703,24 +14878,10 @@ msgstr "Kan inte registrera tillstånd för arbetskatalog"
 msgid "Cannot update $ref_stash with $w_commit"
 msgstr "Kan inte uppdatera $ref_stash med $w_commit"
 
-#. TRANSLATORS: $option is an invalid option, like
-#. `--blah-blah'. The 7 spaces at the beginning of the
-#. second line correspond to "error: ". So you should line
-#. up the second line with however many characters the
-#. translation of "error: " takes in your language. E.g. in
-#. English this is:
-#.
-#. $ git stash save --blah-blah 2>&1 | head -n 2
-#. error: unknown option for 'stash save': --blah-blah
-#. To provide a message, use git stash save -- '--blah-blah'
 #: git-stash.sh
 #, sh-format
-msgid ""
-"error: unknown option for 'stash save': $option\n"
-"       To provide a message, use git stash save -- '$option'"
-msgstr ""
-"fel: felaktig flagga för \"stash save\": $option\n"
-"     För att ange ett meddelande, använd git stash save -- \"$option\""
+msgid "error: unknown option for 'stash push': $option"
+msgstr "fel: okänd flagga för \"stash push\": $option"
 
 #: git-stash.sh
 msgid "Can't use --patch and --include-untracked or --all at the same time"
@@ -15073,11 +15234,6 @@ msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
 msgstr ""
 "  Varning: $display_name innehåller inte incheckningarna $sha1_src och "
 "$sha1_dst"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Failed to recurse into submodule path '$sm_path'"
-msgstr "Misslyckades rekursera in i undermodulsökvägen \"$sm_path\""
 
 #: git-submodule.sh
 #, sh-format
@@ -16353,6 +16509,59 @@ msgstr ""
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Vill du verkligen sända %s? [y=ja, n=nej]: "
 
+#~ msgid ""
+#~ "empty strings as pathspecs will be made invalid in upcoming releases. "
+#~ "please use . instead if you meant to match all paths"
+#~ msgstr ""
+#~ "tomma strängar som sökvägsangivelser kommer bli ogiltiga i en kommande "
+#~ "utgåva. använd istället . om du vill träffa alla sökvägar"
+
+#~ msgid "unable to open '%s' for writing"
+#~ msgstr "kunde inte öppna \"%s\" för skrivning"
+
+#~ msgid "could not truncate '%s'"
+#~ msgstr "kunde inte trunkera \"%s\""
+
+#~ msgid "could not finish '%s'"
+#~ msgstr "kunde inte avsluta \"%s\""
+
+#~ msgid "could not write to %s"
+#~ msgstr "kunde inte skriva till %s"
+
+#~ msgid "could not close %s"
+#~ msgstr "kunde inte stänga %s"
+
+#~ msgid "Copied a misnamed branch '%s' away"
+#~ msgstr "Kopierade bort en felaktigt namngiven gren \"%s\""
+
+#~ msgid "it does not make sense to create 'HEAD' manually"
+#~ msgstr "kan inte skapa \"HEAD\" manuellt"
+
+#~ msgid "Don't know how to clone %s"
+#~ msgstr "Vet inte hur man klonar %s"
+
+#~ msgid "show ignored files"
+#~ msgstr "visa ignorerade filer"
+
+#~ msgid "%s is not a valid '%s' object"
+#~ msgstr "%s är inte ett giltigt \"%s\"-objekt"
+
+#~ msgid "Don't know how to fetch from %s"
+#~ msgstr "Vet inte hur man hämtar från %s"
+
+#~ msgid "'$term' is not a valid term"
+#~ msgstr "\"$term\" är inte en giltig term"
+
+#~ msgid ""
+#~ "error: unknown option for 'stash save': $option\n"
+#~ "       To provide a message, use git stash save -- '$option'"
+#~ msgstr ""
+#~ "fel: felaktig flagga för \"stash save\": $option\n"
+#~ "     För att ange ett meddelande, använd git stash save -- \"$option\""
+
+#~ msgid "Failed to recurse into submodule path '$sm_path'"
+#~ msgstr "Misslyckades rekursera in i undermodulsökvägen \"$sm_path\""
+
 #~ msgid "%%(trailers) does not take arguments"
 #~ msgstr "%%(trailers) tar inte argument"
 
@@ -16513,9 +16722,6 @@ msgstr "Vill du verkligen sända %s? [y=ja, n=nej]: "
 
 #~ msgid "git merge [<options>] <msg> HEAD <commit>"
 #~ msgstr "git merge [<flaggor>] <meddelande> HEAD <incheckning>"
-
-#~ msgid "'%s' is not a commit"
-#~ msgstr "\"%s\" är inte en incheckning"
 
 #~ msgid "cannot open file '%s'"
 #~ msgstr "kan inte öppna filen \"%s\""
