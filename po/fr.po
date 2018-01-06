@@ -1,7 +1,7 @@
 # French translations for Git.
-# Copyright (C) 2015 Jean-Noël Avila <jn.avila@free.fr>
+# Copyright (C) 2018 Jean-Noël Avila <jn.avila@free.fr>
 # This file is distributed under the same license as the Git package.
-# Jean-Noël Avila <jn.avila@free.fr>, 2016.
+# Jean-Noël Avila <jn.avila@free.fr>, 2018.
 # Sébastien Helleu <flashcode@flashtux.org>, 2013.
 #
 # French translations of common Git words used in this file:
@@ -74,8 +74,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-10-17 09:44+0800\n"
-"PO-Revision-Date: 2017-10-18 20:28+0200\n"
+"POT-Creation-Date: 2017-12-31 10:45+0800\n"
+"PO-Revision-Date: 2018-01-02 22:06+0100\n"
 "Last-Translator: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language-Team: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language: fr\n"
@@ -757,7 +757,7 @@ msgstr "les chemins sont séparés par un caractère NUL"
 msgid "ensure at least <n> lines of context match"
 msgstr "s'assurer d'au moins <n> lignes de correspondance de contexte"
 
-#: apply.c builtin/am.c builtin/interpret-trailers.c
+#: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
 msgid "action"
 msgstr "action"
 
@@ -1440,6 +1440,11 @@ msgstr "impossible d'étendre le répertoire utilisateur dans : '%s'"
 
 #: config.c
 #, c-format
+msgid "'%s' for '%s' is not a valid timestamp"
+msgstr "'%s' pour '%s' n'est pas un horodatage valide"
+
+#: config.c
+#, c-format
 msgid "bad zlib compression level %d"
 msgstr "niveau de compression zlib incorrect %d"
 
@@ -1754,6 +1759,13 @@ msgstr "impossible de créer les répertoires pour %s"
 #, c-format
 msgid "could not migrate git directory from '%s' to '%s'"
 msgstr "impossible de migrer le répertoire git de '%s' vers '%s'"
+
+#: editor.c
+#, c-format
+msgid "hint: Waiting for your editor to close the file...%c"
+msgstr ""
+"suggestion : en attente de la fermeture du fichier par votre éditeur de "
+"texte…%c"
 
 #: entry.c
 msgid "Filtering content"
@@ -2122,6 +2134,15 @@ msgstr "le nom n'est constitué que de caractères interdits : %s"
 #, c-format
 msgid "invalid date format: %s"
 msgstr "format de date invalide : %s"
+
+#: list-objects-filter-options.c
+msgid "multiple object filter types cannot be combined"
+msgstr "impossible de combiner des types multiples de filtre d'objets"
+
+#: list-objects-filter-options.c
+#, c-format
+msgid "invalid filter-spec expression '%s'"
+msgstr "expression de filtre invalide : '%s'"
 
 #: lockfile.c
 #, c-format
@@ -2583,15 +2604,6 @@ msgstr ""
 "commande : %s"
 
 #: pathspec.c
-msgid ""
-"empty strings as pathspecs will be made invalid in upcoming releases. please "
-"use . instead if you meant to match all paths"
-msgstr ""
-"les chaines de caractères vides comme spécificateurs de chemin seront "
-"invalides dans les prochaines versions. Veuillez utiliser . à la place pour "
-"correspondre à tous le chemins"
-
-#: pathspec.c
 #, c-format
 msgid "pathspec '%s' is beyond a symbolic link"
 msgstr "le chemin '%s' est au-delà d'un lien symbolique"
@@ -2618,7 +2630,7 @@ msgstr ""
 "GIT_INDEX_VERSION est renseigné, mais la valeur est invalide.\n"
 "Utilisation de la version %i"
 
-#: read-cache.c builtin/merge.c
+#: read-cache.c sequencer.c wrapper.c builtin/merge.c
 #, c-format
 msgid "could not close '%s'"
 msgstr "impossible de fermer '%s'"
@@ -3034,6 +3046,16 @@ msgstr "--first-parent est incompatible avec --bisect"
 msgid "open /dev/null failed"
 msgstr "échec de l'ouverture de /dev/null"
 
+#: run-command.c
+#, c-format
+msgid ""
+"The '%s' hook was ignored because it's not set as executable.\n"
+"You can disable this warning with `git config advice.ignoredHook false`."
+msgstr ""
+"Le crochet '%s' a été ignoré parce qu'il n'est pas marqué comme exécutable.\n"
+"Vous pouvez désactiver cet avertissement avec `git config advice.ignoredHook "
+"false`."
+
 #: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
@@ -3108,7 +3130,7 @@ msgstr ""
 msgid "could not lock '%s'"
 msgstr "impossible de verrouiller '%s'"
 
-#: sequencer.c
+#: sequencer.c wrapper.c
 #, c-format
 msgid "could not write to '%s'"
 msgstr "impossible d'écrire dans '%s'"
@@ -3594,11 +3616,6 @@ msgstr "liste à faire inutilisable : '%s'"
 
 #: sequencer.c
 #, c-format
-msgid "unable to open '%s' for writing"
-msgstr "impossible d'ouvrir '%s' en écriture"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "unrecognized setting %s for option rebase.missingCommitsCheck. Ignoring."
 msgstr ""
@@ -3642,11 +3659,6 @@ msgstr ""
 "rebase --continue'.\n"
 "Ou vous pouvez abandonner le rebasage avec 'git rebase --abort'.\n"
 
-#: sequencer.c
-#, c-format
-msgid "could not parse commit '%s'"
-msgstr "impossible d'analyser le commit '%s'"
-
 #: sequencer.c wrapper.c builtin/am.c
 #, c-format
 msgid "could not open '%s' for writing"
@@ -3654,17 +3666,12 @@ msgstr "impossible d'ouvrir '%s' en écriture"
 
 #: sequencer.c
 #, c-format
-msgid "could not truncate '%s'"
-msgstr "impossible de tronquer '%s'"
+msgid "could not parse commit '%s'"
+msgstr "impossible d'analyser le commit '%s'"
 
 #: sequencer.c
 msgid "the script was already rearranged."
 msgstr "le script a déjà été réarrangé."
-
-#: sequencer.c
-#, c-format
-msgid "could not finish '%s'"
-msgstr "impossible de finir '%s'"
 
 #: setup.c
 #, c-format
@@ -4345,16 +4352,6 @@ msgstr "impossible d'accéder à '%s'"
 msgid "unable to get current working directory"
 msgstr "impossible d'accéder au répertoire de travail courant"
 
-#: wrapper.c
-#, c-format
-msgid "could not write to %s"
-msgstr "Impossible d'écrire dans %s"
-
-#: wrapper.c
-#, c-format
-msgid "could not close %s"
-msgstr "impossible de fermer %s"
-
 #: wt-status.c
 msgid "Unmerged paths:"
 msgstr "Chemins non fusionnés :"
@@ -4939,6 +4936,11 @@ msgid "update tracked files"
 msgstr "mettre à jour les fichiers suivis"
 
 #: builtin/add.c
+msgid "renormalize EOL of tracked files (implies -u)"
+msgstr ""
+"renormaliser les fins de lignes (EOL) des fichiers suivis (implique -u)"
+
+#: builtin/add.c
 msgid "record only the fact that the path will be added later"
 msgstr "enregistrer seulement le fait que le chemin sera ajouté plus tard"
 
@@ -5047,8 +5049,8 @@ msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "Vous vouliez sûrement dire 'git add .' ?\n"
 
 #: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/mv.c builtin/reset.c builtin/rm.c
-#: builtin/submodule--helper.c
+#: builtin/commit.c builtin/diff-tree.c builtin/mv.c builtin/reset.c
+#: builtin/rm.c builtin/submodule--helper.c
 msgid "index file corrupt"
 msgstr "fichier d'index corrompu"
 
@@ -5465,16 +5467,67 @@ msgid "git bisect--helper --next-all [--no-checkout]"
 msgstr "git bisect --helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
+msgid "git bisect--helper --write-terms <bad_term> <good_term>"
+msgstr "git bisect--helper --write-terms <terme-pour-mauvais> <terme-pour-bon>"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-clean-state"
+msgstr "git bisect--helper --bisect-clean-state"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s' is not a valid term"
+msgstr "'%s' n'est pas un terme valide"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't use the builtin command '%s' as a term"
+msgstr "impossible d'utiliser la commande incluse '%s' comme terme"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't change the meaning of the term '%s'"
+msgstr "impossible de modifier la signification du terme '%s'"
+
+#: builtin/bisect--helper.c
+msgid "please use two different terms"
+msgstr "veuillez utiliser deux termes différents"
+
+#: builtin/bisect--helper.c
+msgid "could not open the file BISECT_TERMS"
+msgstr "impossible d'ouvrir le fichier BISECT_TERMS"
+
+#: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
 msgstr "effectuer 'git bisect next'"
+
+#: builtin/bisect--helper.c
+msgid "write the terms to .git/BISECT_TERMS"
+msgstr "écrire les termes dans .git/BISECT_TERMS"
+
+#: builtin/bisect--helper.c
+msgid "cleanup the bisection state"
+msgstr "vérifier l'état de la bissection"
+
+#: builtin/bisect--helper.c
+msgid "check for expected revs"
+msgstr "vérifier si des révisions sont attendues"
 
 #: builtin/bisect--helper.c
 msgid "update BISECT_HEAD instead of checking out the current commit"
 msgstr "mettre à jour BISECT_HEAD au lieu d'extraire le commit actuel"
 
+#: builtin/bisect--helper.c
+msgid "--write-terms requires two arguments"
+msgstr "--write-terms exige deux arguments"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-clean-state requires no arguments"
+msgstr "--bisect-clean-state ne supporte aucun argument"
+
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
-msgstr "git blame [<options>] [<options-de-révision>] [<rev>] [--] <fichier>"
+msgstr "git blame [<options>] [<rev-opts>] [<rev>] [--] <fichier>"
 
 #: builtin/blame.c
 msgid "<rev-opts> are documented in git-rev-list(1)"
@@ -5761,8 +5814,8 @@ msgstr "Échec de copie de la branche"
 
 #: builtin/branch.c
 #, c-format
-msgid "Copied a misnamed branch '%s' away"
-msgstr "Copie d'une branche mal nommée '%s'"
+msgid "Created a copy of a misnamed branch '%s'"
+msgstr "Création d'une copie d'une branche mal nommée '%s'"
 
 #: builtin/branch.c
 #, c-format
@@ -6003,10 +6056,6 @@ msgstr ""
 #, c-format
 msgid "Branch '%s' has no upstream information"
 msgstr "La branche '%s' n'a aucune information de branche amont"
-
-#: builtin/branch.c
-msgid "it does not make sense to create 'HEAD' manually"
-msgstr "créer manuellement 'HEAD' n'a pas de sens"
 
 #: builtin/branch.c
 msgid "-a and -r options to 'git branch' do not make sense with a branch name"
@@ -6707,8 +6756,8 @@ msgstr "nettoyage interactif"
 msgid "remove whole directories"
 msgstr "supprimer les répertoires entiers"
 
-#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/ls-files.c
-#: builtin/name-rev.c builtin/show-ref.c
+#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/log.c
+#: builtin/ls-files.c builtin/name-rev.c builtin/show-ref.c
 msgid "pattern"
 msgstr "motif"
 
@@ -6871,11 +6920,11 @@ msgstr "clé=valeur"
 msgid "set config inside the new repository"
 msgstr "régler la configuration dans le nouveau dépôt"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv4 addresses only"
 msgstr "n'utiliser que des adresses IPv4"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv6 addresses only"
 msgstr "n'utiliser que des adresses IPv6"
 
@@ -7058,11 +7107,6 @@ msgstr "le dépôt source est superficiel, option --local ignorée"
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local est ignoré"
-
-#: builtin/clone.c
-#, c-format
-msgid "Don't know how to clone %s"
-msgstr "Je ne sais pas cloner %s"
 
 #: builtin/clone.c
 #, c-format
@@ -7394,6 +7438,11 @@ msgstr ""
 
 #: builtin/commit.c
 #, c-format
+msgid "Invalid ignored mode '%s'"
+msgstr "Mode de fichier ignoré invalide '%s'"
+
+#: builtin/commit.c
+#, c-format
 msgid "Invalid untracked files mode '%s'"
 msgstr "Mode de fichier non suivi invalide '%s'"
 
@@ -7491,8 +7540,12 @@ msgstr ""
 "no. (Défaut : all)"
 
 #: builtin/commit.c
-msgid "show ignored files"
-msgstr "afficher les fichiers ignorés"
+msgid ""
+"show ignored files, optional modes: traditional, matching, no. (Default: "
+"traditional)"
+msgstr ""
+"afficher les fichiers ignorés, \"mode\" facultatif : traditional "
+"(traditionnel), matching (correspondant), no. (Défaut : traditional)"
 
 #: builtin/commit.c parse-options.h
 msgid "when"
@@ -7511,12 +7564,21 @@ msgid "list untracked files in columns"
 msgstr "afficher les fichiers non suivis en colonnes"
 
 #: builtin/commit.c
+msgid "Unsupported combination of ignored and untracked-files arguments"
+msgstr ""
+"Combinaison non supportée d'arguments sur les fichiers ignorés et non-suivis"
+
+#: builtin/commit.c
 msgid "couldn't look up newly created commit"
 msgstr "impossible de retrouver le commit nouvellement créé"
 
 #: builtin/commit.c
 msgid "could not parse newly created commit"
 msgstr "impossible d'analyser le commit nouvellement créé"
+
+#: builtin/commit.c
+msgid "unable to resolve HEAD after creating commit"
+msgstr "impossible de résoudre HEAD après création du commit"
 
 #: builtin/commit.c
 msgid "detached HEAD"
@@ -7593,7 +7655,8 @@ msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr ""
 "à présent je suis l'auteur de la validation (utilisé avec -C/-c/--amend)"
 
-#: builtin/commit.c builtin/log.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/log.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c
 msgid "add Signed-off-by:"
 msgstr "ajouter une entrée Signed-off-by :"
 
@@ -7821,6 +7884,10 @@ msgid "value is a path (file or directory name)"
 msgstr "la valeur est un chemin (vers un fichier ou un répertoire)"
 
 #: builtin/config.c
+msgid "value is an expiry date"
+msgstr "la valeur est une date d'expiration"
+
+#: builtin/config.c
 msgid "Other"
 msgstr "Autre"
 
@@ -7922,16 +7989,6 @@ msgstr "l'étiquette annotée %s n'a pas de nom embarqué"
 msgid "tag '%s' is really '%s' here"
 msgstr "l'étiquette '%s' est en fait '%s'"
 
-#: builtin/describe.c builtin/log.c
-#, c-format
-msgid "Not a valid object name %s"
-msgstr "%s n'est pas un nom d'objet valide"
-
-#: builtin/describe.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s n'est pas un objet '%s' valide"
-
 #: builtin/describe.c
 #, c-format
 msgid "no tag exactly matches '%s'"
@@ -7939,8 +7996,10 @@ msgstr "aucune étiquette ne correspond parfaitement à '%s'"
 
 #: builtin/describe.c
 #, c-format
-msgid "searching to describe %s\n"
-msgstr "recherche de la description de %s\n"
+msgid "No exact match on refs or tags, searching to describe\n"
+msgstr ""
+"Pas de correspondance exacte sur des réfs ou des étiquettes, recherche par "
+"describe\n"
 
 #: builtin/describe.c
 #, c-format
@@ -7979,6 +8038,21 @@ msgstr ""
 "plus de %i étiquettes ont été trouvées; seules les %i plus récentes sont "
 "affichées\n"
 "abandon de la recherche à %s\n"
+
+#: builtin/describe.c
+#, c-format
+msgid "describe %s\n"
+msgstr "décrire %s\n"
+
+#: builtin/describe.c builtin/log.c
+#, c-format
+msgid "Not a valid object name %s"
+msgstr "%s n'est pas un nom d'objet valide"
+
+#: builtin/describe.c
+#, c-format
+msgid "%s is neither a commit nor blob"
+msgstr "%s n'est ni un commit ni un blob"
 
 #: builtin/describe.c
 msgid "find the tag that comes after the commit"
@@ -8460,11 +8534,6 @@ msgstr "La valeur \"%2$s\" de l'option \"%1$s\" est invalide pour %3$s"
 #, c-format
 msgid "Option \"%s\" is ignored for %s\n"
 msgstr "L'option \"%s\" est ignorée pour %s\n"
-
-#: builtin/fetch.c
-#, c-format
-msgid "Don't know how to fetch from %s"
-msgstr "Je ne sais pas récupérer depuis %s"
 
 #: builtin/fetch.c
 #, c-format
@@ -9685,6 +9754,14 @@ msgid "Use mail map file"
 msgstr "Utiliser le fichier de correspondance de mail"
 
 #: builtin/log.c
+msgid "only decorate refs that match <pattern>"
+msgstr "décorer seulement les références correspondant à <motif>"
+
+#: builtin/log.c
+msgid "do not decorate refs that match <pattern>"
+msgstr "ne pas décorer les références correspondant à <motif>"
+
+#: builtin/log.c
 msgid "decorate options"
 msgstr "décorer les options"
 
@@ -10020,7 +10097,11 @@ msgstr "identifier l'état de fichier avec les étiquettes"
 
 #: builtin/ls-files.c
 msgid "use lowercase letters for 'assume unchanged' files"
-msgstr "utiliser des minuscules pour les fichier 'assumés inchangés'"
+msgstr "utiliser des minuscules pour les fichiers 'assumés inchangés'"
+
+#: builtin/ls-files.c
+msgid "use lowercase letters for 'fsmonitor clean' files"
+msgstr "utiliser des minuscules pour les fichiers 'fsmonitor clean'"
 
 #: builtin/ls-files.c
 msgid "show cached files in the output (default)"
@@ -10909,8 +10990,8 @@ msgid "git notes [--ref <notes-ref>] remove [<object>...]"
 msgstr "git notes [--ref <références-notes>] remove [<objet>...]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes-ref>] prune [-n | -v]"
-msgstr "git notes [--ref <références-notes>] prune [-n | -v]"
+msgid "git notes [--ref <notes-ref>] prune [-n] [-v]"
+msgstr "git notes [--ref <référence-notes>] prune [-n] [-v]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes-ref>] get-ref"
@@ -11309,6 +11390,10 @@ msgid "Compressing objects"
 msgstr "Compression des objets"
 
 #: builtin/pack-objects.c
+msgid "invalid value for --missing"
+msgstr "valeur invalide pour --missing"
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "unsupported index version %s"
 msgstr "version d'index non supportée %s"
@@ -11463,6 +11548,10 @@ msgid "write a bitmap index together with the pack index"
 msgstr "écrire un index en bitmap associé à l'index de paquet"
 
 #: builtin/pack-objects.c
+msgid "handling for missing objects"
+msgstr "gestion des objets manquants"
+
+#: builtin/pack-objects.c
 msgid "Counting objects"
 msgstr "Décompte des objets"
 
@@ -11487,8 +11576,8 @@ msgid "Removing duplicate objects"
 msgstr "Suppression des objets dupliqués"
 
 #: builtin/prune.c
-msgid "git prune [-n] [-v] [--expire <time>] [--] [<head>...]"
-msgstr "git prune [-n] [-v] [--expire <heure>] [--] [<head>...]"
+msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
+msgstr "git prune [-n] [-v] [--progress] [--expire <heure>] [--] [<head>…]"
 
 #: builtin/prune.c
 msgid "report pruned objects"
@@ -12097,12 +12186,12 @@ msgid "make rebase script"
 msgstr "créer les script de rebasage"
 
 #: builtin/rebase--helper.c
-msgid "shorten SHA-1s in the todo list"
-msgstr "raccourcir les SHA-1 dans la liste à-faire"
+msgid "shorten commit ids in the todo list"
+msgstr "raccourcir les identifiants de commits dans la liste à-faire"
 
 #: builtin/rebase--helper.c
-msgid "expand SHA-1s in the todo list"
-msgstr "étendre les SHA-1 dans la liste à-faire"
+msgid "expand commit ids in the todo list"
+msgstr "étendre les identifiants de commit dans la liste à-faire"
 
 #: builtin/rebase--helper.c
 msgid "check the todo list"
@@ -12115,6 +12204,10 @@ msgstr "éviter les commandes de picorage non nécessaires"
 #: builtin/rebase--helper.c
 msgid "rearrange fixup/squash lines"
 msgstr "réarranger les lignes fixup/squash"
+
+#: builtin/rebase--helper.c
+msgid "insert exec commands in todo list"
+msgstr "insérer les commandes exec dans la liste à-faire"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -12177,11 +12270,6 @@ msgstr "quiet"
 #: builtin/receive-pack.c
 msgid "You must specify a directory."
 msgstr "Vous devez spécifier un répertoire."
-
-#: builtin/reflog.c
-#, c-format
-msgid "'%s' for '%s' is not a valid timestamp"
-msgstr "'%s' pour '%s' n'est pas un horodatage valide"
 
 #: builtin/reflog.c
 #, c-format
@@ -13030,8 +13118,21 @@ msgid "Could not write new index file."
 msgstr "Impossible d'écrire le nouveau fichier d'index."
 
 #: builtin/rev-list.c
+msgid "object filtering requires --objects"
+msgstr "le filtrage d'objet exige --objects"
+
+#: builtin/rev-list.c
+#, c-format
+msgid "invalid sparse value '%s'"
+msgstr "valeur invalide de 'sparse' '%s'"
+
+#: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
 msgstr "rev-list ne supporte l'affichage des notes"
+
+#: builtin/rev-list.c
+msgid "cannot combine --use-bitmap-index with object filtering"
+msgstr "impossible de combiner --use-bitmap-index avec le filtrage d'objet"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -13564,15 +13665,45 @@ msgid "git submodule--helper init [<path>]"
 msgstr "git submodule--helper init [<chemin>]"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper name <path>"
-msgstr "git submodule--helper <nom> <chemin>"
-
-#: builtin/submodule--helper.c
 #, c-format
 msgid "no submodule mapping found in .gitmodules for path '%s'"
 msgstr ""
 "Pas de mise en correspondance du sous-module trouvé dans .gitmodules pour le "
 "chemin '%s'"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not resolve HEAD ref inside the submodule '%s'"
+msgstr "impossible de résoudre HEAD dans le sous-module '%s'"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to recurse into submodule '%s'"
+msgstr "récursion impossible dans le sous-module '%s'"
+
+#: builtin/submodule--helper.c
+msgid "Suppress submodule status output"
+msgstr "supprimer la sortie d'état du sous-module"
+
+#: builtin/submodule--helper.c
+msgid ""
+"Use commit stored in the index instead of the one stored in the submodule "
+"HEAD"
+msgstr ""
+"Utiliser le commit stocké dans l'index au lieu de celui stocké dans la HEAD "
+"du sous-module"
+
+#: builtin/submodule--helper.c
+msgid "recurse into nested submodules"
+msgstr "parcourir récursivement les sous-modules"
+
+#: builtin/submodule--helper.c
+msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
+msgstr "git submodule status [--quiet] [--cached] [--recursive] [<chemin>...]"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper name <path>"
+msgstr "git submodule--helper <nom> <chemin>"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -14151,6 +14282,23 @@ msgid "enable untracked cache without testing the filesystem"
 msgstr "activer le cache de non-suivis sans tester le système de fichier"
 
 #: builtin/update-index.c
+msgid "write out the index even if is not flagged as changed"
+msgstr "écrire l'index même s'il n'est pas marqué comme modifié"
+
+#: builtin/update-index.c
+msgid "enable or disable file system monitor"
+msgstr ""
+"activer ou désactiver la surveillance du système de fichier (fsmonitor)"
+
+#: builtin/update-index.c
+msgid "mark files as fsmonitor valid"
+msgstr "marquer les fichiers comme valides pour fsmonitor"
+
+#: builtin/update-index.c
+msgid "clear fsmonitor valid bit"
+msgstr "effacer le bit de validité fsmonitor"
+
+#: builtin/update-index.c
 msgid ""
 "core.splitIndex is set to false; remove or change it, if you really want to "
 "enable split index"
@@ -14190,6 +14338,27 @@ msgstr ""
 #, c-format
 msgid "Untracked cache enabled for '%s'"
 msgstr "Le cache non suivi est activé pour '%s'"
+
+#: builtin/update-index.c
+msgid "core.fsmonitor is unset; set it if you really want to enable fsmonitor"
+msgstr ""
+"core.fsmonitor est réglé à false ; changez-le si vous souhaitez vraiment "
+"activer la surveillance du système de fichiers"
+
+#: builtin/update-index.c
+msgid "fsmonitor enabled"
+msgstr "fsmonitor activé"
+
+#: builtin/update-index.c
+msgid ""
+"core.fsmonitor is set; remove it if you really want to disable fsmonitor"
+msgstr ""
+"core.fsmonitor est réglé à true ; supprimez-le ou changez-le si vous "
+"souhaitez vraiment désactiver la surveillance du système de fichiers"
+
+#: builtin/update-index.c
+msgid "fsmonitor disabled"
+msgstr "fsmonitor désactivé"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -14267,7 +14436,7 @@ msgstr "git worktree add [<options>] <chemin> [<branche>]"
 
 #: builtin/worktree.c
 msgid "git worktree list [<options>]"
-msgstr "git worktree prune [<options>]"
+msgstr "git worktree list [<options>]"
 
 #: builtin/worktree.c
 msgid "git worktree lock [<options>] <path>"
@@ -14364,8 +14533,21 @@ msgid "keep the new working tree locked"
 msgstr "conserver le verrou sur le nouvel arbre de travail"
 
 #: builtin/worktree.c
+msgid "set up tracking mode (see git-branch(1))"
+msgstr "régler le mode de suivi (voir git-branch(1))"
+
+#: builtin/worktree.c
+msgid "try to match the new branch name with a remote-tracking branch"
+msgstr "essayer de nommer la nouvelle branche comme la branche amont"
+
+#: builtin/worktree.c
 msgid "-b, -B, and --detach are mutually exclusive"
 msgstr "-b, -B et --detach sont mutuellement exclusifs"
+
+#: builtin/worktree.c
+msgid "--[no-]track can only be used if a new branch is created"
+msgstr ""
+"--[no-]track ne peut être utilisé qu'à la création d'une nouvelle branche"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -14490,6 +14672,14 @@ msgstr ""
 #, c-format
 msgid "redirecting to %s"
 msgstr "redirection vers %s"
+
+#: list-objects-filter-options.h
+msgid "args"
+msgstr "args"
+
+#: list-objects-filter-options.h
+msgid "object filtering"
+msgstr "filtrage d'objet"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
@@ -14758,6 +14948,10 @@ msgid "?? what are you talking about?"
 msgstr "?? de quoi parlez-vous ?"
 
 #: git-bisect.sh
+msgid "bisect run failed: no command provided."
+msgstr "la bissection a échoué : aucune commande fournie."
+
+#: git-bisect.sh
 #, sh-format
 msgid "running $command"
 msgstr "lancement de $command"
@@ -14787,25 +14981,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "succès de la bissection"
-
-#: git-bisect.sh
-msgid "please use two different terms"
-msgstr "veuillez utiliser deux termes différents"
-
-#: git-bisect.sh
-#, sh-format
-msgid "'$term' is not a valid term"
-msgstr "'$term' n'est pas un terme valide"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't use the builtin command '$term' as a term"
-msgstr "impossible d'utiliser la commande incluse '$term' comme terme"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't change the meaning of term '$term'"
-msgstr "impossible de modifier la signification du terme '$term'"
 
 #: git-bisect.sh
 #, sh-format
@@ -14901,8 +15076,8 @@ msgid "The pre-rebase hook refused to rebase."
 msgstr "Le crochet pre-rebase a refusé de rebaser."
 
 #: git-rebase.sh
-msgid "It looks like git-am is in progress. Cannot rebase."
-msgstr "Il semble que git-am soit en cours. Impossible de rebaser."
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr "Il semble que 'git-am' soit en cours. Impossible de rebaser."
 
 #: git-rebase.sh
 msgid "No rebase in progress?"
@@ -14950,8 +15125,8 @@ msgstr ""
 
 #: git-rebase.sh
 #, sh-format
-msgid "invalid upstream $upstream_name"
-msgstr "invalide $upstream_name en amont"
+msgid "invalid upstream '$upstream_name'"
+msgstr "invalide '$upstream_name' en amont"
 
 #: git-rebase.sh
 #, sh-format
@@ -14970,8 +15145,8 @@ msgstr "Ne pointe pas sur une validation valide : $onto_name"
 
 #: git-rebase.sh
 #, sh-format
-msgid "fatal: no such branch: $branch_name"
-msgstr "fatal : pas de branche : $branch_name"
+msgid "fatal: no such branch/commit '$branch_name'"
+msgstr "fatal : pas de branche ou commit '$branch_name'"
 
 #: git-rebase.sh
 msgid "Cannot autostash"
@@ -14988,8 +15163,18 @@ msgstr "Veuillez les valider ou les remiser."
 
 #: git-rebase.sh
 #, sh-format
+msgid "HEAD is up to date."
+msgstr "HEAD est à jour."
+
+#: git-rebase.sh
+#, sh-format
 msgid "Current branch $branch_name is up to date."
 msgstr "La branche courante $branch_name est à jour."
+
+#: git-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr "HEAD est à jour, rebasage forcé."
 
 #: git-rebase.sh
 #, sh-format
@@ -15049,24 +15234,10 @@ msgstr "Impossible d'enregistrer l'état de la copie de travail"
 msgid "Cannot update $ref_stash with $w_commit"
 msgstr "Impossible de mettre à jour $ref_stash avec $w_commit"
 
-#. TRANSLATORS: $option is an invalid option, like
-#. `--blah-blah'. The 7 spaces at the beginning of the
-#. second line correspond to "error: ". So you should line
-#. up the second line with however many characters the
-#. translation of "error: " takes in your language. E.g. in
-#. English this is:
-#.
-#. $ git stash save --blah-blah 2>&1 | head -n 2
-#. error: unknown option for 'stash save': --blah-blah
-#. To provide a message, use git stash save -- '--blah-blah'
 #: git-stash.sh
 #, sh-format
-msgid ""
-"error: unknown option for 'stash save': $option\n"
-"       To provide a message, use git stash save -- '$option'"
-msgstr ""
-"erreur: option inconnue pour 'stash save': $option\n"
-"        Pour fournir un message, utilisez git stash save -- '$option'"
+msgid "error: unknown option for 'stash push': $option"
+msgstr "erreur : option inconnue pour 'stash push' : $option"
 
 #: git-stash.sh
 msgid "Can't use --patch and --include-untracked or --all at the same time"
@@ -15435,11 +15606,6 @@ msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
 msgstr ""
 "  Attention : $display_name ne contient pas les validations $sha1_src et "
 "$sha1_dst"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Failed to recurse into submodule path '$sm_path'"
-msgstr "Échec de parcours dans le chemin du sous-module '$sm_path'"
 
 #: git-submodule.sh
 #, sh-format
@@ -16739,6 +16905,60 @@ msgstr "%s sauté avec un suffix de sauvegarde '%s'.\n"
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Souhaitez-vous réellement envoyer %s ?[y|N] : "
 
+#~ msgid ""
+#~ "empty strings as pathspecs will be made invalid in upcoming releases. "
+#~ "please use . instead if you meant to match all paths"
+#~ msgstr ""
+#~ "les chaines de caractères vides comme spécificateurs de chemin seront "
+#~ "invalides dans les prochaines versions. Veuillez utiliser . à la place "
+#~ "pour correspondre à tous le chemins"
+
+#~ msgid "unable to open '%s' for writing"
+#~ msgstr "impossible d'ouvrir '%s' en écriture"
+
+#~ msgid "could not truncate '%s'"
+#~ msgstr "impossible de tronquer '%s'"
+
+#~ msgid "could not finish '%s'"
+#~ msgstr "impossible de finir '%s'"
+
+#~ msgid "could not write to %s"
+#~ msgstr "Impossible d'écrire dans %s"
+
+#~ msgid "could not close %s"
+#~ msgstr "impossible de fermer %s"
+
+#~ msgid "Copied a misnamed branch '%s' away"
+#~ msgstr "Copie d'une branche mal nommée '%s'"
+
+#~ msgid "it does not make sense to create 'HEAD' manually"
+#~ msgstr "créer manuellement 'HEAD' n'a pas de sens"
+
+#~ msgid "Don't know how to clone %s"
+#~ msgstr "Je ne sais pas cloner %s"
+
+#~ msgid "show ignored files"
+#~ msgstr "afficher les fichiers ignorés"
+
+#~ msgid "%s is not a valid '%s' object"
+#~ msgstr "%s n'est pas un objet '%s' valide"
+
+#~ msgid "Don't know how to fetch from %s"
+#~ msgstr "Je ne sais pas récupérer depuis %s"
+
+#~ msgid "'$term' is not a valid term"
+#~ msgstr "'$term' n'est pas un terme valide"
+
+#~ msgid ""
+#~ "error: unknown option for 'stash save': $option\n"
+#~ "       To provide a message, use git stash save -- '$option'"
+#~ msgstr ""
+#~ "erreur: option inconnue pour 'stash save': $option\n"
+#~ "        Pour fournir un message, utilisez git stash save -- '$option'"
+
+#~ msgid "Failed to recurse into submodule path '$sm_path'"
+#~ msgstr "Échec de parcours dans le chemin du sous-module '$sm_path'"
+
 #~ msgid "%%(trailers) does not take arguments"
 #~ msgstr "%%(trailers) n'accepte pas d'argument"
 
@@ -16889,9 +17109,6 @@ msgstr "Souhaitez-vous réellement envoyer %s ?[y|N] : "
 
 #~ msgid "git merge [<options>] <msg> HEAD <commit>"
 #~ msgstr "git merge [<options>] <message> HEAD <commit>"
-
-#~ msgid "'%s' is not a commit"
-#~ msgstr "'%s' n'est pas une validation"
 
 #~ msgid "cannot open file '%s'"
 #~ msgstr "impossible d'ouvrir le fichier '%s'"
