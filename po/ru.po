@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dimitriy Ryazantcev <DJm00n@mail.ru>, 2014-2017
+# Dimitriy Ryazantcev <DJm00n@mail.ru>, 2014-2018
 # insolor, 2014
 # insolor, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Git Russian Localization Project\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2017-10-17 09:44+0800\n"
-"PO-Revision-Date: 2017-10-22 17:34+0000\n"
+"POT-Creation-Date: 2018-01-07 07:50+0800\n"
+"PO-Revision-Date: 2018-01-09 10:56+0000\n"
 "Last-Translator: Dimitriy Ryazantcev <DJm00n@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/djm00n/git-po-ru/language/"
 "ru/)\n"
@@ -710,7 +710,7 @@ msgstr "пути, отделённые НУЛЕВЫМ символом"
 msgid "ensure at least <n> lines of context match"
 msgstr "удостовериться, что по крайней мере <n> строк контекста совпадают"
 
-#: apply.c builtin/am.c builtin/interpret-trailers.c
+#: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
 msgid "action"
 msgstr "действие"
 
@@ -1383,6 +1383,11 @@ msgstr "сбой разворачивания пути каталога поль
 
 #: config.c
 #, c-format
+msgid "'%s' for '%s' is not a valid timestamp"
+msgstr "«%s» для «%s» не является допустимой меткой даты/времени"
+
+#: config.c
+#, c-format
 msgid "bad zlib compression level %d"
 msgstr "неправильный уровень сжатия zlib %d"
 
@@ -1708,6 +1713,11 @@ msgstr "не удалось создать каталоги для %s"
 #, c-format
 msgid "could not migrate git directory from '%s' to '%s'"
 msgstr "не удалось переместить каталог git с «%s» в «%s»"
+
+#: editor.c
+#, c-format
+msgid "hint: Waiting for your editor to close the file...%c"
+msgstr "подсказка: Ожидание, пока вы закроете редактор с файлом…%c"
 
 #: entry.c
 msgid "Filtering content"
@@ -2089,6 +2099,15 @@ msgstr "имя состоит только из неразрешенных си�
 msgid "invalid date format: %s"
 msgstr "неправильный формат даты: %s"
 
+#: list-objects-filter-options.c
+msgid "multiple object filter types cannot be combined"
+msgstr "невозможно использовать фильтр по нескольким типам объектов"
+
+#: list-objects-filter-options.c
+#, c-format
+msgid "invalid filter-spec expression '%s'"
+msgstr "недопустимое выражение спецификатора фильтра «%s»"
+
 #: lockfile.c
 #, c-format
 msgid ""
@@ -2350,6 +2369,11 @@ msgid "Adding %s"
 msgstr "Добавление %s"
 
 #: merge-recursive.c
+#, c-format
+msgid "Dirty index: cannot merge (dirty: %s)"
+msgstr "Индекс не пустой: не могу слить (в индексе: %s)"
+
+#: merge-recursive.c
 msgid "Already up to date!"
 msgstr "Уже обновлено!"
 
@@ -2551,14 +2575,6 @@ msgstr ""
 "%s: магические слова в спецификаторе пути не поддерживаются командой: %s"
 
 #: pathspec.c
-msgid ""
-"empty strings as pathspecs will be made invalid in upcoming releases. please "
-"use . instead if you meant to match all paths"
-msgstr ""
-"пустые строки как спецификаторы пути будут сделаны недопустимыми в следующих "
-"версиях. используйте вместо них «.», что значит соотвествие всем путям"
-
-#: pathspec.c
 #, c-format
 msgid "pathspec '%s' is beyond a symbolic link"
 msgstr "спецификатор пути «%s» находится за символической ссылкой"
@@ -2585,7 +2601,7 @@ msgstr ""
 "GIT_INDEX_VERSION указан, но значение недействительное.\n"
 "Использую версию %i"
 
-#: read-cache.c builtin/merge.c
+#: read-cache.c sequencer.c wrapper.c builtin/merge.c
 #, c-format
 msgid "could not close '%s'"
 msgstr "не удалось закрыть «%s»"
@@ -3008,6 +3024,17 @@ msgstr "опцию --first-parent нельзя использовать одно
 msgid "open /dev/null failed"
 msgstr "сбой открытия /dev/null"
 
+#: run-command.c
+#, c-format
+msgid ""
+"The '%s' hook was ignored because it's not set as executable.\n"
+"You can disable this warning with `git config advice.ignoredHook false`."
+msgstr ""
+"Перехватчик «%s» был проигнорирован, так как он не установлен как "
+"исполняемый.\n"
+"Вы можете отключить это предупреждение с помощью команды «git config advice."
+"ignoredHook false»."
+
 #: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
@@ -3082,7 +3109,7 @@ msgstr ""
 msgid "could not lock '%s'"
 msgstr "не удалось заблокировать «%s»"
 
-#: sequencer.c
+#: sequencer.c wrapper.c
 #, c-format
 msgid "could not write to '%s'"
 msgstr "не удалось записать в «%s»"
@@ -3124,12 +3151,12 @@ msgid "%s: Unable to write new index file"
 msgstr "%s: Не удалось записать файл индекса"
 
 #: sequencer.c
-msgid "could not resolve HEAD commit\n"
-msgstr "не удалось распознать HEAD коммит\n"
+msgid "could not resolve HEAD commit"
+msgstr "не удалось распознать HEAD коммит"
 
 #: sequencer.c
-msgid "unable to update cache tree\n"
-msgstr "не удалось обновить дерево кэша\n"
+msgid "unable to update cache tree"
+msgstr "не удалось обновить дерево кэша"
 
 #: sequencer.c
 #, c-format
@@ -3163,13 +3190,13 @@ msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid "could not parse commit %s\n"
-msgstr "не удалось разобрать коммит %s\n"
+msgid "could not parse commit %s"
+msgstr "не удалось разобрать коммит %s"
 
 #: sequencer.c
 #, c-format
-msgid "could not parse parent commit %s\n"
-msgstr "не удалось разобрать родительский коммит %s\n"
+msgid "could not parse parent commit %s"
+msgstr "не удалось разобрать родительский коммит %s"
 
 #: sequencer.c
 #, c-format
@@ -3298,6 +3325,16 @@ msgstr "git %s: сбой чтения индекса"
 #, c-format
 msgid "git %s: failed to refresh the index"
 msgstr "git %s: сбой обновления индекса"
+
+#: sequencer.c
+#, c-format
+msgid "%s does not accept arguments: '%s'"
+msgstr "параметр %s не принимает аргументы: «%s»"
+
+#: sequencer.c
+#, c-format
+msgid "missing arguments for %s"
+msgstr "пропущены аргументы для %s"
 
 #: sequencer.c
 #, c-format
@@ -3569,11 +3606,6 @@ msgstr "непригодный для использования список д
 
 #: sequencer.c
 #, c-format
-msgid "unable to open '%s' for writing"
-msgstr "не удалось открыть «%s» для записи"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "unrecognized setting %s for option rebase.missingCommitsCheck. Ignoring."
 msgstr ""
@@ -3617,11 +3649,6 @@ msgstr ""
 "«git rebase --continue».\n"
 "Или вы можете прервать процесс перемещения, выполнив «git rebase --abort»\n"
 
-#: sequencer.c
-#, c-format
-msgid "could not parse commit '%s'"
-msgstr "не удалось разобрать коммит «%s»"
-
 #: sequencer.c wrapper.c builtin/am.c
 #, c-format
 msgid "could not open '%s' for writing"
@@ -3629,17 +3656,12 @@ msgstr "не удалось открыть «%s» для записи"
 
 #: sequencer.c
 #, c-format
-msgid "could not truncate '%s'"
-msgstr "не удалось обрезать «%s»"
+msgid "could not parse commit '%s'"
+msgstr "не удалось разобрать коммит «%s»"
 
 #: sequencer.c
 msgid "the script was already rearranged."
 msgstr "сценарий уже был перестроен."
-
-#: sequencer.c
-#, c-format
-msgid "could not finish '%s'"
-msgstr "не удалось закончить «%s»"
 
 #: setup.c
 #, c-format
@@ -4317,16 +4339,6 @@ msgstr "«%s» недоступно"
 msgid "unable to get current working directory"
 msgstr "не удалось получить текущий рабочий каталог"
 
-#: wrapper.c
-#, c-format
-msgid "could not write to %s"
-msgstr "не удалось записать в %s"
-
-#: wrapper.c
-#, c-format
-msgid "could not close %s"
-msgstr "не удалось закрыть %s"
-
 #: wt-status.c
 msgid "Unmerged paths:"
 msgstr "Не слитые пути:"
@@ -4915,6 +4927,11 @@ msgid "update tracked files"
 msgstr "обновить отслеживаемые файлы"
 
 #: builtin/add.c
+msgid "renormalize EOL of tracked files (implies -u)"
+msgstr ""
+"перенормализировать концы строк (EOL) отслеживаемых файлов (подразумевает -u)"
+
+#: builtin/add.c
 msgid "record only the fact that the path will be added later"
 msgstr "записать только факт, что путь будет добавлен позже"
 
@@ -5022,8 +5039,8 @@ msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "Возможно, вы имели в виду «git add .»?\n"
 
 #: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/mv.c builtin/reset.c builtin/rm.c
-#: builtin/submodule--helper.c
+#: builtin/commit.c builtin/diff-tree.c builtin/mv.c builtin/reset.c
+#: builtin/rm.c builtin/submodule--helper.c
 msgid "index file corrupt"
 msgstr "файл индекса поврежден"
 
@@ -5441,12 +5458,64 @@ msgid "git bisect--helper --next-all [--no-checkout]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
+msgid "git bisect--helper --write-terms <bad_term> <good_term>"
+msgstr ""
+"git bisect--helper --write-terms <плохое-определение> <хорошее-определение>"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-clean-state"
+msgstr "git bisect--helper --bisect-clean-state"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s' is not a valid term"
+msgstr "«%s» не является допустимым определением"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't use the builtin command '%s' as a term"
+msgstr "нельзя использовать встроенную команду «%s» как определение"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "can't change the meaning of the term '%s'"
+msgstr "нельзя изменить значение определения «%s»"
+
+#: builtin/bisect--helper.c
+msgid "please use two different terms"
+msgstr "используйте два разных определения"
+
+#: builtin/bisect--helper.c
+msgid "could not open the file BISECT_TERMS"
+msgstr "не удалось открыть файл BISECT_TERMS"
+
+#: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
 msgstr "выполнить «git bisect next»"
 
 #: builtin/bisect--helper.c
+msgid "write the terms to .git/BISECT_TERMS"
+msgstr "записать определения в .git/BISECT_TERMS"
+
+#: builtin/bisect--helper.c
+msgid "cleanup the bisection state"
+msgstr "очистить состояние двоичного поиска"
+
+#: builtin/bisect--helper.c
+msgid "check for expected revs"
+msgstr "проверить ожидаемые редакции"
+
+#: builtin/bisect--helper.c
 msgid "update BISECT_HEAD instead of checking out the current commit"
 msgstr "обновить BISECT_HEAD вместо перехода на текущий коммит"
+
+#: builtin/bisect--helper.c
+msgid "--write-terms requires two arguments"
+msgstr "--write-terms требует указания двух параметров"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-clean-state requires no arguments"
+msgstr "--bisect-clean-state не требует указания параметров"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -5740,8 +5809,8 @@ msgstr "Сбой копирования ветки"
 
 #: builtin/branch.c
 #, c-format
-msgid "Copied a misnamed branch '%s' away"
-msgstr "Скопирована неправильно названная ветка «%s»"
+msgid "Created a copy of a misnamed branch '%s'"
+msgstr "Создана копия неправильно названной ветки «%s»"
 
 #: builtin/branch.c
 #, c-format
@@ -5978,10 +6047,6 @@ msgstr ""
 #, c-format
 msgid "Branch '%s' has no upstream information"
 msgstr "Ветка «%s» не имеет информации о вышестоящей ветке"
-
-#: builtin/branch.c
-msgid "it does not make sense to create 'HEAD' manually"
-msgstr "не имеет смысла создавать «HEAD» вручную"
 
 #: builtin/branch.c
 msgid "-a and -r options to 'git branch' do not make sense with a branch name"
@@ -6702,8 +6767,8 @@ msgstr "интерактивная очистка"
 msgid "remove whole directories"
 msgstr "удалить каталоги полностью"
 
-#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/ls-files.c
-#: builtin/name-rev.c builtin/show-ref.c
+#: builtin/clean.c builtin/describe.c builtin/grep.c builtin/log.c
+#: builtin/ls-files.c builtin/name-rev.c builtin/show-ref.c
 msgid "pattern"
 msgstr "шаблон"
 
@@ -6866,11 +6931,11 @@ msgstr "ключ=значение"
 msgid "set config inside the new repository"
 msgstr "установить параметры внутри нового репозитория"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv4 addresses only"
 msgstr "использовать только IPv4 адреса"
 
-#: builtin/clone.c builtin/fetch.c builtin/push.c
+#: builtin/clone.c builtin/fetch.c builtin/pull.c builtin/push.c
 msgid "use IPv6 addresses only"
 msgstr "использовать только IPv6 адреса"
 
@@ -6926,8 +6991,9 @@ msgstr ""
 "Клонирование прошло успешно, но во время переключения состояния произошла "
 "ошибка.\n"
 "С помощь команды «git status» вы можете просмотреть, какие файлы были "
-"обновлены, а повторить попытку переключения на ветку с помощью «git checkout "
-"-f HEAD»\n"
+"обновлены,\n"
+"а с помощью «git checkout -f HEAD» можно повторить попытку переключения на "
+"ветку \n"
 
 #: builtin/clone.c
 #, c-format
@@ -7054,11 +7120,6 @@ msgstr "исходный репозиторий является частичн�
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local игнорируется"
-
-#: builtin/clone.c
-#, c-format
-msgid "Don't know how to clone %s"
-msgstr "Не знаю как клонировать %s"
 
 #: builtin/clone.c
 #, c-format
@@ -7388,6 +7449,11 @@ msgstr ""
 
 #: builtin/commit.c
 #, c-format
+msgid "Invalid ignored mode '%s'"
+msgstr "Недопустимый режим показа игнорируемых файлов «%s»"
+
+#: builtin/commit.c
+#, c-format
 msgid "Invalid untracked files mode '%s'"
 msgstr "Неправильный режим неотслеживаемых файлов «%s»"
 
@@ -7487,8 +7553,13 @@ msgstr ""
 "обычно), no (нет). (По умолчанию: all)"
 
 #: builtin/commit.c
-msgid "show ignored files"
-msgstr "показать игнорируемые файлы"
+msgid ""
+"show ignored files, optional modes: traditional, matching, no. (Default: "
+"traditional)"
+msgstr ""
+"показывать игнорируемые файлы, с опциональным режимом: traditional "
+"(традиционный), matching (только совпадающие), no (не показывать). (По "
+"умолчанию: traditional)"
 
 #: builtin/commit.c parse-options.h
 msgid "when"
@@ -7507,12 +7578,22 @@ msgid "list untracked files in columns"
 msgstr "показать неотслеживаемые файлы по столбцам"
 
 #: builtin/commit.c
+msgid "Unsupported combination of ignored and untracked-files arguments"
+msgstr ""
+"Неподдерживаемая комбинация аргументов отображения игнорируемых и "
+"неотслеживаемых файлов"
+
+#: builtin/commit.c
 msgid "couldn't look up newly created commit"
 msgstr "нельзя запросить новосозданный коммит"
 
 #: builtin/commit.c
 msgid "could not parse newly created commit"
 msgstr "нельзя разобрать новосозданный коммит"
+
+#: builtin/commit.c
+msgid "unable to resolve HEAD after creating commit"
+msgstr "не удалось найти HEAD после создания коммита"
 
 #: builtin/commit.c
 msgid "detached HEAD"
@@ -7590,7 +7671,8 @@ msgstr ""
 msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr "коммит теперь за моим авторством (используется с -C/-c/--amend)"
 
-#: builtin/commit.c builtin/log.c builtin/merge.c builtin/revert.c
+#: builtin/commit.c builtin/log.c builtin/merge.c builtin/pull.c
+#: builtin/revert.c
 msgid "add Signed-off-by:"
 msgstr "добавить Signed-off-by:"
 
@@ -7818,6 +7900,10 @@ msgid "value is a path (file or directory name)"
 msgstr "значение — это путь (к файлу или каталогу)"
 
 #: builtin/config.c
+msgid "value is an expiry date"
+msgstr "значение - это дата окончания срока действия"
+
+#: builtin/config.c
 msgid "Other"
 msgstr "Другое"
 
@@ -7920,16 +8006,6 @@ msgstr "аннотированная метка %s не содержит вст�
 msgid "tag '%s' is really '%s' here"
 msgstr "метка «%s» уже здесь «%s»"
 
-#: builtin/describe.c builtin/log.c
-#, c-format
-msgid "Not a valid object name %s"
-msgstr "Недопустимое имя объекта %s"
-
-#: builtin/describe.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s не является действительным объектом «%s»"
-
 #: builtin/describe.c
 #, c-format
 msgid "no tag exactly matches '%s'"
@@ -7937,8 +8013,8 @@ msgstr "нет меток, точно соответствующих «%s»"
 
 #: builtin/describe.c
 #, c-format
-msgid "searching to describe %s\n"
-msgstr "поиск описания для %s\n"
+msgid "No exact match on refs or tags, searching to describe\n"
+msgstr "Нет точных совпадений по ссылкам или тегам, ищу описания\n"
 
 #: builtin/describe.c
 #, c-format
@@ -7976,6 +8052,21 @@ msgid ""
 msgstr ""
 "более %i меток найдено; показано последние %i\n"
 "остановлен поиск после %s\n"
+
+#: builtin/describe.c
+#, c-format
+msgid "describe %s\n"
+msgstr "описать %s\n"
+
+#: builtin/describe.c builtin/log.c
+#, c-format
+msgid "Not a valid object name %s"
+msgstr "Недопустимое имя объекта %s"
+
+#: builtin/describe.c
+#, c-format
+msgid "%s is neither a commit nor blob"
+msgstr "%s не является коммитом или двоичным объектом"
 
 #: builtin/describe.c
 msgid "find the tag that comes after the commit"
@@ -8454,11 +8545,6 @@ msgstr "Неправильное значение «%2$s» для парамет
 #, c-format
 msgid "Option \"%s\" is ignored for %s\n"
 msgstr "Параметр «%s» игнорируется для %s\n"
-
-#: builtin/fetch.c
-#, c-format
-msgid "Don't know how to fetch from %s"
-msgstr "Не знаю как извлечь с %s"
 
 #: builtin/fetch.c
 #, c-format
@@ -9685,6 +9771,14 @@ msgid "Use mail map file"
 msgstr "Использовать файл соответствия почтовых адресов"
 
 #: builtin/log.c
+msgid "only decorate refs that match <pattern>"
+msgstr "декорировать только ссылки соответствующие <шаблону>"
+
+#: builtin/log.c
+msgid "do not decorate refs that match <pattern>"
+msgstr "не декорировать ссылки соответствующие <шаблону>"
+
+#: builtin/log.c
 msgid "decorate options"
 msgstr "опции формата вывода ссылок"
 
@@ -10019,6 +10113,10 @@ msgid "use lowercase letters for 'assume unchanged' files"
 msgstr ""
 "использовать символы в нижнем регистре для «предположительно без изменений» "
 "файлов"
+
+#: builtin/ls-files.c
+msgid "use lowercase letters for 'fsmonitor clean' files"
+msgstr "использовать символы нижнего регистра для файлов «fsmonitor clean»"
 
 #: builtin/ls-files.c
 msgid "show cached files in the output (default)"
@@ -10904,8 +11002,8 @@ msgid "git notes [--ref <notes-ref>] remove [<object>...]"
 msgstr "git notes [--ref <ссылка-на-заметку>] remove [<объект>…]"
 
 #: builtin/notes.c
-msgid "git notes [--ref <notes-ref>] prune [-n | -v]"
-msgstr "git notes [--ref <ссылка-на-заметку>] prune [-n | -v]"
+msgid "git notes [--ref <notes-ref>] prune [-n] [-v]"
+msgstr "git notes [--ref <имя-заметки>] prune [-n] [-v]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes-ref>] get-ref"
@@ -11301,6 +11399,10 @@ msgid "Compressing objects"
 msgstr "Сжатие объектов"
 
 #: builtin/pack-objects.c
+msgid "invalid value for --missing"
+msgstr "недопустимое значение для --missing"
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "unsupported index version %s"
 msgstr "неподдерживаемая версия индекса %s"
@@ -11450,6 +11552,10 @@ msgid "write a bitmap index together with the pack index"
 msgstr "запись индекса в битовых картах вместе с индексом пакета"
 
 #: builtin/pack-objects.c
+msgid "handling for missing objects"
+msgstr "обработка отсутствующих объектов"
+
+#: builtin/pack-objects.c
 msgid "Counting objects"
 msgstr "Подсчет объектов"
 
@@ -11474,8 +11580,8 @@ msgid "Removing duplicate objects"
 msgstr "Удаление дублирующихся объектов"
 
 #: builtin/prune.c
-msgid "git prune [-n] [-v] [--expire <time>] [--] [<head>...]"
-msgstr "git prune [-n] [-v] [--expire <время>] [--] [<имя-ветки>…]"
+msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
+msgstr "git prune [-n] [-v] [--progress] [--expire <время>] [--] [<ветка>…]"
 
 #: builtin/prune.c
 msgid "report pruned objects"
@@ -12072,12 +12178,12 @@ msgid "make rebase script"
 msgstr "создать сценарий перемещения"
 
 #: builtin/rebase--helper.c
-msgid "shorten SHA-1s in the todo list"
-msgstr "сократить контрольные суммы SHA-1 в списке дел"
+msgid "shorten commit ids in the todo list"
+msgstr "вывести короткие идентификаторы коммитов в списке действий"
 
 #: builtin/rebase--helper.c
-msgid "expand SHA-1s in the todo list"
-msgstr "расширить контрольные суммы SHA-1 в списке дел"
+msgid "expand commit ids in the todo list"
+msgstr "вывести полные идентификаторы коммитов в списке действий"
 
 #: builtin/rebase--helper.c
 msgid "check the todo list"
@@ -12090,6 +12196,10 @@ msgstr "пропустить ненужные команды pick"
 #: builtin/rebase--helper.c
 msgid "rearrange fixup/squash lines"
 msgstr "переставить строки fixup/squash"
+
+#: builtin/rebase--helper.c
+msgid "insert exec commands in todo list"
+msgstr "вставить команды исполнения коммитов в списке действий"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -12155,11 +12265,6 @@ msgstr "тихий режим"
 #: builtin/receive-pack.c
 msgid "You must specify a directory."
 msgstr "Вы должны указать каталог."
-
-#: builtin/reflog.c
-#, c-format
-msgid "'%s' for '%s' is not a valid timestamp"
-msgstr "«%s» для «%s» не является допустимой меткой даты/времени"
 
 #: builtin/reflog.c
 #, c-format
@@ -13012,8 +13117,22 @@ msgid "Could not write new index file."
 msgstr "Не удалось записать новый файл индекса."
 
 #: builtin/rev-list.c
+msgid "object filtering requires --objects"
+msgstr "фильтрация объектов требует указания параметра --objects"
+
+#: builtin/rev-list.c
+#, c-format
+msgid "invalid sparse value '%s'"
+msgstr "недопустимое частичное значение «%s»"
+
+#: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
 msgstr "rev-list не поддерживает отображение заметок"
+
+#: builtin/rev-list.c
+msgid "cannot combine --use-bitmap-index with object filtering"
+msgstr ""
+"нельзя использовать --use-bitmap-index одновременно с фильтрацией объектов"
 
 #: builtin/rev-parse.c
 msgid "git rev-parse --parseopt [<options>] -- [<args>...]"
@@ -13548,13 +13667,43 @@ msgid "git submodule--helper init [<path>]"
 msgstr "git submodule--helper init [<путь>]"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper name <path>"
-msgstr "git submodule--helper name <путь>"
-
-#: builtin/submodule--helper.c
 #, c-format
 msgid "no submodule mapping found in .gitmodules for path '%s'"
 msgstr "не найдено соответствие подмодулей в .gitmodules для пути «%s»"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not resolve HEAD ref inside the submodule '%s'"
+msgstr "не удалось найти HEAD ссылку внутри подмодуля «%s»"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to recurse into submodule '%s'"
+msgstr "не удалось перейти вглубь подмодуля «%s»"
+
+#: builtin/submodule--helper.c
+msgid "Suppress submodule status output"
+msgstr "Не выводить статус подмодуля"
+
+#: builtin/submodule--helper.c
+msgid ""
+"Use commit stored in the index instead of the one stored in the submodule "
+"HEAD"
+msgstr ""
+"Использовать коммит хранящийся в индексе вместо коммита хранящегося в HEAD "
+"подмодуля"
+
+#: builtin/submodule--helper.c
+msgid "recurse into nested submodules"
+msgstr "проходить вглубь вложенных подмодулей"
+
+#: builtin/submodule--helper.c
+msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
+msgstr "git submodule status [--quiet] [--cached] [--recursive] [<путь>…]"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper name <path>"
+msgstr "git submodule--helper name <путь>"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -14127,6 +14276,22 @@ msgid "enable untracked cache without testing the filesystem"
 msgstr "включить кэш неотслеживаемых файлов без проверки файловой системы"
 
 #: builtin/update-index.c
+msgid "write out the index even if is not flagged as changed"
+msgstr "записать индекс, даже если он не помечен как измененный"
+
+#: builtin/update-index.c
+msgid "enable or disable file system monitor"
+msgstr "включить или выключить мониторинг файловой системы"
+
+#: builtin/update-index.c
+msgid "mark files as fsmonitor valid"
+msgstr "пометить файл как действительный в мониторе файловой системы"
+
+#: builtin/update-index.c
+msgid "clear fsmonitor valid bit"
+msgstr "снять пометку действительности мониторе файловой системы"
+
+#: builtin/update-index.c
 msgid ""
 "core.splitIndex is set to false; remove or change it, if you really want to "
 "enable split index"
@@ -14166,6 +14331,27 @@ msgstr ""
 #, c-format
 msgid "Untracked cache enabled for '%s'"
 msgstr "Кэш неотслеживаемых файлов включен для «%s»"
+
+#: builtin/update-index.c
+msgid "core.fsmonitor is unset; set it if you really want to enable fsmonitor"
+msgstr ""
+"параметр core.fsmonitor не установлен; установите его если вы действительно "
+"хотите включить мониторинг файловой системы"
+
+#: builtin/update-index.c
+msgid "fsmonitor enabled"
+msgstr "мониторинг файловой системы включён"
+
+#: builtin/update-index.c
+msgid ""
+"core.fsmonitor is set; remove it if you really want to disable fsmonitor"
+msgstr ""
+"параметр core.fsmonitor установлен; удалите его если вы действительно хотите "
+"выключить мониторинг файловой системы"
+
+#: builtin/update-index.c
+msgid "fsmonitor disabled"
+msgstr "мониторинг файловой системы выключён"
 
 #: builtin/update-ref.c
 msgid "git update-ref [<options>] -d <refname> [<old-val>]"
@@ -14337,8 +14523,20 @@ msgid "keep the new working tree locked"
 msgstr "держать рабочий каталог заблокированным"
 
 #: builtin/worktree.c
+msgid "set up tracking mode (see git-branch(1))"
+msgstr "настроить режим отслеживания ветки (смотрите git-branch(1))"
+
+#: builtin/worktree.c
+msgid "try to match the new branch name with a remote-tracking branch"
+msgstr "пытаться найти соответствие имени новой ветки с именем внешней ветки"
+
+#: builtin/worktree.c
 msgid "-b, -B, and --detach are mutually exclusive"
 msgstr "-b, -B и --detach нельзя использовать одновременно"
+
+#: builtin/worktree.c
+msgid "--[no-]track can only be used if a new branch is created"
+msgstr "--[no-]track можно использовать только когда вы создаёте новую ветку"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -14460,6 +14658,14 @@ msgstr ""
 #, c-format
 msgid "redirecting to %s"
 msgstr "переадресация на %s"
+
+#: list-objects-filter-options.h
+msgid "args"
+msgstr "аргументы"
+
+#: list-objects-filter-options.h
+msgid "object filtering"
+msgstr "фильтрация объектов"
 
 #: common-cmds.h
 msgid "start a working area (see also: git help tutorial)"
@@ -14730,6 +14936,10 @@ msgid "?? what are you talking about?"
 msgstr "?? вы о чем?"
 
 #: git-bisect.sh
+msgid "bisect run failed: no command provided."
+msgstr "сбой при выполнении двоичного поиска: не передана команда."
+
+#: git-bisect.sh
 #, sh-format
 msgid "running $command"
 msgstr "запускаю $command"
@@ -14759,25 +14969,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "bisect run выполнен успешно"
-
-#: git-bisect.sh
-msgid "please use two different terms"
-msgstr "используйте два разных определения"
-
-#: git-bisect.sh
-#, sh-format
-msgid "'$term' is not a valid term"
-msgstr "«$term» не является допустимым определением"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't use the builtin command '$term' as a term"
-msgstr "нельзя использовать встроенную команду «$term» как определение"
-
-#: git-bisect.sh
-#, sh-format
-msgid "can't change the meaning of term '$term'"
-msgstr "нельзя изменить значение определения «$term»"
 
 #: git-bisect.sh
 #, sh-format
@@ -14871,8 +15062,8 @@ msgid "The pre-rebase hook refused to rebase."
 msgstr "Перехватчик pre-rebase отказал в перемещении."
 
 #: git-rebase.sh
-msgid "It looks like git-am is in progress. Cannot rebase."
-msgstr "Похоже, git-am выполняется. Перемещение невозможно."
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr "Похоже, что выполняется «git am». Невозможно выполнить перемещение."
 
 #: git-rebase.sh
 msgid "No rebase in progress?"
@@ -14919,8 +15110,8 @@ msgstr ""
 
 #: git-rebase.sh
 #, sh-format
-msgid "invalid upstream $upstream_name"
-msgstr "недействительная вышестоящая ветка $upstream_name"
+msgid "invalid upstream '$upstream_name'"
+msgstr "недействительная вышестоящая ветка «$upstream_name»"
 
 #: git-rebase.sh
 #, sh-format
@@ -14939,8 +15130,8 @@ msgstr "Не указывает на действительный коммит: 
 
 #: git-rebase.sh
 #, sh-format
-msgid "fatal: no such branch: $branch_name"
-msgstr "критическая ошибка: нет такой ветки: $branch_name"
+msgid "fatal: no such branch/commit '$branch_name'"
+msgstr "критическая ошибка: нет такой ветки/коммита «$branch_name»"
 
 #: git-rebase.sh
 msgid "Cannot autostash"
@@ -14957,13 +15148,25 @@ msgstr "Сделайте коммит или спрячьте их."
 
 #: git-rebase.sh
 #, sh-format
+msgid "HEAD is up to date."
+msgstr "HEAD уже в актуальном состоянии."
+
+#: git-rebase.sh
+#, sh-format
 msgid "Current branch $branch_name is up to date."
-msgstr "Текущая ветка $branch_name уже свежая."
+msgstr "Текущая ветка $branch_name уже в актуальном состоянии."
+
+#: git-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr "HEAD уже в актуальном состоянии, принудительное перемещение."
 
 #: git-rebase.sh
 #, sh-format
 msgid "Current branch $branch_name is up to date, rebase forced."
-msgstr "Текущая ветка $branch_name уже свежая, принудительное перемещение."
+msgstr ""
+"Текущая ветка $branch_name уже в актуальном состоянии, принудительное "
+"перемещение."
 
 #: git-rebase.sh
 #, sh-format
@@ -15018,23 +15221,10 @@ msgstr "Не удалось записать состояние рабочего
 msgid "Cannot update $ref_stash with $w_commit"
 msgstr "Не удалось обновить $ref_stash с помощью $w_commit"
 
-#. TRANSLATORS: $option is an invalid option, like
-#. `--blah-blah'. The 7 spaces at the beginning of the
-#. second line correspond to "error: ". So you should line
-#. up the second line with however many characters the
-#. translation of "error: " takes in your language. E.g. in
-#. English this is:
-#. $ git stash save --blah-blah 2>&1 | head -n 2
-#. error: unknown option for 'stash save': --blah-blah
-#. To provide a message, use git stash save -- '--blah-blah'
 #: git-stash.sh
 #, sh-format
-msgid ""
-"error: unknown option for 'stash save': $option\n"
-"       To provide a message, use git stash save -- '$option'"
-msgstr ""
-"ошибка: неизвестная опция для «stash save»: $option\n"
-"        Для предоставления сообщения, используйте git stash save -- «$option»"
+msgid "error: unknown option for 'stash push': $option"
+msgstr "ошибка: неизвестный параметр для «stash push»: $option"
 
 #: git-stash.sh
 msgid "Can't use --patch and --include-untracked or --all at the same time"
@@ -15398,11 +15588,6 @@ msgstr ""
 
 #: git-submodule.sh
 #, sh-format
-msgid "Failed to recurse into submodule path '$sm_path'"
-msgstr "Не удалось выполнить рекурсивно для подмодуля по пути «$sm_path»"
-
-#: git-submodule.sh
-#, sh-format
 msgid "Synchronizing submodule url for '$displaypath'"
 msgstr "Синхронизация url для подмодуля «$displaypath»"
 
@@ -15727,6 +15912,10 @@ msgstr "Не удалось пометить как интерактивный"
 #: git-rebase--interactive.sh
 msgid "Could not init rewritten commits"
 msgstr "Не удалось инициализировать перезаписанные коммиты"
+
+#: git-rebase--interactive.sh
+msgid "Could not generate todo list"
+msgstr "Не удалось сгенерировать список дел"
 
 #: git-rebase--interactive.sh
 #, sh-format
