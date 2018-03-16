@@ -70,6 +70,8 @@
 # linked checkout свързано изтегляне
 # term управляваща дума (за git-bisect)
 # mergetag етикет при сливане
+# packfile пакет
+# promisory гаратиращ, гарант promisory packfile гарантиращ пакет, promisory remote хранилище-гарант
 # delta - разлика, делта, обект-разлика
 # peeled tag - проследен етикет - когато етикет сочи към друг етикет, а не подаване и проследяваме подобно на символна връзка
 # strip - премахвам (за компонент при филтриране)
@@ -88,6 +90,7 @@
 # ignored (file) игнориран, понякога - пропуснат
 # manual, man page ръководство
 # guide въведение
+# partial clone непълно хранилище
 # ------------------------
 # „$var“ - може да не сработва за shell има gettext и eval_gettext - проверка - намират се лесно по „$
 # ------------------------
@@ -100,8 +103,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git master\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-01-07 07:50+0800\n"
-"PO-Revision-Date: 2018-01-11 22:01+0100\n"
+"POT-Creation-Date: 2018-03-16 07:29+0800\n"
+"PO-Revision-Date: 2018-03-16 09:53+0100\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -1551,6 +1554,11 @@ msgstr "стандартният вход на списъка с версиит�
 
 #: convert.c
 #, c-format
+msgid "CRLF would be replaced by LF in %s."
+msgstr "Всяка последователност от знаци „CRLF“ ще бъдe заменена с „LF“ в „%s“."
+
+#: convert.c
+#, c-format
 msgid ""
 "CRLF will be replaced by LF in %s.\n"
 "The file will have its original line endings in your working directory."
@@ -1561,8 +1569,9 @@ msgstr ""
 
 #: convert.c
 #, c-format
-msgid "CRLF would be replaced by LF in %s."
-msgstr "Всяка последователност от знаци „CRLF“ ще бъдe заменена с „LF“ в „%s“."
+msgid "LF would be replaced by CRLF in %s"
+msgstr ""
+"Всеки знак „LF“ ще бъдe заменен с последователността от знаци „CRLF“ в „%s“."
 
 #: convert.c
 #, c-format
@@ -1574,12 +1583,6 @@ msgstr ""
 "„%s“.\n"
 "Файлът ще остане с първоначалните знаци за край на ред в работната ви "
 "директория."
-
-#: convert.c
-#, c-format
-msgid "LF would be replaced by CRLF in %s"
-msgstr ""
-"Всеки знак „LF“ ще бъдe заменен с последователността от знаци „CRLF“ в „%s“."
 
 #: date.c
 msgid "in the future"
@@ -1681,7 +1684,7 @@ msgid ""
 "'plain'"
 msgstr ""
 "настройката за цвят за преместване трябва да е една от: „no“ (без), "
-"„default“ (стандартно), „zebra“ (райе), „dimmed_zebra“ (притъмнено райе), "
+"„default“ (стандартно), „zebra“ (райе), „dimmed_zebra“ (тъмно райе), "
 "„plain“ (обикновено)"
 
 #: diff.c
@@ -1709,6 +1712,10 @@ msgid "--name-only, --name-status, --check and -s are mutually exclusive"
 msgstr ""
 "Опциите „--name-only“, „--name-status“, „--check“ и „-s“ са несъвместими "
 "една с друга"
+
+#: diff.c
+msgid "-G, -S and --find-object are mutually exclusive"
+msgstr "Опциите „-G“, „-S“ и „--find-object“ са несъвместими една с друга"
 
 #: diff.c
 msgid "--follow requires exactly one pathspec"
@@ -1746,6 +1753,11 @@ msgid ""
 msgstr "задайте променливата „%s“ да е поне %d и отново изпълнете командата."
 
 #: dir.c
+#, c-format
+msgid "could not open directory '%s'"
+msgstr "директорията „%s“ не може да бъде отворена"
+
+#: dir.c
 msgid "failed to get kernel name and information"
 msgstr "името и версията на ядрото не бяха получени"
 
@@ -1778,13 +1790,18 @@ msgstr "Филтриране на съдържанието"
 msgid "could not stat file '%s'"
 msgstr "неуспешно изпълнение на „stat“ върху файла „%s“"
 
+#: fetch-object.c
+msgid "Remote with no URL"
+msgstr "Липсва адрес за отдалеченото хранилище"
+
 #: fetch-pack.c
 msgid "git fetch-pack: expected shallow list"
 msgstr "git fetch-pack: очаква се плитък списък"
 
 #: fetch-pack.c
-msgid "git fetch-pack: expected ACK/NAK, got EOF"
-msgstr "git fetch-pack: очакваше се „ACK“/„NAK“, а бе получен „EOF“"
+msgid "git fetch-pack: expected ACK/NAK, got a flush packet"
+msgstr ""
+"git fetch-pack: очакваше се „ACK“/„NAK“, а бе получен изчистващ пакет „flush“"
 
 #: fetch-pack.c builtin/archive.c
 #, c-format
@@ -1922,6 +1939,10 @@ msgid "Server supports ofs-delta"
 msgstr "Сървърът поддържа „ofs-delta“"
 
 #: fetch-pack.c
+msgid "Server supports filter"
+msgstr "Сървърът поддържа филтри"
+
+#: fetch-pack.c
 #, c-format
 msgid "Server version is %.*s"
 msgstr "Версията на сървъра е: %.*s"
@@ -1983,7 +2004,7 @@ msgstr "прескачане на неправилния цвят „%.*s“ в 
 msgid "'%s': unable to read %s"
 msgstr "„%s“: файлът сочен от „%s“ не може да бъде прочетен"
 
-#: grep.c builtin/clone.c builtin/diff.c builtin/rm.c
+#: grep.c setup.c builtin/clone.c builtin/diff.c builtin/rm.c
 #, c-format
 msgid "failed to stat '%s'"
 msgstr "не може да бъде получена информация чрез „stat“ за „%s“"
@@ -2144,13 +2165,12 @@ msgid "invalid date format: %s"
 msgstr "неправилен формат на дата: %s"
 
 #: list-objects-filter-options.c
-msgid "multiple object filter types cannot be combined"
-msgstr "не може да комбинирате филтри по различен вид обекти"
+msgid "multiple filter-specs cannot be combined"
+msgstr "не може да комбинирате множество филтри"
 
 #: list-objects-filter-options.c
-#, c-format
-msgid "invalid filter-spec expression '%s'"
-msgstr "указан е неправилен израз за филтър: „%s“"
+msgid "cannot change partial clone promisor remote"
+msgstr "не може да промените хранилището-гарант на непълно хранилище"
 
 #: lockfile.c
 #, c-format
@@ -3009,6 +3029,16 @@ msgstr "Клонът е актуализиран към „%s“.\n"
 
 #: remote.c
 #, c-format
+msgid "Your branch and '%s' refer to different commits.\n"
+msgstr "Клонът ви и „%s“ сочат към различни подавания.\n"
+
+#: remote.c
+#, c-format
+msgid "  (use \"%s\" for details)\n"
+msgstr "  (за повече информация ползвайте „%s“)\n"
+
+#: remote.c
+#, c-format
 msgid "Your branch is ahead of '%s' by %d commit.\n"
 msgid_plural "Your branch is ahead of '%s' by %d commits.\n"
 msgstr[0] "Клонът ви е с %2$d подаване пред „%1$s“.\n"
@@ -3077,6 +3107,12 @@ msgstr ""
 "    git config advice.ignoredHook false"
 
 #: send-pack.c
+msgid "unexpected flush packet while reading remote unpack status"
+msgstr ""
+"неочакван изчистващ пакет „flush“ при изчитане на състоянието от "
+"отдалеченото разпакетиране"
+
+#: send-pack.c
 #, c-format
 msgid "unable to parse remote unpack status: %s"
 msgstr ""
@@ -3110,6 +3146,11 @@ msgstr "получаващата страна не поддържа изтлас
 #: send-pack.c
 msgid "the receiving end does not support push options"
 msgstr "отсрещната страна не поддържа опции при изтласкване"
+
+#: sequencer.c
+#, c-format
+msgid "invalid commit message cleanup mode '%s'"
+msgstr "несъществуващ режим на изчистване „%s“ на съобщение при подаване"
 
 #: sequencer.c
 msgid "revert"
@@ -3163,8 +3204,8 @@ msgstr "краят на ред не може да се запише в „%s“"
 
 #: sequencer.c
 #, c-format
-msgid "failed to finalize '%s'."
-msgstr "„%s“ не може да се завърши."
+msgid "failed to finalize '%s'"
+msgstr "„%s“ не може да се завърши"
 
 #: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
 #, c-format
@@ -3229,6 +3270,119 @@ msgstr ""
 "И в двата случая продължавате след това с командата:\n"
 "\n"
 "    git rebase --continue\n"
+
+#: sequencer.c
+msgid "'prepare-commit-msg' hook failed"
+msgstr ""
+"неуспешно изпълнение на куката при промяна на съобщението при подаване "
+"(prepare-commit-msg)"
+
+#: sequencer.c
+msgid ""
+"Your name and email address were configured automatically based\n"
+"on your username and hostname. Please check that they are accurate.\n"
+"You can suppress this message by setting them explicitly. Run the\n"
+"following command and follow the instructions in your editor to edit\n"
+"your configuration file:\n"
+"\n"
+"    git config --global --edit\n"
+"\n"
+"After doing this, you may fix the identity used for this commit with:\n"
+"\n"
+"    git commit --amend --reset-author\n"
+msgstr ""
+"Името и адресът за е-поща са настроени автоматично на базата на името на\n"
+"потребителя и името на машината.  Проверете дали са верни.  Можете да "
+"спрете\n"
+"това съобщение като изрично зададете стойностите.  Изпълнете следната "
+"команда\n"
+"и следвайте инструкциите в текстовия ви редактор, за да редактирате\n"
+"конфигурационния файл:\n"
+"\n"
+"    git config --global --edit\n"
+"\n"
+"След като направите това, можете да коригирате информацията за автора на\n"
+"текущото подаване чрез:\n"
+"\n"
+"    git commit --amend --reset-author\n"
+
+#: sequencer.c
+msgid ""
+"Your name and email address were configured automatically based\n"
+"on your username and hostname. Please check that they are accurate.\n"
+"You can suppress this message by setting them explicitly:\n"
+"\n"
+"    git config --global user.name \"Your Name\"\n"
+"    git config --global user.email you@example.com\n"
+"\n"
+"After doing this, you may fix the identity used for this commit with:\n"
+"\n"
+"    git commit --amend --reset-author\n"
+msgstr ""
+"Името и адресът за е-поща са настроени автоматично на базата на името на\n"
+"потребителя и името на машината.  Проверете дали са верни.  Можете да "
+"спрете\n"
+"това съобщение като изрично зададете стойностите:\n"
+"\n"
+"    git config --global user.name \"Вашето Име\"\n"
+"    git config --global user.email пенчо@example.com\n"
+"\n"
+"След като направите това, можете да коригирате информацията за автора на\n"
+"текущото подаване чрез:\n"
+"\n"
+"    git commit --amend --reset-author\n"
+
+#: sequencer.c
+msgid "couldn't look up newly created commit"
+msgstr "току що създаденото подаване не може да бъде открито"
+
+#: sequencer.c
+msgid "could not parse newly created commit"
+msgstr "току що създаденото подаване не може да бъде анализирано"
+
+#: sequencer.c
+msgid "unable to resolve HEAD after creating commit"
+msgstr ""
+"състоянието сочено от указателя „HEAD“ не може да бъде открито след "
+"подаването"
+
+#: sequencer.c
+msgid "detached HEAD"
+msgstr "несвързан връх „HEAD“"
+
+#: sequencer.c
+msgid " (root-commit)"
+msgstr " (начално подаване)"
+
+#: sequencer.c
+msgid "could not parse HEAD"
+msgstr "указателят „HEAD“ не може да бъде анализиран"
+
+#: sequencer.c
+#, c-format
+msgid "HEAD %s is not a commit!"
+msgstr "указателят „HEAD“ „%s“ сочи към нещо, което не е подаване!"
+
+#: sequencer.c builtin/commit.c
+msgid "could not parse HEAD commit"
+msgstr "върховото подаване „HEAD“ не може да бъде прочетено"
+
+#: sequencer.c
+msgid "unable to parse commit author"
+msgstr "авторът на подаването не може да бъде анализиран"
+
+#: sequencer.c builtin/am.c builtin/merge.c
+msgid "git write-tree failed to write a tree"
+msgstr "Командата „git write-tree“ не успя да запише обект-дърво"
+
+#: sequencer.c
+#, c-format
+msgid "unable to read commit message from '%s'"
+msgstr "съобщението за подаване не може да бъде прочетено от „%s“"
+
+#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
+msgid "failed to write commit object"
+msgstr "обектът за подаването не може да бъде записан"
 
 #: sequencer.c
 #, c-format
@@ -3492,6 +3646,11 @@ msgstr ""
 "Не се правят промени."
 
 #: sequencer.c
+#, c-format
+msgid "could not update %s"
+msgstr "„%s“ не може да се обнови"
+
+#: sequencer.c
 msgid "cannot read HEAD"
 msgstr "указателят „HEAD“ не може да бъде прочетен"
 
@@ -3578,11 +3737,6 @@ msgstr "указателят за „orig-head“ не може да се про
 #: sequencer.c
 msgid "could not read 'onto'"
 msgstr "указателят за „onto“ не може да се прочете"
-
-#: sequencer.c
-#, c-format
-msgid "could not update %s"
-msgstr "„%s“ не може да се обнови"
 
 #: sequencer.c
 #, c-format
@@ -3713,6 +3867,11 @@ msgstr "скриптът вече е преподреден."
 
 #: setup.c
 #, c-format
+msgid "'%s' is outside repository"
+msgstr "„%s“ е извън хранилището"
+
+#: setup.c
+#, c-format
 msgid ""
 "%s: no such path in the working tree.\n"
 "Use 'git <command> -- <path>...' to specify paths that do not exist locally."
@@ -3737,15 +3896,29 @@ msgstr ""
 
 #: setup.c
 #, c-format
+msgid "option '%s' must come before non-option arguments"
+msgstr "опцията „%s“ трябва да е преди първия аргумент, който не е опция"
+
+#: setup.c
+#, c-format
 msgid ""
 "ambiguous argument '%s': both revision and filename\n"
 "Use '--' to separate paths from revisions, like this:\n"
 "'git <command> [<revision>...] -- [<file>...]'"
 msgstr ""
-"нееднозначен аргумент „%s: както версия, така и път.\n"
+"нееднозначен аргумент „%s“: както версия, така и път.\n"
 "Разделяйте пътищата от версиите с „--“, ето така:\n"
 "\n"
 "    git КОМАНДА [ВЕРСИЯ…] -- [ФАЙЛ…]"
+
+#: setup.c
+msgid "unable to set up work tree using invalid config"
+msgstr ""
+"не може да се зададе текуща работна директория при неправилни настройки"
+
+#: setup.c
+msgid "this operation must be run in a work tree"
+msgstr "тази команда трябва да се изпълни в работно дърво"
 
 #: setup.c
 #, c-format
@@ -3758,14 +3931,64 @@ msgstr "открити са непознати разширения в хран�
 
 #: setup.c
 #, c-format
-msgid "Not a git repository (or any of the parent directories): %s"
+msgid "error opening '%s'"
+msgstr "„%s“ не може да се отвори"
+
+#: setup.c
+#, c-format
+msgid "too large to be a .git file: '%s'"
+msgstr "прекалено голям файл „.git“: „%s“"
+
+#: setup.c
+#, c-format
+msgid "error reading %s"
+msgstr "грешка при прочитане на „%s“"
+
+#: setup.c
+#, c-format
+msgid "invalid gitfile format: %s"
+msgstr "неправилен формат на gitfile: %s"
+
+#: setup.c
+#, c-format
+msgid "no path in gitfile: %s"
+msgstr "липсва път в gitfile: „%s“"
+
+#: setup.c
+#, c-format
+msgid "not a git repository: %s"
+msgstr "не е хранилище на Git: %s"
+
+#: setup.c
+#, c-format
+msgid "'$%s' too big"
+msgstr "„%s“ е прекалено голям"
+
+#: setup.c
+#, c-format
+msgid "not a git repository: '%s'"
+msgstr "не е хранилище на git: „%s“"
+
+#: setup.c
+#, c-format
+msgid "cannot chdir to '%s'"
+msgstr "не може да се влезе в директорията „%s“"
+
+#: setup.c
+msgid "cannot come back to cwd"
+msgstr "процесът не може да се върне към предишната работна директория"
+
+#: setup.c
+#, c-format
+msgid "not a git repository (or any of the parent directories): %s"
 msgstr ""
-"Нито тази, нито която и да е от по-горните директории, не е хранилище на "
+"нито тази, нито която и да е от по-горните директории, не е хранилище на "
 "git: %s"
 
-#: setup.c builtin/index-pack.c
-msgid "Cannot come back to cwd"
-msgstr "Процесът не може да се върне към предишната работна директория"
+#: setup.c
+#, c-format
+msgid "failed to stat '%*s%s%s'"
+msgstr "не може да бъде получена информация чрез „stat“ за „%*s%s%s“"
 
 #: setup.c
 msgid "Unable to read current working directory"
@@ -3773,16 +3996,16 @@ msgstr "Текущата работна директория не може да 
 
 #: setup.c
 #, c-format
-msgid "Cannot change to '%s'"
-msgstr "Не може да се влезе в директорията „%s“"
+msgid "cannot change to '%s'"
+msgstr "не може да се влезе в директорията „%s“"
 
 #: setup.c
 #, c-format
 msgid ""
-"Not a git repository (or any parent up to mount point %s)\n"
+"not a git repository (or any parent up to mount point %s)\n"
 "Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set)."
 msgstr ""
-"Нито тази, нито която и да е от по-горните директории (до точката на "
+"нито тази, нито която и да е от по-горните директории (до точката на "
 "монтиране „%s“), не е хранилище на git.\n"
 "Git работи в рамките на една файлова система, защото променливата на средата "
 "„GIT_DISCOVERY_ACROSS_FILESYSTEM“ не е зададена."
@@ -3790,12 +4013,24 @@ msgstr ""
 #: setup.c
 #, c-format
 msgid ""
-"Problem with core.sharedRepository filemode value (0%.3o).\n"
+"problem with core.sharedRepository filemode value (0%.3o).\n"
 "The owner of files must always have read and write permissions."
 msgstr ""
-"Зададеният в „core.sharedRepository“ режим за достъп до файлове е неправилен "
+"зададеният в „core.sharedRepository“ режим за достъп до файлове е неправилен "
 "(0%.3o).\n"
 "Собственикът на файла трябва да има права за писане и четене."
+
+#: setup.c
+msgid "open /dev/null or dup failed"
+msgstr "неуспешно изпълнение на „open“ или „dup“ върху „/dev/null“"
+
+#: setup.c
+msgid "fork failed"
+msgstr "неуспешно изпълнение на „fork“"
+
+#: setup.c
+msgid "setsid failed"
+msgstr "неуспешно изпълнение на „setsid“"
 
 #: sha1_file.c
 #, c-format
@@ -4354,10 +4589,36 @@ msgstr "неправилен номер на порт"
 msgid "invalid '..' path segment"
 msgstr "неправилна част от пътя „..“"
 
-#: worktree.c
+#: worktree.c builtin/am.c
 #, c-format
 msgid "failed to read '%s'"
 msgstr "„%s“ не може да бъде прочетен"
+
+#: worktree.c
+#, c-format
+msgid "'%s' at main working tree is not the repository directory"
+msgstr "„%s“ в основното работно дърво не е директорията на хранилището"
+
+#: worktree.c
+#, c-format
+msgid "'%s' file does not contain absolute path to the working tree location"
+msgstr ""
+"файлът „%s“ не съдържа абсолютния път към местоположението на работното дърво"
+
+#: worktree.c
+#, c-format
+msgid "'%s' does not exist"
+msgstr "„%s“ не съществува."
+
+#: worktree.c
+#, c-format
+msgid "'%s' is not a .git file, error code %d"
+msgstr "„%s“ не е файл на .git, код за грешка: %d"
+
+#: worktree.c
+#, c-format
+msgid "'%s' does not point back to '%s'"
+msgstr "„%s“ не сочи към обратно към „%s“"
 
 #: wrapper.c
 #, c-format
@@ -4858,6 +5119,10 @@ msgid "HEAD (no branch)"
 msgstr "HEAD (извън клон)"
 
 #: wt-status.c
+msgid "different"
+msgstr "различен"
+
+#: wt-status.c
 msgid "behind "
 msgstr "назад с "
 
@@ -5205,17 +5470,9 @@ msgstr "Преминаване към прилагане на кръпка къ�
 msgid "Failed to merge in the changes."
 msgstr "Неуспешно сливане на промените."
 
-#: builtin/am.c builtin/merge.c
-msgid "git write-tree failed to write a tree"
-msgstr "Командата „git write-tree“ не успя да запише обект-дърво"
-
 #: builtin/am.c
 msgid "applying to an empty history"
 msgstr "прилагане върху празна история"
-
-#: builtin/am.c builtin/commit.c builtin/merge.c
-msgid "failed to write commit object"
-msgstr "обектът за подаването не може да бъде записан"
 
 #: builtin/am.c
 #, c-format
@@ -5263,9 +5520,10 @@ msgid "Patch failed at %s %.*s"
 msgstr "Неуспешно прилагане на кръпка при %s %.*s“"
 
 #: builtin/am.c
-#, c-format
-msgid "The copy of the patch that failed is found in: %s"
-msgstr "Дубликат на проблемната кръпка се намира в: %s"
+msgid "Use 'git am --show-current-patch' to see the failed patch"
+msgstr ""
+"За да видите неуспешно приложени кръпки, използвайте опцията „git am --show-"
+"current-patch“ to see the failed patch"
 
 #: builtin/am.c
 msgid ""
@@ -5414,6 +5672,15 @@ msgstr ""
 "прилагането на кръпката."
 
 #: builtin/am.c
+msgid "abort the patching operation but keep HEAD where it is."
+msgstr ""
+"преустановяване на прилагането на кръпката без промяна към кое сочи „HEAD“."
+
+#: builtin/am.c
+msgid "show the patch being applied."
+msgstr "показване на прилаганата кръпка."
+
+#: builtin/am.c
 msgid "lie about committer date"
 msgstr "дата за подаване различна от първоначалната"
 
@@ -5484,8 +5751,9 @@ msgid "git archive: Remote with no URL"
 msgstr "git archive: Липсва адрес за отдалеченото хранилище"
 
 #: builtin/archive.c
-msgid "git archive: expected ACK/NAK, got EOF"
-msgstr "git archive: очакваше се „ACK“/„NAK“, а бе получен „EOF“"
+msgid "git archive: expected ACK/NAK, got a flush packet"
+msgstr ""
+"git archive: очакваше се „ACK“/„NAK“, а бе получен изчистващ пакет „flush“"
 
 #: builtin/archive.c
 #, c-format
@@ -7154,6 +7422,12 @@ msgstr ""
 "схемата „file://“."
 
 #: builtin/clone.c
+msgid "--filter is ignored in local clones; use file:// instead."
+msgstr ""
+"При локално клониране опцията „--filter“ се прескача.  Ползвайте схемата "
+"„file://“."
+
+#: builtin/clone.c
 msgid "source repository is shallow, ignoring --local"
 msgstr "клонираното хранилище е плитко, затова опцията „--local“ се прескача"
 
@@ -7209,61 +7483,6 @@ msgstr "git commit [ОПЦИЯ…] [--] ПЪТ…"
 #: builtin/commit.c
 msgid "git status [<options>] [--] <pathspec>..."
 msgstr "git status [ОПЦИЯ…] [--] ПЪТ…"
-
-#: builtin/commit.c
-msgid ""
-"Your name and email address were configured automatically based\n"
-"on your username and hostname. Please check that they are accurate.\n"
-"You can suppress this message by setting them explicitly. Run the\n"
-"following command and follow the instructions in your editor to edit\n"
-"your configuration file:\n"
-"\n"
-"    git config --global --edit\n"
-"\n"
-"After doing this, you may fix the identity used for this commit with:\n"
-"\n"
-"    git commit --amend --reset-author\n"
-msgstr ""
-"Името и адресът за е-поща са настроени автоматично на базата на името на\n"
-"потребителя и името на машината.  Проверете дали са верни.  Можете да "
-"спрете\n"
-"това съобщение като изрично зададете стойностите.  Изпълнете следната "
-"команда\n"
-"и следвайте инструкциите в текстовия ви редактор, за да редактирате\n"
-"конфигурационния файл:\n"
-"\n"
-"    git config --global --edit\n"
-"\n"
-"След като направите това, можете да коригирате информацията за автора на\n"
-"текущото подаване чрез:\n"
-"\n"
-"    git commit --amend --reset-author\n"
-
-#: builtin/commit.c
-msgid ""
-"Your name and email address were configured automatically based\n"
-"on your username and hostname. Please check that they are accurate.\n"
-"You can suppress this message by setting them explicitly:\n"
-"\n"
-"    git config --global user.name \"Your Name\"\n"
-"    git config --global user.email you@example.com\n"
-"\n"
-"After doing this, you may fix the identity used for this commit with:\n"
-"\n"
-"    git commit --amend --reset-author\n"
-msgstr ""
-"Името и адресът за е-поща са настроени автоматично на базата на името на\n"
-"потребителя и името на машината.  Проверете дали са верни.  Можете да "
-"спрете\n"
-"това съобщение като изрично зададете стойностите:\n"
-"\n"
-"    git config --global user.name \"Вашето Име\"\n"
-"    git config --global user.email пенчо@example.com\n"
-"\n"
-"След като направите това, можете да коригирате информацията за автора на\n"
-"текущото подаване чрез:\n"
-"\n"
-"    git commit --amend --reset-author\n"
 
 #: builtin/commit.c
 msgid ""
@@ -7530,8 +7749,8 @@ msgid "Only one of -c/-C/-F/--fixup can be used."
 msgstr "Опциите „-c“, „-C“, „-F“ и „--fixup““ са несъвместими."
 
 #: builtin/commit.c
-msgid "Option -m cannot be combined with -c/-C/-F/--fixup."
-msgstr "Опцията „-m“ е несъвместима с „-c“, „-C“, „-F“ и „--fixup“."
+msgid "Option -m cannot be combined with -c/-C/-F."
+msgstr "Опцията „-m“ е несъвместима с „-c“, „-C“ и „-F“."
 
 #: builtin/commit.c
 msgid "--reset-author can be used only with -C, -c or --amend."
@@ -7569,6 +7788,10 @@ msgstr "информация за клоните"
 #: builtin/commit.c
 msgid "show stash information"
 msgstr "информация за скатаното"
+
+#: builtin/commit.c
+msgid "compute full ahead/behind values"
+msgstr "изчисляване на точните стойности напред/назад"
 
 #: builtin/commit.c
 msgid "version"
@@ -7626,28 +7849,6 @@ msgstr "извеждане на неследените файлове в кол�
 #: builtin/commit.c
 msgid "Unsupported combination of ignored and untracked-files arguments"
 msgstr "Неподдържана комбинация от аргументи за игнорирани и неследени файлове"
-
-#: builtin/commit.c
-msgid "couldn't look up newly created commit"
-msgstr "току що създаденото подаване не може да бъде открито"
-
-#: builtin/commit.c
-msgid "could not parse newly created commit"
-msgstr "току що създаденото подаване не може да бъде анализирано"
-
-#: builtin/commit.c
-msgid "unable to resolve HEAD after creating commit"
-msgstr ""
-"състоянието сочено от указателя „HEAD“ не може да бъде открито след "
-"подаването"
-
-#: builtin/commit.c
-msgid "detached HEAD"
-msgstr "несвързан връх „HEAD“"
-
-#: builtin/commit.c
-msgid " (root-commit)"
-msgstr " (начално подаване)"
 
 #: builtin/commit.c
 msgid "suppress summary after successful commit"
@@ -7796,10 +7997,6 @@ msgstr "позволяване на празни подавания"
 #: builtin/commit.c
 msgid "ok to record a change with an empty message"
 msgstr "позволяване на подавания с празни съобщения"
-
-#: builtin/commit.c
-msgid "could not parse HEAD commit"
-msgstr "върховото подаване „HEAD“ не може да бъде прочетено"
 
 #: builtin/commit.c
 #, c-format
@@ -8026,7 +8223,7 @@ msgstr "извеждане на размерите на обектите във 
 
 #: builtin/describe.c
 msgid "git describe [<options>] [<commit-ish>...]"
-msgstr "git describe [ОПЦИЯ…] УКАЗАТЕЛ_КЪМ_ПОДАВАНЕ…"
+msgstr "git describe [ОПЦИЯ…] [УКАЗАТЕЛ_КЪМ_ПОДАВАНЕ…]"
 
 #: builtin/describe.c
 msgid "git describe [<options>] --dirty"
@@ -8433,6 +8630,12 @@ msgstr "брой подмодули доставени паралелно"
 msgid "prune remote-tracking branches no longer on remote"
 msgstr "окастряне на клоните следящи вече несъществуващи отдалечени клони"
 
+#: builtin/fetch.c
+msgid "prune local tags no longer on remote and clobber changed tags"
+msgstr ""
+"окастряне на локалните етикети, които вече не съществуват в отдалеченото "
+"хранилище и махане на променените"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "on-demand"
 msgstr "ПРИ НУЖДА"
@@ -8612,6 +8815,13 @@ msgstr "Доставяне на „%s“\n"
 #, c-format
 msgid "Could not fetch %s"
 msgstr "„%s“ не може да се достави"
+
+#: builtin/fetch.c
+msgid ""
+"--filter can only be used with the remote configured in core.partialClone"
+msgstr ""
+"опцията „--filter“ може да се ползва само с отдалеченото хранилище указано в "
+"настройката „core.partialClone“"
 
 #: builtin/fetch.c
 msgid ""
@@ -9564,21 +9774,23 @@ msgid "local object %s is corrupt"
 msgstr "локалният обект „%s“ е повреден"
 
 #: builtin/index-pack.c
+#, c-format
+msgid "packfile name '%s' does not end with '.pack'"
+msgstr "името на пакетния файл „%s“ не завършва на „.pack“"
+
+#: builtin/index-pack.c
+#, c-format
+msgid "cannot write %s file '%s'"
+msgstr "грешка при запис на файла „%s“ „%s“"
+
+#: builtin/index-pack.c
+#, c-format
+msgid "cannot close written %s file '%s'"
+msgstr "грешка при затварянето на записания файл „%s“ „%s“"
+
+#: builtin/index-pack.c
 msgid "error while closing pack file"
 msgstr "грешка при затварянето на пакетния файл"
-
-#: builtin/index-pack.c
-#, c-format
-msgid "cannot write keep file '%s'"
-msgstr ""
-"грешка при записването на файла „%s“, осигуряващ запазване на директория"
-
-#: builtin/index-pack.c
-#, c-format
-msgid "cannot close written keep file '%s'"
-msgstr ""
-"грешка при затварянето на записания файл „%s“, осигуряващ запазване на "
-"директория"
 
 #: builtin/index-pack.c
 msgid "cannot store pack file"
@@ -9618,9 +9830,8 @@ msgstr[0] "дължината на веригата е %d: %lu обект"
 msgstr[1] "дължината на веригата е %d: %lu обекта"
 
 #: builtin/index-pack.c
-#, c-format
-msgid "packfile name '%s' does not end with '.pack'"
-msgstr "името на пакетния файл „%s“ не завършва на „.pack“"
+msgid "Cannot come back to cwd"
+msgstr "Процесът не може да се върне към предишната работна директория"
 
 #: builtin/index-pack.c
 #, c-format
@@ -11668,6 +11879,10 @@ msgid "handling for missing objects"
 msgstr "как да се обработват липсващите обекти"
 
 #: builtin/pack-objects.c
+msgid "do not pack objects in promisor packfiles"
+msgstr "без пакетиране на обекти в гарантиращи пакети"
+
+#: builtin/pack-objects.c
 msgid "Counting objects"
 msgstr "Преброяване на обектите"
 
@@ -11702,6 +11917,10 @@ msgstr "информация за окастрените обекти"
 #: builtin/prune.c
 msgid "expire objects older than <time>"
 msgstr "окастряне на обектите по-стари от това ВРЕМЕ"
+
+#: builtin/prune.c
+msgid "limit traversal to objects outside promisor packfiles"
+msgstr "ограничаване на обхождането до обекти извън гарантиращи пакети"
 
 #: builtin/prune.c
 msgid "cannot prune in a precious-objects repo"
@@ -12281,6 +12500,10 @@ msgstr "git rebase--helper [ОПЦИЯ…]"
 #: builtin/rebase--helper.c
 msgid "keep empty commits"
 msgstr "запазване на празните подавания"
+
+#: builtin/rebase--helper.c builtin/revert.c
+msgid "allow commits with empty messages"
+msgstr "позволяване на празни съобщения при подаване"
 
 #: builtin/rebase--helper.c
 msgid "continue rebase"
@@ -13240,6 +13463,10 @@ msgid "Could not write new index file."
 msgstr "Новият индекс не може да бъде записан."
 
 #: builtin/rev-list.c
+msgid "cannot combine --exclude-promisor-objects and --missing"
+msgstr "опциите „--exclude-promisor-objects“ и „--missing“ и са несъвместими"
+
+#: builtin/rev-list.c
 msgid "object filtering requires --objects"
 msgstr "филтрирането на обекти изисква опцията „--objects“"
 
@@ -13355,10 +13582,6 @@ msgstr "добавяне на името на подаването"
 #: builtin/revert.c
 msgid "preserve initially empty commits"
 msgstr "запазване на първоначално празните подавания"
-
-#: builtin/revert.c
-msgid "allow commits with empty messages"
-msgstr "позволяване на празни съобщения при подаване"
 
 #: builtin/revert.c
 msgid "keep redundant, empty commits"
@@ -13728,6 +13951,11 @@ msgid "Expecting a full ref name, got %s"
 msgstr "Очаква се пълно име на указател, а не „%s“"
 
 #: builtin/submodule--helper.c
+msgid "submodule--helper print-default-remote takes no arguments"
+msgstr ""
+"командата „print-default-remote“ на „submodule--helper“ не приема аргументи"
+
+#: builtin/submodule--helper.c
 #, c-format
 msgid "cannot strip one component off url '%s'"
 msgstr "не може да се махне компонент от адреса „%s“"
@@ -13821,6 +14049,96 @@ msgstr "git submodule status [--quiet] [--cached] [--recursive] [ПЪТ…]"
 #: builtin/submodule--helper.c
 msgid "git submodule--helper name <path>"
 msgstr "git submodule--helper name ПЪТ"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Synchronizing submodule url for '%s'\n"
+msgstr "Синхронизиране на адреса на подмодул за „%s“\n"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to register url for submodule path '%s'"
+msgstr "неуспешно регистриране на адрес за пътя към подмодул „%s“"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to get the default remote for submodule '%s'"
+msgstr "отдалеченият адрес на подмодула „%s“ не може да бъде получен"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "failed to update remote for submodule '%s'"
+msgstr "отдалеченият адрес на подмодула „%s“ не може да бъде променен"
+
+#: builtin/submodule--helper.c
+msgid "Suppress output of synchronizing submodule url"
+msgstr "Без извеждане на информация при синхронизирането на подмодул"
+
+#: builtin/submodule--helper.c
+msgid "Recurse into nested submodules"
+msgstr "Рекурсивно обхождане на подмодулите"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper sync [--quiet] [--recursive] [<path>]"
+msgstr "git submodule--helper sync [--quiet] [--recursive] [ПЪТ]"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"Submodule work tree '%s' contains a .git directory (use 'rm -rf' if you "
+"really want to remove it including all of its history)"
+msgstr ""
+"Работното дърво на подмодул „%s“ съдържа директория „.git“.\n"
+"(ако искате да ги изтриете заедно с цялата им история, използвайте „rm -rf“)"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"Submodule work tree '%s' contains local modifications; use '-f' to discard "
+"them"
+msgstr ""
+"Работното дърво на подмодул „%s“ съдържа локални промени.  Можете да ги "
+"отхвърлите с опцията „-f“"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Cleared directory '%s'\n"
+msgstr "Директорията „%s“ е изчистена\n"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Could not remove submodule work tree '%s'\n"
+msgstr ""
+"Директорията към работното дърво на подмодула „%s“ не може да бъде изтрита\n"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not create empty submodule directory %s"
+msgstr "празната директория за подмодула „%s“ не може да бъде създадена"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Submodule '%s' (%s) unregistered for path '%s'\n"
+msgstr "Регистрацията на подмодула „%s“ (%s) за пътя „%s“ е премахната\n"
+
+#: builtin/submodule--helper.c
+msgid "Remove submodule working trees even if they contain local changes"
+msgstr ""
+"Изтриване на работните дървета на подмодулите, дори когато те съдържат "
+"локални промени"
+
+#: builtin/submodule--helper.c
+msgid "Unregister all submodules"
+msgstr "Премахване на регистрациите на всички подмодули"
+
+#: builtin/submodule--helper.c
+msgid ""
+"git submodule deinit [--quiet] [-f | --force] [--all | [--] [<path>...]]"
+msgstr "git submodule deinit [--quiet] [-f | --force] [--all | [--] [ПЪТ…]]"
+
+#: builtin/submodule--helper.c
+msgid "Use '--all' if you really want to deinitialize all submodules"
+msgstr "Използвайте „--all“, за да премахнете всички подмодули"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -14110,6 +14428,10 @@ msgstr "анотирането на етикети изисква съобщен
 #: builtin/tag.c
 msgid "tag message"
 msgstr "СЪОБЩЕНИЕ за етикет"
+
+#: builtin/tag.c
+msgid "force edit of tag message"
+msgstr "принудително редактиране на съобщение за етикет"
 
 #: builtin/tag.c
 msgid "annotated and GPG-signed tag"
@@ -14555,8 +14877,8 @@ msgid "print tag contents"
 msgstr "извеждане на съдържанието на ЕТИКЕТи"
 
 #: builtin/worktree.c
-msgid "git worktree add [<options>] <path> [<branch>]"
-msgstr "git worktree add [ОПЦИЯ…] ПЪТ [КЛОН]"
+msgid "git worktree add [<options>] <path> [<commit-ish>]"
+msgstr "git worktree add [ОПЦИЯ…] ПЪТ [УКАЗАТЕЛ_КЪМ_ПОДАВАНЕ]"
 
 #: builtin/worktree.c
 msgid "git worktree list [<options>]"
@@ -14567,8 +14889,16 @@ msgid "git worktree lock [<options>] <path>"
 msgstr "git worktree lock [ОПЦИЯ…] [ПЪТ]"
 
 #: builtin/worktree.c
+msgid "git worktree move <worktree> <new-path>"
+msgstr "git worktree move [ДЪРВО] [НОВ_ПЪТ]"
+
+#: builtin/worktree.c
 msgid "git worktree prune [<options>]"
 msgstr "git worktree prune [ОПЦИЯ…]"
+
+#: builtin/worktree.c
+msgid "git worktree remove [<options>] <worktree>"
+msgstr "git worktree remove [ОПЦИЯ…] [ДЪРВО]"
 
 #: builtin/worktree.c
 msgid "git worktree unlock <path>"
@@ -14698,6 +15028,89 @@ msgstr "„%s“ вече е заключено"
 msgid "'%s' is not locked"
 msgstr "„%s“ не е заключено"
 
+#: builtin/worktree.c
+msgid "working trees containing submodules cannot be moved or removed"
+msgstr ""
+"не може да местите или изтривате работни дървета, в които има подмодули"
+
+#: builtin/worktree.c
+#, c-format
+msgid "'%s' is a main working tree"
+msgstr "„%s“ е основно работно дърво"
+
+#: builtin/worktree.c
+#, c-format
+msgid "could not figure out destination name from '%s'"
+msgstr "името на целта не може да се определи от „%s“"
+
+#: builtin/worktree.c
+#, c-format
+msgid "target '%s' already exists"
+msgstr "целта „%s“ вече съществува"
+
+#: builtin/worktree.c
+#, c-format
+msgid "cannot move a locked working tree, lock reason: %s"
+msgstr ""
+"не може да преместите заключено работно дърво, причина за заключването: %s"
+
+#: builtin/worktree.c
+msgid "cannot move a locked working tree"
+msgstr "не може да местите заключено работно дърво"
+
+#: builtin/worktree.c
+#, c-format
+msgid "validation failed, cannot move working tree: %s"
+msgstr ""
+"проверките са неуспешни, работното дърво не може да бъде преместено: %s"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to move '%s' to '%s'"
+msgstr "„%s“ не може да се премести в „%s“"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to run 'git status' on '%s'"
+msgstr "не може да изпълни „git status“ върху „%s“"
+
+#: builtin/worktree.c
+#, c-format
+msgid "'%s' is dirty, use --force to delete it"
+msgstr ""
+"работното дърво „%s“ не е чисто, за принудително изтриване е необходима "
+"опцията „--force“ "
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to run 'git status' on '%s', code %d"
+msgstr ""
+"командата „git status“ не може да се изпълни за „%s“, код за грешка: %d"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to delete '%s'"
+msgstr "неуспешно изтриване на „%s“"
+
+#: builtin/worktree.c
+msgid "force removing even if the worktree is dirty"
+msgstr "принудително изтриване, дори работното дърво да не е чисто"
+
+#: builtin/worktree.c
+#, c-format
+msgid "cannot remove a locked working tree, lock reason: %s"
+msgstr ""
+"не може да изтриете заключено работно дърво, причина за заключването: %s"
+
+#: builtin/worktree.c
+msgid "cannot remove a locked working tree"
+msgstr "не може да изтриете заключено работно дърво"
+
+#: builtin/worktree.c
+#, c-format
+msgid "validation failed, cannot remove working tree: %s"
+msgstr "проверките са неуспешни, работното дърво не може да бъде изтрито: %s"
+
 #: builtin/write-tree.c
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
 msgstr "git write-tree [--missing-ok] [--prefix=ПРЕФИКС/]"
@@ -14756,6 +15169,20 @@ msgstr "извеждане на съобщенията за трасиране �
 
 #: git.c
 msgid ""
+"git [--version] [--help] [-C <path>] [-c <name>=<value>]\n"
+"           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
+"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
+"           <command> [<args>]"
+msgstr ""
+"git [--version] [--help] [-C ПЪТ] [-c ИМЕ=СТОЙНОСТ]\n"
+"           [--exec-path[=ПЪТ]] [--html-path] [--man-path] [--info-path]\n"
+"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [--git-dir=ПЪТ] [--work-tree=ПЪТ] [--namespace=ИМЕ]\n"
+"           КОМАНДА [АРГ…]"
+
+#: git.c
+msgid ""
 "'git help -a' and 'git help -g' list available subcommands and some\n"
 "concept guides. See 'git help <command>' or 'git help <concept>'\n"
 "to read about a specific subcommand or concept."
@@ -14768,6 +15195,52 @@ msgstr ""
 "\n"
 "Български превод на книгата „Pro Git“ от Чакън и Страуб:\n"
 "http://i-can.eu/progit2-bg/progit.html"
+
+#: git.c
+#, c-format
+msgid "no directory given for --git-dir\n"
+msgstr "опцията „--git-dir“ изисква директория\n"
+
+#: git.c
+#, c-format
+msgid "no namespace given for --namespace\n"
+msgstr "опцията „--namespace“ изисква име\n"
+
+#: git.c
+#, c-format
+msgid "no directory given for --work-tree\n"
+msgstr "опцията „--work-tree“ изисква директория\n"
+
+#: git.c
+#, c-format
+msgid "no prefix given for --super-prefix\n"
+msgstr "опцията „--super-prefix“ изисква префикс\n"
+
+#: git.c
+#, c-format
+msgid "-c expects a configuration string\n"
+msgstr "опцията „-c“ изисква низ за настройка\n"
+
+#: git.c
+#, c-format
+msgid "no directory given for -C\n"
+msgstr "опцията „-C“ изисква директория\n"
+
+#: git.c
+#, c-format
+msgid "unknown option: %s\n"
+msgstr "непозната опция: „%s“\n"
+
+#: git.c
+#, c-format
+msgid "expansion of alias '%s' failed; '%s' is not a git command\n"
+msgstr ""
+"неуспешно заместване на синонима „%s“ — резултатът „%s“ не е команда на git\n"
+
+#: git.c
+#, c-format
+msgid "failed to run command '%s': %s\n"
+msgstr "командата „%s“ не може да се изпълни: %s\n"
 
 #: http.c
 #, c-format
@@ -15577,59 +16050,6 @@ msgstr ""
 
 #: git-submodule.sh
 #, sh-format
-msgid "pathspec and --all are incompatible"
-msgstr "указването на път е несъвместимо с опцията „--all“"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Use '--all' if you really want to deinitialize all submodules"
-msgstr "Използвайте „--all“, за да премахнете всички подмодули"
-
-#: git-submodule.sh
-#, sh-format
-msgid ""
-"Submodule work tree '$displaypath' contains a .git directory\n"
-"(use 'rm -rf' if you really want to remove it including all of its history)"
-msgstr ""
-"Работното дърво на подмодул „${displaypath}“ съдържа директория „.git“.\n"
-"(ако искате да ги изтриете заедно с цялата им история, използвайте „rm -rf“)"
-
-#: git-submodule.sh
-#, sh-format
-msgid ""
-"Submodule work tree '$displaypath' contains local modifications; use '-f' to "
-"discard them"
-msgstr ""
-"Работното дърво на подмодул „${displaypath}“ съдържа локални промени.  "
-"Можете да го отхвърлите с опцията „-f“"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Cleared directory '$displaypath'"
-msgstr "Директорията „${displaypath}“ е изчистена"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Could not remove submodule work tree '$displaypath'"
-msgstr ""
-"Директорията към работното дърво на подмодула „${displaypath}“ не може да "
-"бъде изтрита"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Could not create empty submodule directory '$displaypath'"
-msgstr ""
-"Празната директория за подмодула „${displaypath}“ не може да бъде създадена"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Submodule '$name' ($url) unregistered for path '$displaypath'"
-msgstr ""
-"Премахната е регистрацията на подмодул „${name}“, сочещ към адрес „${url}“, "
-"за пътя „${displaypath}“"
-
-#: git-submodule.sh
-#, sh-format
 msgid "Unable to find current revision in submodule path '$displaypath'"
 msgstr "Текущата версия за подмодула в „${displaypath}“ липсва"
 
@@ -15740,11 +16160,6 @@ msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
 msgstr ""
 "  ПРЕДУПРЕЖДЕНИЕ: „${display_name}“ не съдържа никое от подаванията "
 "„${sha1_src}“ и „${sha1_dst}“"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Synchronizing submodule url for '$displaypath'"
-msgstr "Синхронизиране на адреса за пътя към подмодул „${displaypath}“"
 
 #: git-parse-remote.sh
 #, sh-format
@@ -16499,117 +16914,121 @@ msgstr "Обновяване на кръпка"
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stage mode change [y,n,q,a,d,/%s,?]? "
-msgstr "Добавяне на промяната на правата за достъп [y,n,q,a,d,/%s,?]? "
+msgid "Stage mode change [y,n,q,a,d%s,?]? "
+msgstr "Добавяне на промяната на правата за достъп [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stage deletion [y,n,q,a,d,/%s,?]? "
-msgstr "Добавяне на изтриването [y,n,q,a,d,/%s,?]? "
+msgid "Stage deletion [y,n,q,a,d%s,?]? "
+msgstr "Добавяне на изтриването [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stage this hunk [y,n,q,a,d,/%s,?]? "
-msgstr "Добавяне на това парче [y,n,q,a,d,/%s,?]? "
+msgid "Stage this hunk [y,n,q,a,d%s,?]? "
+msgstr "Добавяне на това парче [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stash mode change [y,n,q,a,d,/%s,?]? "
-msgstr "Скатаване на промяната на правата за достъп [y,n,q,a,d,/%s,?]? "
+msgid "Stash mode change [y,n,q,a,d%s,?]? "
+msgstr "Скатаване на промяната на правата за достъп [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stash deletion [y,n,q,a,d,/%s,?]? "
-msgstr "Скатаване на изтриването [y,n,q,a,d,/%s,?]? "
+msgid "Stash deletion [y,n,q,a,d%s,?]? "
+msgstr "Скатаване на изтриването [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Stash this hunk [y,n,q,a,d,/%s,?]? "
-msgstr "Скатаване на това парче [y,n,q,a,d,/%s,?]? "
+msgid "Stash this hunk [y,n,q,a,d%s,?]? "
+msgstr "Скатаване на това парче [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Unstage mode change [y,n,q,a,d,/%s,?]? "
-msgstr "Изваждане на промяната на правата за достъп [y,n,q,a,d,/%s,?]? "
+msgid "Unstage mode change [y,n,q,a,d%s,?]? "
+msgstr "Изваждане на промяната на правата за достъп [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Unstage deletion [y,n,q,a,d,/%s,?]? "
-msgstr "Изваждане на изтриването [y,n,q,a,d,/%s,?]? "
+msgid "Unstage deletion [y,n,q,a,d%s,?]? "
+msgstr "Изваждане на изтриването [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Unstage this hunk [y,n,q,a,d,/%s,?]? "
-msgstr "Изваждане на това парче [y,n,q,a,d,/%s,?]? "
+msgid "Unstage this hunk [y,n,q,a,d%s,?]? "
+msgstr "Изваждане на това парче [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply mode change to index [y,n,q,a,d,/%s,?]? "
+msgid "Apply mode change to index [y,n,q,a,d%s,?]? "
 msgstr ""
-"Прилагане на промяната на правата за достъп към индекса [y,n,q,a,d,/%s,?]? "
+"Прилагане на промяната на правата за достъп към индекса [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply deletion to index [y,n,q,a,d,/%s,?]? "
-msgstr "Прилагане на изтриването към индекса [y,n,q,a,d,/%s,?]? "
+msgid "Apply deletion to index [y,n,q,a,d%s,?]? "
+msgstr "Прилагане на изтриването към индекса [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply this hunk to index [y,n,q,a,d,/%s,?]? "
-msgstr "Прилагане на това парче към индекса [y,n,q,a,d,/%s,?]? "
+msgid "Apply this hunk to index [y,n,q,a,d%s,?]? "
+msgstr "Прилагане на това парче към индекса [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard mode change from worktree [y,n,q,a,d,/%s,?]? "
+msgid "Discard mode change from worktree [y,n,q,a,d%s,?]? "
 msgstr ""
-"Премахване на промяната в правата за достъп от работното дърво [y,n,q,a,d,/"
+"Премахване на промяната в правата за достъп от работното дърво [y,n,q,a,d"
 "%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard deletion from worktree [y,n,q,a,d,/%s,?]? "
-msgstr "Премахване на изтриването от работното дърво [y,n,q,a,d,/%s,?]? "
+msgid "Discard deletion from worktree [y,n,q,a,d%s,?]? "
+msgstr "Премахване на изтриването от работното дърво [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard this hunk from worktree [y,n,q,a,d,/%s,?]? "
-msgstr "Премахване на парчето от работното дърво [y,n,q,a,d,/%s,?]? "
+msgid "Discard this hunk from worktree [y,n,q,a,d%s,?]? "
+msgstr "Премахване на парчето от работното дърво [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard mode change from index and worktree [y,n,q,a,d,/%s,?]? "
+msgid "Discard mode change from index and worktree [y,n,q,a,d%s,?]? "
 msgstr ""
 "Премахване на промяната в правата за достъп от индекса и работното дърво [y,"
-"n,q,a,d,/%s,?]? "
+"n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard deletion from index and worktree [y,n,q,a,d,/%s,?]? "
+msgid "Discard deletion from index and worktree [y,n,q,a,d%s,?]? "
 msgstr ""
-"Премахване на изтриването от индекса и работното дърво [y,n,q,a,d,/%s,?]? "
+"Премахване на изтриването от индекса и работното дърво [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Discard this hunk from index and worktree [y,n,q,a,d,/%s,?]? "
-msgstr "Премахване на парчето от индекса и работното дърво [y,n,q,a,d,/%s,?]? "
+msgid "Discard this hunk from index and worktree [y,n,q,a,d%s,?]? "
+msgstr "Премахване на парчето от индекса и работното дърво [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply mode change to index and worktree [y,n,q,a,d,/%s,?]? "
+msgid "Apply mode change to index and worktree [y,n,q,a,d%s,?]? "
 msgstr ""
 "Прилагане на промяната в правата за достъп от индекса и работното дърво [y,n,"
-"q,a,d,/%s,?]? "
+"q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply deletion to index and worktree [y,n,q,a,d,/%s,?]? "
+msgid "Apply deletion to index and worktree [y,n,q,a,d%s,?]? "
 msgstr ""
-"Прилагане на изтриването от индекса и работното дърво [y,n,q,a,d,/%s,?]? "
+"Прилагане на изтриването от индекса и работното дърво [y,n,q,a,d%s,?]? "
 
 #: git-add--interactive.perl
 #, perl-format
-msgid "Apply this hunk to index and worktree [y,n,q,a,d,/%s,?]? "
-msgstr "Прилагане на парчето от индекса и работното дърво [y,n,q,a,d,/%s,?]? "
+msgid "Apply this hunk to index and worktree [y,n,q,a,d%s,?]? "
+msgstr "Прилагане на парчето от индекса и работното дърво [y,n,q,a,d%s,?]? "
+
+#: git-add--interactive.perl
+msgid "No other hunks to goto\n"
+msgstr "Няма други парчета\n"
 
 #: git-add--interactive.perl
 msgid "go to which hunk (<ret> to see more)? "
@@ -16630,6 +17049,10 @@ msgid "Sorry, only %d hunk available.\n"
 msgid_plural "Sorry, only %d hunks available.\n"
 msgstr[0] "Има само %d парче.\n"
 msgstr[1] "Има само %d парчета.\n"
+
+#: git-add--interactive.perl
+msgid "No other hunks to search\n"
+msgstr "Няма други парчета за търсене\n"
 
 #: git-add--interactive.perl
 msgid "search for regex? "
@@ -16653,11 +17076,19 @@ msgid "No next hunk\n"
 msgstr "Няма друго парче след това\n"
 
 #: git-add--interactive.perl
+msgid "Sorry, cannot split this hunk\n"
+msgstr "Това парче не може да бъде разделено\n"
+
+#: git-add--interactive.perl
 #, perl-format
 msgid "Split into %d hunk.\n"
 msgid_plural "Split into %d hunks.\n"
 msgstr[0] "Разделяне на %d парче.\n"
 msgstr[1] "Разделяне на %d парчета.\n"
+
+#: git-add--interactive.perl
+msgid "Sorry, cannot edit this hunk\n"
+msgstr "Това парче не може да бъде редактирано\n"
 
 #: git-add--interactive.perl
 msgid "Review diff"
@@ -16733,6 +17164,14 @@ msgstr "опцията „--dump-aliases“ е несъвместима с др�
 #: git-send-email.perl
 msgid "Cannot run git format-patch from outside a repository\n"
 msgstr "Командата „git format-patch“ не може да се изпълни извън хранилище\n"
+
+#: git-send-email.perl
+msgid ""
+"`batch-size` and `relogin` must be specified together (via command-line or "
+"configuration option)\n"
+msgstr ""
+"„batch-size“ и „relogin“ трябва да се указват заедно (или чрез командния "
+"ред, или чрез настройките)\n"
 
 #: git-send-email.perl
 #, perl-format
@@ -16833,18 +17272,13 @@ msgstr ""
 
 #: git-send-email.perl
 #, perl-format
-msgid "Failed to open %s.final: %s"
-msgstr "„%s.final“ не може да се отвори: %s"
-
-#: git-send-email.perl
-#, perl-format
 msgid "Failed to open %s: %s"
 msgstr "„%s“ не може да се отвори: %s"
 
 #: git-send-email.perl
-msgid "To/Cc/Bcc fields are not interpreted yet, they have been ignored\n"
-msgstr ""
-"Полетата „To“/„Cc“/„Bcc“ все още не се интерпретират.  Те бяха прескочени\n"
+#, perl-format
+msgid "Failed to open %s.final: %s"
+msgstr "„%s.final“ не може да се отвори: %s"
 
 #: git-send-email.perl
 msgid "Summary email is empty, skipping it\n"
