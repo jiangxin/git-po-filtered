@@ -58,7 +58,7 @@
 #   fork                             |  派生
 #   Git archive                      |  仓库（对于 arch 用户）
 #   gitfile                          |  gitfile（仓库链接文件）
-#   grafts                           |  （提交）嫁接
+#   grafts                           |  （提交）移植
 #   hash                             |  哈希值
 #   HEAD                             |  HEAD（头指针，亦即当前分支）
 #   head                             |  头、分支
@@ -138,8 +138,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-03-16 07:29+0800\n"
-"PO-Revision-Date: 2018-03-25 22:20+0800\n"
+"POT-Creation-Date: 2018-06-16 22:06+0800\n"
+"PO-Revision-Date: 2018-06-18 00:28+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -150,8 +150,8 @@ msgstr ""
 
 #: advice.c
 #, c-format
-msgid "hint: %.*s\n"
-msgstr "提示：%.*s\n"
+msgid "%shint: %.*s%s\n"
+msgstr "%s提示：%.*s%s\n"
 
 #: advice.c
 msgid "Cherry-picking is not possible because you have unmerged files."
@@ -1325,7 +1325,7 @@ msgstr "index-pack 终止"
 msgid "invalid color value: %.*s"
 msgstr "无效的颜色值：%.*s"
 
-#: commit.c sequencer.c builtin/am.c
+#: commit.c sequencer.c builtin/am.c builtin/replace.c
 #, c-format
 msgid "could not parse %s"
 msgstr "不能解析 %s"
@@ -1337,6 +1337,26 @@ msgstr "%s %s 不是一个提交！"
 
 #: commit.c
 msgid ""
+"Support for <GIT_DIR>/info/grafts is deprecated\n"
+"and will be removed in a future Git version.\n"
+"\n"
+"Please use \"git replace --convert-graft-file\"\n"
+"to convert the grafts into replace refs.\n"
+"\n"
+"Turn this message off by running\n"
+"\"git config advice.graftFileDeprecated false\""
+msgstr ""
+"对 <GIT_DIR>/info/grafts 的支持已被弃用，并将在\n"
+"未来的Git版本中被移除。\n"
+"\n"
+"请使用 \"git replace --convert-graft-file\" 将\n"
+"grafts 转换为替换引用。\n"
+"\n"
+"设置 \"git config advice.graftFileDeprecated false\"\n"
+"可关闭本消息"
+
+#: commit.c
+msgid ""
 "Warning: commit message did not conform to UTF-8.\n"
 "You may want to amend it after fixing the message, or set the config\n"
 "variable i18n.commitencoding to the encoding your project uses.\n"
@@ -1344,6 +1364,20 @@ msgstr ""
 "警告：提交说明不符合 UTF-8 字符编码。\n"
 "您可以通过修补提交来改正提交说明，或者将配置变量 i18n.commitencoding\n"
 "设置为您项目所用的字符编码。\n"
+
+#: commit-graph.c
+#, c-format
+msgid "the commit graph format cannot write %d commits"
+msgstr "提交图形格式不能写入 %d 个提交"
+
+#: commit-graph.c
+msgid "too many commits to write graph"
+msgstr "提交太多不能画图"
+
+#: commit-graph.c builtin/init-db.c
+#, c-format
+msgid "cannot mkdir %s"
+msgstr "不能创建目录 %s"
 
 #: compat/obstack.c
 msgid "memory exhausted"
@@ -1562,6 +1596,46 @@ msgid ""
 msgstr ""
 "文件 %s 中的 LF 将被 CRLF 替换。\n"
 "在工作区中该文件仍保持原有的换行符。"
+
+#: convert.c
+#, c-format
+msgid "BOM is prohibited in '%s' if encoded as %s"
+msgstr "如果使用 %2$s 编码，禁止在 '%1$s' 中使用 BOM"
+
+#: convert.c
+#, c-format
+msgid ""
+"The file '%s' contains a byte order mark (BOM). Please use UTF-%s as working-"
+"tree-encoding."
+msgstr "文件 '%s' 包含一个字节顺序标记（BOM）。请使用 UTF-%s 作为工作区编码。"
+
+#: convert.c
+#, c-format
+msgid "BOM is required in '%s' if encoded as %s"
+msgstr "如果编码为 %2$s，需要在 '%1$s' 中使用 BOM"
+
+#: convert.c
+#, c-format
+msgid ""
+"The file '%s' is missing a byte order mark (BOM). Please use UTF-%sBE or UTF-"
+"%sLE (depending on the byte order) as working-tree-encoding."
+msgstr ""
+"文件 '%s' 缺失一个字节顺序标记（BOM）。请使用 UTF-%sBE or UTF-%sLE（取决于字"
+"节序）作为工作区编码。"
+
+#: convert.c
+#, c-format
+msgid "failed to encode '%s' from %s to %s"
+msgstr "无法对 '%s' 进行从 %s 到 %s 的编码"
+
+#: convert.c
+#, c-format
+msgid "encoding '%s' from %s to %s and back is not the same"
+msgstr "将'%s' 的编码从 %s 到 %s 来回转换不一致"
+
+#: convert.c
+msgid "true/false are no valid working-tree-encodings"
+msgstr "true/false 不是有效的工作区编码"
 
 #: date.c
 msgid "in the future"
@@ -1937,6 +2011,10 @@ msgid "git fetch-pack: fetch failed."
 msgstr "git fetch-pack：获取失败。"
 
 #: fetch-pack.c
+msgid "Server does not support shallow requests"
+msgstr "服务器不支持 shalllow 请求"
+
+#: fetch-pack.c
 msgid "no matching remote head"
 msgstr "没有匹配的远程分支"
 
@@ -1984,6 +2062,58 @@ msgid "'%s': short read"
 msgstr "'%s'：读取不完整"
 
 #: help.c
+msgid "start a working area (see also: git help tutorial)"
+msgstr "开始一个工作区（参见：git help tutorial）"
+
+#: help.c
+msgid "work on the current change (see also: git help everyday)"
+msgstr "在当前变更上工作（参见：git help everyday）"
+
+#: help.c
+msgid "examine the history and state (see also: git help revisions)"
+msgstr "检查历史和状态（参见：git help revisions）"
+
+#: help.c
+msgid "grow, mark and tweak your common history"
+msgstr "扩展、标记和调校您的历史记录"
+
+#: help.c
+msgid "collaborate (see also: git help workflows)"
+msgstr "协同（参见：git help workflows）"
+
+#: help.c
+msgid "Main Porcelain Commands"
+msgstr "主要的上层命令"
+
+#: help.c
+msgid "Ancillary Commands / Manipulators"
+msgstr "辅助命令/操作者"
+
+#: help.c
+msgid "Ancillary Commands / Interrogators"
+msgstr "辅助命令/询问者"
+
+#: help.c
+msgid "Interacting with Others"
+msgstr "与其它系统交互"
+
+#: help.c
+msgid "Low-level Commands / Manipulators"
+msgstr "低级命令/操作者"
+
+#: help.c
+msgid "Low-level Commands / Interrogators"
+msgstr "低级命令/询问者"
+
+#: help.c
+msgid "Low-level Commands / Synching Repositories"
+msgstr "低级命令/同步仓库"
+
+#: help.c
+msgid "Low-level Commands / Internal Helpers"
+msgstr "低级命令/内部助手"
+
+#: help.c
 #, c-format
 msgid "available git commands in '%s'"
 msgstr "在 '%s' 下可用的 git 命令"
@@ -1995,6 +2125,15 @@ msgstr "在 $PATH 路径中的其他地方可用的 git 命令"
 #: help.c
 msgid "These are common Git commands used in various situations:"
 msgstr "这些是各种场合常见的 Git 命令："
+
+#: help.c git.c
+#, c-format
+msgid "unsupported command listing type '%s'"
+msgstr "不支持的命令列表类型 '%s'"
+
+#: help.c
+msgid "The common Git guides are:"
+msgstr "最常用的 Git 向导有："
 
 #: help.c
 #, c-format
@@ -2169,8 +2308,13 @@ msgstr "（坏提交）\n"
 
 #: merge-recursive.c
 #, c-format
-msgid "addinfo_cache failed for path '%s'"
-msgstr "为路径 '%s' addinfo_cache 失败"
+msgid "add_cacheinfo failed for path '%s'; merge aborting."
+msgstr "addinfo_cache 对路径 '%s' 执行失败，合并终止。"
+
+#: merge-recursive.c
+#, c-format
+msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
+msgstr "addinfo_cache 无法刷新路径 '%s'，合并终止。"
 
 #: merge-recursive.c
 msgid "error building trees"
@@ -2221,6 +2365,66 @@ msgid "do not know what to do with %06o %s '%s'"
 msgstr "不知道如何处理 %06o %s '%s'"
 
 #: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr "无法合并子模组 %s （没有检出）"
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr "无法合并子模组 %s（提交不存在）"
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr "无法合并子模组 %s （提交未跟随合并基线）"
+
+#: merge-recursive.c
+#, c-format
+msgid "Fast-forwarding submodule %s to the following commit:"
+msgstr "子模组 %s 快进到如下提交："
+
+#: merge-recursive.c
+#, c-format
+msgid "Fast-forwarding submodule %s"
+msgstr "快进子模组 %s"
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (merge following commits not found)"
+msgstr "无法合并子模组 %s （没发现合并跟随的提交）"
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not fast-forward)"
+msgstr "无法合并子模组 %s（非快进）"
+
+#: merge-recursive.c
+msgid "Found a possible merge resolution for the submodule:\n"
+msgstr "找到子模组的一个可能的合并方案：\n"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+"如果这个正确，将其添加到索引，例如使用命令：\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"以接受此建议。\n"
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (multiple merges found)"
+msgstr "无法合并子模组 %s （发现多个合并）"
+
+#: merge-recursive.c
 msgid "Failed to execute internal merge"
 msgstr "无法执行内部合并"
 
@@ -2228,6 +2432,16 @@ msgstr "无法执行内部合并"
 #, c-format
 msgid "Unable to add %s to database"
 msgstr "不能添加 %s 至对象库"
+
+#: merge-recursive.c
+#, c-format
+msgid "Auto-merging %s"
+msgstr "自动合并 %s"
+
+#: merge-recursive.c
+#, c-format
+msgid "Error: Refusing to lose untracked file at %s; writing to %s instead."
+msgstr "错误：拒绝丢失未跟踪文件 '%s'，而是写入 %s。"
 
 #: merge-recursive.c
 #, c-format
@@ -2275,8 +2489,18 @@ msgstr "重命名"
 
 #: merge-recursive.c
 #, c-format
+msgid "Refusing to lose dirty file at %s"
+msgstr "拒绝丢失脏文件 '%s'"
+
+#: merge-recursive.c
+#, c-format
 msgid "%s is a directory in %s adding as %s instead"
 msgstr "%s 是 %s 中的一个目录而以 %s 为名被添加"
+
+#: merge-recursive.c
+#, c-format
+msgid "Refusing to lose untracked file at %s; adding as %s instead"
+msgstr "拒绝丢失未跟踪文件 '%s'，而是添加为 %s"
 
 #: merge-recursive.c
 #, c-format
@@ -2302,6 +2526,55 @@ msgstr ""
 #, c-format
 msgid "Renaming %s to %s and %s to %s instead"
 msgstr "而是重命名 %s 至 %s，以及 %s 至 %s"
+
+#: merge-recursive.c
+#, c-format
+msgid "Refusing to lose untracked file at %s, even though it's in the way."
+msgstr "拒绝丢失未跟踪文件 '%s'，即使它妨碍了。"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to place %s because "
+"directory %s was renamed to multiple other directories, with no destination "
+"getting a majority of the files."
+msgstr ""
+"冲突（分割的目录重命名）：不清楚 %s 应该放在哪里，因为目录 %s 被重命名到多个"
+"其它目录，没有一个目录包含主要的文件。"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+"冲突（隐式目录重命名）：处于隐式目录重命名的现存文件/目录 %s，将以下路径放"
+"在：%s。"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+"冲突（隐式目录重命名）：无法映射一个以上路径到 %s，隐式目录重命名尝试将这些路"
+"径放置于此：%s"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
+">%s in %s"
+msgstr ""
+"冲突（重命名/重命名）：在 %3$s 中重命名目录 %1$s->%2$s，在 %6$s 中重命名目录 "
+"%4$s->%5$s"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
+msgstr "警告：避免应用 %s -> %s 的重命名到 %s，因为 %s 本身已被重命名。"
 
 #: merge-recursive.c
 #, c-format
@@ -2348,11 +2621,6 @@ msgstr "添加/添加"
 #, c-format
 msgid "Skipped %s (merged same as existing)"
 msgstr "略过 %s（已经做过相同合并）"
-
-#: merge-recursive.c
-#, c-format
-msgid "Auto-merging %s"
-msgstr "自动合并 %s"
 
 #: merge-recursive.c git-submodule.sh
 msgid "submodule"
@@ -2511,8 +2779,13 @@ msgstr "-数字"
 
 #: parse-options-cb.c
 #, c-format
+msgid "malformed expiration date '%s'"
+msgstr "格式错误的到期时间：'%s'"
+
+#: parse-options-cb.c
+#, c-format
 msgid "malformed object name '%s'"
-msgstr "非法的对象名 '%s'"
+msgstr "格式错误的对象名 '%s'"
 
 #: path.c
 #, c-format
@@ -2632,9 +2905,9 @@ msgstr "不能打开 git 目录：%s"
 msgid "unable to unlink: %s"
 msgstr "无法删除：%s"
 
-#: refs.c
+#: refs.c sequencer.c wrapper.c builtin/am.c
 #, c-format
-msgid "Could not open '%s' for writing"
+msgid "could not open '%s' for writing"
 msgstr "无法打开 '%s' 进行写入"
 
 #: refs.c
@@ -2768,7 +3041,7 @@ msgstr "未能识别的 %%(if) 参数：%s"
 #: ref-filter.c
 #, c-format
 msgid "malformed field name: %.*s"
-msgstr "非法的字段名：%.*s"
+msgstr "格式错误的字段名：%.*s"
 
 #: ref-filter.c
 #, c-format
@@ -2818,12 +3091,17 @@ msgstr "格式：使用了 %%(end) 元素却没有它的对应元素"
 #: ref-filter.c
 #, c-format
 msgid "malformed format string %s"
-msgstr "非法的格式化字符串 %s"
+msgstr "错误的格式化字符串 %s"
 
 #: ref-filter.c
 #, c-format
 msgid "(no branch, rebasing %s)"
 msgstr "（非分支，正变基 %s）"
+
+#: ref-filter.c
+#, c-format
+msgid "(no branch, rebasing detached HEAD %s)"
+msgstr "（非分支，正变基分离头指针 %s）"
 
 #: ref-filter.c
 #, c-format
@@ -2863,7 +3141,7 @@ msgstr "parse_object_buffer 失败于 %2$s 的 %1$s"
 #: ref-filter.c
 #, c-format
 msgid "malformed object at '%s'"
-msgstr "非法的对象于 '%s'"
+msgstr "格式错误的对象 '%s'"
 
 #: ref-filter.c
 #, c-format
@@ -2883,7 +3161,7 @@ msgstr "格式：缺少 %%(end) 元素"
 #: ref-filter.c
 #, c-format
 msgid "malformed object name %s"
-msgstr "非法的对象名 %s"
+msgstr "格式错误的对象名 %s"
 
 #: remote.c
 #, c-format
@@ -3082,6 +3360,11 @@ msgid "invalid commit message cleanup mode '%s'"
 msgstr "无效的提交信息清理模式 '%s'"
 
 #: sequencer.c
+#, c-format
+msgid "could not delete '%s'"
+msgstr "无法删除 '%s'"
+
+#: sequencer.c
 msgid "revert"
 msgstr "还原"
 
@@ -3163,12 +3446,12 @@ msgid "%s: Unable to write new index file"
 msgstr "%s：无法写入新索引文件"
 
 #: sequencer.c
-msgid "could not resolve HEAD commit"
-msgstr "不能解析 HEAD 提交"
-
-#: sequencer.c
 msgid "unable to update cache tree"
 msgstr "不能更新缓存树"
+
+#: sequencer.c
+msgid "could not resolve HEAD commit"
+msgstr "不能解析 HEAD 提交"
 
 #: sequencer.c
 #, c-format
@@ -3198,6 +3481,10 @@ msgstr ""
 "无论哪种情况，当您完成提交，继续执行：\n"
 "\n"
 "  git rebase --continue\n"
+
+#: sequencer.c
+msgid "writing root commit"
+msgstr "写根提交"
 
 #: sequencer.c
 msgid "'prepare-commit-msg' hook failed"
@@ -3313,28 +3600,6 @@ msgstr "不能解析父提交 %s"
 
 #: sequencer.c
 #, c-format
-msgid ""
-"unexpected 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-"意外的压缩提交首行提交信息：\n"
-"\n"
-"\t%.*s"
-
-#: sequencer.c
-#, c-format
-msgid ""
-"invalid 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-"压缩提交的首行提交信息无效：\n"
-"\n"
-"\t%.*s"
-
-#: sequencer.c
-#, c-format
 msgid "This is a combination of %d commits."
 msgstr "这是一个 %d 个提交的组合。"
 
@@ -3382,6 +3647,10 @@ msgstr "未知命令：%d"
 #: sequencer.c
 msgid "your index file is unmerged."
 msgstr "您的索引文件未完成合并。"
+
+#: sequencer.c
+msgid "cannot fixup root commit"
+msgstr "不能修复根提交"
 
 #: sequencer.c
 #, c-format
@@ -3496,9 +3765,13 @@ msgid "invalid value for %s: %s"
 msgstr "%s 的值无效：%s"
 
 #: sequencer.c
+msgid "unusable squash-onto"
+msgstr "不可用的 squash-onto"
+
+#: sequencer.c
 #, c-format
 msgid "malformed options sheet: '%s'"
-msgstr "非法的选项清单：'%s'"
+msgstr "格式错误的选项清单：'%s'"
 
 #: sequencer.c
 msgid "a cherry-pick or revert is already in progress"
@@ -3608,6 +3881,51 @@ msgstr ""
 "\n"
 
 #: sequencer.c
+msgid "writing fake root commit"
+msgstr "写伪根提交"
+
+#: sequencer.c
+msgid "writing squash-onto"
+msgstr "写入 squash-onto"
+
+#: sequencer.c
+#, c-format
+msgid "failed to find tree of %s"
+msgstr "无法找到 %s 指向的树。"
+
+#: sequencer.c
+msgid "could not write index"
+msgstr "不能写入索引"
+
+#: sequencer.c
+msgid "cannot merge without a current revision"
+msgstr "没有当前版本不能合并"
+
+#: sequencer.c
+#, c-format
+msgid "could not resolve '%s'"
+msgstr "无法解析 '%s'"
+
+#: sequencer.c
+#, c-format
+msgid "could not get commit message of '%s'"
+msgstr "不能获取 '%s' 的提交说明"
+
+#: sequencer.c
+#, c-format
+msgid "could not write '%s'"
+msgstr "不能写入 '%s'"
+
+#: sequencer.c
+#, c-format
+msgid "could not even attempt to merge '%.*s'"
+msgstr "甚至不能尝试合并 '%.*s'"
+
+#: sequencer.c
+msgid "merge: Unable to write new index file"
+msgstr "合并：无法写入新索引文件"
+
+#: sequencer.c
 #, c-format
 msgid "Applied autostash.\n"
 msgstr "已应用 autostash。\n"
@@ -3627,6 +3945,26 @@ msgstr ""
 "应用 autostash 导致冲突。\n"
 "您的修改安全地保存在贮藏区中。\n"
 "您可以在任何时候运行 \"git stash pop\" 或 \"git stash drop\"。\n"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"Could not execute the todo command\n"
+"\n"
+"    %.*s\n"
+"It has been rescheduled; To edit the command before continuing, please\n"
+"edit the todo list first:\n"
+"\n"
+"    git rebase --edit-todo\n"
+"    git rebase --continue\n"
+msgstr ""
+"无法执行待办命令\n"
+"\n"
+"    %.*s\n"
+"已被重新安排，在继续之前编辑命令，请先编辑待办列表：\n"
+"\n"
+"    git rebase --edit-todo\n"
+"    git rebase --continue\n"
 
 #: sequencer.c
 #, c-format
@@ -3656,10 +3994,6 @@ msgid "cannot rebase: You have unstaged changes."
 msgstr "不能变基：您有未暂存的变更。"
 
 #: sequencer.c
-msgid "could not remove CHERRY_PICK_HEAD"
-msgstr "不能删除 CHERRY_PICK_HEAD"
-
-#: sequencer.c
 msgid "cannot amend non-existing commit"
 msgstr "不能修补不存在的提交"
 
@@ -3681,6 +4015,15 @@ msgid ""
 msgstr ""
 "\n"
 "您的工作区中有未提交的变更。请先提交然后再次运行 'git rebase --continue'。"
+
+#: sequencer.c
+#, c-format
+msgid "could not write file: '%s'"
+msgstr "不能写入文件：'%s'"
+
+#: sequencer.c
+msgid "could not remove CHERRY_PICK_HEAD"
+msgstr "不能删除 CHERRY_PICK_HEAD"
 
 #: sequencer.c
 msgid "could not commit staged changes."
@@ -3753,11 +4096,6 @@ msgid ""
 msgstr ""
 "您可以用 'git rebase --edit-todo' 修正，然后执行 'git rebase --continue'。\n"
 "或者您可以用 'git rebase --abort' 终止变基。\n"
-
-#: sequencer.c wrapper.c builtin/am.c
-#, c-format
-msgid "could not open '%s' for writing"
-msgstr "无法打开 '%s' 进行写入"
 
 #: sequencer.c
 #, c-format
@@ -3924,41 +4262,41 @@ msgstr "fork 失败"
 msgid "setsid failed"
 msgstr "setsid 失败"
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "path '%s' does not exist"
 msgstr "路径 '%s' 不存在"
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' as a linked checkout is not supported yet."
 msgstr "尚不支持将参考仓库 '%s' 作为一个链接检出。"
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is not a local repository."
 msgstr "参考仓库 '%s' 不是一个本地仓库。"
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is shallow"
 msgstr "参考仓库 '%s' 是一个浅克隆"
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is grafted"
-msgstr "参考仓库 '%s' 已被嫁接"
+msgstr "参考仓库 '%s' 已被移植"
 
-#: sha1_name.c
+#: sha1-name.c
 #, c-format
 msgid "short SHA1 %s is ambiguous"
 msgstr "短 SHA1 %s 存在歧义"
 
-#: sha1_name.c
+#: sha1-name.c
 msgid "The candidates are:"
 msgstr "候选者有："
 
-#: sha1_name.c
+#: sha1-name.c
 msgid ""
 "Git normally never creates a ref that ends with 40 hex characters\n"
 "because it will be ignored when you just specify 40-hex. These refs\n"
@@ -4078,13 +4416,14 @@ msgid "could not start ls-files in .."
 msgstr "无法在 .. 中启动 ls-files"
 
 #: submodule.c
-msgid "BUG: returned path string doesn't match cwd?"
-msgstr "BUG：返回的路径和当前路径不匹配？"
-
-#: submodule.c
 #, c-format
 msgid "ls-tree returned unexpected return code %d"
 msgstr "ls-tree 返回未知返回值 %d"
+
+#: submodule-config.c
+#, c-format
+msgid "ignoring suspicious submodule name: %s"
+msgstr "忽略可疑的子模组名称：%s"
 
 #: submodule-config.c
 msgid "negative values not allowed for submodule.fetchjobs"
@@ -4157,6 +4496,10 @@ msgstr "将要设置 '%1$s' 的上游为 '%3$s' 的 '%2$s'\n"
 #, c-format
 msgid "transport: invalid depth option '%s'"
 msgstr "传输：无效的深度选项 '%s'"
+
+#: transport.c
+msgid "could not parse transport.color.* config"
+msgstr "不能解析 transport.color.* 配置"
 
 #: transport.c
 #, c-format
@@ -5492,9 +5835,9 @@ msgstr "丢弃裁切线前的所有内容"
 msgid "pass it through git-apply"
 msgstr "传递给 git-apply"
 
-#: builtin/am.c builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c
-#: builtin/pull.c builtin/repack.c builtin/show-branch.c builtin/show-ref.c
-#: builtin/tag.c parse-options.h
+#: builtin/am.c builtin/commit.c builtin/fmt-merge-msg.c builtin/grep.c
+#: builtin/merge.c builtin/pull.c builtin/repack.c builtin/show-branch.c
+#: builtin/show-ref.c builtin/tag.c parse-options.h
 msgid "n"
 msgstr "n"
 
@@ -5692,6 +6035,24 @@ msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<版本选项> 的文档记录在 git-rev-list(1) 中"
 
 #: builtin/blame.c
+#, c-format
+msgid "expecting a color: %s"
+msgstr "期望一个颜色：%s"
+
+#: builtin/blame.c
+msgid "must end with a color"
+msgstr "必须以一个颜色结尾"
+
+#: builtin/blame.c
+#, c-format
+msgid "invalid color '%s' in color.blame.repeatedLines"
+msgstr "设置 color.blame.repeatedLines 中的无效颜色 '%s'"
+
+#: builtin/blame.c
+msgid "invalid value for blame.coloring"
+msgstr "设置 blame.coloring 中的无效取值"
+
+#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr "增量式地显示发现的 blame 条目"
 
@@ -5754,6 +6115,14 @@ msgstr "显示作者的邮箱而不是名字（默认：关闭）"
 #: builtin/blame.c
 msgid "Ignore whitespace differences"
 msgstr "忽略空白差异"
+
+#: builtin/blame.c
+msgid "color redundant metadata from previous line differently"
+msgstr "使用颜色间隔输出与前一行不同的重复元信息"
+
+#: builtin/blame.c
+msgid "color lines by age"
+msgstr "依据时间着色"
 
 #: builtin/blame.c
 msgid "Use an experimental heuristic to improve diffs"
@@ -6104,11 +6473,11 @@ msgstr "只打印尚未合并的分支"
 msgid "list branches in columns"
 msgstr "以列的方式显示分支"
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-remote.c builtin/tag.c
 msgid "key"
 msgstr "key"
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-remote.c builtin/tag.c
 msgid "field name to sort on"
 msgstr "排序的字段名"
 
@@ -6969,11 +7338,12 @@ msgstr "模板目录将被使用"
 msgid "reference repository"
 msgstr "参考仓库"
 
-#: builtin/clone.c
+#: builtin/clone.c builtin/submodule--helper.c
 msgid "use --reference only while cloning"
 msgstr "仅在克隆时参考 --reference 指向的本地仓库"
 
-#: builtin/clone.c builtin/column.c builtin/merge-file.c
+#: builtin/clone.c builtin/column.c builtin/merge-file.c builtin/pack-objects.c
+#: builtin/repack.c
 msgid "name"
 msgstr "名称"
 
@@ -7363,11 +7733,11 @@ msgstr "提交 '%s' 缺少作者信息"
 #: builtin/commit.c
 #, c-format
 msgid "commit '%s' has malformed author line"
-msgstr "提交 '%s' 有非法的作者信息"
+msgstr "提交 '%s' 有格式错误的作者信息"
 
 #: builtin/commit.c
 msgid "malformed --author parameter"
-msgstr "非法的 --author 参数"
+msgstr "格式错误的 --author 参数"
 
 #: builtin/commit.c
 msgid ""
@@ -7615,6 +7985,14 @@ msgid "list untracked files in columns"
 msgstr "以列的方式显示未跟踪的文件"
 
 #: builtin/commit.c
+msgid "do not detect renames"
+msgstr "不检测重命名"
+
+#: builtin/commit.c
+msgid "detect renames, optionally set similarity index"
+msgstr "检测重命名，可以设置索引相似度"
+
+#: builtin/commit.c
 msgid "Unsupported combination of ignored and untracked-files arguments"
 msgstr "不支持已忽略和未跟踪文件参数的组合"
 
@@ -7793,9 +8171,54 @@ msgstr ""
 "仓库已更新，但无法写 new_index 文件。检查是否磁盘已满\n"
 "或磁盘配额已耗尽，然后执行 \"git reset HEAD\" 恢复。"
 
+#: builtin/commit-graph.c
+msgid "git commit-graph [--object-dir <objdir>]"
+msgstr "git commit-graph [--object-dir <对象目录>]"
+
+#: builtin/commit-graph.c
+msgid "git commit-graph read [--object-dir <objdir>]"
+msgstr "git commit-graph read [--object-dir <对象目录>]"
+
+#: builtin/commit-graph.c
+msgid ""
+"git commit-graph write [--object-dir <objdir>] [--append] [--stdin-packs|--"
+"stdin-commits]"
+msgstr ""
+"git commit-graph write [--object-dir <对象目录>] [--append] [--stdin-packs|--"
+"stdin-commits]"
+
+#: builtin/commit-graph.c builtin/fetch.c builtin/log.c
+msgid "dir"
+msgstr "目录"
+
+#: builtin/commit-graph.c
+msgid "The object directory to store the graph"
+msgstr "保存图形的对象目录"
+
+#: builtin/commit-graph.c
+msgid "scan pack-indexes listed by stdin for commits"
+msgstr "从标准输入中的包索引文件列表中扫描提交"
+
+#: builtin/commit-graph.c
+msgid "start walk at commits listed by stdin"
+msgstr "从标准输入中的提交开始扫描"
+
+#: builtin/commit-graph.c
+msgid "include all commits already in the commit-graph file"
+msgstr "包含 commit-graph 文件中已有所有提交"
+
+#: builtin/commit-graph.c
+msgid "cannot use both --stdin-commits and --stdin-packs"
+msgstr "不能同时使用 --stdin-commits 和 --stdin-packs 选项"
+
 #: builtin/config.c
 msgid "git config [<options>]"
 msgstr "git config [<选项>]"
+
+#: builtin/config.c
+#, c-format
+msgid "unrecognized --type argument, %s"
+msgstr "未能识别的 --type 参数，%s"
 
 #: builtin/config.c
 msgid "Config file location"
@@ -7890,6 +8313,10 @@ msgid "Type"
 msgstr "类型"
 
 #: builtin/config.c
+msgid "value is given this type"
+msgstr "取值为该类型"
+
+#: builtin/config.c
 msgid "value is \"true\" or \"false\""
 msgstr "值是 \"true\" 或 \"false\""
 
@@ -7930,6 +8357,19 @@ msgid "show origin of config (file, standard input, blob, command line)"
 msgstr "显示配置的来源（文件、标准输入、数据对象，或命令行）"
 
 #: builtin/config.c
+msgid "value"
+msgstr "取值"
+
+#: builtin/config.c
+msgid "with --get, use default value when missing entry"
+msgstr "使用 --get 参数，当缺少设置时使用默认值"
+
+#: builtin/config.c
+#, c-format
+msgid "failed to format default config value: %s"
+msgstr "无法格式化默认配置取值：%s"
+
+#: builtin/config.c
 msgid "unable to parse default color value"
 msgstr "不能解析默认颜色值"
 
@@ -7951,6 +8391,10 @@ msgstr ""
 #: builtin/config.c
 msgid "--local can only be used inside a git repository"
 msgstr "--local 只能在一个仓库内使用"
+
+#: builtin/config.c
+msgid "--blob can only be used inside a git repository"
+msgstr "--blob 只能在一个仓库内使用"
 
 #: builtin/config.c
 #, c-format
@@ -8409,10 +8853,6 @@ msgstr "基于时间来深化浅克隆的历史"
 msgid "convert to a complete repository"
 msgstr "转换为一个完整的仓库"
 
-#: builtin/fetch.c builtin/log.c
-msgid "dir"
-msgstr "目录"
-
 #: builtin/fetch.c
 msgid "prepend this to submodule path output"
 msgstr "在子模组路径输出的前面加上此目录"
@@ -8434,6 +8874,14 @@ msgstr "引用映射"
 #: builtin/fetch.c builtin/pull.c
 msgid "specify fetch refmap"
 msgstr "指定获取操作的引用映射"
+
+#: builtin/fetch.c builtin/ls-remote.c builtin/push.c builtin/send-pack.c
+msgid "server-specific"
+msgstr "server-specific"
+
+#: builtin/fetch.c builtin/ls-remote.c builtin/push.c builtin/send-pack.c
+msgid "option to transmit"
+msgstr "传输选项"
 
 #: builtin/fetch.c
 msgid "Couldn't find remote ref HEAD"
@@ -8796,8 +9244,17 @@ msgid "force running gc even if there may be another gc running"
 msgstr "强制执行 gc 即使另外一个 gc 正在执行"
 
 #: builtin/gc.c
+msgid "repack all other packs except the largest pack"
+msgstr "除了最大的包之外，对所有其它包文件重新打包"
+
+#: builtin/gc.c
 #, c-format
-msgid "Failed to parse gc.logexpiry value %s"
+msgid "failed to parse gc.logexpiry value %s"
+msgstr "无法解析 gc.logexpiry 的值 %s"
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to parse prune expiry value %s"
 msgstr "无法解析 gc.logexpiry 的值 %s"
 
 #: builtin/gc.c
@@ -9150,6 +9607,10 @@ msgid "show info page"
 msgstr "显示 info 手册"
 
 #: builtin/help.c
+msgid "print command description"
+msgstr "打印命令描述"
+
+#: builtin/help.c
 msgid "git help [--all] [--guides] [--man | --web | --info] [<command>]"
 msgstr "git help [--all] [--guides] [--man | --web | --info] [<命令>]"
 
@@ -9206,42 +9667,6 @@ msgstr "没有 man 查看器处理此请求"
 #: builtin/help.c
 msgid "no info viewer handled the request"
 msgstr "没有 info 查看器处理此请求"
-
-#: builtin/help.c
-msgid "Defining attributes per path"
-msgstr "定义路径的属性"
-
-#: builtin/help.c
-msgid "Everyday Git With 20 Commands Or So"
-msgstr "每一天 Git 常用的约 20 条命令"
-
-#: builtin/help.c
-msgid "A Git glossary"
-msgstr "Git 词汇表"
-
-#: builtin/help.c
-msgid "Specifies intentionally untracked files to ignore"
-msgstr "忽略指定的未跟踪文件"
-
-#: builtin/help.c
-msgid "Defining submodule properties"
-msgstr "定义子模组属性"
-
-#: builtin/help.c
-msgid "Specifying revisions and ranges for Git"
-msgstr "指定 Git 的版本和版本范围"
-
-#: builtin/help.c
-msgid "A tutorial introduction to Git (for version 1.5.1 or newer)"
-msgstr "一个 Git 教程（针对 1.5.1 或更新版本）"
-
-#: builtin/help.c
-msgid "An overview of recommended workflows with Git"
-msgstr "Git 推荐的工作流概览"
-
-#: builtin/help.c
-msgid "The common Git guides are:\n"
-msgstr "最常用的 Git 向导有：\n"
 
 #: builtin/help.c
 #, c-format
@@ -9383,13 +9808,13 @@ msgid "invalid blob object %s"
 msgstr "无效的数据对象 %s"
 
 #: builtin/index-pack.c
+msgid "fsck error in packed object"
+msgstr "对打包对象 fsck 检查出错"
+
+#: builtin/index-pack.c
 #, c-format
 msgid "invalid %s"
 msgstr "无效的 %s"
-
-#: builtin/index-pack.c
-msgid "Error in object"
-msgstr "对象中出错"
 
 #: builtin/index-pack.c
 #, c-format
@@ -9543,6 +9968,10 @@ msgstr "--stdin 需要一个 git 仓库"
 msgid "--verify with no packfile name given"
 msgstr "--verify 没有提供包文件名参数"
 
+#: builtin/index-pack.c builtin/unpack-objects.c
+msgid "fsck error in pack objects"
+msgstr "在打包对象中 fsck 检查出错"
+
 #: builtin/init-db.c
 #, c-format
 msgid "cannot stat '%s'"
@@ -9580,8 +10009,8 @@ msgstr "忽略模版 %s"
 
 #: builtin/init-db.c
 #, c-format
-msgid "templates not found %s"
-msgstr "模版未找到 %s"
+msgid "templates not found in %s"
+msgstr "没有在 %s 中找到模版"
 
 #: builtin/init-db.c
 #, c-format
@@ -9638,11 +10067,6 @@ msgstr "权限"
 #: builtin/init-db.c
 msgid "specify that the git repository is to be shared amongst several users"
 msgstr "指定 git 仓库是多个用户之间共享的"
-
-#: builtin/init-db.c
-#, c-format
-msgid "cannot mkdir %s"
-msgstr "不能创建目录 %s"
 
 #: builtin/init-db.c
 #, c-format
@@ -11065,7 +11489,7 @@ msgstr "不能从非数据对象 '%s' 中读取注解数据。"
 #: builtin/notes.c
 #, c-format
 msgid "malformed input line: '%s'."
-msgstr "非法的输入行：'%s'。"
+msgstr "格式错误的输入行：'%s'。"
 
 #: builtin/notes.c
 #, c-format
@@ -11325,6 +11749,20 @@ msgid "disabling bitmap writing, as some objects are not being packed"
 msgstr "禁用 bitmap 写入，因为一些对象将不会被打包"
 
 #: builtin/pack-objects.c
+msgid "Counting objects"
+msgstr "对象计数中"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to get size of %s"
+msgstr "不能得到 %s 的大小"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to parse object header of %s"
+msgstr "无法解析对象 %s 头信息"
+
+#: builtin/pack-objects.c
 msgid "Compressing objects"
 msgstr "压缩对象中"
 
@@ -11463,12 +11901,16 @@ msgid "ignore packs that have companion .keep file"
 msgstr "忽略配有 .keep 文件的包"
 
 #: builtin/pack-objects.c
+msgid "ignore this pack"
+msgstr "忽略该 pack"
+
+#: builtin/pack-objects.c
 msgid "pack compression level"
 msgstr "打包压缩级别"
 
 #: builtin/pack-objects.c
 msgid "do not hide commits by grafts"
-msgstr "显示被嫁接隐藏的提交"
+msgstr "显示被移植隐藏的提交"
 
 #: builtin/pack-objects.c
 msgid "use a bitmap index if available to speed up counting objects"
@@ -11487,8 +11929,18 @@ msgid "do not pack objects in promisor packfiles"
 msgstr "不要打包 promisor 包文件中的对象"
 
 #: builtin/pack-objects.c
-msgid "Counting objects"
-msgstr "对象计数中"
+#, c-format
+msgid "delta chain depth %d is too deep, forcing %d"
+msgstr "增量链深度 %d 太深了，强制为 %d"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "pack.deltaCacheLimit is too high, forcing %d"
+msgstr "配置 pack.deltaCacheLimit 太高了，强制为 %d"
+
+#: builtin/pack-objects.c
+msgid "Enumerating objects"
+msgstr "枚举对象"
 
 #: builtin/pack-refs.c
 msgid "git pack-refs [<options>]"
@@ -11876,26 +12328,6 @@ msgstr ""
 "    git push <名称>\n"
 
 #: builtin/push.c
-msgid "--all and --tags are incompatible"
-msgstr "--all 和 --tags 不兼容"
-
-#: builtin/push.c
-msgid "--all can't be combined with refspecs"
-msgstr "--all 不能和引用规格同时使用"
-
-#: builtin/push.c
-msgid "--mirror and --tags are incompatible"
-msgstr "--mirror 和 --tags 不兼容"
-
-#: builtin/push.c
-msgid "--mirror can't be combined with refspecs"
-msgstr "--mirror 不能和引用规格同时使用"
-
-#: builtin/push.c
-msgid "--all and --mirror are incompatible"
-msgstr "--all 和 --mirror 不兼容"
-
-#: builtin/push.c
 msgid "repository"
 msgstr "仓库"
 
@@ -11963,14 +12395,6 @@ msgstr "用 GPG 为推送签名"
 msgid "request atomic transaction on remote side"
 msgstr "需要远端支持原子事务"
 
-#: builtin/push.c builtin/send-pack.c
-msgid "server-specific"
-msgstr "server-specific"
-
-#: builtin/push.c builtin/send-pack.c
-msgid "option to transmit"
-msgstr "传输选项"
-
 #: builtin/push.c
 msgid "--delete is incompatible with --all, --mirror and --tags"
 msgstr "--delete 与 --all、--mirror 及 --tags 不兼容"
@@ -11978,6 +12402,26 @@ msgstr "--delete 与 --all、--mirror 及 --tags 不兼容"
 #: builtin/push.c
 msgid "--delete doesn't make sense without any refs"
 msgstr "--delete 未接任何引用没有意义"
+
+#: builtin/push.c
+msgid "--all and --tags are incompatible"
+msgstr "--all 和 --tags 不兼容"
+
+#: builtin/push.c
+msgid "--all can't be combined with refspecs"
+msgstr "--all 不能和引用规格同时使用"
+
+#: builtin/push.c
+msgid "--mirror and --tags are incompatible"
+msgstr "--mirror 和 --tags 不兼容"
+
+#: builtin/push.c
+msgid "--mirror can't be combined with refspecs"
+msgstr "--mirror 不能和引用规格同时使用"
+
+#: builtin/push.c
+msgid "--all and --mirror are incompatible"
+msgstr "--all 和 --mirror 不兼容"
 
 #: builtin/push.c
 msgid "push options must not have new line characters"
@@ -12070,6 +12514,14 @@ msgid "allow commits with empty messages"
 msgstr "允许提交说明为空"
 
 #: builtin/rebase--helper.c
+msgid "rebase merge commits"
+msgstr "对合并提交变基"
+
+#: builtin/rebase--helper.c
+msgid "keep original branch points of cousins"
+msgstr "保持兄弟提交的原始分支点"
+
+#: builtin/rebase--helper.c
 msgid "continue rebase"
 msgstr "继续变基"
 
@@ -12104,6 +12556,10 @@ msgstr "重新排列 fixup/squash 行"
 #: builtin/rebase--helper.c
 msgid "insert exec commands in todo list"
 msgstr "在待办列表中插入 exec 执行命令"
+
+#: builtin/rebase--helper.c
+msgid "--[no-]rebase-cousins has no effect without --rebase-merges"
+msgstr "不使用 --rebase-merges，则 --[no-]rebase-cousins 没有效果"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -12402,6 +12858,11 @@ msgstr "无效的 branch.%s.merge，不能变基到一个以上的分支"
 #, c-format
 msgid "rebases interactively onto remote %s"
 msgstr "交互式变基到远程 %s"
+
+#: builtin/remote.c
+#, c-format
+msgid "rebases interactively (with merges) onto remote %s"
+msgstr "交互式变基（含合并提交）到远程 %s"
 
 #: builtin/remote.c
 #, c-format
@@ -12756,6 +13217,10 @@ msgid "repack objects in packs marked with .keep"
 msgstr "对标记为 .keep 的包中的对象重新打包"
 
 #: builtin/repack.c
+msgid "do not repack this pack"
+msgstr "不要对该包文件重新打包"
+
+#: builtin/repack.c
 msgid "cannot delete packs in a precious-objects repo"
 msgstr "不能删除珍品仓库中的打包文件"
 
@@ -12781,6 +13246,10 @@ msgid "git replace [-f] --graft <commit> [<parent>...]"
 msgstr "git replace [-f] --graft <提交> [<父提交>...]"
 
 #: builtin/replace.c
+msgid "git replace [-f] --convert-graft-file"
+msgstr "git replace [-f] --convert-graft-file"
+
+#: builtin/replace.c
 msgid "git replace -d <object>..."
 msgstr "git replace -d <对象>..."
 
@@ -12801,7 +13270,7 @@ msgstr "提交 '%s' 中含有损坏的合并标签"
 #: builtin/replace.c
 #, c-format
 msgid "malformed mergetag in commit '%s'"
-msgstr "提交 '%s' 中含有非法的合并标签"
+msgstr "提交 '%s' 中含有格式错误的合并标签"
 
 #: builtin/replace.c
 #, c-format
@@ -12825,6 +13294,15 @@ msgid "could not write replacement commit for: '%s'"
 msgstr "不能为 '%s' 写替换提交"
 
 #: builtin/replace.c
+#, c-format
+msgid ""
+"could not convert the following graft(s):\n"
+"%s"
+msgstr ""
+"不能转换下列移植：\n"
+"%s"
+
+#: builtin/replace.c
 msgid "list replace refs"
 msgstr "列出替换的引用"
 
@@ -12839,6 +13317,10 @@ msgstr "编辑现存的对象"
 #: builtin/replace.c
 msgid "change a commit's parents"
 msgstr "修改一个提交的父提交"
+
+#: builtin/replace.c
+msgid "convert existing graft file"
+msgstr "转换现存的移植文件"
 
 #: builtin/replace.c
 msgid "replace the ref if it exists"
@@ -13224,9 +13706,25 @@ msgstr "从标准输入读取引用"
 msgid "print status from remote helper"
 msgstr "打印来自远程 helper 的状态"
 
+#: builtin/serve.c
+msgid "git serve [<options>]"
+msgstr "git serve [<选项>]"
+
+#: builtin/serve.c builtin/upload-pack.c
+msgid "quit after a single request/response exchange"
+msgstr "在一次单独的请求/响应之后退出"
+
+#: builtin/serve.c
+msgid "exit immediately after advertising capabilities"
+msgstr "在广告功能后立即退出"
+
 #: builtin/shortlog.c
-msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
-msgstr "git shortlog [<选项>] [<版本范围>] [[--] [<路径>...]]"
+msgid "git shortlog [<options>] [<revision-range>] [[--] <path>...]"
+msgstr "git shortlog [<选项>] [<版本范围>] [[--] <路径>...]"
+
+#: builtin/shortlog.c
+msgid "git log --pretty=short | git shortlog [<options>]"
+msgstr "git log --pretty=short | git shortlog [<选项>]"
 
 #: builtin/shortlog.c
 msgid "Group by committer rather than author"
@@ -13251,6 +13749,10 @@ msgstr "w[,i1[,i2]]"
 #: builtin/shortlog.c
 msgid "Linewrap output"
 msgstr "折行输出"
+
+#: builtin/shortlog.c
+msgid "too many arguments given outside repository"
+msgstr "仓库外执行提供了太多的参数"
 
 #: builtin/show-branch.c
 msgid ""
@@ -14304,6 +14806,22 @@ msgstr "git update-server-info [--force]"
 msgid "update the info files from scratch"
 msgstr "从头开始更新文件信息"
 
+#: builtin/upload-pack.c
+msgid "git upload-pack [<options>] <dir>"
+msgstr "git upload-pack [<选项>] <目录>"
+
+#: builtin/upload-pack.c
+msgid "exit immediately after initial ref advertisement"
+msgstr "在初始的引用广告后立即退出"
+
+#: builtin/upload-pack.c
+msgid "do not try <directory>/.git/ if <directory> is no Git directory"
+msgstr "如果 <目录> 不是一个 Git 目录，不要尝试 <目录>/.git/"
+
+#: builtin/upload-pack.c
+msgid "interrupt transfer after <n> seconds of inactivity"
+msgstr "不活动 <n> 秒钟后终止传输"
+
 #: builtin/verify-commit.c
 msgid "git verify-commit [-v | --verbose] <commit>..."
 msgstr "git verify-commit [-v | --verbose] <提交>..."
@@ -14416,8 +14934,23 @@ msgstr "不能创建目录 '%s'"
 
 #: builtin/worktree.c
 #, c-format
-msgid "Preparing %s (identifier %s)"
-msgstr "准备 %s（标识符 %s）"
+msgid "Preparing worktree (new branch '%s')"
+msgstr "准备工作区（新分支 '%s'）"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (resetting branch '%s'; was at %s)"
+msgstr "准备工作区（重置分支 '%s'，之前为 %s）"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (checking out '%s')"
+msgstr "准备工作区（检出 '%s'）"
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (detached HEAD %s)"
+msgstr "准备工作区（分离头指针 %s）"
 
 #: builtin/worktree.c
 msgid "checkout <branch> even if already checked out in other worktree"
@@ -14575,26 +15108,6 @@ msgstr "将 <前缀> 子目录内容写到一个树对象"
 msgid "only useful for debugging"
 msgstr "只对调试有用"
 
-#: upload-pack.c
-msgid "git upload-pack [<options>] <dir>"
-msgstr "git upload-pack [<选项>] <目录>"
-
-#: upload-pack.c
-msgid "quit after a single request/response exchange"
-msgstr "在一次单独的请求/响应（request/response）交换后退出"
-
-#: upload-pack.c
-msgid "exit immediately after initial ref advertisement"
-msgstr "在初始的引用广告后立即退出"
-
-#: upload-pack.c
-msgid "do not try <directory>/.git/ if <directory> is no Git directory"
-msgstr "如果 <目录> 不是一个 Git 目录，不要尝试 <目录>/.git/"
-
-#: upload-pack.c
-msgid "interrupt transfer after <n> seconds of inactivity"
-msgstr "不活动 <n> 秒钟后终止传输"
-
 #: credential-cache--daemon.c
 #, c-format
 msgid ""
@@ -14616,13 +15129,15 @@ msgstr "调试信息输出到标准错误"
 msgid ""
 "git [--version] [--help] [-C <path>] [-c <name>=<value>]\n"
 "           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
 "           <command> [<args>]"
 msgstr ""
-"git [--version] [--help] [-C <path>] [-c <键名>=<值>]\n"
+"git [--version] [--help] [-C <路径>] [-c <名称>=<取值>]\n"
 "           [--exec-path[=<路径>]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=<路径>] [--work-tree=<路径>] [--namespace=<名称>]\n"
 "           <命令> [<参数>]"
 
@@ -14718,110 +15233,6 @@ msgstr "参数"
 msgid "object filtering"
 msgstr "对象过滤"
 
-#: common-cmds.h
-msgid "start a working area (see also: git help tutorial)"
-msgstr "开始一个工作区（参见：git help tutorial）"
-
-#: common-cmds.h
-msgid "work on the current change (see also: git help everyday)"
-msgstr "在当前变更上工作（参见：git help everyday）"
-
-#: common-cmds.h
-msgid "examine the history and state (see also: git help revisions)"
-msgstr "检查历史和状态（参见：git help revisions）"
-
-#: common-cmds.h
-msgid "grow, mark and tweak your common history"
-msgstr "扩展、标记和调校您的历史记录"
-
-#: common-cmds.h
-msgid "collaborate (see also: git help workflows)"
-msgstr "协同（参见：git help workflows）"
-
-#: common-cmds.h
-msgid "Add file contents to the index"
-msgstr "添加文件内容至索引"
-
-#: common-cmds.h
-msgid "Use binary search to find the commit that introduced a bug"
-msgstr "通过二分查找定位引入 bug 的提交"
-
-#: common-cmds.h
-msgid "List, create, or delete branches"
-msgstr "列出、创建或删除分支"
-
-#: common-cmds.h
-msgid "Switch branches or restore working tree files"
-msgstr "切换分支或恢复工作区文件"
-
-#: common-cmds.h
-msgid "Clone a repository into a new directory"
-msgstr "克隆一个仓库到一个新目录"
-
-#: common-cmds.h
-msgid "Record changes to the repository"
-msgstr "记录变更到仓库"
-
-#: common-cmds.h
-msgid "Show changes between commits, commit and working tree, etc"
-msgstr "显示提交之间、提交和工作区之间等的差异"
-
-#: common-cmds.h
-msgid "Download objects and refs from another repository"
-msgstr "从另外一个仓库下载对象和引用"
-
-#: common-cmds.h
-msgid "Print lines matching a pattern"
-msgstr "输出和模式匹配的行"
-
-#: common-cmds.h
-msgid "Create an empty Git repository or reinitialize an existing one"
-msgstr "创建一个空的 Git 仓库或重新初始化一个已存在的仓库"
-
-#: common-cmds.h
-msgid "Show commit logs"
-msgstr "显示提交日志"
-
-#: common-cmds.h
-msgid "Join two or more development histories together"
-msgstr "合并两个或更多开发历史"
-
-#: common-cmds.h
-msgid "Move or rename a file, a directory, or a symlink"
-msgstr "移动或重命名一个文件、目录或符号链接"
-
-#: common-cmds.h
-msgid "Fetch from and integrate with another repository or a local branch"
-msgstr "获取并整合另外的仓库或一个本地分支"
-
-#: common-cmds.h
-msgid "Update remote refs along with associated objects"
-msgstr "更新远程引用和相关的对象"
-
-#: common-cmds.h
-msgid "Reapply commits on top of another base tip"
-msgstr "在另一个分支上重新应用提交"
-
-#: common-cmds.h
-msgid "Reset current HEAD to the specified state"
-msgstr "重置当前 HEAD 到指定状态"
-
-#: common-cmds.h
-msgid "Remove files from the working tree and from the index"
-msgstr "从工作区和索引中删除文件"
-
-#: common-cmds.h
-msgid "Show various types of objects"
-msgstr "显示各种类型的对象"
-
-#: common-cmds.h
-msgid "Show the working tree status"
-msgstr "显示工作区状态"
-
-#: common-cmds.h
-msgid "Create, list, delete or verify a tag object signed with GPG"
-msgstr "创建、列出、删除或校验一个 GPG 签名的标签对象"
-
 #: parse-options.h
 msgid "expiry-date"
 msgstr "到期时间"
@@ -14841,6 +15252,635 @@ msgstr "更加安静"
 #: parse-options.h
 msgid "use <n> digits to display SHA-1s"
 msgstr "用 <n> 位数字显示 SHA-1 哈希值"
+
+#: command-list.h
+msgid "Add file contents to the index"
+msgstr "添加文件内容至索引"
+
+#: command-list.h
+msgid "Apply a series of patches from a mailbox"
+msgstr "应用邮箱格式的系列补丁"
+
+#: command-list.h
+msgid "Annotate file lines with commit information"
+msgstr "使用提交信息注释文件行"
+
+#: command-list.h
+msgid "Apply a patch to files and/or to the index"
+msgstr "应用一个补丁到文件和/或索引区"
+
+#: command-list.h
+msgid "Import an Arch repository into Git"
+msgstr "将一个 Arch 仓库导入到 Git"
+
+#: command-list.h
+msgid "Create an archive of files from a named tree"
+msgstr "基于一个指定的树创建文件存档"
+
+#: command-list.h
+msgid "Use binary search to find the commit that introduced a bug"
+msgstr "通过二分查找定位引入 bug 的提交"
+
+#: command-list.h
+msgid "Show what revision and author last modified each line of a file"
+msgstr "显示文件每一行最后修改的版本和修改者"
+
+#: command-list.h
+msgid "List, create, or delete branches"
+msgstr "列出、创建或删除分支"
+
+#: command-list.h
+msgid "Move objects and refs by archive"
+msgstr "通过归档移动对象和引用"
+
+#: command-list.h
+msgid "Provide content or type and size information for repository objects"
+msgstr "提供仓库对象的内容、类型或大小"
+
+#: command-list.h
+msgid "Display gitattributes information"
+msgstr "显示 gitattributes 信息"
+
+#: command-list.h
+msgid "Debug gitignore / exclude files"
+msgstr "调试 gitignore / exclude 文件"
+
+#: command-list.h
+msgid "Show canonical names and email addresses of contacts"
+msgstr "显示联系人的规范名称和电子邮件"
+
+#: command-list.h
+msgid "Switch branches or restore working tree files"
+msgstr "切换分支或恢复工作区文件"
+
+#: command-list.h
+msgid "Copy files from the index to the working tree"
+msgstr "从索引拷贝文件到工作区"
+
+#: command-list.h
+msgid "Ensures that a reference name is well formed"
+msgstr "确保引用名称格式正确"
+
+#: command-list.h
+msgid "Find commits yet to be applied to upstream"
+msgstr "查找尚未应用到上游的提交"
+
+#: command-list.h
+msgid "Apply the changes introduced by some existing commits"
+msgstr "应用一些现存提交引入的修改"
+
+#: command-list.h
+msgid "Graphical alternative to git-commit"
+msgstr "git-commit 的图形替代界面"
+
+#: command-list.h
+msgid "Remove untracked files from the working tree"
+msgstr "从工作区中删除未跟踪文件"
+
+#: command-list.h
+msgid "Clone a repository into a new directory"
+msgstr "克隆一个仓库到一个新目录"
+
+#: command-list.h
+msgid "Display data in columns"
+msgstr "以列的方式显示数据"
+
+#: command-list.h
+msgid "Record changes to the repository"
+msgstr "记录变更到仓库"
+
+#: command-list.h
+msgid "Write and verify Git commit graph files"
+msgstr "写入和校验 Git 提交图形文件"
+
+#: command-list.h
+msgid "Create a new commit object"
+msgstr "创建一个新的提交对象"
+
+#: command-list.h
+msgid "Get and set repository or global options"
+msgstr "获取和设置仓库或者全局选项"
+
+#: command-list.h
+msgid "Count unpacked number of objects and their disk consumption"
+msgstr "计算未打包对象的数量和磁盘空间占用"
+
+#: command-list.h
+msgid "Retrieve and store user credentials"
+msgstr "检索和存储用户密码"
+
+#: command-list.h
+msgid "Helper to temporarily store passwords in memory"
+msgstr "在内存中临时存储密码的助手"
+
+#: command-list.h
+msgid "Helper to store credentials on disk"
+msgstr "在磁盘存储密码的助手"
+
+#: command-list.h
+msgid "Export a single commit to a CVS checkout"
+msgstr "将一个提交导出到 CVS 检出中"
+
+#: command-list.h
+msgid "Salvage your data out of another SCM people love to hate"
+msgstr "从另外一个人们爱恨的配置管理系统中拯救你的数据"
+
+#: command-list.h
+msgid "A CVS server emulator for Git"
+msgstr "Git 的一个 CVS 服务模拟器"
+
+#: command-list.h
+msgid "A really simple server for Git repositories"
+msgstr "一个非常简单的 Git 仓库服务器"
+
+#: command-list.h
+msgid "Give an object a human readable name based on an available ref"
+msgstr "基于一个现存的引用为一个对象起一个可读的名称"
+
+#: command-list.h
+msgid "Show changes between commits, commit and working tree, etc"
+msgstr "显示提交之间、提交和工作区之间等的差异"
+
+#: command-list.h
+msgid "Compares files in the working tree and the index"
+msgstr "比较工作区和索引区中的文件"
+
+#: command-list.h
+msgid "Compare a tree to the working tree or index"
+msgstr "将一个树和工作区或索引做比较"
+
+#: command-list.h
+msgid "Compares the content and mode of blobs found via two tree objects"
+msgstr "比较两个树对象的文件内容和模式"
+
+#: command-list.h
+msgid "Show changes using common diff tools"
+msgstr "使用常见的差异工具显示更改"
+
+#: command-list.h
+msgid "Git data exporter"
+msgstr "Git 数据导出器"
+
+#: command-list.h
+msgid "Backend for fast Git data importers"
+msgstr "Git 快速数据导入器后端"
+
+#: command-list.h
+msgid "Download objects and refs from another repository"
+msgstr "从另外一个仓库下载对象和引用"
+
+#: command-list.h
+msgid "Receive missing objects from another repository"
+msgstr "从另一个仓库获取缺失的对象"
+
+#: command-list.h
+msgid "Rewrite branches"
+msgstr "重写分支"
+
+#: command-list.h
+msgid "Produce a merge commit message"
+msgstr "生成一个合并提交信息"
+
+#: command-list.h
+msgid "Output information on each ref"
+msgstr "对每一个引用输出信息 "
+
+#: command-list.h
+msgid "Prepare patches for e-mail submission"
+msgstr "准备电子邮件提交的补丁"
+
+#: command-list.h
+msgid "Verifies the connectivity and validity of the objects in the database"
+msgstr "验证仓库中对象的连通性和有效性"
+
+#: command-list.h
+msgid "Cleanup unnecessary files and optimize the local repository"
+msgstr "清除不必要的文件和优化本地仓库"
+
+#: command-list.h
+msgid "Extract commit ID from an archive created using git-archive"
+msgstr "从 git-archive 创建的归档文件中提取提交ID"
+
+#: command-list.h
+msgid "Print lines matching a pattern"
+msgstr "输出和模式匹配的行"
+
+#: command-list.h
+msgid "A portable graphical interface to Git"
+msgstr "一个便携的 Git 图形客户端"
+
+#: command-list.h
+msgid "Compute object ID and optionally creates a blob from a file"
+msgstr "从一个文件计算对象ID，并可以创建 blob 数据对象"
+
+#: command-list.h
+msgid "Display help information about Git"
+msgstr "显示 Git 的帮助信息"
+
+#: command-list.h
+msgid "Server side implementation of Git over HTTP"
+msgstr "Git HTTP 协议的服务端实现"
+
+#: command-list.h
+msgid "Download from a remote Git repository via HTTP"
+msgstr "通过 HTTP 从远程 Git 仓库下载"
+
+#: command-list.h
+msgid "Push objects over HTTP/DAV to another repository"
+msgstr "通过 HTTP/DAV 推送对象另一个仓库"
+
+#: command-list.h
+msgid "Send a collection of patches from stdin to an IMAP folder"
+msgstr "从标准输入将一组补丁发送到IMAP文件夹"
+
+#: command-list.h
+msgid "Build pack index file for an existing packed archive"
+msgstr "从一个现存的包存档文件创建包索引"
+
+#: command-list.h
+msgid "Create an empty Git repository or reinitialize an existing one"
+msgstr "创建一个空的 Git 仓库或重新初始化一个已存在的仓库"
+
+#: command-list.h
+msgid "Instantly browse your working repository in gitweb"
+msgstr "在 gitweb 中即时浏览您的工作仓库"
+
+#: command-list.h
+msgid "add or parse structured information in commit messages"
+msgstr "添加或解析提交说明中的结构化信息"
+
+#: command-list.h
+msgid "The Git repository browser"
+msgstr "Git 仓库浏览器"
+
+#: command-list.h
+msgid "Show commit logs"
+msgstr "显示提交日志"
+
+#: command-list.h
+msgid "Show information about files in the index and the working tree"
+msgstr "显示索引和工作区中文件的信息"
+
+#: command-list.h
+msgid "List references in a remote repository"
+msgstr "显示一个远程仓库的引用"
+
+#: command-list.h
+msgid "List the contents of a tree object"
+msgstr "显示一个树对象的内容"
+
+#: command-list.h
+msgid "Extracts patch and authorship from a single e-mail message"
+msgstr "从单个电子邮件中提取补丁和作者身份"
+
+#: command-list.h
+msgid "Simple UNIX mbox splitter program"
+msgstr "简单的 UNIX mbox 邮箱切分程序"
+
+#: command-list.h
+msgid "Join two or more development histories together"
+msgstr "合并两个或更多开发历史"
+
+#: command-list.h
+msgid "Find as good common ancestors as possible for a merge"
+msgstr "为了合并查找尽可能好的公共祖先提交"
+
+#: command-list.h
+msgid "Run a three-way file merge"
+msgstr "运行一个三路文件合并"
+
+#: command-list.h
+msgid "Run a merge for files needing merging"
+msgstr "对于需要合并的文件执行合并"
+
+#: command-list.h
+msgid "The standard helper program to use with git-merge-index"
+msgstr "与 git-merge-index 一起使用的标准向导程序"
+
+#: command-list.h
+msgid "Run merge conflict resolution tools to resolve merge conflicts"
+msgstr "运行合并冲突解决工具以解决合并冲突"
+
+#: command-list.h
+msgid "Show three-way merge without touching index"
+msgstr "显示三路合并而不动索引"
+
+#: command-list.h
+msgid "Creates a tag object"
+msgstr "创建一个标签对象"
+
+#: command-list.h
+msgid "Build a tree-object from ls-tree formatted text"
+msgstr "基于 ls-tree 的格式化文本创建一个树对象"
+
+#: command-list.h
+msgid "Move or rename a file, a directory, or a symlink"
+msgstr "移动或重命名一个文件、目录或符号链接"
+
+# 查找给定版本的符号名称
+#: command-list.h
+msgid "Find symbolic names for given revs"
+msgstr "查找给定版本的符号名称"
+
+#: command-list.h
+msgid "Add or inspect object notes"
+msgstr "添加或检查对象注释"
+
+#: command-list.h
+msgid "Import from and submit to Perforce repositories"
+msgstr "导入和提交到 Perforce 仓库中"
+
+#: command-list.h
+msgid "Create a packed archive of objects"
+msgstr "创建对象的存档包"
+
+#: command-list.h
+msgid "Find redundant pack files"
+msgstr "查找冗余的包文件"
+
+#: command-list.h
+msgid "Pack heads and tags for efficient repository access"
+msgstr "打包头和标签以实现高效的仓库访问"
+
+#: command-list.h
+msgid "Routines to help parsing remote repository access parameters"
+msgstr "帮助解析远程仓库访问参数的例程"
+
+#: command-list.h
+msgid "Compute unique ID for a patch"
+msgstr "计算一个补丁的唯一ID"
+
+#: command-list.h
+msgid "Prune all unreachable objects from the object database"
+msgstr "删除对象库中所有不可达对象"
+
+#: command-list.h
+msgid "Remove extra objects that are already in pack files"
+msgstr "删除已经在包文件中的多余对象"
+
+#: command-list.h
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "获取并整合另外的仓库或一个本地分支"
+
+#: command-list.h
+msgid "Update remote refs along with associated objects"
+msgstr "更新远程引用和相关的对象"
+
+#: command-list.h
+msgid "Applies a quilt patchset onto the current branch"
+msgstr "将一个 quilt 补丁集应用到当前分支。"
+
+#: command-list.h
+msgid "Reads tree information into the index"
+msgstr "将树信息读取到索引"
+
+#: command-list.h
+msgid "Reapply commits on top of another base tip"
+msgstr "在另一个分支上重新应用提交"
+
+#: command-list.h
+msgid "Receive what is pushed into the repository"
+msgstr "接收推送到仓库中的对象"
+
+#: command-list.h
+msgid "Manage reflog information"
+msgstr "管理 reflog 信息"
+
+#: command-list.h
+msgid "Manage set of tracked repositories"
+msgstr "管理已跟踪仓库"
+
+#: command-list.h
+msgid "Pack unpacked objects in a repository"
+msgstr "打包仓库中未打包对象"
+
+#: command-list.h
+msgid "Create, list, delete refs to replace objects"
+msgstr "创建、列出、删除对象替换引用"
+
+#: command-list.h
+msgid "Generates a summary of pending changes"
+msgstr "生成待定更改的摘要"
+
+#: command-list.h
+msgid "Reuse recorded resolution of conflicted merges"
+msgstr "重用冲突合并的解决方案记录"
+
+#: command-list.h
+msgid "Reset current HEAD to the specified state"
+msgstr "重置当前 HEAD 到指定状态"
+
+#: command-list.h
+msgid "Revert some existing commits"
+msgstr "回退一些现存提交"
+
+#: command-list.h
+msgid "Lists commit objects in reverse chronological order"
+msgstr "按时间顺序列出提交对象"
+
+#: command-list.h
+msgid "Pick out and massage parameters"
+msgstr "选出并处理参数"
+
+#: command-list.h
+msgid "Remove files from the working tree and from the index"
+msgstr "从工作区和索引中删除文件"
+
+#: command-list.h
+msgid "Send a collection of patches as emails"
+msgstr "通过电子邮件发送一组补丁"
+
+#: command-list.h
+msgid "Push objects over Git protocol to another repository"
+msgstr "使用 Git 协议推送对象到另一个仓库"
+
+#: command-list.h
+msgid "Restricted login shell for Git-only SSH access"
+msgstr "只允许 Git SSH 访问的受限登录shell"
+
+#: command-list.h
+msgid "Summarize 'git log' output"
+msgstr "'git log' 输出摘要"
+
+#: command-list.h
+msgid "Show various types of objects"
+msgstr "显示各种类型的对象"
+
+#: command-list.h
+msgid "Show branches and their commits"
+msgstr "显示分支和提交"
+
+#: command-list.h
+msgid "Show packed archive index"
+msgstr "显示打包归档索引"
+
+#: command-list.h
+msgid "List references in a local repository"
+msgstr "显示本地仓库中的引用"
+
+#: command-list.h
+msgid "Git's i18n setup code for shell scripts"
+msgstr "为 shell 脚本准备的 Git 国际化设置代码"
+
+#: command-list.h
+msgid "Common Git shell script setup code"
+msgstr "常用的 Git shell 脚本设置代码"
+
+#: command-list.h
+msgid "Stash the changes in a dirty working directory away"
+msgstr "贮藏脏工作区中的修改"
+
+#: command-list.h
+msgid "Add file contents to the staging area"
+msgstr "将文件内容添加到索引"
+
+#: command-list.h
+msgid "Show the working tree status"
+msgstr "显示工作区状态"
+
+#: command-list.h
+msgid "Remove unnecessary whitespace"
+msgstr "删除不必要的空白字符"
+
+#: command-list.h
+msgid "Initialize, update or inspect submodules"
+msgstr "初始化、更新或检查子模组"
+
+#: command-list.h
+msgid "Bidirectional operation between a Subversion repository and Git"
+msgstr "Subersion 仓库和 Git 之间的双向操作"
+
+#: command-list.h
+msgid "Read, modify and delete symbolic refs"
+msgstr "读取、修改和删除符号引用"
+
+#: command-list.h
+msgid "Create, list, delete or verify a tag object signed with GPG"
+msgstr "创建、列出、删除或校验一个 GPG 签名的标签对象"
+
+#: command-list.h
+msgid "Creates a temporary file with a blob's contents"
+msgstr "用 blob 数据对象的内容创建一个临时文件"
+
+#: command-list.h
+msgid "Unpack objects from a packed archive"
+msgstr "从打包文件中解压缩对象"
+
+#: command-list.h
+msgid "Register file contents in the working tree to the index"
+msgstr "将工作区的文件内容注册到索引"
+
+#: command-list.h
+msgid "Update the object name stored in a ref safely"
+msgstr "安全地更新存储于引用中的对象名称"
+
+#: command-list.h
+msgid "Update auxiliary info file to help dumb servers"
+msgstr "更新辅助信息文件以帮助哑协议服务"
+
+#: command-list.h
+msgid "Send archive back to git-archive"
+msgstr "将存档发送回 git-archive"
+
+#: command-list.h
+msgid "Send objects packed back to git-fetch-pack"
+msgstr "将对象压缩包发送回 git-fetch-pack"
+
+#: command-list.h
+msgid "Show a Git logical variable"
+msgstr "显示一个Git逻辑变量"
+
+#: command-list.h
+msgid "Check the GPG signature of commits"
+msgstr "检查 GPG 提交签名"
+
+#: command-list.h
+msgid "Validate packed Git archive files"
+msgstr "校验打包的Git存仓文件"
+
+#: command-list.h
+msgid "Check the GPG signature of tags"
+msgstr "检查标签的 GPG 签名"
+
+#: command-list.h
+msgid "Git web interface (web frontend to Git repositories)"
+msgstr "Git web 界面（Git 仓库的 web 前端）"
+
+#: command-list.h
+msgid "Show logs with difference each commit introduces"
+msgstr "显示每一个提交引入的差异日志"
+
+#: command-list.h
+msgid "Manage multiple working trees"
+msgstr "管理多个工作区"
+
+#: command-list.h
+msgid "Create a tree object from the current index"
+msgstr "从当前索引创建一个树对象"
+
+#: command-list.h
+msgid "Defining attributes per path"
+msgstr "定义路径的属性"
+
+#: command-list.h
+msgid "Git command-line interface and conventions"
+msgstr "Git 命令行界面和约定"
+
+#: command-list.h
+msgid "A Git core tutorial for developers"
+msgstr "面向开发人员的 Git 核心教程"
+
+#: command-list.h
+msgid "Git for CVS users"
+msgstr "适合 CVS 用户的 Git 帮助"
+
+#: command-list.h
+msgid "Tweaking diff output"
+msgstr "调整差异输出"
+
+#: command-list.h
+msgid "A useful minimum set of commands for Everyday Git"
+msgstr "每一天 Git 的一组有用的最小命令集合"
+
+#: command-list.h
+msgid "A Git Glossary"
+msgstr "Git 词汇表"
+
+#: command-list.h
+msgid "Hooks used by Git"
+msgstr "Git 使用的钩子"
+
+#: command-list.h
+msgid "Specifies intentionally untracked files to ignore"
+msgstr "忽略指定的未跟踪文件"
+
+#: command-list.h
+msgid "Defining submodule properties"
+msgstr "定义子模组属性"
+
+#: command-list.h
+msgid "Git namespaces"
+msgstr "Git 名字空间"
+
+#: command-list.h
+msgid "Git Repository Layout"
+msgstr "Git 仓库布局"
+
+#: command-list.h
+msgid "Specifying revisions and ranges for Git"
+msgstr "指定 Git 的版本和版本范围"
+
+#: command-list.h
+msgid "A tutorial introduction to Git: part two"
+msgstr "一个 Git 教程：第二部分"
+
+#: command-list.h
+msgid "A tutorial introduction to Git"
+msgstr "一个 Git 教程"
+
+#: command-list.h
+msgid "An overview of recommended workflows with Git"
+msgstr "Git 推荐的工作流概览"
 
 #: rerere.h
 msgid "update the index with reused conflict resolution if possible"
@@ -15139,6 +16179,10 @@ msgstr ""
 "如果不是这样，请执行\n"
 "\t$cmd_clear_stale_rebase\n"
 "然后再重新执行变基操作。 为避免丢失重要数据，我已经停止当前操作。"
+
+#: git-rebase.sh
+msgid "error: cannot combine '--signoff' with '--preserve-merges'"
+msgstr "错误：不能组合参数 '--signoff' 和 '--preserve-merges'"
 
 #: git-rebase.sh
 #, sh-format
@@ -15564,27 +16608,39 @@ msgstr "变基中（$new_count/$total）"
 msgid ""
 "\n"
 "Commands:\n"
-"p, pick = use commit\n"
-"r, reword = use commit, but edit the commit message\n"
-"e, edit = use commit, but stop for amending\n"
-"s, squash = use commit, but meld into previous commit\n"
-"f, fixup = like \"squash\", but discard this commit's log message\n"
-"x, exec = run command (the rest of the line) using shell\n"
-"d, drop = remove commit\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <command> = run command (the rest of the line) using shell\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
 "\n"
 "These lines can be re-ordered; they are executed from top to bottom.\n"
 msgstr ""
 "\n"
 "命令:\n"
-"p, pick = 使用提交\n"
-"r, reword = 使用提交，但修改提交说明\n"
-"e, edit = 使用提交，但停止以便进行提交修补\n"
-"s, squash = 使用提交，但和前一个版本融合\n"
-"f, fixup = 类似于 \"squash\"，但丢弃提交说明日志\n"
-"x, exec = 使用 shell 运行命令（此行剩余部分）\n"
-"d, drop = 删除提交\n"
+"p, pick <提交> = 使用提交\n"
+"r, reword <提交> = 使用提交，但修改提交说明\n"
+"e, edit <提交> = 使用提交，进入 shell 以便进行提交修补\n"
+"s, squash <提交> = 使用提交，但融合到前一个提交\n"
+"f, fixup <提交> = 类似于 \"squash\"，但丢弃提交说明日志\n"
+"x, exec <命令> = 使用 shell 运行命令（此行剩余部分）\n"
+"d, drop <提交> = 删除提交\n"
+"l, label <label> = 为当前 HEAD 打上标记\n"
+"t, reset <label> = 重置 HEAD 到该标记\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       创建一个合并提交，并使用原始的合并提交说明（如果没有指定\n"
+".       原始提交，使用注释部分的 oneline 作为提交说明）。使用\n"
+".       -c <提交> 可以编辑提交说明。\n"
 "\n"
-"这些行可以被重新排序；它们会被从上至下地执行。\n"
+"可以对这些行重新排序，将从上至下执行。\n"
 
 #: git-rebase--interactive.sh
 msgid ""
@@ -15862,14 +16918,6 @@ msgid "Could not mark as interactive"
 msgstr "不能标记为交互式"
 
 #: git-rebase--interactive.sh
-msgid "Could not init rewritten commits"
-msgstr "不能对重写提交进行初始化"
-
-#: git-rebase--interactive.sh
-msgid "Could not generate todo list"
-msgstr "无法生成待办列表"
-
-#: git-rebase--interactive.sh
 #, sh-format
 msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
 msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
@@ -15879,16 +16927,26 @@ msgstr[1] "变基 $shortrevisions 到 $shortonto（$todocount 个提交）"
 #: git-rebase--interactive.sh
 msgid ""
 "\n"
-"However, if you remove everything, the rebase will be aborted.\n"
+"\tHowever, if you remove everything, the rebase will be aborted.\n"
 "\n"
+"\t"
 msgstr ""
 "\n"
-"然而，如果您删除全部内容，变基操作将会终止。\n"
+"\t然而，如果您删除全部内容，变基操作将会终止。\n"
 "\n"
+"\t"
 
 #: git-rebase--interactive.sh
 msgid "Note that empty commits are commented out"
 msgstr "注意空提交已被注释掉"
+
+#: git-rebase--interactive.sh
+msgid "Could not generate todo list"
+msgstr "无法生成待办列表"
+
+#: git-rebase--interactive.sh
+msgid "Could not init rewritten commits"
+msgstr "不能对重写提交进行初始化"
 
 #: git-sh-setup.sh
 #, sh-format
@@ -16678,12 +17736,12 @@ msgstr ""
 "    sendemail.confirm auto'。\n"
 "\n"
 
-#. TRANSLATORS: Make sure to include [y] [n] [q] [a] in your
+#. TRANSLATORS: Make sure to include [y] [n] [e] [q] [a] in your
 #. translation. The program will only accept English input
 #. at this point.
 #: git-send-email.perl
-msgid "Send this email? ([y]es|[n]o|[q]uit|[a]ll): "
-msgstr "发送邮件？([y]es|[n]o|[q]uit|[a]ll)："
+msgid "Send this email? ([y]es|[n]o|[e]dit|[q]uit|[a]ll): "
+msgstr "发送这封邮件？([y]es|[n]o|[e]dit|[q]uit|[a]ll): "
 
 #: git-send-email.perl
 msgid "Send this email reply required"
@@ -16806,6 +17864,36 @@ msgstr "略过 %s 含备份后缀 '%s'。\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "您真的要发送 %s？[y|N]："
+
+#~ msgid "Everyday Git With 20 Commands Or So"
+#~ msgstr "每一天 Git 常用的约 20 条命令"
+
+#~ msgid "Could not open '%s' for writing"
+#~ msgstr "无法打开 '%s' 进行写入"
+
+#~ msgid "BUG: returned path string doesn't match cwd?"
+#~ msgstr "BUG：返回的路径和当前路径不匹配？"
+
+#~ msgid "Error in object"
+#~ msgstr "对象中出错"
+
+#~ msgid ""
+#~ "unexpected 1st line of squash message:\n"
+#~ "\n"
+#~ "\t%.*s"
+#~ msgstr ""
+#~ "意外的压缩提交首行提交信息：\n"
+#~ "\n"
+#~ "\t%.*s"
+
+#~ msgid ""
+#~ "invalid 1st line of squash message:\n"
+#~ "\n"
+#~ "\t%.*s"
+#~ msgstr ""
+#~ "压缩提交的首行提交信息无效：\n"
+#~ "\n"
+#~ "\t%.*s"
 
 #~ msgid "To/Cc/Bcc fields are not interpreted yet, they have been ignored\n"
 #~ msgstr "To/Cc/Bcc 字段不解析，它们被忽略\n"
