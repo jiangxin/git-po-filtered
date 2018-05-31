@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-03-16 07:29+0800\n"
+"POT-Creation-Date: 2018-05-31 23:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: advice.c
 #, c-format
-msgid "hint: %.*s\n"
+msgid "%shint: %.*s%s\n"
 msgstr ""
 
 #: advice.c
@@ -1154,7 +1154,7 @@ msgstr ""
 msgid "invalid color value: %.*s"
 msgstr ""
 
-#: commit.c sequencer.c builtin/am.c
+#: commit.c sequencer.c builtin/am.c builtin/replace.c
 #, c-format
 msgid "could not parse %s"
 msgstr ""
@@ -1166,9 +1166,35 @@ msgstr ""
 
 #: commit.c
 msgid ""
+"Support for <GIT_DIR>/info/grafts is deprecated\n"
+"and will be removed in a future Git version.\n"
+"\n"
+"Please use \"git replace --convert-graft-file\"\n"
+"to convert the grafts into replace refs.\n"
+"\n"
+"Turn this message off by running\n"
+"\"git config advice.graftFileDeprecated false\""
+msgstr ""
+
+#: commit.c
+msgid ""
 "Warning: commit message did not conform to UTF-8.\n"
 "You may want to amend it after fixing the message, or set the config\n"
 "variable i18n.commitencoding to the encoding your project uses.\n"
+msgstr ""
+
+#: commit-graph.c
+#, c-format
+msgid "the commit graph format cannot write %d commits"
+msgstr ""
+
+#: commit-graph.c
+msgid "too many commits to write graph"
+msgstr ""
+
+#: commit-graph.c builtin/init-db.c
+#, c-format
+msgid "cannot mkdir %s"
 msgstr ""
 
 #: compat/obstack.c
@@ -1380,6 +1406,44 @@ msgstr ""
 msgid ""
 "LF will be replaced by CRLF in %s.\n"
 "The file will have its original line endings in your working directory."
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid "BOM is prohibited in '%s' if encoded as %s"
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid ""
+"The file '%s' contains a byte order mark (BOM). Please use UTF-%s as working-"
+"tree-encoding."
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid "BOM is required in '%s' if encoded as %s"
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid ""
+"The file '%s' is missing a byte order mark (BOM). Please use UTF-%sBE or UTF-"
+"%sLE (depending on the byte order) as working-tree-encoding."
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid "failed to encode '%s' from %s to %s"
+msgstr ""
+
+#: convert.c
+#, c-format
+msgid "encoding '%s' from %s to %s and back is not the same"
+msgstr ""
+
+#: convert.c
+msgid "true/false are no valid working-tree-encodings"
 msgstr ""
 
 #: date.c
@@ -1749,6 +1813,10 @@ msgid "git fetch-pack: fetch failed."
 msgstr ""
 
 #: fetch-pack.c
+msgid "Server does not support shallow requests"
+msgstr ""
+
+#: fetch-pack.c
 msgid "no matching remote head"
 msgstr ""
 
@@ -1955,7 +2023,12 @@ msgstr ""
 
 #: merge-recursive.c
 #, c-format
-msgid "addinfo_cache failed for path '%s'"
+msgid "add_cacheinfo failed for path '%s'; merge aborting."
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
 msgstr ""
 
 #: merge-recursive.c
@@ -2007,12 +2080,77 @@ msgid "do not know what to do with %06o %s '%s'"
 msgstr ""
 
 #: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Fast-forwarding submodule %s to the following commit:"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Fast-forwarding submodule %s to %s"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (merge following commits not found)"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not fast-forward)"
+msgstr ""
+
+#: merge-recursive.c
+msgid "Found a possible merge resolution for the submodule:\n"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (multiple merges found)"
+msgstr ""
+
+#: merge-recursive.c
 msgid "Failed to execute internal merge"
 msgstr ""
 
 #: merge-recursive.c
 #, c-format
 msgid "Unable to add %s to database"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Auto-merging %s"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Error: Refusing to lose untracked file at %s; writing to %s instead."
 msgstr ""
 
 #: merge-recursive.c
@@ -2053,7 +2191,17 @@ msgstr ""
 
 #: merge-recursive.c
 #, c-format
+msgid "Refusing to lose dirty file at %s"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
 msgid "%s is a directory in %s adding as %s instead"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Refusing to lose untracked file at %s; adding as %s instead"
 msgstr ""
 
 #: merge-recursive.c
@@ -2075,6 +2223,47 @@ msgstr ""
 #: merge-recursive.c
 #, c-format
 msgid "Renaming %s to %s and %s to %s instead"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid "Refusing to lose untracked file at %s, even though it's in the way."
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to place %s because "
+"directory %s was renamed to multiple other directories, with no destination "
+"getting a majority of the files."
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
+">%s in %s"
+msgstr ""
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
 msgstr ""
 
 #: merge-recursive.c
@@ -2121,11 +2310,6 @@ msgstr ""
 #: merge-recursive.c
 #, c-format
 msgid "Skipped %s (merged same as existing)"
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid "Auto-merging %s"
 msgstr ""
 
 #: merge-recursive.c git-submodule.sh
@@ -2281,6 +2465,11 @@ msgstr ""
 
 #: parse-options-cb.c
 #, c-format
+msgid "malformed expiration date '%s'"
+msgstr ""
+
+#: parse-options-cb.c
+#, c-format
 msgid "malformed object name '%s'"
 msgstr ""
 
@@ -2398,9 +2587,9 @@ msgstr ""
 msgid "unable to unlink: %s"
 msgstr ""
 
-#: refs.c
+#: refs.c sequencer.c wrapper.c builtin/am.c
 #, c-format
-msgid "Could not open '%s' for writing"
+msgid "could not open '%s' for writing"
 msgstr ""
 
 #: refs.c
@@ -2589,6 +2778,11 @@ msgstr ""
 #: ref-filter.c
 #, c-format
 msgid "(no branch, rebasing %s)"
+msgstr ""
+
+#: ref-filter.c
+#, c-format
+msgid "(no branch, rebasing detached HEAD %s)"
 msgstr ""
 
 #: ref-filter.c
@@ -2840,6 +3034,11 @@ msgid "invalid commit message cleanup mode '%s'"
 msgstr ""
 
 #: sequencer.c
+#, c-format
+msgid "could not delete '%s'"
+msgstr ""
+
+#: sequencer.c
 msgid "revert"
 msgstr ""
 
@@ -2917,11 +3116,11 @@ msgid "%s: Unable to write new index file"
 msgstr ""
 
 #: sequencer.c
-msgid "could not resolve HEAD commit"
+msgid "unable to update cache tree"
 msgstr ""
 
 #: sequencer.c
-msgid "unable to update cache tree"
+msgid "could not resolve HEAD commit"
 msgstr ""
 
 #: sequencer.c
@@ -2939,6 +3138,10 @@ msgid ""
 "In both cases, once you're done, continue with:\n"
 "\n"
 "  git rebase --continue\n"
+msgstr ""
+
+#: sequencer.c
+msgid "writing root commit"
 msgstr ""
 
 #: sequencer.c
@@ -3036,22 +3239,6 @@ msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid ""
-"unexpected 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-
-#: sequencer.c
-#, c-format
-msgid ""
-"invalid 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-
-#: sequencer.c
-#, c-format
 msgid "This is a combination of %d commits."
 msgstr ""
 
@@ -3098,6 +3285,10 @@ msgstr ""
 
 #: sequencer.c
 msgid "your index file is unmerged."
+msgstr ""
+
+#: sequencer.c
+msgid "cannot fixup root commit"
 msgstr ""
 
 #: sequencer.c
@@ -3213,6 +3404,10 @@ msgid "invalid value for %s: %s"
 msgstr ""
 
 #: sequencer.c
+msgid "unusable squash-onto"
+msgstr ""
+
+#: sequencer.c
 #, c-format
 msgid "malformed options sheet: '%s'"
 msgstr ""
@@ -3313,6 +3508,51 @@ msgid ""
 msgstr ""
 
 #: sequencer.c
+msgid "writing fake root commit"
+msgstr ""
+
+#: sequencer.c
+msgid "writing squash-onto"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "failed to find tree of %s"
+msgstr ""
+
+#: sequencer.c
+msgid "could not write index"
+msgstr ""
+
+#: sequencer.c
+msgid "cannot merge without a current revision"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not resolve '%s'"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not get commit message of '%s'"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not write '%s'"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not even attempt to merge '%.*s'"
+msgstr ""
+
+#: sequencer.c
+msgid "merge: Unable to write new index file"
+msgstr ""
+
+#: sequencer.c
 #, c-format
 msgid "Applied autostash.\n"
 msgstr ""
@@ -3328,6 +3568,19 @@ msgid ""
 "Applying autostash resulted in conflicts.\n"
 "Your changes are safe in the stash.\n"
 "You can run \"git stash pop\" or \"git stash drop\" at any time.\n"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid ""
+"Could not execute the todo command\n"
+"\n"
+"    %.*s\n"
+"It has been rescheduled; To edit the command before continuing, please\n"
+"edit the todo list first:\n"
+"\n"
+"    git rebase --edit-todo\n"
+"    git rebase --continue\n"
 msgstr ""
 
 #: sequencer.c
@@ -3358,10 +3611,6 @@ msgid "cannot rebase: You have unstaged changes."
 msgstr ""
 
 #: sequencer.c
-msgid "could not remove CHERRY_PICK_HEAD"
-msgstr ""
-
-#: sequencer.c
 msgid "cannot amend non-existing commit"
 msgstr ""
 
@@ -3380,6 +3629,15 @@ msgid ""
 "\n"
 "You have uncommitted changes in your working tree. Please, commit them\n"
 "first and then run 'git rebase --continue' again."
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not write file: '%s'"
+msgstr ""
+
+#: sequencer.c
+msgid "could not remove CHERRY_PICK_HEAD"
 msgstr ""
 
 #: sequencer.c
@@ -3443,11 +3701,6 @@ msgid ""
 "You can fix this with 'git rebase --edit-todo' and then run 'git rebase --"
 "continue'.\n"
 "Or you can abort the rebase with 'git rebase --abort'.\n"
-msgstr ""
-
-#: sequencer.c wrapper.c builtin/am.c
-#, c-format
-msgid "could not open '%s' for writing"
 msgstr ""
 
 #: sequencer.c
@@ -3603,41 +3856,41 @@ msgstr ""
 msgid "setsid failed"
 msgstr ""
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "path '%s' does not exist"
 msgstr ""
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' as a linked checkout is not supported yet."
 msgstr ""
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is not a local repository."
 msgstr ""
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is shallow"
 msgstr ""
 
-#: sha1_file.c
+#: sha1-file.c
 #, c-format
 msgid "reference repository '%s' is grafted"
 msgstr ""
 
-#: sha1_name.c
+#: sha1-name.c
 #, c-format
 msgid "short SHA1 %s is ambiguous"
 msgstr ""
 
-#: sha1_name.c
+#: sha1-name.c
 msgid "The candidates are:"
 msgstr ""
 
-#: sha1_name.c
+#: sha1-name.c
 msgid ""
 "Git normally never creates a ref that ends with 40 hex characters\n"
 "because it will be ignored when you just specify 40-hex. These refs\n"
@@ -3746,12 +3999,13 @@ msgid "could not start ls-files in .."
 msgstr ""
 
 #: submodule.c
-msgid "BUG: returned path string doesn't match cwd?"
-msgstr ""
-
-#: submodule.c
 #, c-format
 msgid "ls-tree returned unexpected return code %d"
+msgstr ""
+
+#: submodule-config.c
+#, c-format
+msgid "ignoring suspicious submodule name: %s"
 msgstr ""
 
 #: submodule-config.c
@@ -3824,6 +4078,10 @@ msgstr ""
 #: transport.c
 #, c-format
 msgid "transport: invalid depth option '%s'"
+msgstr ""
+
+#: transport.c
+msgid "could not parse transport.color.* config"
 msgstr ""
 
 #: transport.c
@@ -5040,9 +5298,9 @@ msgstr ""
 msgid "pass it through git-apply"
 msgstr ""
 
-#: builtin/am.c builtin/fmt-merge-msg.c builtin/grep.c builtin/merge.c
-#: builtin/pull.c builtin/repack.c builtin/show-branch.c builtin/show-ref.c
-#: builtin/tag.c parse-options.h
+#: builtin/am.c builtin/commit.c builtin/fmt-merge-msg.c builtin/grep.c
+#: builtin/merge.c builtin/pull.c builtin/repack.c builtin/show-branch.c
+#: builtin/show-ref.c builtin/tag.c parse-options.h
 msgid "n"
 msgstr ""
 
@@ -5236,6 +5494,24 @@ msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr ""
 
 #: builtin/blame.c
+#, c-format
+msgid "expecting a color: %s"
+msgstr ""
+
+#: builtin/blame.c
+msgid "must end with a color"
+msgstr ""
+
+#: builtin/blame.c
+#, c-format
+msgid "invalid color '%s' in color.blame.repeatedLines"
+msgstr ""
+
+#: builtin/blame.c
+msgid "invalid value for blame.coloring"
+msgstr ""
+
+#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr ""
 
@@ -5297,6 +5573,14 @@ msgstr ""
 
 #: builtin/blame.c
 msgid "Ignore whitespace differences"
+msgstr ""
+
+#: builtin/blame.c
+msgid "color redundant metadata from previous line differently"
+msgstr ""
+
+#: builtin/blame.c
+msgid "color lines by age"
 msgstr ""
 
 #: builtin/blame.c
@@ -5637,11 +5921,11 @@ msgstr ""
 msgid "list branches in columns"
 msgstr ""
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-remote.c builtin/tag.c
 msgid "key"
 msgstr ""
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-remote.c builtin/tag.c
 msgid "field name to sort on"
 msgstr ""
 
@@ -6457,11 +6741,12 @@ msgstr ""
 msgid "reference repository"
 msgstr ""
 
-#: builtin/clone.c
+#: builtin/clone.c builtin/submodule--helper.c
 msgid "use --reference only while cloning"
 msgstr ""
 
-#: builtin/clone.c builtin/column.c builtin/merge-file.c
+#: builtin/clone.c builtin/column.c builtin/merge-file.c builtin/pack-objects.c
+#: builtin/repack.c
 msgid "name"
 msgstr ""
 
@@ -7068,6 +7353,14 @@ msgid "list untracked files in columns"
 msgstr ""
 
 #: builtin/commit.c
+msgid "do not detect renames"
+msgstr ""
+
+#: builtin/commit.c
+msgid "detect renames, optionally set similarity index"
+msgstr ""
+
+#: builtin/commit.c
 msgid "Unsupported combination of ignored and untracked-files arguments"
 msgstr ""
 
@@ -7243,8 +7536,51 @@ msgid ""
 "not exceeded, and then \"git reset HEAD\" to recover."
 msgstr ""
 
+#: builtin/commit-graph.c
+msgid "git commit-graph [--object-dir <objdir>]"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "git commit-graph read [--object-dir <objdir>]"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid ""
+"git commit-graph write [--object-dir <objdir>] [--append] [--stdin-packs|--"
+"stdin-commits]"
+msgstr ""
+
+#: builtin/commit-graph.c builtin/fetch.c builtin/log.c
+msgid "dir"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "The object directory to store the graph"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "scan pack-indexes listed by stdin for commits"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "start walk at commits listed by stdin"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "include all commits already in the commit-graph file"
+msgstr ""
+
+#: builtin/commit-graph.c
+msgid "cannot use both --stdin-commits and --stdin-packs"
+msgstr ""
+
 #: builtin/config.c
 msgid "git config [<options>]"
+msgstr ""
+
+#: builtin/config.c
+#, c-format
+msgid "unrecognized --type argument, %s"
 msgstr ""
 
 #: builtin/config.c
@@ -7340,6 +7676,10 @@ msgid "Type"
 msgstr ""
 
 #: builtin/config.c
+msgid "value is given this type"
+msgstr ""
+
+#: builtin/config.c
 msgid "value is \"true\" or \"false\""
 msgstr ""
 
@@ -7380,6 +7720,19 @@ msgid "show origin of config (file, standard input, blob, command line)"
 msgstr ""
 
 #: builtin/config.c
+msgid "value"
+msgstr ""
+
+#: builtin/config.c
+msgid "with --get, use default value when missing entry"
+msgstr ""
+
+#: builtin/config.c
+#, c-format
+msgid "failed to format default config value: %s"
+msgstr ""
+
+#: builtin/config.c
 msgid "unable to parse default color value"
 msgstr ""
 
@@ -7395,6 +7748,10 @@ msgstr ""
 
 #: builtin/config.c
 msgid "--local can only be used inside a git repository"
+msgstr ""
+
+#: builtin/config.c
+msgid "--blob can only be used inside a git repository"
 msgstr ""
 
 #: builtin/config.c
@@ -7843,10 +8200,6 @@ msgstr ""
 msgid "convert to a complete repository"
 msgstr ""
 
-#: builtin/fetch.c builtin/log.c
-msgid "dir"
-msgstr ""
-
 #: builtin/fetch.c
 msgid "prepend this to submodule path output"
 msgstr ""
@@ -7867,6 +8220,14 @@ msgstr ""
 
 #: builtin/fetch.c builtin/pull.c
 msgid "specify fetch refmap"
+msgstr ""
+
+#: builtin/fetch.c builtin/ls-remote.c builtin/push.c builtin/send-pack.c
+msgid "server-specific"
+msgstr ""
+
+#: builtin/fetch.c builtin/ls-remote.c builtin/push.c builtin/send-pack.c
+msgid "option to transmit"
 msgstr ""
 
 #: builtin/fetch.c
@@ -8222,8 +8583,17 @@ msgid "force running gc even if there may be another gc running"
 msgstr ""
 
 #: builtin/gc.c
+msgid "repack all other packs except the largest pack"
+msgstr ""
+
+#: builtin/gc.c
 #, c-format
-msgid "Failed to parse gc.logexpiry value %s"
+msgid "failed to parse gc.logexpiry value %s"
+msgstr ""
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to parse prune expiry value %s"
 msgstr ""
 
 #: builtin/gc.c
@@ -8801,12 +9171,12 @@ msgid "invalid blob object %s"
 msgstr ""
 
 #: builtin/index-pack.c
-#, c-format
-msgid "invalid %s"
+msgid "fsck error in packed object"
 msgstr ""
 
 #: builtin/index-pack.c
-msgid "Error in object"
+#, c-format
+msgid "invalid %s"
 msgstr ""
 
 #: builtin/index-pack.c
@@ -8961,6 +9331,10 @@ msgstr ""
 msgid "--verify with no packfile name given"
 msgstr ""
 
+#: builtin/index-pack.c builtin/unpack-objects.c
+msgid "fsck error in pack objects"
+msgstr ""
+
 #: builtin/init-db.c
 #, c-format
 msgid "cannot stat '%s'"
@@ -9053,11 +9427,6 @@ msgstr ""
 
 #: builtin/init-db.c
 msgid "specify that the git repository is to be shared amongst several users"
-msgstr ""
-
-#: builtin/init-db.c
-#, c-format
-msgid "cannot mkdir %s"
 msgstr ""
 
 #: builtin/init-db.c
@@ -10714,6 +11083,20 @@ msgid "disabling bitmap writing, as some objects are not being packed"
 msgstr ""
 
 #: builtin/pack-objects.c
+msgid "Counting objects"
+msgstr ""
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to get size of %s"
+msgstr ""
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to parse object header of %s"
+msgstr ""
+
+#: builtin/pack-objects.c
 msgid "Compressing objects"
 msgstr ""
 
@@ -10852,6 +11235,10 @@ msgid "ignore packs that have companion .keep file"
 msgstr ""
 
 #: builtin/pack-objects.c
+msgid "ignore this pack"
+msgstr ""
+
+#: builtin/pack-objects.c
 msgid "pack compression level"
 msgstr ""
 
@@ -10876,7 +11263,17 @@ msgid "do not pack objects in promisor packfiles"
 msgstr ""
 
 #: builtin/pack-objects.c
-msgid "Counting objects"
+#, c-format
+msgid "delta chain depth %d is too deep, forcing %d"
+msgstr ""
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "pack.deltaCacheLimit is too high, forcing %d"
+msgstr ""
+
+#: builtin/pack-objects.c
+msgid "Enumerating objects"
 msgstr ""
 
 #: builtin/pack-refs.c
@@ -11212,26 +11609,6 @@ msgid ""
 msgstr ""
 
 #: builtin/push.c
-msgid "--all and --tags are incompatible"
-msgstr ""
-
-#: builtin/push.c
-msgid "--all can't be combined with refspecs"
-msgstr ""
-
-#: builtin/push.c
-msgid "--mirror and --tags are incompatible"
-msgstr ""
-
-#: builtin/push.c
-msgid "--mirror can't be combined with refspecs"
-msgstr ""
-
-#: builtin/push.c
-msgid "--all and --mirror are incompatible"
-msgstr ""
-
-#: builtin/push.c
 msgid "repository"
 msgstr ""
 
@@ -11299,20 +11676,32 @@ msgstr ""
 msgid "request atomic transaction on remote side"
 msgstr ""
 
-#: builtin/push.c builtin/send-pack.c
-msgid "server-specific"
-msgstr ""
-
-#: builtin/push.c builtin/send-pack.c
-msgid "option to transmit"
-msgstr ""
-
 #: builtin/push.c
 msgid "--delete is incompatible with --all, --mirror and --tags"
 msgstr ""
 
 #: builtin/push.c
 msgid "--delete doesn't make sense without any refs"
+msgstr ""
+
+#: builtin/push.c
+msgid "--all and --tags are incompatible"
+msgstr ""
+
+#: builtin/push.c
+msgid "--all can't be combined with refspecs"
+msgstr ""
+
+#: builtin/push.c
+msgid "--mirror and --tags are incompatible"
+msgstr ""
+
+#: builtin/push.c
+msgid "--mirror can't be combined with refspecs"
+msgstr ""
+
+#: builtin/push.c
+msgid "--all and --mirror are incompatible"
 msgstr ""
 
 #: builtin/push.c
@@ -11403,6 +11792,14 @@ msgid "allow commits with empty messages"
 msgstr ""
 
 #: builtin/rebase--helper.c
+msgid "rebase merge commits"
+msgstr ""
+
+#: builtin/rebase--helper.c
+msgid "keep original branch points of cousins"
+msgstr ""
+
+#: builtin/rebase--helper.c
 msgid "continue rebase"
 msgstr ""
 
@@ -11436,6 +11833,10 @@ msgstr ""
 
 #: builtin/rebase--helper.c
 msgid "insert exec commands in todo list"
+msgstr ""
+
+#: builtin/rebase--helper.c
+msgid "--[no-]rebase-cousins has no effect without --rebase-merges"
 msgstr ""
 
 #: builtin/receive-pack.c
@@ -11711,6 +12112,11 @@ msgstr ""
 #: builtin/remote.c
 #, c-format
 msgid "rebases interactively onto remote %s"
+msgstr ""
+
+#: builtin/remote.c
+#, c-format
+msgid "rebases interactively (with merges) onto remote %s"
 msgstr ""
 
 #: builtin/remote.c
@@ -12060,6 +12466,10 @@ msgid "repack objects in packs marked with .keep"
 msgstr ""
 
 #: builtin/repack.c
+msgid "do not repack this pack"
+msgstr ""
+
+#: builtin/repack.c
 msgid "cannot delete packs in a precious-objects repo"
 msgstr ""
 
@@ -12082,6 +12492,10 @@ msgstr ""
 
 #: builtin/replace.c
 msgid "git replace [-f] --graft <commit> [<parent>...]"
+msgstr ""
+
+#: builtin/replace.c
+msgid "git replace [-f] --convert-graft-file"
 msgstr ""
 
 #: builtin/replace.c
@@ -12129,6 +12543,13 @@ msgid "could not write replacement commit for: '%s'"
 msgstr ""
 
 #: builtin/replace.c
+#, c-format
+msgid ""
+"could not convert the following graft(s):\n"
+"%s"
+msgstr ""
+
+#: builtin/replace.c
 msgid "list replace refs"
 msgstr ""
 
@@ -12142,6 +12563,10 @@ msgstr ""
 
 #: builtin/replace.c
 msgid "change a commit's parents"
+msgstr ""
+
+#: builtin/replace.c
+msgid "convert existing graft file"
 msgstr ""
 
 #: builtin/replace.c
@@ -12513,8 +12938,24 @@ msgstr ""
 msgid "print status from remote helper"
 msgstr ""
 
+#: builtin/serve.c
+msgid "git serve [<options>]"
+msgstr ""
+
+#: builtin/serve.c builtin/upload-pack.c
+msgid "quit after a single request/response exchange"
+msgstr ""
+
+#: builtin/serve.c
+msgid "exit immediately after advertising capabilities"
+msgstr ""
+
 #: builtin/shortlog.c
-msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
+msgid "git shortlog [<options>] [<revision-range>] [[--] <path>...]"
+msgstr ""
+
+#: builtin/shortlog.c
+msgid "git log --pretty=short | git shortlog [<options>]"
 msgstr ""
 
 #: builtin/shortlog.c
@@ -12539,6 +12980,10 @@ msgstr ""
 
 #: builtin/shortlog.c
 msgid "Linewrap output"
+msgstr ""
+
+#: builtin/shortlog.c
+msgid "too many arguments given outside repository"
 msgstr ""
 
 #: builtin/show-branch.c
@@ -13563,6 +14008,22 @@ msgstr ""
 msgid "update the info files from scratch"
 msgstr ""
 
+#: builtin/upload-pack.c
+msgid "git upload-pack [<options>] <dir>"
+msgstr ""
+
+#: builtin/upload-pack.c
+msgid "exit immediately after initial ref advertisement"
+msgstr ""
+
+#: builtin/upload-pack.c
+msgid "do not try <directory>/.git/ if <directory> is no Git directory"
+msgstr ""
+
+#: builtin/upload-pack.c
+msgid "interrupt transfer after <n> seconds of inactivity"
+msgstr ""
+
 #: builtin/verify-commit.c
 msgid "git verify-commit [-v | --verbose] <commit>..."
 msgstr ""
@@ -13675,7 +14136,22 @@ msgstr ""
 
 #: builtin/worktree.c
 #, c-format
-msgid "Preparing %s (identifier %s)"
+msgid "Preparing worktree (new branch '%s')"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (resetting branch '%s'; was at %s)"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (checking out '%s')"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "Preparing worktree (detached HEAD %s)"
 msgstr ""
 
 #: builtin/worktree.c
@@ -13834,26 +14310,6 @@ msgstr ""
 msgid "only useful for debugging"
 msgstr ""
 
-#: upload-pack.c
-msgid "git upload-pack [<options>] <dir>"
-msgstr ""
-
-#: upload-pack.c
-msgid "quit after a single request/response exchange"
-msgstr ""
-
-#: upload-pack.c
-msgid "exit immediately after initial ref advertisement"
-msgstr ""
-
-#: upload-pack.c
-msgid "do not try <directory>/.git/ if <directory> is no Git directory"
-msgstr ""
-
-#: upload-pack.c
-msgid "interrupt transfer after <n> seconds of inactivity"
-msgstr ""
-
 #: credential-cache--daemon.c
 #, c-format
 msgid ""
@@ -13871,7 +14327,8 @@ msgstr ""
 msgid ""
 "git [--version] [--help] [-C <path>] [-c <name>=<value>]\n"
 "           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
 "           <command> [<args>]"
 msgstr ""
@@ -14358,6 +14815,10 @@ msgid ""
 msgstr ""
 
 #: git-rebase.sh
+msgid "error: cannot combine '--signoff' with '--preserve-merges'"
+msgstr ""
+
+#: git-rebase.sh
 #, sh-format
 msgid "invalid upstream '$upstream_name'"
 msgstr ""
@@ -14770,13 +15231,19 @@ msgstr ""
 msgid ""
 "\n"
 "Commands:\n"
-"p, pick = use commit\n"
-"r, reword = use commit, but edit the commit message\n"
-"e, edit = use commit, but stop for amending\n"
-"s, squash = use commit, but meld into previous commit\n"
-"f, fixup = like \"squash\", but discard this commit's log message\n"
-"x, exec = run command (the rest of the line) using shell\n"
-"d, drop = remove commit\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <commit> = run command (the rest of the line) using shell\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
 "\n"
 "These lines can be re-ordered; they are executed from top to bottom.\n"
 msgstr ""
@@ -15018,14 +15485,6 @@ msgid "Could not mark as interactive"
 msgstr ""
 
 #: git-rebase--interactive.sh
-msgid "Could not init rewritten commits"
-msgstr ""
-
-#: git-rebase--interactive.sh
-msgid "Could not generate todo list"
-msgstr ""
-
-#: git-rebase--interactive.sh
 #, sh-format
 msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
 msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
@@ -15035,12 +15494,21 @@ msgstr[1] ""
 #: git-rebase--interactive.sh
 msgid ""
 "\n"
-"However, if you remove everything, the rebase will be aborted.\n"
+"\tHowever, if you remove everything, the rebase will be aborted.\n"
 "\n"
+"\t"
 msgstr ""
 
 #: git-rebase--interactive.sh
 msgid "Note that empty commits are commented out"
+msgstr ""
+
+#: git-rebase--interactive.sh
+msgid "Could not generate todo list"
+msgstr ""
+
+#: git-rebase--interactive.sh
+msgid "Could not init rewritten commits"
 msgstr ""
 
 #: git-sh-setup.sh
@@ -15750,11 +16218,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#. TRANSLATORS: Make sure to include [y] [n] [q] [a] in your
+#. TRANSLATORS: Make sure to include [y] [n] [e] [q] [a] in your
 #. translation. The program will only accept English input
 #. at this point.
 #: git-send-email.perl
-msgid "Send this email? ([y]es|[n]o|[q]uit|[a]ll): "
+msgid "Send this email? ([y]es|[n]o|[e]dit|[q]uit|[a]ll): "
 msgstr ""
 
 #: git-send-email.perl
