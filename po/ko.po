@@ -36,6 +36,7 @@
 #  | fast-forward | 정방향 진행                                  |
 #  | fsmonitor    | 파일 시스템 모니터                           |
 #  | Git          | 깃                                           |
+#  | graft        | 그래프트                                     |
 #  | head         | 헤드                                         |
 #  | hook         | 후크                                         |
 #  | history      | (커밋) 내역                                  |
@@ -63,8 +64,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-03-16 07:29+0800\n"
-"PO-Revision-Date: 2018-03-28 23:28+0900\n"
+"POT-Creation-Date: 2018-06-16 22:06+0800\n"
+"PO-Revision-Date: 2018-06-19 02:00+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Git Korean translation <http://github.com/changwoo/git-l10n-"
 "ko>\n"
@@ -76,8 +77,8 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #, c-format
-msgid "hint: %.*s\n"
-msgstr "힌트: %.*s\n"
+msgid "%shint: %.*s%s\n"
+msgstr "%s힌트: %.*s%s\n"
 
 msgid "Cherry-picking is not possible because you have unmerged files."
 msgstr "병합하지 않은 파일이 있으므로, 커밋 빼오기를 할 수 없습니다."
@@ -776,7 +777,7 @@ msgid ""
 "So we cannot be sure the first %s commit is between %s and %s.\n"
 "We continue anyway."
 msgstr ""
-"%s 및 %s 사이의 머지 베이스를 건너뜁니다.\n"
+"%s 및 %s 사이의 병합 베이스를 건너뜁니다.\n"
 "그러므로 처음 %s 커밋이 %s 및 %s 사이에 있는지 확신할 수 없습니다.\n"
 "어쨌든 계속합니다."
 
@@ -1040,6 +1041,27 @@ msgid "%s %s is not a commit!"
 msgstr "%s %s, 커밋이 아닙니다"
 
 msgid ""
+"Support for <GIT_DIR>/info/grafts is deprecated\n"
+"and will be removed in a future Git version.\n"
+"\n"
+"Please use \"git replace --convert-graft-file\"\n"
+"to convert the grafts into replace refs.\n"
+"\n"
+"Turn this message off by running\n"
+"\"git config advice.graftFileDeprecated false\""
+msgstr ""
+"<GIT_DIR>/info/grafts에 대한 지원은 다음 깃\n"
+"버전에서 제거될 예정입니다.\n"
+"\n"
+"그래프트를 레퍼런스로 전환하려면\n"
+"\"git replace --convert-graft-file\" 명령을\n"
+"사용하십시오.\n"
+"\n"
+"이 메시지를 보지 않으려면\n"
+"\"git config advice.graftFileDeprecated false\"\n"
+"명령을 사용하십시오"
+
+msgid ""
 "Warning: commit message did not conform to UTF-8.\n"
 "You may want to amend it after fixing the message, or set the config\n"
 "variable i18n.commitencoding to the encoding your project uses.\n"
@@ -1047,6 +1069,17 @@ msgstr ""
 "경고: 커밋 메시지가 UTF-8 인코딩에 맞지 않습니다.\n"
 "메시지를 수정한 다음 커밋을 수정하거나, 설정의 i18n.commitencoding\n"
 "변수를 프로젝트가 사용 중인 인코딩으로 맞추십시오.\n"
+
+#, c-format
+msgid "the commit graph format cannot write %d commits"
+msgstr "커밋 그래프 포맷에서 커밋 %d개를 쓸 수 없습니다"
+
+msgid "too many commits to write graph"
+msgstr "그래프를 쓰기에는 커밋 수가 너무 많습니다"
+
+#, c-format
+msgid "cannot mkdir %s"
+msgstr "%s에 대해 mkdir를 할 수 없습니다"
 
 msgid "memory exhausted"
 msgstr "메모리 바닥남"
@@ -1144,7 +1177,7 @@ msgstr "잘못된 %s: '%s'"
 
 #, c-format
 msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
-msgstr "알 수 없는 core.untrackedCache 값 '%s'; 기본값으로 'keep' 사용"
+msgstr "알 수 없는 core.untrackedCache 값 '%s'. 기본값으로 'keep' 사용"
 
 #, c-format
 msgid "splitIndex.maxPercentChange value '%d' should be between 0 and 100"
@@ -1223,6 +1256,43 @@ msgid ""
 msgstr ""
 "%s에서 LF는 CRLF로 바뀝니다.\n"
 "작업 디렉터리에서는 원래 줄 바꿈 형식을 유지합니다."
+
+#, c-format
+msgid "BOM is prohibited in '%s' if encoded as %s"
+msgstr "'%s'에서 인코딩이 %s이면 BOM이 금지됩니다"
+
+#, c-format
+msgid ""
+"The file '%s' contains a byte order mark (BOM). Please use UTF-%s as working-"
+"tree-encoding."
+msgstr ""
+"'%s' 파일에 BOM(byte order mark)이 들어 있습니다. working-tree-encoding으로 "
+"UTF-%s 값을 사용하십시오."
+
+#, c-format
+msgid "BOM is required in '%s' if encoded as %s"
+msgstr "'%s'에서 인코딩이 %s이면 BOM이 필요합니다"
+
+#, c-format
+msgid ""
+"The file '%s' is missing a byte order mark (BOM). Please use UTF-%sBE or UTF-"
+"%sLE (depending on the byte order) as working-tree-encoding."
+msgstr ""
+"'%s' 파일에 BOM(byte order mark)이 없습니다. (바이트 순서에 따라) UTF-%sBE 또"
+"는 UTF-%sLE 값을 working-tree-encoding으로 사용하십시오."
+
+#, c-format
+msgid "failed to encode '%s' from %s to %s"
+msgstr "'%s'의 인코딩을 %s에서 %s(으)로 변환하는데 실패했습니다"
+
+#, c-format
+msgid "encoding '%s' from %s to %s and back is not the same"
+msgstr ""
+"'%s'의 인코딩을 %s에서 %s(으)로 변환하고 다시 역으로 변환했을 때 원래 내용과 "
+"다릅니다."
+
+msgid "true/false are no valid working-tree-encodings"
+msgstr "true/false는 올바른 working-tree-encodings 값이 아닙니다"
 
 msgid "in the future"
 msgstr "미래에"
@@ -1513,6 +1583,9 @@ msgstr "공통 커밋 없음"
 msgid "git fetch-pack: fetch failed."
 msgstr "git fetch-pack: 가져오기 실패."
 
+msgid "Server does not support shallow requests"
+msgstr "서버에서 shallow 요청을 지원하지 않습니다"
+
 msgid "no matching remote head"
 msgstr "해당하는 리모트 헤드가 없습니다"
 
@@ -1550,6 +1623,45 @@ msgstr "'%s'에 대해 stat()이 실패했습니다"
 msgid "'%s': short read"
 msgstr "'%s': 읽다가 잘림"
 
+msgid "start a working area (see also: git help tutorial)"
+msgstr "작업 공간 시작 (참고: git help tutorial)"
+
+msgid "work on the current change (see also: git help everyday)"
+msgstr "변경 사항에 대한 작업 (참고: git help everyday)"
+
+msgid "examine the history and state (see also: git help revisions)"
+msgstr "커밋 내역과 상태 보기 (참고: git help revisions)"
+
+msgid "grow, mark and tweak your common history"
+msgstr "커밋 내역을 키우고, 표시하고, 조작하기"
+
+msgid "collaborate (see also: git help workflows)"
+msgstr "협동 작업 (참고: git help workflows)"
+
+msgid "Main Porcelain Commands"
+msgstr "주요 사용자용 명령"
+
+msgid "Ancillary Commands / Manipulators"
+msgstr "보조 명령 / 조작 기능"
+
+msgid "Ancillary Commands / Interrogators"
+msgstr "보조 명령 / 정보 획득 기능"
+
+msgid "Interacting with Others"
+msgstr "다른 사람과 소통"
+
+msgid "Low-level Commands / Manipulators"
+msgstr "저수준 명령/ 조작 기능"
+
+msgid "Low-level Commands / Interrogators"
+msgstr "보조 명령 / 정보 획득 기능"
+
+msgid "Low-level Commands / Synching Repositories"
+msgstr "보조 명령 / 저장소 동기화 기능"
+
+msgid "Low-level Commands / Internal Helpers"
+msgstr "보조 명령 / 내부 사용 기능"
+
 #, c-format
 msgid "available git commands in '%s'"
 msgstr "'%s'에 있는 깃 명령"
@@ -1559,6 +1671,13 @@ msgstr "다른 $PATH에 있는 깃 명령"
 
 msgid "These are common Git commands used in various situations:"
 msgstr "다음은 여러가지 상황에서 자주 사용하는 깃 명령입니다:"
+
+#, c-format
+msgid "unsupported command listing type '%s'"
+msgstr "지원하지 명령 열거 방식 '%s'"
+
+msgid "The common Git guides are:"
+msgstr "자주 사용하는 깃 안내서는 다음과 같습니다:"
 
 #, c-format
 msgid ""
@@ -1703,8 +1822,12 @@ msgid "(bad commit)\n"
 msgstr "(잘못된 커밋)\n"
 
 #, c-format
-msgid "addinfo_cache failed for path '%s'"
-msgstr "'%s' 경로에 대해 addinfo_cache가 실패했습니다"
+msgid "add_cacheinfo failed for path '%s'; merge aborting."
+msgstr "'%s' 경로에 대해 addinfo_cache 실패. 병합 중지."
+
+#, c-format
+msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
+msgstr "'%s' 경로에 대해 addinfo_cache 새로 고침 실패. 병합 중지."
 
 msgid "error building trees"
 msgstr "트리 빌드에 오류"
@@ -1744,6 +1867,57 @@ msgstr "'%s' 심볼릭 링크에 실패: %s"
 msgid "do not know what to do with %06o %s '%s'"
 msgstr "다음을 어떻게 할지 알 수 없습니다: %06o %s '%s'"
 
+#, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr "%s 하위 모듈 병합 실패 (가져오지 않음)"
+
+#, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr "%s 하위 모듈 병합 실패 (커밋이 없습니다)"
+
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr "%s 하위 모듈 병합 실패 (커밋이 병합 베이스를 따르지 않습니다)"
+
+#, c-format
+msgid "Fast-forwarding submodule %s to the following commit:"
+msgstr "%s 하위 모듈을 다음 커밋으로 정방향 진행:"
+
+#, c-format
+msgid "Fast-forwarding submodule %s"
+msgstr "%s 하위 모듈을 정방향 진행"
+
+#, c-format
+msgid "Failed to merge submodule %s (merge following commits not found)"
+msgstr "%s 하위 모듈 병합 실패 (병합할 때 따라갈 커밋이 없습니다)"
+
+#, c-format
+msgid "Failed to merge submodule %s (not fast-forward)"
+msgstr "%s 하위 모듈 병합 실패 (정방향이 아닙니다)"
+
+msgid "Found a possible merge resolution for the submodule:\n"
+msgstr "하위 모듈에 대해 가능한 병합 방법을 찾았습니다:\n"
+
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+"이 제안이 맞으면 인덱스에 추가하면 됩니다. 예를 들어\n"
+"다음 명령을 사용하면:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"제안을 받아들이게 됩니다.\n"
+
+#, c-format
+msgid "Failed to merge submodule %s (multiple merges found)"
+msgstr "%s 하위 모듈 병합 실패 (병합이 여러개 있습니다)"
+
 msgid "Failed to execute internal merge"
 msgstr "내부 병합 실행에 실패"
 
@@ -1752,35 +1926,44 @@ msgid "Unable to add %s to database"
 msgstr "%s을(를) 데이터베이스에 추가할 수 없습니다"
 
 #, c-format
+msgid "Auto-merging %s"
+msgstr "자동 병합: %s"
+
+#, c-format
+msgid "Error: Refusing to lose untracked file at %s; writing to %s instead."
+msgstr ""
+"오류: %s 위치의 추적되지 않는 파일을 잃기를 거부합니다. 대신 %s에 씁니다."
+
+#, c-format
 msgid ""
 "CONFLICT (%s/delete): %s deleted in %s and %s in %s. Version %s of %s left "
 "in tree."
 msgstr ""
-"충돌! (%s/삭제): %s (위치 %s) 및 %s (%s에서) 삭제. %s 버전의 %s 트리에 남음."
+"충돌 (%s/삭제): %s (위치 %s) 및 %s (%s에서) 삭제. %s 버전의 %s 트리에 남음."
 
 #, c-format
 msgid ""
 "CONFLICT (%s/delete): %s deleted in %s and %s to %s in %s. Version %s of %s "
 "left in tree."
 msgstr ""
-"충돌! (%s/삭제): %s (위치 %s) 삭제, %s에서 %s(으)로 (위치 %s). %s 버전의 %s "
-"트리에 남음."
+"충돌 (%s/삭제): %s (위치 %s) 삭제, %s에서 %s(으)로 (위치 %s). %s 버전의 %s 트"
+"리에 남음."
 
 #, c-format
 msgid ""
 "CONFLICT (%s/delete): %s deleted in %s and %s in %s. Version %s of %s left "
 "in tree at %s."
 msgstr ""
-"충돌! (%s/삭제): %s (위치 %s) 및 %s (위치 %s) 삭제. %s 버전의 %s 트리에 "
-"%s(으)로 남음."
+"충돌 (%s/삭제): %s (위치 %s) 및 %s (위치 %s) 삭제. %s 버전의 %s 트리에 %s(으)"
+"로 남음."
 
 #, c-format
 msgid ""
 "CONFLICT (%s/delete): %s deleted in %s and %s to %s in %s. Version %s of %s "
 "left in tree at %s."
 msgstr ""
-"충돌! (%s/삭제): %s (위치 %s) 삭제, %s에서 %s(으)로 (위치 %s). %s 버전의 %s "
-"트리에 남음 (위치 %s)."
+"충돌 (%s/삭제): %s (위치 %s) 삭제, %s에서 %s(으)로 (위치 %s). %s 버전의 %s 트"
+"리에 남음 (위치 %s)."
 
 msgid "rename"
 msgstr "이름바꾸기"
@@ -1789,16 +1972,24 @@ msgid "renamed"
 msgstr "이름바꿈"
 
 #, c-format
+msgid "Refusing to lose dirty file at %s"
+msgstr "%s 위치의 변경된 파일을 잃기를 거부합니다"
+
+#, c-format
 msgid "%s is a directory in %s adding as %s instead"
 msgstr "%s은(는) %s에 있는 디렉터리로 %s(으)로 이름을 바꿉니다"
+
+#, c-format
+msgid "Refusing to lose untracked file at %s; adding as %s instead"
+msgstr "%s 위치의 추적되지 않는 파일을 잃기를 거부합니다. 대신 %s 추가"
 
 #, c-format
 msgid ""
 "CONFLICT (rename/rename): Rename \"%s\"->\"%s\" in branch \"%s\" rename \"%s"
 "\"->\"%s\" in \"%s\"%s"
 msgstr ""
-"충돌! (이름바꾸기/이름바꾸기): \"%3$s\" 브랜치에서 이름바꾸기 \"%1$s\"->"
-"\"%2$s\" \"%6$s\" 브랜치에서 이름 바꾸기 \"%4$s\"->\"%5$s\"%7$s"
+"충돌 (이름바꾸기/이름바꾸기): \"%3$s\" 브랜치에서 이름바꾸기 \"%1$s\"->\"%2$s"
+"\" \"%6$s\" 브랜치에서 이름 바꾸기 \"%4$s\"->\"%5$s\"%7$s"
 
 msgid " (left unresolved)"
 msgstr " (해결되지 않음)"
@@ -1806,16 +1997,64 @@ msgstr " (해결되지 않음)"
 #, c-format
 msgid "CONFLICT (rename/rename): Rename %s->%s in %s. Rename %s->%s in %s"
 msgstr ""
-"충돌! (rename/rename): 이름 바꾸기 %s->%s (위치 %s). 이름 바꾸기 %s->%s (위"
-"치 %s)"
+"충돌 (rename/rename): 이름 바꾸기 %s->%s (위치 %s). 이름 바꾸기 %s->%s (위치 "
+"%s)"
 
 #, c-format
 msgid "Renaming %s to %s and %s to %s instead"
 msgstr "대신 이름을 %s에서 %s(으)로 바꾸고 %s에서 %s(으)로 바꿉니다"
 
 #, c-format
+msgid "Refusing to lose untracked file at %s, even though it's in the way."
+msgstr ""
+"%s 위치의 추적되지 않는 파일을 잃기를 (잃어버릴 예정이지만) 거부합니다."
+
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to place %s because "
+"directory %s was renamed to multiple other directories, with no destination "
+"getting a majority of the files."
+msgstr ""
+"충돌 (디렉터리 이름 바꾸기 분리): %s 파일을 어디에 놓을지 불분명합니다. %s 디"
+"렉터리가 여러 개의 다른 디렉터리로 이름이 바뀌었고 파일 다수가 들어 있는 대상"
+"이 없기 때문입니다."
+
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+"충돌 (묵시적인 디렉터리 이름 바꾸기): %s 위치의 기존 파일/디렉터리가 묵시적으"
+"로 디렉터리 이름이 바뀌어 다음 경로가 들어갈 예정입니다: %s."
+
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+"충돌 (묵시적인 디렉터리 이름 바꾸기): 여러 개의 경로를 %s에 대응할 수 없습니"
+"다. 묵시적인 디렉터리 이름 바꾸기 기능은 이들 경로를 해당 위치에 놓도록 시도"
+"합니다: %s"
+
+#, c-format
+msgid ""
+"CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
+">%s in %s"
+msgstr ""
+"충돌 (rename/rename): 이름 바꾸기 %s->%s (위치 %s). 이름 바꾸기 %s->%s (위치 "
+"%s)"
+
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
+msgstr ""
+"경고: %s -> %s 이름 바꾸기 (대상 %s) 적용 거부. %s 자체가 이미 이름이 바뀌었"
+"습니다."
+
+#, c-format
 msgid "CONFLICT (rename/add): Rename %s->%s in %s. %s added in %s"
-msgstr "충돌! (rename/add): 이름 바꾸기 %s->%s (위치 %s). %s 추가 (위치 %s)"
+msgstr "충돌 (rename/add): 이름 바꾸기 %s->%s (위치 %s). %s 추가 (위치 %s)"
 
 #, c-format
 msgid "Adding merged %s"
@@ -1849,16 +2088,12 @@ msgstr "추가/추가"
 msgid "Skipped %s (merged same as existing)"
 msgstr "건너뛰기: %s (기존과 같게 병합)"
 
-#, c-format
-msgid "Auto-merging %s"
-msgstr "자동 병합: %s"
-
 msgid "submodule"
 msgstr "하위 모듈"
 
 #, c-format
 msgid "CONFLICT (%s): Merge conflict in %s"
-msgstr "충돌! (%s): %s에 병합 충돌"
+msgstr "충돌 (%s): %s에 병합 충돌"
 
 #, c-format
 msgid "Removing %s"
@@ -1873,8 +2108,7 @@ msgstr "디렉터리/파일"
 #, c-format
 msgid "CONFLICT (%s): There is a directory with name %s in %s. Adding %s as %s"
 msgstr ""
-"충돌! (%s): 이름이 %s인 디렉터리가 %s에 있습니다. %s을(를) %s(으)로 추가합니"
-"다"
+"충돌 (%s): 이름이 %s인 디렉터리가 %s에 있습니다. %s을(를) %s(으)로 추가합니다"
 
 #, c-format
 msgid "Adding %s"
@@ -1979,6 +2213,10 @@ msgid "-NUM"
 msgstr "-NUM"
 
 #, c-format
+msgid "malformed expiration date '%s'"
+msgstr "형식이 잘못된 만료 시각: '%s'"
+
+#, c-format
 msgid "malformed object name '%s'"
 msgstr "잘못된 형식의 오브젝트 이름 '%s'"
 
@@ -2079,7 +2317,7 @@ msgid "unable to unlink: %s"
 msgstr "링크 해제할 수 없습니다: %s"
 
 #, c-format
-msgid "Could not open '%s' for writing"
+msgid "could not open '%s' for writing"
 msgstr "'%s'을(를) 쓰기용으로 열 수 없습니다"
 
 msgid "ref updates forbidden inside quarantine environment"
@@ -2231,6 +2469,10 @@ msgstr "잘못된 형식의 문자열 %s"
 #, c-format
 msgid "(no branch, rebasing %s)"
 msgstr "(브랜치 없음, %s 리베이스)"
+
+#, c-format
+msgid "(no branch, rebasing detached HEAD %s)"
+msgstr "(브랜치 없음, 분리된 HEAD %s 리베이스)"
 
 #, c-format
 msgid "(no branch, bisect started on %s)"
@@ -2434,6 +2676,10 @@ msgstr "받는 쪽에서 푸시 옵션을 지원하지 않습니다"
 msgid "invalid commit message cleanup mode '%s'"
 msgstr "잘못된 커밋 메시지 정리 모드 '%s'"
 
+#, c-format
+msgid "could not delete '%s'"
+msgstr "'%s'을(를) 삭제할 수 없습니다"
+
 msgid "revert"
 msgstr "revert"
 
@@ -2501,11 +2747,11 @@ msgstr "%s: 정방향 진행"
 msgid "%s: Unable to write new index file"
 msgstr "%s: 새 인덱스 파일을 쓸 수 없습니다"
 
-msgid "could not resolve HEAD commit"
-msgstr "HEAD 커밋을 찾을 수 없습니다"
-
 msgid "unable to update cache tree"
 msgstr "캐시 트리를 업데이트할 수 없습니다"
+
+msgid "could not resolve HEAD commit"
+msgstr "HEAD 커밋을 찾을 수 없습니다"
 
 #, c-format
 msgid ""
@@ -2535,6 +2781,9 @@ msgstr ""
 "어떤 경우이든, 마친 다음에 다음 명령으로 계속합니다:\n"
 "\n"
 "  git rebase --continue\n"
+
+msgid "writing root commit"
+msgstr "최상위 커밋을 씁니다"
 
 msgid "'prepare-commit-msg' hook failed"
 msgstr "'prepare-commit-msg' 후크가 실패했습니다"
@@ -2636,26 +2885,6 @@ msgid "could not parse parent commit %s"
 msgstr "%s 이전 커밋을 파싱할 수 없습니다"
 
 #, c-format
-msgid ""
-"unexpected 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-"커밋 합치기 메시지의 첫 줄이 예상치 못함:\n"
-"\n"
-"\t%.*s"
-
-#, c-format
-msgid ""
-"invalid 1st line of squash message:\n"
-"\n"
-"\t%.*s"
-msgstr ""
-"커밋 합치기 메시지의 첫 줄이 잘못됨:\n"
-"\n"
-"\t%.*s"
-
-#, c-format
 msgid "This is a combination of %d commits."
 msgstr "커밋 %d개가 섞인 결과입니다."
 
@@ -2693,6 +2922,9 @@ msgstr "알 수 없는 명령: %d"
 
 msgid "your index file is unmerged."
 msgstr "인덱스 파일이 병합되지 않았습니다."
+
+msgid "cannot fixup root commit"
+msgstr "최상위 커밋을 바로잡을 수 없습니다"
 
 #, c-format
 msgid "commit %s is a merge but no -m option was given."
@@ -2783,6 +3015,9 @@ msgstr "잘못된 키: %s"
 #, c-format
 msgid "invalid value for %s: %s"
 msgstr "%s의 값이 잘못됨: %s"
+
+msgid "unusable squash-onto"
+msgstr "불안한 squash-onto"
 
 #, c-format
 msgid "malformed options sheet: '%s'"
@@ -2875,6 +3110,41 @@ msgstr ""
 "  git rebase --continue\n"
 "\n"
 
+msgid "writing fake root commit"
+msgstr "가짜 최상위 커밋을 씁니다"
+
+msgid "writing squash-onto"
+msgstr "squash-onto를 씁니다"
+
+#, c-format
+msgid "failed to find tree of %s"
+msgstr "%s의 트리를 찾는데 실패했습니다"
+
+msgid "could not write index"
+msgstr "인덱스를 쓸 수 없습니다"
+
+msgid "cannot merge without a current revision"
+msgstr "현재 리비전 없이 병합할 수 없습니다"
+
+#, c-format
+msgid "could not resolve '%s'"
+msgstr "'%s' 해결할 수 없습니다"
+
+#, c-format
+msgid "could not get commit message of '%s'"
+msgstr "'%s'의 커밋 메시지를 읽을 수 없습니다"
+
+#, c-format
+msgid "could not write '%s'"
+msgstr "'%s'에 쓸 수 없습니다"
+
+#, c-format
+msgid "could not even attempt to merge '%.*s'"
+msgstr "'%.*s' 병합을 시도도 할 수 없습니다"
+
+msgid "merge: Unable to write new index file"
+msgstr "병합: 새 인덱스 파일을 쓸 수 없습니다"
+
 #, c-format
 msgid "Applied autostash.\n"
 msgstr "자동 스태시 적용.\n"
@@ -2892,6 +3162,26 @@ msgstr ""
 "자동스태시 적용에 충돌이 발생했습니다.\n"
 "변경 사항은 스태시 안에 안전하게 들어 있습니다.\n"
 "언제든지 \"git stash pop\" 또는 \"git stash drop\"을 실행할 수 있습니다.\n"
+
+#, c-format
+msgid ""
+"Could not execute the todo command\n"
+"\n"
+"    %.*s\n"
+"It has been rescheduled; To edit the command before continuing, please\n"
+"edit the todo list first:\n"
+"\n"
+"    git rebase --edit-todo\n"
+"    git rebase --continue\n"
+msgstr ""
+"할 일 목록 명령을 실행할 수 없습니다\n"
+"\n"
+"    %.*s\n"
+"스케줄을 조정합니다. 계속 하기 전에 명령어를 편집하려면, 먼저 다음\n"
+"할 일 목록을 편집하십시오:\n"
+"\n"
+"    git rebase --edit-todo\n"
+"    git rebase --continue\n"
 
 #, c-format
 msgid "Stopped at %s...  %.*s\n"
@@ -2914,9 +3204,6 @@ msgstr "HEAD를 %s 위치로 업데이트할 수 없습니다"
 msgid "cannot rebase: You have unstaged changes."
 msgstr "리베이스할 수 없습니다: 스테이징하지 않은 변경 사항이 있습니다."
 
-msgid "could not remove CHERRY_PICK_HEAD"
-msgstr "CHERRY_PICK_HEAD를 제거할 수 없습니다"
-
 msgid "cannot amend non-existing commit"
 msgstr "없는 커밋을 수정할 수 없습니다"
 
@@ -2936,6 +3223,13 @@ msgstr ""
 "\n"
 "작업 폴더에 커밋하지 않은 변경 사항이 있습니다. 이 사항을 먼저\n"
 "커밋하고 'git rebase --continue' 명령을 다시 실행하십시오."
+
+#, c-format
+msgid "could not write file: '%s'"
+msgstr "파일을 쓸 수 없습니다: '%s'"
+
+msgid "could not remove CHERRY_PICK_HEAD"
+msgstr "CHERRY_PICK_HEAD를 제거할 수 없습니다"
 
 msgid "could not commit staged changes."
 msgstr "스테이징한 변경 사항을 커밋할 수 없습니다."
@@ -3001,10 +3295,6 @@ msgstr ""
 "'git rebase --edit-todo' 명령으로 바로잡을 수 있고 'git rebase --continue' 명"
 "령을 실행합니다.\n"
 "또는 'git rebase --abort' 명령으로 리베이스를 중지할 수도 있습니다.\n"
-
-#, c-format
-msgid "could not open '%s' for writing"
-msgstr "'%s'을(를) 쓰기용으로 열 수 없습니다"
 
 #, c-format
 msgid "could not parse commit '%s'"
@@ -3162,7 +3452,7 @@ msgstr "레퍼런스 '%s' 저장소가 얕은 저장소입니다"
 
 #, c-format
 msgid "reference repository '%s' is grafted"
-msgstr "레퍼런스 '%s' 저장소가 붙어 있는 저장소입니다"
+msgstr "레퍼런스 '%s' 저장소가 그래프트로 붙은 저장소입니다"
 
 #, c-format
 msgid "short SHA1 %s is ambiguous"
@@ -3274,12 +3564,13 @@ msgstr "재귀적으로 '%s' 하위 모듈에 들어갈 수 없습니다"
 msgid "could not start ls-files in .."
 msgstr "'..' 안에서 ls-files를 시작할 수 없습니다"
 
-msgid "BUG: returned path string doesn't match cwd?"
-msgstr "버그: 리턴된 경로 문자열이 현재 디렉터리와 맞지 않습니다?"
-
 #, c-format
 msgid "ls-tree returned unexpected return code %d"
 msgstr "ls-tree가 예상치 못한 코드 %d번을 리턴했습니다"
+
+#, c-format
+msgid "ignoring suspicious submodule name: %s"
+msgstr "의심스러운 하위 모듈 이름을 무시합니다: %s"
 
 msgid "negative values not allowed for submodule.fetchjobs"
 msgstr "submodule.fetchjobs 값에 음수를 쓸 수 없습니다"
@@ -3337,6 +3628,9 @@ msgstr "'%1$s'의 업스트림을 '%3$s'의 '%2$s'(으)로 설정합니다\n"
 #, c-format
 msgid "transport: invalid depth option '%s'"
 msgstr "transport: 잘못된 깊이 옵션: %s"
+
+msgid "could not parse transport.color.* config"
+msgstr "transport.color.* 설정을 파싱할 수 없습니다"
 
 #, c-format
 msgid ""
@@ -4551,6 +4845,20 @@ msgstr "git blame [<옵션>] [<리비전-옵션>] [<리비전>] [--] <파일>"
 msgid "<rev-opts> are documented in git-rev-list(1)"
 msgstr "<리비전-옵션>은 git-rev-list(1)에 설명되어 있습니다"
 
+#, c-format
+msgid "expecting a color: %s"
+msgstr "색을 예상합니다: %s"
+
+msgid "must end with a color"
+msgstr "색으로 끝나야 합니다"
+
+#, c-format
+msgid "invalid color '%s' in color.blame.repeatedLines"
+msgstr "color.blame.repeatedLines에 잘못된 색을 ('%s') 무시합니다"
+
+msgid "invalid value for blame.coloring"
+msgstr "blame.coloring의 값이 올바르지 않습니다"
+
 msgid "Show blame entries as we find them, incrementally"
 msgstr "블레임 항목을 찾자마자 점진적으로 표시합니다"
 
@@ -4598,6 +4906,12 @@ msgstr "작성자 이름 대신에 전자메일을 표시합니다 (기본값: �
 
 msgid "Ignore whitespace differences"
 msgstr "공백 문자 차이점을 무시합니다"
+
+msgid "color redundant metadata from previous line differently"
+msgstr "불필요한 메타데이터를 앞의 줄과 다르게 색을 칠합니다"
+
+msgid "color lines by age"
+msgstr "줄이 얼마나 오래 됐느냐에 따라 다르게 색을 칠합니다"
 
 msgid "Use an experimental heuristic to improve diffs"
 msgstr "diff를 향상하는데 실험적인 휴리스틱을 사용합니다"
@@ -6085,6 +6399,12 @@ msgstr ""
 msgid "list untracked files in columns"
 msgstr "추적되지 않는 파일의 목록을 여러 열로 표시합니다"
 
+msgid "do not detect renames"
+msgstr "이름 바꾸기를 검사하지 않습니다"
+
+msgid "detect renames, optionally set similarity index"
+msgstr "이름 바꾸기 검사하고, 부가적으로 유사성 인덱스를 설정합니다"
+
 msgid "Unsupported combination of ignored and untracked-files arguments"
 msgstr "무시한 모드와 추적되지 않는 파일의 인수가 지원되지 않는 조합입니다"
 
@@ -6221,8 +6541,43 @@ msgstr ""
 "없습니다. 디스크가 꽉 차지 않았고 제한 용량을 넘어가지\n"
 "않았는지 확인하십시오. 그리고 'git reset HEAD'로 복구하십시오."
 
+msgid "git commit-graph [--object-dir <objdir>]"
+msgstr "git commit-graph [--object-dir <오브젝트디렉터리>]"
+
+msgid "git commit-graph read [--object-dir <objdir>]"
+msgstr "git commit-graph read [--object-dir <오브젝트디렉터리>]"
+
+msgid ""
+"git commit-graph write [--object-dir <objdir>] [--append] [--stdin-packs|--"
+"stdin-commits]"
+msgstr ""
+"git commit-graph write [--object-dir <오브젝트디렉터리>] [--append] [--stdin-"
+"packs|--stdin-commits]"
+
+msgid "dir"
+msgstr "디렉터리"
+
+msgid "The object directory to store the graph"
+msgstr "그래프를 저장할 오브젝트 디렉터리"
+
+msgid "scan pack-indexes listed by stdin for commits"
+msgstr "커밋을 찾을 때 표준입력에서 열거한 묶음 인덱스를 검사합니다"
+
+msgid "start walk at commits listed by stdin"
+msgstr "표준 입력에 열거한 커밋에서부터 그리기를 시작합니다"
+
+msgid "include all commits already in the commit-graph file"
+msgstr "commit-graph 파일에 이미 있는 모든 커밋을 포함합니다"
+
+msgid "cannot use both --stdin-commits and --stdin-packs"
+msgstr "--stdin-commits 및 --stdin-packs 옵션은 같이 쓸 수 없습니다"
+
 msgid "git config [<options>]"
 msgstr "git config [<옵션>]"
+
+#, c-format
+msgid "unrecognized --type argument, %s"
+msgstr "알 수 없는 --type 인자: %s"
 
 msgid "Config file location"
 msgstr "설정 파일 위치"
@@ -6293,6 +6648,9 @@ msgstr "색 설정을 찾습니다: slot [<표준출력이-TTY인지-여부>]"
 msgid "Type"
 msgstr "값 종류"
 
+msgid "value is given this type"
+msgstr "값이 해당 종류로 주어집니다"
+
 msgid "value is \"true\" or \"false\""
 msgstr "값이 \"true\" 또는 \"false\"입니다"
 
@@ -6323,6 +6681,16 @@ msgstr "찾아볼 때 include 지시어를 고려합니다"
 msgid "show origin of config (file, standard input, blob, command line)"
 msgstr "설정의 출처를 표시합니다 (파일, 표준 입력, 블롭, 명령행)"
 
+msgid "value"
+msgstr "값"
+
+msgid "with --get, use default value when missing entry"
+msgstr "--wget 옵션에서, 해당 항목이 없으면 기본값을 사용합니다"
+
+#, c-format
+msgid "failed to format default config value: %s"
+msgstr "기본 설정 값을 포매팅하는데 실패했습니다: %s"
+
 msgid "unable to parse default color value"
 msgstr "기본 색 값을 파싱할 수 없습니다"
 
@@ -6342,6 +6710,9 @@ msgstr ""
 
 msgid "--local can only be used inside a git repository"
 msgstr "--local 옵션은 깃 저장소 안에서만 쓸 수 있습니다"
+
+msgid "--blob can only be used inside a git repository"
+msgstr "--blob 옵션은 깃 저장소 안에서만 쓸 수 있습니다"
 
 #, c-format
 msgid "cannot create configuration file %s"
@@ -6699,9 +7070,6 @@ msgstr "얕은 복제의 커밋 내역을 시간을 기준으로 깊게 만듭�
 msgid "convert to a complete repository"
 msgstr "완전한 저장소로 전환합니다"
 
-msgid "dir"
-msgstr "디렉터리"
-
 msgid "prepend this to submodule path output"
 msgstr "하위 모듈 경로 출력의 앞에 이 디렉터리를 붙입니다"
 
@@ -6718,6 +7086,12 @@ msgstr "레퍼런스맵"
 
 msgid "specify fetch refmap"
 msgstr "레퍼런스맵 가져오기를 지정합니다"
+
+msgid "server-specific"
+msgstr "서버-전용-옵션"
+
+msgid "option to transmit"
+msgstr "전송할 옵션"
 
 msgid "Couldn't find remote ref HEAD"
 msgstr "리모트 레퍼런스 HEAD를 찾을 수 없습니다"
@@ -7003,9 +7377,16 @@ msgstr "자동 가비지컬렉터 모드를 사용합니다"
 msgid "force running gc even if there may be another gc running"
 msgstr "이미 가비지컬렉터가 실행 중이더라도 강제로 가비지컬렉터를 실행합니다"
 
+msgid "repack all other packs except the largest pack"
+msgstr "가장 큰 묶음을 제외한 다른 묶음을 다시 묶습니다"
+
 #, c-format
-msgid "Failed to parse gc.logexpiry value %s"
+msgid "failed to parse gc.logexpiry value %s"
 msgstr "gc.logexpiry 값을 (%s) 파싱하는데 실패했습니다"
+
+#, c-format
+msgid "failed to parse prune expiry value %s"
+msgstr "만료값 %s 파싱하는데 실패했습니다"
 
 #, c-format
 msgid "Auto packing the repository in background for optimum performance.\n"
@@ -7277,6 +7658,9 @@ msgstr "웹 브라우저에서 설명서를 표시합니다"
 msgid "show info page"
 msgstr "인포 페이지를 표시합니다"
 
+msgid "print command description"
+msgstr "명령어 설명을 표시합니다"
+
 msgid "git help [--all] [--guides] [--man | --web | --info] [<command>]"
 msgstr "git help [--all] [--guides] [--man | --web | --info] [<명령>]"
 
@@ -7323,33 +7707,6 @@ msgstr "요청을 처리한 맨 페이지 보기 프로그램이 없습니다"
 
 msgid "no info viewer handled the request"
 msgstr "요청을 처리한 인포 페이지 보기 프로그램이 없습니다"
-
-msgid "Defining attributes per path"
-msgstr "경로마다 속성 정의하기"
-
-msgid "Everyday Git With 20 Commands Or So"
-msgstr "매일매일 사용하는 20개 내외의 깃 명령"
-
-msgid "A Git glossary"
-msgstr "깃 용어 사전"
-
-msgid "Specifies intentionally untracked files to ignore"
-msgstr "의도적으로 추적하지 않는 파일을 무시하게 지정하기"
-
-msgid "Defining submodule properties"
-msgstr "하위 모듈 속성 정의하기"
-
-msgid "Specifying revisions and ranges for Git"
-msgstr "깃의 리비전 및 범위를 지정하기"
-
-msgid "A tutorial introduction to Git (for version 1.5.1 or newer)"
-msgstr "깃 따라하기 안내서 (버전 1.5.1 이후)"
-
-msgid "An overview of recommended workflows with Git"
-msgstr "추천하는 깃 활용 작업 순서의 개요"
-
-msgid "The common Git guides are:\n"
-msgstr "자주 사용하는 깃 안내서는 다음과 같습니다:\n"
 
 #, c-format
 msgid "'%s' is aliased to '%s'"
@@ -7459,12 +7816,12 @@ msgstr "기존 %s 오브젝트를 읽을 수 없습니다"
 msgid "invalid blob object %s"
 msgstr "잘못된 블롭 오브젝트 %s"
 
+msgid "fsck error in packed object"
+msgstr "묶음 오브젝트에서 fsck 오류"
+
 #, c-format
 msgid "invalid %s"
 msgstr "잘못된 %s"
-
-msgid "Error in object"
-msgstr "오브젝트에 오류"
 
 #, c-format
 msgid "Not all child objects of %s are reachable"
@@ -7582,6 +7939,9 @@ msgstr "--stdin 옵션은 깃 저장소가 필요합니다"
 msgid "--verify with no packfile name given"
 msgstr "--verify 옵션에 묶음파일 이름을 지정하지 않았습니다"
 
+msgid "fsck error in pack objects"
+msgstr "묶음 오브젝트에서 fsck 오류"
+
 #, c-format
 msgid "cannot stat '%s'"
 msgstr "'%s'을(를) stat()할 수 없습니다"
@@ -7611,7 +7971,7 @@ msgid "ignoring template %s"
 msgstr "%s 서식을 무시합니다"
 
 #, c-format
-msgid "templates not found %s"
+msgid "templates not found in %s"
 msgstr "%s에 서식이 없습니다"
 
 #, c-format
@@ -7658,10 +8018,6 @@ msgstr "권한"
 
 msgid "specify that the git repository is to be shared amongst several users"
 msgstr "깃 저장소를 다른 사용자가 공유할 수 있게 지정"
-
-#, c-format
-msgid "cannot mkdir %s"
-msgstr "%s에 대해 mkdir를 할 수 없습니다"
 
 #, c-format
 msgid "cannot chdir to %s"
@@ -8982,6 +9338,17 @@ msgstr "오브젝트 쓰는 중"
 msgid "disabling bitmap writing, as some objects are not being packed"
 msgstr "묶음에 들어있지 않은 오브젝트가 있으므로, 비트맵 쓰기를 하지 않습니다"
 
+msgid "Counting objects"
+msgstr "오브젝트 개수 세는 중"
+
+#, c-format
+msgid "unable to get size of %s"
+msgstr "%s의 크기를 알아낼 수 없습니다"
+
+#, c-format
+msgid "unable to parse object header of %s"
+msgstr "%s의 오브젝트 헤더를 파싱할 수 없습니다"
+
 msgid "Compressing objects"
 msgstr "오브젝트 압축하는 중"
 
@@ -9086,12 +9453,14 @@ msgstr "얕은 가져오기에 적합한 묶음을 만듭니다"
 msgid "ignore packs that have companion .keep file"
 msgstr "해당하는 .keep 파일이 있는 묶음을 무시합니다"
 
+msgid "ignore this pack"
+msgstr "이 묶음을 무시합니다"
+
 msgid "pack compression level"
 msgstr "묶음 압축 단계"
 
-# FIXME: graft?
 msgid "do not hide commits by grafts"
-msgstr "붙어 있는 커밋을 숨기지 않습니다"
+msgstr "그래프트로 발생한 커밋을 숨기지 않습니다"
 
 msgid "use a bitmap index if available to speed up counting objects"
 msgstr "가능하면 비트맵 인덱스를 사용해 오브젝트 세기 속도를 높입니다"
@@ -9105,8 +9474,16 @@ msgstr "없는 오브젝트를 처리합니다"
 msgid "do not pack objects in promisor packfiles"
 msgstr "프라미서 묶음 파일에 오브젝트를 묶지 않습니다"
 
-msgid "Counting objects"
-msgstr "오브젝트 개수 세는 중"
+#, c-format
+msgid "delta chain depth %d is too deep, forcing %d"
+msgstr "델타 체인 깊이 값이 (%d) 너무 큽니다. %d 값으로 조정합니다"
+
+#, c-format
+msgid "pack.deltaCacheLimit is too high, forcing %d"
+msgstr "pack.deltaCacheLimit 값이 너무 큽니다. %d 값으로 조정합니다"
+
+msgid "Enumerating objects"
+msgstr "오브젝트 나열하는 중"
 
 msgid "git pack-refs [<options>]"
 msgstr "git pack-refs [<옵션>]"
@@ -9449,21 +9826,6 @@ msgstr ""
 "\n"
 "    git push <name>\n"
 
-msgid "--all and --tags are incompatible"
-msgstr "--all 및 --tags 옵션은 호환되지 않습니다"
-
-msgid "--all can't be combined with refspecs"
-msgstr "--all 옵션은 레퍼런스명세와 같이 쓸 수 없습니다"
-
-msgid "--mirror and --tags are incompatible"
-msgstr "--mirror 및 --tags 옵션은 호환되지 않습니다"
-
-msgid "--mirror can't be combined with refspecs"
-msgstr "--mirror 옵션은 레퍼런스명세와 같이 쓸 수 없습니다"
-
-msgid "--all and --mirror are incompatible"
-msgstr "--all 및 --mirror 옵션은 호환되지 않습니다"
-
 msgid "repository"
 msgstr "저장소"
 
@@ -9515,17 +9877,26 @@ msgstr "푸시에 GPG 서명"
 msgid "request atomic transaction on remote side"
 msgstr "리모트 쪽에 원자 트랜잭션을 요청합니다"
 
-msgid "server-specific"
-msgstr "서버-전용-옵션"
-
-msgid "option to transmit"
-msgstr "전송할 옵션"
-
 msgid "--delete is incompatible with --all, --mirror and --tags"
 msgstr "--delete 옵션은 --all, --mirror, --tags 옵션과 호환되지 않습니다"
 
 msgid "--delete doesn't make sense without any refs"
 msgstr "--delete 옵션은 레퍼런스 없이 앞뒤가 맞지 않습니다"
+
+msgid "--all and --tags are incompatible"
+msgstr "--all 및 --tags 옵션은 호환되지 않습니다"
+
+msgid "--all can't be combined with refspecs"
+msgstr "--all 옵션은 레퍼런스명세와 같이 쓸 수 없습니다"
+
+msgid "--mirror and --tags are incompatible"
+msgstr "--mirror 및 --tags 옵션은 호환되지 않습니다"
+
+msgid "--mirror can't be combined with refspecs"
+msgstr "--mirror 옵션은 레퍼런스명세와 같이 쓸 수 없습니다"
+
+msgid "--all and --mirror are incompatible"
+msgstr "--all 및 --mirror 옵션은 호환되지 않습니다"
 
 msgid "push options must not have new line characters"
 msgstr "푸시 옵션에는 줄바꿈 문자가 들어갈 수 없습니다"
@@ -9596,6 +9967,12 @@ msgstr "빈 커밋을 유지합니다"
 msgid "allow commits with empty messages"
 msgstr "빈 메시지로 커밋을 허용합니다"
 
+msgid "rebase merge commits"
+msgstr "병합 커밋을 리베이스합니다"
+
+msgid "keep original branch points of cousins"
+msgstr "관련된 본래 브랜치 위치를 유지합니다"
+
 msgid "continue rebase"
 msgstr "리베이스 계속"
 
@@ -9623,6 +10000,10 @@ msgstr "fixup/squash 줄 재구성"
 # English Text에서는 insert를 사용하지만, 소스코드에는 add로 표현되어 있습니다.
 msgid "insert exec commands in todo list"
 msgstr "할 일 목록에 실행 명령을 추가합니다"
+
+msgid "--[no-]rebase-cousins has no effect without --rebase-merges"
+msgstr ""
+"--[no-]rebase-cousins 옵션은 --rebase-merges 옵션 없이는 아무 효과가 없습니다"
 
 msgid "git receive-pack <git-dir>"
 msgstr "git receive-pack <git-dir>"
@@ -9870,6 +10251,10 @@ msgstr "잘못된 branch.%s.merge 값. 여러 개 브랜치로 리베이스할 �
 #, c-format
 msgid "rebases interactively onto remote %s"
 msgstr "리모트 %s 위로 대화식으로 리베이스합니다"
+
+#, c-format
+msgid "rebases interactively (with merges) onto remote %s"
+msgstr "리모트 %s 위로 대화식으로 (병합 포함) 리베이스합니다"
 
 #, c-format
 msgid "rebases onto remote %s"
@@ -10142,6 +10527,9 @@ msgstr "묶음 파일의 최대 크기"
 msgid "repack objects in packs marked with .keep"
 msgstr ".keep으로 표시된 묶음의 오브젝트를 다시 묶습니다"
 
+msgid "do not repack this pack"
+msgstr "이 묶음을 다시 묶지 않습니다"
+
 msgid "cannot delete packs in a precious-objects repo"
 msgstr "precious-objects 저장소의 묶음을 삭제할 수 없습니다"
 
@@ -10160,6 +10548,9 @@ msgstr "git replace [-f] --edit <오브젝트>"
 
 msgid "git replace [-f] --graft <commit> [<parent>...]"
 msgstr "git replace [-f] --graft <커밋> [<상위>...]"
+
+msgid "git replace [-f] --convert-graft-file"
+msgstr "git replace [-f] --convert-graft-file"
 
 msgid "git replace -d <object>..."
 msgstr "git replace -d <오브젝트>..."
@@ -10198,6 +10589,14 @@ msgstr "대체 커밋에서 서명을 제거합니다!"
 msgid "could not write replacement commit for: '%s'"
 msgstr "다음에 대한 대체 커밋을 쓸 수 없습니다: '%s'"
 
+#, c-format
+msgid ""
+"could not convert the following graft(s):\n"
+"%s"
+msgstr ""
+"다음 그래프트를 변환할 수 없습니다:\n"
+"%s"
+
 msgid "list replace refs"
 msgstr "대체 레퍼런스 목록을 표시합니다"
 
@@ -10209,6 +10608,9 @@ msgstr "현재 오브젝트를 편집합니다"
 
 msgid "change a commit's parents"
 msgstr "커밋의 상위 항목을 바꿉니다"
+
+msgid "convert existing graft file"
+msgstr "기존 그래프트 파일을 변환합니다"
 
 msgid "replace the ref if it exists"
 msgstr "레퍼런스가 있으면 대체합니다"
@@ -10512,8 +10914,20 @@ msgstr "표준 입력에서 레퍼런스를 읽습니다"
 msgid "print status from remote helper"
 msgstr "리모트 도움 프로그램의 상태를 표시합니다"
 
-msgid "git shortlog [<options>] [<revision-range>] [[--] [<path>...]]"
-msgstr "git shortlog [<옵션>] [<리비전-범위>] [[--] [<경로>...]]"
+msgid "git serve [<options>]"
+msgstr "git serve [<옵션>]"
+
+msgid "quit after a single request/response exchange"
+msgstr "하나의 요청/응답 교환 뒤에 끝납니다"
+
+msgid "exit immediately after advertising capabilities"
+msgstr "기능 정보 교환 뒤에 즉시 끝납니다"
+
+msgid "git shortlog [<options>] [<revision-range>] [[--] <path>...]"
+msgstr "git shortlog [<옵션>] [<리비전-범위>] [[--] <경로>...]"
+
+msgid "git log --pretty=short | git shortlog [<options>]"
+msgstr "git log --pretty=short | git shortlog [<옵션>]"
 
 msgid "Group by committer rather than author"
 msgstr "작성자가 아닌 커미터로 묶습니다"
@@ -10532,6 +10946,9 @@ msgstr "w[,i1[,i2]]"
 
 msgid "Linewrap output"
 msgstr "줄바꿈 출력"
+
+msgid "too many arguments given outside repository"
+msgstr "저장소 밖에서 주어진 인자가 너무 많습니다"
 
 msgid ""
 "git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]\n"
@@ -11370,6 +11787,19 @@ msgstr "git update-server-info [--force]"
 msgid "update the info files from scratch"
 msgstr "바닥부터 정보 파일을 업데이트합니다"
 
+msgid "git upload-pack [<options>] <dir>"
+msgstr "git upload-pack [<옵션>] <디렉터리>"
+
+msgid "exit immediately after initial ref advertisement"
+msgstr "최초 레퍼런스 알림 뒤에 즉시 끝납니다"
+
+msgid "do not try <directory>/.git/ if <directory> is no Git directory"
+msgstr ""
+"<디렉터리>가 깃 디렉터리가 아니면 <디렉터리>/.git/ 폴더를 시도하지 않습니다."
+
+msgid "interrupt transfer after <n> seconds of inactivity"
+msgstr "<n>초 동안 반응이 없으면 전송을 중지합니다"
+
 msgid "git verify-commit [-v | --verbose] <commit>..."
 msgstr "git verify-commit [-v | --verbose] <커밋>..."
 
@@ -11458,8 +11888,20 @@ msgid "could not create directory of '%s'"
 msgstr "'%s'의 디렉터리를 만들 수 없습니다"
 
 #, c-format
-msgid "Preparing %s (identifier %s)"
-msgstr "%s 준비 중 (ID %s)"
+msgid "Preparing worktree (new branch '%s')"
+msgstr "작업 트리 준비 중 (새 브랜치 '%s')"
+
+#, c-format
+msgid "Preparing worktree (resetting branch '%s'; was at %s)"
+msgstr "작업 트리 준비 중 ('%s' 브랜치 재설정 중. 원래 위치 %s)"
+
+#, c-format
+msgid "Preparing worktree (checking out '%s')"
+msgstr "작업 트리 준비 중 ('%s' 가져오는 중)"
+
+#, c-format
+msgid "Preparing worktree (detached HEAD %s)"
+msgstr "작업 트리 준비 중 (분리된 HEAD %s)"
 
 msgid "checkout <branch> even if already checked out in other worktree"
 msgstr "다른 작업 폴더에서 체크아웃했더라도 <브랜치>를 체크아웃합니다"
@@ -11582,22 +12024,6 @@ msgstr "하위 디렉터리 <접두어>에 대해 트리 오브젝트를 씁니�
 msgid "only useful for debugging"
 msgstr "디버깅 용도로만 사용"
 
-msgid "git upload-pack [<options>] <dir>"
-msgstr "git upload-pack [<옵션>] <디렉터리>"
-
-msgid "quit after a single request/response exchange"
-msgstr "하나의 요청/응답 교환 뒤에 끝납니다"
-
-msgid "exit immediately after initial ref advertisement"
-msgstr "최초 레퍼런스 알림 뒤에 즉시 끝납니다"
-
-msgid "do not try <directory>/.git/ if <directory> is no Git directory"
-msgstr ""
-"<디렉터리>가 깃 디렉터리가 아니면 <디렉터리>/.git/ 폴더를 시도하지 않습니다."
-
-msgid "interrupt transfer after <n> seconds of inactivity"
-msgstr "<n>초 동안 반응이 없으면 전송을 중지합니다"
-
 #, c-format
 msgid ""
 "The permissions on your socket directory are too loose; other\n"
@@ -11616,13 +12042,15 @@ msgstr "디버깅 메시지를 표준오류로 출력합니다"
 msgid ""
 "git [--version] [--help] [-C <path>] [-c <name>=<value>]\n"
 "           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
 "           <command> [<args>]"
 msgstr ""
 "git [--version] [--help] [-C <경로>] [-c <이름>=<값>]\n"
 "           [--exec-path[=<경로>]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=<경로>] [--work-tree=<경로>] [--namespace=<이름>]\n"
 "           <명령> [<인자>]"
 
@@ -11665,7 +12093,7 @@ msgstr "알 수 없는 옵션: %s\n"
 
 #, c-format
 msgid "expansion of alias '%s' failed; '%s' is not a git command\n"
-msgstr "별칭 '%s'의 확장에 실패했습니다; '%s'은(는) 깃 명령이 아닙니다\n"
+msgstr "별칭 '%s'의 확장에 실패했습니다. '%s'은(는) 깃 명령이 아닙니다\n"
 
 #, c-format
 msgid "failed to run command '%s': %s\n"
@@ -11702,84 +12130,6 @@ msgstr "인자"
 msgid "object filtering"
 msgstr "오브젝트 필터링"
 
-msgid "start a working area (see also: git help tutorial)"
-msgstr "작업 공간 시작 (참고: git help tutorial)"
-
-msgid "work on the current change (see also: git help everyday)"
-msgstr "변경 사항에 대한 작업 (참고: git help everyday)"
-
-msgid "examine the history and state (see also: git help revisions)"
-msgstr "커밋 내역과 상태 보기 (참고: git help revisions)"
-
-msgid "grow, mark and tweak your common history"
-msgstr "커밋 내역을 키우고, 표시하고, 조작하기"
-
-msgid "collaborate (see also: git help workflows)"
-msgstr "협동 작업 (참고: git help workflows)"
-
-msgid "Add file contents to the index"
-msgstr "파일 내용을 인덱스에 추가합니다"
-
-msgid "Use binary search to find the commit that introduced a bug"
-msgstr "이진 탐색으로 버그를 만들어낸 커밋을 찾습니다"
-
-msgid "List, create, or delete branches"
-msgstr "브랜치를 만들거나, 삭제하거나, 목록을 출력합니다"
-
-msgid "Switch branches or restore working tree files"
-msgstr "브랜치를 전환하거나 작업 파일을 복구합니다"
-
-msgid "Clone a repository into a new directory"
-msgstr "저장소를 복제해 새 디렉터리로 가져 옵니다"
-
-msgid "Record changes to the repository"
-msgstr "바뀐 사항을 저장소에 기록합니다"
-
-msgid "Show changes between commits, commit and working tree, etc"
-msgstr "커밋과 커밋 사이, 커밋과 작업 내용 사이 등의 바뀐 점을 봅니다"
-
-msgid "Download objects and refs from another repository"
-msgstr "다른 저장소에서 오브젝트와 레퍼런스를 다운로드합니다"
-
-msgid "Print lines matching a pattern"
-msgstr "패턴과 일치하는 줄을 표시합니다"
-
-msgid "Create an empty Git repository or reinitialize an existing one"
-msgstr "빈 깃 저장소를 만들거나 기존 저장소를 다시 초기화합니다"
-
-msgid "Show commit logs"
-msgstr "커밋 기록을 표시합니다"
-
-msgid "Join two or more development histories together"
-msgstr "여러 개의 개발 내역을 하나로 합칩니다"
-
-msgid "Move or rename a file, a directory, or a symlink"
-msgstr "파일, 디렉터리, 심볼릭 링크를 옮기거나 이름을 바꿉니다"
-
-msgid "Fetch from and integrate with another repository or a local branch"
-msgstr "다른 저장소 또는 다른 로컬 브랜치에서 가져오거나 통합합니다"
-
-msgid "Update remote refs along with associated objects"
-msgstr "원격 레퍼런스 및 그와 관련된 오브젝트를 업데이트합니다"
-
-msgid "Reapply commits on top of another base tip"
-msgstr "커밋을 다른 베이스 끝의 최상위에서 적용합니다"
-
-msgid "Reset current HEAD to the specified state"
-msgstr "현재 HEAD를 지정한 상태로 재설정화합니다"
-
-msgid "Remove files from the working tree and from the index"
-msgstr "파일을 작업 폴더에서 제거하고 인덱스에서도 제거합니다"
-
-msgid "Show various types of objects"
-msgstr "여러가지 종류의 오브젝트를 표시합니다"
-
-msgid "Show the working tree status"
-msgstr "작업 폴더 상태를 표시합니다"
-
-msgid "Create, list, delete or verify a tag object signed with GPG"
-msgstr "태그를 만들거나, 표시하거나, 삭제하거나, GPG 서명을 검증합니다"
-
 msgid "expiry-date"
 msgstr "만료-시각"
 
@@ -11794,6 +12144,480 @@ msgstr "더 간략히 표시합니다"
 
 msgid "use <n> digits to display SHA-1s"
 msgstr "SHA-1 표시에 <n>개의 숫자를 사용합니다"
+
+msgid "Add file contents to the index"
+msgstr "파일 내용을 인덱스에 추가합니다"
+
+msgid "Apply a series of patches from a mailbox"
+msgstr "메일함에서 연속된 패치를 적용합니다"
+
+msgid "Annotate file lines with commit information"
+msgstr "파일 줄마다 커밋 정보를 표시합니다"
+
+msgid "Apply a patch to files and/or to the index"
+msgstr "패치를 파일 및/또는 인덱스에 적용합니다"
+
+msgid "Import an Arch repository into Git"
+msgstr "arch 저장소를 깃 저장소로 가져옵니다"
+
+msgid "Create an archive of files from a named tree"
+msgstr "지정한 트리에 들어 있는 파일의 아카이브를 만듭니다"
+
+msgid "Use binary search to find the commit that introduced a bug"
+msgstr "이진 탐색으로 버그를 만들어낸 커밋을 찾습니다"
+
+msgid "Show what revision and author last modified each line of a file"
+msgstr "파일 줄마다 끝에 마지막으로 수정한 리비전과 작성자를 표시합니다"
+
+msgid "List, create, or delete branches"
+msgstr "브랜치를 만들거나, 삭제하거나, 목록을 출력합니다"
+
+msgid "Move objects and refs by archive"
+msgstr "아카이브 형태로 오브젝트와 레퍼런스를 옮깁니다"
+
+msgid "Provide content or type and size information for repository objects"
+msgstr "저장소 오브젝트에 대해 내용 또는 종류와 크기 정보를 표시합니다"
+
+msgid "Display gitattributes information"
+msgstr "gitattributes 정보를 표시합니다"
+
+msgid "Debug gitignore / exclude files"
+msgstr "gitignore / 제외할 파일을 디버깅합니다"
+
+msgid "Show canonical names and email addresses of contacts"
+msgstr "연락처의 전체 이름과 메일 주소를 표시합니다"
+
+msgid "Switch branches or restore working tree files"
+msgstr "브랜치를 전환하거나 작업 파일을 복구합니다"
+
+msgid "Copy files from the index to the working tree"
+msgstr "인덱스의 파일을 작업 폴더로 복사합니다"
+
+msgid "Ensures that a reference name is well formed"
+msgstr "레퍼런스 이름의 형식이 올바른지 확인합니다"
+
+msgid "Find commits yet to be applied to upstream"
+msgstr "업스트림에 적용해야 할 커밋을 찾습니다"
+
+msgid "Apply the changes introduced by some existing commits"
+msgstr "기존 커밋으로 발생한 변경 사항을 적용합니다"
+
+msgid "Graphical alternative to git-commit"
+msgstr "git-commit의 그래픽 대체 버전"
+
+msgid "Remove untracked files from the working tree"
+msgstr "작업 폴더에서 추적되지 않는 파일을 제거합니다"
+
+msgid "Clone a repository into a new directory"
+msgstr "저장소를 복제해 새 디렉터리로 가져옵니다"
+
+msgid "Display data in columns"
+msgstr "데이터를 여러 열로 표시합니다"
+
+msgid "Record changes to the repository"
+msgstr "바뀐 사항을 저장소에 기록합니다"
+
+msgid "Write and verify Git commit graph files"
+msgstr "깃 커밋 그래프 파일을 쓰고 확인합니다"
+
+msgid "Create a new commit object"
+msgstr "새 커밋 오브젝트를 만듭니다"
+
+msgid "Get and set repository or global options"
+msgstr "저장소 옵션 또는 전체 옵션을 보거나 설정합니다"
+
+msgid "Count unpacked number of objects and their disk consumption"
+msgstr "묶여지지 않은 오브젝트의 개수 및 그 디스크 사용량을 측정합니다"
+
+msgid "Retrieve and store user credentials"
+msgstr "사용자 비밀 정보를 가져오고 저장합니다"
+
+msgid "Helper to temporarily store passwords in memory"
+msgstr "메모리에 임시로 암호 저장하는 도움 명령"
+
+msgid "Helper to store credentials on disk"
+msgstr "비밀 정보를 디스크에 저장하는 도움 명령"
+
+msgid "Export a single commit to a CVS checkout"
+msgstr "하나의 커밋을 CVS 체크아웃으로 내보냅니다"
+
+# * "people love to hate" 번역은 전달하기 힘들고 빠져도 내용 문제가 없으므로 생략
+msgid "Salvage your data out of another SCM people love to hate"
+msgstr "다른 소스 코드 관리 시스템에서 데이터 가져오기"
+
+msgid "A CVS server emulator for Git"
+msgstr "깃용 CVS 서버 에뮬레이터"
+
+msgid "A really simple server for Git repositories"
+msgstr "깃 저장소에 대한 아주 간단한 서버"
+
+msgid "Give an object a human readable name based on an available ref"
+msgstr ""
+"사용 가능한 레퍼런스를 기준으로 오브젝트에 읽을 수 있는 이름을 부여합니다"
+
+msgid "Show changes between commits, commit and working tree, etc"
+msgstr "커밋과 커밋 사이, 커밋과 작업 내용 사이 등의 바뀐 점을 봅니다"
+
+msgid "Compares files in the working tree and the index"
+msgstr "작업 폴더와 인덱스의 파일을 비교합니다"
+
+msgid "Compare a tree to the working tree or index"
+msgstr "트리를 작업 폴더나 인덱스와 비교합니다"
+
+msgid "Compares the content and mode of blobs found via two tree objects"
+msgstr "두 개의 트리 오브젝트에 있는 내용과 블롭의 모드를 비교합니다"
+
+msgid "Show changes using common diff tools"
+msgstr "일반적인 diff 도구를 사용해 변경 사항을 표시합니다"
+
+msgid "Git data exporter"
+msgstr "깃 데이터 내보내기"
+
+msgid "Backend for fast Git data importers"
+msgstr "고속 깃 데이터 가져오기 백엔드"
+
+msgid "Download objects and refs from another repository"
+msgstr "다른 저장소에서 오브젝트와 레퍼런스를 다운로드합니다"
+
+msgid "Receive missing objects from another repository"
+msgstr "다른 저장소에서 없는 오브젝트를 다운로드합니다"
+
+msgid "Rewrite branches"
+msgstr "리모트 브랜치"
+
+msgid "Produce a merge commit message"
+msgstr "병합 커밋 메시지를 만듭니다"
+
+msgid "Output information on each ref"
+msgstr "각 레퍼런스의 정보를 출력합니다"
+
+msgid "Prepare patches for e-mail submission"
+msgstr "메일 제출 용도로 패치를 준비합니다"
+
+msgid "Verifies the connectivity and validity of the objects in the database"
+msgstr "연결을 확인하고 데이터베이스의 오브젝트가 올바른지 확인합니다"
+
+msgid "Cleanup unnecessary files and optimize the local repository"
+msgstr "불필요한 파일을 지우고 로컬 저장소를 최적화합니다"
+
+msgid "Extract commit ID from an archive created using git-archive"
+msgstr "git-archive로 만든 아카이브에서 커밋 ID를 추출합니다"
+
+msgid "Print lines matching a pattern"
+msgstr "패턴과 일치하는 줄을 표시합니다"
+
+msgid "A portable graphical interface to Git"
+msgstr "깃의 포터블 그래픽 인터페이스"
+
+msgid "Compute object ID and optionally creates a blob from a file"
+msgstr "오브젝트 ID를 계산하고 선택적으로 파일의 블롭을 만듭니다"
+
+msgid "Display help information about Git"
+msgstr "깃의 도움말 정보를 표시합니다"
+
+msgid "Server side implementation of Git over HTTP"
+msgstr "깃 HTTP 프로토콜의 서버측 구현"
+
+msgid "Download from a remote Git repository via HTTP"
+msgstr "원격 깃 저장소에서 HTTP를 통해 다운로드합니다"
+
+msgid "Push objects over HTTP/DAV to another repository"
+msgstr "오브젝트를 HTTP/DAV를 통해 다른 저장소로 푸시합니다"
+
+msgid "Send a collection of patches from stdin to an IMAP folder"
+msgstr "표준입력에서 패치 모음을 읽어 IMAP 폴더로 보냅니다"
+
+msgid "Build pack index file for an existing packed archive"
+msgstr "기존 묶음 아카이브에 대한 묶음 인덱스 파일을 만듭니다"
+
+msgid "Create an empty Git repository or reinitialize an existing one"
+msgstr "빈 깃 저장소를 만들거나 기존 저장소를 다시 초기화합니다"
+
+msgid "Instantly browse your working repository in gitweb"
+msgstr "내 작업 저장소를 gitweb에서 즉시 살펴봅니다"
+
+# * "Signed-off-by: name" 같은 정보를 말한다
+msgid "add or parse structured information in commit messages"
+msgstr "커밋 메시지에 구조화된 정보를 추가하거나 정보를 파싱합니다"
+
+msgid "The Git repository browser"
+msgstr "깃 저장소 살펴보기"
+
+msgid "Show commit logs"
+msgstr "커밋 기록을 표시합니다"
+
+msgid "Show information about files in the index and the working tree"
+msgstr "인덱스와 작업 폴더의 파일에 대한 정보를 표시합니다"
+
+msgid "List references in a remote repository"
+msgstr "원격 저장소의 레퍼런스를 열거합니다"
+
+msgid "List the contents of a tree object"
+msgstr "트리 오브젝트의 내용을 열거합니다"
+
+msgid "Extracts patch and authorship from a single e-mail message"
+msgstr "하나의 메일 메시지에서 패치와 작성자 정보를 뽑아냅니다"
+
+msgid "Simple UNIX mbox splitter program"
+msgstr "간단한 유닉스 mbox 쪼개기 프로그램"
+
+msgid "Join two or more development histories together"
+msgstr "여러 개의 개발 내역을 하나로 합칩니다"
+
+msgid "Find as good common ancestors as possible for a merge"
+msgstr "병합에 사용할 최선의 공통 과거 커밋을 찾습니다"
+
+msgid "Run a three-way file merge"
+msgstr "3-방향 파일 병합을 실행합니다"
+
+msgid "Run a merge for files needing merging"
+msgstr "병합이 필요한 파일에 대해 병합을 실행합니다"
+
+msgid "The standard helper program to use with git-merge-index"
+msgstr "git-merge-index와 같이 사용하는 기본 도움 프로그램"
+
+msgid "Run merge conflict resolution tools to resolve merge conflicts"
+msgstr "병합 충돌 상황에서 병합 충돌 해결 도구를 실행합니다"
+
+msgid "Show three-way merge without touching index"
+msgstr "인덱스를 바꾸지 않고 3-방향 병합을 표시합니다"
+
+msgid "Creates a tag object"
+msgstr "태그 오브젝트를 만듭니다"
+
+msgid "Build a tree-object from ls-tree formatted text"
+msgstr "ls-tree 포맷의 텍스트에서 tree-object를 만듭니다"
+
+msgid "Move or rename a file, a directory, or a symlink"
+msgstr "파일, 디렉터리, 심볼릭 링크를 옮기거나 이름을 바꿉니다"
+
+msgid "Find symbolic names for given revs"
+msgstr "주어진 리비전에 대한 심볼 이름을 찾습니다"
+
+msgid "Add or inspect object notes"
+msgstr "오브젝트 노트를 추가하거나 살펴봅니다"
+
+msgid "Import from and submit to Perforce repositories"
+msgstr "Perforce 저장소에서 가져오거나 저장소로 제출합니다"
+
+msgid "Create a packed archive of objects"
+msgstr "오브젝트의 묶음 아카이브를 만듭니다"
+
+msgid "Find redundant pack files"
+msgstr "중복된 묶음 파일을 찾습니다"
+
+msgid "Pack heads and tags for efficient repository access"
+msgstr "효율적인 저장소 접근을 위해 헤드와 태그를 묶습니다"
+
+msgid "Routines to help parsing remote repository access parameters"
+msgstr "원격 저장소 접근 파라미터를 파싱하는데 사용하는 공통 기능"
+
+msgid "Compute unique ID for a patch"
+msgstr "패치에 대한 유일한 ID를 계산합니다"
+
+msgid "Prune all unreachable objects from the object database"
+msgstr "오브젝트 데이터베이스에서 도달할 수 없는 오브젝트를 모두 잘라냅니다"
+
+msgid "Remove extra objects that are already in pack files"
+msgstr "묶음 파일에 이미 들어 있는 오브젝트를 추가로 제거합니다"
+
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr "다른 저장소 또는 다른 로컬 브랜치에서 가져오거나 통합합니다"
+
+msgid "Update remote refs along with associated objects"
+msgstr "원격 레퍼런스 및 그와 관련된 오브젝트를 업데이트합니다"
+
+msgid "Applies a quilt patchset onto the current branch"
+msgstr "현재 브랜치에 quilt 패치 모음을 적용합니다"
+
+msgid "Reads tree information into the index"
+msgstr "트리 정보를 인덱스로 읽습니다"
+
+msgid "Reapply commits on top of another base tip"
+msgstr "커밋을 다른 베이스 끝의 최상위에서 적용합니다"
+
+msgid "Receive what is pushed into the repository"
+msgstr "저장소에 푸시한 내용을 받습니다"
+
+msgid "Manage reflog information"
+msgstr "reflog 정보를 관리합니다"
+
+msgid "Manage set of tracked repositories"
+msgstr "추적하는 저장소 모음을 관리합니다"
+
+msgid "Pack unpacked objects in a repository"
+msgstr "저장소의 묶여지지 않은 오브젝트를 묶습니다"
+
+msgid "Create, list, delete refs to replace objects"
+msgstr "오브젝트를 바꾸는 레퍼런스를 만들거나, 표시하거나, 삭제합니다"
+
+msgid "Generates a summary of pending changes"
+msgstr "예정된 변경 사항의 요약을 만듭니다"
+
+msgid "Reuse recorded resolution of conflicted merges"
+msgstr "충돌하는 병합의 기록된 해결 방법을 다시 사용합니다"
+
+msgid "Reset current HEAD to the specified state"
+msgstr "현재 HEAD를 지정한 상태로 재설정화합니다"
+
+msgid "Revert some existing commits"
+msgstr "기존 커밋을 되돌립니다"
+
+msgid "Lists commit objects in reverse chronological order"
+msgstr "시간 반대 순서에 따라 커밋 오브젝트를 열거합니다"
+
+msgid "Pick out and massage parameters"
+msgstr "파라미터를 찾아내서 조정합니다"
+
+msgid "Remove files from the working tree and from the index"
+msgstr "파일을 작업 폴더에서 제거하고 인덱스에서도 제거합니다"
+
+msgid "Send a collection of patches as emails"
+msgstr "패치 모음을 메일로 보냅니다"
+
+msgid "Push objects over Git protocol to another repository"
+msgstr "오브젝트를 깃 프로토콜을 통해 다른 저장소로 푸시합니다"
+
+msgid "Restricted login shell for Git-only SSH access"
+msgstr "깃만 사용하는 SSH 접근에 필요한 제한된 로그인 셸"
+
+msgid "Summarize 'git log' output"
+msgstr "'git log' 출력을 요약합니다"
+
+msgid "Show various types of objects"
+msgstr "여러가지 종류의 오브젝트를 표시합니다"
+
+msgid "Show branches and their commits"
+msgstr "브랜치 목록과 그 커밋을 표시합니다"
+
+msgid "Show packed archive index"
+msgstr "묶여진 아카이브 인덱스를 표시합니다"
+
+msgid "List references in a local repository"
+msgstr "로컬 저장소의 레퍼런스를 열거합니다"
+
+msgid "Git's i18n setup code for shell scripts"
+msgstr "셸 스크립트를 위한 깃의 국제화 준비 코드"
+
+msgid "Common Git shell script setup code"
+msgstr "공통 깃 셸 스크립트 준비 코드"
+
+msgid "Stash the changes in a dirty working directory away"
+msgstr "작업 폴더의 변경 사항을 임시로 다른 곳에 저장합니다"
+
+msgid "Add file contents to the staging area"
+msgstr "파일 내용을 스테이징 영역에 추가합니다"
+
+msgid "Show the working tree status"
+msgstr "작업 폴더 상태를 표시합니다"
+
+msgid "Remove unnecessary whitespace"
+msgstr "불필요한 공백 문자를 제거합니다"
+
+msgid "Initialize, update or inspect submodules"
+msgstr "하위 모듈을 초기화하거나, 업데이트하거나, 조사합니다"
+
+msgid "Bidirectional operation between a Subversion repository and Git"
+msgstr "서브버전 저장소와 깃 사이의 양방향 동작"
+
+msgid "Read, modify and delete symbolic refs"
+msgstr "심볼릭 레퍼런스를 읽고, 수정하고, 삭제합니다"
+
+msgid "Create, list, delete or verify a tag object signed with GPG"
+msgstr "태그를 만들거나, 표시하거나, 삭제하거나, GPG 서명을 검증합니다"
+
+msgid "Creates a temporary file with a blob's contents"
+msgstr "블롭의 내용으로 임시 파일을 만듭니다"
+
+msgid "Unpack objects from a packed archive"
+msgstr "묶음 아카이브에서 오브젝트를 풀어냅니다"
+
+msgid "Register file contents in the working tree to the index"
+msgstr "작업 폴더에서 파일 내용을 인덱스에 등록합니다"
+
+msgid "Update the object name stored in a ref safely"
+msgstr "레퍼런스에 저장된 오브젝트 이름을 안전하게 업데이트합니다"
+
+msgid "Update auxiliary info file to help dumb servers"
+msgstr "단순 서버에 도움을 주도록 보조 정보 파일을 업데이트합니다"
+
+msgid "Send archive back to git-archive"
+msgstr "아카이브를 다시 git-archive로 보냅니다"
+
+msgid "Send objects packed back to git-fetch-pack"
+msgstr "묶은 오브젝트를 다시 git-fetch-pack으로 보냅니다"
+
+msgid "Show a Git logical variable"
+msgstr "깃의 논리적 변수를 표시합니다"
+
+msgid "Check the GPG signature of commits"
+msgstr "커밋의 GPG 서명을 확인합니다"
+
+msgid "Validate packed Git archive files"
+msgstr "묶음 깃 아카이브 파일을 검증합니다"
+
+msgid "Check the GPG signature of tags"
+msgstr "태그의 GPG 서명을 확인합니다"
+
+msgid "Git web interface (web frontend to Git repositories)"
+msgstr "깃 웹 인터페이스 (깃 저장소에 대한 웹 프론트엔드)"
+
+msgid "Show logs with difference each commit introduces"
+msgstr "각 커밋으로 발생하는 차이점마다 기록을 표시합니다"
+
+msgid "Manage multiple working trees"
+msgstr "여러 개의 작업 폴더를 관리합니다"
+
+msgid "Create a tree object from the current index"
+msgstr "현재 인덱스에서 트리 오브젝트를 만듭니다"
+
+msgid "Defining attributes per path"
+msgstr "경로마다 속성 정의하기"
+
+msgid "Git command-line interface and conventions"
+msgstr "깃 명령행 인터페이스 및 관습"
+
+msgid "A Git core tutorial for developers"
+msgstr "개발자를 위한 깃 핵심 따라하기 문서"
+
+msgid "Git for CVS users"
+msgstr "CVS 사용자를 위한 깃"
+
+msgid "Tweaking diff output"
+msgstr "diff 출력 미세 조정"
+
+msgid "A useful minimum set of commands for Everyday Git"
+msgstr "매일매일 유용하게 사용할 최소한의 깃 명령어 모음"
+
+msgid "A Git Glossary"
+msgstr "깃 용어 사전"
+
+msgid "Hooks used by Git"
+msgstr "깃에서 사용하는 후크"
+
+msgid "Specifies intentionally untracked files to ignore"
+msgstr "의도적으로 추적하지 않는 파일을 무시하게 지정하기"
+
+msgid "Defining submodule properties"
+msgstr "하위 모듈 속성 정의하기"
+
+msgid "Git namespaces"
+msgstr "깃 네임스페이스"
+
+msgid "Git Repository Layout"
+msgstr "깃 저장소 구조"
+
+msgid "Specifying revisions and ranges for Git"
+msgstr "깃의 리비전 및 범위를 지정하기"
+
+msgid "A tutorial introduction to Git: part two"
+msgstr "깃 따라하기 안내서: 2부"
+
+msgid "A tutorial introduction to Git"
+msgstr "깃 따라하기 안내서"
+
+msgid "An overview of recommended workflows with Git"
+msgstr "추천하는 깃 활용 작업 순서의 개요"
 
 msgid "update the index with reused conflict resolution if possible"
 msgstr "가능하면 인덱스를 재사용한 충돌 해결로 업데이트합니다"
@@ -12045,6 +12869,10 @@ msgstr ""
 "\t$cmd_clear_stale_rebase\n"
 "이 명령을 다시 실행하십시오. 중요한 사항이 남아 있을 경우를\n"
 "대비해 여기서 멈춥니다."
+
+msgid "error: cannot combine '--signoff' with '--preserve-merges'"
+msgstr ""
+"오류: '--signoff' 옵션과 '--preserve-merges' 옵션을 같이 쓸 수 없습니다"
 
 #, sh-format
 msgid "invalid upstream '$upstream_name'"
@@ -12386,13 +13214,19 @@ msgstr "리베이스중 ($new_count/$total)"
 msgid ""
 "\n"
 "Commands:\n"
-"p, pick = use commit\n"
-"r, reword = use commit, but edit the commit message\n"
-"e, edit = use commit, but stop for amending\n"
-"s, squash = use commit, but meld into previous commit\n"
-"f, fixup = like \"squash\", but discard this commit's log message\n"
-"x, exec = run command (the rest of the line) using shell\n"
-"d, drop = remove commit\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <command> = run command (the rest of the line) using shell\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
 "\n"
 "These lines can be re-ordered; they are executed from top to bottom.\n"
 msgstr ""
@@ -12405,6 +13239,12 @@ msgstr ""
 " f, fixup = \"squash\"와 같지만, 이 커밋의 로그 메시지를 버림\n"
 " x, exec = 셸을 사용해 명령 실행 (뒤에 명령 지정)\n"
 " d, drop = 커밋 제거\n"
+" l, label <레이블> = 현재 HEAD에 이름을 붙입니다\n"
+" t, reset <레이블> = HEAD를 레이블 위치로 리셋합니다\n"
+" m, merge [-C <커밋> | -c <커밋>] <레이블> [# <한줄>]\n"
+" .       본래 병합 커밋의 메시지를 이용해 병합 커밋을 만듭니다.\n"
+" .       (본래 병합 커밋을 지정하지 않는 경우, <한줄>을 메시지로\n"
+" .       사용합니다.) 커밋 메시지를 편집하려면 -c <커밋>을 사용.\n"
 "\n"
 "이 줄은 순서를 바꿀 수 있습니다. 위에서 아래 순서로 실행합니다.\n"
 
@@ -12644,12 +13484,6 @@ msgstr "임시로 $state_dir 디렉터리를 만들 수 없습니다"
 msgid "Could not mark as interactive"
 msgstr "대화형으로 표시할 수 없습니다."
 
-msgid "Could not init rewritten commits"
-msgstr "다시 작성된 커밋을 초기화할 수 없습니다"
-
-msgid "Could not generate todo list"
-msgstr "할 일 목록을 생성할 수 없습니다"
-
 #, sh-format
 msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
 msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
@@ -12657,15 +13491,23 @@ msgstr[0] "리베이스 $shortrevisions, $shortonto 위로 (명령 $todocount개
 
 msgid ""
 "\n"
-"However, if you remove everything, the rebase will be aborted.\n"
+"\tHowever, if you remove everything, the rebase will be aborted.\n"
 "\n"
+"\t"
 msgstr ""
 "\n"
 "하지만 모두 제거할 경우, 리베이스를 중지합니다.\n"
 "\n"
+"\t"
 
 msgid "Note that empty commits are commented out"
 msgstr "단 빈 커밋은 주석 처리되었습니다."
+
+msgid "Could not generate todo list"
+msgstr "할 일 목록을 생성할 수 없습니다"
+
+msgid "Could not init rewritten commits"
+msgstr "다시 작성된 커밋을 초기화할 수 없습니다"
 
 #, sh-format
 msgid "usage: $dashless $USAGE"
@@ -13345,11 +14187,12 @@ msgstr ""
 "    실행하십시오.\n"
 "\n"
 
-#. TRANSLATORS: Make sure to include [y] [n] [q] [a] in your
+#. TRANSLATORS: Make sure to include [y] [n] [e] [q] [a] in your
 #. translation. The program will only accept English input
 #. at this point.
-msgid "Send this email? ([y]es|[n]o|[q]uit|[a]ll): "
-msgstr "이 전자메일을 보내시겠습니까? ([y]예|[n]아니오|[q]끝내기|[a]모두): "
+msgid "Send this email? ([y]es|[n]o|[e]dit|[q]uit|[a]ll): "
+msgstr ""
+"이 전자메일을 보내시겠습니까? ([y]예|[n]아니오|[e]편집|[q]끝내기|[a]모두): "
 
 msgid "Send this email reply required"
 msgstr "필요한 전자메일 답장 보냅니다"
@@ -13448,73 +14291,3 @@ msgstr "%s 넘어감, 예비 확장자 '%s' 있음.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "정말로 %s 파일을 보내시겠습니까? [y|N]: "
-
-#~ msgid "git fetch-pack: expected ACK/NAK, got EOF"
-#~ msgstr "git fetch-pack: ACK/NAK가 와야 하지만, EOF를 받았습니다"
-
-#~ msgid "invalid filter-spec expression '%s'"
-#~ msgstr "잘못된 필터 양식 '%s'"
-
-#~ msgid "The copy of the patch that failed is found in: %s"
-#~ msgstr "실패한 패치의 복사본이 다음 위치에 있습니다: %s"
-
-#~ msgid "pathspec and --all are incompatible"
-#~ msgstr "경로명세 및 --all 옵션은 호환되지 않습니다"
-
-#~ msgid "Submodule '$name' ($url) unregistered for path '$displaypath'"
-#~ msgstr ""
-#~ "'$name' 하위 모듈이 ($url) '$displaypath' 경로에 대해 등록되지 않았습니다"
-
-#~ msgid "To/Cc/Bcc fields are not interpreted yet, they have been ignored\n"
-#~ msgstr "To/Cc/Bcc 필드가 해석되지 않아서, 무시합니다\n"
-
-#~ msgid ""
-#~ "empty strings as pathspecs will be made invalid in upcoming releases. "
-#~ "please use . instead if you meant to match all paths"
-#~ msgstr ""
-#~ "경로명세로 빈 문자열을 넣는 일은 다음 릴리스에서 오류로 취급할 예정입니"
-#~ "다. 모든 경로를 지정하려면 점(.)을 사용하십시오."
-
-#~ msgid "unable to open '%s' for writing"
-#~ msgstr "'%s'을(를) 쓰기 용으로 열 수 없습니다"
-
-#~ msgid "could not truncate '%s'"
-#~ msgstr "'%s' 파일을 자를 수 없습니다"
-
-#~ msgid "could not finish '%s'"
-#~ msgstr "'%s'을(를) 마칠 수 없습니다"
-
-#~ msgid "could not close %s"
-#~ msgstr "%s을(를) 닫을 수 없습니다"
-
-#~ msgid "Copied a misnamed branch '%s' away"
-#~ msgstr "이름이 잘못된 '%s' 브랜치를 복사합니다"
-
-#~ msgid "it does not make sense to create 'HEAD' manually"
-#~ msgstr "'HEAD'를 수동으로 만드는 건 앞뒤가 맞지 않습니다"
-
-#~ msgid "Don't know how to clone %s"
-#~ msgstr "%s의 복제 방법을 알지 못합니다"
-
-#~ msgid "show ignored files"
-#~ msgstr "무시되는 파일을 표시합니다"
-
-#~ msgid "%s is not a valid '%s' object"
-#~ msgstr "%s은(는) 올바른 '%s' 오브젝트가 아닙니다"
-
-#~ msgid "Don't know how to fetch from %s"
-#~ msgstr "'%s'에서 가져오는 방법을 알 수 없습니다"
-
-#~ msgid "'$term' is not a valid term"
-#~ msgstr "'$term'이(가) 올바른 용어가 아닙니다"
-
-#~ msgid ""
-#~ "error: unknown option for 'stash save': $option\n"
-#~ "       To provide a message, use git stash save -- '$option'"
-#~ msgstr ""
-#~ "오류: 'stash save'에 대해 알 수 없는 옵션: $option\n"
-#~ "       메시지를 넘기려면, 다음과 같이 쓰십시오: git stash save -- "
-#~ "'$option'"
-
-#~ msgid "Failed to recurse into submodule path '$sm_path'"
-#~ msgstr "재귀적으로 하위 모듈 경로 '$sm_path'에 들어가는데 실패했습니다"
