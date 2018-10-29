@@ -13,7 +13,7 @@
 # dangling objects обект извън клон
 # fast-forward превъртане
 # tree-level merge тривиално сливане (различни файлове са променяни, слива се като дърво)
-# automatic merge автоманично сливаве (еднакви файлове са променяни, но в неприпокриващи се части)
+# automatic merge автоматично сливане (еднакви файлове са променяни, но в неприпокриващи се части)
 # real merge същинско сливане (а не превъртане)
 # three-way merge тройно сливане
 # octopus merge множествено сливане
@@ -22,7 +22,7 @@
 # merge base база за сливане
 # force (push) принудително изтласквам
 # stash/index индекс
-# squash commit вкарвам подаване в преднходното
+# squash commit вкарвам подаване в предходното
 # fixup commit вкарвам подаване в предходното без следа
 # root commit начално подаване
 # remote-tracking branch следящ клон
@@ -77,7 +77,7 @@
 # term управляваща дума (за git-bisect)
 # mergetag етикет при сливане
 # packfile пакет
-# promisory гаратиращ, гарант promisory packfile гарантиращ пакет, promisory remote хранилище-гарант
+# promisory гарантиращ, гарант promisory packfile гарантиращ пакет, promisory remote хранилище-гарант
 # delta - разлика, делта, обект-разлика
 # peeled tag - проследен етикет - когато етикет сочи към друг етикет, а не подаване и проследяваме подобно на символна връзка
 # strip - премахвам (за компонент при филтриране)
@@ -87,7 +87,7 @@
 # binary patch двоична кръпка
 # reverse-apply прилагам в обратна посока
 # todo file файл с команди
-# todo command запланувава команда
+# todo command запланувана команда
 # alternate алтернативен източник
 # superproject обхващащ проект
 # split index разделяне на индекса
@@ -117,7 +117,16 @@
 # fork създаване на процес
 # capabilities възможности
 # remote-helper насрещна помощна програма
-#
+# command alias псевдоним на команда
+# rerere преизползване на запазена корекция на сливане с конфликт
+# preimage предварителен вариант
+# offset отместване
+# multi-pack-index индекс за множество пакети
+# range diff диапазонна разлика
+# inter diff разлика в разликите
+# ssl backend реализация на SSL
+# delta island група разлики
+# island marks граници на групите
 # ------------------------
 # „$var“ - може да не сработва за shell има gettext и eval_gettext - проверка - намират се лесно по „$
 # ------------------------
@@ -134,10 +143,10 @@
 # for i in `sort -u FILES`; do cnt=`grep $i FILES | wc -l`; echo $cnt $i ;done | sort -n
 msgid ""
 msgstr ""
-"Project-Id-Version: git master\n"
+"Project-Id-Version: git 2.20\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-09-04 08:50+0800\n"
-"PO-Revision-Date: 2018-09-09 11:28+0200\n"
+"POT-Creation-Date: 2018-11-20 10:05+0800\n"
+"PO-Revision-Date: 2018-11-30 23:17+0100\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -482,7 +491,7 @@ msgstr "неуспешно прилагане на кръпка: „%s:%ld“"
 msgid "cannot checkout %s"
 msgstr "„%s“ не може да се изтегли"
 
-#: apply.c setup.c
+#: apply.c midx.c setup.c
 #, c-format
 msgid "failed to read %s"
 msgstr "файлът „%s“ не може да бъде прочетен"
@@ -828,6 +837,7 @@ msgid "ensure at least <n> lines of context match"
 msgstr "да се осигури контекст от поне такъв БРОЙ съвпадащи редове"
 
 #: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
+#: builtin/rebase.c
 msgid "action"
 msgstr "действие"
 
@@ -858,7 +868,7 @@ msgstr "позволяване на застъпващи се парчета"
 
 #: apply.c builtin/add.c builtin/check-ignore.c builtin/commit.c
 #: builtin/count-objects.c builtin/fsck.c builtin/log.c builtin/mv.c
-#: builtin/read-tree.c
+#: builtin/read-tree.c builtin/rebase--interactive.c
 msgid "be verbose"
 msgstr "повече подробности"
 
@@ -1355,7 +1365,7 @@ msgstr "Файлът „%s“ не изглежда да е пратка на gi
 msgid "unrecognized header: %s%s (%d)"
 msgstr "непозната заглавна част: %s%s (%d)"
 
-#: bundle.c sequencer.c builtin/commit.c
+#: bundle.c rerere.c sequencer.c builtin/commit.c
 #, c-format
 msgid "could not open '%s'"
 msgstr "„%s“ не може да се отвори"
@@ -1381,6 +1391,10 @@ msgid "The bundle requires this ref:"
 msgid_plural "The bundle requires these %d refs:"
 msgstr[0] "Пратката изисква следния указател:"
 msgstr[1] "Пратката изисква следните %d указатели:"
+
+#: bundle.c
+msgid "unable to dup bundle descriptor"
+msgstr "неуспешно дублиране на дескриптора на пратката с „dup“"
 
 #: bundle.c
 msgid "Could not spawn pack-objects"
@@ -1457,6 +1471,28 @@ msgstr ""
 "    git config advice.graftFileDeprecated false"
 
 #: commit.c
+#, c-format
+msgid "Commit %s has an untrusted GPG signature, allegedly by %s."
+msgstr ""
+"Подаването „%s“ е с недоверен подпис от GPG, който твърди, че е на „%s“."
+
+#: commit.c
+#, c-format
+msgid "Commit %s has a bad GPG signature allegedly by %s."
+msgstr ""
+"Подаването „%s“ е с неправилен подпис от GPG, който твърди, че е на „%s“."
+
+#: commit.c
+#, c-format
+msgid "Commit %s does not have a GPG signature."
+msgstr "Подаването „%s“ е без подпис от GPG."
+
+#: commit.c
+#, c-format
+msgid "Commit %s has a good GPG signature by %s\n"
+msgstr "Подаването „%s“ е с коректен подпис от GPG на „%s“.\n"
+
+#: commit.c
 msgid ""
 "Warning: commit message did not conform to UTF-8.\n"
 "You may want to amend it after fixing the message, or set the config\n"
@@ -1507,6 +1543,18 @@ msgid "unable to get type of object %s"
 msgstr "видът на обекта „%s“ не може да бъде определен"
 
 #: commit-graph.c
+msgid "Annotating commits in commit graph"
+msgstr "Анотиране на подаванията в гра̀фа"
+
+#: commit-graph.c
+msgid "Computing commit graph generation numbers"
+msgstr "Изчисляване на номерата на поколенията в гра̀фа с подаванията"
+
+#: commit-graph.c
+msgid "Finding commits for commit graph"
+msgstr "Откриване на подаванията в гра̀фа"
+
+#: commit-graph.c
 #, c-format
 msgid "error adding pack %s"
 msgstr "грешка при добавяне на пакетен файл „%s“"
@@ -1525,7 +1573,7 @@ msgstr "форматът на гра̀фа с подаванията не мож
 msgid "too many commits to write graph"
 msgstr "прекалено много подавания за записване на гра̀фа"
 
-#: commit-graph.c
+#: commit-graph.c midx.c
 #, c-format
 msgid "unable to create leading directories of %s"
 msgstr "родителските директории на „%s“ не могат да бъдат създадени"
@@ -1533,6 +1581,10 @@ msgstr "родителските директории на „%s“ не мог�
 #: commit-graph.c
 msgid "the commit-graph file has incorrect checksum and is likely corrupt"
 msgstr "графът с подаванията е с грешна сума за проверка — вероятно е повреден"
+
+#: commit-graph.c
+msgid "Verifying commits in commit graph"
+msgstr "Проверка на подаванията в гра̀фа"
 
 #: compat/obstack.c
 msgid "memory exhausted"
@@ -2242,6 +2294,32 @@ msgid_plural "%<PRIuMAX> years ago"
 msgstr[0] "преди %<PRIuMAX> година"
 msgstr[1] "преди %<PRIuMAX> години"
 
+#: delta-islands.c
+msgid "Propagating island marks"
+msgstr "Разпространяване на границите на групите"
+
+#: delta-islands.c
+#, c-format
+msgid "bad tree object %s"
+msgstr "неправилен обект-дърво: %s"
+
+#: delta-islands.c
+#, c-format
+msgid "failed to load island regex for '%s': %s"
+msgstr "регулярният израз на групата за „%s“, не може да бъде зареден: „%s“"
+
+#: delta-islands.c
+#, c-format
+msgid "island regex from config has too many capture groups (max=%d)"
+msgstr ""
+"регулярният израз на групата в конфигурационния файл съдържа повече от "
+"максимално поддържаните (%d) прихващащи групи"
+
+#: delta-islands.c
+#, c-format
+msgid "Marked %d islands, done.\n"
+msgstr "Отбелязани са %d групи, работата приключи.\n"
+
 #: diffcore-order.c
 #, c-format
 msgid "failed to read orderfile '%s'"
@@ -2620,6 +2698,17 @@ msgid "error processing acks: %d"
 msgstr "грешка при обработка на потвържденията: %d"
 
 #: fetch-pack.c
+msgid "expected packfile to be sent after 'ready'"
+msgstr ""
+"очакваше се пакетният файл да бъде изпратен след отговор за готовност (ready)"
+
+#: fetch-pack.c
+msgid "expected no other sections to be sent after no 'ready'"
+msgstr ""
+"очакваше се след липса на отговор за готовност (ready) да не се се пращат "
+"други раздели"
+
+#: fetch-pack.c
 #, c-format
 msgid "error processing shallow info: %d"
 msgstr "грешка при обработка на информация за дълбочината/плиткостта: %d"
@@ -2765,6 +2854,18 @@ msgid "The common Git guides are:"
 msgstr "Популярните въведения в Git са:"
 
 #: help.c
+msgid "See 'git help <command>' to read about a specific subcommand"
+msgstr "За повече информация за КОМАНДА изпълнете „git help КОМАНДА“"
+
+#: help.c
+msgid "External commands"
+msgstr "Външни команди"
+
+#: help.c
+msgid "Command aliases"
+msgstr "Псевдоними на командите"
+
+#: help.c
 #, c-format
 msgid ""
 "'%s' appears to be a git command, but we were not\n"
@@ -2906,6 +3007,10 @@ msgid "multiple filter-specs cannot be combined"
 msgstr "не може да комбинирате множество филтри"
 
 #: list-objects-filter-options.c
+msgid "only 'tree:0' is supported"
+msgstr "поддържа се единствено „tree:0“"
+
+#: list-objects-filter-options.c
 msgid "cannot change partial clone promisor remote"
 msgstr "не може да промените хранилището-гарант на непълно хранилище"
 
@@ -2937,7 +3042,7 @@ msgstr "Файлът-ключалка „%s.lock“ не може да бъде 
 msgid "failed to read the cache"
 msgstr "кешът не може да бъде прочетен"
 
-#: merge.c builtin/am.c builtin/checkout.c builtin/clone.c
+#: merge.c rerere.c builtin/am.c builtin/checkout.c builtin/clone.c
 msgid "unable to write new index file"
 msgstr "неуспешно записване на новия индекс"
 
@@ -3358,6 +3463,144 @@ msgstr "Неуспешен анализ на обекта „%s“"
 msgid "Unable to write index."
 msgstr "Индексът не може да бъде прочетен"
 
+#: midx.c
+#, c-format
+msgid "multi-pack-index file %s is too small"
+msgstr "файлът с индекса за множество пакети „%s“ е твърде малък"
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index signature 0x%08x does not match signature 0x%08x"
+msgstr "отпечатъкът на индекса за множество пакети 0x%08x не съвпада с 0x%08x"
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index version %d not recognized"
+msgstr "непозната версия на индекс за множество пакети — %d"
+
+#: midx.c
+#, c-format
+msgid "hash version %u does not match"
+msgstr "версията на отпечатъка %u не съвпада"
+
+#: midx.c
+msgid "invalid chunk offset (too large)"
+msgstr "неправилно (прекалено голямо) отместване на откъс"
+
+#: midx.c
+msgid "terminating multi-pack-index chunk id appears earlier than expected"
+msgstr ""
+"идентификаторът за краен откъс на индекс за множество пакети се явява по-"
+"рано от очакваното"
+
+#: midx.c
+msgid "multi-pack-index missing required pack-name chunk"
+msgstr "липсва откъс (pack-name) от индекс за множество пакети"
+
+#: midx.c
+msgid "multi-pack-index missing required OID fanout chunk"
+msgstr "липсва откъс (OID fanout) от индекс за множество пакети"
+
+#: midx.c
+msgid "multi-pack-index missing required OID lookup chunk"
+msgstr "липсва откъс (OID lookup) от индекс за множество пакети"
+
+#: midx.c
+msgid "multi-pack-index missing required object offsets chunk"
+msgstr "липсва откъс за отместванията на обекти от индекс за множество пакети"
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index pack names out of order: '%s' before '%s'"
+msgstr ""
+"неправилна подредба на имената в индекс за множество пакети: „%s“ се появи "
+"преди „%s“"
+
+#: midx.c
+#, c-format
+msgid "bad pack-int-id: %u (%u total packs"
+msgstr "неправилен идентификатор на пакет (pack-int-id): %u (от общо %u пакети"
+
+#: midx.c
+msgid "multi-pack-index stores a 64-bit offset, but off_t is too small"
+msgstr ""
+"индексът за множество пакети съдържа 64-битови отмествания, но размерът на "
+"„off_t“ е недостатъчен"
+
+#: midx.c
+msgid "error preparing packfile from multi-pack-index"
+msgstr ""
+"грешка при създаването на пакетен файл на базата на индекс за множество "
+"пакети"
+
+#: midx.c
+#, c-format
+msgid "failed to add packfile '%s'"
+msgstr "пакетният файл „%s“ не може да бъде добавен"
+
+#: midx.c
+#, c-format
+msgid "failed to open pack-index '%s'"
+msgstr "индексът за пакети „%s“ не може да бъде отворен"
+
+#: midx.c
+#, c-format
+msgid "failed to locate object %d in packfile"
+msgstr "обект %d в пакетния файл липсва"
+
+#: midx.c
+#, c-format
+msgid "failed to clear multi-pack-index at %s"
+msgstr "индексът за множество пакети не може да бъде изчистен при „%s“"
+
+#: midx.c
+#, c-format
+msgid ""
+"oid fanout out of order: fanout[%d] = %<PRIx32> > %<PRIx32> = fanout[%d]"
+msgstr ""
+"неправилна подредба на откъси (OID fanout): fanout[%d] = %<PRIx32> > "
+"%<PRIx32> = fanout[%d]"
+
+#: midx.c
+#, c-format
+msgid "oid lookup out of order: oid[%d] = %s >= %s = oid[%d]"
+msgstr ""
+"неправилна подредба на откъси (OID lookup): oid[%d] = %s >= %s = oid[%d]"
+
+#: midx.c
+msgid "Verifying object offsets"
+msgstr "Проверка на отместването на обекти"
+
+#: midx.c
+#, c-format
+msgid "failed to load pack entry for oid[%d] = %s"
+msgstr "записът в пакета за обекта oid[%d] = %s не може да бъде зареден"
+
+#: midx.c
+#, c-format
+msgid "failed to load pack-index for packfile %s"
+msgstr "индексът на пакета „%s“ не може да бъде зареден"
+
+#: midx.c
+#, c-format
+msgid "incorrect object offset for oid[%d] = %s: %<PRIx64> != %<PRIx64>"
+msgstr "неправилно отместване на обект за oid[%d] = %s: %<PRIx64> != %<PRIx64>"
+
+#: name-hash.c
+#, c-format
+msgid "unable to create lazy_dir thread: %s"
+msgstr "не може да се създаде нишка за директории: %s"
+
+#: name-hash.c
+#, c-format
+msgid "unable to create lazy_name thread: %s"
+msgstr "не може да се създаде нишка за имена: %s"
+
+#: name-hash.c
+#, c-format
+msgid "unable to join lazy_name thread: %s"
+msgstr "не може да се изчака нишка за имена: %s"
+
 #: notes-merge.c
 #, c-format
 msgid ""
@@ -3605,6 +3848,15 @@ msgstr "протоколна грешка: неправилeн знак за д�
 msgid "protocol error: bad line length %d"
 msgstr "протоколна грешка: неправилна дължина на ред: %d"
 
+#: preload-index.c
+msgid "Refreshing index"
+msgstr "Обновяване на индекса"
+
+#: preload-index.c
+#, c-format
+msgid "unable to create threaded lstat: %s"
+msgstr "не може да се създаде нишка за изпълнението на „lstat“: %s"
+
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr "аргументът към опцията „--pretty“ не може да се анализира"
@@ -3633,6 +3885,10 @@ msgid "could not parse log for '%s'"
 msgstr "журналът с подаванията на „%s“ не може да бъде анализиран"
 
 #: read-cache.c
+msgid "Refresh index"
+msgstr "Обновяване на индекса"
+
+#: read-cache.c
 #, c-format
 msgid ""
 "index.version set, but the value is invalid.\n"
@@ -3650,6 +3906,40 @@ msgstr ""
 "Зададена е неправилна стойност на променливата на средата "
 "„GIT_INDEX_VERSION“.\n"
 "Ще се ползва версия %i"
+
+#: read-cache.c
+#, c-format
+msgid "malformed name field in the index, near path '%s'"
+msgstr "неправилно име на поле в индекса, близо до пътя „%s“"
+
+#: read-cache.c rerere.c builtin/add.c builtin/check-ignore.c
+#: builtin/checkout.c builtin/clean.c builtin/commit.c builtin/diff-tree.c
+#: builtin/grep.c builtin/mv.c builtin/reset.c builtin/rm.c
+#: builtin/submodule--helper.c
+msgid "index file corrupt"
+msgstr "файлът с индекса е повреден"
+
+#: read-cache.c
+#, c-format
+msgid "unable to create load_cache_entries thread: %s"
+msgstr "не може да се създаде нишка за зареждане на обектите от кеша: %s"
+
+#: read-cache.c
+#, c-format
+msgid "unable to join load_cache_entries thread: %s"
+msgstr "не може да се изчака нишка за зареждане на обектите от кеша: %s"
+
+#: read-cache.c
+#, c-format
+msgid "unable to create load_index_extensions thread: %s"
+msgstr ""
+"не може да се създаде нишка за зареждане на разширенията на индекса: %s"
+
+#: read-cache.c
+#, c-format
+msgid "unable to join load_index_extensions thread: %s"
+msgstr ""
+"не може да се създаде нишка за зареждане на разширенията на индекса: %s"
 
 #: read-cache.c sequencer.c wrapper.c builtin/merge.c
 #, c-format
@@ -3670,6 +3960,104 @@ msgstr "не може да се отвори директорията на git: 
 #, c-format
 msgid "unable to unlink: %s"
 msgstr "неуспешно изтриване на „%s“"
+
+#: rebase-interactive.c
+msgid ""
+"\n"
+"Commands:\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <command> = run command (the rest of the line) using shell\n"
+"b, break = stop here (continue rebase later with 'git rebase --continue')\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
+"\n"
+"These lines can be re-ordered; they are executed from top to bottom.\n"
+msgstr ""
+"\n"
+"Команди:\n"
+" p, pick ПОДАВАНЕ   — прилагане на подаването\n"
+" r, reword ПОДАВАНЕ — прилагане на подаването, но смяна на съобщението му\n"
+" e, edit ПОДАВАНЕ   — прилагане на подаването и спиране при него за още "
+"промени\n"
+" s, squash ПОДАВАНЕ — вкарване на подаването в предходното му\n"
+" f, fixup ПОДАВАНЕ  — вкарване на подаването в предходното му, без смяна на\n"
+"                      съобщението\n"
+" x, exec ПОДАВАНЕ   — изпълнение на команда към обвивката: останалата част "
+"на\n"
+"                      реда\n"
+" b, break           — спиране (може да продължите пребазирането с командата\n"
+"                      „git rebase --continue“)\n"
+" d, drop ПОДАВАНЕ   — прескачане на подаването\n"
+" l, label ЕТИКЕТ    — задаване на етикет на указаното от HEAD\n"
+" t, reset ЕТИКЕТ    — зануляване на HEAD към ЕТИКЕТа\n"
+" m, merge [-C ПОДАВАНЕ | -c ПОДАВАНЕ] ЕТИКЕТ [# ЕДИН_РЕД]\n"
+"                    — създаване на подаване със сливане със съобщението от\n"
+"                      първоначалното подаване (или съобщението от ЕДИН_РЕД,\n"
+"                      ако не е зададено подаване със сливане.  С опцията\n"
+"                      „-c ПОДАВАНЕ“, може да смените съобщението.\n"
+"\n"
+"Може да променяте последователността на редовете — те се изпълняват\n"
+"последователно отгоре-надолу.\n"
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
+msgstr ""
+"\n"
+"Не изтривайте редове.  Подаванията могат да се прескачат с командата "
+"„drop“.\n"
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"If you remove a line here THAT COMMIT WILL BE LOST.\n"
+msgstr ""
+"\n"
+"Ако изтриете ред, съответстващото му подаване ще бъде ИЗТРИТО.\n"
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"You are editing the todo file of an ongoing interactive rebase.\n"
+"To continue rebase after editing, run:\n"
+"    git rebase --continue\n"
+"\n"
+msgstr ""
+"\n"
+"В момента редактирате файла с командите на текущото интерактивно "
+"пребазиране.\n"
+"За да продължите пребазирането след това, изпълнете:\n"
+"    git rebase --continue\n"
+"\n"
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"However, if you remove everything, the rebase will be aborted.\n"
+"\n"
+msgstr ""
+"\n"
+"Ако изтриете всичко, пребазирането ще бъде преустановено.\n"
+"\n"
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid "Note that empty commits are commented out"
+msgstr "Празните подавания са коментирани"
+
+#: rebase-interactive.c sequencer.c
+#, c-format
+msgid "could not read '%s'."
+msgstr "от „%s“ не може да се чете."
 
 #: refs.c
 #, c-format
@@ -3913,6 +4301,12 @@ msgstr "неправилно име на обект: „%.*s“"
 #, c-format
 msgid "unknown field name: %.*s"
 msgstr "непознато име на обект: „%.*s“"
+
+#: ref-filter.c
+#, c-format
+msgid ""
+"not a git repository, but the field '%.*s' requires access to object data"
+msgstr "не е хранилище на git, а полето „%.*s“ изисква достъп данни на обектни"
 
 #: ref-filter.c
 #, c-format
@@ -4168,6 +4562,106 @@ msgstr "повтарящ се указател за замяна: „%s“"
 msgid "replace depth too high for object %s"
 msgstr "дълбочината на замяна е прекалено голяма за обекта: „%s“"
 
+#: rerere.c
+msgid "corrupt MERGE_RR"
+msgstr "повреден „MERGE_RR“ (запис за коригиране на конфликт)"
+
+#: rerere.c
+msgid "unable to write rerere record"
+msgstr "приложеното коригиране на конфликт не може да бъде записано"
+
+#: rerere.c sequencer.c
+#, c-format
+msgid "could not write '%s'"
+msgstr "„%s“ не може да се запише"
+
+#: rerere.c
+#, c-format
+msgid "there were errors while writing '%s' (%s)"
+msgstr "грешки при записването на „%s“ (%s)"
+
+#: rerere.c
+#, c-format
+msgid "failed to flush '%s'"
+msgstr "грешка при изчистването на буферите при записването на „%s“"
+
+#: rerere.c
+#, c-format
+msgid "could not parse conflict hunks in '%s'"
+msgstr "парчетата с конфликти в „%s“ не може да се анализират"
+
+#: rerere.c
+#, c-format
+msgid "failed utime() on '%s'"
+msgstr "неуспешно задаване на време на достъп/създаване чрез „utime“ на „%s“"
+
+#: rerere.c
+#, c-format
+msgid "writing '%s' failed"
+msgstr "неуспешен запис на „%s“"
+
+#: rerere.c
+#, c-format
+msgid "Staged '%s' using previous resolution."
+msgstr ""
+"„%s“ е добавен към индекса с преизползване на запазена корекция при сливане"
+
+#: rerere.c
+#, c-format
+msgid "Recorded resolution for '%s'."
+msgstr "Корекцията на конфликта при сливане на „%s“ е запазена."
+
+#: rerere.c
+#, c-format
+msgid "Resolved '%s' using previous resolution."
+msgstr ""
+"Конфликтът при сливане на „%s“ е коригиран с преизползване на предишна "
+"корекция."
+
+#: rerere.c
+#, c-format
+msgid "cannot unlink stray '%s'"
+msgstr "излишният обект „%s“ не може да се изтрие"
+
+#: rerere.c
+#, c-format
+msgid "Recorded preimage for '%s'"
+msgstr "Предварителният вариант на „%s“ е запазен"
+
+#: rerere.c submodule.c builtin/submodule--helper.c
+#, c-format
+msgid "could not create directory '%s'"
+msgstr "Директорията „%s“ не може да бъде създадена"
+
+#: rerere.c
+#, c-format
+msgid "failed to update conflicted state in '%s'"
+msgstr "конфликтът в „%s“ не може да се обнови"
+
+#: rerere.c
+#, c-format
+msgid "no remembered resolution for '%s'"
+msgstr "липсва запазена корекция на конфликт при „%s“"
+
+#: rerere.c
+#, c-format
+msgid "cannot unlink '%s'"
+msgstr "„%s“ не може да се изтрие"
+
+#: rerere.c
+#, c-format
+msgid "Updated preimage for '%s'"
+msgstr "Предварителният вариант на „%s“ е обновен"
+
+#: rerere.c
+#, c-format
+msgid "Forgot resolution for '%s'\n"
+msgstr "Запазената корекция на конфликт при „%s“ е премахната\n"
+
+#: rerere.c
+msgid "unable to open rr-cache directory"
+msgstr "директорията „rr-cache“ не може да се отвори"
+
 #: revision.c
 msgid "your current branch appears to be broken"
 msgstr "Текущият клон е повреден"
@@ -4184,6 +4678,11 @@ msgstr "опциите „--first-parent“ и „--bisect“ са несъвм�
 #: run-command.c
 msgid "open /dev/null failed"
 msgstr "неуспешно отваряне на „/dev/null“"
+
+#: run-command.c
+#, c-format
+msgid "cannot create async thread: %s"
+msgstr "не може да се създаде асинхронна нишка: %s"
 
 #: run-command.c
 #, c-format
@@ -4296,7 +4795,7 @@ msgstr "краят на ред не може да се запише в „%s“"
 msgid "failed to finalize '%s'"
 msgstr "„%s“ не може да се завърши"
 
-#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
+#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c builtin/rebase.c
 #, c-format
 msgid "could not read '%s'"
 msgstr "файлът „%s“ не може да бъде прочетен"
@@ -4333,13 +4832,47 @@ msgstr "подаването, сочено от указателя „HEAD“, �
 
 #: sequencer.c
 #, c-format
-msgid "could not parse '%s' (looking for '%s')"
-msgstr "„%s“ не може да се анализира (търси се „%s“)"
+msgid "no key present in '%.*s'"
+msgstr "в „%.*s“ няма ключове"
 
 #: sequencer.c
 #, c-format
-msgid "bad quoting on %s value in '%s'"
-msgstr "лошо цитиране на стойността на „%s“ в „%s“"
+msgid "unable to dequote value of '%s'"
+msgstr "цитирането на стойността на „%s“ не може да бъде изчистено"
+
+#: sequencer.c wrapper.c builtin/am.c builtin/merge.c
+#, c-format
+msgid "could not open '%s' for reading"
+msgstr "файлът не може да бъде прочетен: „%s“"
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_NAME' already given"
+msgstr "настройката за автор „GIT_AUTHOR_NAME“ вече е зададена"
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_EMAIL' already given"
+msgstr "настройката за е-поща „GIT_AUTHOR_EMAIL“ вече е зададена"
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_DATE' already given"
+msgstr "настройката за дата „GIT_AUTHOR_DATE“ вече е зададена"
+
+#: sequencer.c
+#, c-format
+msgid "unknown variable '%s'"
+msgstr "непозната променлива „%s“"
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_NAME'"
+msgstr "настройката за автор „GIT_AUTHOR_NAME“ липсва"
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_EMAIL'"
+msgstr "настройката за е-поща „GIT_AUTHOR_EMAIL“ липсва"
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_DATE'"
+msgstr "настройката за дата „GIT_AUTHOR_DATE“ липсва"
 
 #: sequencer.c
 #, c-format
@@ -4630,11 +5163,6 @@ msgid "cannot '%s' without a previous commit"
 msgstr "Без предишно подаване не може да се изпълни „%s“"
 
 #: sequencer.c
-#, c-format
-msgid "could not read '%s'."
-msgstr "от „%s“ не може да се чете."
-
-#: sequencer.c
 msgid "please fix this using 'git rebase --edit-todo'."
 msgstr "коригирайте това чрез „git rebase --edit-todo“."
 
@@ -4782,7 +5310,7 @@ msgstr "Невъзможно сливане на „%.*s“"
 msgid "could not copy '%s' to '%s'"
 msgstr "„%s“ не може да се копира като „%s“"
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 msgid "could not read index"
 msgstr "индексът не може да бъде прочетен"
 
@@ -4835,12 +5363,12 @@ msgstr "запазване на фалшиво начално подаване"
 msgid "writing squash-onto"
 msgstr "запазване на подаването, в което другите да се вкарат"
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid "failed to find tree of %s"
 msgstr "дървото, сочено от „%s“, не може да бъде открито"
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 msgid "could not write index"
 msgstr "индексът не може да бъде записан"
 
@@ -4874,11 +5402,6 @@ msgstr "съобщението за подаване към „%s“ не мож
 
 #: sequencer.c
 #, c-format
-msgid "could not write '%s'"
-msgstr "„%s“ не може да се запише"
-
-#: sequencer.c
-#, c-format
 msgid "could not even attempt to merge '%.*s'"
 msgstr "сливането на „%.*s“ не може даже да започне"
 
@@ -4886,7 +5409,7 @@ msgstr "сливането на „%.*s“ не може даже да запо�
 msgid "merge: Unable to write new index file"
 msgstr "сливане: новият индекс не може да бъде запазен"
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid "Applied autostash.\n"
 msgstr "Автоматично скатаното е приложено.\n"
@@ -4896,7 +5419,7 @@ msgstr "Автоматично скатаното е приложено.\n"
 msgid "cannot store %s"
 msgstr "„%s“ не може да бъде запазен"
 
-#: sequencer.c git-rebase.sh
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid ""
 "Applying autostash resulted in conflicts.\n"
@@ -4906,6 +5429,30 @@ msgstr ""
 "Прилагането на автоматично скатаното доведе до конфликти.  Промените ви са\n"
 "надеждно скатани.  Можете да пробвате да ги приложите чрез „git stash pop“\n"
 "или да ги изхвърлите чрез „git stash drop“, когато поискате.\n"
+
+#: sequencer.c
+#, c-format
+msgid "could not checkout %s"
+msgstr "„%s“ не може да се изтегли"
+
+#: sequencer.c
+#, c-format
+msgid "%s: not a valid OID"
+msgstr "„%s“ е неправилен идентификатор на обект"
+
+#: sequencer.c git-rebase--preserve-merges.sh
+msgid "could not detach HEAD"
+msgstr "указателят „HEAD“ не може да се отдели"
+
+#: sequencer.c
+#, c-format
+msgid "Stopped at HEAD\n"
+msgstr "Бе спряно при „HEAD“\n"
+
+#: sequencer.c
+#, c-format
+msgid "Stopped at %s\n"
+msgstr "Бе спряно при „%s“\n"
 
 #: sequencer.c
 #, c-format
@@ -5065,6 +5612,30 @@ msgstr ""
 "Може да промените това с командите „git rebase --edit-todo“ и „git rebase --"
 "continue“ след това.\n"
 "Може и да преустановите пребазирането с командата „git rebase --abort“.\n"
+
+#: sequencer.c
+msgid "nothing to do"
+msgstr "няма какво да се прави"
+
+#: sequencer.c
+#, c-format
+msgid "Rebase %s onto %s (%d command)"
+msgid_plural "Rebase %s onto %s (%d commands)"
+msgstr[0] "Пребазиране на „%s“ върху „%s“ (%d команди)"
+msgstr[1] "Пребазиране на „%s“ върху „%s“ (%d команда)"
+
+#: sequencer.c
+#, c-format
+msgid "could not copy '%s' to '%s'."
+msgstr "„%s“ не може да се копира като „%s“."
+
+#: sequencer.c
+msgid "could not transform the todo list"
+msgstr "файлът с командите не може да се обработи"
+
+#: sequencer.c
+msgid "could not skip unnecessary pick commands"
+msgstr "излишните команди за отбиране не бяха прескочени"
 
 #: sequencer.c
 msgid "the script was already rearranged."
@@ -5541,11 +6112,6 @@ msgstr "Във файла „.gitmodules“ липсва раздел за ди�
 
 #: submodule.c
 #, c-format
-msgid "Could not update .gitmodules entry %s"
-msgstr "Записът „%s“ във файла „.gitmodules“ не може да бъде променен"
-
-#: submodule.c
-#, c-format
 msgid "Could not remove .gitmodules entry for %s"
 msgstr "Записът „%s“ във файла „.gitmodules“ не може да бъде изтрит"
 
@@ -5589,11 +6155,6 @@ msgstr "командата „git status“ не може да се изпълн
 
 #: submodule.c
 #, c-format
-msgid "Could not unset core.worktree setting in submodule '%s'"
-msgstr "Настройката „core.worktree“ не може да се махне в подмодула „%s“"
-
-#: submodule.c
-#, c-format
 msgid "submodule '%s' has dirty index"
 msgstr "индексът на подмодула „%s“ не е чист"
 
@@ -5614,11 +6175,6 @@ msgstr ""
 #, c-format
 msgid "could not lookup name for submodule '%s'"
 msgstr "името на подмодула „%s“ не може да бъде намерено"
-
-#: submodule.c builtin/submodule--helper.c
-#, c-format
-msgid "could not create directory '%s'"
-msgstr "Директорията „%s“ не може да бъде създадена"
 
 #: submodule.c
 #, c-format
@@ -5656,8 +6212,20 @@ msgstr "настройката „submodule.fetchjobs“ не приема от�
 
 #: submodule-config.c
 #, c-format
+msgid "ignoring '%s' which may be interpreted as a command-line option: %s"
+msgstr ""
+"„%s“ се прескача, защото е възможно да се тълкува като опция за командния "
+"ред: %s"
+
+#: submodule-config.c
+#, c-format
 msgid "invalid value for %s"
 msgstr "Неправилна стойност за „%s“"
+
+#: submodule-config.c
+#, c-format
+msgid "Could not update .gitmodules entry %s"
+msgstr "Записът „%s“ във файла „.gitmodules“ не може да бъде променен"
 
 #: trailer.c
 #, c-format
@@ -6220,6 +6788,16 @@ msgstr "Преустановяване на действието\n"
 msgid "Checking out files"
 msgstr "Изтегляне на файлове"
 
+#: unpack-trees.c
+msgid ""
+"the following paths have collided (e.g. case-sensitive paths\n"
+"on a case-insensitive filesystem) and only one from the same\n"
+"colliding group is in the working tree:\n"
+msgstr ""
+"следните пътища са в конфликт (напр. при разлика в регистъра\n"
+"във файлови системи, които не различават главни от малки букви)\n"
+"и само един от участниците в конфликта е в работното дърво:\n"
+
 #: urlmatch.c
 msgid "invalid URL scheme name or missing '://' suffix"
 msgstr "неправилна схема за адрес или суфиксът „://“ липсва"
@@ -6284,11 +6862,6 @@ msgstr "„%s“ не сочи към обратно към „%s“"
 #, c-format
 msgid "could not open '%s' for reading and writing"
 msgstr "„%s“ не може да бъде отворен и за четене, и за запис"
-
-#: wrapper.c builtin/am.c builtin/merge.c
-#, c-format
-msgid "could not open '%s' for reading"
-msgstr "файлът не може да бъде прочетен: „%s“"
 
 #: wrapper.c
 #, c-format
@@ -6805,11 +7378,6 @@ msgstr "освен това в индекса има неподадени про
 msgid "cannot %s: Your index contains uncommitted changes."
 msgstr "не може да извършите „%s“, защото в индекса има неподадени промени."
 
-#: compat/precompose_utf8.c builtin/clone.c
-#, c-format
-msgid "failed to unlink '%s'"
-msgstr "неуспешно изтриване на „%s“"
-
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr "git add [ОПЦИЯ…] [--] ПЪТ…"
@@ -7003,12 +7571,6 @@ msgstr "Нищо не е зададено и нищо не е добавено.\
 msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "Вероятно искахте да използвате „git add .“?\n"
 
-#: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/diff-tree.c builtin/grep.c builtin/mv.c
-#: builtin/reset.c builtin/rm.c builtin/submodule--helper.c
-msgid "index file corrupt"
-msgstr "файлът с индекса е повреден"
-
 #: builtin/am.c
 msgid "could not parse author script"
 msgstr "скриптът за автор не може да се анализира"
@@ -7085,6 +7647,12 @@ msgstr "Ако предпочитате да прескочите тази кр�
 #, c-format
 msgid "To restore the original branch and stop patching, run \"%s --abort\"."
 msgstr "За да се върнете към първоначалното състояние, изпълнете „%s --abort“."
+
+#: builtin/am.c
+msgid "Patch sent with format=flowed; space at the end of lines might be lost."
+msgstr ""
+"Кръпката е пратена с форматиране „format=flowed“.  Празните знаци в края на "
+"редовете може да се загубят."
 
 #: builtin/am.c
 msgid "Patch is empty."
@@ -7291,8 +7859,8 @@ msgid "pass it through git-apply"
 msgstr "прекарване през „git-apply“"
 
 #: builtin/am.c builtin/commit.c builtin/fmt-merge-msg.c builtin/grep.c
-#: builtin/merge.c builtin/pull.c builtin/repack.c builtin/show-branch.c
-#: builtin/show-ref.c builtin/tag.c parse-options.h
+#: builtin/merge.c builtin/pull.c builtin/rebase.c builtin/repack.c
+#: builtin/show-branch.c builtin/show-ref.c builtin/tag.c parse-options.h
 msgid "n"
 msgstr "БРОЙ"
 
@@ -7315,7 +7883,7 @@ msgstr "продължаване на прилагането на кръпки �
 
 #: builtin/am.c
 msgid "synonyms for --continue"
-msgstr "синоними на „--continue“"
+msgstr "псевдоними на „--continue“"
 
 #: builtin/am.c
 msgid "skip the current patch"
@@ -7345,11 +7913,12 @@ msgid "use current timestamp for author date"
 msgstr "използване на текущото време като това за автор"
 
 #: builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
-#: builtin/revert.c builtin/tag.c
+#: builtin/rebase.c builtin/rebase--interactive.c builtin/revert.c
+#: builtin/tag.c
 msgid "key-id"
 msgstr "ИДЕНТИФИКАТОР_НА_КЛЮЧ"
 
-#: builtin/am.c
+#: builtin/am.c builtin/rebase.c builtin/rebase--interactive.c
 msgid "GPG-sign commits"
 msgstr "подписване на подаванията с GPG"
 
@@ -7869,7 +8438,7 @@ msgstr "задаване на режима на следене (виж git-pull(
 msgid "do not use"
 msgstr "да не се ползва"
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/rebase--interactive.c
 msgid "upstream"
 msgstr "клон-източник"
 
@@ -7937,10 +8506,6 @@ msgstr "извеждане на имената на клоните"
 #: builtin/branch.c
 msgid "create the branch's reflog"
 msgstr "създаване на журнала на указателите на клона"
-
-#: builtin/branch.c
-msgid "deprecated synonym for --create-reflog"
-msgstr "синоним на „--create-reflog“ (остаряло)"
 
 #: builtin/branch.c
 msgid "edit the description for the branch"
@@ -8100,6 +8665,10 @@ msgid ""
 msgstr ""
 "git cat-file (--batch | --batch-check) [--follow-symlinks] [--textconv | --"
 "filters]"
+
+#: builtin/cat-file.c
+msgid "only one batch option may be specified"
+msgstr "може да укажете само една пакетна опция"
 
 #: builtin/cat-file.c
 msgid "<type> can be one of: blob, tree, commit, tag"
@@ -8912,7 +9481,7 @@ msgstr "ДЪЛБОЧИНА"
 msgid "create a shallow clone of that depth"
 msgstr "плитко клониране до тази ДЪЛБОЧИНА"
 
-#: builtin/clone.c builtin/fetch.c builtin/pack-objects.c parse-options.h
+#: builtin/clone.c builtin/fetch.c builtin/pack-objects.c
 msgid "time"
 msgstr "ВРЕМЕ"
 
@@ -8920,7 +9489,7 @@ msgstr "ВРЕМЕ"
 msgid "create a shallow clone since a specific time"
 msgstr "плитко клониране до момент във времето"
 
-#: builtin/clone.c builtin/fetch.c
+#: builtin/clone.c builtin/fetch.c builtin/rebase.c
 msgid "revision"
 msgstr "версия"
 
@@ -8995,6 +9564,11 @@ msgstr "„%s“ съществува и не е директория"
 #, c-format
 msgid "failed to stat %s\n"
 msgstr "не може да бъде получена информация чрез „stat“ за „%s“\n"
+
+#: builtin/clone.c
+#, c-format
+msgid "failed to unlink '%s'"
+msgstr "неуспешно изтриване на „%s“"
 
 #: builtin/clone.c
 #, c-format
@@ -9527,7 +10101,7 @@ msgstr "подробна информация за състоянието (ст�
 msgid "terminate entries with NUL"
 msgstr "разделяне на елементите с нулевия знак „NUL“"
 
-#: builtin/commit.c builtin/fast-export.c builtin/tag.c
+#: builtin/commit.c builtin/fast-export.c builtin/rebase.c builtin/tag.c
 msgid "mode"
 msgstr "РЕЖИМ"
 
@@ -9616,7 +10190,7 @@ msgstr "СЪОБЩЕНИЕ"
 msgid "commit message"
 msgstr "СЪОБЩЕНИЕ при подаване"
 
-#: builtin/commit.c parse-options.h ref-filter.h
+#: builtin/commit.c ref-filter.h parse-options.h
 msgid "commit"
 msgstr "ПОДАВАНЕ"
 
@@ -9839,6 +10413,10 @@ msgid "use repository config file"
 msgstr "използване на конфигурационния файл на хранилището"
 
 #: builtin/config.c
+msgid "use per-worktree config file"
+msgstr "използване на конфигурационния файл на работното копие"
+
+#: builtin/config.c
 msgid "use given config file"
 msgstr "използване на зададения конфигурационен ФАЙЛ"
 
@@ -10044,6 +10622,17 @@ msgstr "„--blob“ може да се използва само в храни�
 #: builtin/config.c
 msgid "$HOME not set"
 msgstr "променливата „HOME“ не е зададена"
+
+#: builtin/config.c
+msgid ""
+"--worktree cannot be used with multiple working trees unless the config\n"
+"extension worktreeConfig is enabled. Please read \"CONFIGURATION FILE\"\n"
+"section in \"git help worktree\" for details"
+msgstr ""
+"опцията „--worktre“ не приема множество работни дървета, преди\n"
+"включването на разширението в настройките „worktreeConfig“.  За\n"
+"повече информация вижте раздела „CONFIGURATION FILE“ в\n"
+"„git help worktree“"
 
 #: builtin/config.c
 msgid "--get-color and variable type are incoherent"
@@ -10456,7 +11045,7 @@ msgstr "Използване на маркер за завършване на п
 msgid "Skip output of blob data"
 msgstr "Без извеждане на съдържанието на обектите-BLOB"
 
-#: builtin/fast-export.c
+#: builtin/fast-export.c builtin/log.c
 msgid "refspec"
 msgstr "УКАЗАТЕЛ_НА_ВЕРСИЯ"
 
@@ -10496,9 +11085,9 @@ msgstr "добавяне към „.git/FETCH_HEAD“ вместо замяна"
 msgid "path to upload pack on remote end"
 msgstr "отдалечен път, където да се качи пакетът"
 
-#: builtin/fetch.c builtin/pull.c
-msgid "force overwrite of local branch"
-msgstr "принудително презаписване на локалния клон"
+#: builtin/fetch.c
+msgid "force overwrite of local reference"
+msgstr "принудително презаписване на локален указател"
 
 #: builtin/fetch.c
 msgid "fetch from multiple remotes"
@@ -10623,6 +11212,10 @@ msgstr "[обновяване на етикетите]"
 #: builtin/fetch.c
 msgid "unable to update local ref"
 msgstr "локален указател не може да бъде обновен"
+
+#: builtin/fetch.c
+msgid "would clobber existing tag"
+msgstr "съществуващ етикет ще бъде презаписан"
 
 #: builtin/fetch.c
 msgid "[new tag]"
@@ -10781,7 +11374,7 @@ msgstr ""
 
 #: builtin/fmt-merge-msg.c
 msgid "alias for --log (deprecated)"
-msgstr "синоним на „--log“ (остаряло)"
+msgstr "псевдоним на „--log“ (остаряло)"
 
 #: builtin/fmt-merge-msg.c
 msgid "text"
@@ -10925,10 +11518,15 @@ msgstr "git gc [ОПЦИЯ…]"
 msgid "Failed to fstat %s: %s"
 msgstr "Неуспешно изпълнение на „fstat“ върху „%s“: %s"
 
-#: builtin/gc.c
+#: builtin/gc.c builtin/init-db.c
 #, c-format
-msgid "Can't stat %s"
-msgstr "Неуспешно изпълнение на „stat“ върху „%s“"
+msgid "cannot stat '%s'"
+msgstr "не може да се получи информация чрез „stat“ за директорията „%s“"
+
+#: builtin/gc.c builtin/notes.c builtin/tag.c
+#, c-format
+msgid "cannot read '%s'"
+msgstr "файлът „%s“ не може да бъде прочетен"
 
 #: builtin/gc.c
 #, c-format
@@ -11098,6 +11696,10 @@ msgstr ""
 "обработване на двоичните файлове чрез филтри за преобразуване към текст"
 
 #: builtin/grep.c
+msgid "search in subdirectories (default)"
+msgstr "търсене в поддиректориите (стандартно)"
+
+#: builtin/grep.c
 msgid "descend at most <depth> levels"
 msgstr "навлизане максимално на тази ДЪЛБОЧИНА в дървото"
 
@@ -11145,7 +11747,7 @@ msgstr "извеждане само на имената на файловете 
 
 #: builtin/grep.c
 msgid "synonym for --files-with-matches"
-msgstr "синоним на „--files-with-matches“"
+msgstr "псевдоним на „--files-with-matches“"
 
 #: builtin/grep.c
 msgid "show only the names of files without match"
@@ -11196,7 +11798,7 @@ msgstr "използване на такъв БРОЙ работещи нишк�
 
 #: builtin/grep.c
 msgid "shortcut for -C NUM"
-msgstr "синоним на „-C БРОЙ“"
+msgstr "псевдоним на „-C БРОЙ“"
 
 #: builtin/grep.c
 msgid "show a line with the function name before matches"
@@ -11260,14 +11862,18 @@ msgstr "опциите „--cached“ и „--untracked“ са несъвмес
 msgid "unable to resolve revision: %s"
 msgstr "версията „%s“ не може бъде открита"
 
-#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
-#, c-format
-msgid "invalid number of threads specified (%d)"
-msgstr "зададен е неправилен брой нишки: %d"
+#: builtin/grep.c
+msgid "invalid option combination, ignoring --threads"
+msgstr "неправилна комбинация от опции, „--threads“ ще се пренебрегне"
 
 #: builtin/grep.c builtin/pack-objects.c
 msgid "no threads support, ignoring --threads"
 msgstr "липсва поддръжка за нишки.  „--threads“ ще се пренебрегне"
+
+#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
+#, c-format
+msgid "invalid number of threads specified (%d)"
+msgstr "зададен е неправилен брой нишки: %d"
 
 #: builtin/grep.c
 msgid "--open-files-in-pager only works on the worktree"
@@ -11427,10 +12033,15 @@ msgstr ""
 "никоя програма за преглед на информационните страници не успя да обработи "
 "заявката"
 
-#: builtin/help.c
+#: builtin/help.c git.c
 #, c-format
 msgid "'%s' is aliased to '%s'"
-msgstr "„%s“ е синоним на „%s“"
+msgstr "„%s“ е псевдоним на „%s“"
+
+#: builtin/help.c
+#, c-format
+msgid "bad alias.%s string: %s"
+msgstr "неправилен низ за настройката „alias.%s“: „%s“"
 
 #: builtin/help.c
 #, c-format
@@ -11742,11 +12353,6 @@ msgstr "грешка при проверка с „fsck“ на пакетнит
 
 #: builtin/init-db.c
 #, c-format
-msgid "cannot stat '%s'"
-msgstr "не може да се получи информация чрез „stat“ за директорията „%s“"
-
-#: builtin/init-db.c
-#, c-format
 msgid "cannot stat template '%s'"
 msgstr "не може да се получи информация чрез „stat“ за шаблона „%s“"
 
@@ -11908,6 +12514,10 @@ msgid "set parsing options"
 msgstr "опции при анализ"
 
 #: builtin/interpret-trailers.c
+msgid "do not treat --- specially"
+msgstr "„---“ няма специално значение"
+
+#: builtin/interpret-trailers.c
 msgid "trailer"
 msgstr "епилог"
 
@@ -12065,6 +12675,10 @@ msgstr "базовото подаване не може да е в списък�
 #: builtin/log.c
 msgid "cannot get patch id"
 msgstr "идентификаторът на кръпката не може да бъде получен"
+
+#: builtin/log.c
+msgid "failed to infer range-diff ranges"
+msgstr "неуспешно определяне на диапазоните за разлика"
 
 #: builtin/log.c
 msgid "use [PATCH n/m] even with a single patch"
@@ -12226,6 +12840,26 @@ msgid "show progress while generating patches"
 msgstr "извеждане на напредъка във фазата на създаване на кръпките"
 
 #: builtin/log.c
+msgid "rev"
+msgstr "ВЕРС"
+
+#: builtin/log.c
+msgid "show changes against <rev> in cover letter or single patch"
+msgstr ""
+"показване на промените спрямо ВЕРСията в придружаващото писмо или единствена "
+"кръпка"
+
+#: builtin/log.c
+msgid "show changes against <refspec> in cover letter or single patch"
+msgstr ""
+"показване на промените спрямо указателя на ВЕРСията в придружаващото писмо "
+"или единствена кръпка"
+
+#: builtin/log.c
+msgid "percentage by which creation is weighted"
+msgstr "процент за претегляне при оценка на създаването"
+
+#: builtin/log.c
 #, c-format
 msgid "invalid ident line: %s"
 msgstr "грешна идентичност: %s"
@@ -12259,6 +12893,38 @@ msgstr ""
 #, c-format
 msgid "Could not create directory '%s'"
 msgstr "Директорията „%s“ не може да бъде създадена"
+
+#: builtin/log.c
+msgid "--interdiff requires --cover-letter or single patch"
+msgstr ""
+"опцията „--interdiff“ изисква опция „--cover-letter“ или единствена кръпка"
+
+#: builtin/log.c
+msgid "Interdiff:"
+msgstr "Разлика в разликите:"
+
+#: builtin/log.c
+#, c-format
+msgid "Interdiff against v%d:"
+msgstr "Разлика в разликите спрямо v%d:"
+
+#: builtin/log.c
+msgid "--creation-factor requires --range-diff"
+msgstr "опцията „--creation-factor“ изисква опция „--range-diff“"
+
+#: builtin/log.c
+msgid "--range-diff requires --cover-letter or single patch"
+msgstr ""
+"опцията „--range-diff“ изисква опция „--cover-letter“ или единствена кръпка<"
+
+#: builtin/log.c
+msgid "Range-diff:"
+msgstr "Диапазонна разлика:"
+
+#: builtin/log.c
+#, c-format
+msgid "Range-diff against v%d:"
+msgstr "Диапазонна разлика спрямо v%d:"
 
 #: builtin/log.c
 #, c-format
@@ -12405,7 +13071,7 @@ msgstr ""
 msgid "do not print remote URL"
 msgstr "без извеждане на адресите на отдалечените хранилища"
 
-#: builtin/ls-remote.c
+#: builtin/ls-remote.c builtin/rebase.c
 msgid "exec"
 msgstr "КОМАНДА"
 
@@ -12521,7 +13187,7 @@ msgstr "извеждане на статистиката след завършв
 
 #: builtin/merge.c builtin/pull.c
 msgid "(synonym to --stat)"
-msgstr "(синоним на „--stat“)"
+msgstr "(псевдоним на „--stat“)"
 
 #: builtin/merge.c builtin/pull.c
 msgid "add (at most <n>) entries from shortlog to merge commit message"
@@ -12553,7 +13219,8 @@ msgstr "преустановяване, ако превъртането е не�
 msgid "verify that the named commit has a valid GPG signature"
 msgstr "проверка, че указаното подаване е с правилен подпис на GPG"
 
-#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/revert.c
+#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/rebase.c
+#: builtin/rebase--interactive.c builtin/revert.c
 msgid "strategy"
 msgstr "СТРАТЕГИЯ"
 
@@ -12789,28 +13456,6 @@ msgid "Can merge only exactly one commit into empty head"
 msgstr "Можете да слеете точно едно подаване във връх без история"
 
 #: builtin/merge.c
-#, c-format
-msgid "Commit %s has an untrusted GPG signature, allegedly by %s."
-msgstr ""
-"Подаването „%s“ е с недоверен подпис от GPG, който твърди, че е на „%s“."
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s has a bad GPG signature allegedly by %s."
-msgstr ""
-"Подаването „%s“ е с неправилен подпис от GPG, който твърди, че е на „%s“."
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s does not have a GPG signature."
-msgstr "Подаването „%s“ е без подпис от GPG."
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s has a good GPG signature by %s\n"
-msgstr "Подаването „%s“ е с коректен подпис от GPG на „%s“.\n"
-
-#: builtin/merge.c
 msgid "refusing to merge unrelated histories"
 msgstr "независими истории не може да се слеят"
 
@@ -13002,6 +13647,25 @@ msgstr "разрешаване на липсващи обекти"
 #: builtin/mktree.c
 msgid "allow creation of more than one tree"
 msgstr "разрешаване на създаването на повече от едно дърво"
+
+#: builtin/multi-pack-index.c
+msgid "git multi-pack-index [--object-dir=<dir>] (write|verify)"
+msgstr "git multi-pack-index [--object-dir=ДИР_ОБЕКТ] (write|verify)"
+
+#: builtin/multi-pack-index.c
+msgid "object directory containing set of packfile and pack-index pairs"
+msgstr ""
+"ДИРекторията_с_ОБЕКТи съдържа множество двойки пакетни файлове със "
+"съответния им индекс"
+
+#: builtin/multi-pack-index.c
+msgid "too many arguments"
+msgstr "прекалено много аргументи"
+
+#: builtin/multi-pack-index.c
+#, c-format
+msgid "unrecognized verb: %s"
+msgstr "непознат глагол: %s"
 
 #: builtin/mv.c
 msgid "git mv [<options>] <source>... <destination>"
@@ -13285,11 +13949,6 @@ msgstr "обектът-бележка не може да бъде записан
 #, c-format
 msgid "the note contents have been left in %s"
 msgstr "съдържанието на бележката е във файла „%s“"
-
-#: builtin/notes.c builtin/tag.c
-#, c-format
-msgid "cannot read '%s'"
-msgstr "файлът „%s“ не може да бъде прочетен"
 
 #: builtin/notes.c builtin/tag.c
 #, c-format
@@ -13670,8 +14329,8 @@ msgstr "обектът „%s“ не може да се прочете"
 
 #: builtin/pack-objects.c
 #, c-format
-msgid "object %s inconsistent object length (%lu vs %lu)"
-msgstr "обектът „%s“ е с неправилна дължина (%lu, а не %lu)"
+msgid "object %s inconsistent object length (%<PRIuMAX> vs %<PRIuMAX>)"
+msgstr "обектът „%s“ е с неправилна дължина (%<PRIuMAX>, а не %<PRIuMAX>)"
 
 #: builtin/pack-objects.c
 msgid "suboptimal pack - out of memory"
@@ -13919,6 +14578,10 @@ msgid "do not pack objects in promisor packfiles"
 msgstr "без пакетиране на обекти в гарантиращи пакети"
 
 #: builtin/pack-objects.c
+msgid "respect islands during delta compression"
+msgstr "без промяна на групите при делта компресия"
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "delta chain depth %d is too deep, forcing %d"
 msgstr "веригата с разлики е прекалено дълбока — %d, ще се ползва %d"
@@ -14026,7 +14689,7 @@ msgstr "Опции при сливане"
 msgid "incorporate changes by rebasing rather than merging"
 msgstr "внасяне на промените чрез пребазиране, а не чрез сливане"
 
-#: builtin/pull.c builtin/rebase--helper.c builtin/revert.c
+#: builtin/pull.c builtin/rebase--interactive.c builtin/revert.c
 msgid "allow fast-forward"
 msgstr "позволяване на превъртания"
 
@@ -14037,6 +14700,10 @@ msgstr "автоматично скатаване/прилагане на ска
 #: builtin/pull.c
 msgid "Options related to fetching"
 msgstr "Опции при доставяне"
+
+#: builtin/pull.c
+msgid "force overwrite of local branch"
+msgstr "принудително презаписване на локалния клон"
 
 #: builtin/pull.c
 msgid "number of submodules pulled in parallel"
@@ -14081,7 +14748,7 @@ msgstr ""
 "Понеже това не е хранилището по подразбиране на текущия клон, трябва\n"
 "да укажете отдалечения клон на командния ред."
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "You are not currently on a branch."
 msgstr "Извън всички клони."
 
@@ -14097,15 +14764,15 @@ msgstr "Укажете кой клон искате да слеете."
 msgid "See git-pull(1) for details."
 msgstr "За повече информация погледнете ръководството „git-pull(1)“"
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "<remote>"
 msgstr "ОТДАЛЕЧЕНО_ХРАНИЛИЩЕ"
 
-#: builtin/pull.c git-rebase.sh git-parse-remote.sh
+#: builtin/pull.c git-legacy-rebase.sh git-parse-remote.sh
 msgid "<branch>"
 msgstr "КЛОН"
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "There is no tracking information for the current branch."
 msgstr "Текущият клон не следи никой."
 
@@ -14124,6 +14791,11 @@ msgid ""
 msgstr ""
 "За сливане е указан отдалеченият указател „%s“,\n"
 "но такъв не е доставен."
+
+#: builtin/pull.c
+#, c-format
+msgid "unable to access commit %s"
+msgstr "недостъпно подаване: %s"
 
 #: builtin/pull.c
 msgid "ignoring --verify-signatures for rebase"
@@ -14597,68 +15269,632 @@ msgstr "без прилагане на филтъра за частично из
 msgid "debug unpack-trees"
 msgstr "изчистване на грешки в командата „unpack-trees“"
 
-#: builtin/rebase--helper.c
-msgid "git rebase--helper [<options>]"
-msgstr "git rebase--helper [ОПЦИЯ…]"
+#: builtin/rebase.c
+msgid ""
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] [<upstream>] "
+"[<branch>]"
+msgstr ""
+"git rebase [-i] [ОПЦИЯ…] [--exec КОМАНДА] [--onto НОВА_БАЗА] [КЛОН_ИЗТОЧНИК] "
+"[КЛОН]"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase.c
+msgid ""
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] --root [<branch>]"
+msgstr ""
+"git rebase [-i] [ОПЦИЯ…] [--exec КОМАНДА] [--onto НОВА_БАЗА] --root [КЛОН]"
+
+#: builtin/rebase.c
+msgid "git rebase --continue | --abort | --skip | --edit-todo"
+msgstr "git rebase --continue | --abort | --skip | --edit-todo"
+
+#: builtin/rebase.c
+#, c-format
+msgid "%s requires an interactive rebase"
+msgstr "„%s“ изисква интерактивно пребазиране"
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not get 'onto': '%s'"
+msgstr "не може да се премине към новата база, зададена с „onto“: „%s“"
+
+#: builtin/rebase.c
+#, c-format
+msgid "invalid orig-head: '%s'"
+msgstr "неправилен указател към първоначален връх „orig-head“: „%s“"
+
+#: builtin/rebase.c
+#, c-format
+msgid "ignoring invalid allow_rerere_autoupdate: '%s'"
+msgstr "неправилната стойност на „allow_rerere_autoupdate“ се прескача: „%s“"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Could not read '%s'"
+msgstr "Пътят „%s“ не може да бъде прочетен"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Cannot store %s"
+msgstr "„%s“ не може да бъде запазен"
+
+#: builtin/rebase.c
+msgid ""
+"Resolve all conflicts manually, mark them as resolved with\n"
+"\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
+"You can instead skip this commit: run \"git rebase --skip\".\n"
+"To abort and get back to the state before \"git rebase\", run \"git rebase --"
+"abort\"."
+msgstr ""
+"След коригирането на конфликтите, отбележете решаването им чрез:\n"
+"„git add/rm ФАЙЛ_С_КОНФЛИКТ…“ и изпълнете „git rebase --continue“.\n"
+"Ако предпочитате да прескочите тази кръпка, изпълнете „git rebase --skip“.\n"
+"За да откажете пребазирането и да се върнете към първоначалното състояние,\n"
+"изпълнете „git rebase --abort“."
+
+#: builtin/rebase.c
+msgid "could not determine HEAD revision"
+msgstr "не може да се определи към какво да сочи указателят „HEAD“"
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"%s\n"
+"Please specify which branch you want to rebase against.\n"
+"See git-rebase(1) for details.\n"
+"\n"
+"    git rebase '<branch>'\n"
+"\n"
+msgstr ""
+"%s\n"
+"Укажете върху кой клон искате да пребазирате.\n"
+"Погледнете „git-rebase(1)“\n"
+"\n"
+"    git rebase КЛОН\n"
+"\n"
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"If you wish to set tracking information for this branch you can do so with:\n"
+"\n"
+"    git branch --set-upstream-to=%s/<branch> %s\n"
+"\n"
+msgstr ""
+"Ако искате да зададете информация за следен клон, можете да направите това с "
+"командата:\n"
+"\n"
+"    git branch --set-upstream-to=%s/КЛОН %s\n"
+
+#: builtin/rebase.c
+msgid "rebase onto given branch instead of upstream"
+msgstr "пребазиране върху зададения, а не следения клон"
+
+#: builtin/rebase.c
+msgid "allow pre-rebase hook to run"
+msgstr "позволяване на куката преди пребазиране да се изпълни"
+
+#: builtin/rebase.c
+msgid "be quiet. implies --no-stat"
+msgstr "без извеждане на информация.  Включва опцията „--no-stat“"
+
+#: builtin/rebase.c
+msgid "display a diffstat of what changed upstream"
+msgstr "извеждане на статистика с промените в следения клон"
+
+#: builtin/rebase.c
+msgid "do not show diffstat of what changed upstream"
+msgstr "без извеждане на статистика с промените в следения клон"
+
+#: builtin/rebase.c
+msgid "add a Signed-off-by: line to each commit"
+msgstr ""
+"добавяне на ред за подпис „Signed-off-by“ в съобщението на всяко подаване"
+
+#: builtin/rebase.c
+msgid "passed to 'git am'"
+msgstr "подава се на командата „git am“"
+
+#: builtin/rebase.c
+msgid "passed to 'git apply'"
+msgstr "подава се на командата „git apply“"
+
+#: builtin/rebase.c
+msgid "cherry-pick all commits, even if unchanged"
+msgstr "отбиране на всички подавания дори да няма промени"
+
+#: builtin/rebase.c
+msgid "continue"
+msgstr "продължаване"
+
+#: builtin/rebase.c
+msgid "skip current patch and continue"
+msgstr "прескачане на текущата кръпка и продължаване"
+
+#: builtin/rebase.c
+msgid "abort and check out the original branch"
+msgstr "преустановяване и възстановяване на първоначалния клон"
+
+#: builtin/rebase.c
+msgid "abort but keep HEAD where it is"
+msgstr "преустановяване без промяна към какво сочи „HEAD“"
+
+#: builtin/rebase.c
+msgid "edit the todo list during an interactive rebase"
+msgstr "редактиране на файла с команди при интерактивно пребазиране"
+
+#: builtin/rebase.c
+msgid "show the patch file being applied or merged"
+msgstr "показване на кръпката, която се прилага или слива"
+
+#: builtin/rebase.c
+msgid "use merging strategies to rebase"
+msgstr "при пребазиране да се ползва стратегия за сливане"
+
+#: builtin/rebase.c
+msgid "let the user edit the list of commits to rebase"
+msgstr ""
+"позволяване на потребителя да редактира списъка с подавания за пребазиране"
+
+#: builtin/rebase.c
+msgid "try to recreate merges instead of ignoring them"
+msgstr "пресъздаване на сливанията вместо да се прескачат"
+
+#: builtin/rebase.c
+msgid "allow rerere to update index  with resolved conflict"
+msgstr ""
+"позволяване на „rerere“ да преизползва корекция на конфликт, за до обнови "
+"индекса"
+
+#: builtin/rebase.c
+msgid "preserve empty commits during rebase"
+msgstr "запазване на празните подавания при пребазиране"
+
+#: builtin/rebase.c
+msgid "move commits that begin with squash!/fixup! under -i"
+msgstr ""
+"преместване на подаванията, които започват със „squash!“/“fixup!“ при „-i“"
+
+#: builtin/rebase.c
+msgid "automatically stash/stash pop before and after"
+msgstr "автоматично скатаване/прилагане на скатаното преди и след пребазиране"
+
+#: builtin/rebase.c
+msgid "add exec lines after each commit of the editable list"
+msgstr ""
+"добавяне на редове с команди за изпълнение след всяко подаване в "
+"редактирания списък"
+
+#: builtin/rebase.c
+msgid "allow rebasing commits with empty messages"
+msgstr "позволяване на пребазиране на подавания с празни съобщения"
+
+#: builtin/rebase.c
+msgid "try to rebase merges instead of skipping them"
+msgstr "опит за пребазиране на сливанията вместо те да се прескачат"
+
+#: builtin/rebase.c
+msgid "use 'merge-base --fork-point' to refine upstream"
+msgstr ""
+"за доуточняването на следения клон, използвайте:\n"
+"\n"
+"    git merge-base --fork-point УКАЗАТЕЛ [ПОДАВАНЕ]"
+
+#: builtin/rebase.c
+msgid "use the given merge strategy"
+msgstr "използване на зададената стратегията на сливане"
+
+#: builtin/rebase.c builtin/revert.c
+msgid "option"
+msgstr "опция"
+
+#: builtin/rebase.c
+msgid "pass the argument through to the merge strategy"
+msgstr "аргументът да се подаде на стратегията за сливане"
+
+#: builtin/rebase.c
+msgid "rebase all reachable commits up to the root(s)"
+msgstr "пребазиране на всички достижими подавания до началното им подаване"
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not exec %s"
+msgstr "„%s“ не може да се изпълни"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr ""
+"Изглежда, че сега се прилагат кръпки чрез командата „git-am“.  Не може да "
+"пребазирате в момента."
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "No rebase in progress?"
+msgstr "Изглежда в момента не тече пребазиране"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "The --edit-todo action can only be used during interactive rebase."
+msgstr ""
+"Опцията „--edit-todo“ е достъпна само по време на интерактивно пребазиране."
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Cannot read HEAD"
+msgstr "Указателят „HEAD“ не може да бъде прочетен"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid ""
+"You must edit all merge conflicts and then\n"
+"mark them as resolved using git add"
+msgstr ""
+"Трябва да редактирате всички конфликти при сливането.  След това\n"
+"отбележете коригирането им чрез командата „git add“"
+
+#: builtin/rebase.c
+msgid "could not discard worktree changes"
+msgstr "промените в работното дърво не могат да бъдат занулени"
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not move back to %s"
+msgstr "връщането към „%s“ е невъзможно"
+
+#: builtin/rebase.c builtin/rm.c
+#, c-format
+msgid "could not remove '%s'"
+msgstr "„%s“ не може да бъде изтрит"
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"It seems that there is already a %s directory, and\n"
+"I wonder if you are in the middle of another rebase.  If that is the\n"
+"case, please try\n"
+"\t%s\n"
+"If that is not the case, please\n"
+"\t%s\n"
+"and run me again.  I am stopping in case you still have something\n"
+"valuable there.\n"
+msgstr ""
+"Директорията „%s“ вече съществува.  Възможно ли е да сте\n"
+"в процес на друго пребазиране? Ако това е така, изпълнете:\n"
+"    %s\n"
+"Ако не сте в процес на друго пребазиране, изпълнете:\n"
+"    %s\n"
+"и отново започнете пребазирането.  Текущото пребазиране се преустановява, "
+"за\n"
+"да не загубите случайно промени.\n"
+
+#: builtin/rebase.c
+msgid "switch `C' expects a numerical value"
+msgstr "опцията „C“ очаква число за аргумент"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Unknown mode: %s"
+msgstr "Неизвестна стратегия: „%s“"
+
+#: builtin/rebase.c
+msgid "--strategy requires --merge or --interactive"
+msgstr ""
+"опцията „--strategy“ изисква някоя от опциите „--merge“ или „--interactive“"
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"error: cannot combine interactive options (--interactive, --exec, --rebase-"
+"merges, --preserve-merges, --keep-empty, --root + --onto) with am options "
+"(%s)"
+msgstr ""
+"грешка: опциите за интерактивна работа („--interactive“, „--exec“, „--rebase-"
+"merges“,  „--preserve-merges“, „--keep-empty“, „--root“ и „--onto“) са "
+"несъвместими с опциите за командата „am“ („%s“)"
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"error: cannot combine merge options (--merge, --strategy, --strategy-option) "
+"with am options (%s)"
+msgstr ""
+"грешка: опциите за сливане („--merge“, „--strategy“ и „--strategy-option“) "
+"са несъвместими с опциите за командата „am“ („%s“)"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--preserve-merges' with '--rebase-merges'"
+msgstr ""
+"грешка: опциите „--preserve-merges“ и „--rebase-merges“ са несъвместими"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--rebase-merges' with '--strategy-option'"
+msgstr ""
+"грешка: опциите „--rebase-merges“ и „--strategy-option“ са несъвместими"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--rebase-merges' with '--strategy'"
+msgstr "грешка: опциите „--rebase-merges“ и „--strategy“ са несъвместими"
+
+#: builtin/rebase.c
+#, c-format
+msgid "invalid upstream '%s'"
+msgstr "неправилен следен клон: „%s“"
+
+#: builtin/rebase.c
+msgid "Could not create new root commit"
+msgstr "Не може да се създаде ново начално подаване"
+
+#: builtin/rebase.c
+#, c-format
+msgid "'%s': need exactly one merge base"
+msgstr "„%s“: изисква се точно една база за пребазиране"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Does not point to a valid commit '%s'"
+msgstr "Указателят „%s“ не сочи към подаване"
+
+#: builtin/rebase.c
+#, c-format
+msgid "fatal: no such branch/commit '%s'"
+msgstr "ФАТАЛНА ГРЕШКА: не съществува клон „%s“"
+
+#: builtin/rebase.c builtin/submodule--helper.c
+#, c-format
+msgid "No such ref: %s"
+msgstr "Такъв указател няма: %s"
+
+#: builtin/rebase.c
+msgid "Could not resolve HEAD to a revision"
+msgstr "Подаването, сочено от указателя „HEAD“, не може да бъде открито"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Cannot autostash"
+msgstr "Не може да се скатае автоматично"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Unexpected stash response: '%s'"
+msgstr "Неочакван резултат при скатаване: „%s“"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Could not create directory for '%s'"
+msgstr "Директорията за „%s“ не може да бъде създадена"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Created autostash: %s\n"
+msgstr "Автоматично скатано: „%s“\n"
+
+#: builtin/rebase.c
+msgid "could not reset --hard"
+msgstr "неуспешно изпълнение на „git reset --hard“"
+
+#: builtin/rebase.c builtin/reset.c
+#, c-format
+msgid "HEAD is now at %s"
+msgstr "Указателят „HEAD“ сочи към „%s“"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Please commit or stash them."
+msgstr "Промените трябва или да се подадат, или да се скатаят."
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not parse '%s'"
+msgstr "„%s“ не може да се анализира"
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not switch to %s"
+msgstr "не може да се премине към „%s“"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+#, sh-format
+msgid "HEAD is up to date."
+msgstr "Указателят „HEAD“ е напълно актуален."
+
+#: builtin/rebase.c
+#, c-format
+msgid "Current branch %s is up to date.\n"
+msgstr "Текущият клон „%s“ е напълно актуален.\n"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr "Указателят „HEAD“ е напълно актуален.  Пребазирането е принудително."
+
+#: builtin/rebase.c
+#, c-format
+msgid "Current branch %s is up to date, rebase forced.\n"
+msgstr ""
+"Текущият клон „%s“ е напълно актуален.  Пребазирането е принудително.\n"
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "The pre-rebase hook refused to rebase."
+msgstr "Куката за изпълнение преди пребазиране отхвърли пребазирането."
+
+#: builtin/rebase.c
+#, c-format
+msgid "Changes from %s to %s:\n"
+msgstr "Промените от „%s“ към „%s“:\n"
+
+#: builtin/rebase.c
+#, c-format
+msgid "First, rewinding head to replay your work on top of it...\n"
+msgstr ""
+"Първо, указателят „HEAD“ започва да сочи към базата, върху която "
+"пребазирате…\n"
+
+#: builtin/rebase.c
+msgid "Could not detach HEAD"
+msgstr "Указателят „HEAD“ не може да се отдели"
+
+#: builtin/rebase.c
+#, c-format
+msgid "Fast-forwarded %s to %s. \n"
+msgstr "Превъртане на „%s“ към „%s“.\n"
+
+#: builtin/rebase--interactive.c
+msgid "no HEAD?"
+msgstr "Липсва указател „HEAD“"
+
+#: builtin/rebase--interactive.c
+#, c-format
+msgid "could not create temporary %s"
+msgstr "не може да се създаде временна директория „%s“"
+
+#: builtin/rebase--interactive.c
+msgid "could not mark as interactive"
+msgstr "невъзможно задаване на интерактивна работа"
+
+#: builtin/rebase--interactive.c
+#, c-format
+msgid "could not open %s"
+msgstr "„%s“ не може да се отвори"
+
+#: builtin/rebase--interactive.c
+msgid "could not generate todo list"
+msgstr "файлът с командите не може да се генерира"
+
+#: builtin/rebase--interactive.c
+msgid "git rebase--interactive [<options>]"
+msgstr "git rebase--interactive [ОПЦИЯ…]"
+
+#: builtin/rebase--interactive.c
 msgid "keep empty commits"
 msgstr "запазване на празните подавания"
 
-#: builtin/rebase--helper.c builtin/revert.c
+#: builtin/rebase--interactive.c builtin/revert.c
 msgid "allow commits with empty messages"
 msgstr "позволяване на празни съобщения при подаване"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "rebase merge commits"
 msgstr "пребазиране на подаванията със сливания"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "keep original branch points of cousins"
 msgstr ""
 "запазване на първоначалните точки на разклоняване на сестринските клони"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "move commits that begin with squash!/fixup!"
+msgstr "преместване на подаванията, които започват със „squash!“/“fixup!“"
+
+#: builtin/rebase--interactive.c
+msgid "sign commits"
+msgstr "подписване на подаванията"
+
+#: builtin/rebase--interactive.c
 msgid "continue rebase"
 msgstr "продължаване на пребазирането"
 
-#: builtin/rebase--helper.c
-msgid "abort rebase"
-msgstr "преустановяване на пребазирането"
+#: builtin/rebase--interactive.c
+msgid "skip commit"
+msgstr "прескачане на подаване"
 
-#: builtin/rebase--helper.c
-msgid "make rebase script"
-msgstr "създаване на скрипт за пребазиране"
+#: builtin/rebase--interactive.c
+msgid "edit the todo list"
+msgstr "редактиране на списъка с команди за изпълнение"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "show the current patch"
+msgstr "извеждане на текущата кръпка"
+
+#: builtin/rebase--interactive.c
 msgid "shorten commit ids in the todo list"
 msgstr "съкратени идентификатори в списъка за изпълнение"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "expand commit ids in the todo list"
 msgstr "пълни идентификатори в списъка за изпълнение"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "check the todo list"
 msgstr "проверка на списъка за изпълнение"
 
-#: builtin/rebase--helper.c
-msgid "skip unnecessary picks"
-msgstr "прескачане на излишните команди за отбиране"
-
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "rearrange fixup/squash lines"
 msgstr ""
 "преподреждане на редовете за вкарване на подаванията подаванията в "
 "предходните им със и без смени на съобщението"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "insert exec commands in todo list"
 msgstr "вмъкване на командите за изпълнение в списъка за изпълнение"
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "onto"
+msgstr "върху"
+
+#: builtin/rebase--interactive.c
+msgid "restrict-revision"
+msgstr "ограничена версия"
+
+#: builtin/rebase--interactive.c
+msgid "restrict revision"
+msgstr "ограничена версия"
+
+#: builtin/rebase--interactive.c
+msgid "squash-onto"
+msgstr "подаване, в което другите да се вкарат"
+
+#: builtin/rebase--interactive.c
+msgid "squash onto"
+msgstr "подаване, в което другите да се вкарат"
+
+#: builtin/rebase--interactive.c
+msgid "the upstream commit"
+msgstr "подаване на източника"
+
+#: builtin/rebase--interactive.c
+msgid "head-name"
+msgstr "име на върха"
+
+#: builtin/rebase--interactive.c
+msgid "head name"
+msgstr "име на върха"
+
+#: builtin/rebase--interactive.c
+msgid "rebase strategy"
+msgstr "стратегия на пребазиране"
+
+#: builtin/rebase--interactive.c
+msgid "strategy-opts"
+msgstr "опции на стратегията"
+
+#: builtin/rebase--interactive.c
+msgid "strategy options"
+msgstr "опции на стратегията"
+
+#: builtin/rebase--interactive.c
+msgid "switch-to"
+msgstr "преминаване към"
+
+#: builtin/rebase--interactive.c
+msgid "the branch or commit to checkout"
+msgstr "клонът, към който да се премине"
+
+#: builtin/rebase--interactive.c
+msgid "onto-name"
+msgstr "име на база"
+
+#: builtin/rebase--interactive.c
+msgid "onto name"
+msgstr "име на база"
+
+#: builtin/rebase--interactive.c
+msgid "cmd"
+msgstr "команда"
+
+#: builtin/rebase--interactive.c
+msgid "the command to run"
+msgstr "команда за изпълнение"
+
+#: builtin/rebase--interactive.c
 msgid "--[no-]rebase-cousins has no effect without --rebase-merges"
 msgstr "опциите „--[no-]rebase-cousins“ изискват опцията „--rebase-merges“"
+
+#: builtin/rebase--interactive.c
+msgid "a base commit must be provided with --upstream or --onto"
+msgstr "опциите „--upstream“ и „--onto“ изискват базово подаване"
 
 #: builtin/receive-pack.c
 msgid "git receive-pack <git-dir>"
@@ -14898,8 +16134,8 @@ msgstr "(за изтриване)"
 
 #: builtin/remote.c
 #, c-format
-msgid "No such remote: %s"
-msgstr "Такова отдалечено хранилище няма: %s"
+msgid "No such remote: '%s'"
+msgstr "Няма отдалечено хранилище на име „%s“"
 
 #: builtin/remote.c
 #, c-format
@@ -15300,6 +16536,10 @@ msgid "write bitmap index"
 msgstr "създаване и записване на индекси на база битови маски"
 
 #: builtin/repack.c
+msgid "pass --delta-islands to git-pack-objects"
+msgstr "подаване на опцията „--delta-islands“ на командата „git-pack-objects“"
+
+#: builtin/repack.c
 msgid "approxidate"
 msgstr "евристична дата"
 
@@ -15355,7 +16595,7 @@ msgstr "пакетите в хранилище с важни обекти не �
 msgid "--keep-unreachable and -A are incompatible"
 msgstr "Опциите „--keep-unreachable“ и „-A“ са несъвместими"
 
-#: builtin/repack.c builtin/worktree.c
+#: builtin/repack.c
 #, c-format
 msgid "failed to remove '%s'"
 msgstr "директорията „%s“ не може да бъде изтрита"
@@ -15615,6 +16855,15 @@ msgstr "git rerere [clear | forget ПЪТ… | status | remaining | diff | gc]"
 msgid "register clean resolutions in index"
 msgstr "регистриране на чисти корекции на конфликти в индекса"
 
+#: builtin/rerere.c
+msgid "'git rerere forget' without paths is deprecated"
+msgstr "командата „git rerere forget“ изисква указването на път"
+
+#: builtin/rerere.c
+#, c-format
+msgid "unable to generate diff for '%s'"
+msgstr "неуспешно генериране на разлика за „%s“"
+
 #: builtin/reset.c
 msgid ""
 "git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]"
@@ -15661,11 +16910,6 @@ msgstr "Дървото, сочено от указателя „HEAD“, не м
 #, c-format
 msgid "Failed to find tree of %s."
 msgstr "Дървото, сочено от „%s“, не може да бъде открито."
-
-#: builtin/reset.c
-#, c-format
-msgid "HEAD is now at %s"
-msgstr "Указателят „HEAD“ сочи към „%s“"
 
 #: builtin/reset.c
 #, c-format
@@ -15735,6 +16979,19 @@ msgstr "Опцията „-N“ е съвместима само с „--mixed�
 #: builtin/reset.c
 msgid "Unstaged changes after reset:"
 msgstr "Промени извън индекса след зануляването:"
+
+#: builtin/reset.c
+#, c-format
+msgid ""
+"\n"
+"It took %.2f seconds to enumerate unstaged changes after reset.  You can\n"
+"use '--quiet' to avoid this.  Set the config setting reset.quiet to true\n"
+"to make this the default.\n"
+msgstr ""
+"\n"
+"Изброяването на промените извън индекса след зануляване отне %.2f сек.\n"
+"Опцията „--quiet“ заглушава това съобщение еднократно.  За постоянно\n"
+"заглушаване задайте настройката „reset.quiet“ да е „true“ (истина).\n"
 
 #: builtin/reset.c
 #, c-format
@@ -15851,10 +17108,6 @@ msgid "merge strategy"
 msgstr "стратегия на сливане"
 
 #: builtin/revert.c
-msgid "option"
-msgstr "опция"
-
-#: builtin/revert.c
 msgid "option for merge strategy"
 msgstr "опция за стратегията на сливане"
 
@@ -15964,11 +17217,6 @@ msgstr "без използването на опцията „-r“ „%s“ н
 #, c-format
 msgid "git rm: unable to remove %s"
 msgstr "git rm: „%s“ не може да се изтрие"
-
-#: builtin/rm.c
-#, c-format
-msgid "could not remove '%s'"
-msgstr "„%s“ не може да бъде изтрит"
 
 #: builtin/send-pack.c
 msgid ""
@@ -16093,7 +17341,7 @@ msgstr "извеждане на такъв БРОЙ подавания от об
 
 #: builtin/show-branch.c
 msgid "synonym to more=-1"
-msgstr "синоним на „more=-1“"
+msgstr "псевдоним на „more=-1“"
 
 #: builtin/show-branch.c
 msgid "suppress naming strings"
@@ -16251,11 +17499,6 @@ msgstr "добавяне на „# “ в началото на всеки ре�
 
 #: builtin/submodule--helper.c
 #, c-format
-msgid "No such ref: %s"
-msgstr "Такъв указател няма: %s"
-
-#: builtin/submodule--helper.c
-#, c-format
 msgid "Expecting a full ref name, got %s"
 msgstr "Очаква се пълно име на указател, а не „%s“"
 
@@ -16322,7 +17565,7 @@ msgstr "git submodule--helper foreach [--quiet] [--recursive] КОМАНДА"
 #: builtin/submodule--helper.c
 #, c-format
 msgid ""
-"could not lookup configuration '%s'. Assuming this repository is its own "
+"could not look up configuration '%s'. Assuming this repository is its own "
 "authoritative upstream."
 msgstr ""
 "настройката „%s“ липсва.  Приема се, че това хранилище е правилният източник "
@@ -16538,6 +17781,17 @@ msgstr "директорията на подмодула „%s“ не може 
 
 #: builtin/submodule--helper.c
 #, c-format
+msgid "Invalid update mode '%s' for submodule path '%s'"
+msgstr "Неправилен режим на обновяване „%s“ за пътя към подмодул „%s“"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Invalid update mode '%s' configured for submodule path '%s'"
+msgstr ""
+"Настроен е неправилен режим на обновяване „%s“ за пътя към подмодул „%s“"
+
+#: builtin/submodule--helper.c
+#, c-format
 msgid "Submodule path '%s' not initialized"
 msgstr "Пътят на подмодула „%s“ не е инициализиран"
 
@@ -16614,12 +17868,34 @@ msgstr ""
 "но той не е на никой клон"
 
 #: builtin/submodule--helper.c
+#, c-format
+msgid "could not get a repository handle for submodule '%s'"
+msgstr "не може да се получи връзка към хранилище за подмодула „%s“"
+
+#: builtin/submodule--helper.c
 msgid "recurse into submodules"
 msgstr "рекурсивно обхождане подмодулите"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper embed-git-dir [<path>...]"
 msgstr "git submodule--helper name embed-git-dir [ПЪТ…]"
+
+#: builtin/submodule--helper.c
+msgid "check if it is safe to write to the .gitmodules file"
+msgstr "проверка дали писането във файла „.gitmodules“ е безопасно"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper config name [value]"
+msgstr "git submodule--helper config ИМЕ [СТОЙНОСТ]"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper config --check-writeable"
+msgstr "git submodule--helper config --check-writeable"
+
+#: builtin/submodule--helper.c git-submodule.sh
+#, sh-format
+msgid "please make sure that the .gitmodules file is in the working tree"
+msgstr "файлът „.gitmodules“ трябва да е в работното дърво"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -17260,6 +18536,11 @@ msgstr "git worktree unlock [ПЪТ]"
 
 #: builtin/worktree.c
 #, c-format
+msgid "failed to delete '%s'"
+msgstr "неуспешно изтриване на „%s“"
+
+#: builtin/worktree.c
+#, c-format
 msgid "Removing worktrees/%s: not a valid directory"
 msgstr "Изтриване на „worktrees/%s“: не е правилна поддиректория"
 
@@ -17307,6 +18588,31 @@ msgstr "обявяване на работните копия по-стари о
 #, c-format
 msgid "'%s' already exists"
 msgstr "„%s“ вече съществува"
+
+#: builtin/worktree.c
+#, c-format
+msgid "unable to re-add worktree '%s'"
+msgstr "дървото „%s“ не може да бъде добавено наново"
+
+#: builtin/worktree.c
+#, c-format
+msgid ""
+"'%s' is a missing but locked worktree;\n"
+"use 'add -f -f' to override, or 'unlock' and 'prune' or 'remove' to clear"
+msgstr ""
+"„%s“ липсва, но е заключено работно дърво.\n"
+"За изрично задаване ползвайте „add -f“, а за изчистване — „prune“ или "
+"„remove“"
+
+#: builtin/worktree.c
+#, c-format
+msgid ""
+"'%s' is a missing but already registered worktree;\n"
+"use 'add -f' to override, or 'prune' or 'remove' to clear"
+msgstr ""
+"„%s“ липсва, но е регистрирано като работно дърво.\n"
+"За изрично задаване ползвайте „add -f“, а за изчистване — „prune“ или "
+"„remove“"
 
 #: builtin/worktree.c
 #, c-format
@@ -17405,6 +18711,12 @@ msgstr ""
 "не може да местите или изтривате работни дървета, в които има подмодули"
 
 #: builtin/worktree.c
+msgid "force move even if worktree is dirty or locked"
+msgstr ""
+"принудително преместване, дори работното дърво да не е чисто или да е "
+"заключено"
+
+#: builtin/worktree.c
 #, c-format
 msgid "'%s' is a main working tree"
 msgstr "„%s“ е основно работно дърво"
@@ -17421,13 +18733,20 @@ msgstr "целта „%s“ вече съществува"
 
 #: builtin/worktree.c
 #, c-format
-msgid "cannot move a locked working tree, lock reason: %s"
+msgid ""
+"cannot move a locked working tree, lock reason: %s\n"
+"use 'move -f -f' to override or unlock first"
 msgstr ""
-"не може да преместите заключено работно дърво, причина за заключването: %s"
+"не може да преместите заключено работно дърво, причина за заключването: %s\n"
+"или го отключете, или го преместете принудително с „move -f -f“"
 
 #: builtin/worktree.c
-msgid "cannot move a locked working tree"
-msgstr "не може да местите заключено работно дърво"
+msgid ""
+"cannot move a locked working tree;\n"
+"use 'move -f -f' to override or unlock first"
+msgstr ""
+"не може да преместите заключено работно дърво:\n"
+"или го отключете, или го преместете принудително с „move -f -f“"
 
 #: builtin/worktree.c
 #, c-format
@@ -17459,23 +18778,26 @@ msgstr ""
 "командата „git status“ не може да се изпълни за „%s“, код за грешка: %d"
 
 #: builtin/worktree.c
-#, c-format
-msgid "failed to delete '%s'"
-msgstr "неуспешно изтриване на „%s“"
-
-#: builtin/worktree.c
-msgid "force removing even if the worktree is dirty"
-msgstr "принудително изтриване, дори работното дърво да не е чисто"
-
-#: builtin/worktree.c
-#, c-format
-msgid "cannot remove a locked working tree, lock reason: %s"
+msgid "force removal even if worktree is dirty or locked"
 msgstr ""
-"не може да изтриете заключено работно дърво, причина за заключването: %s"
+"принудително изтриване, дори работното дърво да не е чисто или да е заключено"
 
 #: builtin/worktree.c
-msgid "cannot remove a locked working tree"
-msgstr "не може да изтриете заключено работно дърво"
+#, c-format
+msgid ""
+"cannot remove a locked working tree, lock reason: %s\n"
+"use 'remove -f -f' to override or unlock first"
+msgstr ""
+"не може да изтриете заключено работно дърво, причина за заключването: %s\n"
+"или го отключете, или го изтрийте принудително с „remove -f -f“"
+
+#: builtin/worktree.c
+msgid ""
+"cannot remove a locked working tree;\n"
+"use 'remove -f -f' to override or unlock first"
+msgstr ""
+"не може да изтриете заключено работно дърво:\n"
+"или го отключете, или го изтрийте принудително с „remove -f -f“"
 
 #: builtin/worktree.c
 #, c-format
@@ -17516,6 +18838,15 @@ msgstr ""
 #: credential-cache--daemon.c
 msgid "print debugging messages to stderr"
 msgstr "извеждане на съобщенията за трасиране на стандартната грешка"
+
+#: t/helper/test-reach.c
+#, c-format
+msgid "commit %s is not marked reachable"
+msgstr "подаването „%s“ не е отбелязано като достижимо"
+
+#: t/helper/test-reach.c
+msgid "too many commits marked reachable"
+msgstr "прекалено много подавания са отбелязани като достижими"
 
 #: git.c
 msgid ""
@@ -17584,9 +18915,15 @@ msgstr "непозната опция: „%s“\n"
 
 #: git.c
 #, c-format
+msgid "alias loop detected: expansion of '%s' does not terminate:%s"
+msgstr "зацикляне в псевдонимите: заместванията на „%s“ не приключват:%s"
+
+#: git.c
+#, c-format
 msgid "expansion of alias '%s' failed; '%s' is not a git command\n"
 msgstr ""
-"неуспешно заместване на синонима „%s“ — резултатът „%s“ не е команда на git\n"
+"неуспешно заместване на псевдонима „%s“ — резултатът „%s“ не е команда на "
+"git\n"
 
 #: git.c
 #, c-format
@@ -17606,6 +18943,33 @@ msgstr "Управлението на делегирането не се под�
 #: http.c
 msgid "Public key pinning not supported with cURL < 7.44.0"
 msgstr "Задаването на постоянен публичен ключ не се поддържа от cURL < 7.44.0"
+
+#: http.c
+msgid "CURLSSLOPT_NO_REVOKE not suported with cURL < 7.44.0"
+msgstr "„CURLSSLOPT_NO_REVOKE“ не се поддържа от cURL < 7.44.0"
+
+#: http.c
+msgid "Protocol restrictions not supported with cURL < 7.19.4"
+msgstr "Ограничаването на протоколите не се поддържа от cURL < 7.44.0"
+
+#: http.c
+#, c-format
+msgid "Unsupported SSL backend '%s'. Supported SSL backends:"
+msgstr "Неподдържана реализация на SSL „%s“. Поддържат се:"
+
+#: http.c
+#, c-format
+msgid "Could not set SSL backend to '%s': cURL was built without SSL backends"
+msgstr ""
+"Реализацията на SSL не може да се зададе да е „%s“: cURL е компилиран без "
+"поддръжка на SSL"
+
+#: http.c
+#, c-format
+msgid "Could not set SSL backend to '%s': already set"
+msgstr ""
+"Реализацията на SSL не може да се зададе да е „%s“, защото вече е зададена "
+"друга"
 
 #: http.c
 #, c-format
@@ -17668,8 +19032,8 @@ msgid "Apply a patch to files and/or to the index"
 msgstr "Прилагане на кръпка към файловете и/или индекса"
 
 #: command-list.h
-msgid "Import an Arch repository into Git"
-msgstr "Внасяне на хранилище на Arch в Git"
+msgid "Import a GNU Arch repository into Git"
+msgstr "Внасяне на хранилище на GNU Arch в Git"
 
 #: command-list.h
 msgid "Create an archive of files from a named tree"
@@ -17753,7 +19117,7 @@ msgid "Record changes to the repository"
 msgstr "Подаване на промени в хранилището"
 
 #: command-list.h
-msgid "Write and verify Git commit graph files"
+msgid "Write and verify Git commit-graph files"
 msgstr "Запис и проверка на файловете с гра̀фа на подаванията на Git"
 
 #: command-list.h
@@ -17978,6 +19342,10 @@ msgstr "Изпълнение на програмите за коригиране
 #: command-list.h
 msgid "Show three-way merge without touching index"
 msgstr "Извеждане на тройно сливане без промяна на индекса"
+
+#: command-list.h
+msgid "Write and verify multi-pack-indexes"
+msgstr "Запис и проверка на индексите за множество пакети"
 
 #: command-list.h
 msgid "Creates a tag object"
@@ -18538,66 +19906,12 @@ msgstr "Опит за просто сливане с „$pretty_name“"
 msgid "Simple merge did not work, trying automatic merge."
 msgstr "Простото сливане не сработи, пробва се автоматично сливане."
 
-#: git-rebase.sh
-msgid ""
-"Resolve all conflicts manually, mark them as resolved with\n"
-"\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
-"You can instead skip this commit: run \"git rebase --skip\".\n"
-"To abort and get back to the state before \"git rebase\", run \"git rebase --"
-"abort\"."
-msgstr ""
-"След коригирането на конфликтите, отбележете решаването им чрез:\n"
-"„git add/rm ФАЙЛ_С_КОНФЛИКТ…“ и изпълнете „git rebase --continue“.\n"
-"Ако предпочитате да прескочите тази кръпка, изпълнете „git rebase --skip“.\n"
-"За да откажете пребазирането и да се върнете към първоначалното състояние,\n"
-"изпълнете „git rebase --abort“."
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Could not move back to $head_name"
 msgstr "Връщането към „${head_name}“ е невъзможно"
 
-#: git-rebase.sh
-msgid "Applied autostash."
-msgstr "Автоматично скатаното е приложено."
-
-#: git-rebase.sh
-#, sh-format
-msgid "Cannot store $stash_sha1"
-msgstr "„${stash_sha1}“ не може да бъде запазен"
-
-#: git-rebase.sh
-msgid "The pre-rebase hook refused to rebase."
-msgstr "Куката за изпълнение преди пребазиране отхвърли пребазирането."
-
-#: git-rebase.sh
-msgid "It looks like 'git am' is in progress. Cannot rebase."
-msgstr ""
-"Изглежда, че сега се прилагат кръпки чрез командата „git-am“.  Не може да "
-"пребазирате в момента."
-
-#: git-rebase.sh
-msgid "No rebase in progress?"
-msgstr "Изглежда в момента не тече пребазиране"
-
-#: git-rebase.sh
-msgid "The --edit-todo action can only be used during interactive rebase."
-msgstr ""
-"Опцията „--edit-todo“ е достъпна само по време на интерактивно пребазиране."
-
-#: git-rebase.sh
-msgid "Cannot read HEAD"
-msgstr "Указателят „HEAD“ не може да бъде прочетен"
-
-#: git-rebase.sh
-msgid ""
-"You must edit all merge conflicts and then\n"
-"mark them as resolved using git add"
-msgstr ""
-"Трябва да редактирате всички конфликти при сливането.  След това\n"
-"отбележете коригирането им чрез командата „git add“"
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid ""
 "It seems that there is already a $state_dir_base directory, and\n"
@@ -18618,97 +19932,65 @@ msgstr ""
 "за\n"
 "да не загубите случайно промени."
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 msgid "error: cannot combine '--signoff' with '--preserve-merges'"
 msgstr "грешка: опциите „--signoff“ и „--preserve-merges“ са несъвместими"
 
-#: git-rebase.sh
-msgid "error: cannot combine '--preserve_merges' with '--rebase-merges'"
-msgstr ""
-"грешка: опциите „--preserve-merges“ и „--rebase-merges“ са несъвместими"
-
-#: git-rebase.sh
-msgid "error: cannot combine '--rebase_merges' with '--strategy-option'"
-msgstr ""
-"грешка: опциите „--rebase_merges“ и „--strategy-option“ са несъвместими"
-
-#: git-rebase.sh
-msgid "error: cannot combine '--rebase_merges' with '--strategy'"
-msgstr "грешка: опциите „--rebase_merges“ и „--strategy“ са несъвместими"
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "invalid upstream '$upstream_name'"
 msgstr "неправилна основа за сравнение „${upstream_name}“"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "$onto_name: there are more than one merge bases"
 msgstr ""
 "указателят „${onto_name}“ може да сочи към повече от една основа за "
 "пребазирането"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "$onto_name: there is no merge base"
 msgstr "указателят „${onto_name}“ не сочи към никаква основа за пребазирането"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Does not point to a valid commit: $onto_name"
 msgstr "Указателят „${onto_name}“ не сочи към подаване"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "fatal: no such branch/commit '$branch_name'"
 msgstr "ФАТАЛНА ГРЕШКА: не съществува клон „${branch_name}“"
 
-#: git-rebase.sh
-msgid "Cannot autostash"
-msgstr "Не може да се скатае автоматично"
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Created autostash: $stash_abbrev"
 msgstr "Автоматично скатано: „${stash_abbrev}“"
 
-#: git-rebase.sh
-msgid "Please commit or stash them."
-msgstr "Промените трябва или да се подадат, или да се скатаят."
-
-#: git-rebase.sh
-#, sh-format
-msgid "HEAD is up to date."
-msgstr "Указателят „HEAD“ е напълно актуален"
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Current branch $branch_name is up to date."
 msgstr "Текущият клон „${branch_name}“ е напълно актуален."
 
-#: git-rebase.sh
-#, sh-format
-msgid "HEAD is up to date, rebase forced."
-msgstr "Указателят „HEAD“ е напълно актуален.  Пребазирането е принудително."
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Current branch $branch_name is up to date, rebase forced."
 msgstr ""
 "Текущият клон „${branch_name}“ е напълно актуален.  Пребазирането е "
 "принудително."
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Changes from $mb to $onto:"
 msgstr "Промените от „${mb}“ към „${onto}“:"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 msgid "First, rewinding head to replay your work on top of it..."
 msgstr ""
 "Първо, указателят „HEAD“ започва да сочи към базата, върху която пребазирате…"
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Fast-forwarded $branch_name to $onto_name."
 msgstr "Превъртане на „${branch_name}“ върху „${onto_name}“."
@@ -19069,133 +20351,6 @@ msgstr ""
 msgid "See git-${cmd}(1) for details."
 msgstr "За повече информация погледнете ръководството на „git-${cmd}(1)“"
 
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"Commands:\n"
-"p, pick <commit> = use commit\n"
-"r, reword <commit> = use commit, but edit the commit message\n"
-"e, edit <commit> = use commit, but stop for amending\n"
-"s, squash <commit> = use commit, but meld into previous commit\n"
-"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
-"x, exec <command> = run command (the rest of the line) using shell\n"
-"d, drop <commit> = remove commit\n"
-"l, label <label> = label current HEAD with a name\n"
-"t, reset <label> = reset HEAD to a label\n"
-"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
-".       create a merge commit using the original merge commit's\n"
-".       message (or the oneline, if no original merge commit was\n"
-".       specified). Use -c <commit> to reword the commit message.\n"
-"\n"
-"These lines can be re-ordered; they are executed from top to bottom.\n"
-msgstr ""
-"\n"
-"Команди:\n"
-" p, pick — прилагане на подаването\n"
-" r, reword — прилагане на подаването, но смяна на съобщението му\n"
-" e, edit — прилагане на подаването и спиране при него за още промени\n"
-" s, squash — вкарване на подаването в предходното му\n"
-" f, fixup —  вкарване на подаването в предходното му, без смяна на "
-"съобщението\n"
-" x, exec — изпълнение на команда към обвивката: останалата част на реда\n"
-" d, drop — прескачане на подаването\n"
-" l, label ЕТИКЕТ — задаване на етикет на указаното от HEAD\n"
-" t, reset ЕТИКЕТ — занулявяне на HEAD към ЕТИКЕТа\n"
-" m, merge [-C ПОДАВАНЕ | -c ПОДАВАНЕ] ЕТИКЕТ [# ЕДИН_РЕД]\n"
-"        създаване на подаване със сливане със съобщението от първоначалното\n"
-"        подаване (или съобщението от ЕДИН_РЕД,  ако не е зададено подаване\n"
-"        със сливане.  С опцията „-c ПОДАВАНЕ“, може да смените съобщението.\n"
-"\n"
-"Може да променяте последователността на редовете — те се изпълняват\n"
-"последователно отгоре-надолу.\n"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
-msgstr ""
-"\n"
-"Не изтривайте редове.  Подаванията могат да се прескачат с командата "
-"„drop“.\n"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"If you remove a line here THAT COMMIT WILL BE LOST.\n"
-msgstr ""
-"\n"
-"Ако изтриете ред, съответстващото му подаване ще бъде ИЗТРИТО.\n"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "could not detach HEAD"
-msgstr "указателят „HEAD“ не може да се отдели"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"You are editing the todo file of an ongoing interactive rebase.\n"
-"To continue rebase after editing, run:\n"
-"    git rebase --continue\n"
-"\n"
-msgstr ""
-"\n"
-"В момента редактирате файла с командите на текущото интерактивно "
-"пребазиране.\n"
-"За да продължите пребазирането след това, изпълнете:\n"
-"    git rebase --continue\n"
-"\n"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Could not execute editor"
-msgstr "Текстовият редактор не може да бъде стартиран"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Could not checkout $switch_to"
-msgstr "„$switch_to“ не може да се изтегли"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "No HEAD?"
-msgstr "Липсва указател „HEAD“"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Could not create temporary $state_dir"
-msgstr "Временната директория „$state_dir“ не може да бъде създадена"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Could not mark as interactive"
-msgstr "Пребазирането не е интерактивно"
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
-msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
-msgstr[0] ""
-"Пребазиране на $shortrevisions върху $shortonto ($todocount команда)"
-msgstr[1] ""
-"Пребазиране на $shortrevisions върху $shortonto ($todocount команди)"
-
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"\tHowever, if you remove everything, the rebase will be aborted.\n"
-"\n"
-"\t"
-msgstr ""
-"\n"
-"    Ако изтриете всичко, пребазирането ще бъде преустановено.\n"
-"\n"
-"    "
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Note that empty commits are commented out"
-msgstr "Празните подавания са коментирани"
-
-#: git-rebase--interactive.sh
-msgid "Could not generate todo list"
-msgstr "Файлът с командите не може да се генерира"
-
 #: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Rebasing ($new_count/$total)"
@@ -19223,22 +20378,24 @@ msgid ""
 msgstr ""
 "\n"
 "Команди:\n"
-" p, pick ПОДАВАНЕ — прилагане на подаването\n"
+" p, pick ПОДАВАНЕ   — прилагане на подаването\n"
 " r, reword ПОДАВАНЕ — прилагане на подаването, но смяна на съобщението му\n"
-" e, edit ПОДАВАНЕ — прилагане на подаването и спиране при него за още "
+" e, edit ПОДАВАНЕ   — прилагане на подаването и спиране при него за още "
 "промени\n"
 " s, squash ПОДАВАНЕ — вкарване на подаването в предходното му\n"
-" f, fixup ПОДАВАНЕ —  вкарване на подаването в предходното му, без смяна на "
-"съобщението\n"
-" x, exec ПОДАВАНЕ — изпълнение на команда към обвивката: останалата част на "
-"реда\n"
-" d, drop ПОДАВАНЕ — прескачане на подаването\n"
-" l, label ЕТИКЕТ — задаване на етикет на указаното от HEAD\n"
-" t, reset ЕТИКЕТ — занулявяне на HEAD към ЕТИКЕТа\n"
+" f, fixup ПОДАВАНЕ  — вкарване на подаването в предходното му, без смяна на\n"
+"                      съобщението\n"
+" x, exec ПОДАВАНЕ   — изпълнение на команда към обвивката: останалата част "
+"на\n"
+"                      реда\n"
+" d, drop ПОДАВАНЕ   — прескачане на подаването\n"
+" l, label ЕТИКЕТ    — задаване на етикет на указаното от HEAD\n"
+" t, reset ЕТИКЕТ    — зануляване на HEAD към ЕТИКЕТа\n"
 " m, merge [-C ПОДАВАНЕ | -c ПОДАВАНЕ] ЕТИКЕТ [# ЕДИН_РЕД]\n"
-"        създаване на подаване със сливане със съобщението от първоначалното\n"
-"        подаване (или съобщението от ЕДИН_РЕД,  ако не е зададено подаване\n"
-"        със сливане.  С опцията „-c ПОДАВАНЕ“, може да смените съобщението.\n"
+"                    — създаване на подаване със сливане със съобщението от\n"
+"                      първоначалното подаване (или съобщението от ЕДИН_РЕД,\n"
+"                      ако не е зададено подаване със сливане.  С опцията\n"
+"                      „-c ПОДАВАНЕ“, може да смените съобщението.\n"
 "\n"
 "Може да променяте последователността на редовете — те се изпълняват\n"
 "последователно отгоре-надолу.\n"
@@ -19469,14 +20626,35 @@ msgid "Could not commit staged changes."
 msgstr "Промените в индекса не могат да бъдат подадени."
 
 #: git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"However, if you remove everything, the rebase will be aborted.\n"
-"\n"
-msgstr ""
-"\n"
-"Ако изтриете всичко, пребазирането ще бъде преустановено.\n"
-"\n"
+msgid "Could not execute editor"
+msgstr "Текстовият редактор не може да бъде стартиран"
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not checkout $switch_to"
+msgstr "„$switch_to“ не може да се изтегли"
+
+#: git-rebase--preserve-merges.sh
+msgid "No HEAD?"
+msgstr "Липсва указател „HEAD“"
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not create temporary $state_dir"
+msgstr "Временната директория „$state_dir“ не може да бъде създадена"
+
+#: git-rebase--preserve-merges.sh
+msgid "Could not mark as interactive"
+msgstr "Пребазирането не е интерактивно"
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
+msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
+msgstr[0] ""
+"Пребазиране на $shortrevisions върху $shortonto ($todocount команда)"
+msgstr[1] ""
+"Пребазиране на $shortrevisions върху $shortonto ($todocount команди)"
 
 #: git-rebase--preserve-merges.sh
 msgid "Could not init rewritten commits"
@@ -20156,7 +21334,7 @@ msgstr "Непозната стойност за „--confirm“: %s\n"
 #, perl-format
 msgid "warning: sendmail alias with quotes is not supported: %s\n"
 msgstr ""
-"ПРЕДУПРЕЖДЕНИЕ: синоними за sendmail съдържащи кавички („\"“) не се "
+"ПРЕДУПРЕЖДЕНИЕ: псевдоними за sendmail съдържащи кавички („\"“) не се "
 "поддържат: %s\n"
 
 #: git-send-email.perl
@@ -20291,7 +21469,7 @@ msgstr "На кой да се пратят е-писмата (незадължи
 #: git-send-email.perl
 #, perl-format
 msgid "fatal: alias '%s' expands to itself\n"
-msgstr "ФАТАЛНА ГРЕШКА: „%s“ е синоним на себе си\n"
+msgstr "ФАТАЛНА ГРЕШКА: „%s“ е псевдоним на себе си\n"
 
 #: git-send-email.perl
 msgid "Message-ID to be used as In-Reply-To for the first email (if any)? "
