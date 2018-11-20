@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-09-04 08:50+0800\n"
+"POT-Creation-Date: 2018-11-20 10:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -315,7 +315,7 @@ msgstr ""
 msgid "cannot checkout %s"
 msgstr ""
 
-#: apply.c setup.c
+#: apply.c midx.c setup.c
 #, c-format
 msgid "failed to read %s"
 msgstr ""
@@ -650,6 +650,7 @@ msgid "ensure at least <n> lines of context match"
 msgstr ""
 
 #: apply.c builtin/am.c builtin/interpret-trailers.c builtin/pack-objects.c
+#: builtin/rebase.c
 msgid "action"
 msgstr ""
 
@@ -679,7 +680,7 @@ msgstr ""
 
 #: apply.c builtin/add.c builtin/check-ignore.c builtin/commit.c
 #: builtin/count-objects.c builtin/fsck.c builtin/log.c builtin/mv.c
-#: builtin/read-tree.c
+#: builtin/read-tree.c builtin/rebase--interactive.c
 msgid "be verbose"
 msgstr ""
 
@@ -1140,7 +1141,7 @@ msgstr ""
 msgid "unrecognized header: %s%s (%d)"
 msgstr ""
 
-#: bundle.c sequencer.c builtin/commit.c
+#: bundle.c rerere.c sequencer.c builtin/commit.c
 #, c-format
 msgid "could not open '%s'"
 msgstr ""
@@ -1166,6 +1167,10 @@ msgid "The bundle requires this ref:"
 msgid_plural "The bundle requires these %d refs:"
 msgstr[0] ""
 msgstr[1] ""
+
+#: bundle.c
+msgid "unable to dup bundle descriptor"
+msgstr ""
 
 #: bundle.c
 msgid "Could not spawn pack-objects"
@@ -1230,6 +1235,26 @@ msgid ""
 msgstr ""
 
 #: commit.c
+#, c-format
+msgid "Commit %s has an untrusted GPG signature, allegedly by %s."
+msgstr ""
+
+#: commit.c
+#, c-format
+msgid "Commit %s has a bad GPG signature allegedly by %s."
+msgstr ""
+
+#: commit.c
+#, c-format
+msgid "Commit %s does not have a GPG signature."
+msgstr ""
+
+#: commit.c
+#, c-format
+msgid "Commit %s has a good GPG signature by %s\n"
+msgstr ""
+
+#: commit.c
 msgid ""
 "Warning: commit message did not conform to UTF-8.\n"
 "You may want to amend it after fixing the message, or set the config\n"
@@ -1277,6 +1302,18 @@ msgid "unable to get type of object %s"
 msgstr ""
 
 #: commit-graph.c
+msgid "Annotating commits in commit graph"
+msgstr ""
+
+#: commit-graph.c
+msgid "Computing commit graph generation numbers"
+msgstr ""
+
+#: commit-graph.c
+msgid "Finding commits for commit graph"
+msgstr ""
+
+#: commit-graph.c
 #, c-format
 msgid "error adding pack %s"
 msgstr ""
@@ -1295,13 +1332,17 @@ msgstr ""
 msgid "too many commits to write graph"
 msgstr ""
 
-#: commit-graph.c
+#: commit-graph.c midx.c
 #, c-format
 msgid "unable to create leading directories of %s"
 msgstr ""
 
 #: commit-graph.c
 msgid "the commit-graph file has incorrect checksum and is likely corrupt"
+msgstr ""
+
+#: commit-graph.c
+msgid "Verifying commits in commit graph"
 msgstr ""
 
 #: compat/obstack.c
@@ -1967,6 +2008,30 @@ msgid_plural "%<PRIuMAX> years ago"
 msgstr[0] ""
 msgstr[1] ""
 
+#: delta-islands.c
+msgid "Propagating island marks"
+msgstr ""
+
+#: delta-islands.c
+#, c-format
+msgid "bad tree object %s"
+msgstr ""
+
+#: delta-islands.c
+#, c-format
+msgid "failed to load island regex for '%s': %s"
+msgstr ""
+
+#: delta-islands.c
+#, c-format
+msgid "island regex from config has too many capture groups (max=%d)"
+msgstr ""
+
+#: delta-islands.c
+#, c-format
+msgid "Marked %d islands, done.\n"
+msgstr ""
+
 #: diffcore-order.c
 #, c-format
 msgid "failed to read orderfile '%s'"
@@ -2326,6 +2391,14 @@ msgid "error processing acks: %d"
 msgstr ""
 
 #: fetch-pack.c
+msgid "expected packfile to be sent after 'ready'"
+msgstr ""
+
+#: fetch-pack.c
+msgid "expected no other sections to be sent after no 'ready'"
+msgstr ""
+
+#: fetch-pack.c
 #, c-format
 msgid "error processing shallow info: %d"
 msgstr ""
@@ -2471,6 +2544,18 @@ msgid "The common Git guides are:"
 msgstr ""
 
 #: help.c
+msgid "See 'git help <command>' to read about a specific subcommand"
+msgstr ""
+
+#: help.c
+msgid "External commands"
+msgstr ""
+
+#: help.c
+msgid "Command aliases"
+msgstr ""
+
+#: help.c
 #, c-format
 msgid ""
 "'%s' appears to be a git command, but we were not\n"
@@ -2583,6 +2668,10 @@ msgid "multiple filter-specs cannot be combined"
 msgstr ""
 
 #: list-objects-filter-options.c
+msgid "only 'tree:0' is supported"
+msgstr ""
+
+#: list-objects-filter-options.c
 msgid "cannot change partial clone promisor remote"
 msgstr ""
 
@@ -2607,7 +2696,7 @@ msgstr ""
 msgid "failed to read the cache"
 msgstr ""
 
-#: merge.c builtin/am.c builtin/checkout.c builtin/clone.c
+#: merge.c rerere.c builtin/am.c builtin/checkout.c builtin/clone.c
 msgid "unable to write new index file"
 msgstr ""
 
@@ -2978,6 +3067,133 @@ msgstr ""
 msgid "Unable to write index."
 msgstr ""
 
+#: midx.c
+#, c-format
+msgid "multi-pack-index file %s is too small"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index signature 0x%08x does not match signature 0x%08x"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index version %d not recognized"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "hash version %u does not match"
+msgstr ""
+
+#: midx.c
+msgid "invalid chunk offset (too large)"
+msgstr ""
+
+#: midx.c
+msgid "terminating multi-pack-index chunk id appears earlier than expected"
+msgstr ""
+
+#: midx.c
+msgid "multi-pack-index missing required pack-name chunk"
+msgstr ""
+
+#: midx.c
+msgid "multi-pack-index missing required OID fanout chunk"
+msgstr ""
+
+#: midx.c
+msgid "multi-pack-index missing required OID lookup chunk"
+msgstr ""
+
+#: midx.c
+msgid "multi-pack-index missing required object offsets chunk"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "multi-pack-index pack names out of order: '%s' before '%s'"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "bad pack-int-id: %u (%u total packs"
+msgstr ""
+
+#: midx.c
+msgid "multi-pack-index stores a 64-bit offset, but off_t is too small"
+msgstr ""
+
+#: midx.c
+msgid "error preparing packfile from multi-pack-index"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to add packfile '%s'"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to open pack-index '%s'"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to locate object %d in packfile"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to clear multi-pack-index at %s"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid ""
+"oid fanout out of order: fanout[%d] = %<PRIx32> > %<PRIx32> = fanout[%d]"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "oid lookup out of order: oid[%d] = %s >= %s = oid[%d]"
+msgstr ""
+
+#: midx.c
+msgid "Verifying object offsets"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to load pack entry for oid[%d] = %s"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "failed to load pack-index for packfile %s"
+msgstr ""
+
+#: midx.c
+#, c-format
+msgid "incorrect object offset for oid[%d] = %s: %<PRIx64> != %<PRIx64>"
+msgstr ""
+
+#: name-hash.c
+#, c-format
+msgid "unable to create lazy_dir thread: %s"
+msgstr ""
+
+#: name-hash.c
+#, c-format
+msgid "unable to create lazy_name thread: %s"
+msgstr ""
+
+#: name-hash.c
+#, c-format
+msgid "unable to join lazy_name thread: %s"
+msgstr ""
+
 #: notes-merge.c
 #, c-format
 msgid ""
@@ -3203,6 +3419,15 @@ msgstr ""
 msgid "protocol error: bad line length %d"
 msgstr ""
 
+#: preload-index.c
+msgid "Refreshing index"
+msgstr ""
+
+#: preload-index.c
+#, c-format
+msgid "unable to create threaded lstat: %s"
+msgstr ""
+
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr ""
@@ -3230,6 +3455,10 @@ msgid "could not parse log for '%s'"
 msgstr ""
 
 #: read-cache.c
+msgid "Refresh index"
+msgstr ""
+
+#: read-cache.c
 #, c-format
 msgid ""
 "index.version set, but the value is invalid.\n"
@@ -3241,6 +3470,38 @@ msgstr ""
 msgid ""
 "GIT_INDEX_VERSION set, but the value is invalid.\n"
 "Using version %i"
+msgstr ""
+
+#: read-cache.c
+#, c-format
+msgid "malformed name field in the index, near path '%s'"
+msgstr ""
+
+#: read-cache.c rerere.c builtin/add.c builtin/check-ignore.c
+#: builtin/checkout.c builtin/clean.c builtin/commit.c builtin/diff-tree.c
+#: builtin/grep.c builtin/mv.c builtin/reset.c builtin/rm.c
+#: builtin/submodule--helper.c
+msgid "index file corrupt"
+msgstr ""
+
+#: read-cache.c
+#, c-format
+msgid "unable to create load_cache_entries thread: %s"
+msgstr ""
+
+#: read-cache.c
+#, c-format
+msgid "unable to join load_cache_entries thread: %s"
+msgstr ""
+
+#: read-cache.c
+#, c-format
+msgid "unable to create load_index_extensions thread: %s"
+msgstr ""
+
+#: read-cache.c
+#, c-format
+msgid "unable to join load_index_extensions thread: %s"
 msgstr ""
 
 #: read-cache.c sequencer.c wrapper.c builtin/merge.c
@@ -3261,6 +3522,65 @@ msgstr ""
 #: read-cache.c
 #, c-format
 msgid "unable to unlink: %s"
+msgstr ""
+
+#: rebase-interactive.c
+msgid ""
+"\n"
+"Commands:\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <command> = run command (the rest of the line) using shell\n"
+"b, break = stop here (continue rebase later with 'git rebase --continue')\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
+"\n"
+"These lines can be re-ordered; they are executed from top to bottom.\n"
+msgstr ""
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
+msgstr ""
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"If you remove a line here THAT COMMIT WILL BE LOST.\n"
+msgstr ""
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"You are editing the todo file of an ongoing interactive rebase.\n"
+"To continue rebase after editing, run:\n"
+"    git rebase --continue\n"
+"\n"
+msgstr ""
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"However, if you remove everything, the rebase will be aborted.\n"
+"\n"
+msgstr ""
+
+#: rebase-interactive.c git-rebase--preserve-merges.sh
+msgid "Note that empty commits are commented out"
+msgstr ""
+
+#: rebase-interactive.c sequencer.c
+#, c-format
+msgid "could not read '%s'."
 msgstr ""
 
 #: refs.c
@@ -3504,6 +3824,12 @@ msgstr ""
 #: ref-filter.c
 #, c-format
 msgid "unknown field name: %.*s"
+msgstr ""
+
+#: ref-filter.c
+#, c-format
+msgid ""
+"not a git repository, but the field '%.*s' requires access to object data"
 msgstr ""
 
 #: ref-filter.c
@@ -3754,6 +4080,103 @@ msgstr ""
 msgid "replace depth too high for object %s"
 msgstr ""
 
+#: rerere.c
+msgid "corrupt MERGE_RR"
+msgstr ""
+
+#: rerere.c
+msgid "unable to write rerere record"
+msgstr ""
+
+#: rerere.c sequencer.c
+#, c-format
+msgid "could not write '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "there were errors while writing '%s' (%s)"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "failed to flush '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "could not parse conflict hunks in '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "failed utime() on '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "writing '%s' failed"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Staged '%s' using previous resolution."
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Recorded resolution for '%s'."
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Resolved '%s' using previous resolution."
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "cannot unlink stray '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Recorded preimage for '%s'"
+msgstr ""
+
+#: rerere.c submodule.c builtin/submodule--helper.c
+#, c-format
+msgid "could not create directory '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "failed to update conflicted state in '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "no remembered resolution for '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "cannot unlink '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Updated preimage for '%s'"
+msgstr ""
+
+#: rerere.c
+#, c-format
+msgid "Forgot resolution for '%s'\n"
+msgstr ""
+
+#: rerere.c
+msgid "unable to open rr-cache directory"
+msgstr ""
+
 #: revision.c
 msgid "your current branch appears to be broken"
 msgstr ""
@@ -3769,6 +4192,11 @@ msgstr ""
 
 #: run-command.c
 msgid "open /dev/null failed"
+msgstr ""
+
+#: run-command.c
+#, c-format
+msgid "cannot create async thread: %s"
 msgstr ""
 
 #: run-command.c
@@ -3869,7 +4297,7 @@ msgstr ""
 msgid "failed to finalize '%s'"
 msgstr ""
 
-#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
+#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c builtin/rebase.c
 #, c-format
 msgid "could not read '%s'"
 msgstr ""
@@ -3906,12 +4334,46 @@ msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid "could not parse '%s' (looking for '%s')"
+msgid "no key present in '%.*s'"
 msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid "bad quoting on %s value in '%s'"
+msgid "unable to dequote value of '%s'"
+msgstr ""
+
+#: sequencer.c wrapper.c builtin/am.c builtin/merge.c
+#, c-format
+msgid "could not open '%s' for reading"
+msgstr ""
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_NAME' already given"
+msgstr ""
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_EMAIL' already given"
+msgstr ""
+
+#: sequencer.c
+msgid "'GIT_AUTHOR_DATE' already given"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "unknown variable '%s'"
+msgstr ""
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_NAME'"
+msgstr ""
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_EMAIL'"
+msgstr ""
+
+#: sequencer.c
+msgid "missing 'GIT_AUTHOR_DATE'"
 msgstr ""
 
 #: sequencer.c
@@ -4160,11 +4622,6 @@ msgid "cannot '%s' without a previous commit"
 msgstr ""
 
 #: sequencer.c
-#, c-format
-msgid "could not read '%s'."
-msgstr ""
-
-#: sequencer.c
 msgid "please fix this using 'git rebase --edit-todo'."
 msgstr ""
 
@@ -4296,7 +4753,7 @@ msgstr ""
 msgid "could not copy '%s' to '%s'"
 msgstr ""
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 msgid "could not read index"
 msgstr ""
 
@@ -4338,12 +4795,12 @@ msgstr ""
 msgid "writing squash-onto"
 msgstr ""
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid "failed to find tree of %s"
 msgstr ""
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 msgid "could not write index"
 msgstr ""
 
@@ -4377,11 +4834,6 @@ msgstr ""
 
 #: sequencer.c
 #, c-format
-msgid "could not write '%s'"
-msgstr ""
-
-#: sequencer.c
-#, c-format
 msgid "could not even attempt to merge '%.*s'"
 msgstr ""
 
@@ -4389,7 +4841,7 @@ msgstr ""
 msgid "merge: Unable to write new index file"
 msgstr ""
 
-#: sequencer.c
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid "Applied autostash.\n"
 msgstr ""
@@ -4399,12 +4851,36 @@ msgstr ""
 msgid "cannot store %s"
 msgstr ""
 
-#: sequencer.c git-rebase.sh
+#: sequencer.c builtin/rebase.c
 #, c-format
 msgid ""
 "Applying autostash resulted in conflicts.\n"
 "Your changes are safe in the stash.\n"
 "You can run \"git stash pop\" or \"git stash drop\" at any time.\n"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "could not checkout %s"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "%s: not a valid OID"
+msgstr ""
+
+#: sequencer.c git-rebase--preserve-merges.sh
+msgid "could not detach HEAD"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "Stopped at HEAD\n"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "Stopped at %s\n"
 msgstr ""
 
 #: sequencer.c
@@ -4538,6 +5014,30 @@ msgid ""
 "You can fix this with 'git rebase --edit-todo' and then run 'git rebase --"
 "continue'.\n"
 "Or you can abort the rebase with 'git rebase --abort'.\n"
+msgstr ""
+
+#: sequencer.c
+msgid "nothing to do"
+msgstr ""
+
+#: sequencer.c
+#, c-format
+msgid "Rebase %s onto %s (%d command)"
+msgid_plural "Rebase %s onto %s (%d commands)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: sequencer.c
+#, c-format
+msgid "could not copy '%s' to '%s'."
+msgstr ""
+
+#: sequencer.c
+msgid "could not transform the todo list"
+msgstr ""
+
+#: sequencer.c
+msgid "could not skip unnecessary pick commands"
 msgstr ""
 
 #: sequencer.c
@@ -4970,11 +5470,6 @@ msgstr ""
 
 #: submodule.c
 #, c-format
-msgid "Could not update .gitmodules entry %s"
-msgstr ""
-
-#: submodule.c
-#, c-format
 msgid "Could not remove .gitmodules entry for %s"
 msgstr ""
 
@@ -5018,11 +5513,6 @@ msgstr ""
 
 #: submodule.c
 #, c-format
-msgid "Could not unset core.worktree setting in submodule '%s'"
-msgstr ""
-
-#: submodule.c
-#, c-format
 msgid "submodule '%s' has dirty index"
 msgstr ""
 
@@ -5040,11 +5530,6 @@ msgstr ""
 #: submodule.c
 #, c-format
 msgid "could not lookup name for submodule '%s'"
-msgstr ""
-
-#: submodule.c builtin/submodule--helper.c
-#, c-format
-msgid "could not create directory '%s'"
 msgstr ""
 
 #: submodule.c
@@ -5080,7 +5565,17 @@ msgstr ""
 
 #: submodule-config.c
 #, c-format
+msgid "ignoring '%s' which may be interpreted as a command-line option: %s"
+msgstr ""
+
+#: submodule-config.c
+#, c-format
 msgid "invalid value for %s"
+msgstr ""
+
+#: submodule-config.c
+#, c-format
+msgid "Could not update .gitmodules entry %s"
 msgstr ""
 
 #: trailer.c
@@ -5571,6 +6066,13 @@ msgstr ""
 msgid "Checking out files"
 msgstr ""
 
+#: unpack-trees.c
+msgid ""
+"the following paths have collided (e.g. case-sensitive paths\n"
+"on a case-insensitive filesystem) and only one from the same\n"
+"colliding group is in the working tree:\n"
+msgstr ""
+
 #: urlmatch.c
 msgid "invalid URL scheme name or missing '://' suffix"
 msgstr ""
@@ -5633,11 +6135,6 @@ msgstr ""
 #: wrapper.c
 #, c-format
 msgid "could not open '%s' for reading and writing"
-msgstr ""
-
-#: wrapper.c builtin/am.c builtin/merge.c
-#, c-format
-msgid "could not open '%s' for reading"
 msgstr ""
 
 #: wrapper.c
@@ -6114,11 +6611,6 @@ msgstr ""
 msgid "cannot %s: Your index contains uncommitted changes."
 msgstr ""
 
-#: compat/precompose_utf8.c builtin/clone.c
-#, c-format
-msgid "failed to unlink '%s'"
-msgstr ""
-
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr ""
@@ -6293,12 +6785,6 @@ msgstr ""
 msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr ""
 
-#: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/diff-tree.c builtin/grep.c builtin/mv.c
-#: builtin/reset.c builtin/rm.c builtin/submodule--helper.c
-msgid "index file corrupt"
-msgstr ""
-
 #: builtin/am.c
 msgid "could not parse author script"
 msgstr ""
@@ -6373,6 +6859,10 @@ msgstr ""
 #: builtin/am.c
 #, c-format
 msgid "To restore the original branch and stop patching, run \"%s --abort\"."
+msgstr ""
+
+#: builtin/am.c
+msgid "Patch sent with format=flowed; space at the end of lines might be lost."
 msgstr ""
 
 #: builtin/am.c
@@ -6555,8 +7045,8 @@ msgid "pass it through git-apply"
 msgstr ""
 
 #: builtin/am.c builtin/commit.c builtin/fmt-merge-msg.c builtin/grep.c
-#: builtin/merge.c builtin/pull.c builtin/repack.c builtin/show-branch.c
-#: builtin/show-ref.c builtin/tag.c parse-options.h
+#: builtin/merge.c builtin/pull.c builtin/rebase.c builtin/repack.c
+#: builtin/show-branch.c builtin/show-ref.c builtin/tag.c parse-options.h
 msgid "n"
 msgstr ""
 
@@ -6606,11 +7096,12 @@ msgid "use current timestamp for author date"
 msgstr ""
 
 #: builtin/am.c builtin/commit.c builtin/merge.c builtin/pull.c
-#: builtin/revert.c builtin/tag.c
+#: builtin/rebase.c builtin/rebase--interactive.c builtin/revert.c
+#: builtin/tag.c
 msgid "key-id"
 msgstr ""
 
-#: builtin/am.c
+#: builtin/am.c builtin/rebase.c builtin/rebase--interactive.c
 msgid "GPG-sign commits"
 msgstr ""
 
@@ -7089,7 +7580,7 @@ msgstr ""
 msgid "do not use"
 msgstr ""
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/rebase--interactive.c
 msgid "upstream"
 msgstr ""
 
@@ -7155,10 +7646,6 @@ msgstr ""
 
 #: builtin/branch.c
 msgid "create the branch's reflog"
-msgstr ""
-
-#: builtin/branch.c
-msgid "deprecated synonym for --create-reflog"
 msgstr ""
 
 #: builtin/branch.c
@@ -7309,6 +7796,10 @@ msgstr ""
 msgid ""
 "git cat-file (--batch | --batch-check) [--follow-symlinks] [--textconv | --"
 "filters]"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "only one batch option may be specified"
 msgstr ""
 
 #: builtin/cat-file.c
@@ -8051,7 +8542,7 @@ msgstr ""
 msgid "create a shallow clone of that depth"
 msgstr ""
 
-#: builtin/clone.c builtin/fetch.c builtin/pack-objects.c parse-options.h
+#: builtin/clone.c builtin/fetch.c builtin/pack-objects.c
 msgid "time"
 msgstr ""
 
@@ -8059,7 +8550,7 @@ msgstr ""
 msgid "create a shallow clone since a specific time"
 msgstr ""
 
-#: builtin/clone.c builtin/fetch.c
+#: builtin/clone.c builtin/fetch.c builtin/rebase.c
 msgid "revision"
 msgstr ""
 
@@ -8127,6 +8618,11 @@ msgstr ""
 #: builtin/clone.c
 #, c-format
 msgid "failed to stat %s\n"
+msgstr ""
+
+#: builtin/clone.c
+#, c-format
+msgid "failed to unlink '%s'"
 msgstr ""
 
 #: builtin/clone.c
@@ -8601,7 +9097,7 @@ msgstr ""
 msgid "terminate entries with NUL"
 msgstr ""
 
-#: builtin/commit.c builtin/fast-export.c builtin/tag.c
+#: builtin/commit.c builtin/fast-export.c builtin/rebase.c builtin/tag.c
 msgid "mode"
 msgstr ""
 
@@ -8681,7 +9177,7 @@ msgstr ""
 msgid "commit message"
 msgstr ""
 
-#: builtin/commit.c parse-options.h ref-filter.h
+#: builtin/commit.c ref-filter.h parse-options.h
 msgid "commit"
 msgstr ""
 
@@ -8889,6 +9385,10 @@ msgid "use repository config file"
 msgstr ""
 
 #: builtin/config.c
+msgid "use per-worktree config file"
+msgstr ""
+
+#: builtin/config.c
 msgid "use given config file"
 msgstr ""
 
@@ -9081,6 +9581,13 @@ msgstr ""
 
 #: builtin/config.c
 msgid "$HOME not set"
+msgstr ""
+
+#: builtin/config.c
+msgid ""
+"--worktree cannot be used with multiple working trees unless the config\n"
+"extension worktreeConfig is enabled. Please read \"CONFIGURATION FILE\"\n"
+"section in \"git help worktree\" for details"
 msgstr ""
 
 #: builtin/config.c
@@ -9473,7 +9980,7 @@ msgstr ""
 msgid "Skip output of blob data"
 msgstr ""
 
-#: builtin/fast-export.c
+#: builtin/fast-export.c builtin/log.c
 msgid "refspec"
 msgstr ""
 
@@ -9513,8 +10020,8 @@ msgstr ""
 msgid "path to upload pack on remote end"
 msgstr ""
 
-#: builtin/fetch.c builtin/pull.c
-msgid "force overwrite of local branch"
+#: builtin/fetch.c
+msgid "force overwrite of local reference"
 msgstr ""
 
 #: builtin/fetch.c
@@ -9635,6 +10142,10 @@ msgstr ""
 
 #: builtin/fetch.c
 msgid "unable to update local ref"
+msgstr ""
+
+#: builtin/fetch.c
+msgid "would clobber existing tag"
 msgstr ""
 
 #: builtin/fetch.c
@@ -9924,9 +10435,14 @@ msgstr ""
 msgid "Failed to fstat %s: %s"
 msgstr ""
 
-#: builtin/gc.c
+#: builtin/gc.c builtin/init-db.c
 #, c-format
-msgid "Can't stat %s"
+msgid "cannot stat '%s'"
+msgstr ""
+
+#: builtin/gc.c builtin/notes.c builtin/tag.c
+#, c-format
+msgid "cannot read '%s'"
 msgstr ""
 
 #: builtin/gc.c
@@ -10075,6 +10591,10 @@ msgstr ""
 
 #: builtin/grep.c
 msgid "process binary files with textconv filters"
+msgstr ""
+
+#: builtin/grep.c
+msgid "search in subdirectories (default)"
 msgstr ""
 
 #: builtin/grep.c
@@ -10230,13 +10750,17 @@ msgstr ""
 msgid "unable to resolve revision: %s"
 msgstr ""
 
-#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
-#, c-format
-msgid "invalid number of threads specified (%d)"
+#: builtin/grep.c
+msgid "invalid option combination, ignoring --threads"
 msgstr ""
 
 #: builtin/grep.c builtin/pack-objects.c
 msgid "no threads support, ignoring --threads"
+msgstr ""
+
+#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
+#, c-format
+msgid "invalid number of threads specified (%d)"
 msgstr ""
 
 #: builtin/grep.c
@@ -10384,9 +10908,14 @@ msgstr ""
 msgid "no info viewer handled the request"
 msgstr ""
 
-#: builtin/help.c
+#: builtin/help.c git.c
 #, c-format
 msgid "'%s' is aliased to '%s'"
+msgstr ""
+
+#: builtin/help.c
+#, c-format
+msgid "bad alias.%s string: %s"
 msgstr ""
 
 #: builtin/help.c
@@ -10689,11 +11218,6 @@ msgstr ""
 
 #: builtin/init-db.c
 #, c-format
-msgid "cannot stat '%s'"
-msgstr ""
-
-#: builtin/init-db.c
-#, c-format
 msgid "cannot stat template '%s'"
 msgstr ""
 
@@ -10843,6 +11367,10 @@ msgstr ""
 
 #: builtin/interpret-trailers.c
 msgid "set parsing options"
+msgstr ""
+
+#: builtin/interpret-trailers.c
+msgid "do not treat --- specially"
 msgstr ""
 
 #: builtin/interpret-trailers.c
@@ -10998,6 +11526,10 @@ msgid "cannot get patch id"
 msgstr ""
 
 #: builtin/log.c
+msgid "failed to infer range-diff ranges"
+msgstr ""
+
+#: builtin/log.c
 msgid "use [PATCH n/m] even with a single patch"
 msgstr ""
 
@@ -11150,6 +11682,22 @@ msgid "show progress while generating patches"
 msgstr ""
 
 #: builtin/log.c
+msgid "rev"
+msgstr ""
+
+#: builtin/log.c
+msgid "show changes against <rev> in cover letter or single patch"
+msgstr ""
+
+#: builtin/log.c
+msgid "show changes against <refspec> in cover letter or single patch"
+msgstr ""
+
+#: builtin/log.c
+msgid "percentage by which creation is weighted"
+msgstr ""
+
+#: builtin/log.c
 #, c-format
 msgid "invalid ident line: %s"
 msgstr ""
@@ -11181,6 +11729,36 @@ msgstr ""
 #: builtin/log.c
 #, c-format
 msgid "Could not create directory '%s'"
+msgstr ""
+
+#: builtin/log.c
+msgid "--interdiff requires --cover-letter or single patch"
+msgstr ""
+
+#: builtin/log.c
+msgid "Interdiff:"
+msgstr ""
+
+#: builtin/log.c
+#, c-format
+msgid "Interdiff against v%d:"
+msgstr ""
+
+#: builtin/log.c
+msgid "--creation-factor requires --range-diff"
+msgstr ""
+
+#: builtin/log.c
+msgid "--range-diff requires --cover-letter or single patch"
+msgstr ""
+
+#: builtin/log.c
+msgid "Range-diff:"
+msgstr ""
+
+#: builtin/log.c
+#, c-format
+msgid "Range-diff against v%d:"
 msgstr ""
 
 #: builtin/log.c
@@ -11321,7 +11899,7 @@ msgstr ""
 msgid "do not print remote URL"
 msgstr ""
 
-#: builtin/ls-remote.c
+#: builtin/ls-remote.c builtin/rebase.c
 msgid "exec"
 msgstr ""
 
@@ -11465,7 +12043,8 @@ msgstr ""
 msgid "verify that the named commit has a valid GPG signature"
 msgstr ""
 
-#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/revert.c
+#: builtin/merge.c builtin/notes.c builtin/pull.c builtin/rebase.c
+#: builtin/rebase--interactive.c builtin/revert.c
 msgid "strategy"
 msgstr ""
 
@@ -11679,26 +12258,6 @@ msgid "Can merge only exactly one commit into empty head"
 msgstr ""
 
 #: builtin/merge.c
-#, c-format
-msgid "Commit %s has an untrusted GPG signature, allegedly by %s."
-msgstr ""
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s has a bad GPG signature allegedly by %s."
-msgstr ""
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s does not have a GPG signature."
-msgstr ""
-
-#: builtin/merge.c
-#, c-format
-msgid "Commit %s has a good GPG signature by %s\n"
-msgstr ""
-
-#: builtin/merge.c
 msgid "refusing to merge unrelated histories"
 msgstr ""
 
@@ -11882,6 +12441,23 @@ msgstr ""
 
 #: builtin/mktree.c
 msgid "allow creation of more than one tree"
+msgstr ""
+
+#: builtin/multi-pack-index.c
+msgid "git multi-pack-index [--object-dir=<dir>] (write|verify)"
+msgstr ""
+
+#: builtin/multi-pack-index.c
+msgid "object directory containing set of packfile and pack-index pairs"
+msgstr ""
+
+#: builtin/multi-pack-index.c
+msgid "too many arguments"
+msgstr ""
+
+#: builtin/multi-pack-index.c
+#, c-format
+msgid "unrecognized verb: %s"
 msgstr ""
 
 #: builtin/mv.c
@@ -12154,11 +12730,6 @@ msgstr ""
 #: builtin/notes.c
 #, c-format
 msgid "the note contents have been left in %s"
-msgstr ""
-
-#: builtin/notes.c builtin/tag.c
-#, c-format
-msgid "cannot read '%s'"
 msgstr ""
 
 #: builtin/notes.c builtin/tag.c
@@ -12513,7 +13084,7 @@ msgstr ""
 
 #: builtin/pack-objects.c
 #, c-format
-msgid "object %s inconsistent object length (%lu vs %lu)"
+msgid "object %s inconsistent object length (%<PRIuMAX> vs %<PRIuMAX>)"
 msgstr ""
 
 #: builtin/pack-objects.c
@@ -12742,6 +13313,10 @@ msgid "do not pack objects in promisor packfiles"
 msgstr ""
 
 #: builtin/pack-objects.c
+msgid "respect islands during delta compression"
+msgstr ""
+
+#: builtin/pack-objects.c
 #, c-format
 msgid "delta chain depth %d is too deep, forcing %d"
 msgstr ""
@@ -12841,7 +13416,7 @@ msgstr ""
 msgid "incorporate changes by rebasing rather than merging"
 msgstr ""
 
-#: builtin/pull.c builtin/rebase--helper.c builtin/revert.c
+#: builtin/pull.c builtin/rebase--interactive.c builtin/revert.c
 msgid "allow fast-forward"
 msgstr ""
 
@@ -12851,6 +13426,10 @@ msgstr ""
 
 #: builtin/pull.c
 msgid "Options related to fetching"
+msgstr ""
+
+#: builtin/pull.c
+msgid "force overwrite of local branch"
 msgstr ""
 
 #: builtin/pull.c
@@ -12887,7 +13466,7 @@ msgid ""
 "for your current branch, you must specify a branch on the command line."
 msgstr ""
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "You are not currently on a branch."
 msgstr ""
 
@@ -12903,15 +13482,15 @@ msgstr ""
 msgid "See git-pull(1) for details."
 msgstr ""
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "<remote>"
 msgstr ""
 
-#: builtin/pull.c git-rebase.sh git-parse-remote.sh
+#: builtin/pull.c git-legacy-rebase.sh git-parse-remote.sh
 msgid "<branch>"
 msgstr ""
 
-#: builtin/pull.c git-parse-remote.sh
+#: builtin/pull.c builtin/rebase.c git-parse-remote.sh
 msgid "There is no tracking information for the current branch."
 msgstr ""
 
@@ -12925,6 +13504,11 @@ msgstr ""
 msgid ""
 "Your configuration specifies to merge with the ref '%s'\n"
 "from the remote, but no such ref was fetched."
+msgstr ""
+
+#: builtin/pull.c
+#, c-format
+msgid "unable to access commit %s"
 msgstr ""
 
 #: builtin/pull.c
@@ -13316,64 +13900,576 @@ msgstr ""
 msgid "debug unpack-trees"
 msgstr ""
 
-#: builtin/rebase--helper.c
-msgid "git rebase--helper [<options>]"
+#: builtin/rebase.c
+msgid ""
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] [<upstream>] "
+"[<branch>]"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase.c
+msgid ""
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] --root [<branch>]"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "git rebase --continue | --abort | --skip | --edit-todo"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "%s requires an interactive rebase"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not get 'onto': '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "invalid orig-head: '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "ignoring invalid allow_rerere_autoupdate: '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Could not read '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Cannot store %s"
+msgstr ""
+
+#: builtin/rebase.c
+msgid ""
+"Resolve all conflicts manually, mark them as resolved with\n"
+"\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
+"You can instead skip this commit: run \"git rebase --skip\".\n"
+"To abort and get back to the state before \"git rebase\", run \"git rebase --"
+"abort\"."
+msgstr ""
+
+#: builtin/rebase.c
+msgid "could not determine HEAD revision"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"%s\n"
+"Please specify which branch you want to rebase against.\n"
+"See git-rebase(1) for details.\n"
+"\n"
+"    git rebase '<branch>'\n"
+"\n"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"If you wish to set tracking information for this branch you can do so with:\n"
+"\n"
+"    git branch --set-upstream-to=%s/<branch> %s\n"
+"\n"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "rebase onto given branch instead of upstream"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "allow pre-rebase hook to run"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "be quiet. implies --no-stat"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "display a diffstat of what changed upstream"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "do not show diffstat of what changed upstream"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "add a Signed-off-by: line to each commit"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "passed to 'git am'"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "passed to 'git apply'"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "cherry-pick all commits, even if unchanged"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "continue"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "skip current patch and continue"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "abort and check out the original branch"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "abort but keep HEAD where it is"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "edit the todo list during an interactive rebase"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "show the patch file being applied or merged"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "use merging strategies to rebase"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "let the user edit the list of commits to rebase"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "try to recreate merges instead of ignoring them"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "allow rerere to update index  with resolved conflict"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "preserve empty commits during rebase"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "move commits that begin with squash!/fixup! under -i"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "automatically stash/stash pop before and after"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "add exec lines after each commit of the editable list"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "allow rebasing commits with empty messages"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "try to rebase merges instead of skipping them"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "use 'merge-base --fork-point' to refine upstream"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "use the given merge strategy"
+msgstr ""
+
+#: builtin/rebase.c builtin/revert.c
+msgid "option"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "pass the argument through to the merge strategy"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "rebase all reachable commits up to the root(s)"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not exec %s"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "It looks like 'git am' is in progress. Cannot rebase."
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "No rebase in progress?"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "The --edit-todo action can only be used during interactive rebase."
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Cannot read HEAD"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid ""
+"You must edit all merge conflicts and then\n"
+"mark them as resolved using git add"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "could not discard worktree changes"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not move back to %s"
+msgstr ""
+
+#: builtin/rebase.c builtin/rm.c
+#, c-format
+msgid "could not remove '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"It seems that there is already a %s directory, and\n"
+"I wonder if you are in the middle of another rebase.  If that is the\n"
+"case, please try\n"
+"\t%s\n"
+"If that is not the case, please\n"
+"\t%s\n"
+"and run me again.  I am stopping in case you still have something\n"
+"valuable there.\n"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "switch `C' expects a numerical value"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Unknown mode: %s"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "--strategy requires --merge or --interactive"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"error: cannot combine interactive options (--interactive, --exec, --rebase-"
+"merges, --preserve-merges, --keep-empty, --root + --onto) with am options "
+"(%s)"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid ""
+"error: cannot combine merge options (--merge, --strategy, --strategy-option) "
+"with am options (%s)"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--preserve-merges' with '--rebase-merges'"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--rebase-merges' with '--strategy-option'"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "error: cannot combine '--rebase-merges' with '--strategy'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "invalid upstream '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "Could not create new root commit"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "'%s': need exactly one merge base"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Does not point to a valid commit '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "fatal: no such branch/commit '%s'"
+msgstr ""
+
+#: builtin/rebase.c builtin/submodule--helper.c
+#, c-format
+msgid "No such ref: %s"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "Could not resolve HEAD to a revision"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Cannot autostash"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Unexpected stash response: '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Could not create directory for '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Created autostash: %s\n"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "could not reset --hard"
+msgstr ""
+
+#: builtin/rebase.c builtin/reset.c
+#, c-format
+msgid "HEAD is now at %s"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "Please commit or stash them."
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not parse '%s'"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not switch to %s"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+#, sh-format
+msgid "HEAD is up to date."
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Current branch %s is up to date.\n"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+#, sh-format
+msgid "HEAD is up to date, rebase forced."
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Current branch %s is up to date, rebase forced.\n"
+msgstr ""
+
+#: builtin/rebase.c git-legacy-rebase.sh
+msgid "The pre-rebase hook refused to rebase."
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Changes from %s to %s:\n"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "First, rewinding head to replay your work on top of it...\n"
+msgstr ""
+
+#: builtin/rebase.c
+msgid "Could not detach HEAD"
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "Fast-forwarded %s to %s. \n"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "no HEAD?"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+#, c-format
+msgid "could not create temporary %s"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "could not mark as interactive"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+#, c-format
+msgid "could not open %s"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "could not generate todo list"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "git rebase--interactive [<options>]"
+msgstr ""
+
+#: builtin/rebase--interactive.c
 msgid "keep empty commits"
 msgstr ""
 
-#: builtin/rebase--helper.c builtin/revert.c
+#: builtin/rebase--interactive.c builtin/revert.c
 msgid "allow commits with empty messages"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "rebase merge commits"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "keep original branch points of cousins"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "move commits that begin with squash!/fixup!"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "sign commits"
+msgstr ""
+
+#: builtin/rebase--interactive.c
 msgid "continue rebase"
 msgstr ""
 
-#: builtin/rebase--helper.c
-msgid "abort rebase"
+#: builtin/rebase--interactive.c
+msgid "skip commit"
 msgstr ""
 
-#: builtin/rebase--helper.c
-msgid "make rebase script"
+#: builtin/rebase--interactive.c
+msgid "edit the todo list"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "show the current patch"
+msgstr ""
+
+#: builtin/rebase--interactive.c
 msgid "shorten commit ids in the todo list"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "expand commit ids in the todo list"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "check the todo list"
 msgstr ""
 
-#: builtin/rebase--helper.c
-msgid "skip unnecessary picks"
-msgstr ""
-
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "rearrange fixup/squash lines"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
 msgid "insert exec commands in todo list"
 msgstr ""
 
-#: builtin/rebase--helper.c
+#: builtin/rebase--interactive.c
+msgid "onto"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "restrict-revision"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "restrict revision"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "squash-onto"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "squash onto"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "the upstream commit"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "head-name"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "head name"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "rebase strategy"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "strategy-opts"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "strategy options"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "switch-to"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "the branch or commit to checkout"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "onto-name"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "onto name"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "cmd"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "the command to run"
+msgstr ""
+
+#: builtin/rebase--interactive.c
 msgid "--[no-]rebase-cousins has no effect without --rebase-merges"
+msgstr ""
+
+#: builtin/rebase--interactive.c
+msgid "a base commit must be provided with --upstream or --onto"
 msgstr ""
 
 #: builtin/receive-pack.c
@@ -13579,7 +14675,7 @@ msgstr ""
 
 #: builtin/remote.c
 #, c-format
-msgid "No such remote: %s"
+msgid "No such remote: '%s'"
 msgstr ""
 
 #: builtin/remote.c
@@ -13959,6 +15055,10 @@ msgid "write bitmap index"
 msgstr ""
 
 #: builtin/repack.c
+msgid "pass --delta-islands to git-pack-objects"
+msgstr ""
+
+#: builtin/repack.c
 msgid "approxidate"
 msgstr ""
 
@@ -14010,7 +15110,7 @@ msgstr ""
 msgid "--keep-unreachable and -A are incompatible"
 msgstr ""
 
-#: builtin/repack.c builtin/worktree.c
+#: builtin/repack.c
 #, c-format
 msgid "failed to remove '%s'"
 msgstr ""
@@ -14261,6 +15361,15 @@ msgstr ""
 msgid "register clean resolutions in index"
 msgstr ""
 
+#: builtin/rerere.c
+msgid "'git rerere forget' without paths is deprecated"
+msgstr ""
+
+#: builtin/rerere.c
+#, c-format
+msgid "unable to generate diff for '%s'"
+msgstr ""
+
 #: builtin/reset.c
 msgid ""
 "git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]"
@@ -14305,11 +15414,6 @@ msgstr ""
 #: builtin/reset.c
 #, c-format
 msgid "Failed to find tree of %s."
-msgstr ""
-
-#: builtin/reset.c
-#, c-format
-msgid "HEAD is now at %s"
 msgstr ""
 
 #: builtin/reset.c
@@ -14375,6 +15479,15 @@ msgstr ""
 
 #: builtin/reset.c
 msgid "Unstaged changes after reset:"
+msgstr ""
+
+#: builtin/reset.c
+#, c-format
+msgid ""
+"\n"
+"It took %.2f seconds to enumerate unstaged changes after reset.  You can\n"
+"use '--quiet' to avoid this.  Set the config setting reset.quiet to true\n"
+"to make this the default.\n"
 msgstr ""
 
 #: builtin/reset.c
@@ -14486,10 +15599,6 @@ msgid "merge strategy"
 msgstr ""
 
 #: builtin/revert.c
-msgid "option"
-msgstr ""
-
-#: builtin/revert.c
 msgid "option for merge strategy"
 msgstr ""
 
@@ -14583,11 +15692,6 @@ msgstr ""
 #: builtin/rm.c
 #, c-format
 msgid "git rm: unable to remove %s"
-msgstr ""
-
-#: builtin/rm.c
-#, c-format
-msgid "could not remove '%s'"
 msgstr ""
 
 #: builtin/send-pack.c
@@ -14852,11 +15956,6 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 #, c-format
-msgid "No such ref: %s"
-msgstr ""
-
-#: builtin/submodule--helper.c
-#, c-format
 msgid "Expecting a full ref name, got %s"
 msgstr ""
 
@@ -14917,7 +16016,7 @@ msgstr ""
 #: builtin/submodule--helper.c
 #, c-format
 msgid ""
-"could not lookup configuration '%s'. Assuming this repository is its own "
+"could not look up configuration '%s'. Assuming this repository is its own "
 "authoritative upstream."
 msgstr ""
 
@@ -15118,6 +16217,16 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 #, c-format
+msgid "Invalid update mode '%s' for submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Invalid update mode '%s' configured for submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
 msgid "Submodule path '%s' not initialized"
 msgstr ""
 
@@ -15189,11 +16298,33 @@ msgid ""
 msgstr ""
 
 #: builtin/submodule--helper.c
+#, c-format
+msgid "could not get a repository handle for submodule '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
 msgid "recurse into submodules"
 msgstr ""
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper embed-git-dir [<path>...]"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "check if it is safe to write to the .gitmodules file"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper config name [value]"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper config --check-writeable"
+msgstr ""
+
+#: builtin/submodule--helper.c git-submodule.sh
+#, sh-format
+msgid "please make sure that the .gitmodules file is in the working tree"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -15785,6 +16916,11 @@ msgstr ""
 
 #: builtin/worktree.c
 #, c-format
+msgid "failed to delete '%s'"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
 msgid "Removing worktrees/%s: not a valid directory"
 msgstr ""
 
@@ -15826,6 +16962,25 @@ msgstr ""
 #: builtin/worktree.c
 #, c-format
 msgid "'%s' already exists"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "unable to re-add worktree '%s'"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid ""
+"'%s' is a missing but locked worktree;\n"
+"use 'add -f -f' to override, or 'unlock' and 'prune' or 'remove' to clear"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid ""
+"'%s' is a missing but already registered worktree;\n"
+"use 'add -f' to override, or 'prune' or 'remove' to clear"
 msgstr ""
 
 #: builtin/worktree.c
@@ -15922,6 +17077,10 @@ msgid "working trees containing submodules cannot be moved or removed"
 msgstr ""
 
 #: builtin/worktree.c
+msgid "force move even if worktree is dirty or locked"
+msgstr ""
+
+#: builtin/worktree.c
 #, c-format
 msgid "'%s' is a main working tree"
 msgstr ""
@@ -15938,11 +17097,15 @@ msgstr ""
 
 #: builtin/worktree.c
 #, c-format
-msgid "cannot move a locked working tree, lock reason: %s"
+msgid ""
+"cannot move a locked working tree, lock reason: %s\n"
+"use 'move -f -f' to override or unlock first"
 msgstr ""
 
 #: builtin/worktree.c
-msgid "cannot move a locked working tree"
+msgid ""
+"cannot move a locked working tree;\n"
+"use 'move -f -f' to override or unlock first"
 msgstr ""
 
 #: builtin/worktree.c
@@ -15971,21 +17134,20 @@ msgid "failed to run 'git status' on '%s', code %d"
 msgstr ""
 
 #: builtin/worktree.c
-#, c-format
-msgid "failed to delete '%s'"
-msgstr ""
-
-#: builtin/worktree.c
-msgid "force removing even if the worktree is dirty"
+msgid "force removal even if worktree is dirty or locked"
 msgstr ""
 
 #: builtin/worktree.c
 #, c-format
-msgid "cannot remove a locked working tree, lock reason: %s"
+msgid ""
+"cannot remove a locked working tree, lock reason: %s\n"
+"use 'remove -f -f' to override or unlock first"
 msgstr ""
 
 #: builtin/worktree.c
-msgid "cannot remove a locked working tree"
+msgid ""
+"cannot remove a locked working tree;\n"
+"use 'remove -f -f' to override or unlock first"
 msgstr ""
 
 #: builtin/worktree.c
@@ -16020,6 +17182,15 @@ msgstr ""
 
 #: credential-cache--daemon.c
 msgid "print debugging messages to stderr"
+msgstr ""
+
+#: t/helper/test-reach.c
+#, c-format
+msgid "commit %s is not marked reachable"
+msgstr ""
+
+#: t/helper/test-reach.c
+msgid "too many commits marked reachable"
 msgstr ""
 
 #: git.c
@@ -16076,6 +17247,11 @@ msgstr ""
 
 #: git.c
 #, c-format
+msgid "alias loop detected: expansion of '%s' does not terminate:%s"
+msgstr ""
+
+#: git.c
+#, c-format
 msgid "expansion of alias '%s' failed; '%s' is not a git command\n"
 msgstr ""
 
@@ -16095,6 +17271,29 @@ msgstr ""
 
 #: http.c
 msgid "Public key pinning not supported with cURL < 7.44.0"
+msgstr ""
+
+#: http.c
+msgid "CURLSSLOPT_NO_REVOKE not suported with cURL < 7.44.0"
+msgstr ""
+
+#: http.c
+msgid "Protocol restrictions not supported with cURL < 7.19.4"
+msgstr ""
+
+#: http.c
+#, c-format
+msgid "Unsupported SSL backend '%s'. Supported SSL backends:"
+msgstr ""
+
+#: http.c
+#, c-format
+msgid "Could not set SSL backend to '%s': cURL was built without SSL backends"
+msgstr ""
+
+#: http.c
+#, c-format
+msgid "Could not set SSL backend to '%s': already set"
 msgstr ""
 
 #: http.c
@@ -16155,7 +17354,7 @@ msgid "Apply a patch to files and/or to the index"
 msgstr ""
 
 #: command-list.h
-msgid "Import an Arch repository into Git"
+msgid "Import a GNU Arch repository into Git"
 msgstr ""
 
 #: command-list.h
@@ -16235,7 +17434,7 @@ msgid "Record changes to the repository"
 msgstr ""
 
 #: command-list.h
-msgid "Write and verify Git commit graph files"
+msgid "Write and verify Git commit-graph files"
 msgstr ""
 
 #: command-list.h
@@ -16448,6 +17647,10 @@ msgstr ""
 
 #: command-list.h
 msgid "Show three-way merge without touching index"
+msgstr ""
+
+#: command-list.h
+msgid "Write and verify multi-pack-indexes"
 msgstr ""
 
 #: command-list.h
@@ -16979,56 +18182,12 @@ msgstr ""
 msgid "Simple merge did not work, trying automatic merge."
 msgstr ""
 
-#: git-rebase.sh
-msgid ""
-"Resolve all conflicts manually, mark them as resolved with\n"
-"\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
-"You can instead skip this commit: run \"git rebase --skip\".\n"
-"To abort and get back to the state before \"git rebase\", run \"git rebase --"
-"abort\"."
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Could not move back to $head_name"
 msgstr ""
 
-#: git-rebase.sh
-msgid "Applied autostash."
-msgstr ""
-
-#: git-rebase.sh
-#, sh-format
-msgid "Cannot store $stash_sha1"
-msgstr ""
-
-#: git-rebase.sh
-msgid "The pre-rebase hook refused to rebase."
-msgstr ""
-
-#: git-rebase.sh
-msgid "It looks like 'git am' is in progress. Cannot rebase."
-msgstr ""
-
-#: git-rebase.sh
-msgid "No rebase in progress?"
-msgstr ""
-
-#: git-rebase.sh
-msgid "The --edit-todo action can only be used during interactive rebase."
-msgstr ""
-
-#: git-rebase.sh
-msgid "Cannot read HEAD"
-msgstr ""
-
-#: git-rebase.sh
-msgid ""
-"You must edit all merge conflicts and then\n"
-"mark them as resolved using git add"
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid ""
 "It seems that there is already a $state_dir_base directory, and\n"
@@ -17041,90 +18200,60 @@ msgid ""
 "valuable there."
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 msgid "error: cannot combine '--signoff' with '--preserve-merges'"
 msgstr ""
 
-#: git-rebase.sh
-msgid "error: cannot combine '--preserve_merges' with '--rebase-merges'"
-msgstr ""
-
-#: git-rebase.sh
-msgid "error: cannot combine '--rebase_merges' with '--strategy-option'"
-msgstr ""
-
-#: git-rebase.sh
-msgid "error: cannot combine '--rebase_merges' with '--strategy'"
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "invalid upstream '$upstream_name'"
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "$onto_name: there are more than one merge bases"
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "$onto_name: there is no merge base"
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Does not point to a valid commit: $onto_name"
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "fatal: no such branch/commit '$branch_name'"
 msgstr ""
 
-#: git-rebase.sh
-msgid "Cannot autostash"
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Created autostash: $stash_abbrev"
 msgstr ""
 
-#: git-rebase.sh
-msgid "Please commit or stash them."
-msgstr ""
-
-#: git-rebase.sh
-#, sh-format
-msgid "HEAD is up to date."
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Current branch $branch_name is up to date."
 msgstr ""
 
-#: git-rebase.sh
-#, sh-format
-msgid "HEAD is up to date, rebase forced."
-msgstr ""
-
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Current branch $branch_name is up to date, rebase forced."
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Changes from $mb to $onto:"
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 msgid "First, rewinding head to replay your work on top of it..."
 msgstr ""
 
-#: git-rebase.sh
+#: git-legacy-rebase.sh
 #, sh-format
 msgid "Fast-forwarded $branch_name to $onto_name."
 msgstr ""
@@ -17451,97 +18580,6 @@ msgstr ""
 msgid "See git-${cmd}(1) for details."
 msgstr ""
 
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"Commands:\n"
-"p, pick <commit> = use commit\n"
-"r, reword <commit> = use commit, but edit the commit message\n"
-"e, edit <commit> = use commit, but stop for amending\n"
-"s, squash <commit> = use commit, but meld into previous commit\n"
-"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
-"x, exec <command> = run command (the rest of the line) using shell\n"
-"d, drop <commit> = remove commit\n"
-"l, label <label> = label current HEAD with a name\n"
-"t, reset <label> = reset HEAD to a label\n"
-"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
-".       create a merge commit using the original merge commit's\n"
-".       message (or the oneline, if no original merge commit was\n"
-".       specified). Use -c <commit> to reword the commit message.\n"
-"\n"
-"These lines can be re-ordered; they are executed from top to bottom.\n"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"If you remove a line here THAT COMMIT WILL BE LOST.\n"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "could not detach HEAD"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"You are editing the todo file of an ongoing interactive rebase.\n"
-"To continue rebase after editing, run:\n"
-"    git rebase --continue\n"
-"\n"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Could not execute editor"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Could not checkout $switch_to"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "No HEAD?"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Could not create temporary $state_dir"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Could not mark as interactive"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-#, sh-format
-msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
-msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"\tHowever, if you remove everything, the rebase will be aborted.\n"
-"\n"
-"\t"
-msgstr ""
-
-#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
-msgid "Note that empty commits are commented out"
-msgstr ""
-
-#: git-rebase--interactive.sh
-msgid "Could not generate todo list"
-msgstr ""
-
 #: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Rebasing ($new_count/$total)"
@@ -17758,11 +18796,33 @@ msgid "Could not commit staged changes."
 msgstr ""
 
 #: git-rebase--preserve-merges.sh
-msgid ""
-"\n"
-"However, if you remove everything, the rebase will be aborted.\n"
-"\n"
+msgid "Could not execute editor"
 msgstr ""
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not checkout $switch_to"
+msgstr ""
+
+#: git-rebase--preserve-merges.sh
+msgid "No HEAD?"
+msgstr ""
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not create temporary $state_dir"
+msgstr ""
+
+#: git-rebase--preserve-merges.sh
+msgid "Could not mark as interactive"
+msgstr ""
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
+msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: git-rebase--preserve-merges.sh
 msgid "Could not init rewritten commits"
