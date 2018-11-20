@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2018-05-31 23:32+0800\n"
+"POT-Creation-Date: 2018-09-04 08:50+0800\n"
 "PO-Revision-Date: 2016-11-28 18:10+0100\n"
 "Last-Translator: Ralf Thielow <ralf.thielow@gmail.com>\n"
 "Language-Team: German <>\n"
@@ -619,8 +619,8 @@ msgstr[1] "%d Zeilen nach Behebung von Whitespace-Fehlern angewendet."
 msgid "Unable to write new index file"
 msgstr "Konnte neue Index-Datei nicht schreiben."
 
-#: apply.c builtin/am.c builtin/clone.c builtin/fetch.c builtin/pull.c
-#: builtin/submodule--helper.c git-add--interactive.perl
+#: apply.c builtin/am.c builtin/clone.c builtin/fetch.c builtin/merge.c
+#: builtin/pull.c builtin/submodule--helper.c git-add--interactive.perl
 msgid "path"
 msgstr "Pfad"
 
@@ -672,6 +672,10 @@ msgstr ""
 msgid "make sure the patch is applicable to the current index"
 msgstr ""
 "sicherstellen, dass der Patch mit dem aktuellen Index angewendet werden kann"
+
+#: apply.c
+msgid "mark new files with `git add --intent-to-add`"
+msgstr "neue Dateien mit `git add --intent-to-add` markieren"
 
 #: apply.c
 msgid "apply a patch without touching the working tree"
@@ -838,7 +842,7 @@ msgstr "Repository"
 msgid "retrieve the archive from remote repository <repo>"
 msgstr "Archiv vom Remote-Repository <Repository> abrufen"
 
-#: archive.c builtin/archive.c builtin/notes.c
+#: archive.c builtin/archive.c builtin/difftool.c builtin/notes.c
 msgid "command"
 msgstr "Programm"
 
@@ -867,6 +871,55 @@ msgstr "Unbekanntes Archivformat '%s'"
 #, c-format
 msgid "Argument not supported for format '%s': -%d"
 msgstr "Argument für Format '%s' nicht unterstützt: -%d"
+
+#: archive-tar.c archive-zip.c
+#, c-format
+msgid "cannot stream blob %s"
+msgstr "Kann Blob %s nicht streamen."
+
+#: archive-tar.c archive-zip.c
+#, c-format
+msgid "unsupported file mode: 0%o (SHA1: %s)"
+msgstr "Nicht unterstützter Dateimodus: 0%o (SHA1: %s)"
+
+#: archive-tar.c archive-zip.c
+#, c-format
+msgid "cannot read %s"
+msgstr "Kann %s nicht lesen."
+
+#: archive-tar.c
+#, c-format
+msgid "unable to start '%s' filter"
+msgstr "Konnte '%s' Filter nicht starten."
+
+#: archive-tar.c
+msgid "unable to redirect descriptor"
+msgstr "Konnte Descriptor nicht umleiten."
+
+#: archive-tar.c
+#, c-format
+msgid "'%s' filter reported error"
+msgstr "'%s' Filter meldete Fehler."
+
+#: archive-zip.c
+#, c-format
+msgid "path is not valid UTF-8: %s"
+msgstr "Pfad ist kein gültiges UTF-8: %s"
+
+#: archive-zip.c
+#, c-format
+msgid "path too long (%d chars, SHA1: %s): %s"
+msgstr "Pfad zu lang (%d Zeichen, SHA1: %s): %s"
+
+#: archive-zip.c builtin/pack-objects.c
+#, c-format
+msgid "deflate error (%d)"
+msgstr "Fehler beim Komprimieren (%d)"
+
+#: archive-zip.c
+#, c-format
+msgid "timestamp too large for this system: %<PRIuMAX>"
+msgstr "Timestamp zu groß für dieses System: %<PRIuMAX>"
 
 #: attr.c
 #, c-format
@@ -961,7 +1014,7 @@ msgstr "ein %s Commit wird benötigt"
 msgid "could not create file '%s'"
 msgstr "konnte Datei '%s' nicht erstellen"
 
-#: bisect.c
+#: bisect.c builtin/merge.c
 #, c-format
 msgid "could not read file '%s'"
 msgstr "Konnte Datei '%s' nicht lesen"
@@ -1018,7 +1071,7 @@ msgstr ""
 "Commits"
 
 #: blame.c bundle.c ref-filter.c sequencer.c builtin/commit.c builtin/log.c
-#: builtin/merge.c builtin/shortlog.c
+#: builtin/merge.c builtin/pack-objects.c builtin/shortlog.c
 msgid "revision walk setup failed"
 msgstr "Einrichtung des Revisionsgangs fehlgeschlagen"
 
@@ -1303,6 +1356,56 @@ msgstr ""
 
 #: commit-graph.c
 #, c-format
+msgid "graph file %s is too small"
+msgstr "Graph-Datei %s ist zu klein."
+
+#: commit-graph.c
+#, c-format
+msgid "graph signature %X does not match signature %X"
+msgstr "Graph-Signatur %X stimmt nicht mit Signatur %X überein."
+
+#: commit-graph.c
+#, c-format
+msgid "graph version %X does not match version %X"
+msgstr "Graph-Version %X stimmt nicht mit Version %X überein."
+
+#: commit-graph.c
+#, c-format
+msgid "hash version %X does not match version %X"
+msgstr "Hash-Version %X stimmt nicht mit Version %X überein."
+
+#: commit-graph.c
+#, c-format
+msgid "improper chunk offset %08x%08x"
+msgstr "Unzulässiger Chunk-Offset %08x%08x"
+
+#: commit-graph.c
+#, c-format
+msgid "chunk id %08x appears multiple times"
+msgstr "Chunk-Id %08x kommt mehrfach vor."
+
+#: commit-graph.c
+#, c-format
+msgid "could not find commit %s"
+msgstr "Konnte Commit %s nicht finden."
+
+#: commit-graph.c builtin/pack-objects.c
+#, c-format
+msgid "unable to get type of object %s"
+msgstr "Konnte Art von Objekt '%s' nicht bestimmen."
+
+#: commit-graph.c
+#, c-format
+msgid "error adding pack %s"
+msgstr "Fehler beim Hinzufügen von Paket %s."
+
+#: commit-graph.c
+#, c-format
+msgid "error opening index for %s"
+msgstr "Fehler beim Öffnen des Index für %s."
+
+#: commit-graph.c
+#, c-format
 msgid "the commit graph format cannot write %d commits"
 msgstr "Das Commit-Graph Format kann nicht %d Commits schreiben."
 
@@ -1310,14 +1413,45 @@ msgstr "Das Commit-Graph Format kann nicht %d Commits schreiben."
 msgid "too many commits to write graph"
 msgstr "Zu viele Commits zum Schreiben des Graphen."
 
-#: commit-graph.c builtin/init-db.c
+#: commit-graph.c
 #, c-format
-msgid "cannot mkdir %s"
-msgstr "kann Verzeichnis %s nicht erstellen"
+msgid "unable to create leading directories of %s"
+msgstr "Konnte führende Verzeichnisse von '%s' nicht erstellen."
+
+#: commit-graph.c
+msgid "the commit-graph file has incorrect checksum and is likely corrupt"
+msgstr ""
+"Die Commit-Graph-Datei hat eine falsche Prüfsumme und ist wahrscheinlich "
+"beschädigt."
 
 #: compat/obstack.c
 msgid "memory exhausted"
 msgstr "Speicher verbraucht"
+
+#: config.c
+#, c-format
+msgid ""
+"exceeded maximum include depth (%d) while including\n"
+"\t%s\n"
+"from\n"
+"\t%s\n"
+"This might be due to circular includes."
+msgstr ""
+"Maximale Include-Tiefe (%d) beim Einbinden von\n"
+"\t%s\n"
+"von\n"
+"\t%s\n"
+"überschritten.\n"
+"Das könnte durch zirkulare Includes entstanden sein."
+
+#: config.c
+#, c-format
+msgid "could not expand include path '%s'"
+msgstr "Konnte Include-Pfad '%s' nicht erweitern."
+
+#: config.c
+msgid "relative config includes must come from files"
+msgstr "Relative Includes von Konfigurationen müssen aus Dateien kommen."
 
 #: config.c
 msgid "relative config include conditionals must come from files"
@@ -1325,6 +1459,36 @@ msgstr ""
 "Bedingungen für das Einbinden von Konfigurationen aus relativen Pfaden "
 "müssen\n"
 "aus Dateien kommen."
+
+#: config.c
+#, c-format
+msgid "key does not contain a section: %s"
+msgstr "Schlüssel enthält keine Sektion: %s"
+
+#: config.c
+#, c-format
+msgid "key does not contain variable name: %s"
+msgstr "Schlüssel enthält keinen Variablennamen: %s"
+
+#: config.c sequencer.c
+#, c-format
+msgid "invalid key: %s"
+msgstr "Ungültiger Schlüssel: %s"
+
+#: config.c
+#, c-format
+msgid "invalid key (newline): %s"
+msgstr "Ungültiger Schlüssel (neue Zeile): %s"
+
+#: config.c
+#, c-format
+msgid "bogus config parameter: %s"
+msgstr "Fehlerhafter Konfigurationsparameter: %s"
+
+#: config.c
+#, c-format
+msgid "bogus format in %s"
+msgstr "Fehlerhaftes Format in %s"
 
 #: config.c
 #, c-format
@@ -1418,8 +1582,17 @@ msgstr "'%s' ist kein gültiger Zeitstempel für '%s'"
 
 #: config.c
 #, c-format
+msgid "abbrev length out of range: %d"
+msgstr "Länge für Abkürzung von Commit-IDs außerhalb des Bereichs: %d"
+
+#: config.c
+#, c-format
 msgid "bad zlib compression level %d"
 msgstr "ungültiger zlib Komprimierungsgrad %d"
+
+#: config.c
+msgid "core.commentChar should only be one character"
+msgstr "core.commentChar sollte nur ein Zeichen sein"
 
 #: config.c
 #, c-format
@@ -1428,8 +1601,43 @@ msgstr "Ungültiger Modus für Objekterstellung: %s"
 
 #: config.c
 #, c-format
+msgid "malformed value for %s"
+msgstr "Ungültiger Wert für %s."
+
+#: config.c
+#, c-format
+msgid "malformed value for %s: %s"
+msgstr "Ungültiger Wert für %s: %s"
+
+#: config.c
+msgid "must be one of nothing, matching, simple, upstream or current"
+msgstr ""
+"Muss einer von diesen sein: nothing, matching, simple, upstream, current"
+
+#: config.c builtin/pack-objects.c
+#, c-format
 msgid "bad pack compression level %d"
 msgstr "ungültiger Komprimierungsgrad (%d) für Paketierung"
+
+#: config.c
+#, c-format
+msgid "unable to load config blob object '%s'"
+msgstr "Konnte Blob-Objekt '%s' für Konfiguration nicht laden."
+
+#: config.c
+#, c-format
+msgid "reference '%s' does not point to a blob"
+msgstr "Referenz '%s' zeigt auf keinen Blob."
+
+#: config.c
+#, c-format
+msgid "unable to resolve config blob '%s'"
+msgstr "Konnte Blob '%s' für Konfiguration nicht auflösen."
+
+#: config.c
+#, c-format
+msgid "failed to parse %s"
+msgstr "Fehler beim Parsen von %s."
 
 #: config.c
 msgid "unable to parse command-line config"
@@ -1473,13 +1681,58 @@ msgstr "ungültige Konfigurationsvariable '%s' in Datei '%s' bei Zeile %d"
 
 #: config.c
 #, c-format
+msgid "invalid section name '%s'"
+msgstr "Ungültiger Sektionsname '%s'"
+
+#: config.c
+#, c-format
 msgid "%s has multiple values"
 msgstr "%s hat mehrere Werte"
 
 #: config.c
 #, c-format
+msgid "failed to write new configuration file %s"
+msgstr "Konnte neue Konfigurationsdatei '%s' nicht schreiben."
+
+#: config.c
+#, c-format
+msgid "could not lock config file %s"
+msgstr "Konnte Konfigurationsdatei '%s' nicht sperren."
+
+#: config.c
+#, c-format
+msgid "opening %s"
+msgstr "Öffne %s"
+
+#: config.c builtin/config.c
+#, c-format
+msgid "invalid pattern: %s"
+msgstr "Ungültiges Muster: %s"
+
+#: config.c
+#, c-format
+msgid "invalid config file %s"
+msgstr "Ungültige Konfigurationsdatei %s"
+
+#: config.c
+#, c-format
 msgid "fstat on %s failed"
 msgstr "fstat auf %s fehlgeschlagen"
+
+#: config.c
+#, c-format
+msgid "unable to mmap '%s'"
+msgstr "mmap für '%s' fehlgeschlagen"
+
+#: config.c
+#, c-format
+msgid "chmod on %s failed"
+msgstr "chmod auf %s fehlgeschlagen"
+
+#: config.c
+#, c-format
+msgid "could not write config file %s"
+msgstr "Konnte Konfigurationsdatei %s nicht schreiben."
 
 #: config.c
 #, c-format
@@ -1491,8 +1744,18 @@ msgstr "Konnte '%s' nicht zu '%s' setzen."
 msgid "could not unset '%s'"
 msgstr "Konnte '%s' nicht aufheben."
 
+#: config.c
+#, c-format
+msgid "invalid section name: %s"
+msgstr "Ungültiger Sektionsname: %s"
+
+#: config.c
+#, c-format
+msgid "missing value for '%s'"
+msgstr "Fehlender Wert für '%s'"
+
 #: connect.c
-msgid "The remote end hung up upon initial contact"
+msgid "the remote end hung up upon initial contact"
 msgstr "Die Gegenseite hat nach dem ersten Kontakt abgebrochen."
 
 #: connect.c
@@ -1507,6 +1770,157 @@ msgstr ""
 "Bitte stellen Sie sicher, dass die korrekten Zugriffsberechtigungen "
 "bestehen\n"
 "und das Repository existiert."
+
+#: connect.c
+#, c-format
+msgid "server doesn't support '%s'"
+msgstr "Der Server unterstützt kein '%s'."
+
+#: connect.c
+#, c-format
+msgid "server doesn't support feature '%s'"
+msgstr "Der Server unterstützt das Feature '%s' nicht."
+
+#: connect.c
+msgid "expected flush after capabilities"
+msgstr "Erwartete Flush nach Fähigkeiten."
+
+#: connect.c
+#, c-format
+msgid "ignoring capabilities after first line '%s'"
+msgstr "Ignoriere Fähigkeiten nach der ersten Zeile '%s'."
+
+#: connect.c
+msgid "protocol error: unexpected capabilities^{}"
+msgstr "Protokollfehler: unerwartetes capabilities^{}"
+
+#: connect.c
+#, c-format
+msgid "protocol error: expected shallow sha-1, got '%s'"
+msgstr "Protokollfehler: shallow SHA-1 erwartet, '%s' bekommen"
+
+#: connect.c
+msgid "repository on the other end cannot be shallow"
+msgstr ""
+"Repository auf der Gegenseite kann keine unvollständige Historie (shallow) "
+"enthalten"
+
+#: connect.c fetch-pack.c builtin/archive.c
+#, c-format
+msgid "remote error: %s"
+msgstr "Fehler am anderen Ende: %s"
+
+#: connect.c
+msgid "invalid packet"
+msgstr "Ungültiges Paket."
+
+#: connect.c
+#, c-format
+msgid "protocol error: unexpected '%s'"
+msgstr "Protokollfehler: unerwartetes '%s'"
+
+#: connect.c
+#, c-format
+msgid "invalid ls-refs response: %s"
+msgstr "Ungültige ls-refs Antwort: %s"
+
+#: connect.c
+msgid "expected flush after ref listing"
+msgstr "Erwartete Flush nach Auflistung der Referenzen."
+
+#: connect.c
+#, c-format
+msgid "protocol '%s' is not supported"
+msgstr "Protokoll '%s' wird nicht unterstützt."
+
+#: connect.c
+msgid "unable to set SO_KEEPALIVE on socket"
+msgstr "Kann SO_KEEPALIVE bei Socket nicht setzen."
+
+#: connect.c
+#, c-format
+msgid "Looking up %s ... "
+msgstr "Suche nach %s ..."
+
+#: connect.c
+#, c-format
+msgid "unable to look up %s (port %s) (%s)"
+msgstr "Fehler bei Suche nach %s (Port %s) (%s)."
+
+#. TRANSLATORS: this is the end of "Looking up %s ... "
+#: connect.c
+#, c-format
+msgid ""
+"done.\n"
+"Connecting to %s (port %s) ... "
+msgstr ""
+"Fertig.\n"
+"Verbinde nach %s (Port %s) ... "
+
+#: connect.c
+#, c-format
+msgid ""
+"unable to connect to %s:\n"
+"%s"
+msgstr ""
+"Konnte nicht nach %s verbinden:\n"
+"%s"
+
+#. TRANSLATORS: this is the end of "Connecting to %s (port %s) ... "
+#: connect.c
+msgid "done."
+msgstr "Fertig."
+
+#: connect.c
+#, c-format
+msgid "unable to look up %s (%s)"
+msgstr "Fehler bei der Suche nach %s (%s)"
+
+#: connect.c
+#, c-format
+msgid "unknown port %s"
+msgstr "Unbekannter Port %s"
+
+#: connect.c
+#, c-format
+msgid "strange hostname '%s' blocked"
+msgstr "Merkwürdigen Hostnamen '%s' blockiert."
+
+#: connect.c
+#, c-format
+msgid "strange port '%s' blocked"
+msgstr "Merkwürdigen Port '%s' blockiert."
+
+#: connect.c
+#, c-format
+msgid "cannot start proxy %s"
+msgstr "Kann Proxy %s nicht starten."
+
+#: connect.c
+msgid "no path specified; see 'git help pull' for valid url syntax"
+msgstr ""
+"Kein Pfad angegeben; siehe 'git help pull' für eine gültige URL-Syntax."
+
+#: connect.c
+msgid "ssh variant 'simple' does not support -4"
+msgstr "SSH-Variante 'simple' unterstützt kein -4."
+
+#: connect.c
+msgid "ssh variant 'simple' does not support -6"
+msgstr "SSH-Variante 'simple' unterstützt kein -6."
+
+#: connect.c
+msgid "ssh variant 'simple' does not support setting port"
+msgstr "SSH-Variante 'simple' unterstützt nicht das Setzen eines Ports."
+
+#: connect.c
+#, c-format
+msgid "strange pathname '%s' blocked"
+msgstr "Merkwürdigen Pfadnamen '%s' blockiert."
+
+#: connect.c
+msgid "unable to fork"
+msgstr "Kann Prozess nicht starten."
 
 #: connected.c builtin/fsck.c builtin/prune.c
 msgid "Checking connectivity"
@@ -1526,14 +1940,19 @@ msgstr "Fehler beim Schließen von rev-list's Standard-Eingabe"
 
 #: convert.c
 #, c-format
-msgid "CRLF would be replaced by LF in %s."
+msgid "illegal crlf_action %d"
+msgstr "Unerlaubte crlf_action %d"
+
+#: convert.c
+#, c-format
+msgid "CRLF would be replaced by LF in %s"
 msgstr "CRLF würde in %s durch LF ersetzt werden."
 
 #: convert.c
 #, c-format
 msgid ""
 "CRLF will be replaced by LF in %s.\n"
-"The file will have its original line endings in your working directory."
+"The file will have its original line endings in your working directory"
 msgstr ""
 "CRLF wird in %s durch LF ersetzt.\n"
 "Die Datei wird ihre ursprünglichen Zeilenenden im Arbeitsverzeichnis "
@@ -1548,7 +1967,7 @@ msgstr "LF würde in %s durch CRLF ersetzt werden."
 #, c-format
 msgid ""
 "LF will be replaced by CRLF in %s.\n"
-"The file will have its original line endings in your working directory."
+"The file will have its original line endings in your working directory"
 msgstr ""
 "LF wird in %s durch CRLF ersetzt.\n"
 "Die Datei wird ihre ursprünglichen Zeilenenden im Arbeitsverzeichnis "
@@ -1594,8 +2013,59 @@ msgid "encoding '%s' from %s to %s and back is not the same"
 msgstr "Die Codierung '%s' von %s nach %s und zurück ist nicht dasselbe."
 
 #: convert.c
+#, c-format
+msgid "cannot fork to run external filter '%s'"
+msgstr "Kann externen Filter '%s' nicht starten."
+
+#: convert.c
+#, c-format
+msgid "cannot feed the input to external filter '%s'"
+msgstr "Kann Eingaben nicht an externen Filter '%s' übergeben."
+
+#: convert.c
+#, c-format
+msgid "external filter '%s' failed %d"
+msgstr "Externer Filter '%s' fehlgeschlagen %d"
+
+#: convert.c
+#, c-format
+msgid "read from external filter '%s' failed"
+msgstr "Lesen von externem Filter '%s' fehlgeschlagen."
+
+#: convert.c
+#, c-format
+msgid "external filter '%s' failed"
+msgstr "Externer Filter '%s' fehlgeschlagen."
+
+#: convert.c
+msgid "unexpected filter type"
+msgstr "Unerwartete Filterart."
+
+#: convert.c
+msgid "path name too long for external filter"
+msgstr "Pfadname zu lang für externen Filter."
+
+#: convert.c
+#, c-format
+msgid ""
+"external filter '%s' is not available anymore although not all paths have "
+"been filtered"
+msgstr ""
+"Externer Filter '%s' nicht mehr verfügbar. Nicht alle Pfade wurden gefiltert."
+
+#: convert.c
 msgid "true/false are no valid working-tree-encodings"
 msgstr "true/false sind keine gültigen Codierungen im Arbeitsverzeichnis."
+
+#: convert.c
+#, c-format
+msgid "%s: clean filter '%s' failed"
+msgstr "%s: clean-Filter '%s' fehlgeschlagen."
+
+#: convert.c
+#, c-format
+msgid "%s: smudge filter %s failed"
+msgstr "%s: smudge-Filter '%s' fehlgeschlagen."
 
 #: date.c
 msgid "in the future"
@@ -1692,11 +2162,24 @@ msgstr "  Unbekannter \"dirstat\" Parameter '%s'\n"
 
 #: diff.c
 msgid ""
-"color moved setting must be one of 'no', 'default', 'zebra', 'dimmed_zebra', "
-"'plain'"
+"color moved setting must be one of 'no', 'default', 'blocks', 'zebra', "
+"'dimmed-zebra', 'plain'"
 msgstr ""
 "\"color moved\"-Einstellung muss eines von diesen sein: 'no', 'default', "
-"'zebra', 'dimmed_zebra', 'plain'"
+"'blocks', 'zebra', 'dimmed_zebra', 'plain'"
+
+#: diff.c
+#, c-format
+msgid "ignoring unknown color-moved-ws mode '%s'"
+msgstr "Ignoriere unbekannten 'color-moved-ws'-Modus '%s'."
+
+#: diff.c
+msgid ""
+"color-moved-ws: allow-indentation-change cannot be combined with other white "
+"space modes"
+msgstr ""
+"color-moved-ws: allow-indentation-change kann nicht mit anderen\n"
+"Whitespace-Modi kombiniert werden."
 
 #: diff.c
 #, c-format
@@ -1764,6 +2247,17 @@ msgstr ""
 
 #: dir.c
 #, c-format
+msgid "pathspec '%s' did not match any file(s) known to git"
+msgstr ""
+"Pfadspezifikation '%s' stimmt mit keinen git-bekannten Dateien überein."
+
+#: dir.c
+#, c-format
+msgid "cannot use %s as an exclude file"
+msgstr "Kann %s nicht als exclude-Filter benutzen."
+
+#: dir.c
+#, c-format
 msgid "could not open directory '%s'"
 msgstr "Konnte Verzeichnis '%s' nicht öffnen."
 
@@ -1772,10 +2266,15 @@ msgid "failed to get kernel name and information"
 msgstr "Fehler beim Sammeln von Namen und Informationen zum Kernel"
 
 #: dir.c
-msgid "Untracked cache is disabled on this system or location."
+msgid "untracked cache is disabled on this system or location"
 msgstr ""
 "Cache für unversionierte Dateien ist auf diesem System oder\n"
 "für dieses Verzeichnis deaktiviert."
+
+#: dir.c
+#, c-format
+msgid "index file corrupt in repo %s"
+msgstr "Index-Datei in Repository %s beschädigt."
 
 #: dir.c
 #, c-format
@@ -1801,6 +2300,21 @@ msgstr "Filtere Inhalt"
 msgid "could not stat file '%s'"
 msgstr "Konnte Datei '%s' nicht lesen."
 
+#: environment.c
+#, c-format
+msgid "bad git namespace path \"%s\""
+msgstr "Ungültiger Git-Namespace-Pfad \"%s\""
+
+#: environment.c
+#, c-format
+msgid "could not set GIT_DIR to '%s'"
+msgstr "Konnte GIT_DIR nicht zu '%s' setzen."
+
+#: exec-cmd.c
+#, c-format
+msgid "too many args to run %s"
+msgstr "Zu viele Argumente angegeben, um %s auszuführen."
+
 #: fetch-object.c
 msgid "Remote with no URL"
 msgstr "Remote-Repository ohne URL"
@@ -1812,11 +2326,6 @@ msgstr "git fetch-pack: erwartete shallow-Liste"
 #: fetch-pack.c
 msgid "git fetch-pack: expected ACK/NAK, got a flush packet"
 msgstr "git fetch-pack: ACK/NAK erwartet, Flush-Paket bekommen"
-
-#: fetch-pack.c builtin/archive.c
-#, c-format
-msgid "remote error: %s"
-msgstr "Fehler am anderen Ende: %s"
 
 #: fetch-pack.c
 #, c-format
@@ -1982,8 +2491,52 @@ msgid "Server does not support shallow requests"
 msgstr "Server unterstützt keine shallow-Anfragen."
 
 #: fetch-pack.c
+#, c-format
+msgid "error reading section header '%s'"
+msgstr "Fehler beim Lesen von Sektionskopf '%s'."
+
+#: fetch-pack.c
+#, c-format
+msgid "expected '%s', received '%s'"
+msgstr "'%s' erwartet, '%s' empfangen"
+
+#: fetch-pack.c
+#, c-format
+msgid "unexpected acknowledgment line: '%s'"
+msgstr "Unerwartete Acknowledgment-Zeile: '%s'"
+
+#: fetch-pack.c
+#, c-format
+msgid "error processing acks: %d"
+msgstr "Fehler beim Verarbeiten von ACKS: %d"
+
+#: fetch-pack.c
+#, c-format
+msgid "error processing shallow info: %d"
+msgstr "Fehler beim Verarbeiten von Shallow-Informationen: %d"
+
+#: fetch-pack.c
+#, c-format
+msgid "expected wanted-ref, got '%s'"
+msgstr "wanted-ref erwartet, '%s' bekommen"
+
+#: fetch-pack.c
+#, c-format
+msgid "unexpected wanted-ref: '%s'"
+msgstr "Unerwartetes wanted-ref: '%s'"
+
+#: fetch-pack.c
+#, c-format
+msgid "error processing wanted refs: %d"
+msgstr "Fehler beim Verarbeiten von wanted-refs: %d"
+
+#: fetch-pack.c
 msgid "no matching remote head"
 msgstr "kein übereinstimmender Remote-Branch"
+
+#: fetch-pack.c builtin/clone.c
+msgid "remote did not send all necessary objects"
+msgstr "Remote-Repository hat nicht alle erforderlichen Objekte gesendet."
 
 #: fetch-pack.c
 #, c-format
@@ -2029,6 +2582,58 @@ msgid "'%s': short read"
 msgstr "'%s': read() zu kurz"
 
 #: help.c
+msgid "start a working area (see also: git help tutorial)"
+msgstr "Arbeitsverzeichnis anlegen (siehe auch: git help tutorial)"
+
+#: help.c
+msgid "work on the current change (see also: git help everyday)"
+msgstr "an aktuellen Änderungen arbeiten (siehe auch: git help everyday)"
+
+#: help.c
+msgid "examine the history and state (see also: git help revisions)"
+msgstr "Historie und Status untersuchen (siehe auch: git help revisions)"
+
+#: help.c
+msgid "grow, mark and tweak your common history"
+msgstr "Historie erweitern und bearbeiten"
+
+#: help.c
+msgid "collaborate (see also: git help workflows)"
+msgstr "mit anderen zusammenarbeiten (siehe auch: git help workflows)"
+
+#: help.c
+msgid "Main Porcelain Commands"
+msgstr "Hauptbefehle"
+
+#: help.c
+msgid "Ancillary Commands / Manipulators"
+msgstr "Nebenbefehle / Manipulationen"
+
+#: help.c
+msgid "Ancillary Commands / Interrogators"
+msgstr "Nebenbefehle / Abfragen"
+
+#: help.c
+msgid "Interacting with Others"
+msgstr "mit anderen interagieren"
+
+#: help.c
+msgid "Low-level Commands / Manipulators"
+msgstr "Systembefehle / Manipulationen"
+
+#: help.c
+msgid "Low-level Commands / Interrogators"
+msgstr "Systembefehle / Abfragen"
+
+#: help.c
+msgid "Low-level Commands / Synching Repositories"
+msgstr "Systembefehle / Repositories synchronisieren"
+
+#: help.c
+msgid "Low-level Commands / Internal Helpers"
+msgstr "Systembefehle / Interne Hilfsbefehle"
+
+#: help.c
 #, c-format
 msgid "available git commands in '%s'"
 msgstr "Vorhandene Git-Befehle in '%s'"
@@ -2040,6 +2645,15 @@ msgstr "Vorhandene Git-Befehle anderswo in Ihrem $PATH"
 #: help.c
 msgid "These are common Git commands used in various situations:"
 msgstr "Allgemeine Git-Befehle, verwendet in verschiedenen Situationen:"
+
+#: help.c git.c
+#, c-format
+msgid "unsupported command listing type '%s'"
+msgstr "Nicht unterstützte Art zur Befehlsauflistung '%s'."
+
+#: help.c
+msgid "The common Git guides are:"
+msgstr "Die allgemeinen Git-Anleitungen sind:"
 
 #: help.c
 #, c-format
@@ -2298,8 +2912,8 @@ msgstr "Spule Submodul %s zu dem folgenden Commit vor:"
 
 #: merge-recursive.c
 #, c-format
-msgid "Fast-forwarding submodule %s to %s"
-msgstr "Spule Submodul %s vor zu %s"
+msgid "Fast-forwarding submodule %s"
+msgstr "Spule Submodul %s vor"
 
 #: merge-recursive.c
 #, c-format
@@ -2590,8 +3204,13 @@ msgstr "Füge %s hinzu"
 
 #: merge-recursive.c
 #, c-format
-msgid "Dirty index: cannot merge (dirty: %s)"
-msgstr "Geänderter Index: kann nicht mergen (geändert: %s)"
+msgid ""
+"Your local changes to the following files would be overwritten by merge:\n"
+"  %s"
+msgstr ""
+"Ihre lokalen Änderungen in den folgenden Dateien würden durch den Merge\n"
+"überschrieben werden:\n"
+"  %s"
 
 #: merge-recursive.c
 msgid "Already up to date!"
@@ -2673,8 +3292,28 @@ msgstr "Ungültiger %s Wert: '%s'"
 
 #: object.c
 #, c-format
+msgid "invalid object type \"%s\""
+msgstr "Ungültiger Objekttyp \"%s\""
+
+#: object.c
+#, c-format
+msgid "object %s is a %s, not a %s"
+msgstr "Objekt %s ist ein %s, kein %s"
+
+#: object.c
+#, c-format
+msgid "object %s has unknown type id %d"
+msgstr "Objekt %s hat eine unbekannte Typ-Identifikation %d"
+
+#: object.c
+#, c-format
 msgid "unable to parse object: %s"
 msgstr "Konnte Objekt '%s' nicht parsen."
+
+#: object.c
+#, c-format
+msgid "sha1 mismatch %s"
+msgstr "SHA-1 passt nicht zu %s"
 
 #: packfile.c
 msgid "offset before end of packfile (broken .idx?)"
@@ -2807,9 +3446,70 @@ msgstr ""
 msgid "pathspec '%s' is beyond a symbolic link"
 msgstr "Pfadspezifikation '%s' ist hinter einer symbolischen Verknüpfung"
 
+#: pkt-line.c
+msgid "flush packet write failed"
+msgstr "Flush beim Schreiben des Pakets fehlgeschlagen."
+
+#: pkt-line.c
+msgid "protocol error: impossibly long line"
+msgstr "Protokollfehler: unmöglich lange Zeile"
+
+#: pkt-line.c
+msgid "packet write with format failed"
+msgstr "Schreiben des Pakets mit Format fehlgeschlagen."
+
+#: pkt-line.c
+msgid "packet write failed - data exceeds max packet size"
+msgstr ""
+"Schreiben des Pakets fehlgeschlagen - Daten überschreiten maximale Paketgröße"
+
+#: pkt-line.c
+msgid "packet write failed"
+msgstr "Schreiben des Pakets fehlgeschlagen."
+
+#: pkt-line.c
+msgid "read error"
+msgstr "Lesefehler"
+
+#: pkt-line.c
+msgid "the remote end hung up unexpectedly"
+msgstr "Die Gegenseite hat unerwartet abgebrochen."
+
+#: pkt-line.c
+#, c-format
+msgid "protocol error: bad line length character: %.4s"
+msgstr "Protokollfehler: ungültiges Zeichen für Zeilenlänge: %.4s"
+
+#: pkt-line.c
+#, c-format
+msgid "protocol error: bad line length %d"
+msgstr "Protokollfehler: ungültige Zeilenlänge %d"
+
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr "Konnte --pretty Format nicht parsen."
+
+#: range-diff.c
+msgid "could not start `log`"
+msgstr "Konnte `log` nicht starten."
+
+#: range-diff.c
+msgid "could not read `log` output"
+msgstr "Konnte Ausgabe von `log` nicht lesen."
+
+#: range-diff.c sequencer.c
+#, c-format
+msgid "could not parse commit '%s'"
+msgstr "Konnte Commit '%s' nicht parsen."
+
+#: range-diff.c
+msgid "failed to generate diff"
+msgstr "Fehler beim Generieren des Diffs."
+
+#: range-diff.c
+#, c-format
+msgid "could not parse log for '%s'"
+msgstr "Konnte Log für '%s' nicht parsen."
 
 #: read-cache.c
 #, c-format
@@ -2849,16 +3549,101 @@ msgstr "konnte Git-Verzeichnis nicht öffnen: %s"
 msgid "unable to unlink: %s"
 msgstr "Konnte '%s' nicht entfernen."
 
+#: refs.c
+#, c-format
+msgid "%s does not point to a valid object!"
+msgstr "%s zeigt auf kein gültiges Objekt!"
+
+#: refs.c
+#, c-format
+msgid "ignoring dangling symref %s"
+msgstr "Ignoriere unreferenzierte symbolische Referenz %s"
+
+#: refs.c ref-filter.c
+#, c-format
+msgid "ignoring broken ref %s"
+msgstr "Ignoriere fehlerhafte Referenz %s"
+
+#: refs.c
+#, c-format
+msgid "could not open '%s' for writing: %s"
+msgstr "Konnte '%s' nicht zum Schreiben öffnen: %s"
+
+#: refs.c
+#, c-format
+msgid "could not read ref '%s'"
+msgstr "Konnte Referenz '%s' nicht lesen."
+
+#: refs.c
+#, c-format
+msgid "ref '%s' already exists"
+msgstr "Referenz '%s' existiert bereits."
+
+#: refs.c
+#, c-format
+msgid "unexpected object ID when writing '%s'"
+msgstr "Unerwartete Objekt-ID beim Schreiben von '%s'."
+
+#: refs.c sequencer.c wrapper.c
+#, c-format
+msgid "could not write to '%s'"
+msgstr "Konnte nicht nach '%s' schreiben."
+
 #: refs.c sequencer.c wrapper.c builtin/am.c
 #, c-format
 msgid "could not open '%s' for writing"
 msgstr "Konnte '%s' nicht zum Schreiben öffnen."
 
 #: refs.c
+#, c-format
+msgid "unexpected object ID when deleting '%s'"
+msgstr "Unerwartete Objekt-ID beim Löschen von '%s'."
+
+#: refs.c
+#, c-format
+msgid "log for ref %s has gap after %s"
+msgstr "Log für Referenz %s hat eine Lücke nach %s."
+
+#: refs.c
+#, c-format
+msgid "log for ref %s unexpectedly ended on %s"
+msgstr "Log für Referenz %s unerwartet bei %s beendet."
+
+#: refs.c
+#, c-format
+msgid "log for %s is empty"
+msgstr "Log für %s ist leer."
+
+#: refs.c
+#, c-format
+msgid "refusing to update ref with bad name '%s'"
+msgstr "Verweigere Aktualisierung einer Referenz mit fehlerhaftem Namen '%s'."
+
+#: refs.c
+#, c-format
+msgid "update_ref failed for ref '%s': %s"
+msgstr "update_ref für Referenz '%s' fehlgeschlagen: %s"
+
+#: refs.c
+#, c-format
+msgid "multiple updates for ref '%s' not allowed"
+msgstr "Mehrere Aktualisierungen für Referenz '%s' nicht erlaubt."
+
+#: refs.c
 msgid "ref updates forbidden inside quarantine environment"
 msgstr ""
 "Aktualisierungen von Referenzen ist innerhalb der Quarantäne-Umgebung "
 "verboten."
+
+#: refs.c
+#, c-format
+msgid "'%s' exists; cannot create '%s'"
+msgstr "'%s' existiert; kann '%s' nicht erstellen"
+
+#: refs.c
+#, c-format
+msgid "cannot process '%s' and '%s' at the same time"
+msgstr "Kann '%s' und '%s' nicht zur selben Zeit verarbeiten."
 
 #: refs/files-backend.c
 #, c-format
@@ -2874,6 +3659,11 @@ msgstr "Konnte Referenz %s nicht entfernen: %s"
 #, c-format
 msgid "could not delete references: %s"
 msgstr "Konnte Referenzen nicht entfernen: %s"
+
+#: refspec.c
+#, c-format
+msgid "invalid refspec '%s'"
+msgstr "Ungültige Refspec '%s'"
 
 #: ref-filter.c wt-status.c
 msgid "gone"
@@ -2918,6 +3708,16 @@ msgstr "Positiver Wert erwartet refname:rstrip=%s"
 #, c-format
 msgid "unrecognized %%(%s) argument: %s"
 msgstr "nicht erkanntes %%(%s) Argument: %s"
+
+#: ref-filter.c
+#, c-format
+msgid "%%(objecttype) does not take arguments"
+msgstr "%%(objecttype) akzeptiert keine Argumente"
+
+#: ref-filter.c
+#, c-format
+msgid "%%(objectsize) does not take arguments"
+msgstr "%%(objectsize) akzeptiert keine Argumente"
 
 #: ref-filter.c
 #, c-format
@@ -3096,11 +3896,6 @@ msgstr "Ignoriere Referenz mit fehlerhaftem Namen %s"
 
 #: ref-filter.c
 #, c-format
-msgid "ignoring broken ref %s"
-msgstr "Ignoriere fehlerhafte Referenz %s"
-
-#: ref-filter.c
-#, c-format
 msgid "format: %%(end) atom missing"
 msgstr "Format: %%(end) Atom fehlt"
 
@@ -3244,6 +4039,21 @@ msgstr ""
 "  (benutzen Sie \"git pull\", um Ihren Branch mit dem Remote-Branch "
 "zusammenzuführen)\n"
 
+#: replace-object.c
+#, c-format
+msgid "bad replace ref name: %s"
+msgstr "ungültiger Name für ersetzende Referenz: %s"
+
+#: replace-object.c
+#, c-format
+msgid "duplicate replace ref: %s"
+msgstr "doppelte ersetzende Referenz: %s"
+
+#: replace-object.c
+#, c-format
+msgid "replace depth too high for object %s"
+msgstr "Ersetzungstiefe zu hoch für Objekt %s"
+
 #: revision.c
 msgid "your current branch appears to be broken"
 msgstr "Ihr aktueller Branch scheint fehlerhaft zu sein."
@@ -3334,7 +4144,7 @@ msgstr "interaktives Rebase"
 
 #: sequencer.c
 #, c-format
-msgid "Unknown action: %d"
+msgid "unknown action: %d"
 msgstr "Unbekannte Aktion: %d"
 
 #: sequencer.c
@@ -3359,11 +4169,6 @@ msgstr ""
 #, c-format
 msgid "could not lock '%s'"
 msgstr "Konnte '%s' nicht sperren"
-
-#: sequencer.c wrapper.c
-#, c-format
-msgid "could not write to '%s'"
-msgstr "Konnte nicht nach '%s' schreiben."
 
 #: sequencer.c
 #, c-format
@@ -3410,6 +4215,21 @@ msgstr "Konnte Cache-Verzeichnis nicht aktualisieren."
 #: sequencer.c
 msgid "could not resolve HEAD commit"
 msgstr "Konnte HEAD-Commit nicht auflösen."
+
+#: sequencer.c
+#, c-format
+msgid "could not parse '%s' (looking for '%s')"
+msgstr "Konnte '%s' nicht parsen (bei Suche nach '%s')."
+
+#: sequencer.c
+#, c-format
+msgid "bad quoting on %s value in '%s'"
+msgstr "Ungültiges Setzen von Anführungszeichen bei %s Wert in '%s'"
+
+#: sequencer.c
+#, c-format
+msgid "invalid date format '%s' in '%s'"
+msgstr "Ungültiges Datumsformat '%s' in '%s'"
 
 #: sequencer.c
 #, c-format
@@ -3566,6 +4386,11 @@ msgstr "Konnte Eltern-Commit %s nicht parsen."
 
 #: sequencer.c
 #, c-format
+msgid "unknown command: %d"
+msgstr "Unbekannter Befehl: %d"
+
+#: sequencer.c
+#, c-format
 msgid "This is a combination of %d commits."
 msgstr "Das ist eine Kombination aus %d Commits."
 
@@ -3586,7 +4411,7 @@ msgstr "Konnte Commit-Beschreibung von HEAD nicht lesen"
 msgid "cannot write '%s'"
 msgstr "kann '%s' nicht schreiben"
 
-#: sequencer.c git-rebase--interactive.sh
+#: sequencer.c git-rebase--preserve-merges.sh
 msgid "This is the 1st commit message:"
 msgstr "Das ist die erste Commit-Beschreibung:"
 
@@ -3604,11 +4429,6 @@ msgstr "Das ist Commit-Beschreibung #%d:"
 #, c-format
 msgid "The commit message #%d will be skipped:"
 msgstr "Die Commit-Beschreibung #%d wird ausgelassen:"
-
-#: sequencer.c
-#, c-format
-msgid "unknown command: %d"
-msgstr "Unbekannter Befehl: %d"
 
 #: sequencer.c
 msgid "your index file is unmerged."
@@ -3659,10 +4479,6 @@ msgstr "Konnte \"revert\" nicht auf %s... (%s) ausführen"
 #, c-format
 msgid "could not apply %s... %s"
 msgstr "Konnte %s... (%s) nicht anwenden"
-
-#: sequencer.c
-msgid "empty commit set passed"
-msgstr "leere Menge von Commits übergeben"
 
 #: sequencer.c
 #, c-format
@@ -3723,11 +4539,6 @@ msgstr "Kann Revert nicht während eines Cherry-Picks ausführen."
 
 #: sequencer.c
 #, c-format
-msgid "invalid key: %s"
-msgstr "Ungültiger Schlüssel: %s"
-
-#: sequencer.c
-#, c-format
 msgid "invalid value for %s: %s"
 msgstr "Ungültiger Wert für %s: %s"
 
@@ -3739,6 +4550,10 @@ msgstr "Unbenutzbares squash-onto."
 #, c-format
 msgid "malformed options sheet: '%s'"
 msgstr "Fehlerhaftes Optionsblatt: '%s'"
+
+#: sequencer.c
+msgid "empty commit set passed"
+msgstr "leere Menge von Commits übergeben"
 
 #: sequencer.c
 msgid "a cherry-pick or revert is already in progress"
@@ -3802,6 +4617,40 @@ msgstr "Konnte %s nicht aktualisieren."
 msgid "cannot read HEAD"
 msgstr "Kann HEAD nicht lesen"
 
+#: sequencer.c
+#, c-format
+msgid "unable to copy '%s' to '%s'"
+msgstr "Konnte '%s' nicht nach '%s' kopieren."
+
+#: sequencer.c
+#, c-format
+msgid ""
+"You can amend the commit now, with\n"
+"\n"
+"  git commit --amend %s\n"
+"\n"
+"Once you are satisfied with your changes, run\n"
+"\n"
+"  git rebase --continue\n"
+msgstr ""
+"Sie können den Commit nun nachbessern mit:\n"
+"\n"
+"  git commit --amend %s\n"
+"\n"
+"Sobald Sie mit Ihren Änderungen zufrieden sind, führen Sie aus:\n"
+"\n"
+"  git rebase --continue\n"
+
+#: sequencer.c
+#, c-format
+msgid "Could not apply %s... %.*s"
+msgstr "Konnte %s... (%.*s) nicht anwenden"
+
+#: sequencer.c
+#, c-format
+msgid "Could not merge %.*s"
+msgstr "Konnte \"%.*s\" nicht zusammenführen."
+
 #: sequencer.c builtin/difftool.c
 #, c-format
 msgid "could not copy '%s' to '%s'"
@@ -3850,6 +4699,11 @@ msgstr ""
 "\n"
 
 #: sequencer.c
+#, c-format
+msgid "illegal label name: '%.*s'"
+msgstr "Unerlaubter Beschriftungsname: '%.*s'"
+
+#: sequencer.c
 msgid "writing fake root commit"
 msgstr "unechten Root-Commit schreiben"
 
@@ -3867,13 +4721,28 @@ msgid "could not write index"
 msgstr "Konnte Index nicht schreiben."
 
 #: sequencer.c
+#, c-format
+msgid "could not resolve '%s'"
+msgstr "Konnte '%s' nicht auflösen."
+
+#: sequencer.c
 msgid "cannot merge without a current revision"
 msgstr "Kann nicht ohne einen aktuellen Commit mergen."
 
 #: sequencer.c
 #, c-format
-msgid "could not resolve '%s'"
-msgstr "Konnte '%s' nicht auflösen."
+msgid "unable to parse '%.*s'"
+msgstr "Konnte '%.*s' nicht parsen."
+
+#: sequencer.c
+#, c-format
+msgid "nothing to merge: '%.*s'"
+msgstr "Nichts zum Zusammenführen: '%.*s'"
+
+#: sequencer.c
+msgid "octopus merge cannot be executed on top of a [new root]"
+msgstr ""
+"Octupus-Merge kann nicht auf Basis von [neuem Root-Commit] ausgeführt werden."
 
 #: sequencer.c
 #, c-format
@@ -4077,11 +4946,6 @@ msgstr ""
 "Oder Sie können den Rebase mit 'git rebase --abort' abbrechen.\n"
 
 #: sequencer.c
-#, c-format
-msgid "could not parse commit '%s'"
-msgstr "Konnte Commit '%s' nicht parsen."
-
-#: sequencer.c
 msgid "the script was already rearranged."
 msgstr "Das Script wurde bereits umgeordnet."
 
@@ -4248,6 +5112,39 @@ msgstr "setsid fehlgeschlagen"
 
 #: sha1-file.c
 #, c-format
+msgid "object directory %s does not exist; check .git/objects/info/alternates"
+msgstr ""
+"Objektverzeichnis %s existiert nicht; prüfe .git/objects/info/alternates"
+
+#: sha1-file.c
+#, c-format
+msgid "unable to normalize alternate object path: %s"
+msgstr "Konnte alternativen Objektpfad '%s' nicht normalisieren."
+
+#: sha1-file.c
+#, c-format
+msgid "%s: ignoring alternate object stores, nesting too deep"
+msgstr "%s: ignoriere alternative Objektspeicher - Verschachtelung zu tief"
+
+#: sha1-file.c
+#, c-format
+msgid "unable to normalize object directory: %s"
+msgstr "Konnte Objektverzeichnis '%s' nicht normalisieren."
+
+#: sha1-file.c
+msgid "unable to fdopen alternates lockfile"
+msgstr "Konnte fdopen nicht auf Lock-Datei für \"alternates\" aufrufen."
+
+#: sha1-file.c
+msgid "unable to read alternates file"
+msgstr "Konnte \"alternates\"-Datei nicht lesen."
+
+#: sha1-file.c
+msgid "unable to move new alternates file into place"
+msgstr "Konnte neue \"alternates\"-Datei nicht übernehmen."
+
+#: sha1-file.c
+#, c-format
 msgid "path '%s' does not exist"
 msgstr "Pfad '%s' existiert nicht"
 
@@ -4275,6 +5172,200 @@ msgid "reference repository '%s' is grafted"
 msgstr ""
 "Referenziertes Repository '%s' ist mit künstlichen Vorgängern (\"grafts\") "
 "eingehängt."
+
+#: sha1-file.c
+#, c-format
+msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
+msgstr "Versuche mmap %<PRIuMAX> über Limit %<PRIuMAX>."
+
+#: sha1-file.c
+msgid "mmap failed"
+msgstr "mmap fehlgeschlagen"
+
+#: sha1-file.c
+#, c-format
+msgid "object file %s is empty"
+msgstr "Objektdatei %s ist leer."
+
+#: sha1-file.c
+#, c-format
+msgid "corrupt loose object '%s'"
+msgstr "Fehlerhaftes loses Objekt '%s'."
+
+#: sha1-file.c
+#, c-format
+msgid "garbage at end of loose object '%s'"
+msgstr "Nutzlose Daten am Ende von losem Objekt '%s'."
+
+#: sha1-file.c
+msgid "invalid object type"
+msgstr "ungültiger Objekt-Typ"
+
+#: sha1-file.c
+#, c-format
+msgid "unable to unpack %s header with --allow-unknown-type"
+msgstr "Konnte %s Kopfbereich nicht mit --allow-unknown-type entpacken."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to unpack %s header"
+msgstr "Konnte %s Kopfbereich nicht entpacken."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to parse %s header with --allow-unknown-type"
+msgstr "Konnte %s Kopfbereich mit --allow-unknown-type nicht parsen."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to parse %s header"
+msgstr "Konnte %s Kopfbereich nicht parsen."
+
+#: sha1-file.c
+#, c-format
+msgid "failed to read object %s"
+msgstr "Konnte Objekt %s nicht lesen."
+
+#: sha1-file.c
+#, c-format
+msgid "replacement %s not found for %s"
+msgstr "Ersetzung %s für %s nicht gefunden."
+
+#: sha1-file.c
+#, c-format
+msgid "loose object %s (stored in %s) is corrupt"
+msgstr "Loses Objekt %s (gespeichert in %s) ist beschädigt."
+
+#: sha1-file.c
+#, c-format
+msgid "packed object %s (stored in %s) is corrupt"
+msgstr "Gepacktes Objekt %s (gespeichert in %s) ist beschädigt."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to write sha1 filename %s"
+msgstr "Konnte SHA1-Dateiname %s nicht schreiben."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to set permission to '%s'"
+msgstr "Konnte Zugriffsberechtigung auf '%s' nicht setzen."
+
+#: sha1-file.c
+msgid "file write error"
+msgstr "Fehler beim Schreiben einer Datei."
+
+#: sha1-file.c
+msgid "error when closing sha1 file"
+msgstr "Fehler beim Schließen der SHA1-Datei."
+
+#: sha1-file.c
+#, c-format
+msgid "insufficient permission for adding an object to repository database %s"
+msgstr ""
+"Unzureichende Berechtigung zum Hinzufügen eines Objektes zur Repository-"
+"Datenbank %s"
+
+#: sha1-file.c
+msgid "unable to create temporary file"
+msgstr "Konnte temporäre Datei nicht erstellen."
+
+#: sha1-file.c
+msgid "unable to write sha1 file"
+msgstr "Konnte SHA1-Datei nicht schreiben."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to deflate new object %s (%d)"
+msgstr "Konnte neues Objekt %s (%d) nicht komprimieren."
+
+#: sha1-file.c
+#, c-format
+msgid "deflateEnd on object %s failed (%d)"
+msgstr "deflateEnd auf Objekt %s fehlgeschlagen (%d)"
+
+#: sha1-file.c
+#, c-format
+msgid "confused by unstable object source data for %s"
+msgstr "Fehler wegen instabilen Objektquelldaten für %s"
+
+#: sha1-file.c builtin/pack-objects.c
+#, c-format
+msgid "failed utime() on %s"
+msgstr "Fehler beim Aufruf von utime() auf '%s'."
+
+#: sha1-file.c
+#, c-format
+msgid "cannot read sha1_file for %s"
+msgstr "Kann SHA1-Datei für %s nicht lesen."
+
+#: sha1-file.c
+msgid "corrupt commit"
+msgstr "fehlerhafter Commit"
+
+#: sha1-file.c
+msgid "corrupt tag"
+msgstr "fehlerhaftes Tag"
+
+#: sha1-file.c
+#, c-format
+msgid "read error while indexing %s"
+msgstr "Lesefehler beim Indizieren von '%s'."
+
+#: sha1-file.c
+#, c-format
+msgid "short read while indexing %s"
+msgstr "read() zu kurz beim Indizieren von '%s'."
+
+#: sha1-file.c
+#, c-format
+msgid "%s: failed to insert into database"
+msgstr "%s: Fehler beim Einfügen in die Datenbank"
+
+#: sha1-file.c
+#, c-format
+msgid "%s: unsupported file type"
+msgstr "%s: nicht unterstützte Dateiart"
+
+#: sha1-file.c
+#, c-format
+msgid "%s is not a valid object"
+msgstr "%s ist kein gültiges Objekt"
+
+#: sha1-file.c
+#, c-format
+msgid "%s is not a valid '%s' object"
+msgstr "%s ist kein gültiges '%s' Objekt"
+
+#: sha1-file.c builtin/index-pack.c
+#, c-format
+msgid "unable to open %s"
+msgstr "kann %s nicht öffnen"
+
+#: sha1-file.c
+#, c-format
+msgid "sha1 mismatch for %s (expected %s)"
+msgstr "SHA-1 für %s passen nicht zusammen (%s erwartet)"
+
+#: sha1-file.c
+#, c-format
+msgid "unable to mmap %s"
+msgstr "Konnte mmap nicht auf %s ausführen."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to unpack header of %s"
+msgstr "Konnte Kopfbereich von %s nicht entpacken."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to parse header of %s"
+msgstr "Konnte Kopfbereich von %s nicht parsen."
+
+#: sha1-file.c
+#, c-format
+msgid "unable to unpack contents of %s"
+msgstr "Konnte Inhalt von %s nicht entpacken."
 
 #: sha1-name.c
 #, c-format
@@ -4371,8 +5462,18 @@ msgstr "Konnte 'git status' in Submodul '%s' nicht ausführen."
 
 #: submodule.c
 #, c-format
+msgid "Could not unset core.worktree setting in submodule '%s'"
+msgstr "Konnte core.worktree Einstellung in Submodul '%s' nicht aufheben."
+
+#: submodule.c
+#, c-format
 msgid "submodule '%s' has dirty index"
 msgstr "Submodul '%s' hat einen geänderten Index."
+
+#: submodule.c
+#, c-format
+msgid "Submodule '%s' could not be updated."
+msgstr "Submodule '%s' konnte nicht aktualisiert werden."
 
 #: submodule.c
 #, c-format
@@ -4491,12 +5592,35 @@ msgstr "Würde Upstream-Branch von '%s' zu '%s' von '%s' setzen\n"
 
 #: transport.c
 #, c-format
+msgid "could not read bundle '%s'"
+msgstr "Konnte Paket '%s' nicht lesen."
+
+#: transport.c
+#, c-format
 msgid "transport: invalid depth option '%s'"
 msgstr "transport: ungültige --depth Option '%s'"
 
 #: transport.c
 msgid "could not parse transport.color.* config"
 msgstr "Konnte transport.color.* Konfiguration nicht parsen."
+
+#: transport.c
+msgid "support for protocol v2 not implemented yet"
+msgstr "Unterstützung für Protokoll v2 noch nicht implementiert."
+
+#: transport.c
+#, c-format
+msgid "unknown value for config '%s': %s"
+msgstr "Unbekannter Wert für Konfiguration '%s': %s"
+
+#: transport.c
+#, c-format
+msgid "transport '%s' not allowed"
+msgstr "Übertragungsart '%s' nicht erlaubt."
+
+#: transport.c
+msgid "git-over-rsync is no longer supported"
+msgstr "git-over-rsync wird nicht länger unterstützt."
 
 #: transport.c
 #, c-format
@@ -4538,10 +5662,188 @@ msgstr ""
 msgid "Aborting."
 msgstr "Abbruch."
 
+#: transport.c
+msgid "failed to push all needed submodules"
+msgstr "Fehler beim Versand aller erforderlichen Submodule."
+
+#: transport.c transport-helper.c
+msgid "operation not supported by protocol"
+msgstr "Die Operation wird von dem Protokoll nicht unterstützt."
+
+#: transport.c
+#, c-format
+msgid "invalid line while parsing alternate refs: %s"
+msgstr "Ungültige Zeile beim Parsen alternativer Referenzen: %s"
+
+#: transport-helper.c
+msgid "full write to remote helper failed"
+msgstr "Vollständiges Schreiben zu Remote-Helper fehlgeschlagen."
+
 #: transport-helper.c
 #, c-format
-msgid "Could not read ref %s"
+msgid "unable to find remote helper for '%s'"
+msgstr "Konnte Remote-Helper für '%s' nicht finden."
+
+#: transport-helper.c
+msgid "can't dup helper output fd"
+msgstr ""
+"Konnte dup() auf Dateideskriptor für Ausgaben des Remote-Helpers nicht "
+"ausführen."
+
+#: transport-helper.c
+#, c-format
+msgid ""
+"unknown mandatory capability %s; this remote helper probably needs newer "
+"version of Git"
+msgstr ""
+"Unbekannte erforderliche Fähigkeit %s; dieser Remote-Helper benötigt\n"
+"wahrscheinlich eine neuere Version von Git."
+
+#: transport-helper.c
+msgid "this remote helper should implement refspec capability"
+msgstr "Dieser Remote-Helper sollte die \"refspec\"-Fähigkeit implementieren."
+
+#: transport-helper.c
+#, c-format
+msgid "%s unexpectedly said: '%s'"
+msgstr "unerwartete Ausgabe von %s: '%s'"
+
+#: transport-helper.c
+#, c-format
+msgid "%s also locked %s"
+msgstr "%s sperrte auch %s"
+
+#: transport-helper.c
+msgid "couldn't run fast-import"
+msgstr "Konnte \"fast-import\" nicht ausführen."
+
+#: transport-helper.c
+msgid "error while running fast-import"
+msgstr "Fehler beim Ausführen von 'fast-import'."
+
+#: transport-helper.c
+#, c-format
+msgid "could not read ref %s"
 msgstr "Konnte Referenz %s nicht lesen."
+
+#: transport-helper.c
+#, c-format
+msgid "unknown response to connect: %s"
+msgstr "Unbekannte Antwort auf 'connect': %s"
+
+#: transport-helper.c
+msgid "setting remote service path not supported by protocol"
+msgstr ""
+"Setzen des Remote-Service Pfads wird von dem Protokoll nicht unterstützt."
+
+#: transport-helper.c
+msgid "invalid remote service path"
+msgstr "Ungültiger Remote-Service Pfad."
+
+#: transport-helper.c
+#, c-format
+msgid "can't connect to subservice %s"
+msgstr "Kann keine Verbindung zu Subservice %s herstellen."
+
+#: transport-helper.c
+#, c-format
+msgid "expected ok/error, helper said '%s'"
+msgstr "Erwartete ok/error, Remote-Helper gab '%s' aus."
+
+#: transport-helper.c
+#, c-format
+msgid "helper reported unexpected status of %s"
+msgstr "Remote-Helper meldete unerwarteten Status von %s."
+
+#: transport-helper.c
+#, c-format
+msgid "helper %s does not support dry-run"
+msgstr "Remote-Helper %s unterstützt kein Trockenlauf."
+
+#: transport-helper.c
+#, c-format
+msgid "helper %s does not support --signed"
+msgstr "Remote-Helper %s unterstützt kein --signed."
+
+#: transport-helper.c
+#, c-format
+msgid "helper %s does not support --signed=if-asked"
+msgstr "Remote-Helper %s unterstützt kein --signed=if-asked."
+
+#: transport-helper.c
+#, c-format
+msgid "helper %s does not support 'push-option'"
+msgstr "Remote-Helper %s unterstützt nicht 'push-option'."
+
+#: transport-helper.c
+msgid "remote-helper doesn't support push; refspec needed"
+msgstr "Remote-Helper unterstützt kein Push; Refspec benötigt"
+
+#: transport-helper.c
+#, c-format
+msgid "helper %s does not support 'force'"
+msgstr "Remote-Helper %s unterstützt kein 'force'."
+
+#: transport-helper.c
+msgid "couldn't run fast-export"
+msgstr "Konnte \"fast-export\" nicht ausführen."
+
+#: transport-helper.c
+msgid "error while running fast-export"
+msgstr "Fehler beim Ausführen von \"fast-export\"."
+
+#: transport-helper.c
+#, c-format
+msgid ""
+"No refs in common and none specified; doing nothing.\n"
+"Perhaps you should specify a branch such as 'master'.\n"
+msgstr ""
+"Keine gemeinsamen Referenzen und nichts spezifiziert; keine Ausführung.\n"
+"Vielleicht sollten Sie einen Branch wie 'master' angeben.\n"
+
+#: transport-helper.c
+#, c-format
+msgid "malformed response in ref list: %s"
+msgstr "Ungültige Antwort in Referenzliste: %s"
+
+#: transport-helper.c
+#, c-format
+msgid "read(%s) failed"
+msgstr "Lesen von %s fehlgeschlagen."
+
+#: transport-helper.c
+#, c-format
+msgid "write(%s) failed"
+msgstr "Schreiben von %s fehlgeschlagen."
+
+#: transport-helper.c
+#, c-format
+msgid "%s thread failed"
+msgstr "Thread %s fehlgeschlagen."
+
+#: transport-helper.c
+#, c-format
+msgid "%s thread failed to join: %s"
+msgstr "Fehler beim Beitreten zu Thread %s: %s"
+
+#: transport-helper.c
+#, c-format
+msgid "can't start thread for copying data: %s"
+msgstr "Kann Thread zum Kopieren von Daten nicht starten: %s"
+
+#: transport-helper.c
+#, c-format
+msgid "%s process failed to wait"
+msgstr "Fehler beim Warten von Prozess %s."
+
+#: transport-helper.c
+#, c-format
+msgid "%s process failed"
+msgstr "Prozess %s fehlgeschlagen"
+
+#: transport-helper.c
+msgid "can't start thread for copying data"
+msgstr "Kann Thread zum Kopieren von Daten nicht starten."
 
 #: tree-walk.c
 msgid "too-short tree object"
@@ -4923,7 +6225,7 @@ msgstr ""
 
 #: wt-status.c
 msgid "Changes to be committed:"
-msgstr "zum Commit vorgemerkte Änderungen:"
+msgstr "Zum Commit vorgemerkte Änderungen:"
 
 #: wt-status.c
 msgid "Changes not staged for commit:"
@@ -5230,7 +6532,7 @@ msgstr ""
 #: wt-status.c
 #, c-format
 msgid "You are currently reverting commit %s."
-msgstr "Sie sind gerade an einem Revert von Commit '%s'."
+msgstr "Sie sind gerade beim Revert von Commit '%s'."
 
 #: wt-status.c
 msgid "  (fix conflicts and run \"git revert --continue\")"
@@ -5538,10 +6840,6 @@ msgid "check if - even missing - files are ignored in dry run"
 msgstr "prüfen ob - auch fehlende - Dateien im Probelauf ignoriert werden"
 
 #: builtin/add.c builtin/update-index.c
-msgid "(+/-)x"
-msgstr "(+/-)x"
-
-#: builtin/add.c builtin/update-index.c
 msgid "override the executable bit of the listed files"
 msgstr "das \"ausführbar\"-Bit der aufgelisteten Dateien überschreiben"
 
@@ -5622,8 +6920,8 @@ msgid "Maybe you wanted to say 'git add .'?\n"
 msgstr "Meinten Sie vielleicht 'git add .'?\n"
 
 #: builtin/add.c builtin/check-ignore.c builtin/checkout.c builtin/clean.c
-#: builtin/commit.c builtin/diff-tree.c builtin/mv.c builtin/reset.c
-#: builtin/rm.c builtin/submodule--helper.c
+#: builtin/commit.c builtin/diff-tree.c builtin/grep.c builtin/mv.c
+#: builtin/reset.c builtin/rm.c builtin/submodule--helper.c
 msgid "index file corrupt"
 msgstr "Index-Datei beschädigt"
 
@@ -6542,6 +7840,10 @@ msgid "create the branch's reflog"
 msgstr "das Reflog des Branches erzeugen"
 
 #: builtin/branch.c
+msgid "deprecated synonym for --create-reflog"
+msgstr "veraltetes Synonym für --create-reflog"
+
+#: builtin/branch.c
 msgid "edit the description for the branch"
 msgstr "die Beschreibung für den Branch bearbeiten"
 
@@ -6770,6 +8072,10 @@ msgstr ""
 msgid "show all objects with --batch or --batch-check"
 msgstr "alle Objekte mit --batch oder --batch-check anzeigen"
 
+#: builtin/cat-file.c
+msgid "do not order --batch-all-objects output"
+msgstr "Ausgabe von --batch-all-objects nicht ordnen"
+
 #: builtin/check-attr.c
 msgid "git check-attr [-a | --all | <attr>...] [--] <pathname>..."
 msgstr "git check-attr [-a | --all | <Attribut>...] [--] <Pfadname>..."
@@ -6794,7 +8100,7 @@ msgstr "Dateinamen von der Standard-Eingabe lesen"
 msgid "terminate input and output records by a NUL character"
 msgstr "Einträge von Ein- und Ausgabe mit NUL-Zeichen abschließen"
 
-#: builtin/check-ignore.c builtin/checkout.c builtin/gc.c
+#: builtin/check-ignore.c builtin/checkout.c builtin/gc.c builtin/worktree.c
 msgid "suppress progress reporting"
 msgstr "Fortschrittsanzeige unterdrücken"
 
@@ -7190,8 +8496,8 @@ msgid "--track needs a branch name"
 msgstr "Bei der Option --track muss ein Branchname angegeben werden."
 
 #: builtin/checkout.c
-msgid "Missing branch name; try -b"
-msgstr "Vermisse Branchnamen; versuchen Sie -b"
+msgid "missing branch name; try -b"
+msgstr "Kein Branchname; versuchen Sie -b."
 
 #: builtin/checkout.c
 msgid "invalid path specification"
@@ -7215,6 +8521,38 @@ msgid ""
 msgstr ""
 "git checkout: --ours/--theirs, --force und --merge sind inkompatibel wenn\n"
 "Sie aus dem Index auschecken."
+
+#: builtin/checkout.c
+#, c-format
+msgid ""
+"'%s' matched more than one remote tracking branch.\n"
+"We found %d remotes with a reference that matched. So we fell back\n"
+"on trying to resolve the argument as a path, but failed there too!\n"
+"\n"
+"If you meant to check out a remote tracking branch on, e.g. 'origin',\n"
+"you can do so by fully qualifying the name with the --track option:\n"
+"\n"
+"    git checkout --track origin/<name>\n"
+"\n"
+"If you'd like to always have checkouts of an ambiguous <name> prefer\n"
+"one remote, e.g. the 'origin' remote, consider setting\n"
+"checkout.defaultRemote=origin in your config."
+msgstr ""
+"'%s' entspricht mehr als einem Remote-Tracking-Branch.\n"
+"Wir fanden %d Remote-Repositories mit einer entsprechenden Referenz, also\n"
+"haben wir versucht, das Argument als Pfad aufzulösen, was auch schief ging!\n"
+"\n"
+"Falls Sie einen Remote-Tracking-Branch, z.B. von 'origin', auschecken "
+"wollten,\n"
+"können Sie das tun, indem Sie den vollständig qualifizierten Namen mit der\n"
+"--track Option angeben:\n"
+"\n"
+"    git checkout --track origin/<Name>\n"
+"\n"
+"Falls Sie beim Auschecken mit mehrdeutigen <Namen> immer ein Remote-"
+"Repository\n"
+"bevorzugen möchten, z.B. 'origin', könnten Sie die Einstellung\n"
+"checkout.defaultRemote=origin in Ihrer Konfiguration setzen."
 
 #: builtin/clean.c
 msgid ""
@@ -7596,10 +8934,6 @@ msgstr ""
 #, c-format
 msgid "Could not find remote branch %s to clone."
 msgstr "Konnte zu klonenden Remote-Branch %s nicht finden."
-
-#: builtin/clone.c
-msgid "remote did not send all necessary objects"
-msgstr "Remote-Repository hat nicht alle erforderlichen Objekte gesendet."
 
 #: builtin/clone.c
 #, c-format
@@ -8165,7 +9499,7 @@ msgstr "Unterschiede in Commit-Beschreibungsvorlage anzeigen"
 msgid "Commit message options"
 msgstr "Optionen für Commit-Beschreibung"
 
-#: builtin/commit.c builtin/tag.c
+#: builtin/commit.c builtin/merge.c builtin/tag.c
 msgid "read message from file"
 msgstr "Beschreibung von Datei lesen"
 
@@ -8325,7 +9659,7 @@ msgstr "Commit abgebrochen; Sie haben die Beschreibung nicht editiert.\n"
 
 #: builtin/commit.c
 msgid ""
-"Repository has been updated, but unable to write\n"
+"repository has been updated, but unable to write\n"
 "new_index file. Check that disk is not full and quota is\n"
 "not exceeded, and then \"git reset HEAD\" to recover."
 msgstr ""
@@ -8343,12 +9677,16 @@ msgid "git commit-graph read [--object-dir <objdir>]"
 msgstr "git commit-graph read [--object-dir <Objektverzeichnis>]"
 
 #: builtin/commit-graph.c
+msgid "git commit-graph verify [--object-dir <objdir>]"
+msgstr "git commit-graph verify [--object-dir <Objektverzeichnis>]"
+
+#: builtin/commit-graph.c
 msgid ""
-"git commit-graph write [--object-dir <objdir>] [--append] [--stdin-packs|--"
-"stdin-commits]"
+"git commit-graph write [--object-dir <objdir>] [--append] [--reachable|--"
+"stdin-packs|--stdin-commits]"
 msgstr ""
 "git commit-graph write [--object-dir <Objektverzeichnis>] [--append] [--"
-"stdin-packs|--stdin-commits]"
+"reachable|--stdin-packs|--stdin-commits]"
 
 #: builtin/commit-graph.c builtin/fetch.c builtin/log.c
 msgid "dir"
@@ -8357,6 +9695,10 @@ msgstr "Verzeichnis"
 #: builtin/commit-graph.c
 msgid "The object directory to store the graph"
 msgstr "Das Objektverzeichnis zum Speichern des Graphen."
+
+#: builtin/commit-graph.c
+msgid "start walk at all refs"
+msgstr "Durchlauf auf allen Referenzen beginnen"
 
 #: builtin/commit-graph.c
 msgid "scan pack-indexes listed by stdin for commits"
@@ -8373,8 +9715,10 @@ msgstr ""
 "befinden"
 
 #: builtin/commit-graph.c
-msgid "cannot use both --stdin-commits and --stdin-packs"
-msgstr "Kann nicht --stdin-commits und --stdin-packs benutzen."
+msgid "use at most one of --reachable, --stdin-commits, or --stdin-packs"
+msgstr ""
+"Benutzen Sie mindestens eins von --reachable, --stdin-commits, oder --stdin-"
+"packs."
 
 #: builtin/config.c
 msgid "git config [<options>]"
@@ -8384,6 +9728,10 @@ msgstr "git config [<Optionen>]"
 #, c-format
 msgid "unrecognized --type argument, %s"
 msgstr "nicht erkanntes --type Argument, %s"
+
+#: builtin/config.c
+msgid "only one type at a time"
+msgstr "nur ein Typ erlaubt"
 
 #: builtin/config.c
 msgid "Config file location"
@@ -8533,12 +9881,45 @@ msgstr "mit --get, benutze den Standardwert, wenn der Eintrag fehlt"
 
 #: builtin/config.c
 #, c-format
+msgid "wrong number of arguments, should be %d"
+msgstr "Falsche Anzahl von Argumenten - sollte %d sein."
+
+#: builtin/config.c
+#, c-format
+msgid "wrong number of arguments, should be from %d to %d"
+msgstr "Falsche Anzahl von Argumenten - sollte zwischen %d und %d sein."
+
+#: builtin/config.c
+#, c-format
+msgid "invalid key pattern: %s"
+msgstr "Ungültiges Schlüsselmuster: %s"
+
+#: builtin/config.c
+#, c-format
 msgid "failed to format default config value: %s"
 msgstr "Fehler beim Formatieren des Standardkonfigurationswertes: %s"
 
 #: builtin/config.c
+#, c-format
+msgid "cannot parse color '%s'"
+msgstr "Kann Farbe '%s' nicht parsen."
+
+#: builtin/config.c
 msgid "unable to parse default color value"
 msgstr "konnte Standard-Farbwert nicht parsen"
+
+#: builtin/config.c
+msgid "not in a git directory"
+msgstr "Nicht in einem Git-Repository."
+
+#: builtin/config.c
+msgid "writing to stdin is not supported"
+msgstr "Das Schreiben in die Standard-Eingabe wird nicht unterstützt."
+
+#: builtin/config.c
+msgid "writing config blobs is not supported"
+msgstr ""
+"Das Schreiben von Blob-Objekten für Konfigurationen wird nicht unterstützt."
 
 #: builtin/config.c
 #, c-format
@@ -8556,12 +9937,60 @@ msgstr ""
 "#\temail = %s\n"
 
 #: builtin/config.c
+msgid "only one config file at a time"
+msgstr "Nur eine Konfigurationsdatei zu einer Zeit möglich."
+
+#: builtin/config.c
 msgid "--local can only be used inside a git repository"
 msgstr "--local kann nur innerhalb eines Git-Repositories verwendet werden."
 
 #: builtin/config.c
 msgid "--blob can only be used inside a git repository"
 msgstr "--blob kann nur innerhalb eines Git-Repositories verwendet werden."
+
+#: builtin/config.c
+msgid "$HOME not set"
+msgstr "$HOME nicht gesetzt."
+
+#: builtin/config.c
+msgid "--get-color and variable type are incoherent"
+msgstr "Angabe von --get-color und Variablentyp sind ungültig."
+
+#: builtin/config.c
+msgid "only one action at a time"
+msgstr "Nur eine Aktion erlaubt."
+
+#: builtin/config.c
+msgid "--name-only is only applicable to --list or --get-regexp"
+msgstr "--name-only ist nur anwendbar auf --list oder --get-regexp"
+
+#: builtin/config.c
+msgid ""
+"--show-origin is only applicable to --get, --get-all, --get-regexp, and --"
+"list"
+msgstr ""
+"--show-origin ist nur anwendbar auf --get, --get-all, --get-regexp und --list"
+
+#: builtin/config.c
+msgid "--default is only applicable to --get"
+msgstr "--default ist nur anwendbar auf --get"
+
+#: builtin/config.c
+#, c-format
+msgid "unable to read config file '%s'"
+msgstr "Konnte Konfigurationsdatei '%s' nicht lesen."
+
+#: builtin/config.c
+msgid "error processing config file(s)"
+msgstr "Fehler beim Verarbeiten der Konfigurationsdatei(en)."
+
+#: builtin/config.c
+msgid "editing stdin is not supported"
+msgstr "Das Bearbeiten der Standard-Eingabe wird nicht unterstützt."
+
+#: builtin/config.c
+msgid "editing blobs is not supported"
+msgstr "Das Bearbeiten von Blobs wird nicht unterstützt."
 
 #: builtin/config.c
 #, c-format
@@ -8577,6 +10006,11 @@ msgstr ""
 "kann nicht mehrere Werte mit einem einzigen Wert überschreiben\n"
 "       Benutzen Sie einen regulären Ausdruck, --add oder --replace, um %s\n"
 "       zu ändern."
+
+#: builtin/config.c
+#, c-format
+msgid "no such section: %s"
+msgstr "Keine solche Sektion: %s"
 
 #: builtin/count-objects.c
 msgid "git count-objects [-v] [-H | --human-readable]"
@@ -8857,8 +10291,8 @@ msgid "use symlinks in dir-diff mode"
 msgstr "symbolische Verknüpfungen im dir-diff Modus verwenden"
 
 #: builtin/difftool.c
-msgid "<tool>"
-msgstr "<Tool>"
+msgid "tool"
+msgstr "Tool"
 
 #: builtin/difftool.c
 msgid "use the specified diff tool"
@@ -8877,10 +10311,6 @@ msgstr ""
 "'git-difftool' beenden, wenn das aufgerufene Diff-Tool mit einem "
 "Rückkehrwert\n"
 "verschieden 0 ausgeführt wurde"
-
-#: builtin/difftool.c
-msgid "<command>"
-msgstr "<Programm>"
 
 #: builtin/difftool.c
 msgid "specify a custom command for viewing diffs"
@@ -9069,6 +10499,12 @@ msgstr "serverspezifisch"
 #: builtin/fetch.c builtin/ls-remote.c builtin/push.c builtin/send-pack.c
 msgid "option to transmit"
 msgstr "Option übertragen"
+
+#: builtin/fetch.c
+msgid "report that we have only objects reachable from this object"
+msgstr ""
+"ausgeben, dass wir nur Objekte haben, die von diesem Objekt aus erreichbar "
+"sind"
 
 #: builtin/fetch.c
 msgid "Couldn't find remote ref HEAD"
@@ -9515,7 +10951,7 @@ msgstr "ungültige Anzahl von Threads (%d) für %s angegeben"
 #. variable for tweaking threads, currently
 #. grep.threads
 #.
-#: builtin/grep.c builtin/index-pack.c
+#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
 #, c-format
 msgid "no threads support, ignoring %s"
 msgstr "keine Unterstützung von Threads, '%s' wird ignoriert"
@@ -9604,6 +11040,10 @@ msgid "show line numbers"
 msgstr "Zeilennummern anzeigen"
 
 #: builtin/grep.c
+msgid "show column number of first match"
+msgstr "Nummer der Spalte des ersten Treffers anzeigen"
+
+#: builtin/grep.c
 msgid "don't show filenames"
 msgstr "keine Dateinamen anzeigen"
 
@@ -9630,6 +11070,10 @@ msgstr "nur die Dateinamen ohne Übereinstimmungen anzeigen"
 #: builtin/grep.c
 msgid "print NUL after filenames"
 msgstr "NUL-Zeichen nach Dateinamen ausgeben"
+
+#: builtin/grep.c
+msgid "show only matching parts of a line"
+msgstr "nur übereinstimmende Teile der Zeile anzeigen"
 
 #: builtin/grep.c
 msgid "show the number of matches instead of matching lines"
@@ -9716,8 +11160,8 @@ msgid "allow calling of grep(1) (ignored by this build)"
 msgstr "den Aufruf von grep(1) erlauben (von dieser Programmversion ignoriert)"
 
 #: builtin/grep.c
-msgid "no pattern given."
-msgstr "keine Muster angegeben"
+msgid "no pattern given"
+msgstr "Kein Muster angegeben."
 
 #: builtin/grep.c
 msgid "--no-index or --untracked cannot be used with revs"
@@ -9728,12 +11172,12 @@ msgstr "--no-index oder --untracked können nicht mit Commits verwendet werden"
 msgid "unable to resolve revision: %s"
 msgstr "Konnte Commit nicht auflösen: %s"
 
-#: builtin/grep.c builtin/index-pack.c
+#: builtin/grep.c builtin/index-pack.c builtin/pack-objects.c
 #, c-format
 msgid "invalid number of threads specified (%d)"
 msgstr "ungültige Anzahl von Threads angegeben (%d)"
 
-#: builtin/grep.c
+#: builtin/grep.c builtin/pack-objects.c
 msgid "no threads support, ignoring --threads"
 msgstr "keine Unterstützung von Threads, --threads wird ignoriert"
 
@@ -9744,24 +11188,22 @@ msgstr ""
 "Arbeitsverzeichnisses verwendet werden."
 
 #: builtin/grep.c
-msgid "option not supported with --recurse-submodules."
-msgstr "Option wird mit --recurse-submodules nicht unterstützt."
+msgid "option not supported with --recurse-submodules"
+msgstr "Die Option wird mit --recurse-submodules nicht unterstützt."
 
 #: builtin/grep.c
-msgid "--cached or --untracked cannot be used with --no-index."
+msgid "--cached or --untracked cannot be used with --no-index"
+msgstr "--cached und --untracked können nicht mit --no-index verwendet werden."
+
+#: builtin/grep.c
+msgid "--[no-]exclude-standard cannot be used for tracked contents"
 msgstr ""
-"Die Optionen --cached und --untracked können nicht mit --no-index verwendet "
+"--[no-]exclude-standard kann nicht mit versionierten Inhalten verwendet "
 "werden."
 
 #: builtin/grep.c
-msgid "--[no-]exclude-standard cannot be used for tracked contents."
-msgstr ""
-"Die Option --[no-]exclude-standard kann nicht mit versionierten Inhalten "
-"verwendet werden."
-
-#: builtin/grep.c
-msgid "both --cached and trees are given."
-msgstr "Die Option --cached kann nicht mit \"Tree\"-Objekten verwendet werden."
+msgid "both --cached and trees are given"
+msgstr "--cached und \"Tree\"-Objekte angegeben"
 
 #: builtin/hash-object.c
 msgid ""
@@ -9819,6 +11261,10 @@ msgid "print list of useful guides"
 msgstr "Liste von allgemein verwendeten Anleitungen anzeigen"
 
 #: builtin/help.c
+msgid "print all configuration variable names"
+msgstr "alle Namen der Konfigurationsvariablen ausgeben"
+
+#: builtin/help.c
 msgid "show man page"
 msgstr "Handbuch anzeigen"
 
@@ -9829,6 +11275,10 @@ msgstr "Handbuch in einem Webbrowser anzeigen"
 #: builtin/help.c
 msgid "show info page"
 msgstr "Info-Seite anzeigen"
+
+#: builtin/help.c
+msgid "print command description"
+msgstr "Beschreibung des Befehls ausgeben"
 
 #: builtin/help.c
 msgid "git help [--all] [--guides] [--man | --web | --info] [<command>]"
@@ -9889,42 +11339,6 @@ msgid "no info viewer handled the request"
 msgstr "kein Informations-Betrachter konnte mit dieser Anfrage umgehen"
 
 #: builtin/help.c
-msgid "Defining attributes per path"
-msgstr "Definition von Attributen pro Pfad"
-
-#: builtin/help.c
-msgid "Everyday Git With 20 Commands Or So"
-msgstr "Tägliche Benutzung von Git mit ungefähr 20 Befehlen"
-
-#: builtin/help.c
-msgid "A Git glossary"
-msgstr "Ein Git-Glossar"
-
-#: builtin/help.c
-msgid "Specifies intentionally untracked files to ignore"
-msgstr "Spezifikation von bewusst ignorierten, unversionierten Dateien"
-
-#: builtin/help.c
-msgid "Defining submodule properties"
-msgstr "Definition von Submodul-Eigenschaften"
-
-#: builtin/help.c
-msgid "Specifying revisions and ranges for Git"
-msgstr "Spezifikation von Commits und Bereichen für Git"
-
-#: builtin/help.c
-msgid "A tutorial introduction to Git (for version 1.5.1 or newer)"
-msgstr "Eine einführende Anleitung zu Git (für Version 1.5.1 oder neuer)"
-
-#: builtin/help.c
-msgid "An overview of recommended workflows with Git"
-msgstr "Eine Übersicht über empfohlene Arbeitsabläufe mit Git"
-
-#: builtin/help.c
-msgid "The common Git guides are:\n"
-msgstr "Die allgemein verwendeten Git-Anleitungen sind:\n"
-
-#: builtin/help.c
 #, c-format
 msgid "'%s' is aliased to '%s'"
 msgstr "Für '%s' wurde der Alias '%s' angelegt."
@@ -9934,10 +11348,9 @@ msgstr "Für '%s' wurde der Alias '%s' angelegt."
 msgid "usage: %s%s"
 msgstr "Verwendung: %s%s"
 
-#: builtin/index-pack.c
-#, c-format
-msgid "unable to open %s"
-msgstr "kann %s nicht öffnen"
+#: builtin/help.c
+msgid "'git help config' for more information"
+msgstr "'git help config' für weitere Informationen"
 
 #: builtin/index-pack.c
 #, c-format
@@ -9973,7 +11386,7 @@ msgstr "Fehler beim Lesen der Eingabe"
 msgid "used more bytes than were available"
 msgstr "verwendete mehr Bytes als verfügbar waren"
 
-#: builtin/index-pack.c
+#: builtin/index-pack.c builtin/pack-objects.c
 msgid "pack too large for current definition of off_t"
 msgstr "Paket ist zu groß für die aktuelle Definition von off_t"
 
@@ -10110,7 +11523,7 @@ msgstr "Fehler beim Ausführen von \"parse_pack_objects()\""
 msgid "Resolving deltas"
 msgstr "Löse Unterschiede auf"
 
-#: builtin/index-pack.c
+#: builtin/index-pack.c builtin/pack-objects.c
 #, c-format
 msgid "unable to create thread: %s"
 msgstr "kann Thread nicht erzeugen: %s"
@@ -10175,7 +11588,7 @@ msgstr "Kann Paketdatei nicht speichern"
 msgid "cannot store index file"
 msgstr "Kann Indexdatei nicht speichern"
 
-#: builtin/index-pack.c
+#: builtin/index-pack.c builtin/pack-objects.c
 #, c-format
 msgid "bad pack.indexversion=%<PRIu32>"
 msgstr "\"pack.indexversion=%<PRIu32>\" ist ungültig"
@@ -10266,8 +11679,8 @@ msgstr "ignoriere Vorlage %s"
 
 #: builtin/init-db.c
 #, c-format
-msgid "templates not found %s"
-msgstr "keine Vorlagen in '%s' gefunden"
+msgid "templates not found in %s"
+msgstr "Keine Vorlagen in %s gefunden."
 
 #: builtin/init-db.c
 #, c-format
@@ -10324,6 +11737,11 @@ msgstr "Berechtigungen"
 #: builtin/init-db.c
 msgid "specify that the git repository is to be shared amongst several users"
 msgstr "angeben, dass das Git-Repository mit mehreren Benutzern geteilt wird"
+
+#: builtin/init-db.c
+#, c-format
+msgid "cannot mkdir %s"
+msgstr "kann Verzeichnis %s nicht erstellen"
 
 #: builtin/init-db.c
 #, c-format
@@ -10707,11 +12125,11 @@ msgid "invalid ident line: %s"
 msgstr "Ungültige Identifikationszeile: %s"
 
 #: builtin/log.c
-msgid "-n and -k are mutually exclusive."
-msgstr "Die Optionen -n und -k schließen sich gegenseitig aus."
+msgid "-n and -k are mutually exclusive"
+msgstr "-n und -k schließen sich gegenseitig aus."
 
 #: builtin/log.c
-msgid "--subject-prefix/--rfc and -k are mutually exclusive."
+msgid "--subject-prefix/--rfc and -k are mutually exclusive"
 msgstr "--subject-prefix/--rfc und -k schließen sich gegenseitig aus."
 
 #: builtin/log.c
@@ -11485,7 +12903,7 @@ msgstr "git mv [<Optionen>] <Quelle>... <Ziel>"
 msgid "Directory %s is in index and no submodule?"
 msgstr "Verzeichnis %s ist zum Commit vorgemerkt und kein Submodul?"
 
-#: builtin/mv.c builtin/rm.c
+#: builtin/mv.c
 msgid "Please stage your changes to .gitmodules or stash them to proceed"
 msgstr ""
 "Bitte merken Sie Ihre Änderungen in .gitmodules zum Commit vor oder "
@@ -12050,8 +13468,41 @@ msgstr ""
 
 #: builtin/pack-objects.c
 #, c-format
-msgid "deflate error (%d)"
-msgstr "Fehler beim Komprimieren (%d)"
+msgid "bad packed object CRC for %s"
+msgstr "Ungültiges CRC für gepacktes Objekt %s."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "corrupt packed object for %s"
+msgstr "Fehlerhaftes gepacktes Objekt für %s."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "recursive delta detected for object %s"
+msgstr "Rekursiver Unterschied für Objekt %s festgestellt."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "ordered %u objects, expected %<PRIu32>"
+msgstr "%u Objekte geordnet, %<PRIu32> erwartet."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "packfile is invalid: %s"
+msgstr "Packdatei ist ungültig: %s"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to open packfile for reuse: %s"
+msgstr "Konnte Packdatei nicht zur Wiederverwendung öffnen: %s"
+
+#: builtin/pack-objects.c
+msgid "unable to seek in reused packfile"
+msgstr "Konnte \"seek\" nicht in wiederverwendeter Packdatei ausführen."
+
+#: builtin/pack-objects.c
+msgid "unable to read from reused packfile"
+msgstr "Konnte nicht von wiederverwendeter Packdatei lesen."
 
 #: builtin/pack-objects.c
 msgid "disabling bitmap writing, packs are split due to pack.packSizeLimit"
@@ -12063,12 +13514,32 @@ msgstr ""
 msgid "Writing objects"
 msgstr "Schreibe Objekte"
 
+#: builtin/pack-objects.c builtin/update-index.c
+#, c-format
+msgid "failed to stat %s"
+msgstr "Konnte '%s' nicht lesen"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "wrote %<PRIu32> objects while expecting %<PRIu32>"
+msgstr "Schrieb %<PRIu32> Objekte während %<PRIu32> erwartet waren."
+
 #: builtin/pack-objects.c
 msgid "disabling bitmap writing, as some objects are not being packed"
 msgstr ""
 "Deaktiviere Schreiben der Bitmap, da einige Objekte nicht in eine Pack-"
 "Datei\n"
 "geschrieben wurden."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "delta base offset overflow in pack for %s"
+msgstr "\"delta base offset\" Überlauf in Paket für %s"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "delta base offset out of bound for %s"
+msgstr "\"delta base offset\" liegt außerhalb des gültigen Bereichs für %s"
 
 #: builtin/pack-objects.c
 msgid "Counting objects"
@@ -12085,12 +13556,85 @@ msgid "unable to parse object header of %s"
 msgstr "Konnte Kopfbereich von Objekt '%s' nicht parsen."
 
 #: builtin/pack-objects.c
+#, c-format
+msgid "object %s cannot be read"
+msgstr "Objekt %s kann nicht gelesen werden."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "object %s inconsistent object length (%lu vs %lu)"
+msgstr "Inkonsistente Objektlänge bei Objekt %s (%lu vs. %lu)"
+
+#: builtin/pack-objects.c
+msgid "suboptimal pack - out of memory"
+msgstr "ungünstiges Packet - Speicher voll"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "Delta compression using up to %d threads"
+msgstr "Delta-Kompression verwendet bis zu %d Threads."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "unable to pack objects reachable from tag %s"
+msgstr "Konnte keine Objekte packen, die von Tag %s erreichbar sind."
+
+#: builtin/pack-objects.c
 msgid "Compressing objects"
 msgstr "Komprimiere Objekte"
 
 #: builtin/pack-objects.c
+msgid "inconsistency with delta count"
+msgstr "Inkonsistenz mit der Anzahl von Deltas"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid ""
+"expected edge object ID, got garbage:\n"
+" %s"
+msgstr ""
+"Erwartete Randobjekt-ID, erhielt nutzlose Daten:\n"
+" %s"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid ""
+"expected object ID, got garbage:\n"
+" %s"
+msgstr ""
+"Erwartete Objekt-ID, erhielt nutzlose Daten:\n"
+" %s"
+
+#: builtin/pack-objects.c
 msgid "invalid value for --missing"
 msgstr "Ungültiger Wert für --missing."
+
+#: builtin/pack-objects.c
+msgid "cannot open pack index"
+msgstr "Kann Paketindex nicht öffnen."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "loose object at %s could not be examined"
+msgstr "Loses Objekt bei %s konnte nicht untersucht werden."
+
+#: builtin/pack-objects.c
+msgid "unable to force loose object"
+msgstr "Konnte loses Objekt nicht erzwingen."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "not a rev '%s'"
+msgstr "'%s' ist kein Commit."
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "bad revision '%s'"
+msgstr "Ungültiger Commit '%s'."
+
+#: builtin/pack-objects.c
+msgid "unable to add recent objects"
+msgstr "Konnte jüngste Objekte nicht hinzufügen."
 
 #: builtin/pack-objects.c
 #, c-format
@@ -12119,8 +13663,8 @@ msgid "similar to --all-progress when progress meter is shown"
 msgstr "ähnlich zu --all-progress wenn Fortschrittsanzeige darstellt wird"
 
 #: builtin/pack-objects.c
-msgid "version[,offset]"
-msgstr "version[,offset]"
+msgid "<version>[,<offset>]"
+msgstr "<Version>[,<Offset>]"
 
 #: builtin/pack-objects.c
 msgid "write the pack index file in the specified idx format version"
@@ -12271,8 +13815,39 @@ msgid "pack.deltaCacheLimit is too high, forcing %d"
 msgstr "pack.deltaCacheLimit ist zu hoch, erzwinge %d"
 
 #: builtin/pack-objects.c
+msgid "--max-pack-size cannot be used to build a pack for transfer"
+msgstr ""
+"--max-pack-size kann nicht für die Erstellung eines Pakets für eine "
+"Übertragung\n"
+"benutzt werden."
+
+#: builtin/pack-objects.c
+msgid "minimum pack size limit is 1 MiB"
+msgstr "Minimales Limit für die Paketgröße ist 1 MiB."
+
+#: builtin/pack-objects.c
+msgid "--thin cannot be used to build an indexable pack"
+msgstr ""
+"--thin kann nicht benutzt werden, um ein indizierbares Paket zu erstellen."
+
+#: builtin/pack-objects.c
+msgid "--keep-unreachable and --unpack-unreachable are incompatible"
+msgstr "--keep-unreachable und --unpack-unreachable sind inkompatibel"
+
+#: builtin/pack-objects.c
+msgid "cannot use --filter without --stdout"
+msgstr "Kann --filter nicht ohne --stdout benutzen."
+
+#: builtin/pack-objects.c
 msgid "Enumerating objects"
 msgstr "Objekte aufzählen"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "Total %<PRIu32> (delta %<PRIu32>), reused %<PRIu32> (delta %<PRIu32>)"
+msgstr ""
+"Gesamt %<PRIu32> (Delta %<PRIu32>), Wiederverwendet %<PRIu32> (Delta "
+"%<PRIu32>)"
 
 #: builtin/pack-refs.c
 msgid "git pack-refs [<options>]"
@@ -12729,8 +14304,8 @@ msgid "force updates"
 msgstr "Aktualisierung erzwingen"
 
 #: builtin/push.c builtin/send-pack.c
-msgid "refname>:<expect"
-msgstr "Referenzname>:<Erwartungswert"
+msgid "<refname>:<expect>"
+msgstr "<Referenzname>:<Erwartungswert>"
 
 #: builtin/push.c builtin/send-pack.c
 msgid "require old value of ref to be at this value"
@@ -12803,6 +14378,41 @@ msgstr "Die Optionen --all und --mirror sind inkompatibel."
 #: builtin/push.c
 msgid "push options must not have new line characters"
 msgstr "Push-Optionen dürfen keine Zeilenvorschubzeichen haben"
+
+#: builtin/range-diff.c
+msgid "git range-diff [<options>] <old-base>..<old-tip> <new-base>..<new-tip>"
+msgstr ""
+"git range-diff [<Optionen>] <alte-Basis>..<alte-Spitze> <neue-Basis>..<neue-"
+"Spitze>"
+
+#: builtin/range-diff.c
+msgid "git range-diff [<options>] <old-tip>...<new-tip>"
+msgstr "git range-diff [<Optionen>] <alte-Spitze>...<neue-Spitze>"
+
+#: builtin/range-diff.c
+msgid "git range-diff [<options>] <base> <old-tip> <new-tip>"
+msgstr "git range-diff [<Optionen>] <Basis> <alte-Spitze> <neue-Spitze>"
+
+#: builtin/range-diff.c
+msgid "Percentage by which creation is weighted"
+msgstr "Prozentsatz mit welchem Erzeugung gewichtet wird"
+
+#: builtin/range-diff.c
+msgid "use simple diff colors"
+msgstr "einfache Diff-Farben benutzen"
+
+#: builtin/range-diff.c
+#, c-format
+msgid "no .. in range: '%s'"
+msgstr "Kein .. im Bereich: '%s'"
+
+#: builtin/range-diff.c
+msgid "single arg format must be symmetric range"
+msgstr "Format mit einfachem Argument muss symmetrischer Bereich sein."
+
+#: builtin/range-diff.c
+msgid "need two commit ranges"
+msgstr "Benötige zwei Commit-Bereiche."
 
 #: builtin/read-tree.c
 msgid ""
@@ -13128,10 +14738,6 @@ msgstr "Branch(es) zur Übernahme"
 #: builtin/remote.c
 msgid "master branch"
 msgstr "Hauptbranch"
-
-#: builtin/remote.c
-msgid "push|fetch"
-msgstr "push|fetch"
 
 #: builtin/remote.c
 msgid "set up remote as a mirror to push to or fetch from"
@@ -13663,8 +15269,107 @@ msgstr "git replace [--format=<Format>] [-l [<Muster>]]"
 
 #: builtin/replace.c
 #, c-format
-msgid "Not a valid object name: '%s'"
-msgstr "Ungültiger Objekt-Name: '%s'"
+msgid "failed to resolve '%s' as a valid ref"
+msgstr "Konnte '%s' nicht als gültige Referenz auflösen."
+
+#: builtin/replace.c
+#, c-format
+msgid ""
+"invalid replace format '%s'\n"
+"valid formats are 'short', 'medium' and 'long'"
+msgstr ""
+"Ungültiges Ersetzungsformat '%s'\n"
+"Gültige Formate sind 'short', 'medium' und 'long'."
+
+#: builtin/replace.c
+#, c-format
+msgid "replace ref '%s' not found"
+msgstr "Ersetzende Referenz '%s' nicht gefunden."
+
+#: builtin/replace.c
+#, c-format
+msgid "Deleted replace ref '%s'"
+msgstr "Ersetzende Referenz '%s' gelöscht."
+
+#: builtin/replace.c
+#, c-format
+msgid "'%s' is not a valid ref name"
+msgstr "'%s' ist kein gültiger Referenzname."
+
+#: builtin/replace.c
+#, c-format
+msgid "replace ref '%s' already exists"
+msgstr "Ersetzende Referenz '%s' existiert bereits."
+
+#: builtin/replace.c
+#, c-format
+msgid ""
+"Objects must be of the same type.\n"
+"'%s' points to a replaced object of type '%s'\n"
+"while '%s' points to a replacement object of type '%s'."
+msgstr ""
+"Objekte müssen vom selben Typ sein.\n"
+"'%s' zeigt auf ein ersetztes Objekt vom Typ '%s'\n"
+"während '%s' auf ein ersetzendes Objekt vom Typ '%s'\n"
+"zeigt."
+
+#: builtin/replace.c
+#, c-format
+msgid "unable to open %s for writing"
+msgstr "Konnte '%s' nicht zum Schreiben öffnen."
+
+#: builtin/replace.c
+msgid "cat-file reported failure"
+msgstr "cat-file meldete Fehler."
+
+#: builtin/replace.c
+#, c-format
+msgid "unable to open %s for reading"
+msgstr "Konnte '%s' nicht zum Lesen öffnen."
+
+#: builtin/replace.c
+msgid "unable to spawn mktree"
+msgstr "Konnte mktree nicht ausführen."
+
+#: builtin/replace.c
+msgid "unable to read from mktree"
+msgstr "Konnte nicht von mktree lesen."
+
+#: builtin/replace.c
+msgid "mktree reported failure"
+msgstr "mktree meldete Fehler."
+
+#: builtin/replace.c
+msgid "mktree did not return an object name"
+msgstr "mktree lieferte keinen Objektnamen zurück."
+
+#: builtin/replace.c
+#, c-format
+msgid "unable to fstat %s"
+msgstr "Kann fstat auf %s nicht ausführen."
+
+#: builtin/replace.c
+msgid "unable to write object to database"
+msgstr "Konnte Objekt nicht in Datenbank schreiben."
+
+#: builtin/replace.c
+#, c-format
+msgid "not a valid object name: '%s'"
+msgstr "Kein gültiger Objektname: '%s'"
+
+#: builtin/replace.c
+#, c-format
+msgid "unable to get object type for %s"
+msgstr "Konnte Objektart von %s nicht bestimmten."
+
+#: builtin/replace.c
+msgid "editing object file failed"
+msgstr "Bearbeiten von Objektdatei fehlgeschlagen."
+
+#: builtin/replace.c
+#, c-format
+msgid "new object is the same as the old one: '%s'"
+msgstr "Neues Objekt ist dasselbe wie das alte: '%s'"
 
 #: builtin/replace.c
 #, c-format
@@ -13687,8 +15392,8 @@ msgstr ""
 
 #: builtin/replace.c
 #, c-format
-msgid "the original commit '%s' has a gpg signature."
-msgstr "Der ursprüngliche Commit '%s' hat eine GPG-Signatur."
+msgid "the original commit '%s' has a gpg signature"
+msgstr "Der originale Commit '%s' hat eine GPG-Signatur."
 
 #: builtin/replace.c
 msgid "the signature will be removed in the replacement commit!"
@@ -13698,6 +15403,16 @@ msgstr "Die Signatur wird in dem Ersetzungs-Commit entfernt!"
 #, c-format
 msgid "could not write replacement commit for: '%s'"
 msgstr "Konnte Ersetzungs-Commit für '%s' nicht schreiben"
+
+#: builtin/replace.c
+#, c-format
+msgid "graft for '%s' unnecessary"
+msgstr "Künstlicher Vorgänger (\"graft\") für '%s' nicht notwendig."
+
+#: builtin/replace.c
+#, c-format
+msgid "new commit is the same as the old one: '%s'"
+msgstr "Neuer Commit ist derselbe wie der alte: '%s'"
 
 #: builtin/replace.c
 #, c-format
@@ -13739,6 +15454,42 @@ msgstr "keine ansprechende Anzeige des Objektinhaltes für --edit"
 #: builtin/replace.c
 msgid "use this format"
 msgstr "das angegebene Format benutzen"
+
+#: builtin/replace.c
+msgid "--format cannot be used when not listing"
+msgstr "--format kann nicht beim Auflisten verwendet werden."
+
+#: builtin/replace.c
+msgid "-f only makes sense when writing a replacement"
+msgstr "-f macht nur beim Schreiben einer Ersetzung Sinn."
+
+#: builtin/replace.c
+msgid "--raw only makes sense with --edit"
+msgstr "--raw macht nur mit --edit Sinn."
+
+#: builtin/replace.c
+msgid "-d needs at least one argument"
+msgstr "-d benötigt mindestens ein Argument."
+
+#: builtin/replace.c
+msgid "bad number of arguments"
+msgstr "Ungültige Anzahl von Argumenten."
+
+#: builtin/replace.c
+msgid "-e needs exactly one argument"
+msgstr "-e benötigt genau ein Argument."
+
+#: builtin/replace.c
+msgid "-g needs at least one argument"
+msgstr "-g benötigt mindestens ein Argument."
+
+#: builtin/replace.c
+msgid "--convert-graft-file takes no argument"
+msgstr "--convert-graft-file erwartet keine Argumente"
+
+#: builtin/replace.c
+msgid "only one pattern can be given with -l"
+msgstr "Mit -l kann nur ein Muster angegeben werden."
 
 #: builtin/rerere.c
 msgid "git rerere [clear | forget <path>... | status | remaining | diff | gc]"
@@ -14081,6 +15832,12 @@ msgid "exit with a zero status even if nothing matched"
 msgstr "mit Rückgabewert 0 beenden, wenn keine Übereinstimmung gefunden wurde"
 
 #: builtin/rm.c
+msgid "please stage your changes to .gitmodules or stash them to proceed"
+msgstr ""
+"Bitte merken Sie Ihre Änderungen in .gitmodules zum Commit vor oder\n"
+"benutzen Sie \"stash\", um fortzufahren."
+
+#: builtin/rm.c
 #, c-format
 msgid "not removing '%s' recursively without -r"
 msgstr "'%s' wird nicht ohne -r rekursiv entfernt"
@@ -14161,8 +15918,8 @@ msgid "Show the email address of each author"
 msgstr "die E-Mail-Adresse von jedem Autor anzeigen"
 
 #: builtin/shortlog.c
-msgid "w[,i1[,i2]]"
-msgstr "w[,i1[,i2]]"
+msgid "<w>[,<i1>[,<i2>]]"
+msgstr "<w>[,<i1>[,<i2>]]"
 
 #: builtin/shortlog.c
 msgid "Linewrap output"
@@ -14409,6 +16166,46 @@ msgstr "Keine URL für Submodul-Pfad '%s' in .gitmodules gefunden"
 
 #: builtin/submodule--helper.c
 #, c-format
+msgid "Entering '%s'\n"
+msgstr "Betrete '%s'\n"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"run_command returned non-zero status for %s\n"
+"."
+msgstr ""
+"run_command gab nicht-Null Status für '%s' zurück.\n"
+"."
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"run_command returned non-zero status while recursing in the nested "
+"submodules of %s\n"
+"."
+msgstr ""
+"run_command gab während der Rekursion in verschachtelte Submodule von %s "
+"einen\n"
+"nicht-Null Status zurück.\n"
+"."
+
+#: builtin/submodule--helper.c
+msgid "Suppress output of entering each submodule command"
+msgstr ""
+"Ausgaben beim Betreten und der Befehlsausführung in einem Submodul "
+"unterdrücken"
+
+#: builtin/submodule--helper.c
+msgid "Recurse into nested submodules"
+msgstr "Rekursion in verschachtelte Submodule durchführen"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper foreach [--quiet] [--recursive] <command>"
+msgstr "git submodule--helper foreach [--quiet] [--recursive] <Befehl>"
+
+#: builtin/submodule--helper.c
+#, c-format
 msgid ""
 "could not lookup configuration '%s'. Assuming this repository is its own "
 "authoritative upstream."
@@ -14509,10 +16306,6 @@ msgstr "Fehler beim Aktualisieren des Remote-Repositories für Submodul '%s'."
 #: builtin/submodule--helper.c
 msgid "Suppress output of synchronizing submodule url"
 msgstr "Ausgaben bei der Synchronisierung der Submodul-URLs unterdrücken"
-
-#: builtin/submodule--helper.c
-msgid "Recurse into nested submodules"
-msgstr "Rekursion in verschachtelte Submodule durchführen"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper sync [--quiet] [--recursive] [<path>]"
@@ -14976,11 +16769,6 @@ msgstr "Entpacke Objekte"
 #, c-format
 msgid "failed to create directory %s"
 msgstr "Fehler beim Erstellen von Verzeichnis '%s'"
-
-#: builtin/update-index.c
-#, c-format
-msgid "failed to stat %s"
-msgstr "Konnte '%s' nicht lesen"
 
 #: builtin/update-index.c
 #, c-format
@@ -15731,120 +17519,6 @@ msgstr "Argumente"
 msgid "object filtering"
 msgstr "Filtern nach Objekten"
 
-#: common-cmds.h
-msgid "start a working area (see also: git help tutorial)"
-msgstr "Arbeitsverzeichnis anlegen (siehe auch: git help tutorial)"
-
-#: common-cmds.h
-msgid "work on the current change (see also: git help everyday)"
-msgstr "an aktuellen Änderungen arbeiten (siehe auch: git help everyday)"
-
-#: common-cmds.h
-msgid "examine the history and state (see also: git help revisions)"
-msgstr "Historie und Status untersuchen (siehe auch: git help revisions)"
-
-#: common-cmds.h
-msgid "grow, mark and tweak your common history"
-msgstr "Historie erweitern und bearbeiten"
-
-#: common-cmds.h
-msgid "collaborate (see also: git help workflows)"
-msgstr "mit anderen zusammenarbeiten (siehe auch: git help workflows)"
-
-#: common-cmds.h
-msgid "Add file contents to the index"
-msgstr "Dateiinhalte zum Commit vormerken"
-
-#: common-cmds.h
-msgid "Use binary search to find the commit that introduced a bug"
-msgstr ""
-"Binärsuche verwenden, um den Commit zu finden, der einen Fehler verursacht "
-"hat"
-
-#: common-cmds.h
-msgid "List, create, or delete branches"
-msgstr "Branches anzeigen, erstellen oder entfernen"
-
-#: common-cmds.h
-msgid "Switch branches or restore working tree files"
-msgstr "Branches wechseln oder Dateien im Arbeitsverzeichnis wiederherstellen"
-
-#: common-cmds.h
-msgid "Clone a repository into a new directory"
-msgstr "ein Repository in einem neuen Verzeichnis klonen"
-
-#: common-cmds.h
-msgid "Record changes to the repository"
-msgstr "Änderungen in das Repository eintragen"
-
-#: common-cmds.h
-msgid "Show changes between commits, commit and working tree, etc"
-msgstr ""
-"Änderungen zwischen Commits, Commit und Arbeitsverzeichnis, etc. anzeigen"
-
-#: common-cmds.h
-msgid "Download objects and refs from another repository"
-msgstr "Objekte und Referenzen von einem anderen Repository herunterladen"
-
-#: common-cmds.h
-msgid "Print lines matching a pattern"
-msgstr "Zeilen darstellen, die einem Muster entsprechen"
-
-#: common-cmds.h
-msgid "Create an empty Git repository or reinitialize an existing one"
-msgstr ""
-"ein leeres Git-Repository erstellen oder ein bestehendes neuinitialisieren"
-
-#: common-cmds.h
-msgid "Show commit logs"
-msgstr "Commit-Historie anzeigen"
-
-#: common-cmds.h
-msgid "Join two or more development histories together"
-msgstr "zwei oder mehr Entwicklungszweige zusammenführen"
-
-#: common-cmds.h
-msgid "Move or rename a file, a directory, or a symlink"
-msgstr ""
-"eine Datei, ein Verzeichnis, oder eine symbolische Verknüpfung verschieben "
-"oder umbenennen"
-
-#: common-cmds.h
-msgid "Fetch from and integrate with another repository or a local branch"
-msgstr ""
-"Objekte von einem externen Repository anfordern und sie mit einem anderen "
-"Repository oder einem lokalen Branch zusammenführen"
-
-#: common-cmds.h
-msgid "Update remote refs along with associated objects"
-msgstr "Remote-Referenzen mitsamt den verbundenen Objekten aktualisieren"
-
-#: common-cmds.h
-msgid "Reapply commits on top of another base tip"
-msgstr "Wiederholtes Anwenden von Commits auf anderem Basis-Commit"
-
-#: common-cmds.h
-msgid "Reset current HEAD to the specified state"
-msgstr "aktuellen HEAD zu einem spezifizierten Zustand setzen"
-
-#: common-cmds.h
-msgid "Remove files from the working tree and from the index"
-msgstr "Dateien im Arbeitsverzeichnis und vom Index löschen"
-
-#: common-cmds.h
-msgid "Show various types of objects"
-msgstr "verschiedene Arten von Objekten anzeigen"
-
-#: common-cmds.h
-msgid "Show the working tree status"
-msgstr "den Zustand des Arbeitsverzeichnisses anzeigen"
-
-#: common-cmds.h
-msgid "Create, list, delete or verify a tag object signed with GPG"
-msgstr ""
-"ein mit GPG signiertes Tag-Objekt erzeugen, auflisten, löschen oder "
-"verifizieren."
-
 #: parse-options.h
 msgid "expiry-date"
 msgstr "Verfallsdatum"
@@ -15864,6 +17538,671 @@ msgstr "weniger Ausgaben"
 #: parse-options.h
 msgid "use <n> digits to display SHA-1s"
 msgstr "benutze <n> Ziffern zur Anzeige von SHA-1s"
+
+#: command-list.h
+msgid "Add file contents to the index"
+msgstr "Dateiinhalte zum Commit vormerken"
+
+#: command-list.h
+msgid "Apply a series of patches from a mailbox"
+msgstr "eine Serie von Patches von einer Mailbox anwenden"
+
+#: command-list.h
+msgid "Annotate file lines with commit information"
+msgstr "Zeilen der Datei mit Commit-Informationen versehen und anzeigen"
+
+#: command-list.h
+msgid "Apply a patch to files and/or to the index"
+msgstr "einen Patch auf Dateien und/oder den Index anwenden"
+
+#: command-list.h
+msgid "Import an Arch repository into Git"
+msgstr "ein Arch Repository in Git importieren"
+
+#: command-list.h
+msgid "Create an archive of files from a named tree"
+msgstr "Dateiarchiv von angegebenem Verzeichnis erstellen"
+
+#: command-list.h
+msgid "Use binary search to find the commit that introduced a bug"
+msgstr ""
+"Binärsuche verwenden, um den Commit zu finden, der einen Fehler verursacht "
+"hat"
+
+#: command-list.h
+msgid "Show what revision and author last modified each line of a file"
+msgstr ""
+"Anzeigen, durch welchen Commit und Autor die jeweiligen Zeilen\n"
+"einer Datei zuletzt geändert wurden"
+
+#: command-list.h
+msgid "List, create, or delete branches"
+msgstr "Branches anzeigen, erstellen oder entfernen"
+
+#: command-list.h
+msgid "Move objects and refs by archive"
+msgstr "Objekte und Referenzen über ein Archiv verteilen"
+
+#: command-list.h
+msgid "Provide content or type and size information for repository objects"
+msgstr ""
+"Inhalt oder Informationen zu Typ und Größe für Repository-Objekte "
+"bereitstellen"
+
+#: command-list.h
+msgid "Display gitattributes information"
+msgstr "gitattributes Informationen darstellen"
+
+#: command-list.h
+msgid "Debug gitignore / exclude files"
+msgstr "Fehlersuche in gitignore / exclude Dateien"
+
+#: command-list.h
+msgid "Show canonical names and email addresses of contacts"
+msgstr "Name und E-Mail-Adresse von Kontakten anzeigen"
+
+#: command-list.h
+msgid "Switch branches or restore working tree files"
+msgstr "Branches wechseln oder Dateien im Arbeitsverzeichnis wiederherstellen"
+
+#: command-list.h
+msgid "Copy files from the index to the working tree"
+msgstr "Dateien von dem Index ins Arbeitsverzeichnis kopieren"
+
+#: command-list.h
+msgid "Ensures that a reference name is well formed"
+msgstr "Sicherstellen, dass ein Referenzname wohlgeformt ist"
+
+#: command-list.h
+msgid "Find commits yet to be applied to upstream"
+msgstr ""
+"Commits finden, die noch auf dem Upstream-Branch angewendet werden müssen"
+
+#: command-list.h
+msgid "Apply the changes introduced by some existing commits"
+msgstr "Änderungen eines existierenden Commits anwenden"
+
+#: command-list.h
+msgid "Graphical alternative to git-commit"
+msgstr "grafische Alternative zu git-commit"
+
+#: command-list.h
+msgid "Remove untracked files from the working tree"
+msgstr "unversionierte Dateien vom Arbeitsverzeichnis entfernen"
+
+#: command-list.h
+msgid "Clone a repository into a new directory"
+msgstr "ein Repository in einem neuen Verzeichnis klonen"
+
+#: command-list.h
+msgid "Display data in columns"
+msgstr "Daten in Spalten anzeigen"
+
+#: command-list.h
+msgid "Record changes to the repository"
+msgstr "Änderungen in das Repository eintragen"
+
+#: command-list.h
+msgid "Write and verify Git commit graph files"
+msgstr "Git Commit Graph-Dateien schreiben und überprüfen"
+
+#: command-list.h
+msgid "Create a new commit object"
+msgstr "ein neues Commit-Objekt erstellen"
+
+#: command-list.h
+msgid "Get and set repository or global options"
+msgstr "repositoryweite oder globale Optionen lesen oder setzen"
+
+#: command-list.h
+msgid "Count unpacked number of objects and their disk consumption"
+msgstr "Anzahl und Speicherverbrauch ungepackter Objekte zählen"
+
+#: command-list.h
+msgid "Retrieve and store user credentials"
+msgstr "Zugangsdaten des Benutzers empfangen und speichern"
+
+#: command-list.h
+msgid "Helper to temporarily store passwords in memory"
+msgstr ""
+"Hilfsprogramm zum temporären Speichern von Zugangsdaten im Hauptspeicher"
+
+#: command-list.h
+msgid "Helper to store credentials on disk"
+msgstr "Hilfsprogramm zum Speichern von Zugangsdaten auf der Festplatte"
+
+#: command-list.h
+msgid "Export a single commit to a CVS checkout"
+msgstr "einzelnen Commit zu einem ausgecheckten CSV-Repository exportieren"
+
+#: command-list.h
+msgid "Salvage your data out of another SCM people love to hate"
+msgstr "Ihre Daten aus einem anderen SCM übernehmen"
+
+#: command-list.h
+msgid "A CVS server emulator for Git"
+msgstr "ein CSV Server Emulator für Git"
+
+#: command-list.h
+msgid "A really simple server for Git repositories"
+msgstr "ein wirklich einfacher Server für Git Repositories"
+
+#: command-list.h
+msgid "Give an object a human readable name based on an available ref"
+msgstr ""
+"einem Objekt einen für Menschen lesbaren Namen basierend auf\n"
+"einer verfügbaren Referenz geben"
+
+#: command-list.h
+msgid "Show changes between commits, commit and working tree, etc"
+msgstr ""
+"Änderungen zwischen Commits, Commit und Arbeitsverzeichnis, etc. anzeigen"
+
+#: command-list.h
+msgid "Compares files in the working tree and the index"
+msgstr "Dateien von dem Arbeitsverzeichnis und dem Index vergleichen"
+
+#: command-list.h
+msgid "Compare a tree to the working tree or index"
+msgstr "ein Verzeichnis von dem Arbeitsverzeichnis und dem Index vergleichen"
+
+#: command-list.h
+msgid "Compares the content and mode of blobs found via two tree objects"
+msgstr ""
+"den Inhalt und Modus von Blobs aus zwei Verzeichnisobjekten vergleichen"
+
+#: command-list.h
+msgid "Show changes using common diff tools"
+msgstr "Änderungen mittels den allgemeinen Diff-Tools anzeigen"
+
+#: command-list.h
+msgid "Git data exporter"
+msgstr "Export Tool für Git Daten"
+
+#: command-list.h
+msgid "Backend for fast Git data importers"
+msgstr "Backend für schnelle Git Daten Import Tools"
+
+#: command-list.h
+msgid "Download objects and refs from another repository"
+msgstr "Objekte und Referenzen von einem anderen Repository herunterladen"
+
+#: command-list.h
+msgid "Receive missing objects from another repository"
+msgstr "fehlende Objekte von einem anderen Repository empfangen"
+
+#: command-list.h
+msgid "Rewrite branches"
+msgstr "Branches umschreiben"
+
+#: command-list.h
+msgid "Produce a merge commit message"
+msgstr "Beschreibung eines Merge-Commits erzeugen"
+
+#: command-list.h
+msgid "Output information on each ref"
+msgstr "Informationen für jede Referenz ausgeben"
+
+#: command-list.h
+msgid "Prepare patches for e-mail submission"
+msgstr "Patches für E-Mail-Versand vorbereiten"
+
+#: command-list.h
+msgid "Verifies the connectivity and validity of the objects in the database"
+msgstr ""
+"stellt die Verbundenheit und Gültigkeit der Objekte in der Datenbank sicher"
+
+#: command-list.h
+msgid "Cleanup unnecessary files and optimize the local repository"
+msgstr "nicht benötigte Dateien entfernen und das lokale Repository optimieren"
+
+#: command-list.h
+msgid "Extract commit ID from an archive created using git-archive"
+msgstr ""
+"Commit-ID eines Archivs extrahieren, welches mit git-archive erstellt wurde"
+
+#: command-list.h
+msgid "Print lines matching a pattern"
+msgstr "Zeilen darstellen, die einem Muster entsprechen"
+
+#: command-list.h
+msgid "A portable graphical interface to Git"
+msgstr "eine portable grafische Schnittstelle zu Git"
+
+#: command-list.h
+msgid "Compute object ID and optionally creates a blob from a file"
+msgstr ""
+"von einer Datei die Objekt-ID berechnen und optional ein Blob erstellen"
+
+#: command-list.h
+msgid "Display help information about Git"
+msgstr "Hilfsinformationen über Git anzeigen"
+
+#: command-list.h
+msgid "Server side implementation of Git over HTTP"
+msgstr "serverseitige Implementierung von Git über HTTP"
+
+#: command-list.h
+msgid "Download from a remote Git repository via HTTP"
+msgstr "von einem Remote-Git-Repository über HTTP herunterladen"
+
+#: command-list.h
+msgid "Push objects over HTTP/DAV to another repository"
+msgstr "Objekte über HTTP/DAV zu einem anderen Repository übertragen"
+
+#: command-list.h
+msgid "Send a collection of patches from stdin to an IMAP folder"
+msgstr ""
+"eine Sammlung von Patches von der Standard-Eingabe zu einem IMAP-Ordner "
+"senden"
+
+#: command-list.h
+msgid "Build pack index file for an existing packed archive"
+msgstr "Pack-Index-Datei für ein existierendes gepacktes Archiv erzeugen"
+
+#: command-list.h
+msgid "Create an empty Git repository or reinitialize an existing one"
+msgstr ""
+"ein leeres Git-Repository erstellen oder ein bestehendes neuinitialisieren"
+
+#: command-list.h
+msgid "Instantly browse your working repository in gitweb"
+msgstr "Ihr aktuelles Repository sofort in gitweb betrachten"
+
+#: command-list.h
+msgid "add or parse structured information in commit messages"
+msgstr ""
+"strukturierte Informationen in Commit-Beschreibungen hinzufügen oder parsen"
+
+#: command-list.h
+msgid "The Git repository browser"
+msgstr "der Git-Repository-Browser"
+
+#: command-list.h
+msgid "Show commit logs"
+msgstr "Commit-Historie anzeigen"
+
+#: command-list.h
+msgid "Show information about files in the index and the working tree"
+msgstr ""
+"Informationen über Dateien in dem Index und im Arbeitsverzeichnis anzeigen"
+
+#: command-list.h
+msgid "List references in a remote repository"
+msgstr "Referenzen in einem Remote-Repository auflisten"
+
+#: command-list.h
+msgid "List the contents of a tree object"
+msgstr "Inhalte eines Tree-Objektes auflisten"
+
+#: command-list.h
+msgid "Extracts patch and authorship from a single e-mail message"
+msgstr ""
+"Patch und Urheberschaft von einer einzelnen E-Mail-Nachricht extrahieren"
+
+#: command-list.h
+msgid "Simple UNIX mbox splitter program"
+msgstr "einfaches UNIX mbox Splitter-Programm"
+
+#: command-list.h
+msgid "Join two or more development histories together"
+msgstr "zwei oder mehr Entwicklungszweige zusammenführen"
+
+#: command-list.h
+msgid "Find as good common ancestors as possible for a merge"
+msgstr "möglichst besten gemeinsamen Vorgänger-Commit für einen Merge finden"
+
+#: command-list.h
+msgid "Run a three-way file merge"
+msgstr "einen 3-Wege-Datei-Merge ausführen"
+
+#: command-list.h
+msgid "Run a merge for files needing merging"
+msgstr "einen Merge für zusammenzuführende Dateien ausführen"
+
+#: command-list.h
+msgid "The standard helper program to use with git-merge-index"
+msgstr "das Standard-Hilfsprogramm für die Verwendung mit git-merge-index"
+
+#: command-list.h
+msgid "Run merge conflict resolution tools to resolve merge conflicts"
+msgstr ""
+"Ausführen von Tools zur Auflösung von Merge-Konflikten zur Behebung dieser"
+
+#: command-list.h
+msgid "Show three-way merge without touching index"
+msgstr "3-Wege-Merge anzeigen ohne den Index zu verändern"
+
+#: command-list.h
+msgid "Creates a tag object"
+msgstr "ein Tag-Objekt erstellen"
+
+#: command-list.h
+msgid "Build a tree-object from ls-tree formatted text"
+msgstr "Tree-Objekt aus ls-tree formattiertem Text erzeugen"
+
+#: command-list.h
+msgid "Move or rename a file, a directory, or a symlink"
+msgstr ""
+"eine Datei, ein Verzeichnis, oder eine symbolische Verknüpfung verschieben "
+"oder umbenennen"
+
+#: command-list.h
+msgid "Find symbolic names for given revs"
+msgstr "symbolische Namen für die gegebenen Commits finden"
+
+#: command-list.h
+msgid "Add or inspect object notes"
+msgstr "Objekt-Notizen hinzufügen oder überprüfen"
+
+#: command-list.h
+msgid "Import from and submit to Perforce repositories"
+msgstr "von Perforce Repositories importieren und nach diese senden"
+
+#: command-list.h
+msgid "Create a packed archive of objects"
+msgstr "ein gepacktes Archiv von Objekten erstellen"
+
+#: command-list.h
+msgid "Find redundant pack files"
+msgstr "redundante Paketdateien finden"
+
+#: command-list.h
+msgid "Pack heads and tags for efficient repository access"
+msgstr "Branches und Tags für effizienten Zugriff auf das Repository packen"
+
+#: command-list.h
+msgid "Routines to help parsing remote repository access parameters"
+msgstr ""
+"Routinen als Hilfe zum Parsen von Zugriffsparametern von Remote-Repositories"
+
+#: command-list.h
+msgid "Compute unique ID for a patch"
+msgstr "eindeutige ID für einen Patch berechnen"
+
+#: command-list.h
+msgid "Prune all unreachable objects from the object database"
+msgstr "alle nicht erreichbaren Objekte von der Objektdatenbank entfernen"
+
+#: command-list.h
+msgid "Remove extra objects that are already in pack files"
+msgstr ""
+"zusätzliche Objekte, die sich bereits in Paketdateien befinden, entfernen"
+
+#: command-list.h
+msgid "Fetch from and integrate with another repository or a local branch"
+msgstr ""
+"Objekte von einem externen Repository anfordern und sie mit einem anderen "
+"Repository oder einem lokalen Branch zusammenführen"
+
+#: command-list.h
+msgid "Update remote refs along with associated objects"
+msgstr "Remote-Referenzen mitsamt den verbundenen Objekten aktualisieren"
+
+#: command-list.h
+msgid "Applies a quilt patchset onto the current branch"
+msgstr "Patches aus quilt auf aktuellen Branch anwenden"
+
+#: command-list.h
+msgid "Compare two commit ranges (e.g. two versions of a branch)"
+msgstr "zwei Commit-Bereiche vergleichen (zwei Versionen eines Branches)"
+
+#: command-list.h
+msgid "Reads tree information into the index"
+msgstr "Verzeichnisinformationen in den Index einlesen"
+
+#: command-list.h
+msgid "Reapply commits on top of another base tip"
+msgstr "Wiederholtes Anwenden von Commits auf anderem Basis-Commit"
+
+#: command-list.h
+msgid "Receive what is pushed into the repository"
+msgstr "Empfangen was in das Repository übertragen wurde"
+
+#: command-list.h
+msgid "Manage reflog information"
+msgstr "Reflog Informationen verwalten"
+
+#: command-list.h
+msgid "Manage set of tracked repositories"
+msgstr "Menge von hinterlegten Repositories verwalten"
+
+#: command-list.h
+msgid "Pack unpacked objects in a repository"
+msgstr "ungepackte Objekte in einem Repository packen"
+
+#: command-list.h
+msgid "Create, list, delete refs to replace objects"
+msgstr "Referenzen für ersetzende Objekte erstellen, auflisten, löschen"
+
+#: command-list.h
+msgid "Generates a summary of pending changes"
+msgstr "eine Übersicht über ausstehende Änderungen generieren"
+
+#: command-list.h
+msgid "Reuse recorded resolution of conflicted merges"
+msgstr "aufgezeichnete Auflösung von Merge-Konflikten wiederverwenden"
+
+#: command-list.h
+msgid "Reset current HEAD to the specified state"
+msgstr "aktuellen HEAD zu einem spezifizierten Zustand setzen"
+
+#: command-list.h
+msgid "Revert some existing commits"
+msgstr "einige bestehende Commits rückgängig machen"
+
+#: command-list.h
+msgid "Lists commit objects in reverse chronological order"
+msgstr "Commit-Objekte in umgekehrter chronologischer Ordnung auflisten"
+
+#: command-list.h
+msgid "Pick out and massage parameters"
+msgstr "Parameter herauspicken und ändern"
+
+#: command-list.h
+msgid "Remove files from the working tree and from the index"
+msgstr "Dateien im Arbeitsverzeichnis und vom Index löschen"
+
+#: command-list.h
+msgid "Send a collection of patches as emails"
+msgstr "eine Sammlung von Patches als E-Mails versenden"
+
+#: command-list.h
+msgid "Push objects over Git protocol to another repository"
+msgstr "Objekte über das Git Protokoll zu einem anderen Repository übertragen"
+
+#: command-list.h
+msgid "Restricted login shell for Git-only SSH access"
+msgstr "Login-Shell beschränkt für Nur-Git SSH-Zugriff"
+
+#: command-list.h
+msgid "Summarize 'git log' output"
+msgstr "Ausgabe von 'git log' zusammenfassen"
+
+#: command-list.h
+msgid "Show various types of objects"
+msgstr "verschiedene Arten von Objekten anzeigen"
+
+#: command-list.h
+msgid "Show branches and their commits"
+msgstr "Branches und ihre Commits ausgeben"
+
+#: command-list.h
+msgid "Show packed archive index"
+msgstr "gepackten Archiv-Index anzeigen"
+
+#: command-list.h
+msgid "List references in a local repository"
+msgstr "Referenzen in einem lokales Repository auflisten"
+
+#: command-list.h
+msgid "Git's i18n setup code for shell scripts"
+msgstr "Git's i18n-Konfigurationscode für Shell-Skripte"
+
+#: command-list.h
+msgid "Common Git shell script setup code"
+msgstr "allgemeiner Git Shell-Skript Konfigurationscode"
+
+#: command-list.h
+msgid "Stash the changes in a dirty working directory away"
+msgstr "Änderungen in einem Arbeitsverzeichnis aufbewahren"
+
+#: command-list.h
+msgid "Add file contents to the staging area"
+msgstr "Dateiinhalte der Staging-Area hinzufügen"
+
+#: command-list.h
+msgid "Show the working tree status"
+msgstr "den Zustand des Arbeitsverzeichnisses anzeigen"
+
+#: command-list.h
+msgid "Remove unnecessary whitespace"
+msgstr "nicht erforderlichen Whitespace entfernen"
+
+#: command-list.h
+msgid "Initialize, update or inspect submodules"
+msgstr "Submodule initialisieren, aktualisieren oder inspizieren"
+
+#: command-list.h
+msgid "Bidirectional operation between a Subversion repository and Git"
+msgstr ""
+"Bidirektionale Operationen zwischen einem Subversion Repository und Git"
+
+#: command-list.h
+msgid "Read, modify and delete symbolic refs"
+msgstr "symbolische Referenzen lesen, ändern und löschen"
+
+#: command-list.h
+msgid "Create, list, delete or verify a tag object signed with GPG"
+msgstr ""
+"ein mit GPG signiertes Tag-Objekt erzeugen, auflisten, löschen oder "
+"verifizieren."
+
+#: command-list.h
+msgid "Creates a temporary file with a blob's contents"
+msgstr "eine temporäre Datei mit den Inhalten eines Blobs erstellen"
+
+#: command-list.h
+msgid "Unpack objects from a packed archive"
+msgstr "Objekte von einem gepackten Archiv entpacken"
+
+#: command-list.h
+msgid "Register file contents in the working tree to the index"
+msgstr "Dateiinhalte aus dem Arbeitsverzeichnis im Index registrieren"
+
+#: command-list.h
+msgid "Update the object name stored in a ref safely"
+msgstr ""
+"den Objektnamen, der in einer Referenz gespeichert ist, sicher aktualisieren"
+
+#: command-list.h
+msgid "Update auxiliary info file to help dumb servers"
+msgstr "Hilfsinformationsdatei zur Hilfe von einfachen Servern aktualisieren"
+
+#: command-list.h
+msgid "Send archive back to git-archive"
+msgstr "Archiv zurück zu git-archive senden"
+
+#: command-list.h
+msgid "Send objects packed back to git-fetch-pack"
+msgstr "Objekte gepackt zurück an git-fetch-pack senden"
+
+#: command-list.h
+msgid "Show a Git logical variable"
+msgstr "eine logische Variable von Git anzeigen"
+
+#: command-list.h
+msgid "Check the GPG signature of commits"
+msgstr "die GPG-Signatur von Commits prüfen"
+
+#: command-list.h
+msgid "Validate packed Git archive files"
+msgstr "gepackte Git-Archivdateien validieren"
+
+#: command-list.h
+msgid "Check the GPG signature of tags"
+msgstr "die GPG-Signatur von Tags prüfen"
+
+#: command-list.h
+msgid "Git web interface (web frontend to Git repositories)"
+msgstr "Git Web Interface (Web-Frontend für Git-Repositories)"
+
+#: command-list.h
+msgid "Show logs with difference each commit introduces"
+msgstr "Logs mit dem Unterschied, den jeder Commit einführt, anzeigen"
+
+#: command-list.h
+msgid "Manage multiple working trees"
+msgstr "mehrere Arbeitsverzeichnisse verwalten"
+
+#: command-list.h
+msgid "Create a tree object from the current index"
+msgstr "Tree-Objekt vom aktuellen Index erstellen"
+
+#: command-list.h
+msgid "Defining attributes per path"
+msgstr "Definition von Attributen pro Pfad"
+
+#: command-list.h
+msgid "Git command-line interface and conventions"
+msgstr "Git Kommandozeilenschnittstelle und Konventionen"
+
+#: command-list.h
+msgid "A Git core tutorial for developers"
+msgstr "eine Git Anleitung für Entwickler"
+
+#: command-list.h
+msgid "Git for CVS users"
+msgstr "Git für CVS Benutzer"
+
+#: command-list.h
+msgid "Tweaking diff output"
+msgstr "Diff-Ausgabe optimieren"
+
+#: command-list.h
+msgid "A useful minimum set of commands for Everyday Git"
+msgstr ""
+"ein kleine, nützliche Menge von Befehlen für die tägliche Verwendung von Git"
+
+#: command-list.h
+msgid "A Git Glossary"
+msgstr "ein Git-Glossar"
+
+#: command-list.h
+msgid "Hooks used by Git"
+msgstr "von Git verwendete Hooks"
+
+#: command-list.h
+msgid "Specifies intentionally untracked files to ignore"
+msgstr "Spezifikation von bewusst ignorierten, unversionierten Dateien"
+
+#: command-list.h
+msgid "Defining submodule properties"
+msgstr "Definition von Submodul-Eigenschaften"
+
+#: command-list.h
+msgid "Git namespaces"
+msgstr "Git Namensbereiche"
+
+#: command-list.h
+msgid "Git Repository Layout"
+msgstr "Git Repository Aufbau"
+
+#: command-list.h
+msgid "Specifying revisions and ranges for Git"
+msgstr "Spezifikation von Commits und Bereichen für Git"
+
+#: command-list.h
+msgid "A tutorial introduction to Git: part two"
+msgstr "eine einführende Anleitung zu Git: Teil zwei"
+
+#: command-list.h
+msgid "A tutorial introduction to Git"
+msgstr "eine einführende Anleitung zu Git"
+
+#: command-list.h
+msgid "An overview of recommended workflows with Git"
+msgstr "Eine Übersicht über empfohlene Arbeitsabläufe mit Git"
 
 #: rerere.h
 msgid "update the index with reused conflict resolution if possible"
@@ -16187,6 +18526,23 @@ msgstr ""
 "Fehler: '--signoff' und '--preserve-merges' können nicht kombiniert werden."
 
 #: git-rebase.sh
+msgid "error: cannot combine '--preserve_merges' with '--rebase-merges'"
+msgstr ""
+"Fehler: '--preserve-merges' und '--rebase-merges' können nicht kombiniert "
+"werden."
+
+#: git-rebase.sh
+msgid "error: cannot combine '--rebase_merges' with '--strategy-option'"
+msgstr ""
+"Fehler: '--rebase-merges' und '--strategy-option' können nicht kombiniert "
+"werden."
+
+#: git-rebase.sh
+msgid "error: cannot combine '--rebase_merges' with '--strategy'"
+msgstr ""
+"Fehler: '--rebase-merges' und '--strategy' können nicht kombiniert werden."
+
+#: git-rebase.sh
 #, sh-format
 msgid "invalid upstream '$upstream_name'"
 msgstr "Ungültiger Upstream-Branch '$upstream_name'."
@@ -16500,16 +18856,6 @@ msgstr "Fehler beim Eintragen von Submodul '$sm_path' in die Konfiguration."
 
 #: git-submodule.sh
 #, sh-format
-msgid "Entering '$displaypath'"
-msgstr "Betrete '$displaypath'"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Stopping at '$displaypath'; script returned non-zero status."
-msgstr "Stoppe bei '$displaypath'; Skript gab nicht-Null Status zurück."
-
-#: git-submodule.sh
-#, sh-format
 msgid "Unable to find current revision in submodule path '$displaypath'"
 msgstr "Konnte aktuellen Commit in Submodul-Pfad '$displaypath' nicht finden."
 
@@ -16620,11 +18966,137 @@ msgid "See git-${cmd}(1) for details."
 msgstr "Siehe git-${cmd}(1) für weitere Details."
 
 #: git-rebase--interactive.sh
+msgid ""
+"\n"
+"Commands:\n"
+"p, pick <commit> = use commit\n"
+"r, reword <commit> = use commit, but edit the commit message\n"
+"e, edit <commit> = use commit, but stop for amending\n"
+"s, squash <commit> = use commit, but meld into previous commit\n"
+"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"x, exec <command> = run command (the rest of the line) using shell\n"
+"d, drop <commit> = remove commit\n"
+"l, label <label> = label current HEAD with a name\n"
+"t, reset <label> = reset HEAD to a label\n"
+"m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
+".       create a merge commit using the original merge commit's\n"
+".       message (or the oneline, if no original merge commit was\n"
+".       specified). Use -c <commit> to reword the commit message.\n"
+"\n"
+"These lines can be re-ordered; they are executed from top to bottom.\n"
+msgstr ""
+"\n"
+"Befehle:\n"
+"p, pick <Commit> = Commit verwenden\n"
+"r, reword <Commit> = Commit verwenden, aber Commit-Beschreibung bearbeiten\n"
+"e, edit <Commit> = Commit verwenden, aber zum Nachbessern anhalten\n"
+"s, squash <Commit> = Commit verwenden, aber mit vorherigem Commit vereinen\n"
+"f, fixup <Commit> = wie \"squash\", aber diese Commit-Beschreibung "
+"verwerfen\n"
+"x, exec <Commit> = Befehl (Rest der Zeile) mittels Shell ausführen\n"
+"d, drop <Commit> = Commit entfernen\n"
+"l, label <Label> = aktuellen HEAD mit Label versehen\n"
+"t, reset <Label> = HEAD zu einem Label umsetzen\n"
+"m, merge [-C <Commit> | -c <Commit>] <Label> [# <eineZeile>]\n"
+".       Merge-Commit mit der originalen Merge-Commit-Beschreibung erstellen\n"
+".       (oder die eine Zeile, wenn keine originale Merge-Commit-"
+"Beschreibung\n"
+".       spezifiziert ist). Benutzen Sie -c <Commit> zum Bearbeiten der\n"
+".       Commit-Beschreibung.\n"
+"\n"
+"Diese Zeilen können umsortiert werden; Sie werden von oben nach unten\n"
+"ausgeführt.\n"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
+msgstr ""
+"\n"
+"Keine Zeile entfernen. Benutzen Sie 'drop', um explizit einen Commit zu\n"
+"entfernen.\n"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"If you remove a line here THAT COMMIT WILL BE LOST.\n"
+msgstr ""
+"\n"
+"Wenn Sie hier eine Zeile entfernen, wird DIESER COMMIT VERLOREN GEHEN.\n"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid "could not detach HEAD"
+msgstr "Konnte HEAD nicht loslösen"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid ""
+"\n"
+"You are editing the todo file of an ongoing interactive rebase.\n"
+"To continue rebase after editing, run:\n"
+"    git rebase --continue\n"
+"\n"
+msgstr ""
+"\n"
+"Sie bearbeiten gerade die TODO-Datei eines laufenden interaktiven Rebase.\n"
+"Um den Rebase nach dem Editieren fortzusetzen, führen Sie aus:\n"
+"    git rebase --continue\n"
+"\n"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid "Could not execute editor"
+msgstr "Konnte Editor nicht ausführen."
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not checkout $switch_to"
+msgstr "Konnte $switch_to nicht auschecken."
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid "No HEAD?"
+msgstr "Kein HEAD?"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Could not create temporary $state_dir"
+msgstr "Konnte temporäres Verzeichnis $state_dir nicht erstellen."
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid "Could not mark as interactive"
+msgstr "Konnte nicht als interaktiven Rebase markieren."
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
+msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
+msgstr[0] "Rebase von $shortrevisions auf $shortonto ($todocount Kommando)"
+msgstr[1] "Rebase von $shortrevisions auf $shortonto ($todocount Kommandos)"
+
+#: git-rebase--interactive.sh
+msgid ""
+"\n"
+"\tHowever, if you remove everything, the rebase will be aborted.\n"
+"\n"
+"\t"
+msgstr ""
+"\n"
+"\tWenn Sie jedoch alles löschen, wird der Rebase abgebrochen.\n"
+"\n"
+"\t"
+
+#: git-rebase--interactive.sh git-rebase--preserve-merges.sh
+msgid "Note that empty commits are commented out"
+msgstr "Leere Commits sind auskommentiert."
+
+#: git-rebase--interactive.sh
+msgid "Could not generate todo list"
+msgstr "Konnte TODO-Liste nicht erzeugen."
+
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Rebasing ($new_count/$total)"
 msgstr "Führe Rebase aus ($new_count/$total)"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid ""
 "\n"
 "Commands:\n"
@@ -16666,24 +19138,7 @@ msgstr ""
 "Diese Zeilen können umsortiert werden; Sie werden von oben nach unten\n"
 "ausgeführt.\n"
 
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"Do not remove any line. Use 'drop' explicitly to remove a commit.\n"
-msgstr ""
-"\n"
-"Keine Zeile entfernen. Benutzen Sie 'drop', um explizit einen Commit zu\n"
-"entfernen.\n"
-
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"If you remove a line here THAT COMMIT WILL BE LOST.\n"
-msgstr ""
-"\n"
-"Wenn Sie hier eine Zeile entfernen, wird DIESER COMMIT VERLOREN GEHEN.\n"
-
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid ""
 "You can amend the commit now, with\n"
@@ -16702,82 +19157,82 @@ msgstr ""
 "\n"
 "\tgit rebase --continue"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "$sha1: not a commit that can be picked"
 msgstr "$sha1: kein Commit der gepickt werden kann"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Invalid commit name: $sha1"
 msgstr "Ungültiger Commit-Name: $sha1"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Cannot write current commit's replacement sha1"
 msgstr "Kann ersetzenden SHA-1 des aktuellen Commits nicht schreiben"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Fast-forward to $sha1"
 msgstr "Spule vor zu $sha1"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Cannot fast-forward to $sha1"
 msgstr "Kann nicht zu $sha1 vorspulen"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Cannot move HEAD to $first_parent"
 msgstr "Kann HEAD nicht auf $first_parent setzen"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Refusing to squash a merge: $sha1"
 msgstr "\"squash\" eines Merges ($sha1) zurückgewiesen."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Error redoing merge $sha1"
 msgstr "Fehler beim Wiederholen des Merges von $sha1"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Could not pick $sha1"
 msgstr "Konnte $sha1 nicht picken"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "This is the commit message #${n}:"
 msgstr "Das ist Commit-Beschreibung #${n}:"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "The commit message #${n} will be skipped:"
 msgstr "Commit-Beschreibung #${n} wird ausgelassen:"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "This is a combination of $count commit."
 msgid_plural "This is a combination of $count commits."
 msgstr[0] "Das ist eine Kombination aus $count Commit."
 msgstr[1] "Das ist eine Kombination aus $count Commits."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Cannot write $fixup_msg"
 msgstr "Kann $fixup_msg nicht schreiben"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "This is a combination of 2 commits."
 msgstr "Das ist eine Kombination aus 2 Commits."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Could not apply $sha1... $rest"
 msgstr "Konnte $sha1... ($rest) nicht anwenden"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid ""
 "Could not amend commit after successfully picking $sha1... $rest\n"
@@ -16794,31 +19249,31 @@ msgstr ""
 "sollten Sie das Problem beheben, bevor Sie die Commit-Beschreibung ändern "
 "können."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Stopped at $sha1_abbrev... $rest"
 msgstr "Angehalten bei $sha1_abbrev... $rest"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Cannot '$squash_style' without a previous commit"
 msgstr "Kann nicht '$squash_style' ohne vorherigen Commit"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Executing: $rest"
 msgstr "Führe aus: $rest"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Execution failed: $rest"
 msgstr "Ausführung fehlgeschlagen: $rest"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "and made changes to the index and/or the working tree"
 msgstr "Der Index und/oder das Arbeitsverzeichnis wurde geändert."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid ""
 "You can fix the problem, and then run\n"
 "\n"
@@ -16831,7 +19286,7 @@ msgstr ""
 "ausführen."
 
 #. TRANSLATORS: after these lines is a command to be issued by the user
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid ""
 "Execution succeeded: $rest\n"
@@ -16847,29 +19302,25 @@ msgstr ""
 "\n"
 "\tgit rebase --continue"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Unknown command: $command $sha1 $rest"
 msgstr "Unbekannter Befehl: $command $sha1 $rest"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Please fix this using 'git rebase --edit-todo'."
 msgstr "Bitte beheben Sie das, indem Sie 'git rebase --edit-todo' ausführen."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid "Successfully rebased and updated $head_name."
 msgstr "Erfolgreich Rebase ausgeführt und $head_name aktualisiert."
 
-#: git-rebase--interactive.sh
-msgid "could not detach HEAD"
-msgstr "Konnte HEAD nicht loslösen"
-
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Could not remove CHERRY_PICK_HEAD"
 msgstr "Konnte CHERRY_PICK_HEAD nicht löschen"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 #, sh-format
 msgid ""
 "You have staged changes in your working tree.\n"
@@ -16901,13 +19352,13 @@ msgstr ""
 "\n"
 "  git rebase --continue\n"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Error trying to find the author identity to amend commit"
 msgstr ""
 "Fehler beim Versuch die Identität des Authors zum Verbessern des Commits zu\n"
 "finden"
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid ""
 "You have uncommitted changes in your working tree. Please commit them\n"
 "first and then run 'git rebase --continue' again."
@@ -16917,74 +19368,21 @@ msgstr ""
 "erneut\n"
 "aus."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Could not commit staged changes."
 msgstr "Konnte Änderungen aus der Staging-Area nicht committen."
 
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid ""
 "\n"
-"You are editing the todo file of an ongoing interactive rebase.\n"
-"To continue rebase after editing, run:\n"
-"    git rebase --continue\n"
+"However, if you remove everything, the rebase will be aborted.\n"
 "\n"
 msgstr ""
 "\n"
-"Sie bearbeiten gerade die TODO-Datei eines laufenden interaktiven Rebase.\n"
-"Um den Rebase nach dem Editieren fortzusetzen, führen Sie aus:\n"
-"    git rebase --continue\n"
+"Wenn Sie jedoch alles löschen, wird der Rebase abgebrochen.\n"
 "\n"
 
-#: git-rebase--interactive.sh
-msgid "Could not execute editor"
-msgstr "Konnte Editor nicht ausführen."
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid "Could not checkout $switch_to"
-msgstr "Konnte $switch_to nicht auschecken."
-
-#: git-rebase--interactive.sh
-msgid "No HEAD?"
-msgstr "Kein HEAD?"
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid "Could not create temporary $state_dir"
-msgstr "Konnte temporäres Verzeichnis $state_dir nicht erstellen."
-
-#: git-rebase--interactive.sh
-msgid "Could not mark as interactive"
-msgstr "Konnte nicht als interaktiven Rebase markieren."
-
-#: git-rebase--interactive.sh
-#, sh-format
-msgid "Rebase $shortrevisions onto $shortonto ($todocount command)"
-msgid_plural "Rebase $shortrevisions onto $shortonto ($todocount commands)"
-msgstr[0] "Rebase von $shortrevisions auf $shortonto ($todocount Kommando)"
-msgstr[1] "Rebase von $shortrevisions auf $shortonto ($todocount Kommandos)"
-
-#: git-rebase--interactive.sh
-msgid ""
-"\n"
-"\tHowever, if you remove everything, the rebase will be aborted.\n"
-"\n"
-"\t"
-msgstr ""
-"\n"
-"\tWenn Sie jedoch alles löschen, wird der Rebase abgebrochen.\n"
-"\n"
-"\t"
-
-#: git-rebase--interactive.sh
-msgid "Note that empty commits are commented out"
-msgstr "Leere Commits sind auskommentiert."
-
-#: git-rebase--interactive.sh
-msgid "Could not generate todo list"
-msgstr "Konnte TODO-Liste nicht erzeugen."
-
-#: git-rebase--interactive.sh
+#: git-rebase--preserve-merges.sh
 msgid "Could not init rewritten commits"
 msgstr "Konnte neu geschriebene Commits nicht initialisieren."
 
@@ -17995,6 +20393,30 @@ msgstr "Lasse %s mit Backup-Suffix '%s' aus.\n"
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 
+#~ msgid "Dirty index: cannot merge (dirty: %s)"
+#~ msgstr "Geänderter Index: kann nicht mergen (geändert: %s)"
+
+#~ msgid "(+/-)x"
+#~ msgstr "(+/-)x"
+
+#~ msgid "<command>"
+#~ msgstr "<Programm>"
+
+#~ msgid "Everyday Git With 20 Commands Or So"
+#~ msgstr "Tägliche Benutzung von Git mit ungefähr 20 Befehlen"
+
+#~ msgid "push|fetch"
+#~ msgstr "push|fetch"
+
+#~ msgid "w[,i1[,i2]]"
+#~ msgstr "w[,i1[,i2]]"
+
+#~ msgid "Entering '$displaypath'"
+#~ msgstr "Betrete '$displaypath'"
+
+#~ msgid "Stopping at '$displaypath'; script returned non-zero status."
+#~ msgstr "Stoppe bei '$displaypath'; Skript gab nicht-Null Status zurück."
+
 #~ msgid "Could not open '%s' for writing"
 #~ msgstr "Konnte '%s' nicht zum Schreiben öffnen."
 
@@ -18051,9 +20473,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 #~ "ungültig.\n"
 #~ "Bitte benutzen Sie stattdessen . wenn Sie alle Pfade meinen."
 
-#~ msgid "unable to open '%s' for writing"
-#~ msgstr "Konnte '%s' nicht zum Schreiben öffnen."
-
 #~ msgid "could not truncate '%s'"
 #~ msgstr "Konnte '%s' nicht abschneiden."
 
@@ -18077,9 +20496,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 
 #~ msgid "show ignored files"
 #~ msgstr "ignorierte Dateien anzeigen"
-
-#~ msgid "%s is not a valid '%s' object"
-#~ msgstr "%s ist kein gültiges '%s' Objekt"
 
 #~ msgid "Don't know how to fetch from %s"
 #~ msgstr "Weiß nicht wie von %s angefordert wird."
@@ -18183,9 +20599,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 #~ msgid "tag: tagging "
 #~ msgstr "tag: tagge "
 
-#~ msgid "object of unknown type"
-#~ msgstr "Art des Objektes unbekannt"
-
 #~ msgid "commit object"
 #~ msgstr "Commit-Objekt"
 
@@ -18194,9 +20607,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 
 #~ msgid "blob object"
 #~ msgstr "Blob-Objekt"
-
-#~ msgid "other tag object"
-#~ msgstr "anderes Tag-Objekt"
 
 #, fuzzy
 #~ msgid "Submodule '%s' cannot checkout new HEAD"
@@ -18259,12 +20669,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 #~ msgid "git merge [<options>] <msg> HEAD <commit>"
 #~ msgstr "git merge [<Optionen>] <Beschreibung> HEAD <Commit>"
 
-#~ msgid "cannot open file '%s'"
-#~ msgstr "Kann Datei '%s' nicht öffnen"
-
-#~ msgid "could not close file %s"
-#~ msgstr "Konnte Datei '%s' nicht schließen."
-
 #~ msgid "Use an experimental blank-line-based heuristic to improve diffs"
 #~ msgstr ""
 #~ "eine experimentelle, auf Leerzeilen basierende Heuristik zur "
@@ -18312,9 +20716,6 @@ msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
 
 #~ msgid "Could not open %s"
 #~ msgstr "Konnte %s nicht öffnen"
-
-#~ msgid "Could not read %s."
-#~ msgstr "Konnte %s nicht lesen."
 
 #~ msgid "Could not format %s."
 #~ msgstr "Konnte %s nicht formatieren."
