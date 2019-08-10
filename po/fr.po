@@ -75,8 +75,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2019-02-15 10:09+0800\n"
-"PO-Revision-Date: 2019-06-05 11:20+0200\n"
+"POT-Creation-Date: 2019-08-10 20:12+0800\n"
+"PO-Revision-Date: 2019-08-10 18:17+0200\n"
 "Last-Translator: Cédric Malard <c.malard-git@valdun.net>\n"
 "Language-Team: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language: fr\n"
@@ -84,6 +84,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n<=1 ?0 : 1;\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: advice.c
 #, c-format
@@ -142,33 +143,46 @@ msgstr "Abandon à cause d'une fusion non terminée."
 #: advice.c
 #, c-format
 msgid ""
-"Note: checking out '%s'.\n"
+"Note: switching to '%s'.\n"
 "\n"
 "You are in 'detached HEAD' state. You can look around, make experimental\n"
 "changes and commit them, and you can discard any commits you make in this\n"
-"state without impacting any branches by performing another checkout.\n"
+"state without impacting any branches by switching back to a branch.\n"
 "\n"
 "If you want to create a new branch to retain commits you create, you may\n"
-"do so (now or later) by using -b with the checkout command again. Example:\n"
+"do so (now or later) by using -c with the switch command. Example:\n"
 "\n"
-"  git checkout -b <new-branch-name>\n"
+"  git switch -c <new-branch-name>\n"
+"\n"
+"Or undo this operation with:\n"
+"\n"
+"  git switch -\n"
+"\n"
+"Turn off this advice by setting config variable advice.detachedHead to "
+"false\n"
 "\n"
 msgstr ""
-"Note : extraction de '%s'.\n"
+"Note : basculement sur '%s'.\n"
 "\n"
 "Vous êtes dans l'état « HEAD détachée ». Vous pouvez visiter, faire des "
 "modifications\n"
-"expérimentales et les valider. Il vous suffit de faire une autre extraction "
+"expérimentales et les valider. Il vous suffit de faire un autre basculement "
 "pour\n"
 "abandonner les commits que vous faites dans cet état sans impacter les "
 "autres branches\n"
 "\n"
 "Si vous voulez créer une nouvelle branche pour conserver les commits que "
 "vous créez,\n"
-"il vous suffit d'utiliser « checkout -b » (maintenant ou plus tard) comme "
-"ceci :\n"
+"il vous suffit d'utiliser l'option -c de la commande switch comme ceci :\n"
 "\n"
-"  git checkout -b <nom-de-la-nouvelle-branche>\n"
+"  git switch -c <nom-de-la-nouvelle-branche>\n"
+"\n"
+"Ou annuler cette opération avec :\n"
+"\n"
+"  git switch -\n"
+"\n"
+"Désactivez ce conseil en renseignant la variable de configuration advice."
+"detachedHead à false\n"
 "\n"
 
 #: alias.c
@@ -1347,6 +1361,10 @@ msgid "Repository lacks these prerequisite commits:"
 msgstr "Le dépôt ne dispose pas des commits prérequis suivants :"
 
 #: bundle.c
+msgid "need a repository to verify a bundle"
+msgstr "la vérification d'un colis requiert un dépôt"
+
+#: bundle.c
 #, c-format
 msgid "The bundle contains this ref:"
 msgid_plural "The bundle contains these %d refs:"
@@ -1509,6 +1527,30 @@ msgid "commit-graph chunk id %08x appears multiple times"
 msgstr "l'id de bloc de graphe de commit %08x apparaît des multiples fois"
 
 #: commit-graph.c
+msgid "commit-graph has no base graphs chunk"
+msgstr "le graphe de commit n'a pas de section de graphes de base"
+
+#: commit-graph.c
+msgid "commit-graph chain does not match"
+msgstr "la chaîne de graphe de commit ne correspond pas"
+
+#: commit-graph.c
+#, c-format
+msgid "invalid commit-graph chain: line '%s' not a hash"
+msgstr ""
+"chaîne de graphe de commit invalide : la ligne '%s' n'est pas une empreinte"
+
+#: commit-graph.c
+msgid "unable to find all commit-graph files"
+msgstr "impossible de trouver tous les fichiers du graphe de commit"
+
+#: commit-graph.c
+msgid "invalid commit position. commit-graph is likely corrupt"
+msgstr ""
+"position de commit invalide. Le graphe de commit est vraisemblablement "
+"corrompu"
+
+#: commit-graph.c
 #, c-format
 msgid "could not find commit %s"
 msgstr "impossible de trouver le commit %s"
@@ -1568,22 +1610,22 @@ msgid "Counting distinct commits in commit graph"
 msgstr "Comptage des commits distincts dans un graphe de commit"
 
 #: commit-graph.c
-#, c-format
-msgid "the commit graph format cannot write %d commits"
-msgstr "le graphe de commits ne peut pas écrire %d commits"
-
-#: commit-graph.c
 msgid "Finding extra edges in commit graph"
 msgstr "Recherche d'arêtes supplémentaires dans un graphe de commits"
 
 #: commit-graph.c
-msgid "too many commits to write graph"
-msgstr "trop de commits pour écrire un graphe"
+msgid "failed to write correct number of base graph ids"
+msgstr "échec à l'écriture le nombre correct d'id de base de fusion"
 
 #: commit-graph.c midx.c
 #, c-format
 msgid "unable to create leading directories of %s"
 msgstr "impossible de créer les répertoires de premier niveau de %s"
+
+#: commit-graph.c builtin/index-pack.c builtin/repack.c
+#, c-format
+msgid "unable to create '%s'"
+msgstr "impossible de créer '%s'"
 
 #: commit-graph.c
 #, c-format
@@ -1591,6 +1633,40 @@ msgid "Writing out commit graph in %d pass"
 msgid_plural "Writing out commit graph in %d passes"
 msgstr[0] "Écriture le graphe de commits en %d passe"
 msgstr[1] "Écriture le graphe de commits en %d passes"
+
+#: commit-graph.c
+msgid "unable to open commit-graph chain file"
+msgstr "impossible d'ouvrir le fichier de graphe de commit"
+
+#: commit-graph.c
+msgid "failed to rename base commit-graph file"
+msgstr "échec du renommage du fichier de graphe de commits"
+
+#: commit-graph.c
+msgid "failed to rename temporary commit-graph file"
+msgstr "impossible de renommer le fichier temporaire de graphe de commits"
+
+#: commit-graph.c
+msgid "Scanning merged commits"
+msgstr "Analyse des commits de fusion"
+
+#: commit-graph.c
+#, c-format
+msgid "unexpected duplicate commit id %s"
+msgstr "id de commit %s dupliqué inattendu"
+
+#: commit-graph.c
+msgid "Merging commit-graph"
+msgstr "fusion du graphe de commits"
+
+#: commit-graph.c
+#, c-format
+msgid "the commit graph format cannot write %d commits"
+msgstr "le graphe de commits ne peut pas écrire %d commits"
+
+#: commit-graph.c
+msgid "too many commits to write graph"
+msgstr "trop de commits pour écrire un graphe"
 
 #: commit-graph.c
 msgid "the commit-graph file has incorrect checksum and is likely corrupt"
@@ -3238,49 +3314,18 @@ msgid "error in sideband demultiplexer"
 msgstr "erreur dans le démultiplexer latéral"
 
 #: fetch-pack.c
-msgid "Server does not support shallow clients"
-msgstr "Le serveur ne supporte les clients superficiels"
-
-#: fetch-pack.c
-msgid "Server supports multi_ack_detailed"
-msgstr "Le serveur supporte multi_ack_detailed"
-
-#: fetch-pack.c
-msgid "Server supports no-done"
-msgstr "Le serveur support no-done"
-
-#: fetch-pack.c
-msgid "Server supports multi_ack"
-msgstr "Le serveur supporte multi_ack"
-
-#: fetch-pack.c
-msgid "Server supports side-band-64k"
-msgstr "Le serveur supporte side-band-64k"
-
-#: fetch-pack.c
-msgid "Server supports side-band"
-msgstr "Le serveru supporte side-band"
-
-#: fetch-pack.c
-msgid "Server supports allow-tip-sha1-in-want"
-msgstr "Le serveur supporte allow-tip-sha1-in-want"
-
-#: fetch-pack.c
-msgid "Server supports allow-reachable-sha1-in-want"
-msgstr "Le serveur supporte allow-reachable-sha1-in-want"
-
-#: fetch-pack.c
-msgid "Server supports ofs-delta"
-msgstr "Le serveur supporte ofs-delta"
-
-#: fetch-pack.c
-msgid "Server supports filter"
-msgstr "Le serveur supporte filter"
-
-#: fetch-pack.c
 #, c-format
 msgid "Server version is %.*s"
 msgstr "La version du serveur est %.*s"
+
+#: fetch-pack.c
+#, c-format
+msgid "Server supports %s"
+msgstr "Le serveur supporte %s"
+
+#: fetch-pack.c
+msgid "Server does not support shallow clients"
+msgstr "Le serveur ne supporte les clients superficiels"
 
 #: fetch-pack.c
 msgid "Server does not support --shallow-since"
@@ -3305,6 +3350,10 @@ msgstr "git fetch-pack : échec de le récupération."
 #: fetch-pack.c
 msgid "Server does not support shallow requests"
 msgstr "Le serveur ne supporte les requêtes superficielles"
+
+#: fetch-pack.c
+msgid "Server supports filter"
+msgstr "Le serveur supporte filter"
 
 #: fetch-pack.c
 msgid "unable to write request to remote"
@@ -3657,6 +3706,11 @@ msgstr "attendu : 'tree:<profondeur>'"
 #: list-objects-filter-options.c
 msgid "sparse:path filters support has been dropped"
 msgstr "sparse : le support des filtres de chemin a été abandonné"
+
+#: list-objects-filter-options.c
+#, c-format
+msgid "invalid filter-spec '%s'"
+msgstr "spécificateur de filtre invalide '%s'"
 
 #: list-objects-filter-options.c
 msgid "cannot change partial clone promisor remote"
@@ -4219,6 +4273,11 @@ msgstr "échec de localisation de l'objet %d dans le fichier paquet"
 
 #: midx.c
 #, c-format
+msgid "did not see pack-file %s to drop"
+msgstr "fichier paquet à éliminer %s non trouvé"
+
+#: midx.c
+#, c-format
 msgid "failed to clear multi-pack-index at %s"
 msgstr "échec du nettoyage de l'index de multi-paquet à %s"
 
@@ -4265,6 +4324,14 @@ msgstr "impossible de lire le fichier paquet %s"
 #, c-format
 msgid "incorrect object offset for oid[%d] = %s: %<PRIx64> != %<PRIx64>"
 msgstr "décalage d'objet incorrect pour oid[%d] = %s : %<PRIx64> != %<PRIx64>"
+
+#: midx.c
+msgid "could not start pack-objects"
+msgstr "Impossible de démarrer le groupement d'objets"
+
+#: midx.c
+msgid "could not finish pack-objects"
+msgstr "Impossible de finir le groupement d'objets"
 
 #: name-hash.c
 #, c-format
@@ -4628,6 +4695,11 @@ msgstr "impossible de lire la sortie de `log`"
 #, c-format
 msgid "could not parse commit '%s'"
 msgstr "impossible d'analyser le commit '%s'"
+
+#: range-diff.c
+#, c-format
+msgid "could not parse git header '%.*s'"
+msgstr "impossible d'analyser l'entête git '%.*s'"
 
 #: range-diff.c
 msgid "failed to generate diff"
@@ -5278,38 +5350,22 @@ msgstr "Chaîne de formatage mal formée %s"
 
 #: ref-filter.c
 #, c-format
-msgid "(no branch, rebasing %s)"
-msgstr "(aucune branche, rebasage de %s)"
+msgid "no branch, rebasing %s"
+msgstr "aucune branche, rebasage de %s"
 
 #: ref-filter.c
 #, c-format
-msgid "(no branch, rebasing detached HEAD %s)"
-msgstr "(aucune branche, rebasage de la HEAD détachée %s)"
+msgid "no branch, rebasing detached HEAD %s"
+msgstr "aucune branche, rebasage de la HEAD détachée %s"
 
 #: ref-filter.c
 #, c-format
-msgid "(no branch, bisect started on %s)"
-msgstr "(aucune branche, bisect a démarré sur %s)"
-
-#. TRANSLATORS: make sure this matches "HEAD
-#. detached at " in wt-status.c
-#.
-#: ref-filter.c
-#, c-format
-msgid "(HEAD detached at %s)"
-msgstr "(HEAD détachée sur %s)"
-
-#. TRANSLATORS: make sure this matches "HEAD
-#. detached from " in wt-status.c
-#.
-#: ref-filter.c
-#, c-format
-msgid "(HEAD detached from %s)"
-msgstr "(HEAD détachée depuis %s)"
+msgid "no branch, bisect started on %s"
+msgstr "aucune branche, bisect a démarré sur %s"
 
 #: ref-filter.c
-msgid "(no branch)"
-msgstr "(aucune branche)"
+msgid "no branch"
+msgstr "aucune branche"
 
 #: ref-filter.c
 #, c-format
@@ -5825,6 +5881,11 @@ msgstr "mode de nettoyage invalide de message de validation '%s'"
 msgid "could not delete '%s'"
 msgstr "Impossible de supprimer '%s'"
 
+#: sequencer.c builtin/rebase.c builtin/rm.c
+#, c-format
+msgid "could not remove '%s'"
+msgstr "impossible de supprimer '%s'"
+
 #: sequencer.c
 msgid "revert"
 msgstr "revert"
@@ -6248,6 +6309,14 @@ msgid "could not read '%s'."
 msgstr "impossible de lire '%s'."
 
 #: sequencer.c
+msgid "cancelling a cherry picking in progress"
+msgstr "annulation d'un picorage en cours"
+
+#: sequencer.c
+msgid "cancelling a revert in progress"
+msgstr "annulation d'un retour en cours"
+
+#: sequencer.c
 msgid "please fix this using 'git rebase --edit-todo'."
 msgstr "veuillez corriger ceci en utilisant 'git rebase --edit-todo'."
 
@@ -6287,12 +6356,22 @@ msgid "empty commit set passed"
 msgstr "l'ensemble de commits spécifié est vide"
 
 #: sequencer.c
-msgid "a cherry-pick or revert is already in progress"
-msgstr "un picorage ou un retour est déjà en cours"
+msgid "revert is already in progress"
+msgstr "un retour est déjà en cours"
 
 #: sequencer.c
-msgid "try \"git cherry-pick (--continue | --quit | --abort)\""
-msgstr "essayez \"git cherry-pick (--continue | --quit | --abort)\""
+#, c-format
+msgid "try \"git revert (--continue | %s--abort | --quit)\""
+msgstr "essayez \"git revert (--continue | %s--abort | --quit)\""
+
+#: sequencer.c
+msgid "cherry-pick is already in progress"
+msgstr "un picorage est déjà en cours"
+
+#: sequencer.c
+#, c-format
+msgid "try \"git cherry-pick (--continue | %s--abort | --quit)\""
+msgstr "essayez \"git cherry-pick (--continue | %s--abort | --quit)\""
 
 #: sequencer.c
 #, c-format
@@ -6338,6 +6417,31 @@ msgstr "le fichier HEAD de préparation de picorage '%s' est corrompu"
 msgid "You seem to have moved HEAD. Not rewinding, check your HEAD!"
 msgstr ""
 "Vous semblez avoir déplacé la HEAD. Pas de rembobinage, vérifiez votre HEAD !"
+
+#: sequencer.c
+msgid "no revert in progress"
+msgstr "Pas de retour en cours ?"
+
+#: sequencer.c
+msgid "no cherry-pick in progress"
+msgstr "aucun picorage en cours"
+
+#: sequencer.c
+msgid "failed to skip the commit"
+msgstr "échec du saut de commit"
+
+#: sequencer.c
+msgid "there is nothing to skip"
+msgstr "il n'y a rien à sauter"
+
+#: sequencer.c
+#, c-format
+msgid ""
+"have you committed already?\n"
+"try \"git %s --continue\""
+msgstr ""
+"Avez-vous déjà validé ?\n"
+"essayez \"git %s -continue\""
 
 #: sequencer.c
 #, c-format
@@ -6497,7 +6601,7 @@ msgstr "Autoremisage appliqué.\n"
 msgid "cannot store %s"
 msgstr "impossible de stocker %s"
 
-#: sequencer.c builtin/rebase.c
+#: sequencer.c builtin/rebase.c git-rebase--preserve-merges.sh
 #, c-format
 msgid ""
 "Applying autostash resulted in conflicts.\n"
@@ -6887,6 +6991,11 @@ msgstr "le dépôt de référence '%s' est greffé"
 
 #: sha1-file.c
 #, c-format
+msgid "invalid line while parsing alternate refs: %s"
+msgstr "ligne invalide pendant l'analyse des refs alternatives : %s"
+
+#: sha1-file.c
+#, c-format
 msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
 msgstr "essai de mmap %<PRIuMAX> au delà de la limite %<PRIuMAX>"
 
@@ -7093,24 +7202,75 @@ msgid ""
 "because it will be ignored when you just specify 40-hex. These refs\n"
 "may be created by mistake. For example,\n"
 "\n"
-"  git checkout -b $br $(git rev-parse ...)\n"
+"  git switch -c $br $(git rev-parse ...)\n"
 "\n"
 "where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
 "examine these refs and maybe delete them. Turn this message off by\n"
 "running \"git config advice.objectNameWarning false\""
 msgstr ""
-"Git ne crée normalement jamais de référence qui se termine par 40 caractères "
-"hexa\n"
-"car elle serait ignorée si vous spécifiiez 40-hexa. Ces références\n"
-"peuvent être créées par erreur. Par exemple,\n"
+"Git ne crée normalement jamais de référence qui se termine par 40\n"
+"caractères hexa car elle serait ignorée si vous spécifiez juste\n"
+"40-hexa. Ces références peuvent être créées par erreur. Par exemple,\n"
 "\n"
-"  git checkout -b $br $(git rev-parse ...)\n"
+"  git switch -c $br $(git rev-parse ...)\n"
 "\n"
 "où \"$br\" est d'une manière ou d'une autre vide et une référence 40-hexa "
 "est créée.\n"
 "Veuillez examiner ces références et peut-être les supprimer. Désactivez ce "
 "message\n"
 "en lançant \"git config advice.objectNameWarning false\""
+
+#. TRANSLATORS: IEC 80000-13:2008 gibibyte
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u GiB"
+msgstr "%u.%2.2u Gio"
+
+#. TRANSLATORS: IEC 80000-13:2008 gibibyte/second
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u GiB/s"
+msgstr "%u.%2.2u Gio/s"
+
+#. TRANSLATORS: IEC 80000-13:2008 mebibyte
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u MiB"
+msgstr "%u.%2.2u Mio"
+
+#. TRANSLATORS: IEC 80000-13:2008 mebibyte/second
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u MiB/s"
+msgstr "%u.%2.2u Mio/s"
+
+#. TRANSLATORS: IEC 80000-13:2008 kibibyte
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u KiB"
+msgstr "%u.%2.2u Kio"
+
+#. TRANSLATORS: IEC 80000-13:2008 kibibyte/second
+#: strbuf.c
+#, c-format
+msgid "%u.%2.2u KiB/s"
+msgstr "%u.%2.2u Kio/s"
+
+#. TRANSLATORS: IEC 80000-13:2008 byte
+#: strbuf.c
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u octet"
+msgstr[1] "%u octets"
+
+#. TRANSLATORS: IEC 80000-13:2008 byte/second
+#: strbuf.c
+#, c-format
+msgid "%u byte/s"
+msgid_plural "%u bytes/s"
+msgstr[0] "%u octet/s"
+msgstr[1] "%u octets/s"
 
 #: submodule.c
 msgid "Cannot change unmerged .gitmodules, resolve merge conflicts first"
@@ -7396,11 +7556,6 @@ msgstr "échec de la poussée de tous les sous-modules nécessaires"
 #: transport.c transport-helper.c
 msgid "operation not supported by protocol"
 msgstr "option non supportée par le protocole"
-
-#: transport.c
-#, c-format
-msgid "invalid line while parsing alternate refs: %s"
-msgstr "ligne invalide pendant l'analyse des refs alternatives : %s"
 
 #: transport-helper.c
 msgid "full write to remote helper failed"
@@ -7827,8 +7982,8 @@ msgid "Aborting\n"
 msgstr "Abandon\n"
 
 #: unpack-trees.c
-msgid "Checking out files"
-msgstr "Extraction des fichiers"
+msgid "Updating files"
+msgstr "Mise à jour des fichiers"
 
 #: unpack-trees.c
 msgid ""
@@ -7921,9 +8076,15 @@ msgid "Unmerged paths:"
 msgstr "Chemins non fusionnés :"
 
 #: wt-status.c
+msgid "  (use \"git restore --staged <file>...\" to unstage)"
+msgstr "  (utilisez \"git restore --staged <fichier>...\" pour désindexer)"
+
+#: wt-status.c
 #, c-format
-msgid "  (use \"git reset %s <file>...\" to unstage)"
-msgstr "  (utilisez \"git reset %s <fichier>...\" pour désindexer)"
+msgid "  (use \"git restore --source=%s --staged <file>...\" to unstage)"
+msgstr ""
+"  (utilisez \"git restore --source=%s --staged <fichier>...\" pour "
+"désindexer)"
 
 #: wt-status.c
 msgid "  (use \"git rm --cached <file>...\" to unstage)"
@@ -7964,10 +8125,10 @@ msgstr ""
 
 #: wt-status.c
 msgid ""
-"  (use \"git checkout -- <file>...\" to discard changes in working directory)"
+"  (use \"git restore <file>...\" to discard changes in working directory)"
 msgstr ""
-"  (utilisez \"git checkout -- <fichier>...\" pour annuler les modifications "
-"dans la copie de travail)"
+"  (utilisez \"git restore <fichier>...\" pour annuler les modifications dans "
+"le répertoire de travail)"
 
 #: wt-status.c
 msgid "  (commit or discard the untracked or modified content in submodules)"
@@ -8074,6 +8235,18 @@ msgid ""
 msgstr ""
 "Ne touchez pas à la ligne ci-dessus.\n"
 "Tout ce qui suit sera éliminé."
+
+#: wt-status.c
+#, c-format
+msgid ""
+"\n"
+"It took %.2f seconds to compute the branch ahead/behind values.\n"
+"You can use '--no-ahead-behind' to avoid this.\n"
+msgstr ""
+"\n"
+"%.2f secondes ont été nécessaires pour calculer les valeurs d'avance/retard "
+"de la branche.\n"
+"Vous pouvez utiliser '--no-ahead-behind' pour éviter ceci.\n"
 
 #: wt-status.c
 msgid "You have unmerged paths."
@@ -8291,14 +8464,6 @@ msgstr "rebasage interactif en cours ; sur "
 #: wt-status.c
 msgid "rebase in progress; onto "
 msgstr "rebasage en cours ; sur "
-
-#: wt-status.c
-msgid "HEAD detached at "
-msgstr "HEAD détachée sur "
-
-#: wt-status.c
-msgid "HEAD detached from "
-msgstr "HEAD détachée depuis "
 
 #: wt-status.c
 msgid "Not currently on any branch."
@@ -8758,11 +8923,6 @@ msgid "cannot resume: %s does not exist."
 msgstr "impossible de continuer : %s n'existe pas."
 
 #: builtin/am.c
-msgid "cannot be interactive without stdin connected to a terminal."
-msgstr ""
-"impossible d'être interactif sans entrée standard connectée à un terminal."
-
-#: builtin/am.c
 msgid "Commit Body is:"
 msgstr "Le corps de la validation est :"
 
@@ -8771,6 +8931,7 @@ msgstr "Le corps de la validation est :"
 #. input at this point.
 #.
 #: builtin/am.c
+#, c-format
 msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
 msgstr "Appliquer ? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all : "
 
@@ -9003,6 +9164,10 @@ msgid "Resolve operation not in progress, we are not resuming."
 msgstr ""
 "Pas de résolution de l'opération en cours, nous ne sommes pas dans une "
 "reprise."
+
+#: builtin/am.c
+msgid "interactive mode requires patches on the command line"
+msgstr "le mode interactif requiert des rustines sur la ligne de commande"
 
 #: builtin/apply.c
 msgid "git apply [<options>] [<patch>...]"
@@ -9238,6 +9403,11 @@ msgid "bad HEAD - strange symbolic ref"
 msgstr "mauvaise HEAD - référence symbolique douteuse"
 
 #: builtin/bisect--helper.c
+#, c-format
+msgid "invalid ref: '%s'"
+msgstr "réference invalide : '%s'"
+
+#: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
 msgstr "effectuer 'git bisect next'"
 
@@ -9340,6 +9510,11 @@ msgid "invalid value for blame.coloring"
 msgstr "valeur invalide pour blame.coloring"
 
 #: builtin/blame.c
+#, c-format
+msgid "cannot find revision %s to ignore"
+msgstr "référence à ignorer %s introuvable"
+
+#: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr ""
 "Montrer les éléments de blâme au fur et à mesure de leur découverte, de "
@@ -9405,6 +9580,18 @@ msgstr "Afficher le courriel de l'auteur au lieu du nom (Défaut : désactivé)"
 #: builtin/blame.c
 msgid "Ignore whitespace differences"
 msgstr "Ignorer les différences d'espace"
+
+#: builtin/blame.c builtin/log.c
+msgid "rev"
+msgstr "rév"
+
+#: builtin/blame.c
+msgid "Ignore <rev> when blaming"
+msgstr "ignore <rev> pendant le blâme"
+
+#: builtin/blame.c
+msgid "Ignore revisions from <file>"
+msgstr "ignorer les révisions listées dans <fichier>"
 
 #: builtin/blame.c
 msgid "color redundant metadata from previous line differently"
@@ -9878,9 +10065,13 @@ msgid "Branch '%s' has no upstream information"
 msgstr "La branche '%s' n'a aucune information de branche amont"
 
 #: builtin/branch.c
-msgid "-a and -r options to 'git branch' do not make sense with a branch name"
+msgid ""
+"The -a, and -r, options to 'git branch' do not take a branch name.\n"
+"Did you mean to use: -a|-r --list <pattern>?"
 msgstr ""
-"les options -a et -r de 'git branch' n'ont pas de sens avec un nom de branche"
+"Les options -a et -r de 'git branch' n'ont pas de sens avec un nom de "
+"branche.\n"
+"Vouliez-vous plutôt dire -a|-r --list <motif> ?"
 
 #: builtin/branch.c
 msgid ""
@@ -10128,6 +10319,14 @@ msgid "git checkout [<options>] [<branch>] -- <file>..."
 msgstr "git checkout [<options>] [<branche>] -- <fichier>..."
 
 #: builtin/checkout.c
+msgid "git switch [<options>] [<branch>]"
+msgstr "git switch [<options>] <branche>"
+
+#: builtin/checkout.c
+msgid "git restore [<options>] [--source=<branch>] <file>..."
+msgstr "git restore [<options>] [--source=<branche>] <fichier>..."
+
+#: builtin/checkout.c
 #, c-format
 msgid "path '%s' does not have our version"
 msgstr "le chemin '%s' n'a pas notre version"
@@ -10159,28 +10358,6 @@ msgstr "Impossible d'ajouter le résultat de fusion pour '%s'"
 
 #: builtin/checkout.c
 #, c-format
-msgid "'%s' cannot be used with updating paths"
-msgstr "'%s' ne peut pas être utilisé avec des mises à jour de chemins"
-
-#: builtin/checkout.c
-#, c-format
-msgid "'%s' cannot be used with %s"
-msgstr "'%s' ne peut pas être utilisé avec %s"
-
-#: builtin/checkout.c
-#, c-format
-msgid "Cannot update paths and switch to branch '%s' at the same time."
-msgstr ""
-"Impossible de mettre à jour les chemins et basculer sur la branche '%s' en "
-"même temps."
-
-#: builtin/checkout.c
-#, c-format
-msgid "path '%s' is unmerged"
-msgstr "le chemin '%s' n'est pas fusionné"
-
-#: builtin/checkout.c
-#, c-format
 msgid "Recreated %d merge conflict"
 msgid_plural "Recreated %d merge conflicts"
 msgstr[0] "%d conflit du fusion recréé"
@@ -10199,6 +10376,43 @@ msgid "Updated %d path from the index"
 msgid_plural "Updated %d paths from the index"
 msgstr[0] "%d chemin mis à jour depuis l'index"
 msgstr[1] "%d chemins mis à jour depuis l'index"
+
+#: builtin/checkout.c
+#, c-format
+msgid "'%s' cannot be used with updating paths"
+msgstr "'%s' ne peut pas être utilisé avec des mises à jour de chemins"
+
+#: builtin/checkout.c
+#, c-format
+msgid "'%s' cannot be used with %s"
+msgstr "'%s' ne peut pas être utilisé avec %s"
+
+#: builtin/checkout.c
+#, c-format
+msgid "Cannot update paths and switch to branch '%s' at the same time."
+msgstr ""
+"Impossible de mettre à jour les chemins et basculer sur la branche '%s' en "
+"même temps."
+
+#: builtin/checkout.c
+#, c-format
+msgid "neither '%s' or '%s' is specified"
+msgstr "ni '%s', ni '%s' spécifié"
+
+#: builtin/checkout.c
+#, c-format
+msgid "'%s' must be used when '%s' is not specified"
+msgstr "'%s' ne peut pas être utilisé quand '%s' n'est pas spécifié"
+
+#: builtin/checkout.c
+#, c-format
+msgid "'%s' or '%s' cannot be used with %s"
+msgstr "'%s' ou '%s' ne peut pas être utilisé avec %s"
+
+#: builtin/checkout.c
+#, c-format
+msgid "path '%s' is unmerged"
+msgstr "le chemin '%s' n'est pas fusionné"
 
 #: builtin/checkout.c
 msgid "you need to resolve your current index first"
@@ -10328,6 +10542,10 @@ msgid "You are on a branch yet to be born"
 msgstr "Vous êtes sur une branche qui doit encore naître"
 
 #: builtin/checkout.c
+msgid "only one reference expected"
+msgstr "une seule référence attendue"
+
+#: builtin/checkout.c
 #, c-format
 msgid "only one reference expected, %d given."
 msgstr "une seule référence attendue, %d fournies."
@@ -10352,6 +10570,70 @@ msgid "reference is not a tree: %s"
 msgstr "la référence n'est pas un arbre : %s"
 
 #: builtin/checkout.c
+#, c-format
+msgid "a branch is expected, got tag '%s'"
+msgstr "branche attendue, mais étiquette '%s' reçue"
+
+#: builtin/checkout.c
+#, c-format
+msgid "a branch is expected, got remote branch '%s'"
+msgstr "une branche est attendue, mais une branche distante '%s' a été reçue"
+
+#: builtin/checkout.c
+#, c-format
+msgid "a branch is expected, got '%s'"
+msgstr "une branche est attendue, mais '%s' a été reçue"
+
+#: builtin/checkout.c
+#, c-format
+msgid "a branch is expected, got commit '%s'"
+msgstr "une branche est attendue, mais un commit '%s' a été reçu"
+
+#: builtin/checkout.c
+msgid ""
+"cannot switch branch while merging\n"
+"Consider \"git merge --quit\" or \"git worktree add\"."
+msgstr ""
+"impossible de basculer de branche pendant une fusion\n"
+"Envisagez \"git merge --quit\" ou \"git worktree add\"."
+
+#: builtin/checkout.c
+msgid ""
+"cannot switch branch in the middle of an am session\n"
+"Consider \"git am --quit\" or \"git worktree add\"."
+msgstr ""
+"impossible de basculer de branche pendant une session am\n"
+"Envisagez \"git am --quit\" ou \"git worktree add\"."
+
+#: builtin/checkout.c
+msgid ""
+"cannot switch branch while rebasing\n"
+"Consider \"git rebase --quit\" or \"git worktree add\"."
+msgstr ""
+"impossible de basculer de branche pendant un rebasage\n"
+"Envisagez \"git rebase --quit\" ou \"git worktree add\"."
+
+#: builtin/checkout.c
+msgid ""
+"cannot switch branch while cherry-picking\n"
+"Consider \"git cherry-pick --quit\" or \"git worktree add\"."
+msgstr ""
+"impossible de basculer de branche pendant un picorage\n"
+"Envisagez \"git cherry-pick --quit\" ou \"git worktree add\"."
+
+#: builtin/checkout.c
+msgid ""
+"cannot switch branch while reverting\n"
+"Consider \"git revert --quit\" or \"git worktree add\"."
+msgstr ""
+"impossible de basculer de branche pendant un retour\n"
+"Envisagez \"git revert --quit\" ou \"git worktree add\"."
+
+#: builtin/checkout.c
+msgid "you are switching branch while bisecting"
+msgstr "Vous basculez de branche en cours de bissection"
+
+#: builtin/checkout.c
 msgid "paths cannot be used with switching branches"
 msgstr "impossible d'utiliser des chemins avec un basculement de branches"
 
@@ -10367,24 +10649,34 @@ msgstr "'%s' ne peut pas être utilisé avec '%s'"
 
 #: builtin/checkout.c
 #, c-format
+msgid "'%s' cannot take <start-point>"
+msgstr "'%s' n'accepte pas <point-de-départ>"
+
+#: builtin/checkout.c
+#, c-format
 msgid "Cannot switch branch to a non-commit '%s'"
 msgstr "Impossible de basculer de branche vers '%s' qui n'est pas un commit"
 
-#: builtin/checkout.c builtin/clone.c builtin/remote.c builtin/worktree.c
-msgid "branch"
-msgstr "branche"
+#: builtin/checkout.c
+msgid "missing branch or commit argument"
+msgstr "argument de branche ou de commit manquant"
+
+#: builtin/checkout.c builtin/clone.c builtin/fetch.c builtin/merge.c
+#: builtin/pull.c builtin/push.c builtin/send-pack.c
+msgid "force progress reporting"
+msgstr "forcer l'affichage de l'état d'avancement"
 
 #: builtin/checkout.c
-msgid "create and checkout a new branch"
-msgstr "créer et extraire une nouvelle branche"
+msgid "perform a 3-way merge with the new branch"
+msgstr "effectuer une fusion à 3 points avec la nouvelle branche"
+
+#: builtin/checkout.c builtin/log.c parse-options.h
+msgid "style"
+msgstr "style"
 
 #: builtin/checkout.c
-msgid "create/reset and checkout a branch"
-msgstr "créer/réinitialiser et extraire une branche"
-
-#: builtin/checkout.c
-msgid "create reflog for new branch"
-msgstr "créer un reflog pour une nouvelle branche"
+msgid "conflict style (merge or diff3)"
+msgstr "style de conflit (merge (fusion) ou diff3)"
 
 #: builtin/checkout.c builtin/worktree.c
 msgid "detach HEAD at named commit"
@@ -10395,12 +10687,25 @@ msgid "set upstream info for new branch"
 msgstr "paramétrer les coordonnées de branche amont pour une nouvelle branche"
 
 #: builtin/checkout.c
+msgid "force checkout (throw away local modifications)"
+msgstr "forcer l'extraction (laisser tomber les modifications locales)"
+
+#: builtin/checkout.c
 msgid "new-branch"
 msgstr "nouvelle branche"
 
 #: builtin/checkout.c
 msgid "new unparented branch"
 msgstr "nouvelle branche sans parent"
+
+#: builtin/checkout.c builtin/merge.c
+msgid "update ignored files (default)"
+msgstr "mettre à jour les fichiers ignorés (par défaut)"
+
+#: builtin/checkout.c
+msgid "do not check if another worktree is holding the given ref"
+msgstr ""
+"ne pas vérifier si une autre copie de travail contient le référence fournie"
 
 #: builtin/checkout.c
 msgid "checkout our version for unmerged files"
@@ -10411,46 +10716,8 @@ msgid "checkout their version for unmerged files"
 msgstr "extraire leur version pour les fichiers non fusionnés"
 
 #: builtin/checkout.c
-msgid "force checkout (throw away local modifications)"
-msgstr "forcer l'extraction (laisser tomber les modifications locales)"
-
-#: builtin/checkout.c
-msgid "perform a 3-way merge with the new branch"
-msgstr "effectuer une fusion à 3 points avec la nouvelle branche"
-
-#: builtin/checkout.c builtin/merge.c
-msgid "update ignored files (default)"
-msgstr "mettre à jour les fichiers ignorés (par défaut)"
-
-#: builtin/checkout.c builtin/log.c parse-options.h
-msgid "style"
-msgstr "style"
-
-#: builtin/checkout.c
-msgid "conflict style (merge or diff3)"
-msgstr "style de conflit (merge (fusion) ou diff3)"
-
-#: builtin/checkout.c
 msgid "do not limit pathspecs to sparse entries only"
 msgstr "ne pas limiter les spécificateurs de chemins aux seuls éléments creux"
-
-#: builtin/checkout.c
-msgid "do not second guess 'git checkout <no-such-branch>'"
-msgstr "ne pas essayer d'interpréter 'git checkout <branche-inexistante>'"
-
-#: builtin/checkout.c
-msgid "do not check if another worktree is holding the given ref"
-msgstr ""
-"ne pas vérifier si une autre copie de travail contient le référence fournie"
-
-#: builtin/checkout.c builtin/clone.c builtin/fetch.c builtin/merge.c
-#: builtin/pull.c builtin/push.c builtin/send-pack.c
-msgid "force progress reporting"
-msgstr "forcer l'affichage de l'état d'avancement"
-
-#: builtin/checkout.c
-msgid "use overlay mode (default)"
-msgstr "utiliser le mode de superposition (défaut)"
 
 #: builtin/checkout.c
 msgid "-b, -B and --orphan are mutually exclusive"
@@ -10467,6 +10734,15 @@ msgstr "--track requiert un nom de branche"
 #: builtin/checkout.c
 msgid "missing branch name; try -b"
 msgstr "nom de branche manquant ; essayez -b"
+
+#: builtin/checkout.c
+#, c-format
+msgid "could not resolve %s"
+msgstr "impossible de résoudre %s"
+
+#: builtin/checkout.c
+msgid "you must specify path(s) to restore"
+msgstr "Vous devez spécifier un ou des chemins à restaurer"
 
 #: builtin/checkout.c
 msgid "invalid path specification"
@@ -10520,6 +10796,67 @@ msgstr ""
 "ambigu, vous pouvez positionner checkout.defaultRemote=origin dans\n"
 "votre config."
 
+#: builtin/checkout.c builtin/clone.c builtin/remote.c builtin/worktree.c
+msgid "branch"
+msgstr "branche"
+
+#: builtin/checkout.c
+msgid "create and checkout a new branch"
+msgstr "créer et extraire une nouvelle branche"
+
+#: builtin/checkout.c
+msgid "create/reset and checkout a branch"
+msgstr "créer/réinitialiser et extraire une branche"
+
+#: builtin/checkout.c
+msgid "create reflog for new branch"
+msgstr "créer un reflog pour une nouvelle branche"
+
+#: builtin/checkout.c
+msgid "second guess 'git checkout <no-such-branch>' (default)"
+msgstr ""
+"essayer d'interpréter 'git checkout <branche-inexistante>' (par défaut)"
+
+#: builtin/checkout.c
+msgid "use overlay mode (default)"
+msgstr "utiliser le mode de superposition (défaut)"
+
+#: builtin/checkout.c
+msgid "create and switch to a new branch"
+msgstr "créer et basculer sur une nouvelle branche"
+
+#: builtin/checkout.c
+msgid "create/reset and switch to a branch"
+msgstr "créer/réinitialiser et basculer sur une branche"
+
+#: builtin/checkout.c
+msgid "second guess 'git switch <no-such-branch>'"
+msgstr "interpréter 'git switch <branche-inexistante>'"
+
+#: builtin/checkout.c
+msgid "throw away local modifications"
+msgstr "laisser tomber les modifications locales"
+
+#: builtin/checkout.c
+msgid "which tree-ish to checkout from"
+msgstr "de quel <arbre-esque> faire l'extraction"
+
+#: builtin/checkout.c
+msgid "restore the index"
+msgstr "restaurer l'index"
+
+#: builtin/checkout.c
+msgid "restore the working tree (default)"
+msgstr "restaurer l'arbre de travail (par défaut)"
+
+#: builtin/checkout.c
+msgid "ignore unmerged entries"
+msgstr "ignorer les entrées non-fusionnées"
+
+#: builtin/checkout.c
+msgid "use overlay mode"
+msgstr "utiliser le mode de superposition"
+
 #: builtin/clean.c
 msgid ""
 "git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] <paths>..."
@@ -10550,6 +10887,11 @@ msgstr "Ignorerait le dépôt %s\n"
 #, c-format
 msgid "failed to remove %s"
 msgstr "échec de la suppression de %s"
+
+#: builtin/clean.c
+#, c-format
+msgid "could not lstat %s\n"
+msgstr "lstat de %s impossible\n"
 
 #: builtin/clean.c git-add--interactive.perl
 #, c-format
@@ -10851,6 +11193,11 @@ msgid "use IPv6 addresses only"
 msgstr "n'utiliser que des adresses IPv6"
 
 #: builtin/clone.c
+msgid "any cloned submodules will use their remote-tracking branch"
+msgstr ""
+"tous les sous-modules clonés utiliseront leur branche de suivi à distance"
+
+#: builtin/clone.c
 msgid ""
 "No directory name could be guessed.\n"
 "Please specify a directory on the command line"
@@ -10865,18 +11212,13 @@ msgstr "info : impossible d'ajouter une alternative pour '%s' : %s\n"
 
 #: builtin/clone.c
 #, c-format
-msgid "failed to open '%s'"
-msgstr "échec à l'ouverture de '%s'"
-
-#: builtin/clone.c
-#, c-format
 msgid "%s exists and is not a directory"
 msgstr "%s existe et n'est pas un répertoire"
 
 #: builtin/clone.c
 #, c-format
-msgid "failed to stat %s\n"
-msgstr "échec du stat de %s\n"
+msgid "failed to start iterator over '%s'"
+msgstr "échec du démarrage un itérateur sur '%s'"
 
 #: builtin/clone.c
 #, c-format
@@ -10895,6 +11237,11 @@ msgstr "échec de la copie vers '%s'"
 
 #: builtin/clone.c
 #, c-format
+msgid "failed to iterate over '%s'"
+msgstr "échec de l'itération sur '%s'"
+
+#: builtin/clone.c
+#, c-format
 msgid "done.\n"
 msgstr "fait.\n"
 
@@ -10902,11 +11249,11 @@ msgstr "fait.\n"
 msgid ""
 "Clone succeeded, but checkout failed.\n"
 "You can inspect what was checked out with 'git status'\n"
-"and retry the checkout with 'git checkout -f HEAD'\n"
+"and retry with 'git restore --source=HEAD :/'\n"
 msgstr ""
 "Le clone a réussi, mais l'extraction a échoué.\n"
 "Vous pouvez inspecter ce qui a été extrait avec 'git status'\n"
-"et réessayer l'extraction avec 'git checkout -f HEAD'\n"
+"et réessayer avec 'git restore --source=HEAD :/'\n"
 
 #: builtin/clone.c
 #, c-format
@@ -11178,24 +11525,30 @@ msgstr ""
 "\n"
 
 #: builtin/commit.c
-msgid "Otherwise, please use 'git reset'\n"
-msgstr "Sinon, veuillez utiliser 'git reset'\n"
+msgid "Otherwise, please use 'git cherry-pick --skip'\n"
+msgstr "Sinon, veuillez utiliser 'git cherry-pick --skip'\n"
 
 #: builtin/commit.c
 msgid ""
+"and then use:\n"
+"\n"
+"    git cherry-pick --continue\n"
+"\n"
+"to resume cherry-picking the remaining commits.\n"
 "If you wish to skip this commit, use:\n"
 "\n"
-"    git reset\n"
+"    git cherry-pick --skip\n"
 "\n"
-"Then \"git cherry-pick --continue\" will resume cherry-picking\n"
-"the remaining commits.\n"
 msgstr ""
-"Si vous souhaitez sauter ce commit, utilisez :\n"
+"utilisez ensuite :\n"
 "\n"
-"    git reset\n"
+"    git cherry-pick --continue\n"
 "\n"
-"Puis \"git cherry-pick --continue\" continuera le picorage \n"
-"des commits restants.\n"
+"pour continuer le picorage des commits restants.\n"
+"Si vous souhaitez sauter ce commit, utilisez :\n"
+"\n"
+"    git cherry-pick --skipped\n"
+"\n"
 
 #: builtin/commit.c
 msgid "failed to unpack HEAD tree object"
@@ -11670,11 +12023,11 @@ msgstr "Abandon de la validation ; vous n'avez pas édité le message\n"
 msgid ""
 "repository has been updated, but unable to write\n"
 "new_index file. Check that disk is not full and quota is\n"
-"not exceeded, and then \"git reset HEAD\" to recover."
+"not exceeded, and then \"git restore --staged :/\" to recover."
 msgstr ""
 "le dépôt a été mis à jour, mais impossible d'écrire le fichier\n"
 "new_index. Vérifiez que le disque n'est pas plein ou que le quota\n"
-"n'a pas été dépassé, puis lancez \"git reset HEAD\" pour réparer."
+"n'a pas été dépassé, puis lancez \"git restore --staged :/\" pour réparer."
 
 #: builtin/commit-graph.c
 msgid "git commit-graph [--object-dir <objdir>]"
@@ -11685,16 +12038,16 @@ msgid "git commit-graph read [--object-dir <objdir>]"
 msgstr "git commit-graph read [--object-dir <objdir>]"
 
 #: builtin/commit-graph.c
-msgid "git commit-graph verify [--object-dir <objdir>]"
-msgstr "git commit-graph verify [--object-dir <objdir>]"
+msgid "git commit-graph verify [--object-dir <objdir>] [--shallow]"
+msgstr "git commit-graph verify [--object-dir <objdir>] [--shallow]"
 
 #: builtin/commit-graph.c
 msgid ""
-"git commit-graph write [--object-dir <objdir>] [--append] [--reachable|--"
-"stdin-packs|--stdin-commits]"
+"git commit-graph write [--object-dir <objdir>] [--append|--split] [--"
+"reachable|--stdin-packs|--stdin-commits] <split options>"
 msgstr ""
-"git commit-graph write [--object-dir <objdir>] [--append] [--reachable|--"
-"stdin-packs|--stdin-commits]"
+"git commit-graph write [--object-dir <objdir>] [--append|--split] [--"
+"reachable|--stdin-packs|--stdin-commits] <options de division>"
 
 #: builtin/commit-graph.c builtin/fetch.c builtin/log.c
 msgid "dir"
@@ -11703,6 +12056,11 @@ msgstr "répertoire"
 #: builtin/commit-graph.c
 msgid "The object directory to store the graph"
 msgstr "Le répertoire d'objet où stocker le graphe"
+
+#: builtin/commit-graph.c
+msgid "if the commit-graph is split, only verify the tip file"
+msgstr ""
+"si le graphe de commit est divisé, vérifier seulement le fichier sommet"
 
 #: builtin/commit-graph.c
 #, c-format
@@ -11727,6 +12085,19 @@ msgstr ""
 "inclure tous les commits déjà présents dans le fichier de graphe de commits"
 
 #: builtin/commit-graph.c
+msgid "allow writing an incremental commit-graph file"
+msgstr "permettre d'écrire un fichier incrémental de graphe de commit"
+
+#: builtin/commit-graph.c
+msgid "maximum number of commits in a non-base split commit-graph"
+msgstr ""
+"le nombre maximum de commits dans un graphe de commit divisé pas de base"
+
+#: builtin/commit-graph.c
+msgid "maximum ratio between two levels of a split commit-graph"
+msgstr "rapport maximum entre deux niveaux d'un graphe de commit divisé"
+
+#: builtin/commit-graph.c
 msgid "use at most one of --reachable, --stdin-commits, or --stdin-packs"
 msgstr "utilisez un seul parmi --reachable, --stdin-commits ou --stdin-packs"
 
@@ -11734,7 +12105,7 @@ msgstr "utilisez un seul parmi --reachable, --stdin-commits ou --stdin-packs"
 msgid "git config [<options>]"
 msgstr "git config [<options>]"
 
-#: builtin/config.c
+#: builtin/config.c builtin/env--helper.c
 #, c-format
 msgid "unrecognized --type argument, %s"
 msgstr "argument --type non reconnu, %s"
@@ -11840,7 +12211,7 @@ msgstr "trouver le réglage de la couleur : slot [stdout-est-tty]"
 msgid "Type"
 msgstr "Type"
 
-#: builtin/config.c
+#: builtin/config.c builtin/env--helper.c
 msgid "value is given this type"
 msgstr "ce type est assigné à la valeur"
 
@@ -11886,7 +12257,7 @@ msgstr ""
 "afficher l'origine de la configuration (fichier, entrée standard, blob, "
 "ligne de commande)"
 
-#: builtin/config.c
+#: builtin/config.c builtin/env--helper.c
 msgid "value"
 msgstr "valeur"
 
@@ -12362,6 +12733,39 @@ msgstr "pas d'<outil> spécifié pour --tool=<outil>"
 msgid "no <cmd> given for --extcmd=<cmd>"
 msgstr "pas de <commande> spécifié pour --extcmd=<commande>"
 
+#: builtin/env--helper.c
+msgid "git env--helper --type=[bool|ulong] <options> <env-var>"
+msgstr "git env--helper --type=[bool|ulong] <options> <var d'env>"
+
+#: builtin/env--helper.c builtin/hash-object.c
+msgid "type"
+msgstr "type"
+
+#: builtin/env--helper.c
+msgid "default for git_env_*(...) to fall back on"
+msgstr "valeur par défaut pour git_env_*(...) en cas d'absence"
+
+#: builtin/env--helper.c
+msgid "be quiet only use git_env_*() value as exit code"
+msgstr ""
+"mode silencieux n'utilisant la valeur de git_env_*() que pour le code de "
+"sortie"
+
+#: builtin/env--helper.c
+#, c-format
+msgid "option `--default' expects a boolean value with `--type=bool`, not `%s`"
+msgstr ""
+"l'option `--default` attend une valeur booléenne avec `--type=bool`, pas `%s`"
+
+#: builtin/env--helper.c
+#, c-format
+msgid ""
+"option `--default' expects an unsigned long value with `--type=ulong`, not `"
+"%s`"
+msgstr ""
+"l'option `--default` attend une valeur entier long non signé avec `--"
+"type=ulong`, pas `%s`"
+
 #: builtin/fast-export.c
 msgid "git fast-export [rev-list-opts]"
 msgstr "git fast-export [options-de-liste-de-révisions]"
@@ -12378,6 +12782,12 @@ msgstr "sélectionner la gestion des étiquettes signées"
 msgid "select handling of tags that tag filtered objects"
 msgstr ""
 "sélectionner la gestion des étiquettes qui pointent sur des objets filtrés"
+
+#: builtin/fast-export.c
+msgid "select handling of commit messages in an alternate encoding"
+msgstr ""
+"sélectionner la gestion des messages de validation dans un encodage "
+"alternatif"
 
 #: builtin/fast-export.c
 msgid "Dump marks to this file"
@@ -12542,6 +12952,14 @@ msgid "report that we have only objects reachable from this object"
 msgstr "rapporte que nous n'avons que des objets joignables depuis cet objet"
 
 #: builtin/fetch.c
+msgid "run 'gc --auto' after fetching"
+msgstr "lancer 'gc --auto' après la récupération"
+
+#: builtin/fetch.c builtin/pull.c
+msgid "check for forced-updates on all updated branches"
+msgstr "vérifier les mises à jour forcées sur toutes les branches mises à jour"
+
+#: builtin/fetch.c
 msgid "Couldn't find remote ref HEAD"
 msgstr "impossible de trouver la référence HEAD distante"
 
@@ -12599,6 +13017,28 @@ msgstr "mise à jour forcée"
 #: builtin/fetch.c
 msgid "non-fast-forward"
 msgstr "pas en avance rapide"
+
+#: builtin/fetch.c
+msgid ""
+"Fetch normally indicates which branches had a forced update,\n"
+"but that check has been disabled. To re-enable, use '--show-forced-updates'\n"
+"flag or run 'git config fetch.showForcedUpdates true'."
+msgstr ""
+"Fetch indique normalement quelles branches ont subi une mise à jour forcée,\n"
+"mais ceci a été désactivé. Pour ré-activer, utilisez le drapeau\n"
+"'--show-forced-update' ou lancez 'git config fetch.showForcedUpdates true'."
+
+#: builtin/fetch.c
+#, c-format
+msgid ""
+"It took %.2f seconds to check forced updates. You can use\n"
+"'--no-show-forced-updates' or run 'git config fetch.showForcedUpdates "
+"false'\n"
+" to avoid this check.\n"
+msgstr ""
+"%.2f secondes ont été nécessaires pour vérifier les mises à jour forcées.\n"
+"Vous pouvez utiliser '--no-show-forced-update' ou lancer\n"
+"'git config fetch.showForcedUpdates false' pour éviter ceci.\n"
 
 #: builtin/fetch.c
 #, c-format
@@ -13458,10 +13898,6 @@ msgid "git hash-object  --stdin-paths"
 msgstr "git hash-object  --stdin-paths"
 
 #: builtin/hash-object.c
-msgid "type"
-msgstr "type"
-
-#: builtin/hash-object.c
 msgid "object type"
 msgstr "type d'objet"
 
@@ -13638,11 +14074,6 @@ msgstr "le paquet est trop grand pour la définition actuelle de off_t"
 #: builtin/index-pack.c builtin/unpack-objects.c
 msgid "pack exceeds maximum allowed size"
 msgstr "le paquet dépasse la taille maximale permise"
-
-#: builtin/index-pack.c builtin/repack.c
-#, c-format
-msgid "unable to create '%s'"
-msgstr "impossible de créer '%s'"
 
 #: builtin/index-pack.c
 #, c-format
@@ -14366,10 +14797,6 @@ msgstr ""
 "afficher la barre de progression durant la phase de génération des patchs"
 
 #: builtin/log.c
-msgid "rev"
-msgstr "rév"
-
-#: builtin/log.c
 msgid "show changes against <rev> in cover letter or single patch"
 msgstr ""
 "afficher les modifications par rapport à <rév> dans la première page ou une "
@@ -14772,6 +15199,10 @@ msgid "abort the current in-progress merge"
 msgstr "abandonner la fusion en cours"
 
 #: builtin/merge.c
+msgid "--abort but leave index and working tree alone"
+msgstr "--abort mais laisser l'index et l'arbre de travail inchangés"
+
+#: builtin/merge.c
 msgid "continue the current in-progress merge"
 msgstr "continuer la fusion en cours"
 
@@ -14931,6 +15362,10 @@ msgid "There is no merge to abort (MERGE_HEAD missing)."
 msgstr "Il n'y a pas de fusion à abandonner (MERGE_HEAD manquant)."
 
 #: builtin/merge.c
+msgid "--quit expects no arguments"
+msgstr "--quit n'accepte pas d'argument"
+
+#: builtin/merge.c
 msgid "--continue expects no arguments"
 msgstr "--continue ne supporte aucun argument"
 
@@ -14961,6 +15396,10 @@ msgstr "Vous n'avez pas terminé votre picorage (CHERRY_PICK_HEAD existe)."
 #: builtin/merge.c
 msgid "You cannot combine --squash with --no-ff."
 msgstr "Vous ne pouvez pas combiner --squash avec --no-ff."
+
+#: builtin/merge.c
+msgid "You cannot combine --squash with --commit."
+msgstr "Vous ne pouvez pas combiner --squash avec --commit."
 
 #: builtin/merge.c
 msgid "No commit specified and merge.defaultToUpstream not set."
@@ -15175,8 +15614,12 @@ msgid "allow creation of more than one tree"
 msgstr "autoriser la création de plus d'un arbre"
 
 #: builtin/multi-pack-index.c
-msgid "git multi-pack-index [--object-dir=<dir>] (write|verify)"
-msgstr "git multi-pack-index [--object-dir=<dir>] (write|verify)"
+msgid ""
+"git multi-pack-index [--object-dir=<dir>] (write|verify|expire|repack --"
+"batch-size=<size>)"
+msgstr ""
+"git multi-pack-index [--object-dir=<dir>] (write|verify|expire|repack --"
+"batch-size=<taille>)"
 
 #: builtin/multi-pack-index.c
 msgid "object directory containing set of packfile and pack-index pairs"
@@ -15184,14 +15627,26 @@ msgstr ""
 "répertoire objet contenant un ensemble de paires de fichiers paquet et "
 "d'index de paquet"
 
+#: builtin/multi-pack-index.c
+msgid ""
+"during repack, collect pack-files of smaller size into a batch that is "
+"larger than this size"
+msgstr ""
+"pendant le repaquetage, collecter les fichiers paquet de plus petite taille "
+"dans un lot plus grand que cette taille"
+
 #: builtin/multi-pack-index.c builtin/prune-packed.c
 msgid "too many arguments"
 msgstr "trop d'arguments"
 
 #: builtin/multi-pack-index.c
+msgid "--batch-size option is only for 'repack' subcommand"
+msgstr "l'option --batch-size ne sert que pour la sous-commande 'repack'"
+
+#: builtin/multi-pack-index.c
 #, c-format
-msgid "unrecognized verb: %s"
-msgstr "verbe non reconnu : %s"
+msgid "unrecognized subcommand: %s"
+msgstr "sous-commande non reconnue : %s"
 
 #: builtin/mv.c
 msgid "git mv [<options>] <source>... <destination>"
@@ -16090,6 +16545,10 @@ msgstr ""
 #: builtin/pack-objects.c
 msgid "write a bitmap index together with the pack index"
 msgstr "écrire un index en bitmap associé à l'index de paquet"
+
+#: builtin/pack-objects.c
+msgid "write a bitmap index if possible"
+msgstr "écrire un index de bitmap si possible"
 
 #: builtin/pack-objects.c
 msgid "handling for missing objects"
@@ -17027,7 +17486,7 @@ msgstr "Impossible de stocker %s"
 msgid "could not determine HEAD revision"
 msgstr "impossible de déterminer la révision HEAD"
 
-#: builtin/rebase.c
+#: builtin/rebase.c git-rebase--preserve-merges.sh
 msgid ""
 "Resolve all conflicts manually, mark them as resolved with\n"
 "\"git add/rm <conflicted_files>\", then run \"git rebase --continue\".\n"
@@ -17261,11 +17720,6 @@ msgstr "Impossible de supprimer les changements de l'arbre de travail"
 msgid "could not move back to %s"
 msgstr "Impossible de revenir à %s"
 
-#: builtin/rebase.c builtin/rm.c
-#, c-format
-msgid "could not remove '%s'"
-msgstr "impossible de supprimer '%s'"
-
 #: builtin/rebase.c
 #, c-format
 msgid ""
@@ -17300,6 +17754,10 @@ msgstr "mode inconnu : %s"
 #: builtin/rebase.c
 msgid "--strategy requires --merge or --interactive"
 msgstr "--strategy requiert --merge ou --interactive"
+
+#: builtin/rebase.c
+msgid "--reschedule-failed-exec requires --exec or --interactive"
+msgstr "--reschedule-failed-exec requiert --exec ou --interactive"
 
 #: builtin/rebase.c
 msgid "cannot combine am options with either interactive or merge options"
@@ -18729,6 +19187,10 @@ msgstr "reprendre le retour ou picorage"
 #: builtin/revert.c
 msgid "cancel revert or cherry-pick sequence"
 msgstr "annuler le retour ou picorage"
+
+#: builtin/revert.c
+msgid "skip current commit and continue"
+msgstr "sauter le commit courant et continuer"
 
 #: builtin/revert.c
 msgid "don't automatically commit"
@@ -20765,11 +21227,13 @@ msgstr ""
 msgid ""
 "'git help -a' and 'git help -g' list available subcommands and some\n"
 "concept guides. See 'git help <command>' or 'git help <concept>'\n"
-"to read about a specific subcommand or concept."
+"to read about a specific subcommand or concept.\n"
+"See 'git help git' for an overview of the system."
 msgstr ""
 "'git help -a' et 'git help -g' listent les sous-commandes disponibles et\n"
 "quelques concepts. Voir 'git help <commande>' ou 'git help <concept>'\n"
-"pour en lire plus à propos d'une commande spécifique ou d'un concept."
+"pour en lire plus à propos d'une commande spécifique ou d'un concept.\n"
+"Voir 'git help git' pour un survol du système."
 
 #: git.c
 #, c-format
@@ -21077,6 +21541,14 @@ msgstr "nom du champ servant à trier"
 msgid "update the index with reused conflict resolution if possible"
 msgstr ""
 "met à jour l'index avec les résolutions de conflit réutilisées si possible"
+
+#: wt-status.h
+msgid "HEAD detached at "
+msgstr "HEAD détachée sur "
+
+#: wt-status.h
+msgid "HEAD detached from "
+msgstr "HEAD détachée depuis "
 
 #: command-list.h
 msgid "Add file contents to the index"
@@ -21525,6 +21997,10 @@ msgid "Reset current HEAD to the specified state"
 msgstr "Réinitialiser la HEAD courante à l'état spécifié"
 
 #: command-list.h
+msgid "Restore working tree files"
+msgstr "restaurer les fichiers l'arbre de travail"
+
+#: command-list.h
 msgid "Revert some existing commits"
 msgstr "Inverser des commits existants"
 
@@ -21603,6 +22079,10 @@ msgstr "Initialiser, mettre à jour et inspecter les sous-modules"
 #: command-list.h
 msgid "Bidirectional operation between a Subversion repository and Git"
 msgstr "Opération Bidirectionnelles entre un dépôt Subversion et Git"
+
+#: command-list.h
+msgid "Switch branches"
+msgstr "Basculer de branche"
 
 #: command-list.h
 msgid "Read, modify and delete symbolic refs"
@@ -22156,6 +22636,15 @@ msgstr ""
 #, sh-format
 msgid "See git-${cmd}(1) for details."
 msgstr "Référez-vous à git-${cmd}(1) pour de plus amples détails."
+
+#: git-rebase--preserve-merges.sh
+msgid "Applied autostash."
+msgstr "Autoremisage appliqué."
+
+#: git-rebase--preserve-merges.sh
+#, sh-format
+msgid "Cannot store $stash_sha1"
+msgstr "Impossible de stocker $stash_sha1"
 
 #: git-rebase--preserve-merges.sh
 #, sh-format
@@ -22795,6 +23284,20 @@ msgstr ""
 
 #: git-add--interactive.perl
 msgid ""
+"y - apply this hunk to worktree\n"
+"n - do not apply this hunk to worktree\n"
+"q - quit; do not apply this hunk or any of the remaining ones\n"
+"a - apply this hunk and all later hunks in the file\n"
+"d - do not apply this hunk or any of the later hunks in the file"
+msgstr ""
+"y - appliquer cette section à l'arbre de travail\n"
+"n - ne pas appliquer cette section\n"
+"q - quitter ; ne pas appliquer cette section ni les autres restantes\n"
+"a - appliquer cette section et toutes les suivantes de ce fichier\n"
+"d - ne pas appliquer cette section ni les suivantes de ce fichier"
+
+#: git-add--interactive.perl
+msgid ""
 "g - select a hunk to go to\n"
 "/ - search for a hunk matching the given regex\n"
 "j - leave this hunk undecided, see next undecided hunk\n"
@@ -22955,6 +23458,22 @@ msgstr ""
 msgid "Apply this hunk to index and worktree [y,n,q,a,d%s,?]? "
 msgstr ""
 "Appliquer la section à l'index et l'arbre de travail [y,n,q,a,d%s,?] ? "
+
+#: git-add--interactive.perl
+#, perl-format
+msgid "Apply mode change to worktree [y,n,q,a,d%s,?]? "
+msgstr ""
+"Appliquer le changement de mode dans l'arbre de travail [y,n,q,a,d%s,?] ? "
+
+#: git-add--interactive.perl
+#, perl-format
+msgid "Apply deletion to worktree [y,n,q,a,d%s,?]? "
+msgstr "Appliquer la suppression dans l'arbre de travail [y,n,q,a,d%s,?] ? "
+
+#: git-add--interactive.perl
+#, perl-format
+msgid "Apply this hunk to worktree [y,n,q,a,d%s,?]? "
+msgstr "Appliquer la section à l'arbre de travail [y,n,q,a,d%s,?] ? "
 
 #: git-add--interactive.perl
 msgid "No other hunks to goto\n"
