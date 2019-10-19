@@ -31,7 +31,7 @@
 # am прилагам поредица от кръпки
 # working directory/tree — винаги работно дърво, git следи цялото дърво, а не директории, работна директория за cwd
 # switch to branch преминавам към клон
-# sparse entry частично изтеглена директория/път
+# sparse entry/blob частично изтеглена директория/път/обект-BLOB
 # revision range диапазон на версиите
 # cover letter придружаващо писмо
 # reference repository еталонно хранилище
@@ -155,10 +155,10 @@
 # for i in `sort -u FILES`; do cnt=`grep $i FILES | wc -l`; echo $cnt $i ;done | sort -n
 msgid ""
 msgstr ""
-"Project-Id-Version: git 2.22\n"
+"Project-Id-Version: git 2.24\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2019-08-10 12:25+0300\n"
-"PO-Revision-Date: 2019-08-10 12:33+0300\n"
+"POT-Creation-Date: 2019-10-19 09:17+0200\n"
+"PO-Revision-Date: 2019-10-19 12:20+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -357,16 +357,6 @@ msgstr "несъвместими заглавни части на редове �
 
 #: apply.c
 #, c-format
-msgid "recount: unexpected line: %.*s"
-msgstr "при повторното преброяване бе получен неочакван ред: „%.*s“"
-
-#: apply.c
-#, c-format
-msgid "patch fragment without header at line %d: %.*s"
-msgstr "част от кръпка без заглавна част на ред %d: %.*s"
-
-#: apply.c
-#, c-format
 msgid ""
 "git diff header lacks filename information when removing %d leading pathname "
 "component (line %d)"
@@ -385,6 +375,16 @@ msgstr[1] ""
 msgid "git diff header lacks filename information (line %d)"
 msgstr ""
 "в заглавната част на „git diff“ липсва информация за име на файл (ред: %d)"
+
+#: apply.c
+#, c-format
+msgid "recount: unexpected line: %.*s"
+msgstr "при повторното преброяване бе получен неочакван ред: „%.*s“"
+
+#: apply.c
+#, c-format
+msgid "patch fragment without header at line %d: %.*s"
+msgstr "част от кръпка без заглавна част на ред %d: %.*s"
 
 #: apply.c
 msgid "new file depends on old contents"
@@ -1626,6 +1626,16 @@ msgstr ""
 msgid "could not find commit %s"
 msgstr "подаването „%s“ не може да бъде открито"
 
+#: commit-graph.c builtin/am.c
+#, c-format
+msgid "unable to parse commit %s"
+msgstr "подаването не може да бъде анализирано: %s"
+
+#: commit-graph.c
+#, c-format
+msgid "unable to get tree for %s"
+msgstr "дървото на „%s“ не може да бъде получено"
+
 #: commit-graph.c builtin/pack-objects.c
 #, c-format
 msgid "unable to get type of object %s"
@@ -1670,6 +1680,11 @@ msgid "Finding commits for commit graph from %d ref"
 msgid_plural "Finding commits for commit graph from %d refs"
 msgstr[0] "Откриване на подаванията в гра̀фа измежду %d указател"
 msgstr[1] "Откриване на подаванията в гра̀фа измежду %d указатели"
+
+#: commit-graph.c
+#, c-format
+msgid "invalid commit object id: %s"
+msgstr "неправилен идентификатор на обект-подаване: „%s“"
 
 #: commit-graph.c
 msgid "Finding commits for commit graph among packed objects"
@@ -2043,13 +2058,6 @@ msgstr "неочаквана грешка при изчитането на ко�
 #, c-format
 msgid "Invalid %s: '%s'"
 msgstr "Неправилен %s: „%s“"
-
-#: config.c
-#, c-format
-msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
-msgstr ""
-"непозната стойност „%s“ за настройката „core.untrackedCache“.  Ще се ползва "
-"стандартната стойност „keep“ (запазване)"
 
 #: config.c
 #, c-format
@@ -3259,10 +3267,6 @@ msgstr "GIT_DIR не може да се зададе да е „%s“"
 msgid "too many args to run %s"
 msgstr "прекалено много аргументи за изпълнение „%s“"
 
-#: fetch-object.c
-msgid "Remote with no URL"
-msgstr "Липсва адрес за отдалеченото хранилище"
-
 #: fetch-pack.c
 msgid "git fetch-pack: expected shallow list"
 msgstr "git fetch-pack: очаква се плитък списък"
@@ -3506,6 +3510,14 @@ msgstr "Програмата не успя да запише самостоят�
 #, c-format
 msgid "ignore invalid color '%.*s' in log.graphColors"
 msgstr "прескачане на неправилния цвят „%.*s“ в „log.graphColors“"
+
+#: grep.c
+msgid ""
+"given pattern contains NULL byte (via -f <file>). This is only supported "
+"with -P under PCRE v2"
+msgstr ""
+"зададеният шаблон съдържа нулев знак (идва от -f „ФАЙЛ“).  Това се поддържа "
+"в комбинация с „-P“ само при ползването на „PCRE v2“"
 
 #: grep.c
 #, c-format
@@ -3760,9 +3772,16 @@ msgstr "обект „%s“ в дървото „%s“ е отбелязан к�
 msgid "unable to load root tree for commit %s"
 msgstr "кореновото дърво за подаване „%s“ не може да се зареди"
 
-#: list-objects-filter-options.c
-msgid "multiple filter-specs cannot be combined"
-msgstr "не може да комбинирате множество филтри"
+#: list-objects-filter.c
+#, c-format
+msgid "unable to access sparse blob in '%s'"
+msgstr "няма достъп до частично изтегления обект-BLOB в „%s“"
+
+#: list-objects-filter.c
+#, c-format
+msgid "unable to parse sparse filter data in %s"
+msgstr ""
+"данните от филтъра за частични изтеглания в „%s“ не може да бъдат анализирани"
 
 #: list-objects-filter-options.c
 msgid "expected 'tree:<depth>'"
@@ -3778,8 +3797,17 @@ msgid "invalid filter-spec '%s'"
 msgstr "неправилен филтър: „%s“"
 
 #: list-objects-filter-options.c
-msgid "cannot change partial clone promisor remote"
-msgstr "не може да промените хранилището-гарант на непълно хранилище"
+#, c-format
+msgid "must escape char in sub-filter-spec: '%c'"
+msgstr "знак за екраниране в подфилтър: „%c“"
+
+#: list-objects-filter-options.c
+msgid "expected something after combine:"
+msgstr "добавете нещо след комбинирането:"
+
+#: list-objects-filter-options.c
+msgid "multiple filter-specs cannot be combined"
+msgstr "не може да комбинирате множество филтри"
 
 #: lockfile.c
 #, c-format
@@ -3831,10 +3859,6 @@ msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
 msgstr ""
 "неуспешно изпълнение на „add_cacheinfo“ за обновяването на пътя „%s“.  "
 "Сливането е преустановено."
-
-#: merge-recursive.c
-msgid "error building trees"
-msgstr "грешка при изграждане на дърветата"
 
 #: merge-recursive.c
 #, c-format
@@ -4221,15 +4245,6 @@ msgid "CONFLICT (add/add): Merge conflict in %s"
 msgstr "КОНФЛИКТ (добавяне/добавяне): Конфликт при сливане на „%s“"
 
 #: merge-recursive.c
-#, c-format
-msgid ""
-"Your local changes to the following files would be overwritten by merge:\n"
-"  %s"
-msgstr ""
-"Сливането ще презапише локалните промени на тези файлове:\n"
-"    %s"
-
-#: merge-recursive.c
 msgid "Already up to date!"
 msgstr "Вече е обновено!"
 
@@ -4252,6 +4267,15 @@ msgstr[1] "открити са %u общи предшественици:"
 #: merge-recursive.c
 msgid "merge returned no commit"
 msgstr "сливането не върна подаване"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"Your local changes to the following files would be overwritten by merge:\n"
+"  %s"
+msgstr ""
+"Сливането ще презапише локалните промени на тези файлове:\n"
+"    %s"
 
 #: merge-recursive.c
 #, c-format
@@ -4773,6 +4797,16 @@ msgstr "не може да се създаде нишка за изпълнен�
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr "аргументът към опцията „--pretty“ не може да се анализира"
+
+#: promisor-remote.c
+msgid "Remote with no URL"
+msgstr "Липсва адрес за отдалеченото хранилище"
+
+#: promisor-remote.c
+#, c-format
+msgid "promisor remote name cannot begin with '/': %s"
+msgstr ""
+"името отдалеченото хранилище-гарант не може за започва със знака „/“: %s"
 
 #: range-diff.c
 msgid "could not start `log`"
@@ -6118,11 +6152,6 @@ msgstr "настройката за дата „GIT_AUTHOR_DATE“ липсва"
 
 #: sequencer.c
 #, c-format
-msgid "invalid date format '%s' in '%s'"
-msgstr "неправилен формат на дата „%s“ в „%s“"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "you have staged changes in your working tree\n"
 "If these changes are meant to be squashed into the previous commit, run:\n"
@@ -6149,10 +6178,6 @@ msgstr ""
 "И в двата случая продължавате след това с командата:\n"
 "\n"
 "    git rebase --continue\n"
-
-#: sequencer.c
-msgid "writing root commit"
-msgstr "запазване на начално подаване"
 
 #: sequencer.c
 msgid "'prepare-commit-msg' hook failed"
@@ -8523,6 +8548,10 @@ msgstr ""
 "  (всички конфликти са коригирани, изпълнете „git cherry-pick --continue“)"
 
 #: wt-status.c
+msgid "  (use \"git cherry-pick --skip\" to skip this patch)"
+msgstr "  (използвайте „git cherry-pick --skip“, за да пропуснете тази кръпка)"
+
+#: wt-status.c
 msgid "  (use \"git cherry-pick --abort\" to cancel the cherry-pick operation)"
 msgstr ""
 "  (използвайте „git cherry-pick --abort“, за да отмените всички действия с "
@@ -8548,6 +8577,10 @@ msgstr "  (за да продължите, изпълнете „git revert --co
 #: wt-status.c
 msgid "  (all conflicts fixed: run \"git revert --continue\")"
 msgstr "  (всички конфликти са коригирани, изпълнете „git revert --continue“)"
+
+#: wt-status.c
+msgid "  (use \"git revert --skip\" to skip this patch)"
+msgstr "  (използвайте „git revert --skip“, за да пропуснете тази кръпка)"
 
 #: wt-status.c
 msgid "  (use \"git revert --abort\" to cancel the revert operation)"
@@ -8968,10 +9001,6 @@ msgstr "директорията „%s“ не може да бъде създа
 msgid "Failed to split patches."
 msgstr "Кръпките не могат да бъдат разделени."
 
-#: builtin/am.c builtin/commit.c
-msgid "unable to write index file"
-msgstr "индексът не може да бъде записан"
-
 #: builtin/am.c
 #, c-format
 msgid "When you have resolved this problem, run \"%s --continue\"."
@@ -8999,13 +9028,13 @@ msgstr "Кръпката е празна."
 
 #: builtin/am.c
 #, c-format
-msgid "invalid ident line: %.*s"
-msgstr "грешен ред с идентичност: %.*s"
+msgid "missing author line in commit %s"
+msgstr "липсва ред за авторство в подаването „%s“"
 
 #: builtin/am.c
 #, c-format
-msgid "unable to parse commit %s"
-msgstr "подаването не може да бъде анализирано: %s"
+msgid "invalid ident line: %.*s"
+msgstr "грешен ред с идентичност: %.*s"
 
 #: builtin/am.c
 msgid "Repository lacks necessary blobs to fall back on 3-way merge."
@@ -9056,6 +9085,10 @@ msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
 msgstr ""
 "Прилагане? „y“ — да/„n“ — не/„e“ — редактиране/„v“ — преглед/„a“ — приемане "
 "на всичко:"
+
+#: builtin/am.c builtin/commit.c
+msgid "unable to write index file"
+msgstr "индексът не може да бъде записан"
 
 #: builtin/am.c
 #, c-format
@@ -10566,11 +10599,6 @@ msgstr ""
 
 #: builtin/checkout.c
 #, c-format
-msgid "staged changes in the following files may be lost: %s"
-msgstr "локалните промени в тези файлове ще се презапишат: %s"
-
-#: builtin/checkout.c
-#, c-format
 msgid "Can not do reflog for '%s': %s\n"
 msgstr "Журналът на указателите за „%s“ не може да се проследи: %s\n"
 
@@ -10796,8 +10824,8 @@ msgstr ""
 msgid "missing branch or commit argument"
 msgstr "липсва аргумент — клон или подаване"
 
-#: builtin/checkout.c builtin/clone.c builtin/fetch.c builtin/merge.c
-#: builtin/pull.c builtin/push.c builtin/send-pack.c
+#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
+#: builtin/merge.c builtin/pull.c builtin/push.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "извеждане на напредъка"
 
@@ -11463,7 +11491,7 @@ msgstr "целевият път „%s“ съществува и не е пра�
 msgid "working tree '%s' already exists."
 msgstr "в „%s“ вече съществува работно дърво."
 
-#: builtin/clone.c builtin/difftool.c builtin/worktree.c
+#: builtin/clone.c builtin/difftool.c builtin/log.c builtin/worktree.c
 #, c-format
 msgid "could not create leading directories of '%s'"
 msgstr "родителските директории на „%s“ не могат да бъдат създадени"
@@ -12191,16 +12219,19 @@ msgid "git commit-graph read [--object-dir <objdir>]"
 msgstr "git commit-graph read [--object-dir ДИР_ОБЕКТИ]"
 
 #: builtin/commit-graph.c
-msgid "git commit-graph verify [--object-dir <objdir>] [--shallow]"
-msgstr "git commit-graph verify [--object-dir ДИР_ОБЕКТИ] [--shallow]"
+msgid ""
+"git commit-graph verify [--object-dir <objdir>] [--shallow] [--[no-]progress]"
+msgstr ""
+"git commit-graph verify [--object-dir ДИР_ОБЕКТИ] [--shallow] [--"
+"[no-]progress]"
 
 #: builtin/commit-graph.c
 msgid ""
 "git commit-graph write [--object-dir <objdir>] [--append|--split] [--"
-"reachable|--stdin-packs|--stdin-commits] <split options>"
+"reachable|--stdin-packs|--stdin-commits] [--[no-]progress] <split options>"
 msgstr ""
 "git commit-graph write [--object-dir ДИР_ОБЕКТИ] [--append|--split] [--"
-"reachable|--stdin-packs|--stdin-commits] ОПЦИИ_ЗА_РАЗДЕЛЯНЕ"
+"reachable|--stdin-packs|--stdin-commits] [--[no-]progress] ОПЦИИ_ЗА_РАЗДЕЛЯНЕ"
 
 #: builtin/commit-graph.c builtin/fetch.c builtin/log.c
 msgid "dir"
@@ -12932,6 +12963,11 @@ msgid "git fast-export [rev-list-opts]"
 msgstr "git fast-export [ОПЦИИ_ЗА_СПИСЪКА_С_ВЕРСИИ]"
 
 #: builtin/fast-export.c
+msgid "Error: Cannot export nested tags unless --mark-tags is specified."
+msgstr ""
+"Грешка: непреките етикети не се изнасят, освен ако не зададете „--mark-tags“."
+
+#: builtin/fast-export.c
 msgid "show progress after <n> objects"
 msgstr "Съобщение за напредъка на всеки такъв БРОЙ обекта"
 
@@ -12955,6 +12991,10 @@ msgstr "Запазване на маркерите в този ФАЙЛ"
 #: builtin/fast-export.c
 msgid "Import marks from this file"
 msgstr "Внасяне на маркерите от този ФАЙЛ"
+
+#: builtin/fast-export.c
+msgid "Import marks from this file if it exists"
+msgstr "Внасяне на маркерите от този ФАЙЛ, ако съществува"
 
 #: builtin/fast-export.c
 msgid "Fake a tagger when tags lack one"
@@ -12994,6 +13034,14 @@ msgstr ""
 msgid "Show original object ids of blobs/commits"
 msgstr "Извеждане на първоначалните идентификатори на обектите BLOB/подавяния"
 
+#: builtin/fast-export.c
+msgid "Label tags with mark ids"
+msgstr "Задаване на идентификатори на маркери на етикетите"
+
+#: builtin/fast-export.c
+msgid "Cannot pass both --import-marks and --import-marks-if-exists"
+msgstr "опциите „--import-marks“ и „--import-marks-if-exists“ са несъвместими"
+
 #: builtin/fetch.c
 msgid "git fetch [<options>] [<repository> [<refspec>...]]"
 msgstr "git fetch [ОПЦИЯ…] [ХРАНИЛИЩЕ [УКАЗАТЕЛ…]]"
@@ -13010,9 +13058,17 @@ msgstr "git fetch --multiple [ОПЦИЯ…] [(ХРАНИЛИЩЕ | ГРУПА)�
 msgid "git fetch --all [<options>]"
 msgstr "git fetch --all [ОПЦИЯ…]"
 
+#: builtin/fetch.c
+msgid "fetch.parallel cannot be negative"
+msgstr "опцията „fetch.parallel“ трябва да е неотрицателна"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "fetch from all remotes"
 msgstr "доставяне от всички отдалечени хранилища"
+
+#: builtin/fetch.c builtin/pull.c
+msgid "set upstream for git pull/fetch"
+msgstr "задаване на клон за следене за издърпване/доставяне"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
@@ -13260,6 +13316,31 @@ msgid "Option \"%s\" is ignored for %s\n"
 msgstr "Опцията „%s“ се прескача при „%s“\n"
 
 #: builtin/fetch.c
+msgid "multiple branch detected, incompatible with --set-upstream"
+msgstr ""
+"засечени са множество клони, това е несъвместимо с опцията „--set-upstream“"
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote remote-tracking branch"
+msgstr "не може да указвате клон за следене на отдалечен етикет"
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote tag"
+msgstr "не може да указвате клон за следене на отдалечен етикет"
+
+#: builtin/fetch.c
+msgid "unknown branch type"
+msgstr "непознат вид клон"
+
+#: builtin/fetch.c
+msgid ""
+"no source branch found.\n"
+"you need to specify exactly one branch with the --set-upstream option."
+msgstr ""
+"не е открит клон за следене.\n"
+"Трябва изрично да зададете един клон с опцията „--set-upstream option“."
+
+#: builtin/fetch.c
 #, c-format
 msgid "Fetching %s\n"
 msgstr "Доставяне на „%s“\n"
@@ -13270,12 +13351,9 @@ msgid "Could not fetch %s"
 msgstr "„%s“ не може да се достави"
 
 #: builtin/fetch.c
-msgid ""
-"--filter can only be used with the remote configured in extensions."
-"partialClone"
-msgstr ""
-"опцията „--filter“ може да се ползва само с отдалеченото хранилище указано в "
-"настройката „extensions.partialClone“"
+#, c-format
+msgid "could not fetch '%s' (exit code: %d)\n"
+msgstr "„%s“ не може да се достави (изходният код е: %d)\n"
 
 #: builtin/fetch.c
 msgid ""
@@ -13295,7 +13373,7 @@ msgstr "Отрицателна дълбочина като аргумент на
 
 #: builtin/fetch.c
 msgid "--deepen and --depth are mutually exclusive"
-msgstr "Опциите „--deepen“ и „--depth“ са несъвместими една с друга"
+msgstr "опциите „--deepen“ и „--depth“ са несъвместими"
 
 #: builtin/fetch.c
 msgid "--depth and --unshallow cannot be used together"
@@ -15397,9 +15475,10 @@ msgid "allow merging unrelated histories"
 msgstr "позволяване на сливане на независими истории"
 
 #: builtin/merge.c
-msgid "verify commit-msg hook"
+msgid "bypass pre-merge-commit and commit-msg hooks"
 msgstr ""
-"проверка на куката при промяна на съобщението при подаване (commit-msg)"
+"без изпълнение на куките преди подаване и сливане и при промяна на "
+"съобщението за подаване (pre-merge-commit и commit-msg)"
 
 #: builtin/merge.c
 msgid "could not run stash."
@@ -17220,33 +17299,6 @@ msgid "failed to push some refs to '%s'"
 msgstr "част от указателите не бяха изтласкани към „%s“"
 
 #: builtin/push.c
-#, c-format
-msgid "bad repository '%s'"
-msgstr "неправилно указано хранилище „%s“"
-
-#: builtin/push.c
-msgid ""
-"No configured push destination.\n"
-"Either specify the URL from the command-line or configure a remote "
-"repository using\n"
-"\n"
-"    git remote add <name> <url>\n"
-"\n"
-"and then push using the remote name\n"
-"\n"
-"    git push <name>\n"
-msgstr ""
-"Не е указано хранилище, към което да се изтласква.\n"
-"Или укажете адреса на командния ред, или настройте отдалечено хранилище с "
-"командата:\n"
-"\n"
-"    git remote add ИМЕ АДРЕС\n"
-"\n"
-"и след това изтласкайте, като укажете името на отдалеченото хранилище:\n"
-"\n"
-"    git push ИМЕ\n"
-
-#: builtin/push.c
 msgid "repository"
 msgstr "хранилище"
 
@@ -17324,6 +17376,33 @@ msgstr ""
 #: builtin/push.c
 msgid "--delete doesn't make sense without any refs"
 msgstr "опцията „--delete“ изисква поне един указател на версия"
+
+#: builtin/push.c
+#, c-format
+msgid "bad repository '%s'"
+msgstr "неправилно указано хранилище „%s“"
+
+#: builtin/push.c
+msgid ""
+"No configured push destination.\n"
+"Either specify the URL from the command-line or configure a remote "
+"repository using\n"
+"\n"
+"    git remote add <name> <url>\n"
+"\n"
+"and then push using the remote name\n"
+"\n"
+"    git push <name>\n"
+msgstr ""
+"Не е указано хранилище, към което да се изтласква.\n"
+"Или укажете адреса на командния ред, или настройте отдалечено хранилище с "
+"командата:\n"
+"\n"
+"    git remote add ИМЕ АДРЕС\n"
+"\n"
+"и след това изтласкайте, като укажете името на отдалеченото хранилище:\n"
+"\n"
+"    git push ИМЕ\n"
 
 #: builtin/push.c
 msgid "--all and --tags are incompatible"
@@ -17463,11 +17542,11 @@ msgstr "без информационни съобщения"
 
 #: builtin/rebase.c
 msgid ""
-"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] [<upstream>] "
-"[<branch>]"
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] "
+"[<upstream> [<branch>]]"
 msgstr ""
-"git rebase [-i] [ОПЦИЯ…] [--exec КОМАНДА] [--onto НОВА_БАЗА] [КЛОН_ИЗТОЧНИК] "
-"[КЛОН]"
+"git rebase [-i] [ОПЦИЯ…] [--exec КОМАНДА] [--onto НОВА_БАЗА | --keep-base] "
+"[КЛОН_ИЗТОЧНИК [КЛОН]]"
 
 #: builtin/rebase.c
 msgid ""
@@ -17767,6 +17846,10 @@ msgid "rebase onto given branch instead of upstream"
 msgstr "пребазиране върху зададения, а не следения клон"
 
 #: builtin/rebase.c
+msgid "use the merge-base of upstream and branch as the current base"
+msgstr "за текуща база да се ползва базата за сливане на клона и следеното"
+
+#: builtin/rebase.c
 msgid "allow pre-rebase hook to run"
 msgstr "позволяване на куката преди пребазиране да се изпълни"
 
@@ -17904,6 +17987,14 @@ msgstr ""
 "нея."
 
 #: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--onto'"
+msgstr "опциите „--keep-base“ и „--onto“ са несъвместими"
+
+#: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--root'"
+msgstr "опциите „--keep-base“ и „--root“ са несъвместими"
+
+#: builtin/rebase.c
 msgid "No rebase in progress?"
 msgstr "Изглежда в момента не тече пребазиране"
 
@@ -17992,14 +18083,6 @@ msgstr ""
 "несъвместими"
 
 #: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy-option'"
-msgstr "опциите „--rebase-merges“ и „--strategy-option“ са несъвместими"
-
-#: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy'"
-msgstr "опциите „--rebase-merges“ и „--strategy“ са несъвместими"
-
-#: builtin/rebase.c
 #, c-format
 msgid "invalid upstream '%s'"
 msgstr "неправилен следен клон: „%s“"
@@ -18007,6 +18090,11 @@ msgstr "неправилен следен клон: „%s“"
 #: builtin/rebase.c
 msgid "Could not create new root commit"
 msgstr "Не може да се създаде ново начално подаване"
+
+#: builtin/rebase.c
+#, c-format
+msgid "'%s': need exactly one merge base with branch"
+msgstr "„%s“: изисква се точно една база за сливане с клона"
 
 #: builtin/rebase.c
 #, c-format
@@ -18054,11 +18142,6 @@ msgstr "Автоматично скатано: „%s“\n"
 #: builtin/rebase.c
 msgid "could not reset --hard"
 msgstr "неуспешно изпълнение на „git reset --hard“"
-
-#: builtin/rebase.c builtin/reset.c
-#, c-format
-msgid "HEAD is now at %s"
-msgstr "Указателят „HEAD“ сочи към „%s“"
 
 #: builtin/rebase.c
 msgid "Please commit or stash them."
@@ -19233,6 +19316,11 @@ msgstr "Дървото, сочено от „%s“, не може да бъде 
 
 #: builtin/reset.c
 #, c-format
+msgid "HEAD is now at %s"
+msgstr "Указателят „HEAD“ сочи към „%s“"
+
+#: builtin/reset.c
+#, c-format
 msgid "Cannot do a %s reset in the middle of a merge."
 msgstr "Не може да се извърши %s зануляване по време на сливане."
 
@@ -19329,11 +19417,6 @@ msgstr "опциите „--exclude-promisor-objects“ и „--missing“ и с
 #: builtin/rev-list.c
 msgid "object filtering requires --objects"
 msgstr "филтрирането на обекти изисква опцията „--objects“"
-
-#: builtin/rev-list.c
-#, c-format
-msgid "invalid sparse value '%s'"
-msgstr "неправилна частична стойност: %s"
 
 #: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
@@ -20395,8 +20478,8 @@ msgid "don't print cloning progress"
 msgstr "без извеждане на напредъка на клонирането"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper update_clone [--prefix=<path>] [<path>...]"
-msgstr "git submodule--helper update_clone [--prefix=ПЪТ] [ПЪТ…]"
+msgid "git submodule--helper update-clone [--prefix=<path>] [<path>...]"
+msgstr "git submodule--helper update-clone [--prefix=ПЪТ] [ПЪТ…]"
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
@@ -21336,10 +21419,10 @@ msgstr "не може да изпълни „git status“ върху „%s“"
 
 #: builtin/worktree.c
 #, c-format
-msgid "'%s' is dirty, use --force to delete it"
+msgid "'%s' contains modified or untracked files, use --force to delete it"
 msgstr ""
-"работното дърво „%s“ не е чисто, за принудително изтриване е необходима "
-"опцията „--force“ "
+"„%s“ съдържа провенени или нови файлове, за принудително изтриване е "
+"необходима опцията „--force“"
 
 #: builtin/worktree.c
 #, c-format
@@ -21389,6 +21472,16 @@ msgstr "запис на обект-дърво за поддиректорият�
 #: builtin/write-tree.c
 msgid "only useful for debugging"
 msgstr "само за изчистване на грешки"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'mark' command, got %s"
+msgstr "очаква се команда „mark“, а бе получена: „%s“"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'to' command, got %s"
+msgstr "очаква се команда „to“, а бе получена: „%s“"
 
 #: credential-cache--daemon.c
 #, c-format
@@ -24214,3 +24307,44 @@ msgstr "„%s“ се пропуска, защото е с разширение 
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Наистина ли искате да изпратите „%s“? [y|N]: "
+
+#, c-format
+#~ msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
+#~ msgstr ""
+#~ "непозната стойност „%s“ за настройката „core.untrackedCache“.  Ще се "
+#~ "ползва стандартната стойност „keep“ (запазване)"
+
+#~ msgid "cannot change partial clone promisor remote"
+#~ msgstr "не може да промените хранилището-гарант на непълно хранилище"
+
+#~ msgid "error building trees"
+#~ msgstr "грешка при изграждане на дърветата"
+
+#, c-format
+#~ msgid "invalid date format '%s' in '%s'"
+#~ msgstr "неправилен формат на дата „%s“ в „%s“"
+
+#~ msgid "writing root commit"
+#~ msgstr "запазване на начално подаване"
+
+#, c-format
+#~ msgid "staged changes in the following files may be lost: %s"
+#~ msgstr "локалните промени в тези файлове ще се презапишат: %s"
+
+#~ msgid ""
+#~ "--filter can only be used with the remote configured in extensions."
+#~ "partialClone"
+#~ msgstr ""
+#~ "опцията „--filter“ може да се ползва само с отдалеченото хранилище "
+#~ "указано в настройката „extensions.partialClone“"
+
+#~ msgid "verify commit-msg hook"
+#~ msgstr ""
+#~ "проверка на куката при промяна на съобщението при подаване (commit-msg)"
+
+#~ msgid "cannot combine '--rebase-merges' with '--strategy-option'"
+#~ msgstr "опциите „--rebase-merges“ и „--strategy-option“ са несъвместими"
+
+#, c-format
+#~ msgid "invalid sparse value '%s'"
+#~ msgstr "неправилна частична стойност: %s"
