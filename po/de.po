@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2019-08-10 20:12+0800\n"
+"POT-Creation-Date: 2019-10-28 13:19+0800\n"
 "PO-Revision-Date: 2016-11-28 18:10+0100\n"
 "Last-Translator: Matthias Rüster <matthias.ruester@gmail.com>\n"
 "Language-Team: Matthias Rüster <matthias.ruester@gmail.com>\n"
@@ -214,16 +214,6 @@ msgstr "Inkonsistente Kopfzeilen %d und %d."
 
 #: apply.c
 #, c-format
-msgid "recount: unexpected line: %.*s"
-msgstr "recount: unerwartete Zeile: %.*s"
-
-#: apply.c
-#, c-format
-msgid "patch fragment without header at line %d: %.*s"
-msgstr "Patch-Fragment ohne Kopfbereich bei Zeile %d: %.*s"
-
-#: apply.c
-#, c-format
 msgid ""
 "git diff header lacks filename information when removing %d leading pathname "
 "component (line %d)"
@@ -243,6 +233,16 @@ msgid "git diff header lacks filename information (line %d)"
 msgstr ""
 "Dem Kopfbereich von \"git diff\" fehlen Informationen zum Dateinamen (Zeile "
 "%d)"
+
+#: apply.c
+#, c-format
+msgid "recount: unexpected line: %.*s"
+msgstr "recount: unerwartete Zeile: %.*s"
+
+#: apply.c
+#, c-format
+msgid "patch fragment without header at line %d: %.*s"
+msgstr "Patch-Fragment ohne Kopfbereich bei Zeile %d: %.*s"
 
 #: apply.c
 msgid "new file depends on old contents"
@@ -1490,6 +1490,16 @@ msgstr "Ungültige Commit-Position. Commit-Graph ist wahrscheinlich beschädigt.
 msgid "could not find commit %s"
 msgstr "Konnte Commit %s nicht finden."
 
+#: commit-graph.c builtin/am.c
+#, c-format
+msgid "unable to parse commit %s"
+msgstr "Konnte Commit '%s' nicht parsen."
+
+#: commit-graph.c
+#, c-format
+msgid "unable to get tree for %s"
+msgstr "Konnte Verzeichnis für %s nicht bestimmen."
+
 #: commit-graph.c builtin/pack-objects.c
 #, c-format
 msgid "unable to get type of object %s"
@@ -1534,6 +1544,11 @@ msgid "Finding commits for commit graph from %d ref"
 msgid_plural "Finding commits for commit graph from %d refs"
 msgstr[0] "Suche Commits für Commit-Graph in %d Referenz"
 msgstr[1] "Suche Commits für Commit-Graph in %d Referenzen"
+
+#: commit-graph.c
+#, c-format
+msgid "invalid commit object id: %s"
+msgstr "ungültige Commit-Objekt-ID: %s"
 
 #: commit-graph.c
 msgid "Finding commits for commit graph among packed objects"
@@ -1910,12 +1925,6 @@ msgstr ""
 #, c-format
 msgid "Invalid %s: '%s'"
 msgstr "Ungültiger %s: '%s'"
-
-#: config.c
-#, c-format
-msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
-msgstr ""
-"Unbekannter Wert '%s' in core.untrackedCache; benutze Standardwert 'keep'"
 
 #: config.c
 #, c-format
@@ -3116,10 +3125,6 @@ msgstr "Konnte GIT_DIR nicht zu '%s' setzen."
 msgid "too many args to run %s"
 msgstr "Zu viele Argumente angegeben, um %s auszuführen."
 
-#: fetch-object.c
-msgid "Remote with no URL"
-msgstr "Remote-Repository ohne URL"
-
 #: fetch-pack.c
 msgid "git fetch-pack: expected shallow list"
 msgstr "git fetch-pack: erwartete shallow-Liste"
@@ -3359,6 +3364,14 @@ msgstr "Fehler beim Schreiben der losgelösten Signatur nach '%s'"
 #, c-format
 msgid "ignore invalid color '%.*s' in log.graphColors"
 msgstr "Ignoriere ungültige Farbe '%.*s' in log.graphColors"
+
+#: grep.c
+msgid ""
+"given pattern contains NULL byte (via -f <file>). This is only supported "
+"with -P under PCRE v2"
+msgstr ""
+"Angegebenes Muster enthält NULL Byte (über -f <Datei>). Das wird nur mit -"
+"Punter PCRE v2 unterstützt."
 
 #: grep.c
 #, c-format
@@ -3609,9 +3622,15 @@ msgstr "Eintrag '%s' im Tree-Objekt %s hat Blob-Modus, aber ist kein Blob"
 msgid "unable to load root tree for commit %s"
 msgstr "Konnte Root-Tree-Objekt für Commit %s nicht laden."
 
-#: list-objects-filter-options.c
-msgid "multiple filter-specs cannot be combined"
-msgstr "Mehrere filter-specs können nicht kombiniert werden."
+#: list-objects-filter.c
+#, c-format
+msgid "unable to access sparse blob in '%s'"
+msgstr "konnte nicht auf partiellen Blob '%s' zugreifen"
+
+#: list-objects-filter.c
+#, c-format
+msgid "unable to parse sparse filter data in %s"
+msgstr "Konnte partielle Filter-Daten in %s nicht parsen."
 
 #: list-objects-filter-options.c
 msgid "expected 'tree:<depth>'"
@@ -3627,8 +3646,17 @@ msgid "invalid filter-spec '%s'"
 msgstr "Ungültige filter-spec '%s'"
 
 #: list-objects-filter-options.c
-msgid "cannot change partial clone promisor remote"
-msgstr "Kann Remote-Repository für partielles Klonen nicht ändern."
+#, c-format
+msgid "must escape char in sub-filter-spec: '%c'"
+msgstr "Zeichen in sub-filter-spec muss maskiert werden: '%c'"
+
+#: list-objects-filter-options.c
+msgid "expected something after combine:"
+msgstr "erwartete etwas nach 'combine:'"
+
+#: list-objects-filter-options.c
+msgid "multiple filter-specs cannot be combined"
+msgstr "Mehrere filter-specs können nicht kombiniert werden."
 
 #: lockfile.c
 #, c-format
@@ -3679,10 +3707,6 @@ msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
 msgstr ""
 "add_cacheinfo zur Aktualisierung für Pfad '%s' fehlgeschlagen;\n"
 "Merge wird abgebrochen."
-
-#: merge-recursive.c
-msgid "error building trees"
-msgstr "Fehler beim Erstellen der \"Tree\"-Objekte"
 
 #: merge-recursive.c
 #, c-format
@@ -4073,16 +4097,6 @@ msgid "CONFLICT (add/add): Merge conflict in %s"
 msgstr "KONFLIKT (hinzufügen/hinzufügen): Merge-Konflikt in %s"
 
 #: merge-recursive.c
-#, c-format
-msgid ""
-"Your local changes to the following files would be overwritten by merge:\n"
-"  %s"
-msgstr ""
-"Ihre lokalen Änderungen in den folgenden Dateien würden durch den Merge\n"
-"überschrieben werden:\n"
-"  %s"
-
-#: merge-recursive.c
 msgid "Already up to date!"
 msgstr "Bereits aktuell!"
 
@@ -4105,6 +4119,16 @@ msgstr[1] "%u gemeinsame Vorgänger-Commits gefunden"
 #: merge-recursive.c
 msgid "merge returned no commit"
 msgstr "Merge hat keinen Commit zurückgegeben"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"Your local changes to the following files would be overwritten by merge:\n"
+"  %s"
+msgstr ""
+"Ihre lokalen Änderungen in den folgenden Dateien würden durch den Merge\n"
+"überschrieben werden:\n"
+"  %s"
 
 #: merge-recursive.c
 #, c-format
@@ -4608,6 +4632,15 @@ msgstr "Kann Thread für lstat nicht erzeugen: %s"
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr "Konnte --pretty Format nicht parsen."
+
+#: promisor-remote.c
+msgid "Remote with no URL"
+msgstr "Remote-Repository ohne URL"
+
+#: promisor-remote.c
+#, c-format
+msgid "promisor remote name cannot begin with '/': %s"
+msgstr "Promisor-Remote-Name kann nicht mit '/' beginnen: %s"
 
 #: range-diff.c
 msgid "could not start `log`"
@@ -5952,11 +5985,6 @@ msgstr "'GIT_AUTHOR_DATE' fehlt."
 
 #: sequencer.c
 #, c-format
-msgid "invalid date format '%s' in '%s'"
-msgstr "Ungültiges Datumsformat '%s' in '%s'"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "you have staged changes in your working tree\n"
 "If these changes are meant to be squashed into the previous commit, run:\n"
@@ -5985,10 +6013,6 @@ msgstr ""
 "Im Anschluss führen Sie zum Fortfahren aus:\n"
 "\n"
 "  git rebase --continue\n"
-
-#: sequencer.c
-msgid "writing root commit"
-msgstr "Root-Commit schreiben"
 
 #: sequencer.c
 msgid "'prepare-commit-msg' hook failed"
@@ -7593,6 +7617,11 @@ msgstr "Remote-Helper %s unterstützt kein --signed=if-asked."
 
 #: transport-helper.c
 #, c-format
+msgid "helper %s does not support --atomic"
+msgstr "Remote-Helper %s unterstützt kein --atomic."
+
+#: transport-helper.c
+#, c-format
 msgid "helper %s does not support 'push-option'"
 msgstr "Remote-Helper %s unterstützt nicht 'push-option'."
 
@@ -8376,6 +8405,11 @@ msgstr ""
 "  (alle Konflikte behoben: führen Sie \"git cherry-pick --continue\" aus)"
 
 #: wt-status.c
+msgid "  (use \"git cherry-pick --skip\" to skip this patch)"
+msgstr ""
+"  (benutzen Sie \"git cherry-pick --skip\", um diesen Patch auszulassen)"
+
+#: wt-status.c
 msgid "  (use \"git cherry-pick --abort\" to cancel the cherry-pick operation)"
 msgstr ""
 "  (benutzen Sie \"git cherry-pick --abort\", um die Cherry-Pick-Operation "
@@ -8403,6 +8437,10 @@ msgstr "  (Führen Sie \"git revert --continue\", um weiterzumachen)"
 #: wt-status.c
 msgid "  (all conflicts fixed: run \"git revert --continue\")"
 msgstr "  (alle Konflikte behoben: führen Sie \"git revert --continue\" aus)"
+
+#: wt-status.c
+msgid "  (use \"git revert --skip\" to skip this patch)"
+msgstr "  (benutzen Sie \"git revert --skip\", um diesen Patch auszulassen)"
 
 #: wt-status.c
 msgid "  (use \"git revert --abort\" to cancel the revert operation)"
@@ -8566,6 +8604,11 @@ msgstr "Zusätzlich enthält die Staging-Area nicht committete Änderungen."
 msgid "cannot %s: Your index contains uncommitted changes."
 msgstr ""
 "%s nicht möglich: Die Staging-Area enthält nicht committete Änderungen."
+
+#: compat/precompose_utf8.c builtin/clone.c
+#, c-format
+msgid "failed to unlink '%s'"
+msgstr "Konnte '%s' nicht entfernen."
 
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
@@ -8823,10 +8866,6 @@ msgstr "Fehler beim Erstellen von Verzeichnis '%s'"
 msgid "Failed to split patches."
 msgstr "Fehler beim Aufteilen der Patches."
 
-#: builtin/am.c builtin/commit.c
-msgid "unable to write index file"
-msgstr "Konnte Index-Datei nicht schreiben."
-
 #: builtin/am.c
 #, c-format
 msgid "When you have resolved this problem, run \"%s --continue\"."
@@ -8859,13 +8898,13 @@ msgstr "Patch ist leer."
 
 #: builtin/am.c
 #, c-format
-msgid "invalid ident line: %.*s"
-msgstr "Ungültige Identifikationszeile: %.*s"
+msgid "missing author line in commit %s"
+msgstr "Autor-Zeile fehlt in Commit %s"
 
 #: builtin/am.c
 #, c-format
-msgid "unable to parse commit %s"
-msgstr "Konnte Commit '%s' nicht parsen."
+msgid "invalid ident line: %.*s"
+msgstr "Ungültige Identifikationszeile: %.*s"
 
 #: builtin/am.c
 msgid "Repository lacks necessary blobs to fall back on 3-way merge."
@@ -8916,6 +8955,10 @@ msgstr "Commit-Beschreibung ist:"
 #, c-format
 msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
 msgstr "Anwenden? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
+
+#: builtin/am.c builtin/commit.c
+msgid "unable to write index file"
+msgstr "Konnte Index-Datei nicht schreiben."
 
 #: builtin/am.c
 #, c-format
@@ -10414,13 +10457,6 @@ msgstr ""
 
 #: builtin/checkout.c
 #, c-format
-msgid "staged changes in the following files may be lost: %s"
-msgstr ""
-"Zum Commit vorgemerkte Änderungen in den folgenden Dateien gehen eventuell "
-"verloren: %s"
-
-#: builtin/checkout.c
-#, c-format
 msgid "Can not do reflog for '%s': %s\n"
 msgstr "Kann \"reflog\" für '%s' nicht durchführen: %s\n"
 
@@ -10649,8 +10685,8 @@ msgstr "Kann Branch nicht zu Nicht-Commit '%s' wechseln"
 msgid "missing branch or commit argument"
 msgstr "Branch- oder Commit-Argument fehlt"
 
-#: builtin/checkout.c builtin/clone.c builtin/fetch.c builtin/merge.c
-#: builtin/pull.c builtin/push.c builtin/send-pack.c
+#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
+#: builtin/merge.c builtin/pull.c builtin/push.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "Fortschrittsanzeige erzwingen"
 
@@ -11215,11 +11251,6 @@ msgstr "Fehler beim Starten der Iteration über '%s'"
 
 #: builtin/clone.c
 #, c-format
-msgid "failed to unlink '%s'"
-msgstr "Konnte '%s' nicht entfernen."
-
-#: builtin/clone.c
-#, c-format
 msgid "failed to create link '%s'"
 msgstr "Konnte Verweis '%s' nicht erstellen"
 
@@ -11317,7 +11348,7 @@ msgstr "Zielpfad '%s' existiert bereits und ist kein leeres Verzeichnis."
 msgid "working tree '%s' already exists."
 msgstr "Arbeitsverzeichnis '%s' existiert bereits."
 
-#: builtin/clone.c builtin/difftool.c builtin/worktree.c
+#: builtin/clone.c builtin/difftool.c builtin/log.c builtin/worktree.c
 #, c-format
 msgid "could not create leading directories of '%s'"
 msgstr "Konnte führende Verzeichnisse von '%s' nicht erstellen."
@@ -12043,16 +12074,20 @@ msgid "git commit-graph read [--object-dir <objdir>]"
 msgstr "git commit-graph read [--object-dir <Objektverzeichnis>]"
 
 #: builtin/commit-graph.c
-msgid "git commit-graph verify [--object-dir <objdir>] [--shallow]"
-msgstr "git commit-graph verify [--object-dir <Objektverzeichnis>] [--shallow]"
+msgid ""
+"git commit-graph verify [--object-dir <objdir>] [--shallow] [--[no-]progress]"
+msgstr ""
+"git commit-graph verify [--object-dir <Objektverzeichnis>] [--shallow] [--"
+"[no-]progress]"
 
 #: builtin/commit-graph.c
 msgid ""
 "git commit-graph write [--object-dir <objdir>] [--append|--split] [--"
-"reachable|--stdin-packs|--stdin-commits] <split options>"
+"reachable|--stdin-packs|--stdin-commits] [--[no-]progress] <split options>"
 msgstr ""
 "git commit-graph write [--object-dir <Objektverzeichnis>] [--append|split] "
-"[--reachable|--stdin-packs|--stdin-commits] <Split-Optionen>"
+"[--reachable|--stdin-packs|--stdin-commits] [--[no-]progress] <Split-"
+"Optionen>"
 
 #: builtin/commit-graph.c builtin/fetch.c builtin/log.c
 msgid "dir"
@@ -12570,19 +12605,18 @@ msgstr "gekürztes Commit-Objekt anzeigen, wenn sonst nichts zutrifft"
 
 #: builtin/describe.c
 msgid "mark"
-msgstr "Kennzeichen"
+msgstr "Markierung"
 
 #: builtin/describe.c
 msgid "append <mark> on dirty working tree (default: \"-dirty\")"
 msgstr ""
-"<Kennzeichen> bei geändertem Arbeitsverzeichnis anhängen (Standard: \"-dirty"
+"<Markierung> bei geändertem Arbeitsverzeichnis anhängen (Standard: \"-dirty"
 "\")"
 
 #: builtin/describe.c
 msgid "append <mark> on broken working tree (default: \"-broken\")"
 msgstr ""
-"<Kennzeichen> bei defektem Arbeitsverzeichnis anhängen (Standard: \"-broken"
-"\")"
+"<Markierung> bei defektem Arbeitsverzeichnis anhängen (Standard: \"-broken\")"
 
 #: builtin/describe.c
 msgid "--long is incompatible with --abbrev=0"
@@ -12782,6 +12816,12 @@ msgid "git fast-export [rev-list-opts]"
 msgstr "git fast-export [rev-list-opts]"
 
 #: builtin/fast-export.c
+msgid "Error: Cannot export nested tags unless --mark-tags is specified."
+msgstr ""
+"Fehler: Verschachtelte Tags können nicht exportiert werden, außer --mark-"
+"tags wurde angegeben."
+
+#: builtin/fast-export.c
 msgid "show progress after <n> objects"
 msgstr "Fortschritt nach <n> Objekten anzeigen"
 
@@ -12800,11 +12840,15 @@ msgstr ""
 
 #: builtin/fast-export.c
 msgid "Dump marks to this file"
-msgstr "Kennzeichen in diese Datei schreiben"
+msgstr "Markierungen in diese Datei schreiben"
 
 #: builtin/fast-export.c
 msgid "Import marks from this file"
-msgstr "Kennzeichen von dieser Datei importieren"
+msgstr "Markierungen von dieser Datei importieren"
+
+#: builtin/fast-export.c
+msgid "Import marks from this file if it exists"
+msgstr "Markierungen von dieser Datei importieren, wenn diese existiert"
 
 #: builtin/fast-export.c
 msgid "Fake a tagger when tags lack one"
@@ -12844,6 +12888,16 @@ msgstr ""
 msgid "Show original object ids of blobs/commits"
 msgstr "originale Objekt-IDs von Blobs/Commits anzeigen"
 
+#: builtin/fast-export.c
+msgid "Label tags with mark ids"
+msgstr "Tags mit Markierungs-IDs beschriften"
+
+#: builtin/fast-export.c
+msgid "Cannot pass both --import-marks and --import-marks-if-exists"
+msgstr ""
+"--import-marks und --import-marks-if-exists können nicht zusammen "
+"weitergegeben werden"
+
 #: builtin/fetch.c
 msgid "git fetch [<options>] [<repository> [<refspec>...]]"
 msgstr "git fetch [<Optionen>] [<Repository> [<Refspec>...]]"
@@ -12860,9 +12914,17 @@ msgstr "git fetch --multiple [<Optionen>] [(<Repository> | <Gruppe>)...]"
 msgid "git fetch --all [<options>]"
 msgstr "git fetch --all [<Optionen>]"
 
+#: builtin/fetch.c
+msgid "fetch.parallel cannot be negative"
+msgstr "fetch.parallel kann nicht negativ sein"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "fetch from all remotes"
 msgstr "fordert von allen Remote-Repositories an"
+
+#: builtin/fetch.c builtin/pull.c
+msgid "set upstream for git pull/fetch"
+msgstr "Upstream für \"git pull/fetch\" setzen"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
@@ -13119,6 +13181,30 @@ msgid "Option \"%s\" is ignored for %s\n"
 msgstr "Option \"%s\" wird ignoriert für %s\n"
 
 #: builtin/fetch.c
+msgid "multiple branch detected, incompatible with --set-upstream"
+msgstr "mehrere Branches erkannt, inkompatibel mit --set-upstream"
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote remote-tracking branch"
+msgstr "Setze keinen Upstream für einen entfernten Remote-Tracking-Branch."
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote tag"
+msgstr "Setze keinen Upstream für einen Tag eines Remote-Repositories."
+
+#: builtin/fetch.c
+msgid "unknown branch type"
+msgstr "Unbekannter Branch-Typ"
+
+#: builtin/fetch.c
+msgid ""
+"no source branch found.\n"
+"you need to specify exactly one branch with the --set-upstream option."
+msgstr ""
+"Keinen Quell-Branch gefunden.\n"
+"Sie müssen bei der Option --set-upstream genau einen Branch angeben."
+
+#: builtin/fetch.c
 #, c-format
 msgid "Fetching %s\n"
 msgstr "Fordere an von %s\n"
@@ -13129,12 +13215,9 @@ msgid "Could not fetch %s"
 msgstr "Konnte nicht von %s anfordern"
 
 #: builtin/fetch.c
-msgid ""
-"--filter can only be used with the remote configured in extensions."
-"partialClone"
-msgstr ""
-"--filter kann nur mit den Remote-Repositories verwendet werden,\n"
-"die in core.partialClone konfiguriert sind."
+#, c-format
+msgid "could not fetch '%s' (exit code: %d)\n"
+msgstr "Konnte '%s' nicht anfordern (Exit-Code: %d)\n"
 
 #: builtin/fetch.c
 msgid ""
@@ -15234,8 +15317,8 @@ msgid "allow merging unrelated histories"
 msgstr "erlaube das Zusammenführen von nicht zusammenhängenden Historien"
 
 #: builtin/merge.c
-msgid "verify commit-msg hook"
-msgstr "commit-msg Hook überprüfen"
+msgid "bypass pre-merge-commit and commit-msg hooks"
+msgstr "Hooks pre-merge-commit und commit-msg umgehen"
 
 #: builtin/merge.c
 msgid "could not run stash."
@@ -17052,33 +17135,6 @@ msgid "failed to push some refs to '%s'"
 msgstr "Fehler beim Versenden einiger Referenzen nach '%s'"
 
 #: builtin/push.c
-#, c-format
-msgid "bad repository '%s'"
-msgstr "ungültiges Repository '%s'"
-
-#: builtin/push.c
-msgid ""
-"No configured push destination.\n"
-"Either specify the URL from the command-line or configure a remote "
-"repository using\n"
-"\n"
-"    git remote add <name> <url>\n"
-"\n"
-"and then push using the remote name\n"
-"\n"
-"    git push <name>\n"
-msgstr ""
-"Kein Ziel für \"push\" konfiguriert.\n"
-"Entweder spezifizieren Sie die URL von der Befehlszeile oder konfigurieren "
-"ein Remote-Repository unter Benutzung von\n"
-"\n"
-"    git remote add <Name> <URL>\n"
-"\n"
-"und führen \"push\" dann unter Benutzung dieses Namens aus\n"
-"\n"
-"    git push <Name>\n"
-
-#: builtin/push.c
 msgid "repository"
 msgstr "Repository"
 
@@ -17153,6 +17209,33 @@ msgstr "Die Option --delete ist inkompatibel mit --all, --mirror und --tags."
 #: builtin/push.c
 msgid "--delete doesn't make sense without any refs"
 msgstr "Die Option --delete kann nur mit Referenzen verwendet werden."
+
+#: builtin/push.c
+#, c-format
+msgid "bad repository '%s'"
+msgstr "ungültiges Repository '%s'"
+
+#: builtin/push.c
+msgid ""
+"No configured push destination.\n"
+"Either specify the URL from the command-line or configure a remote "
+"repository using\n"
+"\n"
+"    git remote add <name> <url>\n"
+"\n"
+"and then push using the remote name\n"
+"\n"
+"    git push <name>\n"
+msgstr ""
+"Kein Ziel für \"push\" konfiguriert.\n"
+"Entweder spezifizieren Sie die URL von der Befehlszeile oder konfigurieren "
+"ein Remote-Repository unter Benutzung von\n"
+"\n"
+"    git remote add <Name> <URL>\n"
+"\n"
+"und führen \"push\" dann unter Benutzung dieses Namens aus\n"
+"\n"
+"    git push <Name>\n"
 
 #: builtin/push.c
 msgid "--all and --tags are incompatible"
@@ -17294,11 +17377,11 @@ msgstr "Rückmeldungen unterdrücken"
 
 #: builtin/rebase.c
 msgid ""
-"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] [<upstream>] "
-"[<branch>]"
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] "
+"[<upstream> [<branch>]]"
 msgstr ""
-"git rebase [-i] [<Optionen>] [--exec <Programm>] [--onto <neue-Basis>] "
-"[<Upstream>] [<Branch>]"
+"git rebase [-i] [<Optionen>] [--exec <Programm>] [--onto <neue-Basis> | --"
+"keep-base] [<Upstream> [<Branch>]]"
 
 #: builtin/rebase.c
 msgid ""
@@ -17602,6 +17685,10 @@ msgid "rebase onto given branch instead of upstream"
 msgstr "Rebase auf angegebenen Branch anstelle des Upstream-Branches ausführen"
 
 #: builtin/rebase.c
+msgid "use the merge-base of upstream and branch as the current base"
+msgstr "Nutze die Merge-Basis von Upstream und Branch als die aktuelle Basis"
+
+#: builtin/rebase.c
 msgid "allow pre-rebase hook to run"
 msgstr "Ausführung des pre-rebase-Hooks erlauben"
 
@@ -17734,6 +17821,14 @@ msgstr ""
 "rebase-merges'."
 
 #: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--onto'"
+msgstr "'--keep-base' kann nicht mit '--onto' kombiniert werden"
+
+#: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--root'"
+msgstr "'--keep-base' kann nicht mit '--root' kombiniert werden"
+
+#: builtin/rebase.c
 msgid "No rebase in progress?"
 msgstr "Kein Rebase im Gange?"
 
@@ -17821,15 +17916,6 @@ msgstr ""
 "kombiniert werden."
 
 #: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy-option'"
-msgstr ""
-"'--rebase-merges' kann nicht mit '--strategy-option' kombiniert werden."
-
-#: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy'"
-msgstr "'--rebase-merges' kann nicht mit '--strategy' kombiniert werden."
-
-#: builtin/rebase.c
 #, c-format
 msgid "invalid upstream '%s'"
 msgstr "Ungültiger Upstream '%s'"
@@ -17837,6 +17923,11 @@ msgstr "Ungültiger Upstream '%s'"
 #: builtin/rebase.c
 msgid "Could not create new root commit"
 msgstr "Konnte neuen Root-Commit nicht erstellen."
+
+#: builtin/rebase.c
+#, c-format
+msgid "'%s': need exactly one merge base with branch"
+msgstr "'%s': benötige genau eine Merge-Basis mit dem Branch"
 
 #: builtin/rebase.c
 #, c-format
@@ -17884,11 +17975,6 @@ msgstr "Automatischen Stash erzeugt: %s\n"
 #: builtin/rebase.c
 msgid "could not reset --hard"
 msgstr "Konnte 'reset --hard' nicht ausführen."
-
-#: builtin/rebase.c builtin/reset.c
-#, c-format
-msgid "HEAD is now at %s"
-msgstr "HEAD ist jetzt bei %s"
 
 #: builtin/rebase.c
 msgid "Please commit or stash them."
@@ -19059,6 +19145,11 @@ msgstr "Fehler beim Finden des \"Tree\"-Objektes von %s."
 
 #: builtin/reset.c
 #, c-format
+msgid "HEAD is now at %s"
+msgstr "HEAD ist jetzt bei %s"
+
+#: builtin/reset.c
+#, c-format
 msgid "Cannot do a %s reset in the middle of a merge."
 msgstr "Kann keinen '%s'-Reset durchführen, während ein Merge im Gange ist."
 
@@ -19155,11 +19246,6 @@ msgstr ""
 #: builtin/rev-list.c
 msgid "object filtering requires --objects"
 msgstr "Das Filtern von Objekten erfordert --objects."
-
-#: builtin/rev-list.c
-#, c-format
-msgid "invalid sparse value '%s'"
-msgstr "Ungültiger \"sparse\"-Wert '%s'."
 
 #: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
@@ -20231,8 +20317,8 @@ msgid "don't print cloning progress"
 msgstr "keine Fortschrittsanzeige beim Klonen"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper update_clone [--prefix=<path>] [<path>...]"
-msgstr "git submodule--helper update_clone [--prefix=<Pfad>] [<Pfad>...]"
+msgid "git submodule--helper update-clone [--prefix=<path>] [<path>...]"
+msgstr "git submodule--helper update-clone [--prefix=<Pfad>] [<Pfad>...]"
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
@@ -21178,8 +21264,10 @@ msgstr "Fehler beim Ausführen von 'git status' auf '%s'"
 
 #: builtin/worktree.c
 #, c-format
-msgid "'%s' is dirty, use --force to delete it"
-msgstr "'%s' ist verändert, benutzen Sie --force zum Löschen"
+msgid "'%s' contains modified or untracked files, use --force to delete it"
+msgstr ""
+"'%s' enthält geänderte oder nicht versionierte Dateien, benutzen Sie --force "
+"zum Löschen"
 
 #: builtin/worktree.c
 #, c-format
@@ -21231,6 +21319,16 @@ msgstr "das Tree-Objekt für ein Unterverzeichnis <Präfix> schreiben"
 #: builtin/write-tree.c
 msgid "only useful for debugging"
 msgstr "nur nützlich für Fehlersuche"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'mark' command, got %s"
+msgstr "'mark' Befehl erwartet, '%s' bekommen"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'to' command, got %s"
+msgstr "'to' Befehl erwartet, '%s' bekommen"
 
 #: credential-cache--daemon.c
 #, c-format
@@ -24063,6 +24161,44 @@ msgstr "Lasse %s mit Backup-Suffix '%s' aus.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Wollen Sie %s wirklich versenden? [y|N]: "
+
+#~ msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
+#~ msgstr ""
+#~ "Unbekannter Wert '%s' in core.untrackedCache; benutze Standardwert 'keep'"
+
+#~ msgid "cannot change partial clone promisor remote"
+#~ msgstr "Kann Remote-Repository für partielles Klonen nicht ändern."
+
+#~ msgid "error building trees"
+#~ msgstr "Fehler beim Erstellen der \"Tree\"-Objekte"
+
+#~ msgid "invalid date format '%s' in '%s'"
+#~ msgstr "Ungültiges Datumsformat '%s' in '%s'"
+
+#~ msgid "writing root commit"
+#~ msgstr "Root-Commit schreiben"
+
+#~ msgid "staged changes in the following files may be lost: %s"
+#~ msgstr ""
+#~ "Zum Commit vorgemerkte Änderungen in den folgenden Dateien gehen "
+#~ "eventuell verloren: %s"
+
+#~ msgid ""
+#~ "--filter can only be used with the remote configured in extensions."
+#~ "partialClone"
+#~ msgstr ""
+#~ "--filter kann nur mit den Remote-Repositories verwendet werden,\n"
+#~ "die in core.partialClone konfiguriert sind."
+
+#~ msgid "verify commit-msg hook"
+#~ msgstr "commit-msg Hook überprüfen"
+
+#~ msgid "cannot combine '--rebase-merges' with '--strategy-option'"
+#~ msgstr ""
+#~ "'--rebase-merges' kann nicht mit '--strategy-option' kombiniert werden."
+
+#~ msgid "invalid sparse value '%s'"
+#~ msgstr "Ungültiger \"sparse\"-Wert '%s'."
 
 #~ msgid ""
 #~ "Fetch normally indicates which branches had a forced update, but that "
