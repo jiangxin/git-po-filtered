@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git v2.23.0-rc2\n"
+"Project-Id-Version: git v2.24.0\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2019-08-10 20:12+0800\n"
-"PO-Revision-Date: 2019-08-11 07:08+0700\n"
+"POT-Creation-Date: 2019-10-28 13:19+0800\n"
+"PO-Revision-Date: 2019-10-29 14:35+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -214,16 +214,6 @@ msgstr "phần đầu mâu thuẫn dòng %d và %d"
 
 #: apply.c
 #, c-format
-msgid "recount: unexpected line: %.*s"
-msgstr "chi tiết: dòng không cần: %.*s"
-
-#: apply.c
-#, c-format
-msgid "patch fragment without header at line %d: %.*s"
-msgstr "miếng vá phân mảnh mà không có phần đầu tại dòng %d: %.*s"
-
-#: apply.c
-#, c-format
 msgid ""
 "git diff header lacks filename information when removing %d leading pathname "
 "component (line %d)"
@@ -238,6 +228,16 @@ msgstr[0] ""
 #, c-format
 msgid "git diff header lacks filename information (line %d)"
 msgstr "phần đầu diff cho git thiếu thông tin tên tập tin (dòng %d)"
+
+#: apply.c
+#, c-format
+msgid "recount: unexpected line: %.*s"
+msgstr "chi tiết: dòng không cần: %.*s"
+
+#: apply.c
+#, c-format
+msgid "patch fragment without header at line %d: %.*s"
+msgstr "miếng vá phân mảnh mà không có phần đầu tại dòng %d: %.*s"
 
 #: apply.c
 msgid "new file depends on old contents"
@@ -1462,6 +1462,16 @@ msgstr ""
 msgid "could not find commit %s"
 msgstr "không thể tìm thấy lần chuyển giao %s"
 
+#: commit-graph.c builtin/am.c
+#, c-format
+msgid "unable to parse commit %s"
+msgstr "không thể phân tích lần chuyển giao “%s”"
+
+#: commit-graph.c
+#, c-format
+msgid "unable to get tree for %s"
+msgstr "không thể lấy cây cho %s"
+
 #: commit-graph.c builtin/pack-objects.c
 #, c-format
 msgid "unable to get type of object %s"
@@ -1508,6 +1518,11 @@ msgid "Finding commits for commit graph from %d ref"
 msgid_plural "Finding commits for commit graph from %d refs"
 msgstr[0] ""
 "Đang tìm các lần chuyển giao cho đồ thị lần chuyển giao từ %d tham chiếu"
+
+#: commit-graph.c
+#, c-format
+msgid "invalid commit object id: %s"
+msgstr "mã số đối tượng lần chuyển giao không hợp lệ: %s"
 
 #: commit-graph.c
 msgid "Finding commits for commit graph among packed objects"
@@ -1881,12 +1896,6 @@ msgstr "đã có lỗi chưa biết xảy ra trong khi đọc các tập tin c�
 #, c-format
 msgid "Invalid %s: '%s'"
 msgstr "%s không hợp lệ: “%s”"
-
-#: config.c
-#, c-format
-msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
-msgstr ""
-"không hiểu giá trị core.untrackedCache “%s”; dùng giá trị mặc định “keep”"
 
 #: config.c
 #, c-format
@@ -3053,10 +3062,6 @@ msgstr "không thể đặt GIT_DIR thành “%s”"
 msgid "too many args to run %s"
 msgstr "quá nhiều tham số để chạy %s"
 
-#: fetch-object.c
-msgid "Remote with no URL"
-msgstr "Máy chủ không có địa chỉ URL"
-
 #: fetch-pack.c
 msgid "git fetch-pack: expected shallow list"
 msgstr "git fetch-pack: cần danh sách shallow"
@@ -3299,6 +3304,14 @@ msgid "ignore invalid color '%.*s' in log.graphColors"
 msgstr "bỏ qua màu không hợp lệ “%.*s” trong log.graphColors"
 
 #: grep.c
+msgid ""
+"given pattern contains NULL byte (via -f <file>). This is only supported "
+"with -P under PCRE v2"
+msgstr ""
+"mẫu đã cho có chứa NULL byte (qua -f <file>). Điều này chỉ được hỗ trợ với -"
+"P dưới PCRE v2"
+
+#: grep.c
 #, c-format
 msgid "'%s': unable to read %s"
 msgstr "“%s”: không thể đọc %s"
@@ -3537,9 +3550,15 @@ msgstr "mục “%s” trong cây %s có nút blob, nhưng không phải là m�
 msgid "unable to load root tree for commit %s"
 msgstr "không thể tải cây gốc cho lần chuyển giao “%s”"
 
-#: list-objects-filter-options.c
-msgid "multiple filter-specs cannot be combined"
-msgstr "không thể tổ hợp nhiều đặc tả kiểu lọc"
+#: list-objects-filter.c
+#, c-format
+msgid "unable to access sparse blob in '%s'"
+msgstr "không thể truy cập các blob rải rác trong '%s'"
+
+#: list-objects-filter.c
+#, c-format
+msgid "unable to parse sparse filter data in %s"
+msgstr "không thể phân tích dữ liệu bộ lọc rải rác trong %s"
 
 #: list-objects-filter-options.c
 msgid "expected 'tree:<depth>'"
@@ -3555,8 +3574,17 @@ msgid "invalid filter-spec '%s'"
 msgstr "đặc tả bộ lọc không hợp lệ “%s”"
 
 #: list-objects-filter-options.c
-msgid "cannot change partial clone promisor remote"
-msgstr "không thể thay đổi nhân bản từng phần máy chủ promisor"
+#, c-format
+msgid "must escape char in sub-filter-spec: '%c'"
+msgstr "phải thoát char trong sub-filter-spec: '%c'"
+
+#: list-objects-filter-options.c
+msgid "expected something after combine:"
+msgstr "mong đợi một cái gì đó sau khi kết hợp:"
+
+#: list-objects-filter-options.c
+msgid "multiple filter-specs cannot be combined"
+msgstr "không thể tổ hợp nhiều đặc tả kiểu lọc"
 
 #: lockfile.c
 #, c-format
@@ -3606,10 +3634,6 @@ msgid "add_cacheinfo failed to refresh for path '%s'; merge aborting."
 msgstr ""
 "addinfo_cache gặp lỗi khi làm mới đối với đường dẫn “%s”; việc hòa trộn bị "
 "bãi bỏ."
-
-#: merge-recursive.c
-msgid "error building trees"
-msgstr "gặp lỗi khi xây dựng cây"
 
 #: merge-recursive.c
 #, c-format
@@ -3993,16 +4017,6 @@ msgid "CONFLICT (add/add): Merge conflict in %s"
 msgstr "XUNG ĐỘT (thêm/thêm): Xung đột hòa trộn trong %s"
 
 #: merge-recursive.c
-#, c-format
-msgid ""
-"Your local changes to the following files would be overwritten by merge:\n"
-"  %s"
-msgstr ""
-"Các thay đổi nội bộ của bạn với các tập tin sau đây sẽ bị ghi đè bởi lệnh "
-"hòa trộn:\n"
-"  %s"
-
-#: merge-recursive.c
 msgid "Already up to date!"
 msgstr "Đã cập nhật rồi!"
 
@@ -4024,6 +4038,16 @@ msgstr[0] "tìm thấy %u tổ tiên chung:"
 #: merge-recursive.c
 msgid "merge returned no commit"
 msgstr "hòa trộn không trả về lần chuyển giao nào"
+
+#: merge-recursive.c
+#, c-format
+msgid ""
+"Your local changes to the following files would be overwritten by merge:\n"
+"  %s"
+msgstr ""
+"Các thay đổi nội bộ của bạn với các tập tin sau đây sẽ bị ghi đè bởi lệnh "
+"hòa trộn:\n"
+"  %s"
 
 #: merge-recursive.c
 #, c-format
@@ -4518,6 +4542,15 @@ msgstr "không thể tạo tuyến trình lstat: %s"
 #: pretty.c
 msgid "unable to parse --pretty format"
 msgstr "không thể phân tích định dạng --pretty"
+
+#: promisor-remote.c
+msgid "Remote with no URL"
+msgstr "Máy chủ không có địa chỉ URL"
+
+#: promisor-remote.c
+#, c-format
+msgid "promisor remote name cannot begin with '/': %s"
+msgstr "tên máy chủ hứa hẹn không thể bắt đầu bằng '/': %s"
 
 #: range-diff.c
 msgid "could not start `log`"
@@ -5848,11 +5881,6 @@ msgstr "thiếu “GIT_AUTHOR_DATE”"
 
 #: sequencer.c
 #, c-format
-msgid "invalid date format '%s' in '%s'"
-msgstr "định dạng ngày tháng không hợp lệ “%s” trong “%s”"
-
-#: sequencer.c
-#, c-format
 msgid ""
 "you have staged changes in your working tree\n"
 "If these changes are meant to be squashed into the previous commit, run:\n"
@@ -5879,10 +5907,6 @@ msgstr ""
 "Trong cả hai trường hợp, một khi bạn làm xong, tiếp tục bằng:\n"
 "\n"
 "  git rebase --continue\n"
-
-#: sequencer.c
-msgid "writing root commit"
-msgstr "ghi chuyển giao gốc"
 
 #: sequencer.c
 msgid "'prepare-commit-msg' hook failed"
@@ -7474,6 +7498,11 @@ msgstr "helper %s không hỗ trợ --signed=if-asked"
 
 #: transport-helper.c
 #, c-format
+msgid "helper %s does not support --atomic"
+msgstr "helper %s không hỗ trợ --atomic"
+
+#: transport-helper.c
+#, c-format
 msgid "helper %s does not support 'push-option'"
 msgstr "helper %s không hỗ trợ “push-option”"
 
@@ -8237,6 +8266,10 @@ msgstr ""
 "continue\")"
 
 #: wt-status.c
+msgid "  (use \"git cherry-pick --skip\" to skip this patch)"
+msgstr "  (dùng \"git cherry-pick --skip\" để bỏ qua miếng vá này)"
+
+#: wt-status.c
 msgid "  (use \"git cherry-pick --abort\" to cancel the cherry-pick operation)"
 msgstr "  (dùng \"git cherry-pick --abort\" để hủy bỏ thao tác cherry-pick)"
 
@@ -8261,6 +8294,10 @@ msgstr "  (chạy lệnh \"git revert --continue\" để tiếp tục)"
 msgid "  (all conflicts fixed: run \"git revert --continue\")"
 msgstr ""
 "  (khi tất cả các xung đột đã sửa xong: chạy lệnh \"git revert --continue\")"
+
+#: wt-status.c
+msgid "  (use \"git revert --skip\" to skip this patch)"
+msgstr "  (dùng lệnh \"git revert --skip\" để bỏ qua lần vá này)"
 
 #: wt-status.c
 msgid "  (use \"git revert --abort\" to cancel the revert operation)"
@@ -8425,6 +8462,11 @@ msgstr ""
 msgid "cannot %s: Your index contains uncommitted changes."
 msgstr ""
 "không thể %s: Mục lục của bạn có chứa các thay đổi chưa được chuyển giao."
+
+#: compat/precompose_utf8.c builtin/clone.c
+#, c-format
+msgid "failed to unlink '%s'"
+msgstr "gặp lỗi khi bỏ liên kết (unlink) “%s”"
 
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
@@ -8677,10 +8719,6 @@ msgstr "tạo thư mục \"%s\" gặp lỗi"
 msgid "Failed to split patches."
 msgstr "Gặp lỗi khi chia nhỏ các miếng vá."
 
-#: builtin/am.c builtin/commit.c
-msgid "unable to write index file"
-msgstr "không thể ghi tập tin lưu mục lục"
-
 #: builtin/am.c
 #, c-format
 msgid "When you have resolved this problem, run \"%s --continue\"."
@@ -8709,13 +8747,13 @@ msgstr "Miếng vá trống rỗng."
 
 #: builtin/am.c
 #, c-format
-msgid "invalid ident line: %.*s"
-msgstr "dòng thụt lề không hợp lệ: %.*s"
+msgid "missing author line in commit %s"
+msgstr "thiếu dòng tác giả trong lần chuyển gia %s"
 
 #: builtin/am.c
 #, c-format
-msgid "unable to parse commit %s"
-msgstr "không thể phân tích lần chuyển giao “%s”"
+msgid "invalid ident line: %.*s"
+msgstr "dòng thụt lề không hợp lệ: %.*s"
 
 #: builtin/am.c
 msgid "Repository lacks necessary blobs to fall back on 3-way merge."
@@ -8765,6 +8803,10 @@ msgid "Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all: "
 msgstr ""
 "Áp dụng? đồng ý [y]/khô[n]g/chỉnh sửa [e]/hiển thị miếng [v]á/chấp nhận tất "
 "cả [a]: "
+
+#: builtin/am.c builtin/commit.c
+msgid "unable to write index file"
+msgstr "không thể ghi tập tin lưu mục lục"
 
 #: builtin/am.c
 #, c-format
@@ -9409,7 +9451,7 @@ msgstr "rev"
 
 #: builtin/blame.c
 msgid "Ignore <rev> when blaming"
-msgstr "bỏ qua <rev> khi blame"
+msgstr "Bỏ qua <rev> khi blame"
 
 #: builtin/blame.c
 msgid "Ignore revisions from <file>"
@@ -10231,12 +10273,6 @@ msgstr ""
 
 #: builtin/checkout.c
 #, c-format
-msgid "staged changes in the following files may be lost: %s"
-msgstr ""
-"các thay đổi đã đưa lên bệ phóng trong các tập tin sau đây có thể bị mất: %s"
-
-#: builtin/checkout.c
-#, c-format
 msgid "Can not do reflog for '%s': %s\n"
 msgstr "Không thể thực hiện reflog cho “%s”: %s\n"
 
@@ -10452,8 +10488,8 @@ msgstr "Không thể chuyển nhánh đến một thứ không phải là lần 
 msgid "missing branch or commit argument"
 msgstr "thiếu tham số là nhánh hoặc lần chuyển giao"
 
-#: builtin/checkout.c builtin/clone.c builtin/fetch.c builtin/merge.c
-#: builtin/pull.c builtin/push.c builtin/send-pack.c
+#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
+#: builtin/merge.c builtin/pull.c builtin/push.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "ép buộc báo cáo tiến triển công việc"
 
@@ -10509,7 +10545,7 @@ msgstr ""
 
 #: builtin/checkout.c
 msgid "do not limit pathspecs to sparse entries only"
-msgstr "không giới hạn đặc tả đường dẫn thành chỉ các mục thưa thớt"
+msgstr "không giới hạn đặc tả đường dẫn thành chỉ các mục rải rác"
 
 #: builtin/checkout.c
 msgid "-b, -B and --orphan are mutually exclusive"
@@ -11013,11 +11049,6 @@ msgstr "gặp lỗi khi bắt đầu lặp qua “%s”"
 
 #: builtin/clone.c
 #, c-format
-msgid "failed to unlink '%s'"
-msgstr "gặp lỗi khi bỏ liên kết (unlink) “%s”"
-
-#: builtin/clone.c
-#, c-format
 msgid "failed to create link '%s'"
 msgstr "gặp lỗi khi tạo được liên kết mềm %s"
 
@@ -11113,7 +11144,7 @@ msgstr "đường dẫn đích “%s” đã có từ trước và không phải
 msgid "working tree '%s' already exists."
 msgstr "cây làm việc “%s” đã sẵn tồn tại rồi."
 
-#: builtin/clone.c builtin/difftool.c builtin/worktree.c
+#: builtin/clone.c builtin/difftool.c builtin/log.c builtin/worktree.c
 #, c-format
 msgid "could not create leading directories of '%s'"
 msgstr "không thể tạo các thư mục dẫn đầu của “%s”"
@@ -11838,17 +11869,20 @@ msgid "git commit-graph read [--object-dir <objdir>]"
 msgstr "git commit-graph read [--object-dir <objdir>]"
 
 #: builtin/commit-graph.c
-msgid "git commit-graph verify [--object-dir <objdir>] [--shallow]"
+msgid ""
+"git commit-graph verify [--object-dir <objdir>] [--shallow] [--[no-]progress]"
 msgstr ""
-"git commit-graph verify [--object-dir </thư/mục/đối/tượng>] [--shallow]"
+"git commit-graph verify [--object-dir </thư/mục/đối/tượng>] [--shallow] [--"
+"[no-]progress]"
 
 #: builtin/commit-graph.c
 msgid ""
 "git commit-graph write [--object-dir <objdir>] [--append|--split] [--"
-"reachable|--stdin-packs|--stdin-commits] <split options>"
+"reachable|--stdin-packs|--stdin-commits] [--[no-]progress] <split options>"
 msgstr ""
 "git commit-graph write [--object-dir </thư/mục/đối/tượng>] [--append|--"
-"split] [--reachable|--stdin-packs|--stdin-commits] <các tùy chọn chia tách>"
+"split] [--reachable|--stdin-packs|--stdin-commits] [--[no-]progress] <các "
+"tùy chọn chia tách>"
 
 #: builtin/commit-graph.c builtin/fetch.c builtin/log.c
 msgid "dir"
@@ -12571,6 +12605,10 @@ msgid "git fast-export [rev-list-opts]"
 msgstr "git fast-export [rev-list-opts]"
 
 #: builtin/fast-export.c
+msgid "Error: Cannot export nested tags unless --mark-tags is specified."
+msgstr "Lỗi: không thể xuất thẻ lồng nhau trừ khi --mark-tags được chỉ định."
+
+#: builtin/fast-export.c
 msgid "show progress after <n> objects"
 msgstr "hiển thị tiến triển sau <n> đối tượng"
 
@@ -12594,6 +12632,10 @@ msgstr "Đổ các đánh dấu này vào tập-tin"
 #: builtin/fast-export.c
 msgid "Import marks from this file"
 msgstr "Nhập vào đánh dấu từ tập tin này"
+
+#: builtin/fast-export.c
+msgid "Import marks from this file if it exists"
+msgstr "Nhập vào đánh dấu từ tập tin sẵn có"
 
 #: builtin/fast-export.c
 msgid "Fake a tagger when tags lack one"
@@ -12633,6 +12675,14 @@ msgstr ""
 msgid "Show original object ids of blobs/commits"
 msgstr "Hiển thị các mã id nguyên gốc của blobs/commits"
 
+#: builtin/fast-export.c
+msgid "Label tags with mark ids"
+msgstr "Gắn nhãn thẻ ID dấu"
+
+#: builtin/fast-export.c
+msgid "Cannot pass both --import-marks and --import-marks-if-exists"
+msgstr "Không thể chuyển qua cả hai --import-marks và --import-marks-if-exists"
+
 #: builtin/fetch.c
 msgid "git fetch [<options>] [<repository> [<refspec>...]]"
 msgstr "git fetch [<các tùy chọn>] [<kho-chứa> [<refspec>…]]"
@@ -12649,9 +12699,17 @@ msgstr "git fetch --multiple [<các tùy chọn>] [(<kho> | <nhóm>)…]"
 msgid "git fetch --all [<options>]"
 msgstr "git fetch --all [<các tùy chọn>]"
 
+#: builtin/fetch.c
+msgid "fetch.parallel cannot be negative"
+msgstr "fetch.parallel không thể âm"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "fetch from all remotes"
 msgstr "lấy về từ tất cả các máy chủ"
+
+#: builtin/fetch.c builtin/pull.c
+msgid "set upstream for git pull/fetch"
+msgstr "đặt thượng nguồn cho git pull/fetch"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
@@ -12897,6 +12955,30 @@ msgid "Option \"%s\" is ignored for %s\n"
 msgstr "Tùy chọn \"%s\" bị bỏ qua với %s\n"
 
 #: builtin/fetch.c
+msgid "multiple branch detected, incompatible with --set-upstream"
+msgstr "phát hiện nhiều nhánh, không tương thích với --set-upstream"
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote remote-tracking branch"
+msgstr "không cài đặt thượng nguồn cho một nhánh được theo dõi trên máy chủ"
+
+#: builtin/fetch.c
+msgid "not setting upstream for a remote tag"
+msgstr "không cài đặt thượng nguồn cho một thẻ nhánh trên máy chủ"
+
+#: builtin/fetch.c
+msgid "unknown branch type"
+msgstr "không hiểu kiểu nhánh"
+
+#: builtin/fetch.c
+msgid ""
+"no source branch found.\n"
+"you need to specify exactly one branch with the --set-upstream option."
+msgstr ""
+"không tìm thấy nhánh nguồn.\n"
+"bạn cần phải chỉ định chính xác một nhánh với tùy chọn --set-upstream."
+
+#: builtin/fetch.c
 #, c-format
 msgid "Fetching %s\n"
 msgstr "Đang lấy “%s” về\n"
@@ -12907,12 +12989,9 @@ msgid "Could not fetch %s"
 msgstr "Không thể lấy“%s” về"
 
 #: builtin/fetch.c
-msgid ""
-"--filter can only be used with the remote configured in extensions."
-"partialClone"
-msgstr ""
-"--filter chỉ có thể được dùng với máy chủ được cấu hình bằng extensions."
-"partialClone"
+#, c-format
+msgid "could not fetch '%s' (exit code: %d)\n"
+msgstr "không thể lấy “%s” (mã thoát: %d)\n"
 
 #: builtin/fetch.c
 msgid ""
@@ -14977,8 +15056,8 @@ msgid "allow merging unrelated histories"
 msgstr "cho phép hòa trộn lịch sử không liên quan"
 
 #: builtin/merge.c
-msgid "verify commit-msg hook"
-msgstr "thẩm tra móc (hook) commit-msg"
+msgid "bypass pre-merge-commit and commit-msg hooks"
+msgstr "vòng qua móc (hook) pre-merge-commit và commit-msg"
 
 #: builtin/merge.c
 msgid "could not run stash."
@@ -16264,7 +16343,7 @@ msgstr ""
 
 #: builtin/pack-objects.c
 msgid "use the sparse reachability algorithm"
-msgstr "dung thuật toán “sparse reachability”"
+msgstr "sử dụng thuật toán “sparse reachability”"
 
 #: builtin/pack-objects.c
 msgid "create thin packs"
@@ -16756,32 +16835,6 @@ msgid "failed to push some refs to '%s'"
 msgstr "gặp lỗi khi đẩy tới một số tham chiếu đến “%s”"
 
 #: builtin/push.c
-#, c-format
-msgid "bad repository '%s'"
-msgstr "repository (kho) sai “%s”"
-
-#: builtin/push.c
-msgid ""
-"No configured push destination.\n"
-"Either specify the URL from the command-line or configure a remote "
-"repository using\n"
-"\n"
-"    git remote add <name> <url>\n"
-"\n"
-"and then push using the remote name\n"
-"\n"
-"    git push <name>\n"
-msgstr ""
-"Chưa cấu hình đích để đẩy lên.\n"
-"Hoặc là chỉ ra URL từ dòng lệnh hoặc là cấu hình một kho máy chủ sử dụng\n"
-"\n"
-"    git remote add <tên> <url>\n"
-"\n"
-"và sau đó đẩy lên sử dụng tên máy chủ\n"
-"\n"
-"    git push <tên>\n"
-
-#: builtin/push.c
 msgid "repository"
 msgstr "kho"
 
@@ -16856,6 +16909,32 @@ msgstr "--delete là xung khắc với các tùy chọn --all, --mirror và --ta
 #: builtin/push.c
 msgid "--delete doesn't make sense without any refs"
 msgstr "--delete không hợp lý nếu không có bất kỳ tham chiếu nào"
+
+#: builtin/push.c
+#, c-format
+msgid "bad repository '%s'"
+msgstr "repository (kho) sai “%s”"
+
+#: builtin/push.c
+msgid ""
+"No configured push destination.\n"
+"Either specify the URL from the command-line or configure a remote "
+"repository using\n"
+"\n"
+"    git remote add <name> <url>\n"
+"\n"
+"and then push using the remote name\n"
+"\n"
+"    git push <name>\n"
+msgstr ""
+"Chưa cấu hình đích để đẩy lên.\n"
+"Hoặc là chỉ ra URL từ dòng lệnh hoặc là cấu hình một kho máy chủ sử dụng\n"
+"\n"
+"    git remote add <tên> <url>\n"
+"\n"
+"và sau đó đẩy lên sử dụng tên máy chủ\n"
+"\n"
+"    git push <tên>\n"
 
 #: builtin/push.c
 msgid "--all and --tags are incompatible"
@@ -16997,11 +17076,11 @@ msgstr "không xuất các thông tin phản hồi"
 
 #: builtin/rebase.c
 msgid ""
-"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] [<upstream>] "
-"[<branch>]"
+"git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] "
+"[<upstream> [<branch>]]"
 msgstr ""
-"git rebase [-i] [các tùy chọn] [--exec <lệnh>] [--onto <newbase>] "
-"[<upstream>] [<nhánh>]"
+"git rebase [-i] [các tùy chọn] [--exec <lệnh>] [--onto <newbase> | --keep-"
+"base] [<upstream>] [<nhánh>]]"
 
 #: builtin/rebase.c
 msgid ""
@@ -17301,6 +17380,11 @@ msgid "rebase onto given branch instead of upstream"
 msgstr "cải tổ vào nhánh đã cho thay cho thượng nguồn"
 
 #: builtin/rebase.c
+msgid "use the merge-base of upstream and branch as the current base"
+msgstr ""
+"sử dụng các cơ sở hòa trộn của thượng nguồn và nhánh như là cơ sở hiện tại"
+
+#: builtin/rebase.c
 msgid "allow pre-rebase hook to run"
 msgstr "cho phép móc (hook) pre-rebase được chạy"
 
@@ -17430,6 +17514,14 @@ msgstr ""
 "thế."
 
 #: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--onto'"
+msgstr "không thể kết hợp “--keep-base” với “--onto”"
+
+#: builtin/rebase.c
+msgid "cannot combine '--keep-base' with '--root'"
+msgstr "không thể kết hợp “--keep-base” với “--root”"
+
+#: builtin/rebase.c
 msgid "No rebase in progress?"
 msgstr "Không có tiến trình rebase nào phải không?"
 
@@ -17513,14 +17605,6 @@ msgid ""
 msgstr "không thể kết hợp “--preserve-merges” với “--reschedule-failed-exec”"
 
 #: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy-option'"
-msgstr "không thể kết hợp “--rebase-merges” với “--strategy-option”"
-
-#: builtin/rebase.c
-msgid "cannot combine '--rebase-merges' with '--strategy'"
-msgstr "không thể kết hợp “--rebase-merges” với “--strategy”"
-
-#: builtin/rebase.c
 #, c-format
 msgid "invalid upstream '%s'"
 msgstr "thượng nguồn không hợp lệ “%s”"
@@ -17528,6 +17612,11 @@ msgstr "thượng nguồn không hợp lệ “%s”"
 #: builtin/rebase.c
 msgid "Could not create new root commit"
 msgstr "Không thể tạo lần chuyển giao gốc mới"
+
+#: builtin/rebase.c
+#, c-format
+msgid "'%s': need exactly one merge base with branch"
+msgstr "“%s”: cần chính xác một cơ sở hòa trộn với nhánh"
 
 #: builtin/rebase.c
 #, c-format
@@ -17575,11 +17664,6 @@ msgstr "Đã tạo autostash: %s\n"
 #: builtin/rebase.c
 msgid "could not reset --hard"
 msgstr "không thể reset --hard"
-
-#: builtin/rebase.c builtin/reset.c
-#, c-format
-msgid "HEAD is now at %s"
-msgstr "HEAD hiện giờ tại %s"
 
 #: builtin/rebase.c
 msgid "Please commit or stash them."
@@ -18725,6 +18809,11 @@ msgstr "Gặp lỗi khi tìm cây của %s."
 
 #: builtin/reset.c
 #, c-format
+msgid "HEAD is now at %s"
+msgstr "HEAD hiện giờ tại %s"
+
+#: builtin/reset.c
+#, c-format
 msgid "Cannot do a %s reset in the middle of a merge."
 msgstr "Không thể thực hiện một %s reset ở giữa của quá trình hòa trộn."
 
@@ -18820,11 +18909,6 @@ msgstr "không thể tổ hợp --exclude-promisor-objects và --missing"
 #: builtin/rev-list.c
 msgid "object filtering requires --objects"
 msgstr "lọc đối tượng yêu cầu --objects"
-
-#: builtin/rev-list.c
-#, c-format
-msgid "invalid sparse value '%s'"
-msgstr "giá trị sparse không hợp lệ “%s”"
 
 #: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
@@ -19863,9 +19947,9 @@ msgid "don't print cloning progress"
 msgstr "đừng in tiến trình nhân bản"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper update_clone [--prefix=<path>] [<path>...]"
+msgid "git submodule--helper update-clone [--prefix=<path>] [<path>...]"
 msgstr ""
-"git submodule--helper update_clone [--prefix=</đường/dẫn>] [</đường/dẫn>…]"
+"git submodule--helper update-clone [--prefix=</đường/dẫn>] [</đường/dẫn>…]"
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
@@ -20774,8 +20858,10 @@ msgstr "gặp lỗi khi chạy “git status” vào “%s”"
 
 #: builtin/worktree.c
 #, c-format
-msgid "'%s' is dirty, use --force to delete it"
-msgstr "“%s” đang bẩn, hãy dùng --force để xóa nó"
+msgid "'%s' contains modified or untracked files, use --force to delete it"
+msgstr ""
+"“%s” có chứa các tập tin đã bị sửa chữa hoặc chưa được theo dõi, hãy dùng --"
+"force để xóa nó"
 
 #: builtin/worktree.c
 #, c-format
@@ -20823,6 +20909,16 @@ msgstr "ghi đối tượng cây (tree) cho <tiền tố> thư mục con"
 #: builtin/write-tree.c
 msgid "only useful for debugging"
 msgstr "chỉ hữu ích khi cần gỡ lỗi"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'mark' command, got %s"
+msgstr "Cần lệnh 'mark', nhưng lại nhận được %s"
+
+#: fast-import.c
+#, c-format
+msgid "Expected 'to' command, got %s"
+msgstr "Cần lệnh 'to', nhưng lại nhận được %s"
 
 #: credential-cache--daemon.c
 #, c-format
@@ -23572,6 +23668,47 @@ msgstr "Bỏ qua %s với hậu tố sao lưu dự phòng “%s”.\n"
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
+#, c-format
+#~ msgid "unknown core.untrackedCache value '%s'; using 'keep' default value"
+#~ msgstr ""
+#~ "không hiểu giá trị core.untrackedCache “%s”; dùng giá trị mặc định “keep”"
+
+#~ msgid "cannot change partial clone promisor remote"
+#~ msgstr "không thể thay đổi nhân bản từng phần máy chủ promisor"
+
+#~ msgid "error building trees"
+#~ msgstr "gặp lỗi khi xây dựng cây"
+
+#, c-format
+#~ msgid "invalid date format '%s' in '%s'"
+#~ msgstr "định dạng ngày tháng không hợp lệ “%s” trong “%s”"
+
+#~ msgid "writing root commit"
+#~ msgstr "ghi chuyển giao gốc"
+
+#, c-format
+#~ msgid "staged changes in the following files may be lost: %s"
+#~ msgstr ""
+#~ "các thay đổi đã đưa lên bệ phóng trong các tập tin sau đây có thể bị mất: "
+#~ "%s"
+
+#~ msgid ""
+#~ "--filter can only be used with the remote configured in extensions."
+#~ "partialClone"
+#~ msgstr ""
+#~ "--filter chỉ có thể được dùng với máy chủ được cấu hình bằng extensions."
+#~ "partialClone"
+
+#~ msgid "verify commit-msg hook"
+#~ msgstr "thẩm tra móc (hook) commit-msg"
+
+#~ msgid "cannot combine '--rebase-merges' with '--strategy-option'"
+#~ msgstr "không thể kết hợp “--rebase-merges” với “--strategy-option”"
+
+#, c-format
+#~ msgid "invalid sparse value '%s'"
+#~ msgstr "giá trị sparse không hợp lệ “%s”"
+
 #~ msgid ""
 #~ "Fetch normally indicates which branches had a forced update, but that "
 #~ "check has been disabled."
@@ -24493,9 +24630,6 @@ msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 #~ msgid "no such user"
 #~ msgstr "không có người dùng như vậy"
 
-#~ msgid "Missing author: %s"
-#~ msgstr "Thiếu tên tác giả: %s"
-
 #~ msgid "Testing "
 #~ msgstr "Đang thử"
 
@@ -24547,9 +24681,6 @@ msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
 #~ msgid "option %s does not accept negative form"
 #~ msgstr "tùy chọn %s không chấp nhận dạng thức âm"
-
-#~ msgid "unable to parse value '%s' for option %s"
-#~ msgstr "không thể phân tích giá trị “%s” cho tùy chọn %s"
 
 #~ msgid "-b and -B are mutually exclusive"
 #~ msgstr "-b và -B loại từ lẫn nhau."
