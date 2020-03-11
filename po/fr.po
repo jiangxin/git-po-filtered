@@ -75,8 +75,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-03-06 14:25+0800\n"
-"PO-Revision-Date: 2020-03-08 23:25+0100\n"
+"POT-Creation-Date: 2020-03-11 15:26+0800\n"
+"PO-Revision-Date: 2020-03-11 21:03+0100\n"
 "Last-Translator: Cédric Malard <c.malard-git@valdun.net>\n"
 "Language-Team: Jean-Noël Avila <jn.avila@free.fr>\n"
 "Language: fr\n"
@@ -7291,6 +7291,9 @@ msgstr "numéro de port invalide"
 msgid "invalid '..' path segment"
 msgstr "segment de chemin '..' invalide"
 
+msgid "Fetching objects"
+msgstr "Récupération des objets"
+
 #, c-format
 msgid "failed to read '%s'"
 msgstr "échec de la lecture de '%s'"
@@ -8064,9 +8067,9 @@ msgstr "Pas de changement -- Patch déjà appliqué."
 msgid "Patch failed at %s %.*s"
 msgstr "le patch a échoué à %s %.*s"
 
-msgid "Use 'git am --show-current-patch' to see the failed patch"
+msgid "Use 'git am --show-current-patch=diff' to see the failed patch"
 msgstr ""
-"Utilisez 'git am --show-current-patch' pour visualiser le patch en échec"
+"Utilisez 'git am --show-current-patch=diff' pour visualiser le patch en échec"
 
 msgid ""
 "No changes - did you forget to use 'git add'?\n"
@@ -8107,6 +8110,14 @@ msgstr ""
 #, c-format
 msgid "Invalid value for --patch-format: %s"
 msgstr "Valeur invalide pour --patch-format : %s"
+
+#, c-format
+msgid "Invalid value for --show-current-patch: %s"
+msgstr "Valeur invalide pour --show-current-patch : %s"
+
+#, c-format
+msgid "--show-current-patch=%s is incompatible with --show-current-patch=%s"
+msgstr "--show-current-patch=%s est incompatible avec --show-current-patch=%s"
 
 msgid "git am [<options>] [(<mbox> | <Maildir>)...]"
 msgstr "git am [<options>] [(<mbox> | <Maildir>)...]"
@@ -8182,8 +8193,8 @@ msgstr ""
 msgid "abort the patching operation but keep HEAD where it is."
 msgstr "abandonne l'opération de patch mais garde HEAD où il est."
 
-msgid "show the patch being applied."
-msgstr "afficher le patch en cours d'application."
+msgid "show the patch being applied"
+msgstr "afficher le patch en cours d'application"
 
 msgid "lie about committer date"
 msgstr "mentir sur la date de validation"
@@ -14997,9 +15008,6 @@ msgstr "laisser l'utilisateur éditer la liste des commits à rebaser"
 msgid "(DEPRECATED) try to recreate merges instead of ignoring them"
 msgstr "(DÉCONSEILLÉ) essayer de recréer les fusions au lieu de les ignorer"
 
-msgid "{drop,keep,ask}"
-msgstr "{drop,keep,ask}"
-
 msgid "how to handle commits that become empty"
 msgstr "comment gérer les commits qui deviennent vides"
 
@@ -16354,6 +16362,10 @@ msgstr "autoriser la suppression récursive"
 msgid "exit with a zero status even if nothing matched"
 msgstr "sortir avec un état zéro même si rien ne correspondait"
 
+msgid "No pathspec was given. Which files should I remove?"
+msgstr ""
+"Aucun spécificateur de chemin fourni. Quel fichier doit être supprimé ?"
+
 msgid "please stage your changes to .gitmodules or stash them to proceed"
 msgstr ""
 "veuillez indexer vos modifications de .gitmodules ou les remiser pour "
@@ -16644,10 +16656,12 @@ msgstr "git stash clear"
 msgid ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--pathspec-from-file=<file> [--pathspec-file-nul]]\n"
 "          [--] [<pathspec>...]]"
 msgstr ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--pathspec-from-file=<fichier> [--pathspec-file-nul]]\n"
 "          [--] [<spécificateur-de-chemin>...]]"
 
 msgid ""
@@ -16665,6 +16679,15 @@ msgstr "git stash apply [--index] [-q|--quiet] [<remise>]"
 
 msgid "git stash store [-m|--message <message>] [-q|--quiet] <commit>"
 msgstr "git stash store [-m|--message <message>] [-q|--quiet] <remise>"
+
+msgid ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--] [<pathspec>...]]"
+msgstr ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--] [<spécificateur-de-chemin>...]]"
 
 #, c-format
 msgid "'%s' is not a stash-like commit"
@@ -20012,100 +20035,3 @@ msgstr "%s sauté avec un suffix de sauvegarde '%s'.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Souhaitez-vous réellement envoyer %s ?[y|N] : "
-
-#~ msgid "Stage mode change [y,n,a,q,d%s,?]? "
-#~ msgstr "Indexer le changement de mode [y,n,a,q,d%s,?] ? "
-
-#~ msgid "Stage deletion [y,n,a,q,d%s,?]? "
-#~ msgstr "Indexer la suppression [y,n,a,q,d%s,?] ? "
-
-#~ msgid "Stage this hunk [y,n,a,q,d%s,?]? "
-#~ msgstr "Indexer cette section [y,n,a,q,d%s,?] ? "
-
-#~ msgid ""
-#~ "If the patch applies cleanly, the edited hunk will immediately be\n"
-#~ "marked for staging.\n"
-#~ msgstr ""
-#~ "Si le patch s'applique proprement, la section éditée sera\n"
-#~ "immédiatement marquée comme indexée.\n"
-
-#~ msgid ""
-#~ "y - stage this hunk\n"
-#~ "n - do not stage this hunk\n"
-#~ "q - quit; do not stage this hunk or any of the remaining ones\n"
-#~ "a - stage this and all the remaining hunks\n"
-#~ "d - do not stage this hunk nor any of the remaining hunks\n"
-#~ msgstr ""
-#~ "y - indexer cette section\n"
-#~ "n - ne pas indexer cette section\n"
-#~ "q - quitter ; ne pas indexer cette section ni les autres restantes\n"
-#~ "a - indexer cette section et toutes les suivantes\n"
-#~ "d - ne pas indexer cette section ni les suivantes\n"
-
-#~ msgid "could not copy '%s' to '%s'."
-#~ msgstr "impossible de copier '%s' vers '%s'."
-
-#~ msgid "malformed ident line"
-#~ msgstr "ligne d'identification malformée"
-
-#~ msgid "corrupted author without date information"
-#~ msgstr "ligne author corrompue sans information de date"
-
-#~ msgid "could not parse '%.*s'"
-#~ msgstr "impossible d'analyser '%.*s'"
-
-#~ msgid "could not checkout %s"
-#~ msgstr "extraction de %s impossible"
-
-#~ msgid "filename in tree entry contains backslash: '%s'"
-#~ msgstr ""
-#~ "le nom du fichier dans l'entrée de l'arbre contient une barre oblique "
-#~ "inversée : '%s'"
-
-#~ msgid "Use -f if you really want to add them.\n"
-#~ msgstr "Utilisez -f si vous voulez réellement les ajouter.\n"
-
-#~ msgid "Maybe you wanted to say 'git add .'?\n"
-#~ msgstr "Vous vouliez sûrement dire 'git add .' ?\n"
-
-#~ msgid "packfile is invalid: %s"
-#~ msgstr "le fichier packet est invalide : %s"
-
-#~ msgid "unable to open packfile for reuse: %s"
-#~ msgstr "ouverture du fichier paquet pour réutilisation impossible : %s"
-
-#~ msgid "unable to seek in reused packfile"
-#~ msgstr "impossible de rechercher (seek) dans le fichier paquet réutilisé"
-
-#~ msgid "unable to read from reused packfile"
-#~ msgstr "lecture du fichier de paquet réutilisé impossible"
-
-#~ msgid "no HEAD?"
-#~ msgstr "pas de HEAD ?"
-
-#~ msgid "make committer date match author date"
-#~ msgstr "aligner la date de validateur sur la date d'auteur"
-
-#~ msgid "ignore author date and use current date"
-#~ msgstr "ignorer la date d'auteur et utiliser la date actuelle"
-
-#~ msgid "synonym of --reset-author-date"
-#~ msgstr "synonyme pour --reset-author-date"
-
-#~ msgid "ignore changes in whitespace"
-#~ msgstr "ignorer des modifications d'espace"
-
-#~ msgid "preserve empty commits during rebase"
-#~ msgstr "préserver les validations vides pendant le rebasage"
-
-#~ msgid "cannot combine --use-bitmap-index with object filtering"
-#~ msgstr "impossible de combiner --use-bitmap-index avec le filtrage d'objet"
-
-#~ msgid ""
-#~ "The following path is ignored by one of your .gitignore files:\n"
-#~ "$sm_path\n"
-#~ "Use -f if you really want to add it."
-#~ msgstr ""
-#~ "Le chemin suivant est ignoré par un de vos fichiers .gitignore :\n"
-#~ "$sm_path\n"
-#~ "Utilisez -f si vous voulez vraiment l'ajouter."
