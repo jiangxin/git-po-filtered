@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-03-06 14:25+0800\n"
-"PO-Revision-Date: 2020-03-07 09:36+0100\n"
+"POT-Creation-Date: 2020-03-11 15:26+0800\n"
+"PO-Revision-Date: 2020-03-12 07:52+0100\n"
 "Last-Translator: Alessandro Menti <alessandro.menti@alessandromenti.it>\n"
 "Language-Team: Italian <>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.2\n"
+"X-Generator: Lokalize 19.12.3\n"
 
 #: add-interactive.c
 #, c-format
@@ -8868,6 +8868,10 @@ msgstr "numero di porta non valido"
 msgid "invalid '..' path segment"
 msgstr "parte percorso '..' non valida"
 
+#: walker.c
+msgid "Fetching objects"
+msgstr "Recupero oggetti in corso"
+
 #: worktree.c builtin/am.c
 #, c-format
 msgid "failed to read '%s'"
@@ -9667,12 +9671,14 @@ msgid "--chmod param '%s' must be either -x or +x"
 msgstr "Il parametro --chmod '%s' deve essere -x o +x"
 
 #: builtin/add.c builtin/checkout.c builtin/commit.c builtin/reset.c
+#: builtin/rm.c builtin/stash.c
 msgid "--pathspec-from-file is incompatible with pathspec arguments"
 msgstr ""
 "--pathspec-from-file non è compatibile con gli argomenti specificatore "
 "percorso"
 
 #: builtin/add.c builtin/checkout.c builtin/commit.c builtin/reset.c
+#: builtin/rm.c builtin/stash.c
 msgid "--pathspec-file-nul requires --pathspec-from-file"
 msgstr "--pathspec-file-nul richiede --pathspec-from-file"
 
@@ -9858,9 +9864,9 @@ msgid "Patch failed at %s %.*s"
 msgstr "Patch non riuscita a %s %.*s"
 
 #: builtin/am.c
-msgid "Use 'git am --show-current-patch' to see the failed patch"
+msgid "Use 'git am --show-current-patch=diff' to see the failed patch"
 msgstr ""
-"Usa 'git am --show-current-patch' per visualizzare la patch non riuscita"
+"Usa 'git am --show-current-patch=diff' per visualizzare la patch non riuscita"
 
 #: builtin/am.c
 msgid ""
@@ -9907,6 +9913,16 @@ msgstr ""
 #, c-format
 msgid "Invalid value for --patch-format: %s"
 msgstr "Valore non valido per --patch-format: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "Invalid value for --show-current-patch: %s"
+msgstr "Valore non valido per --show-current-patch: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "--show-current-patch=%s is incompatible with --show-current-patch=%s"
+msgstr "--show-current-patch=%s non è compatibile con --show-current-patch=%s"
 
 #: builtin/am.c
 msgid "git am [<options>] [(<mbox> | <Maildir>)...]"
@@ -10014,8 +10030,8 @@ msgid "abort the patching operation but keep HEAD where it is."
 msgstr "interrompi l'operazione di patching ma mantieni HEAD dov'è."
 
 #: builtin/am.c
-msgid "show the patch being applied."
-msgstr "visualizza la patch in fase di applicazione."
+msgid "show the patch being applied"
+msgstr "visualizza la patch in fase di applicazione"
 
 #: builtin/am.c
 msgid "lie about committer date"
@@ -11749,7 +11765,7 @@ msgstr "git checkout: --detach non accetta un percorso '%s' come argomento"
 msgid "--pathspec-from-file is incompatible with --detach"
 msgstr "--pathspec-from-file non è compatibile con --detach"
 
-#: builtin/checkout.c builtin/reset.c
+#: builtin/checkout.c builtin/reset.c builtin/stash.c
 msgid "--pathspec-from-file is incompatible with --patch"
 msgstr "--pathspec-from-file non è compatibile con --patch"
 
@@ -18654,10 +18670,6 @@ msgid "(DEPRECATED) try to recreate merges instead of ignoring them"
 msgstr "(DEPRECATO) prova a ricreare i merge anziché ignorarli"
 
 #: builtin/rebase.c
-msgid "{drop,keep,ask}"
-msgstr "{drop,keep,ask}"
-
-#: builtin/rebase.c
 msgid "how to handle commits that become empty"
 msgstr "come gestire i commit che diventano vuoti"
 
@@ -20355,6 +20367,11 @@ msgstr ""
 "corrispondenze"
 
 #: builtin/rm.c
+msgid "No pathspec was given. Which files should I remove?"
+msgstr ""
+"Non è stato fornito uno specificatore percorso. Quali file devo rimuovere?"
+
+#: builtin/rm.c
 msgid "please stage your changes to .gitmodules or stash them to proceed"
 msgstr ""
 "esegui lo stage delle modifiche a .gitmodules o eseguine lo stash per "
@@ -20717,10 +20734,12 @@ msgstr "git stash clear"
 msgid ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--pathspec-from-file=<file> [--pathspec-file-nul]]\n"
 "          [--] [<pathspec>...]]"
 msgstr ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <messaggio>]\n"
+"          [--pathspec-from-file=<file> [--pathspec-file-nul]]\n"
 "          [--] [<specificatore percorso>...]]"
 
 #: builtin/stash.c
@@ -20742,6 +20761,16 @@ msgstr "git stash apply [--index] [-q|--quiet] [<stash>]"
 #: builtin/stash.c
 msgid "git stash store [-m|--message <message>] [-q|--quiet] <commit>"
 msgstr "git stash store [-m|--message <messaggio>] [-q|--quiet] <commit>"
+
+#: builtin/stash.c
+msgid ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--] [<pathspec>...]]"
+msgstr ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <messaggio>]\n"
+"          [--] [<specificatore percorso>...]]"
 
 #: builtin/stash.c
 #, c-format
@@ -24913,6 +24942,9 @@ msgstr "Salto %s con il suffisso di backup '%s'.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Inviare %s? [y|N]: "
+
+#~ msgid "{drop,keep,ask}"
+#~ msgstr "{drop,keep,ask}"
 
 #, c-format
 #~ msgid "Stage mode change [y,n,a,q,d%s,?]? "
