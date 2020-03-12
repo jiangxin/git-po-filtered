@@ -4,9 +4,8 @@
 # This file is distributed under the same license as the Git package.
 # Emir SARI <bitigchi@me.com>, 2020
 #
-# ############################################################
-#                                                           #
-# Git Türkçe kavramlar dizini / Git Turkish Glossary        #
+# ######################################################### #
+#     Git Türkçe kavramlar dizini / Git Turkish Glossary    #
 #                                                           #
 # İngilizce                   | Türkçe                      #
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––#
@@ -84,12 +83,13 @@
 # unstage                     | hazırlıktan çıkar(mak)      #
 # upstream                    | üstkaynak                   #
 # worktree/working tree       | çalışma ağacı               #
-# ############################################################
+# ######################################################### #
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Git Turkish Localization Project\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-03-06 14:25+0800\n"
+"POT-Creation-Date: 2020-03-11 15:26+0800\n"
 "PO-Revision-Date: 2020-03-10 23:00+0300\n"
 "Last-Translator: Emir SARI <bitigchi@me.com>\n"
 "Language-Team: Turkish (https://www.transifex.com/git-turkish/)\n"
@@ -7909,7 +7909,7 @@ msgstr "%u.%2.2u KiB"
 msgid "%u.%2.2u KiB/s"
 msgstr "%u.%2.2u KiB/sn"
 
-#. TRANSLATORS: IEC 80000-cd g13:2008 byte
+#. TRANSLATORS: IEC 80000-13:2008 byte
 #: strbuf.c
 #, c-format
 msgid "%u byte"
@@ -8755,6 +8755,10 @@ msgstr "geçersiz kapı numarası"
 msgid "invalid '..' path segment"
 msgstr "geçersiz '..' yol kesimi"
 
+#: walker.c
+msgid "Fetching objects"
+msgstr "Nesneler getiriliyor"
+
 #: worktree.c builtin/am.c
 #, c-format
 msgid "failed to read '%s'"
@@ -9531,10 +9535,12 @@ msgid "--chmod param '%s' must be either -x or +x"
 msgstr "--chmod param '%s' ya -x ya da +x olmalıdır"
 
 #: builtin/add.c builtin/checkout.c builtin/commit.c builtin/reset.c
+#: builtin/rm.c builtin/stash.c
 msgid "--pathspec-from-file is incompatible with pathspec arguments"
 msgstr "--pathspec-from-file yol belirteci değişkenleri ile uyumsuz"
 
 #: builtin/add.c builtin/checkout.c builtin/commit.c builtin/reset.c
+#: builtin/rm.c builtin/stash.c
 msgid "--pathspec-file-nul requires --pathspec-from-file"
 msgstr "--pathspec-file-nul, --pathspec-from-file gerektiriyor"
 
@@ -9720,9 +9726,9 @@ msgid "Patch failed at %s %.*s"
 msgstr "Yama şurada başarısız oldu: %s %.*s"
 
 #: builtin/am.c
-msgid "Use 'git am --show-current-patch' to see the failed patch"
+msgid "Use 'git am --show-current-patch=diff' to see the failed patch"
 msgstr ""
-"Başarısız olan yamayı görmek için 'git am --show-current-patch' kullanın"
+"Başarısız olan yamayı görmek için 'git am --show-current-patch=diff' kullanın"
 
 #: builtin/am.c
 msgid ""
@@ -9768,6 +9774,16 @@ msgstr ""
 #, c-format
 msgid "Invalid value for --patch-format: %s"
 msgstr "Geçersiz --patch-format değeri: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "Invalid value for --show-current-patch: %s"
+msgstr "--show-current-patch için geçersiz değer: %s"
+
+#: builtin/am.c
+#, c-format
+msgid "--show-current-patch=%s is incompatible with --show-current-patch=%s"
+msgstr "--show-current-patch=%s, --show-current-patch=%s ile uyumsuz"
 
 #: builtin/am.c
 msgid "git am [<options>] [(<mbox> | <Maildir>)...]"
@@ -9871,7 +9887,7 @@ msgid "abort the patching operation but keep HEAD where it is."
 msgstr "yamalama işlemini iptal et ancak HEAD'i olduğu yerde bırak"
 
 #: builtin/am.c
-msgid "show the patch being applied."
+msgid "show the patch being applied"
 msgstr "uygulanmakta olan yamayı göster"
 
 #: builtin/am.c
@@ -10448,8 +10464,8 @@ msgid ""
 "deleting branch '%s' that has been merged to\n"
 "         '%s', but not yet merged to HEAD."
 msgstr ""
-"'%s' dalı siliniyor: bu dal\n"
-"         '%s' dalına birleştirilmiş, ancak HEAD'e henüz birleştirilmemiş"
+"'%s' dalı siliniyor: Bu dal '%s'\n"
+"         dalına birleştirilmiş, ancak HEAD'e henüz birleştirilmemiş"
 
 #: builtin/branch.c
 #, c-format
@@ -10457,8 +10473,8 @@ msgid ""
 "not deleting branch '%s' that is not yet merged to\n"
 "         '%s', even though it is merged to HEAD."
 msgstr ""
-"'%s' dalı silinmiyor: bu dal henüz\n"
-"         '%s' dalına birleştirilmemiş, ancak HEAD'e birleştirilmiş"
+"'%s' dalı silinmiyor: Bu dal HEAD'e birleştirilmiş olmasına rağmen\n"
+"         '%s' dalına birleştirilmemiş."
 
 #: builtin/branch.c
 #, c-format
@@ -11549,7 +11565,7 @@ msgstr "git checkout: --detach bir '%s' yol değişkeni almıyor"
 msgid "--pathspec-from-file is incompatible with --detach"
 msgstr "--pathspec-from-file, --detach ile uyumsuz"
 
-#: builtin/checkout.c builtin/reset.c
+#: builtin/checkout.c builtin/reset.c builtin/stash.c
 msgid "--pathspec-from-file is incompatible with --patch"
 msgstr "--pathspec-from-file, --patch ile uyumsuz"
 
@@ -18338,10 +18354,6 @@ msgstr ""
 "çalış"
 
 #: builtin/rebase.c
-msgid "{drop,keep,ask}"
-msgstr "{bırak,tut,sor}"
-
-#: builtin/rebase.c
 msgid "how to handle commits that become empty"
 msgstr "boşalan gönderiler nasıl işlensin"
 
@@ -20011,6 +20023,10 @@ msgid "exit with a zero status even if nothing matched"
 msgstr "hiçbir şey eşleşmemiş olsa bile sıfır koduyla çık"
 
 #: builtin/rm.c
+msgid "No pathspec was given. Which files should I remove?"
+msgstr "Yol belirteci verilmedi. Hangi dosyaları kaldırmalıyım?"
+
+#: builtin/rm.c
 msgid "please stage your changes to .gitmodules or stash them to proceed"
 msgstr ""
 "ilerlemek için lütfen değişikliklerinizi .gitmodules'a hazırlayın veya "
@@ -20365,10 +20381,12 @@ msgstr "git stash clear"
 msgid ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--pathspec-from-file=<file> [--pathspec-file-nul]]\n"
 "          [--] [<pathspec>...]]"
 msgstr ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <ileti>]\n"
+"          [--pathspec-from-file=<dosya> [--pathspec-file-nul]]\n"
 "          [--] [<yol-blrtç>...]]"
 
 #: builtin/stash.c
@@ -20390,6 +20408,16 @@ msgstr "git stash apply [--index] [-q|--quiet] [<zula>]"
 #: builtin/stash.c
 msgid "git stash store [-m|--message <message>] [-q|--quiet] <commit>"
 msgstr "git stash store [-m|--message <ileti>] [-q|--quiet] <gönderi>"
+
+#: builtin/stash.c
+msgid ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
+"          [--] [<pathspec>...]]"
+msgstr ""
+"git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
+"          [-u|--include-untracked] [-a|--all] [-m|--message <ileti>]\n"
+"          [--] [<yol-blrtç>...]]"
 
 #: builtin/stash.c
 #, c-format
@@ -22516,8 +22544,7 @@ msgstr "E-posta teslimi için yamaları hazırla"
 
 #: command-list.h
 msgid "Verifies the connectivity and validity of the objects in the database"
-msgstr ""
-"Veritabanındaki nesnelerin bağlanılabilirliğini ve geçerliliğini doğrula"
+msgstr "Veritab. nesnelerin bağlanırlığını ve geçerliliğini sına"
 
 #: command-list.h
 msgid "Cleanup unnecessary files and optimize the local repository"
@@ -22537,8 +22564,7 @@ msgstr "Git için taşınabilir bir grafik arabirim"
 
 #: command-list.h
 msgid "Compute object ID and optionally creates a blob from a file"
-msgstr ""
-"Nesne no'sunu hesapla ve isteğe bağlı olarak bir dosyadan ikili nesne oluştur"
+msgstr "Sağlamayı hesapla ve isteğe göre dosyadan ikili oluştur"
 
 #: command-list.h
 msgid "Display help information about Git"
@@ -22626,7 +22652,7 @@ msgstr "Bu yardımcı program git-merge-index kullanımı içindir"
 
 #: command-list.h
 msgid "Run merge conflict resolution tools to resolve merge conflicts"
-msgstr "Çakışmalarını çözmek için çözüm araçlarını çalıştır"
+msgstr "Çakışmaları çözmek için çözüm araçlarını çalıştır"
 
 #: command-list.h
 msgid "Show three-way merge without touching index"
@@ -22738,7 +22764,7 @@ msgstr "Bekleyen değişikliklerin bir özetini çıkart"
 
 #: command-list.h
 msgid "Reuse recorded resolution of conflicted merges"
-msgstr "Çakışmalı birleştirmelerin kaydı yazılan çözümlerini yeniden kullan"
+msgstr "Çakışan birleştirmelerin kayıtlı çözümlerini yen. kullan"
 
 #: command-list.h
 msgid "Reset current HEAD to the specified state"
