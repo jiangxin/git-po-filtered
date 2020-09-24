@@ -28,8 +28,9 @@
 #   bare repository                  |  纯仓库
 #   bisect                           |  二分查找
 #   blob object                      |  数据对象
+#   bloom filter                     |  布隆过滤器
 #   branch                           |  分支
-#   bundle                           |  包
+#   bundle                           |  归档包
 #   bypass                           |  绕过
 #   cache                            |  索引（的别称）
 #   chain                            |  （提交）链
@@ -139,8 +140,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-07-10 09:53+0800\n"
-"PO-Revision-Date: 2020-07-17 10:27+0800\n"
+"POT-Creation-Date: 2020-10-10 09:32+0800\n"
+"PO-Revision-Date: 2020-10-10 09:43+0800\n"
 "Last-Translator: Jiang Xin <worldhello.net@gmail.com>\n"
 "Language-Team: GitHub <https://github.com/jiangxin/git/>\n"
 "Language: zh_CN\n"
@@ -1297,10 +1298,6 @@ msgid "unsupported file mode: 0%o (SHA1: %s)"
 msgstr "不支持的文件模式：0%o (SHA1: %s)"
 
 #, c-format
-msgid "cannot read %s"
-msgstr "不能读取 %s"
-
-#, c-format
 msgid "unable to start '%s' filter"
 msgstr "无法启动 '%s' 过滤器"
 
@@ -1342,6 +1339,14 @@ msgid "git archive --remote <repo> [--exec <cmd>] --list"
 msgstr "git archive --remote <仓库> [--exec <命令>] --list"
 
 #, c-format
+msgid "cannot read %s"
+msgstr "不能读取 %s"
+
+#, c-format
+msgid "could not read '%s'"
+msgstr "不能读取 '%s'"
+
+#, c-format
 msgid "pathspec '%s' did not match any files"
 msgstr "路径规格 '%s' 未匹配任何文件"
 
@@ -1360,6 +1365,14 @@ msgstr "不是一个树对象：%s"
 msgid "current working directory is untracked"
 msgstr "当前工作目录未被跟踪"
 
+#, c-format
+msgid "File not found: %s"
+msgstr "文件未找到：%s"
+
+#, c-format
+msgid "Not a regular file: %s"
+msgstr "不是一个常规文件：%s"
+
 msgid "fmt"
 msgstr "格式"
 
@@ -1374,6 +1387,9 @@ msgstr "为归档中每个路径名加上前缀"
 
 msgid "file"
 msgstr "文件"
+
+msgid "add untracked file to archive"
+msgstr "将未跟踪文件添加到归档"
 
 msgid "write the archive to this file"
 msgstr "归档写入此文件"
@@ -1416,6 +1432,9 @@ msgstr "选项 --exec 只能和 --remote 同时使用"
 
 msgid "Unexpected option --output"
 msgstr "未知参数 --output"
+
+msgid "Options --add-file and --remote cannot be used together"
+msgstr "选项 --add-file 和 --remote 不能同时使用"
 
 #, c-format
 msgid "Unknown archive format '%s'"
@@ -1677,11 +1696,16 @@ msgid "HEAD of working tree %s is not updated"
 msgstr "工作区 %s 的 HEAD 指向没有被更新"
 
 #, c-format
-msgid "'%s' does not look like a v2 bundle file"
-msgstr "'%s' 不像是一个 v2 版本的包文件"
+msgid "unrecognized bundle hash algorithm: %s"
+msgstr "未能识别的归档包哈希算法：%s"
 
-msgid "unknown hash algorithm length"
-msgstr "未知的哈希算法长度"
+#, c-format
+msgid "unknown capability '%s'"
+msgstr "未知能力 '%s'"
+
+#, c-format
+msgid "'%s' does not look like a v2 or v3 bundle file"
+msgstr "'%s' 不像是一个 v2 或 v3 版本的归档包文件"
 
 #, c-format
 msgid "unrecognized header: %s%s (%d)"
@@ -1695,25 +1719,25 @@ msgid "Repository lacks these prerequisite commits:"
 msgstr "仓库中缺少这些必备的提交："
 
 msgid "need a repository to verify a bundle"
-msgstr "需要一个仓库来校验一个包"
+msgstr "需要一个仓库来校验一个归档包"
 
 #, c-format
 msgid "The bundle contains this ref:"
 msgid_plural "The bundle contains these %d refs:"
-msgstr[0] "这个包中含有这个引用："
-msgstr[1] "这个包中含有 %d 个引用："
+msgstr[0] "这个归档包中含有这个引用："
+msgstr[1] "这个归档包中含有 %d 个引用："
 
 msgid "The bundle records a complete history."
-msgstr "这个包记录一个完整历史。"
+msgstr "这个归档包记录一个完整历史。"
 
 #, c-format
 msgid "The bundle requires this ref:"
 msgid_plural "The bundle requires these %d refs:"
-msgstr[0] "这个包需要这个引用："
-msgstr[1] "这个包需要 %d 个引用："
+msgstr[0] "这个归档包需要这个引用："
+msgstr[1] "这个归档包需要 %d 个引用："
 
 msgid "unable to dup bundle descriptor"
-msgstr "无法复制 bundle 描述符"
+msgstr "无法复制归档包描述符"
 
 msgid "Could not spawn pack-objects"
 msgstr "不能生成 pack-objects 进程"
@@ -1729,11 +1753,19 @@ msgid "ref '%s' is excluded by the rev-list options"
 msgstr "引用 '%s' 被 rev-list 选项排除"
 
 #, c-format
+msgid "unsupported bundle version %d"
+msgstr "不支持的归档包版本 %d"
+
+#, c-format
+msgid "cannot write bundle version %d with algorithm %s"
+msgstr "不能写入，归档包版本 %d 不支持算法 %s"
+
+#, c-format
 msgid "unrecognized argument: %s"
 msgstr "未能识别的参数：%s"
 
 msgid "Refusing to create empty bundle."
-msgstr "不能创建空包。"
+msgstr "不能创建空的归档包。"
 
 #, c-format
 msgid "cannot create '%s'"
@@ -1745,6 +1777,9 @@ msgstr "index-pack 终止"
 #, c-format
 msgid "invalid color value: %.*s"
 msgstr "无效的颜色值：%.*s"
+
+msgid "invalid hash version"
+msgstr "无效的哈希版本"
 
 msgid "commit-graph file is too small"
 msgstr "提交图形文件太小"
@@ -1761,8 +1796,9 @@ msgstr "提交图形版本 %X 和版本 %X 不匹配"
 msgid "commit-graph hash version %X does not match version %X"
 msgstr "提交图形哈希版本 %X 和版本 %X 不匹配"
 
-msgid "commit-graph chunk lookup table entry missing; file may be incomplete"
-msgstr "提交图形块查找表条目丢失，文件可能不完整"
+#, c-format
+msgid "commit-graph file is too small to hold %u chunks"
+msgstr "提交图形文件太小，容不下 %u 个块"
 
 #, c-format
 msgid "commit-graph improper chunk offset %08x%08x"
@@ -1796,12 +1832,6 @@ msgstr "无法找到提交 %s"
 msgid "unable to parse commit %s"
 msgstr "不能解析提交 %s"
 
-msgid "Writing changed paths Bloom filters index"
-msgstr "编写变更路径的 Bloom 过滤器索引"
-
-msgid "Writing changed paths Bloom filters data"
-msgstr "编写变更路径的 Bloom 过滤器数据"
-
 #, c-format
 msgid "unable to get type of object %s"
 msgstr "无法获得对象 %s 类型"
@@ -1819,7 +1849,7 @@ msgid "Computing commit graph generation numbers"
 msgstr "正在计算提交图世代数字"
 
 msgid "Computing commit changed paths Bloom filters"
-msgstr "计算提交变更路径的 Bloom 过滤器"
+msgstr "计算提交变更路径的布隆过滤器"
 
 msgid "Collecting referenced commits"
 msgstr "正在收集引用的提交"
@@ -2599,7 +2629,7 @@ msgstr "git diff --no-index [<选项>] <路径> <路径>"
 msgid ""
 "Not a git repository. Use --no-index to compare two paths outside a working "
 "tree"
-msgstr "不是一个 git 仓库。使用 --no-index 比较工作区之外的两个路径"
+msgstr "不是 git 仓库。使用 --no-index 比较工作区之外的两个路径"
 
 #  译者：注意保持前导空格
 #, c-format
@@ -3395,8 +3425,8 @@ msgstr "这些是各种场合常见的 Git 命令："
 msgid "unsupported command listing type '%s'"
 msgstr "不支持的命令列表类型 '%s'"
 
-msgid "The common Git guides are:"
-msgstr "最常用的 Git 向导有："
+msgid "The Git concept guides are:"
+msgstr "Git 概念向导有："
 
 msgid "See 'git help <command>' to read about a specific subcommand"
 msgstr "执行　'git help <command>' 来查看特定子命令"
@@ -3466,6 +3496,12 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "您指的是这其中的某一个么？"
+
+msgid "Author identity unknown\n"
+msgstr "作者身份未知\n"
+
+msgid "Committer identity unknown\n"
+msgstr "提交者身份未知\n"
 
 msgid ""
 "\n"
@@ -3950,8 +3986,8 @@ msgid "multi-pack-index version %d not recognized"
 msgstr "multi-pack-index 版本 %d 不能被识别"
 
 #, c-format
-msgid "hash version %u does not match"
-msgstr "散列版本 %u 不匹配"
+msgid "multi-pack-index hash version %u does not match version %u"
+msgstr "多包索引哈希版本 %u 和版本 %u 不匹配"
 
 msgid "invalid chunk offset (too large)"
 msgstr "无效的块偏移（太大）"
@@ -4013,6 +4049,9 @@ msgstr "写入块到多包索引"
 #, c-format
 msgid "failed to clear multi-pack-index at %s"
 msgstr "清理位于 %s 的多包索引失败"
+
+msgid "multi-pack-index file exists, but failed to parse"
+msgstr "多包索引文件存在，但无法解析"
 
 msgid "Looking for referenced packfiles"
 msgstr "正在查找引用的包文件"
@@ -4344,8 +4383,14 @@ msgstr "无法创建线程 lstat：%s"
 msgid "unable to parse --pretty format"
 msgstr "不能解析 --pretty 格式"
 
-msgid "Remote with no URL"
-msgstr "远程未设置 URL"
+msgid "promisor-remote: unable to fork off fetch subprocess"
+msgstr "promisor-remote：无法派生 fetch 子进程"
+
+msgid "promisor-remote: could not write to fetch subprocess"
+msgstr "promisor-remote：无法向 fetch 子进程写入"
+
+msgid "promisor-remote: could not close stdin to fetch subprocess"
+msgstr "promisor-remote：无法关闭至 fetch 子进程的标准输入"
 
 #, c-format
 msgid "promisor remote name cannot begin with '/': %s"
@@ -4718,8 +4763,8 @@ msgid "%%(body) does not take arguments"
 msgstr "%%(body) 不带参数"
 
 #, c-format
-msgid "%%(subject) does not take arguments"
-msgstr "%%(subject) 不带参数"
+msgid "unrecognized %%(subject) argument: %s"
+msgstr "未能识别的 %%(subject) 参数：%s"
 
 #, c-format
 msgid "unknown %%(trailers) argument: %s"
@@ -4734,12 +4779,16 @@ msgid "unrecognized %%(contents) argument: %s"
 msgstr "未能识别的 %%(contents) 参数：%s"
 
 #, c-format
-msgid "positive value expected objectname:short=%s"
-msgstr "期望一个正数 objectname:short=%s"
+msgid "positive value expected '%s' in %%(%s)"
+msgstr "期望 %%(%2$s) 中的 '%1$s' 是一个正数"
 
 #, c-format
-msgid "unrecognized %%(objectname) argument: %s"
-msgstr "未能识别的 %%(objectname) 参数：%s"
+msgid "unrecognized argument '%s' in %%(%s)"
+msgstr "未能识别 %%(%2$s) 中的参数 '%1$s'"
+
+#, c-format
+msgid "unrecognized email option: %s"
+msgstr "未识别的邮件选项：%s"
 
 #, c-format
 msgid "expected format: %%(align:<width>,<position>)"
@@ -4776,7 +4825,7 @@ msgstr "未知的字段名：%.*s"
 #, c-format
 msgid ""
 "not a git repository, but the field '%.*s' requires access to object data"
-msgstr "不是一个 git 仓库，但是字段 '%.*s' 需要访问对象数据"
+msgstr "不是 git 仓库，但是字段 '%.*s' 需要访问对象数据"
 
 #, c-format
 msgid "format: %%(if) atom used without a %%(then) atom"
@@ -4854,14 +4903,6 @@ msgid "format: %%(end) atom missing"
 msgstr "格式：缺少 %%(end) 元素"
 
 #, c-format
-msgid "option `%s' is incompatible with --merged"
-msgstr "选项 `%s' 和 --merged 不兼容"
-
-#, c-format
-msgid "option `%s' is incompatible with --no-merged"
-msgstr "选项 `%s' 和 --no-merged 不兼容"
-
-#, c-format
 msgid "malformed object name %s"
 msgstr "格式错误的对象名 %s"
 
@@ -4884,34 +4925,6 @@ msgstr "无效的分支名：%s = %s"
 #, c-format
 msgid "ignoring dangling symref %s"
 msgstr "忽略悬空符号引用 %s"
-
-#, c-format
-msgid "could not open '%s' for writing: %s"
-msgstr "无法为写入打开 '%s'：%s"
-
-#, c-format
-msgid "could not read ref '%s'"
-msgstr "无法读取引用 '%s'"
-
-#, c-format
-msgid "ref '%s' already exists"
-msgstr "引用 '%s' 已经存在"
-
-#, c-format
-msgid "unexpected object ID when writing '%s'"
-msgstr "写入 '%s' 时意外的对象 ID"
-
-#, c-format
-msgid "could not write to '%s'"
-msgstr "不能写入 '%s'"
-
-#, c-format
-msgid "could not open '%s' for writing"
-msgstr "无法打开 '%s' 进行写入"
-
-#, c-format
-msgid "unexpected object ID when deleting '%s'"
-msgstr "删除 '%s' 时意外的对象 ID"
 
 #, c-format
 msgid "log for ref %s has gap after %s"
@@ -5196,10 +5209,6 @@ msgstr "重复的替换引用：%s"
 msgid "replace depth too high for object %s"
 msgstr "对象 %s 的替换层级太深"
 
-#, c-format
-msgid "The hash algorithm %s is not supported in this build."
-msgstr "这个版本不支持 %s 哈希算法。"
-
 msgid "corrupt MERGE_RR"
 msgstr "损坏的 MERGE_RR"
 
@@ -5280,15 +5289,19 @@ msgstr "不能确定 HEAD 版本"
 msgid "failed to find tree of %s"
 msgstr "无法找到 %s 指向的树。"
 
+msgid "--unpacked=<packfile> no longer supported"
+msgstr "不再支持 --unpacked=<packfile>"
+
+#, c-format
+msgid "unknown value for --diff-merges: %s"
+msgstr "未知的 --diff-merges 取值：%s"
+
 msgid "your current branch appears to be broken"
 msgstr "您的当前分支好像被损坏"
 
 #, c-format
 msgid "your current branch '%s' does not have any commits yet"
 msgstr "您的当前分支 '%s' 尚无任何提交"
-
-msgid "--first-parent is incompatible with --bisect"
-msgstr "--first-parent 与 --bisect 不兼容"
 
 msgid "-L does not yet support diff formats besides -p and -s"
 msgstr "-L 尚不支持 -p 和 -s 之外的差异格式"
@@ -5384,16 +5397,16 @@ msgid "could not lock '%s'"
 msgstr "不能锁定 '%s'"
 
 #, c-format
+msgid "could not write to '%s'"
+msgstr "不能写入 '%s'"
+
+#, c-format
 msgid "could not write eol to '%s'"
 msgstr "不能将换行符写入 '%s'"
 
 #, c-format
 msgid "failed to finalize '%s'"
 msgstr "无法完成 '%s'"
-
-#, c-format
-msgid "could not read '%s'"
-msgstr "不能读取 '%s'"
 
 #, c-format
 msgid "your local changes would be overwritten by %s."
@@ -5568,6 +5581,13 @@ msgstr "git write-tree 无法写入树对象"
 #, c-format
 msgid "unable to read commit message from '%s'"
 msgstr "不能从 '%s' 读取提交说明"
+
+#, c-format
+msgid "invalid author identity '%s'"
+msgstr "无效的作者身份 '%s'"
+
+msgid "corrupt author: missing date information"
+msgstr "损坏的作者：缺失日期信息"
 
 msgid "failed to write commit object"
 msgstr "写提交对象失败"
@@ -6041,6 +6061,10 @@ msgid "could not commit staged changes."
 msgstr "不能提交暂存的修改。"
 
 #, c-format
+msgid "invalid committer '%s'"
+msgstr "无效的提交者 '%s'"
+
+#, c-format
 msgid "%s: can't cherry-pick a %s"
 msgstr "%s：不能拣选一个%s"
 
@@ -6115,6 +6139,9 @@ msgstr "期望 git 仓库版本 <= %d，却得到 %d"
 msgid "unknown repository extensions found:"
 msgstr "发现未知的仓库扩展："
 
+msgid "repo version is 0, but v1-only extensions found:"
+msgstr "仓库的版本是 0，但是发现仅用于 v1 的扩展："
+
 #, c-format
 msgid "error opening '%s'"
 msgstr "打开 '%s' 出错"
@@ -6137,7 +6164,7 @@ msgstr "在 gitfile 中没有路径：%s"
 
 #, c-format
 msgid "not a git repository: %s"
-msgstr "不是一个 git 仓库：%s"
+msgstr "不是 git 仓库：%s"
 
 #, c-format
 msgid "'$%s' too big"
@@ -6145,7 +6172,7 @@ msgstr "'$%s' 太大"
 
 #, c-format
 msgid "not a git repository: '%s'"
-msgstr "不是一个 git 仓库：'%s'"
+msgstr "不是 git 仓库：'%s'"
 
 #, c-format
 msgid "cannot chdir to '%s'"
@@ -6167,14 +6194,14 @@ msgstr "不能切换到 '%s'"
 
 #, c-format
 msgid "not a git repository (or any of the parent directories): %s"
-msgstr "不是一个 git 仓库（或者任何父目录）：%s"
+msgstr "不是 git 仓库（或者任何父目录）：%s"
 
 #, c-format
 msgid ""
 "not a git repository (or any parent up to mount point %s)\n"
 "Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set)."
 msgstr ""
-"不是一个 git 仓库（或者直至挂载点 %s 的任何父目录）\n"
+"不是 git 仓库（或者直至挂载点 %s 的任何父目录）\n"
 "停止在文件系统边界（未设置 GIT_DISCOVERY_ACROSS_FILESYSTEM）。"
 
 #, c-format
@@ -6522,6 +6549,10 @@ msgstr[0] "%u 字节/秒"
 msgstr[1] "%u 字节/秒"
 
 #, c-format
+msgid "could not open '%s' for writing"
+msgstr "无法打开 '%s' 进行写入"
+
+#, c-format
 msgid "could not edit '%s'"
 msgstr "不能编辑 '%s'"
 
@@ -6619,7 +6650,7 @@ msgstr ""
 
 #, c-format
 msgid "'%s' not recognized as a git repository"
-msgstr "无法将 '%s' 识别为一个 git 仓库"
+msgstr "无法将 '%s' 识别为 git 仓库"
 
 #, c-format
 msgid "Could not run 'git status --porcelain=2' in submodule %s"
@@ -6786,6 +6817,9 @@ msgstr "协议不支持该操作"
 msgid "can't connect to subservice %s"
 msgstr "不能连接到子服务 %s"
 
+msgid "'option' without a matching 'ok/error' directive"
+msgstr "'option' 缺乏一个匹配的 'ok/error' 指令"
+
 #, c-format
 msgid "expected ok/error, helper said '%s'"
 msgstr "预期 ok/error，助手说 '%s'"
@@ -6880,7 +6914,7 @@ msgstr "将要设置 '%1$s' 的上游为 '%3$s' 的 '%2$s'\n"
 
 #, c-format
 msgid "could not read bundle '%s'"
-msgstr "无法读取 bundle '%s'"
+msgstr "无法读取归档包 '%s'"
 
 #, c-format
 msgid "transport: invalid depth option '%s'"
@@ -7226,6 +7260,33 @@ msgstr "'%s' 不是一个 .git 文件，错误码 %d"
 #, c-format
 msgid "'%s' does not point back to '%s'"
 msgstr "'%s' 没有指回到 '%s'"
+
+msgid "not a directory"
+msgstr "不是一个目录"
+
+msgid ".git is not a file"
+msgstr ".git 不是一个文件"
+
+msgid ".git file broken"
+msgstr ".git 文件损坏"
+
+msgid ".git file incorrect"
+msgstr ".git 文件不正确"
+
+msgid "not a valid path"
+msgstr "不是一个有效的路径"
+
+msgid "unable to locate repository; .git is not a file"
+msgstr "无法定位仓库，.git 不是一个文件"
+
+msgid "unable to locate repository; .git file broken"
+msgstr "无法定位仓库，.git 文件损坏"
+
+msgid "gitdir unreadable"
+msgstr "gitdir 不可读"
+
+msgid "gitdir incorrect"
+msgstr "gitdir 不正确"
 
 #, c-format
 msgid "could not open '%s' for reading and writing"
@@ -7848,6 +7909,10 @@ msgstr ""
 "运行下面的命令来关闭本消息\n"
 "\"git config advice.addEmptyPathspec false\""
 
+#, c-format
+msgid "invalid committer: %s"
+msgstr "无效的提交者：%s"
+
 msgid "could not parse author script"
 msgstr "不能解析作者脚本"
 
@@ -8164,8 +8229,8 @@ msgstr "git archive：协议错误"
 msgid "git archive: expected a flush"
 msgstr "git archive：应有一个 flush 包"
 
-msgid "git bisect--helper --next-all [--no-checkout]"
-msgstr "git bisect--helper --next-all [--no-checkout]"
+msgid "git bisect--helper --next-all"
+msgstr "git bisect--helper --next-all"
 
 msgid "git bisect--helper --write-terms <bad_term> <good_term>"
 msgstr "git bisect--helper --write-terms <坏-术语> <好-术语>"
@@ -8200,11 +8265,29 @@ msgstr ""
 "term-new]"
 
 msgid ""
-"git bisect--helper --bisect-start [--term-{old,good}=<term> --term-{new,bad}"
-"=<term>][--no-checkout] [<bad> [<good>...]] [--] [<paths>...]"
+"git bisect--helper --bisect-start [--term-{new,bad}=<term> --term-{old,good}"
+"=<term>] [--no-checkout] [--first-parent] [<bad> [<good>...]] [--] "
+"[<paths>...]"
 msgstr ""
-"git bisect--helper --bisect-start [--term-{old,good}=<术语> --term-{new,bad}"
-"=<术语>][--no-checkout] [<坏> [<好>...]] [--] [<路径>...]"
+"git bisect--helper --bisect-start [--term-{new,bad}=<术语> --term-{old,good}"
+"=<术语>] [--no-checkout] [--first-parent] [<坏> [<好>...]] [--] [<路径>...]"
+
+msgid "git bisect--helper --bisect-next"
+msgstr "git bisect--helper --bisect-next"
+
+msgid "git bisect--helper --bisect-auto-next"
+msgstr "git bisect--helper --bisect-auto-next"
+
+msgid "git bisect--helper --bisect-autostart"
+msgstr "git bisect--helper --bisect-autostart"
+
+#, c-format
+msgid "cannot open file '%s' in mode '%s'"
+msgstr "不能以 '%2$s' 模式打开文件 '%1$s'"
+
+#, c-format
+msgid "could not write to file '%s'"
+msgstr "不能写入文件 '%s'"
 
 #, c-format
 msgid "'%s' is not a valid term"
@@ -8220,9 +8303,6 @@ msgstr "不能修改术语 '%s' 的含义"
 
 msgid "please use two different terms"
 msgstr "请使用两个不同的术语"
-
-msgid "could not open the file BISECT_TERMS"
-msgstr "不能打开文件 BISECT_TERMS"
 
 #, c-format
 msgid "We are not bisecting.\n"
@@ -8300,6 +8380,13 @@ msgstr ""
 "命令 'git bisect terms' 的参数 %s 无效。\n"
 "支持的选项有：--term-good|--term-old 和 --term-bad|--term-new。"
 
+msgid "revision walk setup failed\n"
+msgstr "版本遍历设置失败\n"
+
+#, c-format
+msgid "could not open '%s' for appending"
+msgstr "无法打开 '%s' 进行追加"
+
 msgid "'' is not a valid term"
 msgstr "'' 不是一个有效的术语"
 
@@ -8327,6 +8414,17 @@ msgstr "坏的 HEAD - 奇怪的符号引用"
 #, c-format
 msgid "invalid ref: '%s'"
 msgstr "无效的引用：'%s'"
+
+msgid "You need to start by \"git bisect start\"\n"
+msgstr "您需要执行 \"git bisect start\" 来开始\n"
+
+#  译者：注意保持句尾空格
+#. TRANSLATORS: Make sure to include [Y] and [n] in your
+#. translation. The program will only accept English input
+#. at this point.
+#.
+msgid "Do you want me to do it for you [Y/n]? "
+msgstr "您想让我为您这样做么[Y/n]？ "
 
 msgid "perform 'git bisect next'"
 msgstr "执行 'git bisect next'"
@@ -8358,8 +8456,14 @@ msgstr "打印二分查找术语"
 msgid "start the bisect session"
 msgstr "启动二分查找过程"
 
-msgid "update BISECT_HEAD instead of checking out the current commit"
-msgstr "更新 BISECT_HEAD 而非检出当前提交"
+msgid "find the next bisection commit"
+msgstr "查询下一个二分查找提交"
+
+msgid "verify the next bisection state then checkout the next bisection commit"
+msgstr "校验下一个二分查找状态然后检出下一个二分查找提交"
+
+msgid "start the bisection if it has not yet been started"
+msgstr "如果二分查找尚未启动，则启动之"
 
 msgid "no log for BISECT_WRITE"
 msgstr "BISECT_WRITE 无日志"
@@ -8384,6 +8488,15 @@ msgstr "--bisect-next-check 需要 2 或 3 个参数"
 
 msgid "--bisect-terms requires 0 or 1 argument"
 msgstr "--bisect-terms 需要 0 或 1 个参数"
+
+msgid "--bisect-next requires 0 arguments"
+msgstr "--bisect-next 需要 0 个参数"
+
+msgid "--bisect-auto-next requires 0 arguments"
+msgstr "--bisect-auto-next 需要 0 个参数"
+
+msgid "--bisect-autostart does not accept arguments"
+msgstr "--bisect-autostart 不带参数"
 
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
 msgstr "git blame [<选项>] [<版本选项>] [<版本>] [--] <文件>"
@@ -8412,8 +8525,8 @@ msgstr "不能找到要忽略的版本 %s"
 msgid "Show blame entries as we find them, incrementally"
 msgstr "增量式地显示发现的 blame 条目"
 
-msgid "Show blank SHA-1 for boundary commits (Default: off)"
-msgstr "边界提交显示空的 SHA-1（默认：关闭）"
+msgid "Do not show object names of boundary commits (Default: off)"
+msgstr "不显示边界提交的对象名（默认：关闭）"
 
 msgid "Do not treat root commits as boundaries (Default: off)"
 msgstr "不把根提交作为边界（默认：关闭）"
@@ -8519,8 +8632,8 @@ msgstr[1] "文件 %s 只有 %lu 行"
 msgid "Blaming lines"
 msgstr "追踪代码行"
 
-msgid "git branch [<options>] [-r | -a] [--merged | --no-merged]"
-msgstr "git branch [<选项>] [-r | -a] [--merged | --no-merged]"
+msgid "git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+msgstr "git branch [<选项>] [-r | -a] [--merged] [--no-merged]"
 
 msgid "git branch [<options>] [-l] [-f] <branch-name> [<start-point>]"
 msgstr "git branch [<选项>] [-l] [-f] <分支名> [<起始点>]"
@@ -8833,6 +8946,86 @@ msgid ""
 msgstr ""
 "不再支持选项 '--set-upstream'。请使用 '--track' 或 '--set-upstream-to'。"
 
+msgid "git version:\n"
+msgstr "git 版本：\n"
+
+#, c-format
+msgid "uname() failed with error '%s' (%d)\n"
+msgstr "uname() 失败，错误为 '%s'（%d）\n"
+
+msgid "compiler info: "
+msgstr "编译器信息："
+
+msgid "libc info: "
+msgstr "libc 信息："
+
+msgid "not run from a git repository - no hooks to show\n"
+msgstr "不是在 git 仓库中执行 - 没有可显示的钩子\n"
+
+msgid "git bugreport [-o|--output-directory <file>] [-s|--suffix <format>]"
+msgstr "git bugreport [-o|--output-directory <文件>] [-s|--suffix <格式>]"
+
+msgid ""
+"Thank you for filling out a Git bug report!\n"
+"Please answer the following questions to help us understand your issue.\n"
+"\n"
+"What did you do before the bug happened? (Steps to reproduce your issue)\n"
+"\n"
+"What did you expect to happen? (Expected behavior)\n"
+"\n"
+"What happened instead? (Actual behavior)\n"
+"\n"
+"What's different between what you expected and what actually happened?\n"
+"\n"
+"Anything else you want to add:\n"
+"\n"
+"Please review the rest of the bug report below.\n"
+"You can delete any lines you don't wish to share.\n"
+msgstr ""
+"感谢您填写 Git 错误报告！\n"
+"请填写以下问卷，以帮助我们了解您的问题。\n"
+"\n"
+"在错误发生之前，您做了什么？（重现问题的步骤）\n"
+"\n"
+"您期望发生什么？（预期行为）\n"
+"\n"
+"实际发生了什么？（实际行为）\n"
+"\n"
+"您所期望的与实际发生的有什么不同？\n"
+"\n"
+"您想要补充的其它内容：\n"
+"\n"
+"请检查下面错误报告中余下的内容。\n"
+"您可以删除任何您不想共享的内容。\n"
+
+msgid "specify a destination for the bugreport file"
+msgstr "指定错误报告文件的目标位置"
+
+msgid "specify a strftime format suffix for the filename"
+msgstr "指定文件的 strftime 格式后缀"
+
+#, c-format
+msgid "could not create leading directories for '%s'"
+msgstr "不能为 '%s' 创建先导目录"
+
+msgid "System Info"
+msgstr "系统信息"
+
+msgid "Enabled Hooks"
+msgstr "启用的钩子"
+
+#, c-format
+msgid "couldn't create a new file at '%s'"
+msgstr "不能在 '%s' 创建新文件"
+
+#, c-format
+msgid "unable to write to %s"
+msgstr "无法写入 %s"
+
+#, c-format
+msgid "Created new report at '%s'.\n"
+msgstr "在 '%s' 创建了新报告。\n"
+
 msgid "git bundle create [<options>] <file> <git-rev-list args>"
 msgstr "git bundle create [<选项>] <文件> <git-rev-list 参数>"
 
@@ -8857,18 +9050,21 @@ msgstr "在对象写入阶段显示进度表"
 msgid "similar to --all-progress when progress meter is shown"
 msgstr "当进度表显示时类似于 --all-progress"
 
+msgid "specify bundle format version"
+msgstr "指定归档包的格式版本"
+
 msgid "Need a repository to create a bundle."
-msgstr "需要一个仓库来创建包。"
+msgstr "需要一个仓库来创建归档包。"
 
 msgid "do not show bundle details"
-msgstr "不显示 bundle 细节"
+msgstr "不显示归档包的细节"
 
 #, c-format
 msgid "%s is okay\n"
 msgstr "%s 可以\n"
 
 msgid "Need a repository to unbundle."
-msgstr "需要一个仓库来解包。"
+msgstr "需要一个仓库来解开归档包。"
 
 msgid "be verbose; must be placed before a subcommand"
 msgstr "冗长输出；必须置于子命令之前"
@@ -9823,6 +10019,10 @@ msgid "destination path '%s' already exists and is not an empty directory."
 msgstr "目标路径 '%s' 已经存在，并且不是一个空目录。"
 
 #, c-format
+msgid "repository path '%s' already exists and is not an empty directory."
+msgstr "仓库路径 '%s' 已经存在，并且不是一个空目录。"
+
+#, c-format
 msgid "working tree '%s' already exists."
 msgstr "工作区 '%s' 已经存在。"
 
@@ -9905,11 +10105,11 @@ msgstr ""
 msgid ""
 "git commit-graph write [--object-dir <objdir>] [--append] [--"
 "split[=<strategy>]] [--reachable|--stdin-packs|--stdin-commits] [--changed-"
-"paths] [--[no-]progress] <split options>"
+"paths] [--[no-]max-new-filters <n>] [--[no-]progress] <split options>"
 msgstr ""
 "git commit-graph write [--object-dir <对象目录>] [--append] [--split[=<策略"
 ">]] [--reachable|--stdin-packs|--stdin-commits] [--changed-paths] [--"
-"[no-]progress] <切分选项>"
+"[no-]max-new-filters <n>] [--[no-]progress] <切分选项>"
 
 #, c-format
 msgid "could not find object directory matching %s"
@@ -9966,6 +10166,9 @@ msgstr "一个拆分提交图形的两个级别之间的最大比率"
 
 msgid "only expire files older than a given date-time"
 msgstr "只让早于给定时间的文件过期"
+
+msgid "maximum number of changed-path Bloom filters to compute"
+msgstr "要计算的变更路径布隆过滤器的最大数"
 
 msgid "use at most one of --reachable, --stdin-commits, or --stdin-packs"
 msgstr "不能同时使用 --reachable、--stdin-commits 或 --stdin-packs"
@@ -10156,30 +10359,28 @@ msgstr "不能读取 MERGE_MSG"
 msgid "could not write commit template"
 msgstr "不能写提交模版"
 
-#, c-format
 msgid ""
 "\n"
 "It looks like you may be committing a merge.\n"
-"If this is not correct, please remove the file\n"
-"\t%s\n"
+"If this is not correct, please run\n"
+"\tgit update-ref -d MERGE_HEAD\n"
 "and try again.\n"
 msgstr ""
 "\n"
-"似乎您正在做一个合并提交。如果不对，请删除文件\n"
-"\t%s\n"
+"似乎您正在做一个合并提交。如果不对，请运行\n"
+"\tgit update-ref -d MERGE_HEAD\n"
 "然后重试。\n"
 
-#, c-format
 msgid ""
 "\n"
 "It looks like you may be committing a cherry-pick.\n"
-"If this is not correct, please remove the file\n"
-"\t%s\n"
+"If this is not correct, please run\n"
+"\tgit update-ref -d CHERRY_PICK_HEAD\n"
 "and try again.\n"
 msgstr ""
 "\n"
-"似乎您正在做一个拣选提交。如果不对，请删除文件\n"
-"\t%s\n"
+"似乎您正在做一个拣选提交。如果不对，请运行\n"
+"\tgit update-ref -d CHERRY_PICK_HEAD\n"
 "然后重试。\n"
 
 #, c-format
@@ -10539,7 +10740,10 @@ msgid "value is decimal number"
 msgstr "值是十进制数"
 
 msgid "value is --bool or --int"
-msgstr "值是 --bool or --int"
+msgstr "值是 --bool 或 --int"
+
+msgid "value is --bool or string"
+msgstr "值是 --bool 或字符串"
 
 msgid "value is a path (file or directory name)"
 msgstr "值是一个路径（文件或目录名）"
@@ -10621,10 +10825,13 @@ msgid "only one config file at a time"
 msgstr "一次只能有一个配置文件"
 
 msgid "--local can only be used inside a git repository"
-msgstr "--local 只能在一个仓库内使用"
+msgstr "--local 只能在 git 仓库内使用"
 
 msgid "--blob can only be used inside a git repository"
-msgstr "--blob 只能在一个仓库内使用"
+msgstr "--blob 只能在 git 仓库内使用"
+
+msgid "--worktree can only be used inside a git repository"
+msgstr "--worktree 只能在 git 仓库内使用"
 
 msgid "$HOME not set"
 msgstr "$HOME 未设置"
@@ -10688,6 +10895,27 @@ msgstr "git count-objects [-v] [-H | --human-readable]"
 
 msgid "print sizes in human readable format"
 msgstr "以用户可读的格式显示大小"
+
+#, c-format
+msgid ""
+"The permissions on your socket directory are too loose; other\n"
+"users may be able to read your cached credentials. Consider running:\n"
+"\n"
+"\tchmod 0700 %s"
+msgstr ""
+"您的 socket 目录权限过于宽松，其他用户可能会读取您缓存的认证信息。考虑执"
+"行：\n"
+"\n"
+"\tchmod 0700 %s"
+
+msgid "print debugging messages to stderr"
+msgstr "输出调试信息到标准错误"
+
+msgid "credential-cache--daemon unavailable; no unix socket support"
+msgstr "credential-cache--daemon 不可用，不支持 unix 套接字"
+
+msgid "credential-cache unavailable; no unix socket support"
+msgstr "credential-cache 不可用，不支持 unix 套接字"
 
 msgid "git describe [<options>] [<commit-ish>...]"
 msgstr "git describe [<选项>] [<提交号>...]"
@@ -10831,7 +11059,7 @@ msgid "%s...%s: no merge base"
 msgstr "%s...%s：无合并基线"
 
 msgid "Not a git repository"
-msgstr "不是一个 git 仓库"
+msgstr "不是 git 仓库"
 
 #, c-format
 msgid "invalid object '%s' given."
@@ -11031,6 +11259,29 @@ msgid "Cannot pass both --import-marks and --import-marks-if-exists"
 msgstr "不能同时传递参数 --import-marks 和 --import-marks-if-exists"
 
 #, c-format
+msgid "Missing from marks for submodule '%s'"
+msgstr "子模组 '%s' 缺少 from 标记"
+
+#, c-format
+msgid "Missing to marks for submodule '%s'"
+msgstr "子模组 '%s' 缺少 to 标记"
+
+#, c-format
+msgid "Expected 'mark' command, got %s"
+msgstr "预期 'mark' 命令，得到 %s"
+
+#, c-format
+msgid "Expected 'to' command, got %s"
+msgstr "预期 'to' 命令，得到 %s"
+
+msgid "Expected format name:filename for submodule rewrite option"
+msgstr "子模组重写选项的预期格式为 name:filename"
+
+#, c-format
+msgid "feature '%s' forbidden in input without --allow-unsafe-features"
+msgstr "不带 --allow-unsafe-features 的输入中禁止使用功能 '%s'"
+
+#, c-format
 msgid "Lockfile created but not reported: %s"
 msgstr "Lockfile 已创建但未报告：%s"
 
@@ -11089,6 +11340,9 @@ msgstr "on-demand"
 msgid "control recursive fetching of submodules"
 msgstr "控制子模组的递归抓取"
 
+msgid "write fetched references to the FETCH_HEAD file"
+msgstr "将获取到的引用写入 FETCH_HEAD 文件"
+
 msgid "keep downloaded pack"
 msgstr "保持下载包"
 
@@ -11124,14 +11378,17 @@ msgstr "指定获取操作的引用映射"
 msgid "report that we have only objects reachable from this object"
 msgstr "报告我们只拥有从该对象开始可达的对象"
 
-msgid "run 'gc --auto' after fetching"
-msgstr "获取后执行 'gc --auto'"
+msgid "run 'maintenance --auto' after fetching"
+msgstr "获取后执行 'maintenance --auto'"
 
 msgid "check for forced-updates on all updated branches"
 msgstr "在所有更新分支上检查强制更新"
 
 msgid "write the commit-graph after fetching"
 msgstr "抓取后写提交图"
+
+msgid "accept refspecs from stdin"
+msgstr "从标准输入获取引用表达式"
 
 msgid "Couldn't find remote ref HEAD"
 msgstr "无法发现远程 HEAD 引用"
@@ -11313,6 +11570,9 @@ msgid ""
 "partialclone"
 msgstr "只可以将 --filter 用于在 extensions.partialClone 中配置的远程仓库"
 
+msgid "--stdin can only be used when fetching from one remote"
+msgstr "--stdin 仅在从一个远程仓库获取的时候可用"
+
 msgid ""
 "git fmt-merge-msg [-m <message>] [--log[=<n>] | --no-log] [--file <file>]"
 msgstr "git fmt-merge-msg [-m <说明>] [--log[=<n>] | --no-log] [--file <文件>]"
@@ -11338,8 +11598,8 @@ msgstr "git for-each-ref [<选项>] [<模式>]"
 msgid "git for-each-ref [--points-at <object>]"
 msgstr "git for-each-ref [--points-at <对象>]"
 
-msgid "git for-each-ref [(--merged | --no-merged) [<commit>]]"
-msgstr "git for-each-ref [(--merged | --no-merged) [<提交>]]"
+msgid "git for-each-ref [--merged [<commit>]] [--no-merged [<commit>]]"
+msgstr "git for-each-ref [--merged [<提交>]] [--no-merged [<提交>]]"
 
 msgid "git for-each-ref [--contains [<commit>]] [--no-contains [<commit>]]"
 msgstr "git for-each-ref [--contains [<提交>]] [--no-contains [<提交>]]"
@@ -11644,6 +11904,47 @@ msgstr ""
 msgid ""
 "There are too many unreachable loose objects; run 'git prune' to remove them."
 msgstr "有太多不可达的松散对象，运行 'git prune' 删除它们。"
+
+msgid "git maintenance run [--auto] [--[no-]quiet] [--task=<task>]"
+msgstr "git maintenance run [--auto] [--[no-]quiet] [--task=<任务>]"
+
+msgid "failed to write commit-graph"
+msgstr "无法写入提交图"
+
+#, c-format
+msgid "lock file '%s' exists, skipping maintenance"
+msgstr "锁文件 '%s' 已存在，跳过维护"
+
+#, c-format
+msgid "task '%s' failed"
+msgstr "任务 '%s' 失败"
+
+#, c-format
+msgid "'%s' is not a valid task"
+msgstr "'%s' 不是一个有效的任务"
+
+#, c-format
+msgid "task '%s' cannot be selected multiple times"
+msgstr "任务 '%s' 不能被多次选择"
+
+msgid "run tasks based on the state of the repository"
+msgstr "基于仓库状态来运行任务"
+
+msgid "do not report progress or other information over stderr"
+msgstr "不通过标准错误报告进度或其它信息"
+
+msgid "task"
+msgstr "任务"
+
+msgid "run a specific task"
+msgstr "运行一个特定的任务"
+
+msgid "git maintenance run [<options>]"
+msgstr "git maintenance run [<选项>]"
+
+#, c-format
+msgid "invalid subcommand: %s"
+msgstr "无效子命令：%s"
 
 msgid "git grep [<options>] [-e] <pattern> [<rev>...] [[--] <path>...]"
 msgstr "git grep [<选项>] [-e] <模式> [<版本>...] [[--] <路径>...]"
@@ -12188,7 +12489,7 @@ msgid "--fix-thin cannot be used without --stdin"
 msgstr "--fix-thin 不能和 --stdin 同时使用"
 
 msgid "--stdin requires a git repository"
-msgstr "--stdin 需要一个 git 仓库"
+msgstr "--stdin 需要 git 仓库"
 
 msgid "--object-format cannot be used with --stdin"
 msgstr "--object-format 不能和 --stdin 同时使用"
@@ -12292,6 +12593,9 @@ msgstr "hash"
 msgid "specify the hash algorithm to use"
 msgstr "指定要使用的哈希算法"
 
+msgid "--separate-git-dir and --bare are mutually exclusive"
+msgstr "--separate-git-dir 和 --bare 是互斥的"
+
 #, c-format
 msgid "cannot mkdir %s"
 msgstr "不能创建目录 %s"
@@ -12309,6 +12613,9 @@ msgstr "不允许 %s（或 --work-tree=<目录>）而没有指定 %s（或 --git
 #, c-format
 msgid "Cannot access work tree '%s'"
 msgstr "不能访问工作区 '%s'"
+
+msgid "--separate-git-dir incompatible with bare repository"
+msgstr "--separate-git-dir 不能用于纯仓库"
 
 msgid ""
 "git interpret-trailers [--in-place] [--trim-empty] [(--trailer "
@@ -12471,8 +12778,12 @@ msgstr "基线提交不应该出现在版本列表中"
 msgid "cannot get patch id"
 msgstr "无法得到补丁 id"
 
-msgid "failed to infer range-diff ranges"
-msgstr "无法推断 range-diff 范围"
+msgid "failed to infer range-diff origin of current series"
+msgstr "无法推断当前系列的 range-diff 起始"
+
+#, c-format
+msgid "using '%s' as range-diff origin of current series"
+msgstr "使用 '%s' 作为当前系列的 range-diff 源"
 
 msgid "use [PATCH n/m] even with a single patch"
 msgstr "使用 [PATCH n/m]，即使只有一个补丁"
@@ -12715,7 +13026,7 @@ msgid "show resolve-undo information"
 msgstr "显示 resolve-undo 信息"
 
 msgid "skip files matching pattern"
-msgstr "匹配排除文件的模式"
+msgstr "跳过和模式匹配的文件"
 
 msgid "exclude patterns are read from <file>"
 msgstr "从 <文件> 中读取排除模式"
@@ -13273,6 +13584,9 @@ msgstr "源目录为空"
 msgid "not under version control"
 msgstr "不在版本控制之下"
 
+msgid "conflicted"
+msgstr "冲突"
+
 msgid "destination exists"
 msgstr "目标已存在"
 
@@ -13310,8 +13624,8 @@ msgstr "git name-rev [<选项>] --all"
 msgid "git name-rev [<options>] --stdin"
 msgstr "git name-rev [<选项>] --stdin"
 
-msgid "print only names (no SHA-1)"
-msgstr "只打印名称（无 SHA-1）"
+msgid "print only ref-based names (no object names)"
+msgstr "只打印基于引用的名称（非对象名）"
 
 msgid "only use tags to name the commits"
 msgstr "只使用标签来命名提交"
@@ -13927,7 +14241,7 @@ msgid "cannot use --filter without --stdout"
 msgstr "不能在没有 --stdout 的情况下使用 --filter"
 
 msgid "Enumerating objects"
-msgstr "枚举对象"
+msgstr "枚举对象中"
 
 #, c-format
 msgid ""
@@ -14699,11 +15013,20 @@ msgstr "不显示上游变化的差异统计"
 msgid "add a Signed-off-by: line to each commit"
 msgstr "为每一个提交添加一个 Signed-off-by: 签名"
 
-msgid "passed to 'git am'"
-msgstr "传递给 'git am"
+msgid "make committer date match author date"
+msgstr "使提交者日期和作者日期一致"
+
+msgid "ignore author date and use current date"
+msgstr "忽略作者日期，使用当前日期"
+
+msgid "synonym of --reset-author-date"
+msgstr "--reset-author-date 的同义词"
 
 msgid "passed to 'git apply'"
 msgstr "传递给 'git apply'"
+
+msgid "ignore changes in whitespace"
+msgstr "忽略空白字符的变更"
 
 msgid "cherry-pick all commits, even if unchanged"
 msgstr "拣选所有提交，即使未修改"
@@ -16066,6 +16389,16 @@ msgstr "git shortlog [<选项>] [<版本范围>] [[--] <路径>...]"
 msgid "git log --pretty=short | git shortlog [<options>]"
 msgstr "git log --pretty=short | git shortlog [<选项>]"
 
+msgid "using multiple --group options with stdin is not supported"
+msgstr "不支持和标准输入一起使用多个 --group 选项"
+
+msgid "using --group=trailer with stdin is not supported"
+msgstr "不支持和标准输入一起使用 --group=trailer"
+
+#, c-format
+msgid "unknown group type: %s"
+msgstr "未知分组类型：%s"
+
 msgid "Group by committer rather than author"
 msgstr "按照提交者分组而不是作者"
 
@@ -16083,6 +16416,12 @@ msgstr "<w>[,<i1>[,<i2>]]"
 
 msgid "Linewrap output"
 msgstr "折行输出"
+
+msgid "field"
+msgstr "字段"
+
+msgid "Group by field"
+msgstr "按字段分组"
 
 msgid "too many arguments given outside repository"
 msgstr "仓库外执行提供了太多的参数"
@@ -16236,6 +16575,9 @@ msgstr "显示从标准输入中读入的不在本地仓库中的引用"
 msgid "git sparse-checkout (init|list|set|add|reapply|disable) <options>"
 msgstr "git sparse-checkout (init|list|set|add|reapply|disable) <选项>"
 
+msgid "git sparse-checkout list"
+msgstr "git sparse-checkout list"
+
 msgid "this worktree is not sparse (sparse-checkout file may not exist)"
 msgstr "本工作区不是稀疏模式（稀疏检出文件可能不存在）"
 
@@ -16274,6 +16616,12 @@ msgstr "无法加载现存的稀疏检出模式"
 
 msgid "read patterns from standard in"
 msgstr "从标准输入读取模式"
+
+msgid "git sparse-checkout reapply"
+msgstr "git sparse-checkout reapply"
+
+msgid "git sparse-checkout disable"
+msgstr "git sparse-checkout disable"
 
 msgid "error while refreshing working directory"
 msgstr "刷新工作目录时出错"
@@ -16587,6 +16935,47 @@ msgid "git submodule--helper name <path>"
 msgstr "git submodule--helper name <路径>"
 
 #, c-format
+msgid "* %s %s(blob)->%s(submodule)"
+msgstr "* %s %s（数据对象）->%s（子模组）"
+
+#, c-format
+msgid "* %s %s(submodule)->%s(blob)"
+msgstr "* %s %s（子模组）->%s（数据对象）"
+
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#, c-format
+msgid "couldn't hash object from '%s'"
+msgstr "不能从 '%s' 创建哈希对象"
+
+#, c-format
+msgid "unexpected mode %o\n"
+msgstr "意外的模式 %o\n"
+
+msgid "use the commit stored in the index instead of the submodule HEAD"
+msgstr "使用存储在索引中的提交，而非存储在子模组 HEAD 中的提交"
+
+msgid "to compare the commit in the index with that in the submodule HEAD"
+msgstr "比较存储在索引和子模组 HEAD 中的提交"
+
+msgid "skip submodules with 'ignore_config' value set to 'all'"
+msgstr "跳过设置了 'ignore_config' 为 'all' 的子模组"
+
+msgid "limit the summary size"
+msgstr "限制总结的大小"
+
+msgid "git submodule--helper summary [<options>] [<commit>] [--] [<path>]"
+msgstr "git submodule--helper summary [<选项>] [<提交>] [--] [<路径>]"
+
+msgid "could not fetch a revision for HEAD"
+msgstr "不能为 HEAD 获取一个版本"
+
+msgid "--cached and --files are mutually exclusive"
+msgstr "--cached 和 --files 是互斥的"
+
+#, c-format
 msgid "Synchronizing submodule url for '%s'\n"
 msgstr "为 '%s' 同步子模组 url\n"
 
@@ -16878,11 +17267,12 @@ msgstr "git tag -d <标签名>..."
 msgid ""
 "git tag -l [-n[<num>]] [--contains <commit>] [--no-contains <commit>] [--"
 "points-at <object>]\n"
-"\t\t[--format=<format>] [--[no-]merged [<commit>]] [<pattern>...]"
+"\t\t[--format=<format>] [--merged <commit>] [--no-merged <commit>] "
+"[<pattern>...]"
 msgstr ""
 "git tag -l [-n[<数字>]] [--contains <提交>] [--no-contains <提交>] [--points-"
 "at <对象>]\n"
-"\t\t[--format=<格式>] [--[no-]merged [<提交>]] [<模式>...]"
+"\t\t[--format=<格式>] [--merged <提交>] [--no-merged <提交>] [<模式>...]"
 
 msgid "git tag -v [--format=<format>] <tagname>..."
 msgstr "git tag -v [--format=<格式>] <标签名>..."
@@ -17521,6 +17911,14 @@ msgstr ""
 msgid "validation failed, cannot remove working tree: %s"
 msgstr "验证失败，无法删除工作区：%s"
 
+#, c-format
+msgid "repair: %s: %s"
+msgstr "修理：%s：%s"
+
+#, c-format
+msgid "error: %s: %s"
+msgstr "错误：%s：%s"
+
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
 msgstr "git write-tree [--missing-ok] [--prefix=<前缀>/]"
 
@@ -17533,127 +17931,12 @@ msgstr "将 <前缀> 子目录内容写到一个树对象"
 msgid "only useful for debugging"
 msgstr "只对调试有用"
 
-msgid "git version:\n"
-msgstr "git 版本：\n"
-
-#, c-format
-msgid "uname() failed with error '%s' (%d)\n"
-msgstr "uname() 失败，错误为 '%s'（%d）\n"
-
-msgid "compiler info: "
-msgstr "编译器信息："
-
-msgid "libc info: "
-msgstr "libc 信息："
-
-msgid "not run from a git repository - no hooks to show\n"
-msgstr "不是在 git 仓库中执行 - 没有要显示的钩子\n"
-
-msgid "git bugreport [-o|--output-directory <file>] [-s|--suffix <format>]"
-msgstr "git bugreport [-o|--output-directory <文件>] [-s|--suffix <格式>]"
-
-msgid ""
-"Thank you for filling out a Git bug report!\n"
-"Please answer the following questions to help us understand your issue.\n"
-"\n"
-"What did you do before the bug happened? (Steps to reproduce your issue)\n"
-"\n"
-"What did you expect to happen? (Expected behavior)\n"
-"\n"
-"What happened instead? (Actual behavior)\n"
-"\n"
-"What's different between what you expected and what actually happened?\n"
-"\n"
-"Anything else you want to add:\n"
-"\n"
-"Please review the rest of the bug report below.\n"
-"You can delete any lines you don't wish to share.\n"
-msgstr ""
-"感谢您填写 Git 错误报告！\n"
-"请填写以下问卷，以帮助我们了解您的问题。\n"
-"\n"
-"在错误发生之前，您做了什么？（重现问题的步骤）\n"
-"\n"
-"您期望发生什么？（预期行为）\n"
-"\n"
-"实际发生了什么？（实际行为）\n"
-"\n"
-"您所期望的与实际发生的有什么不同？\n"
-"\n"
-"您想要补充的其它内容：\n"
-"\n"
-"请检查错误报告下面的内容。\n"
-"您可以删除任何您不想共享的内容。\n"
-
-msgid "specify a destination for the bugreport file"
-msgstr "指定错误报告文件的目标位置"
-
-msgid "specify a strftime format suffix for the filename"
-msgstr "指定文件的 strftime 格式后缀"
-
-#, c-format
-msgid "could not create leading directories for '%s'"
-msgstr "不能为 '%s' 创建先导目录"
-
-msgid "System Info"
-msgstr "系统信息"
-
-msgid "Enabled Hooks"
-msgstr "启用的钩子"
-
-#, c-format
-msgid "couldn't create a new file at '%s'"
-msgstr "不能创建新文件 '%s'"
-
-#, c-format
-msgid "unable to write to %s"
-msgstr "无法写入 %s"
-
-#, c-format
-msgid "Created new report at '%s'.\n"
-msgstr "在 '%s' 创建了新报告。\n"
-
-#, c-format
-msgid "Missing from marks for submodule '%s'"
-msgstr "子模组 '%s' 缺少 from 标记"
-
-#, c-format
-msgid "Missing to marks for submodule '%s'"
-msgstr "子模组 '%s' 缺少 to 标记"
-
-#, c-format
-msgid "Expected 'mark' command, got %s"
-msgstr "预期 'mark' 命令，得到 %s"
-
-#, c-format
-msgid "Expected 'to' command, got %s"
-msgstr "预期 'to' 命令，得到 %s"
-
-msgid "Expected format name:filename for submodule rewrite option"
-msgstr "子模组重写选项的预期格式为 name:filename"
-
-#, c-format
-msgid "feature '%s' forbidden in input without --allow-unsafe-features"
-msgstr "不带 --allow-unsafe-features 的输入中禁止使用功能 '%s'"
-
 #, c-format
 msgid "argument to --packfile must be a valid hash (got '%s')"
 msgstr "--packfile 的参数必须是有效的哈希值（得到 '%s'）"
 
-#, c-format
-msgid ""
-"The permissions on your socket directory are too loose; other\n"
-"users may be able to read your cached credentials. Consider running:\n"
-"\n"
-"\tchmod 0700 %s"
-msgstr ""
-"您的 socket 目录权限过于宽松，其他用户可能会读取您缓存的认证信息。考虑执"
-"行：\n"
-"\n"
-"\tchmod 0700 %s"
-
-msgid "print debugging messages to stderr"
-msgstr "调试信息输出到标准错误"
+msgid "not a git repository"
+msgstr "不是 git 仓库"
 
 #, c-format
 msgid "commit %s is not marked reachable"
@@ -17819,7 +18102,7 @@ msgstr "在 push-option 取值中无效的引号：'%s'"
 
 #, c-format
 msgid "%sinfo/refs not valid: is this a git repository?"
-msgstr "%sinfo/refs 无效：这是一个 git 仓库么？"
+msgstr "%sinfo/refs 无效：这是 git 仓库么？"
 
 msgid "invalid server response; expected service, got flush packet"
 msgstr "无效的服务端响应。预期服务，得到 flush 包"
@@ -17940,8 +18223,8 @@ msgstr "更加详细"
 msgid "be more quiet"
 msgstr "更加安静"
 
-msgid "use <n> digits to display SHA-1s"
-msgstr "用 <n> 位数字显示 SHA-1 哈希值"
+msgid "use <n> digits to display object names"
+msgstr "用 <n> 位数字显示对象名"
 
 msgid "how to strip spaces and #comments from message"
 msgstr "设置如何删除提交说明里的空格和#注释"
@@ -18184,6 +18467,9 @@ msgstr "从单个电子邮件中提取补丁和作者身份"
 msgid "Simple UNIX mbox splitter program"
 msgstr "简单的 UNIX mbox 邮箱切分程序"
 
+msgid "Run tasks to optimize Git repository data"
+msgstr "运行任务以优化仓库数据"
+
 msgid "Join two or more development histories together"
 msgstr "合并两个或更多开发历史"
 
@@ -18419,6 +18705,9 @@ msgstr "Git 命令行界面和约定"
 msgid "A Git core tutorial for developers"
 msgstr "面向开发人员的 Git 核心教程"
 
+msgid "Providing usernames and passwords to Git"
+msgstr "为 Git 提供用户名和口令"
+
 msgid "Git for CVS users"
 msgstr "适合 CVS 用户的 Git 帮助"
 
@@ -18446,6 +18735,9 @@ msgstr "定义子模组属性"
 msgid "Git namespaces"
 msgstr "Git 名字空间"
 
+msgid "Helper programs to interact with remote repositories"
+msgstr "与远程仓库交互的助手程序"
+
 msgid "Git Repository Layout"
 msgstr "Git 仓库布局"
 
@@ -18463,16 +18755,6 @@ msgstr "一个 Git 教程"
 
 msgid "An overview of recommended workflows with Git"
 msgstr "Git 推荐的工作流概览"
-
-msgid "You need to start by \"git bisect start\""
-msgstr "您需要执行 \"git bisect start\" 来开始"
-
-#  译者：注意保持句尾空格
-#. TRANSLATORS: Make sure to include [Y] and [n] in your
-#. translation. The program will only accept English input
-#. at this point.
-msgid "Do you want me to do it for you [Y/n]? "
-msgstr "您想让我为您这样做么[Y/n]？ "
 
 #, sh-format
 msgid "Bad rev input: $arg"
@@ -18685,28 +18967,6 @@ msgstr "子模组 '$displaypath'：'$command $sha1'"
 #, sh-format
 msgid "Failed to recurse into submodule path '$displaypath'"
 msgstr "无法递归进子模组路径 '$displaypath'"
-
-msgid "The --cached option cannot be used with the --files option"
-msgstr "选项 --cached 不能和选项 --files 同时使用"
-
-#, sh-format
-msgid "unexpected mode $mod_dst"
-msgstr "意外的模式 $mod_dst"
-
-#  译者：注意保持前导空格
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commit $sha1_src"
-msgstr "  警告：$display_name 未包含提交 $sha1_src"
-
-#  译者：注意保持前导空格
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commit $sha1_dst"
-msgstr "  警告：$display_name 未包含提交 $sha1_dst"
-
-#  译者：注意保持前导空格
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
-msgstr "  警告：$display_name 未包含提交 $sha1_src 和 $sha1_dst"
 
 #, sh-format
 msgid "See git-${cmd}(1) for details."
@@ -19323,6 +19583,15 @@ msgstr "'%s.final' 包含编辑的邮件。\n"
 
 msgid "--dump-aliases incompatible with other options\n"
 msgstr "--dump-aliases 和其它选项不兼容\n"
+
+msgid ""
+"fatal: found configuration options for 'sendmail'\n"
+"git-send-email is configured with the sendemail.* options - note the 'e'.\n"
+"Set sendemail.forbidSendmailVariables to false to disable this check.\n"
+msgstr ""
+"致命错误：发现 'sendmail' 配置选项\n"
+"git-send-email 通过 sendemail.* 选项进行设置，注意字母 'e'。\n"
+"设置 sendemail.forbidSendmailVariables 为 false 来禁用这项检查。\n"
 
 msgid "Cannot run git format-patch from outside a repository\n"
 msgstr "不能在仓库之外运行 git format-patch\n"
