@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-07-10 09:53+0800\n"
-"PO-Revision-Date: 2020-07-12 13:20+0100\n"
+"POT-Creation-Date: 2020-10-10 09:32+0800\n"
+"PO-Revision-Date: 2020-10-15 19:16+0200\n"
 "Last-Translator: Matthias Rüster <matthias.ruester@gmail.com>\n"
 "Language-Team: Matthias Rüster <matthias.ruester@gmail.com>\n"
 "Language: de\n"
@@ -203,8 +203,8 @@ msgstr "zur Staging-Area hinzugefügt"
 msgid "unstaged"
 msgstr "aus Staging-Area entfernt"
 
-#: add-interactive.c apply.c builtin/am.c builtin/clone.c builtin/fetch.c
-#: builtin/merge.c builtin/pull.c builtin/submodule--helper.c bugreport.c
+#: add-interactive.c apply.c builtin/am.c builtin/bugreport.c builtin/clone.c
+#: builtin/fetch.c builtin/merge.c builtin/pull.c builtin/submodule--helper.c
 #: git-add--interactive.perl
 msgid "path"
 msgstr "Pfad"
@@ -1278,7 +1278,7 @@ msgstr "kann internen Speicher für eben erstellte Datei %s nicht erzeugen"
 msgid "unable to add cache entry for %s"
 msgstr "kann für %s keinen Eintrag in den Zwischenspeicher hinzufügen"
 
-#: apply.c
+#: apply.c builtin/bisect--helper.c
 #, c-format
 msgid "failed to write to '%s'"
 msgstr "Fehler beim Schreiben nach '%s'"
@@ -1519,11 +1519,6 @@ msgstr "Kann Blob %s nicht streamen."
 msgid "unsupported file mode: 0%o (SHA1: %s)"
 msgstr "Nicht unterstützter Dateimodus: 0%o (SHA1: %s)"
 
-#: archive-tar.c archive-zip.c
-#, c-format
-msgid "cannot read %s"
-msgstr "Kann %s nicht lesen."
-
 #: archive-tar.c
 #, c-format
 msgid "unable to start '%s' filter"
@@ -1577,6 +1572,16 @@ msgstr ""
 msgid "git archive --remote <repo> [--exec <cmd>] --list"
 msgstr "git archive --remote <Repository> [--exec <Programm>] --list"
 
+#: archive.c
+#, c-format
+msgid "cannot read %s"
+msgstr "Kann %s nicht lesen."
+
+#: archive.c sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
+#, c-format
+msgid "could not read '%s'"
+msgstr "Konnte '%s' nicht lesen"
+
 #: archive.c builtin/add.c builtin/rm.c
 #, c-format
 msgid "pathspec '%s' did not match any files"
@@ -1602,6 +1607,16 @@ msgid "current working directory is untracked"
 msgstr "Aktuelles Arbeitsverzeichnis ist unversioniert."
 
 #: archive.c
+#, c-format
+msgid "File not found: %s"
+msgstr "Datei nicht gefunden: %s"
+
+#: archive.c
+#, c-format
+msgid "Not a regular file: %s"
+msgstr "Keine reguläre Datei: %s"
+
+#: archive.c
 msgid "fmt"
 msgstr "Format"
 
@@ -1622,6 +1637,10 @@ msgstr "einen Präfix vor jeden Pfadnamen in dem Archiv stellen"
 #: builtin/ls-files.c builtin/notes.c builtin/read-tree.c parse-options.h
 msgid "file"
 msgstr "Datei"
+
+#: archive.c
+msgid "add untracked file to archive"
+msgstr "unversionierte Datei zum Archiv hinzufügen"
 
 #: archive.c builtin/archive.c
 msgid "write the archive to this file"
@@ -1678,6 +1697,11 @@ msgstr "Die Option --exec kann nur zusammen mit --remote verwendet werden."
 #: archive.c
 msgid "Unexpected option --output"
 msgstr "Unerwartete Option --output"
+
+#: archive.c
+msgid "Options --add-file and --remote cannot be used together"
+msgstr ""
+"Die Optionen --add-file und --remote können nicht gemeinsam verwendet werden."
 
 #: archive.c
 #, c-format
@@ -2010,12 +2034,18 @@ msgstr "HEAD des Arbeitsverzeichnisses %s ist nicht aktualisiert."
 
 #: bundle.c
 #, c-format
-msgid "'%s' does not look like a v2 bundle file"
-msgstr "'%s' sieht nicht wie eine v2 Paketdatei aus"
+msgid "unrecognized bundle hash algorithm: %s"
+msgstr "unbekannter Paket-Hash-Algorithmus: %s"
 
 #: bundle.c
-msgid "unknown hash algorithm length"
-msgstr "unbekannte Länge des Hash-Algorithmus"
+#, c-format
+msgid "unknown capability '%s'"
+msgstr "unbekannte Fähigkeit '%s'"
+
+#: bundle.c
+#, c-format
+msgid "'%s' does not look like a v2 or v3 bundle file"
+msgstr "'%s' sieht nicht wie eine v2 oder v3 Paketdatei aus"
 
 #: bundle.c
 #, c-format
@@ -2074,6 +2104,16 @@ msgstr "\"rev-list\" abgebrochen"
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr "Referenz '%s' wird durch \"rev-list\" Optionen ausgeschlossen"
 
+#: bundle.c
+#, c-format
+msgid "unsupported bundle version %d"
+msgstr "nicht unterstützte Paket-Version %d"
+
+#: bundle.c
+#, c-format
+msgid "cannot write bundle version %d with algorithm %s"
+msgstr "kann Paket-Version %d nicht mit Algorithmus %s schreiben"
+
 #: bundle.c builtin/log.c builtin/shortlog.c
 #, c-format
 msgid "unrecognized argument: %s"
@@ -2097,6 +2137,10 @@ msgstr "Erstellung der Paketindexdatei abgebrochen"
 msgid "invalid color value: %.*s"
 msgstr "Ungültiger Farbwert: %.*s"
 
+#: commit-graph.c midx.c
+msgid "invalid hash version"
+msgstr "ungültige Hash-Version"
+
 #: commit-graph.c
 msgid "commit-graph file is too small"
 msgstr "Commit-Graph-Datei ist zu klein."
@@ -2117,10 +2161,9 @@ msgid "commit-graph hash version %X does not match version %X"
 msgstr "Hash-Version des Commit-Graph %X stimmt nicht mit Version %X überein."
 
 #: commit-graph.c
-msgid "commit-graph chunk lookup table entry missing; file may be incomplete"
-msgstr ""
-"fehlender Tabelleneintrag für Commit-Graph Chunk-Lookup; Datei "
-"möglicherweise unvollständig"
+#, c-format
+msgid "commit-graph file is too small to hold %u chunks"
+msgstr "Commit-Graph-Datei ist zu klein, um %u Chunks zu enthalten"
 
 #: commit-graph.c
 #, c-format
@@ -2162,14 +2205,6 @@ msgstr "Konnte Commit %s nicht finden."
 #, c-format
 msgid "unable to parse commit %s"
 msgstr "Konnte Commit '%s' nicht parsen."
-
-#: commit-graph.c
-msgid "Writing changed paths Bloom filters index"
-msgstr "Schreibe Index für veränderte Pfade Bloom-Filter"
-
-#: commit-graph.c
-msgid "Writing changed paths Bloom filters data"
-msgstr "Schreibe Daten für veränderte Pfade Bloom-Filter"
 
 #: commit-graph.c builtin/pack-objects.c
 #, c-format
@@ -3280,7 +3315,7 @@ msgstr "--follow erfordert genau eine Pfadspezifikation"
 msgid "invalid --stat value: %s"
 msgstr "Ungültiger --stat Wert: %s"
 
-#: diff.c parse-options.c
+#: diff.c parse-options.c builtin/commit-graph.c
 #, c-format
 msgid "%s expects a numerical value"
 msgstr "%s erwartet einen numerischen Wert."
@@ -4270,8 +4305,8 @@ msgid "unsupported command listing type '%s'"
 msgstr "Nicht unterstützte Art zur Befehlsauflistung '%s'."
 
 #: help.c
-msgid "The common Git guides are:"
-msgstr "Die allgemeinen Git-Anleitungen sind:"
+msgid "The Git concept guides are:"
+msgstr "Die Git-Konzeptanleitungen sind:"
 
 #: help.c
 msgid "See 'git help <command>' to read about a specific subcommand"
@@ -4357,6 +4392,14 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Haben Sie eines von diesen gemeint?"
+
+#: ident.c
+msgid "Author identity unknown\n"
+msgstr "Identität des Autors unbekannt\n"
+
+#: ident.c
+msgid "Committer identity unknown\n"
+msgstr "Identität des Commit-Erstellers unbekannt\n"
 
 #: ident.c
 msgid ""
@@ -4827,7 +4870,7 @@ msgstr "hinzufügen/hinzufügen"
 msgid "Skipped %s (merged same as existing)"
 msgstr "%s ausgelassen (Ergebnis des Merges existiert bereits)"
 
-#: merge-recursive.c git-submodule.sh
+#: merge-recursive.c
 msgid "submodule"
 msgstr "Submodul"
 
@@ -4978,8 +5021,8 @@ msgstr "multi-pack-index-Version %d nicht erkannt."
 
 #: midx.c
 #, c-format
-msgid "hash version %u does not match"
-msgstr "Hash-Version %u stimmt nicht überein."
+msgid "multi-pack-index hash version %u does not match version %u"
+msgstr "multi-pack-index Hash-Version %u stimmt nicht mit Version %u überein"
 
 #: midx.c
 msgid "invalid chunk offset (too large)"
@@ -5060,6 +5103,10 @@ msgstr "Chunks zum multi-pack-index schreiben"
 #, c-format
 msgid "failed to clear multi-pack-index at %s"
 msgstr "Fehler beim Löschen des multi-pack-index bei %s"
+
+#: midx.c
+msgid "multi-pack-index file exists, but failed to parse"
+msgstr "multi-pack-index-Datei existiert, aber das Parsen schlug fehl"
 
 #: midx.c
 msgid "Looking for referenced packfiles"
@@ -5474,7 +5521,7 @@ msgstr "Protokollfehler: ungültiges Zeichen für Zeilenlänge: %.4s"
 msgid "protocol error: bad line length %d"
 msgstr "Protokollfehler: ungültige Zeilenlänge %d"
 
-#: pkt-line.c
+#: pkt-line.c sideband.c
 #, c-format
 msgid "remote error: %s"
 msgstr "Fehler am anderen Ende: %s"
@@ -5493,8 +5540,18 @@ msgid "unable to parse --pretty format"
 msgstr "Konnte --pretty Format nicht parsen."
 
 #: promisor-remote.c
-msgid "Remote with no URL"
-msgstr "Remote-Repository ohne URL"
+msgid "promisor-remote: unable to fork off fetch subprocess"
+msgstr "Promisor-Remote: konnte Fetch-Subprozess nicht abspalten"
+
+#: promisor-remote.c
+msgid "promisor-remote: could not write to fetch subprocess"
+msgstr "Promisor-Remote: konnte nicht zum Fetch-Subprozess schreiben"
+
+#: promisor-remote.c
+msgid "promisor-remote: could not close stdin to fetch subprocess"
+msgstr ""
+"Promisor-Remote: konnte Standard-Eingabe des Fetch-Subprozesses nicht "
+"schließen"
 
 #: promisor-remote.c
 #, c-format
@@ -5958,8 +6015,8 @@ msgstr "%%(body) akzeptiert keine Argumente"
 
 #: ref-filter.c
 #, c-format
-msgid "%%(subject) does not take arguments"
-msgstr "%%(subject) akzeptiert keine Argumente"
+msgid "unrecognized %%(subject) argument: %s"
+msgstr "nicht erkanntes %%(subject) Argument: %s"
 
 #: ref-filter.c
 #, c-format
@@ -5978,18 +6035,23 @@ msgstr "nicht erkanntes %%(contents) Argument: %s"
 
 #: ref-filter.c
 #, c-format
-msgid "positive value expected objectname:short=%s"
-msgstr "Positiver Wert erwartet objectname:short=%s"
+msgid "positive value expected '%s' in %%(%s)"
+msgstr "positiver Wert erwartet '%s' in %%(%s)"
 
 #: ref-filter.c
 #, c-format
-msgid "unrecognized %%(objectname) argument: %s"
-msgstr "nicht erkanntes %%(objectname) Argument: %s"
+msgid "unrecognized argument '%s' in %%(%s)"
+msgstr "nicht erkanntes Argument '%s' in %%(%s)"
+
+#: ref-filter.c
+#, c-format
+msgid "unrecognized email option: %s"
+msgstr "nicht erkannte E-Mail Option: %s"
 
 #: ref-filter.c
 #, c-format
 msgid "expected format: %%(align:<width>,<position>)"
-msgstr "Erwartetes Format: %%(align:<Breite>,<Position>)"
+msgstr "erwartetes Format: %%(align:<Breite>,<Position>)"
 
 #: ref-filter.c
 #, c-format
@@ -6129,16 +6191,6 @@ msgstr "Format: %%(end) Atom fehlt"
 
 #: ref-filter.c
 #, c-format
-msgid "option `%s' is incompatible with --merged"
-msgstr "die Option `%s' ist inkompatibel mit --merged"
-
-#: ref-filter.c
-#, c-format
-msgid "option `%s' is incompatible with --no-merged"
-msgstr "die Option `%s' ist inkompatibel mit --no-merged"
-
-#: ref-filter.c
-#, c-format
 msgid "malformed object name %s"
 msgstr "missgebildeter Objektname %s"
 
@@ -6166,41 +6218,6 @@ msgstr "ungültiger Branchname: %s = %s"
 #, c-format
 msgid "ignoring dangling symref %s"
 msgstr "Ignoriere unreferenzierte symbolische Referenz %s"
-
-#: refs.c
-#, c-format
-msgid "could not open '%s' for writing: %s"
-msgstr "Konnte '%s' nicht zum Schreiben öffnen: %s"
-
-#: refs.c
-#, c-format
-msgid "could not read ref '%s'"
-msgstr "Konnte Referenz '%s' nicht lesen."
-
-#: refs.c
-#, c-format
-msgid "ref '%s' already exists"
-msgstr "Referenz '%s' existiert bereits."
-
-#: refs.c
-#, c-format
-msgid "unexpected object ID when writing '%s'"
-msgstr "Unerwartete Objekt-ID beim Schreiben von '%s'."
-
-#: refs.c sequencer.c strbuf.c wrapper.c
-#, c-format
-msgid "could not write to '%s'"
-msgstr "Konnte nicht nach '%s' schreiben."
-
-#: refs.c strbuf.c wrapper.c builtin/am.c builtin/rebase.c
-#, c-format
-msgid "could not open '%s' for writing"
-msgstr "Konnte '%s' nicht zum Schreiben öffnen."
-
-#: refs.c
-#, c-format
-msgid "unexpected object ID when deleting '%s'"
-msgstr "Unerwartete Objekt-ID beim Löschen von '%s'."
 
 #: refs.c
 #, c-format
@@ -6563,11 +6580,6 @@ msgstr "doppelte ersetzende Referenz: %s"
 msgid "replace depth too high for object %s"
 msgstr "Ersetzungstiefe zu hoch für Objekt %s"
 
-#: repository.c builtin/init-db.c
-#, c-format
-msgid "The hash algorithm %s is not supported in this build."
-msgstr "Der Hash-Algorithmus %s ist nicht in dieser Version unterstützt."
-
 #: rerere.c
 msgid "corrupt MERGE_RR"
 msgstr "Fehlerhaftes MERGE_RR"
@@ -6670,6 +6682,15 @@ msgid "failed to find tree of %s"
 msgstr "Fehler beim Finden des \"Tree\"-Objektes von %s."
 
 #: revision.c
+msgid "--unpacked=<packfile> no longer supported"
+msgstr "--unpacked=<Pack-Datei> wird nicht länger unterstützt"
+
+#: revision.c
+#, c-format
+msgid "unknown value for --diff-merges: %s"
+msgstr "unbekannter Wert für --diff-merges: %s"
+
+#: revision.c
 msgid "your current branch appears to be broken"
 msgstr "Ihr aktueller Branch scheint fehlerhaft zu sein."
 
@@ -6677,10 +6698,6 @@ msgstr "Ihr aktueller Branch scheint fehlerhaft zu sein."
 #, c-format
 msgid "your current branch '%s' does not have any commits yet"
 msgstr "Ihr aktueller Branch '%s' hat noch keine Commits."
-
-#: revision.c
-msgid "--first-parent is incompatible with --bisect"
-msgstr "Die Optionen --first-parent und --bisect sind inkompatibel."
 
 #: revision.c
 msgid "-L does not yet support diff formats besides -p and -s"
@@ -6804,6 +6821,11 @@ msgstr ""
 msgid "could not lock '%s'"
 msgstr "Konnte '%s' nicht sperren"
 
+#: sequencer.c strbuf.c wrapper.c
+#, c-format
+msgid "could not write to '%s'"
+msgstr "Konnte nicht nach '%s' schreiben."
+
 #: sequencer.c
 #, c-format
 msgid "could not write eol to '%s'"
@@ -6813,11 +6835,6 @@ msgstr "Konnte EOL nicht nach '%s' schreiben."
 #, c-format
 msgid "failed to finalize '%s'"
 msgstr "Fehler beim Fertigstellen von '%s'."
-
-#: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
-#, c-format
-msgid "could not read '%s'"
-msgstr "Konnte '%s' nicht lesen"
 
 #: sequencer.c
 #, c-format
@@ -7033,6 +7050,15 @@ msgstr "\"git write-tree\" schlug beim Schreiben eines \"Tree\"-Objektes fehl"
 #, c-format
 msgid "unable to read commit message from '%s'"
 msgstr "Konnte Commit-Beschreibung von '%s' nicht lesen."
+
+#: sequencer.c
+#, c-format
+msgid "invalid author identity '%s'"
+msgstr "ungültige Autor-Identität '%s'"
+
+#: sequencer.c
+msgid "corrupt author: missing date information"
+msgstr "unbrauchbarer Autor: Datumsinformationen fehlen"
 
 #: sequencer.c builtin/am.c builtin/commit.c builtin/merge.c
 msgid "failed to write commit object"
@@ -7629,6 +7655,11 @@ msgstr "Konnte Änderungen aus der Staging-Area nicht committen."
 
 #: sequencer.c
 #, c-format
+msgid "invalid committer '%s'"
+msgstr "ungültiger Commit-Ersteller '%s'"
+
+#: sequencer.c
+#, c-format
 msgid "%s: can't cherry-pick a %s"
 msgstr "%s: %s kann nicht in \"cherry-pick\" benutzt werden"
 
@@ -7722,6 +7753,10 @@ msgstr "Erwartete Git-Repository-Version <= %d, %d gefunden"
 #: setup.c
 msgid "unknown repository extensions found:"
 msgstr "Unbekannte Repository-Erweiterungen gefunden:"
+
+#: setup.c
+msgid "repo version is 0, but v1-only extensions found:"
+msgstr "Repository-Version ist 0, aber Erweiterungen nur für v1 gefunden:"
 
 #: setup.c
 #, c-format
@@ -8238,6 +8273,11 @@ msgid_plural "%u bytes/s"
 msgstr[0] "%u Byte/s"
 msgstr[1] "%u Bytes/s"
 
+#: strbuf.c wrapper.c builtin/am.c builtin/rebase.c
+#, c-format
+msgid "could not open '%s' for writing"
+msgstr "Konnte '%s' nicht zum Schreiben öffnen."
+
 #: strbuf.c
 #, c-format
 msgid "could not edit '%s'"
@@ -8584,6 +8624,10 @@ msgstr "Die Operation wird von dem Protokoll nicht unterstützt."
 #, c-format
 msgid "can't connect to subservice %s"
 msgstr "Kann keine Verbindung zu Subservice %s herstellen."
+
+#: transport-helper.c
+msgid "'option' without a matching 'ok/error' directive"
+msgstr "'option' ohne passende 'ok/error' Direktive"
 
 #: transport-helper.c
 #, c-format
@@ -9141,10 +9185,46 @@ msgstr "'%s' ist keine .git-Datei, Fehlercode %d"
 msgid "'%s' does not point back to '%s'"
 msgstr "'%s' zeigt nicht zurück auf '%s'"
 
+#: worktree.c
+msgid "not a directory"
+msgstr "kein Verzeichnis"
+
+#: worktree.c
+msgid ".git is not a file"
+msgstr ".git ist keine Datei"
+
+#: worktree.c
+msgid ".git file broken"
+msgstr ".git-Datei kaputt"
+
+#: worktree.c
+msgid ".git file incorrect"
+msgstr ".git-Datei fehlerhaft"
+
+#: worktree.c
+msgid "not a valid path"
+msgstr "kein gültiger Pfad"
+
+#: worktree.c
+msgid "unable to locate repository; .git is not a file"
+msgstr "Konnte Repository nicht finden; .git ist keine Datei"
+
+#: worktree.c
+msgid "unable to locate repository; .git file broken"
+msgstr "Konnte Repository nicht finden; .git-Datei ist kaputt"
+
+#: worktree.c
+msgid "gitdir unreadable"
+msgstr "gitdir nicht lesbar"
+
+#: worktree.c
+msgid "gitdir incorrect"
+msgstr "gitdir fehlerhaft"
+
 #: wrapper.c
 #, c-format
 msgid "could not open '%s' for reading and writing"
-msgstr "Konnte '%s' nicht zum Lesen und Schreiben öffnen."
+msgstr "konnte '%s' nicht zum Lesen und Schreiben öffnen"
 
 #: wrapper.c
 #, c-format
@@ -9153,7 +9233,7 @@ msgstr "konnte nicht auf '%s' zugreifen"
 
 #: wrapper.c
 msgid "unable to get current working directory"
-msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bekommen."
+msgstr "konnte aktuelles Arbeitsverzeichnis nicht bekommen"
 
 #: wt-status.c
 msgid "Unmerged paths:"
@@ -9963,6 +10043,11 @@ msgstr ""
 "\"git config advice.addEmptyPathspec false\""
 
 #: builtin/am.c
+#, c-format
+msgid "invalid committer: %s"
+msgstr "ungültiger Commit-Ersteller: %s"
+
+#: builtin/am.c
 msgid "could not parse author script"
 msgstr "konnte Autor-Skript nicht parsen"
 
@@ -10261,8 +10346,8 @@ msgstr "an git-apply übergeben"
 msgid "n"
 msgstr "Anzahl"
 
-#: builtin/am.c builtin/branch.c builtin/for-each-ref.c builtin/replace.c
-#: builtin/tag.c builtin/verify-tag.c bugreport.c
+#: builtin/am.c builtin/branch.c builtin/bugreport.c builtin/for-each-ref.c
+#: builtin/replace.c builtin/tag.c builtin/verify-tag.c
 msgid "format"
 msgstr "Format"
 
@@ -10389,8 +10474,8 @@ msgid "git archive: expected a flush"
 msgstr "git archive: erwartete eine Spülung (flush)"
 
 #: builtin/bisect--helper.c
-msgid "git bisect--helper --next-all [--no-checkout]"
-msgstr "git bisect--helper --next-all [--no-checkout]"
+msgid "git bisect--helper --next-all"
+msgstr "git bisect--helper --next-all"
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --write-terms <bad_term> <good_term>"
@@ -10436,34 +10521,54 @@ msgstr ""
 
 #: builtin/bisect--helper.c
 msgid ""
-"git bisect--helper --bisect-start [--term-{old,good}=<term> --term-{new,bad}"
-"=<term>][--no-checkout] [<bad> [<good>...]] [--] [<paths>...]"
+"git bisect--helper --bisect-start [--term-{new,bad}=<term> --term-{old,good}"
+"=<term>] [--no-checkout] [--first-parent] [<bad> [<good>...]] [--] "
+"[<paths>...]"
 msgstr ""
-"git bisect--helper --bisect-start [--term-{old,good}=<Begriff> --term-{new,"
-"bad}=<Begriff>][--no-checkout] [<schlecht> [<gut>...]] [--] [<Pfade>...]"
+"git bisect--helper --bisect-start [--term-{new,bad}=<Begriff> --term-{old,"
+"good}=<Begriff>] [--no-checkout] [--first-parent] [<schlecht> [<gut>...]] "
+"[--] [<Pfade>...]"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-next"
+msgstr "git bisect--helper --bisect-next"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-auto-next"
+msgstr "git bisect--helper --bisect-auto-next"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-autostart"
+msgstr "git bisect--helper --bisect-autostart"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "cannot open file '%s' in mode '%s'"
+msgstr "kann Datei '%s' nicht im Modus '%s' öffnen"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "could not write to file '%s'"
+msgstr "konnte nicht in Datei '%s' schreiben"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "'%s' is not a valid term"
-msgstr "'%s' ist kein gültiger Begriff."
+msgstr "'%s' ist kein gültiger Begriff"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "can't use the builtin command '%s' as a term"
-msgstr "Kann den eingebauten Befehl '%s' nicht als Begriff verwenden."
+msgstr "kann den eingebauten Befehl '%s' nicht als Begriff verwenden"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "can't change the meaning of the term '%s'"
-msgstr "Kann die Bedeutung von dem Begriff '%s' nicht ändern."
+msgstr "kann die Bedeutung von dem Begriff '%s' nicht ändern"
 
 #: builtin/bisect--helper.c
 msgid "please use two different terms"
-msgstr "Bitte verwenden Sie zwei verschiedene Begriffe."
-
-#: builtin/bisect--helper.c
-msgid "could not open the file BISECT_TERMS"
-msgstr "Konnte die Datei BISECT_TERMS nicht öffnen."
+msgstr "bitte verwenden Sie zwei verschiedene Begriffe"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -10473,7 +10578,7 @@ msgstr "Keine binäre Suche im Gange.\n"
 #: builtin/bisect--helper.c
 #, c-format
 msgid "'%s' is not a valid commit"
-msgstr "'%s' ist kein gültiger Commit."
+msgstr "'%s' ist kein gültiger Commit"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -10559,22 +10664,31 @@ msgstr ""
 "Unterstützte Optionen sind: --term-good|--term-old und --term-bad|--term-new."
 
 #: builtin/bisect--helper.c
+msgid "revision walk setup failed\n"
+msgstr "Einrichtung des Revisionsgangs fehlgeschlagen\n"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "could not open '%s' for appending"
+msgstr "konnte '%s' nicht zum Anhängen öffnen"
+
+#: builtin/bisect--helper.c
 msgid "'' is not a valid term"
 msgstr "'' ist kein gültiger Begriff"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "unrecognized option: '%s'"
-msgstr "Nicht erkannte Position: '%s'"
+msgstr "nicht erkannte Option: '%s'"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "'%s' does not appear to be a valid revision"
-msgstr "'%s' scheint kein gültiger Commit zu sein."
+msgstr "'%s' scheint kein gültiger Commit zu sein"
 
 #: builtin/bisect--helper.c
 msgid "bad HEAD - I need a HEAD"
-msgstr "Ungültiger HEAD - HEAD wird benötigt."
+msgstr "ungültiger HEAD - HEAD wird benötigt"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -10590,12 +10704,24 @@ msgstr ""
 
 #: builtin/bisect--helper.c
 msgid "bad HEAD - strange symbolic ref"
-msgstr "Ungültiger HEAD - merkwürdige symbolische Referenz."
+msgstr "ungültiger HEAD - merkwürdige symbolische Referenz"
 
 #: builtin/bisect--helper.c
 #, c-format
 msgid "invalid ref: '%s'"
-msgstr "Ungültige Referenz: '%s'"
+msgstr "ungültige Referenz: '%s'"
+
+#: builtin/bisect--helper.c
+msgid "You need to start by \"git bisect start\"\n"
+msgstr "Sie müssen mit \"git bisect start\" beginnen\n"
+
+#. TRANSLATORS: Make sure to include [Y] and [n] in your
+#. translation. The program will only accept English input
+#. at this point.
+#.
+#: builtin/bisect--helper.c
+msgid "Do you want me to do it for you [Y/n]? "
+msgstr "Wollen Sie, dass ich es für Sie mache [Y/n]? "
 
 #: builtin/bisect--helper.c
 msgid "perform 'git bisect next'"
@@ -10638,8 +10764,18 @@ msgid "start the bisect session"
 msgstr "Sitzung für binäre Suche starten"
 
 #: builtin/bisect--helper.c
-msgid "update BISECT_HEAD instead of checking out the current commit"
-msgstr "BISECT_HEAD aktualisieren, anstatt den aktuellen Commit auszuchecken"
+msgid "find the next bisection commit"
+msgstr "nächsten Commit für die binäre Suche finden"
+
+#: builtin/bisect--helper.c
+msgid "verify the next bisection state then checkout the next bisection commit"
+msgstr ""
+"überprüfe den nächsten Zustand der binären Suche, checke dann den nächsten "
+"Commit der binären Suche aus"
+
+#: builtin/bisect--helper.c
+msgid "start the bisection if it has not yet been started"
+msgstr "starte die binäre Suche, wenn diese noch nicht begonnen hat"
 
 #: builtin/bisect--helper.c
 msgid "no log for BISECT_WRITE"
@@ -10647,31 +10783,43 @@ msgstr "kein Log für BISECT_WRITE"
 
 #: builtin/bisect--helper.c
 msgid "--write-terms requires two arguments"
-msgstr "--write-terms benötigt zwei Argumente."
+msgstr "--write-terms benötigt zwei Argumente"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-clean-state requires no arguments"
-msgstr "--bisect-clean-state erwartet keine Argumente."
+msgstr "--bisect-clean-state erwartet keine Argumente"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-reset requires either no argument or a commit"
-msgstr "--bisect-reset benötigt entweder kein Argument oder ein Commit."
+msgstr "--bisect-reset benötigt entweder kein Argument oder ein Commit"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-write requires either 4 or 5 arguments"
-msgstr "--bisect-write benötigt entweder 4 oder 5 Argumente."
+msgstr "--bisect-write benötigt entweder 4 oder 5 Argumente"
 
 #: builtin/bisect--helper.c
 msgid "--check-and-set-terms requires 3 arguments"
-msgstr "--check-and-set-terms benötigt 3 Argumente."
+msgstr "--check-and-set-terms benötigt 3 Argumente"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-next-check requires 2 or 3 arguments"
-msgstr "--bisect-next-check benötigt 2 oder 3 Argumente."
+msgstr "--bisect-next-check benötigt 2 oder 3 Argumente"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-terms requires 0 or 1 argument"
-msgstr "--bisect-terms benötigt 0 oder 1 Argument."
+msgstr "--bisect-terms benötigt 0 oder 1 Argument"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-next requires 0 arguments"
+msgstr "--bisect-next benötigt 0 Argumente"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-auto-next requires 0 arguments"
+msgstr "--bisect-auto-next benötigt 0 Argumente"
+
+#: builtin/bisect--helper.c
+msgid "--bisect-autostart does not accept arguments"
+msgstr "--bisect-autostart erwartet keine Argumente"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -10684,33 +10832,33 @@ msgstr "<rev-opts> sind dokumentiert in git-rev-list(1)"
 #: builtin/blame.c
 #, c-format
 msgid "expecting a color: %s"
-msgstr "Erwarte eine Farbe: %s"
+msgstr "erwarte eine Farbe: %s"
 
 #: builtin/blame.c
 msgid "must end with a color"
-msgstr "Muss mit einer Farbe enden."
+msgstr "muss mit einer Farbe enden"
 
 #: builtin/blame.c
 #, c-format
 msgid "invalid color '%s' in color.blame.repeatedLines"
-msgstr "Ungültige Farbe '%s' in color.blame.repeatedLines."
+msgstr "ungültige Farbe '%s' in color.blame.repeatedLines"
 
 #: builtin/blame.c
 msgid "invalid value for blame.coloring"
-msgstr "Ungültiger Wert für blame.coloring."
+msgstr "ungültiger Wert für blame.coloring"
 
 #: builtin/blame.c
 #, c-format
 msgid "cannot find revision %s to ignore"
-msgstr "Konnte Commit %s zum Ignorieren nicht finden"
+msgstr "konnte Commit %s zum Ignorieren nicht finden"
 
 #: builtin/blame.c
 msgid "Show blame entries as we find them, incrementally"
 msgstr "\"blame\"-Einträge schrittweise anzeigen, während wir sie generieren"
 
 #: builtin/blame.c
-msgid "Show blank SHA-1 for boundary commits (Default: off)"
-msgstr "leere SHA-1 für Grenz-Commits anzeigen (Standard: aus)"
+msgid "Do not show object names of boundary commits (Default: off)"
+msgstr "Zeige keine Objektnamen für Grenz-Commits an (Standard: aus)"
 
 #: builtin/blame.c
 msgid "Do not treat root commits as boundaries (Default: off)"
@@ -10853,8 +11001,8 @@ msgid "Blaming lines"
 msgstr "Verarbeite Zeilen"
 
 #: builtin/branch.c
-msgid "git branch [<options>] [-r | -a] [--merged | --no-merged]"
-msgstr "git branch [<Optionen>] [-r | -a] [--merged | --no-merged]"
+msgid "git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+msgstr "git branch [<Optionen>] [-r | -a] [--merged] [--no-merged]"
 
 #: builtin/branch.c
 msgid "git branch [<options>] [-l] [-f] <branch-name> [<start-point>]"
@@ -11268,6 +11416,104 @@ msgstr ""
 "Die '--set-upstream' Option wird nicht länger unterstützt.\n"
 "Bitte benutzen Sie stattdessen '--track' oder '--set-upstream-to'."
 
+#: builtin/bugreport.c
+msgid "git version:\n"
+msgstr "git Version:\n"
+
+#: builtin/bugreport.c
+#, c-format
+msgid "uname() failed with error '%s' (%d)\n"
+msgstr "uname() ist fehlgeschlagen mit Fehler '%s' (%d)\n"
+
+#: builtin/bugreport.c
+msgid "compiler info: "
+msgstr "Compiler Info: "
+
+#: builtin/bugreport.c
+msgid "libc info: "
+msgstr "libc Info: "
+
+#: builtin/bugreport.c
+msgid "not run from a git repository - no hooks to show\n"
+msgstr "nicht in einem Git-Repository ausgeführt - keine Hooks zum Anzeigen\n"
+
+#: builtin/bugreport.c
+msgid "git bugreport [-o|--output-directory <file>] [-s|--suffix <format>]"
+msgstr "git bugreport [-o|--output-directory <Datei>] [-s|--suffix <Format>]"
+
+#: builtin/bugreport.c
+msgid ""
+"Thank you for filling out a Git bug report!\n"
+"Please answer the following questions to help us understand your issue.\n"
+"\n"
+"What did you do before the bug happened? (Steps to reproduce your issue)\n"
+"\n"
+"What did you expect to happen? (Expected behavior)\n"
+"\n"
+"What happened instead? (Actual behavior)\n"
+"\n"
+"What's different between what you expected and what actually happened?\n"
+"\n"
+"Anything else you want to add:\n"
+"\n"
+"Please review the rest of the bug report below.\n"
+"You can delete any lines you don't wish to share.\n"
+msgstr ""
+"Vielen Dank für das Ausfüllen eines Git-Fehlerberichts!\n"
+"Bitte antworten Sie auf die folgenden Fragen, um uns dabei zu helfen, Ihr\n"
+"Problem zu verstehen.\n"
+"\n"
+"Was haben Sie gemacht, bevor der Fehler auftrat? (Schritte, um Ihr Fehler\n"
+"zu reproduzieren)\n"
+"\n"
+"Was haben Sie erwartet, was passieren soll? (Erwartetes Verhalten)\n"
+"\n"
+"Was ist stattdessen passiert? (Wirkliches Verhalten)\n"
+"\n"
+"Was ist der Unterschied zwischen dem, was Sie erwartet haben und was\n"
+"wirklich passiert ist?\n"
+"\n"
+"Sonstige Anmerkungen, die Sie hinzufügen möchten:\n"
+"\n"
+"Bitte überprüfen Sie den restlichen Teil des Fehlerberichts unten.\n"
+"Sie können jede Zeile löschen, die Sie nicht mitteilen möchten.\n"
+
+#: builtin/bugreport.c
+msgid "specify a destination for the bugreport file"
+msgstr "Speicherort für die Datei des Fehlerberichts angeben"
+
+#: builtin/bugreport.c
+msgid "specify a strftime format suffix for the filename"
+msgstr "Dateiendung im strftime-Format für den Dateinamen angeben"
+
+#: builtin/bugreport.c
+#, c-format
+msgid "could not create leading directories for '%s'"
+msgstr "konnte vorangehende Verzeichnisse für '%s' nicht erstellen"
+
+#: builtin/bugreport.c
+msgid "System Info"
+msgstr "System Info"
+
+#: builtin/bugreport.c
+msgid "Enabled Hooks"
+msgstr "Aktivierte Hooks"
+
+#: builtin/bugreport.c
+#, c-format
+msgid "couldn't create a new file at '%s'"
+msgstr "konnte keine neue Datei unter '%s' erstellen"
+
+#: builtin/bugreport.c
+#, c-format
+msgid "unable to write to %s"
+msgstr "konnte nicht nach %s schreiben"
+
+#: builtin/bugreport.c
+#, c-format
+msgid "Created new report at '%s'.\n"
+msgstr "Neuer Bericht unter '%s' erstellt.\n"
+
 #: builtin/bundle.c
 msgid "git bundle create [<options>] <file> <git-rev-list args>"
 msgstr "git bundle create [<Optionen>] <Datei> <git-rev-list Argumente>"
@@ -11299,6 +11545,10 @@ msgstr "Forschrittsanzeige während des Schreibens von Objekten anzeigen"
 #: builtin/bundle.c builtin/pack-objects.c
 msgid "similar to --all-progress when progress meter is shown"
 msgstr "ähnlich zu --all-progress wenn Fortschrittsanzeige darstellt wird"
+
+#: builtin/bundle.c
+msgid "specify bundle format version"
+msgstr "Version des Paket-Formats angeben"
 
 #: builtin/bundle.c
 msgid "Need a repository to create a bundle."
@@ -11374,7 +11624,7 @@ msgstr "eine Textkonvertierung auf den Inhalt von Blob-Objekten ausführen"
 msgid "for blob objects, run filters on object's content"
 msgstr "für Blob-Objekte, Filter auf Objekt-Inhalte ausführen"
 
-#: builtin/cat-file.c git-submodule.sh
+#: builtin/cat-file.c
 msgid "blob"
 msgstr "Blob"
 
@@ -12556,6 +12806,12 @@ msgstr "Zielpfad '%s' existiert bereits und ist kein leeres Verzeichnis."
 
 #: builtin/clone.c
 #, c-format
+msgid "repository path '%s' already exists and is not an empty directory."
+msgstr ""
+"Pfad des Repositories '%s' existiert bereits und ist kein leeres Verzeichnis."
+
+#: builtin/clone.c
+#, c-format
 msgid "working tree '%s' already exists."
 msgstr "Arbeitsverzeichnis '%s' existiert bereits."
 
@@ -12672,11 +12928,11 @@ msgstr ""
 msgid ""
 "git commit-graph write [--object-dir <objdir>] [--append] [--"
 "split[=<strategy>]] [--reachable|--stdin-packs|--stdin-commits] [--changed-"
-"paths] [--[no-]progress] <split options>"
+"paths] [--[no-]max-new-filters <n>] [--[no-]progress] <split options>"
 msgstr ""
 "git commit-graph write [--object-dir <Objektverzeichnis>] [--append] [--"
 "split[=<Strategie>]] [--reachable|--stdin-packs|--stdin-commits] [--changed-"
-"paths] [--[no-]progress] <Split-Optionen>"
+"paths] [--[no-]max-new-filters <Anzahl>] [--[no-]progress] <Split-Optionen>"
 
 #: builtin/commit-graph.c
 #, c-format
@@ -12740,27 +12996,31 @@ msgstr "Berechnung für veränderte Pfade aktivieren"
 
 #: builtin/commit-graph.c
 msgid "allow writing an incremental commit-graph file"
-msgstr "Erlaube das Schreiben einer inkrementellen Commit-Graph-Datei"
+msgstr "erlaube das Schreiben einer inkrementellen Commit-Graph-Datei"
 
 #: builtin/commit-graph.c
 msgid "maximum number of commits in a non-base split commit-graph"
 msgstr ""
-"Maximale Anzahl von Commits in einem aufgeteilten Commit-Graph ohne Basis"
+"maximale Anzahl von Commits in einem aufgeteilten Commit-Graph ohne Basis"
 
 #: builtin/commit-graph.c
 msgid "maximum ratio between two levels of a split commit-graph"
 msgstr ""
-"Maximales Verhältnis zwischen zwei Ebenen eines aufgeteilten Commit-Graph"
+"maximales Verhältnis zwischen zwei Ebenen eines aufgeteilten Commit-Graph"
 
 #: builtin/commit-graph.c
 msgid "only expire files older than a given date-time"
 msgstr "nur Objekte älter als angegebene Zeit verfallen lassen"
 
 #: builtin/commit-graph.c
+msgid "maximum number of changed-path Bloom filters to compute"
+msgstr "maximale Anzahl der zu berechnenden Bloom-Filter für veränderte Pfade"
+
+#: builtin/commit-graph.c
 msgid "use at most one of --reachable, --stdin-commits, or --stdin-packs"
 msgstr ""
-"Benutzen Sie mindestens eins von --reachable, --stdin-commits, oder --stdin-"
-"packs."
+"benutzen Sie mindestens eine der folgenden Optionen: --reachable, --stdin-"
+"commits, oder --stdin-packs"
 
 #: builtin/commit-graph.c
 msgid "Collecting commits from input"
@@ -13003,34 +13263,32 @@ msgid "could not write commit template"
 msgstr "Konnte Commit-Vorlage nicht schreiben"
 
 #: builtin/commit.c
-#, c-format
 msgid ""
 "\n"
 "It looks like you may be committing a merge.\n"
-"If this is not correct, please remove the file\n"
-"\t%s\n"
+"If this is not correct, please run\n"
+"\tgit update-ref -d MERGE_HEAD\n"
 "and try again.\n"
 msgstr ""
 "\n"
 "Es sieht so aus, als committen Sie einen Merge.\n"
-"Falls das nicht korrekt ist, löschen Sie bitte die Datei\n"
-"\t%s\n"
-"und versuchen Sie es erneut.\n"
+"Falls das nicht korrekt ist, führen Sie bitte\n"
+"\tgit update-ref -d MERGE_HEAD\n"
+"aus und versuchen Sie es erneut.\n"
 
 #: builtin/commit.c
-#, c-format
 msgid ""
 "\n"
 "It looks like you may be committing a cherry-pick.\n"
-"If this is not correct, please remove the file\n"
-"\t%s\n"
+"If this is not correct, please run\n"
+"\tgit update-ref -d CHERRY_PICK_HEAD\n"
 "and try again.\n"
 msgstr ""
 "\n"
 "Es sieht so aus, als committen Sie einen \"cherry-pick\".\n"
-"Falls das nicht korrekt ist, löschen Sie bitte die Datei\n"
-"\t%s\n"
-"und versuchen Sie es erneut.\n"
+"Falls das nicht korrekt ist, führen Sie bitte\n"
+"\tgit update-ref -d CHERRY_PICK_HEAD\n"
+"aus und versuchen Sie es erneut.\n"
 
 #: builtin/commit.c
 #, c-format
@@ -13521,6 +13779,10 @@ msgid "value is --bool or --int"
 msgstr "Wert ist --bool oder --int"
 
 #: builtin/config.c
+msgid "value is --bool or string"
+msgstr "Wert ist --bool oder string"
+
+#: builtin/config.c
 msgid "value is a path (file or directory name)"
 msgstr "Wert ist ein Pfad (Datei oder Verzeichnisname)"
 
@@ -13572,7 +13834,7 @@ msgstr "Falsche Anzahl von Argumenten - sollte %d sein."
 #: builtin/config.c
 #, c-format
 msgid "wrong number of arguments, should be from %d to %d"
-msgstr "Falsche Anzahl von Argumenten - sollte zwischen %d und %d sein."
+msgstr "falsche Anzahl von Argumenten - sollte zwischen %d und %d sein"
 
 #: builtin/config.c
 #, c-format
@@ -13587,7 +13849,7 @@ msgstr "Fehler beim Formatieren des Standardkonfigurationswertes: %s"
 #: builtin/config.c
 #, c-format
 msgid "cannot parse color '%s'"
-msgstr "Kann Farbe '%s' nicht parsen."
+msgstr "kann Farbe '%s' nicht parsen"
 
 #: builtin/config.c
 msgid "unable to parse default color value"
@@ -13595,16 +13857,16 @@ msgstr "konnte Standard-Farbwert nicht parsen"
 
 #: builtin/config.c
 msgid "not in a git directory"
-msgstr "Nicht in einem Git-Repository."
+msgstr "nicht in einem Git-Repository"
 
 #: builtin/config.c
 msgid "writing to stdin is not supported"
-msgstr "Das Schreiben in die Standard-Eingabe wird nicht unterstützt."
+msgstr "das Schreiben in die Standard-Eingabe wird nicht unterstützt"
 
 #: builtin/config.c
 msgid "writing config blobs is not supported"
 msgstr ""
-"Das Schreiben von Blob-Objekten für Konfigurationen wird nicht unterstützt."
+"das Schreiben von Blob-Objekten für Konfigurationen wird nicht unterstützt"
 
 #: builtin/config.c
 #, c-format
@@ -13623,19 +13885,23 @@ msgstr ""
 
 #: builtin/config.c
 msgid "only one config file at a time"
-msgstr "Nur eine Konfigurationsdatei zu einer Zeit möglich."
+msgstr "nur eine Konfigurationsdatei zu einer Zeit möglich"
 
 #: builtin/config.c
 msgid "--local can only be used inside a git repository"
-msgstr "--local kann nur innerhalb eines Git-Repositories verwendet werden."
+msgstr "--local kann nur innerhalb eines Git-Repositories verwendet werden"
 
 #: builtin/config.c
 msgid "--blob can only be used inside a git repository"
-msgstr "--blob kann nur innerhalb eines Git-Repositories verwendet werden."
+msgstr "--blob kann nur innerhalb eines Git-Repositories verwendet werden"
+
+#: builtin/config.c
+msgid "--worktree can only be used inside a git repository"
+msgstr "--worktree kann nur innerhalb eines Git-Repositories verwendet werden"
 
 #: builtin/config.c
 msgid "$HOME not set"
-msgstr "$HOME nicht gesetzt."
+msgstr "$HOME nicht gesetzt"
 
 #: builtin/config.c
 msgid ""
@@ -13715,6 +13981,35 @@ msgstr "git count-objects [-v] [-H | --human-readable]"
 #: builtin/count-objects.c
 msgid "print sizes in human readable format"
 msgstr "gibt Größenangaben in menschenlesbaren Format aus"
+
+#: builtin/credential-cache--daemon.c
+#, c-format
+msgid ""
+"The permissions on your socket directory are too loose; other\n"
+"users may be able to read your cached credentials. Consider running:\n"
+"\n"
+"\tchmod 0700 %s"
+msgstr ""
+"Die Berechtigungen auf Ihr Socket-Verzeichnis sind zu schwach; andere\n"
+"Nutzer könnten Ihre zwischengespeicherten Anmeldeinformationen lesen.\n"
+"Ziehen Sie in Betracht\n"
+"\n"
+"\tchmod 0700 %s\n"
+"\n"
+"auszuführen."
+
+#: builtin/credential-cache--daemon.c
+msgid "print debugging messages to stderr"
+msgstr "Meldungen zur Fehlersuche in Standard-Fehlerausgabe ausgeben"
+
+#: builtin/credential-cache--daemon.c
+msgid "credential-cache--daemon unavailable; no unix socket support"
+msgstr ""
+"credential-cache--daemon nicht verfügbar; Unix-Socket wird nicht unterstützt"
+
+#: builtin/credential-cache.c
+msgid "credential-cache unavailable; no unix socket support"
+msgstr "credential-cache nicht verfügbar; Unix-Socket wird nicht unterstützt"
 
 #: builtin/describe.c
 msgid "git describe [<options>] [<commit-ish>...]"
@@ -14175,6 +14470,35 @@ msgstr ""
 "--import-marks und --import-marks-if-exists können nicht zusammen "
 "weitergegeben werden"
 
+#: builtin/fast-import.c
+#, c-format
+msgid "Missing from marks for submodule '%s'"
+msgstr "Fehlende 'from'-Markierungen für Submodul '%s'"
+
+#: builtin/fast-import.c
+#, c-format
+msgid "Missing to marks for submodule '%s'"
+msgstr "Fehlende 'to'-Markierungen für Submodul '%s'"
+
+#: builtin/fast-import.c
+#, c-format
+msgid "Expected 'mark' command, got %s"
+msgstr "'mark' Befehl erwartet, '%s' bekommen"
+
+#: builtin/fast-import.c
+#, c-format
+msgid "Expected 'to' command, got %s"
+msgstr "'to' Befehl erwartet, '%s' bekommen"
+
+#: builtin/fast-import.c
+msgid "Expected format name:filename for submodule rewrite option"
+msgstr "Format 'Name:Dateiname' für Submodul-Rewrite-Option erwartet"
+
+#: builtin/fast-import.c
+#, c-format
+msgid "feature '%s' forbidden in input without --allow-unsafe-features"
+msgstr "Feature '%s' verboten in Eingabe ohne Option --allow-unsafe-features"
+
 #: builtin/fetch-pack.c
 #, c-format
 msgid "Lockfile created but not reported: %s"
@@ -14256,6 +14580,10 @@ msgstr "bei-Bedarf"
 msgid "control recursive fetching of submodules"
 msgstr "rekursive Anforderungen von Submodulen kontrollieren"
 
+#: builtin/fetch.c
+msgid "write fetched references to the FETCH_HEAD file"
+msgstr "schreibe angeforderte Referenzen in die FETCH_HEAD-Datei"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "keep downloaded pack"
 msgstr "heruntergeladenes Paket behalten"
@@ -14311,8 +14639,8 @@ msgstr ""
 "sind"
 
 #: builtin/fetch.c
-msgid "run 'gc --auto' after fetching"
-msgstr "Führe 'gc --auto' nach \"fetch\" aus"
+msgid "run 'maintenance --auto' after fetching"
+msgstr "führe 'maintenance --auto' nach \"fetch\" aus"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "check for forced-updates on all updated branches"
@@ -14321,6 +14649,10 @@ msgstr "Prüfe auf erzwungene Aktualisierungen in allen aktualisierten Branches"
 #: builtin/fetch.c
 msgid "write the commit-graph after fetching"
 msgstr "Schreibe den Commit-Graph nach \"fetch\""
+
+#: builtin/fetch.c
+msgid "accept refspecs from stdin"
+msgstr "akzeptiere Refspecs von der Standard-Eingabe"
 
 #: builtin/fetch.c
 msgid "Couldn't find remote ref HEAD"
@@ -14562,7 +14894,13 @@ msgid ""
 "partialclone"
 msgstr ""
 "--filter kann nur mit den Remote-Repositories verwendet werden,\n"
-"die in core.partialClone konfiguriert sind."
+"die in extensions.partialclone konfiguriert sind"
+
+#: builtin/fetch.c
+msgid "--stdin can only be used when fetching from one remote"
+msgstr ""
+"die Option --stdin kann nur verwendet werden, wenn nur von einem Remote-\n"
+"Repository abgefragt wird"
 
 #: builtin/fmt-merge-msg.c
 msgid ""
@@ -14600,8 +14938,8 @@ msgid "git for-each-ref [--points-at <object>]"
 msgstr "git for-each-ref [--points-at <Objekt>]"
 
 #: builtin/for-each-ref.c
-msgid "git for-each-ref [(--merged | --no-merged) [<commit>]]"
-msgstr "git for-each-ref [(--merged | --no-merged) [<Commit>]]"
+msgid "git for-each-ref [--merged [<commit>]] [--no-merged [<commit>]]"
+msgstr "git for-each-ref [--merged [<Commit>]] [--no-merged [<Commit>]]"
 
 #: builtin/for-each-ref.c
 msgid "git for-each-ref [--contains [<commit>]] [--no-contains [<commit>]]"
@@ -14999,6 +15337,59 @@ msgid ""
 msgstr ""
 "Es gibt zu viele unerreichbare lose Objekte; führen Sie 'git prune' aus, um "
 "diese zu löschen."
+
+#: builtin/gc.c
+msgid "git maintenance run [--auto] [--[no-]quiet] [--task=<task>]"
+msgstr "git maintenance run [--auto] [--[no-]quiet] [--task=<Aufgabe>]"
+
+#: builtin/gc.c
+msgid "failed to write commit-graph"
+msgstr "Fehler beim Schreiben des Commit-Graph"
+
+#: builtin/gc.c
+#, c-format
+msgid "lock file '%s' exists, skipping maintenance"
+msgstr "Sperrdatei '%s' existiert, Wartung wird übersprungen"
+
+#: builtin/gc.c
+#, c-format
+msgid "task '%s' failed"
+msgstr "Aufgabe '%s' fehlgeschlagen"
+
+#: builtin/gc.c
+#, c-format
+msgid "'%s' is not a valid task"
+msgstr "'%s' ist keine gültige Aufgabe"
+
+#: builtin/gc.c
+#, c-format
+msgid "task '%s' cannot be selected multiple times"
+msgstr "Aufgabe '%s' kann nicht mehrfach ausgewählt werden"
+
+#: builtin/gc.c
+msgid "run tasks based on the state of the repository"
+msgstr "Aufgaben abhängig vom Zustand des Repositories ausführen"
+
+#: builtin/gc.c
+msgid "do not report progress or other information over stderr"
+msgstr "zeige keinen Fortschritt oder andere Informationen über stderr"
+
+#: builtin/gc.c
+msgid "task"
+msgstr "Aufgabe"
+
+#: builtin/gc.c
+msgid "run a specific task"
+msgstr "eine bestimmte Aufgabe ausführen"
+
+#: builtin/gc.c
+msgid "git maintenance run [<options>]"
+msgstr "git maintenance run [<Optionen>]"
+
+#: builtin/gc.c
+#, c-format
+msgid "invalid subcommand: %s"
+msgstr "ungültiger Unterbefehl: %s"
 
 #: builtin/grep.c
 msgid "git grep [<options>] [-e] <pattern> [<rev>...] [[--] <path>...]"
@@ -15831,13 +16222,17 @@ msgstr "angeben, dass das Git-Repository mit mehreren Benutzern geteilt wird"
 msgid "override the name of the initial branch"
 msgstr "den Namen des initialen Branches überschreiben"
 
-#: builtin/init-db.c
+#: builtin/init-db.c builtin/verify-pack.c
 msgid "hash"
 msgstr "Hash"
 
-#: builtin/init-db.c builtin/show-index.c
+#: builtin/init-db.c builtin/show-index.c builtin/verify-pack.c
 msgid "specify the hash algorithm to use"
 msgstr "den zu verwendenen Hash-Algorithmus angeben"
+
+#: builtin/init-db.c
+msgid "--separate-git-dir and --bare are mutually exclusive"
+msgstr "--separate-git-dir und --bare schließen sich gegenseitig aus"
 
 #: builtin/init-db.c
 #, c-format
@@ -15862,6 +16257,10 @@ msgstr ""
 #, c-format
 msgid "Cannot access work tree '%s'"
 msgstr "Kann nicht auf Arbeitsverzeichnis '%s' zugreifen."
+
+#: builtin/init-db.c
+msgid "--separate-git-dir incompatible with bare repository"
+msgstr "--separate-git-dir nicht kompatibel mit Bare-Repository"
 
 #: builtin/interpret-trailers.c
 msgid ""
@@ -16076,8 +16475,13 @@ msgid "cannot get patch id"
 msgstr "kann Patch-Id nicht lesen"
 
 #: builtin/log.c
-msgid "failed to infer range-diff ranges"
-msgstr "Fehler beim Ableiten des range-diff-Bereichs."
+msgid "failed to infer range-diff origin of current series"
+msgstr "Fehler beim Ableiten des range-diff Ursprungs der aktuellen Serie"
+
+#: builtin/log.c
+#, c-format
+msgid "using '%s' as range-diff origin of current series"
+msgstr "nutze '%s' als range-diff Ursprung der aktuellen Serie"
 
 #: builtin/log.c
 msgid "use [PATCH n/m] even with a single patch"
@@ -17156,6 +17560,10 @@ msgid "not under version control"
 msgstr "nicht unter Versionskontrolle"
 
 #: builtin/mv.c
+msgid "conflicted"
+msgstr "in Konflikt"
+
+#: builtin/mv.c
 msgid "destination exists"
 msgstr "Ziel existiert bereits"
 
@@ -17204,8 +17612,8 @@ msgid "git name-rev [<options>] --stdin"
 msgstr "git name-rev [<Optionen>] --stdin"
 
 #: builtin/name-rev.c
-msgid "print only names (no SHA-1)"
-msgstr "nur Namen anzeigen (keine SHA-1)"
+msgid "print only ref-based names (no object names)"
+msgstr "nur Referenzen-basierte Namen ausgeben (keine Objektnamen)"
 
 #: builtin/name-rev.c
 msgid "only use tags to name the commits"
@@ -19057,12 +19465,24 @@ msgid "add a Signed-off-by: line to each commit"
 msgstr "eine \"Signed-off-by:\"-Zeile zu jedem Commit hinzufügen"
 
 #: builtin/rebase.c
-msgid "passed to 'git am'"
-msgstr "an 'git am' übergeben"
+msgid "make committer date match author date"
+msgstr "Datum des Commit-Erstellers soll mit Datum des Autors übereinstimmen"
+
+#: builtin/rebase.c
+msgid "ignore author date and use current date"
+msgstr "ignoriere Autor-Datum und nutze aktuelles Datum"
+
+#: builtin/rebase.c
+msgid "synonym of --reset-author-date"
+msgstr "Synonym für --reset-author-date"
 
 #: builtin/rebase.c
 msgid "passed to 'git apply'"
 msgstr "an 'git apply' übergeben"
+
+#: builtin/rebase.c
+msgid "ignore changes in whitespace"
+msgstr "Whitespace-Änderungen ignorieren"
 
 #: builtin/rebase.c
 msgid "cherry-pick all commits, even if unchanged"
@@ -20853,6 +21273,20 @@ msgid "git log --pretty=short | git shortlog [<options>]"
 msgstr "git log --pretty=short | git shortlog [<Optionen>]"
 
 #: builtin/shortlog.c
+msgid "using multiple --group options with stdin is not supported"
+msgstr "mehrere Optionen --group mit Standard-Eingabe wird nicht unterstützt"
+
+#: builtin/shortlog.c
+msgid "using --group=trailer with stdin is not supported"
+msgstr ""
+"Nutzung von --group=trailer mit Standard-Eingabe wird nicht unterstützt"
+
+#: builtin/shortlog.c
+#, c-format
+msgid "unknown group type: %s"
+msgstr "unbekannter Gruppen-Typ: %s"
+
+#: builtin/shortlog.c
 msgid "Group by committer rather than author"
 msgstr "über Commit-Ersteller anstatt Autor gruppieren"
 
@@ -20875,6 +21309,14 @@ msgstr "<w>[,<i1>[,<i2>]]"
 #: builtin/shortlog.c
 msgid "Linewrap output"
 msgstr "Ausgabe mit Zeilenumbrüchen"
+
+#: builtin/shortlog.c
+msgid "field"
+msgstr "Feld"
+
+#: builtin/shortlog.c
+msgid "Group by field"
+msgstr "Gruppieren über Feld"
 
 #: builtin/shortlog.c
 msgid "too many arguments given outside repository"
@@ -21078,6 +21520,10 @@ msgid "git sparse-checkout (init|list|set|add|reapply|disable) <options>"
 msgstr "git sparse-checkout (init|list|set|add|reapply|disable) <Optionen>"
 
 #: builtin/sparse-checkout.c
+msgid "git sparse-checkout list"
+msgstr "git sparse-checkout list"
+
+#: builtin/sparse-checkout.c
 msgid "this worktree is not sparse (sparse-checkout file may not exist)"
 msgstr ""
 "dieses Arbeitsverzeichnis ist nicht partiell (Datei für partieller Checkout "
@@ -21133,6 +21579,14 @@ msgstr "konnte die existierenden Muster des partiellen Checkouts nicht laden"
 #: builtin/sparse-checkout.c
 msgid "read patterns from standard in"
 msgstr "Muster von der Standard-Eingabe lesen"
+
+#: builtin/sparse-checkout.c
+msgid "git sparse-checkout reapply"
+msgstr "git sparse-checkout reapply"
+
+#: builtin/sparse-checkout.c
+msgid "git sparse-checkout disable"
+msgstr "git sparse-checkout disable"
 
 #: builtin/sparse-checkout.c
 msgid "error while refreshing working directory"
@@ -21546,23 +22000,78 @@ msgstr "git submodule--helper name <Pfad>"
 
 #: builtin/submodule--helper.c
 #, c-format
+msgid "* %s %s(blob)->%s(submodule)"
+msgstr "* %s %s(blob)->%s(submodule)"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "* %s %s(submodule)->%s(blob)"
+msgstr "* %s %s(submodule)->%s(blob)"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "couldn't hash object from '%s'"
+msgstr "Hash eines Objektes von '%s' konnte nicht erzeugt werden"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "unexpected mode %o\n"
+msgstr "unerwarteter Modus %o\n"
+
+#: builtin/submodule--helper.c
+msgid "use the commit stored in the index instead of the submodule HEAD"
+msgstr ""
+"benutze den Commit, der im Index gespeichert ist, statt vom Submodul HEAD"
+
+#: builtin/submodule--helper.c
+msgid "to compare the commit in the index with that in the submodule HEAD"
+msgstr "um den Commit aus dem Index mit dem im Submodul HEAD zu vergleichen"
+
+#: builtin/submodule--helper.c
+msgid "skip submodules with 'ignore_config' value set to 'all'"
+msgstr ""
+"überspringe Submodule, wo der 'ignore_config' Wert auf 'all' gesetzt ist"
+
+#: builtin/submodule--helper.c
+msgid "limit the summary size"
+msgstr "Größe der Zusammenfassung begrenzen"
+
+#: builtin/submodule--helper.c
+msgid "git submodule--helper summary [<options>] [<commit>] [--] [<path>]"
+msgstr "git submodule--helper summary [<Optionen>] [<Commit>] [--] [<Pfad>]"
+
+#: builtin/submodule--helper.c
+msgid "could not fetch a revision for HEAD"
+msgstr "konnte keinen Commit für HEAD holen"
+
+#: builtin/submodule--helper.c
+msgid "--cached and --files are mutually exclusive"
+msgstr "--cached und --files schließen sich gegenseitig aus"
+
+#: builtin/submodule--helper.c
+#, c-format
 msgid "Synchronizing submodule url for '%s'\n"
 msgstr "Synchronisiere Submodul-URL für '%s'\n"
 
 #: builtin/submodule--helper.c
 #, c-format
 msgid "failed to register url for submodule path '%s'"
-msgstr "Fehler beim Registrieren der URL für Submodul-Pfad '%s'."
+msgstr "Fehler beim Registrieren der URL für Submodul-Pfad '%s'"
 
 #: builtin/submodule--helper.c
 #, c-format
 msgid "failed to get the default remote for submodule '%s'"
-msgstr "Fehler beim Lesen des Standard-Remote-Repositories für Submodul '%s'."
+msgstr "Fehler beim Lesen des Standard-Remote-Repositories für Submodul '%s'"
 
 #: builtin/submodule--helper.c
 #, c-format
 msgid "failed to update remote for submodule '%s'"
-msgstr "Fehler beim Aktualisieren des Remote-Repositories für Submodul '%s'."
+msgstr "Fehler beim Aktualisieren des Remote-Repositories für Submodul '%s'"
 
 #: builtin/submodule--helper.c
 msgid "Suppress output of synchronizing submodule url"
@@ -21937,11 +22446,13 @@ msgstr "git tag -d <Tagname>..."
 msgid ""
 "git tag -l [-n[<num>]] [--contains <commit>] [--no-contains <commit>] [--"
 "points-at <object>]\n"
-"\t\t[--format=<format>] [--[no-]merged [<commit>]] [<pattern>...]"
+"\t\t[--format=<format>] [--merged <commit>] [--no-merged <commit>] "
+"[<pattern>...]"
 msgstr ""
 "git tag -l [-n[<Nummer>]] [--contains <Commit>] [--no-contains <Commit>] [--"
 "points-at <Objekt>]\n"
-"\t\t[--format=<Muster>] [--[no-]merged [<Commit>]] [<Muster>...]"
+"\t\t[--format=<format>] [--merged <Commit>] [--no-merged <Commit>] "
+"[<Muster>...]"
 
 #: builtin/tag.c
 msgid "git tag -v [--format=<format>] <tagname>..."
@@ -22809,6 +23320,16 @@ msgstr ""
 msgid "validation failed, cannot remove working tree: %s"
 msgstr "Validierung fehlgeschlagen, kann Arbeitsverzeichnis nicht löschen: %s"
 
+#: builtin/worktree.c
+#, c-format
+msgid "repair: %s: %s"
+msgstr "repariere: %s: %s"
+
+#: builtin/worktree.c
+#, c-format
+msgid "error: %s: %s"
+msgstr "Fehler: %s: %s"
+
 #: builtin/write-tree.c
 msgid "git write-tree [--missing-ok] [--prefix=<prefix>/]"
 msgstr "git write-tree [--missing-ok] [--prefix=<Präfix>/]"
@@ -22825,157 +23346,14 @@ msgstr "das Tree-Objekt für ein Unterverzeichnis <Präfix> schreiben"
 msgid "only useful for debugging"
 msgstr "nur nützlich für Fehlersuche"
 
-#: bugreport.c
-msgid "git version:\n"
-msgstr "git Version:\n"
-
-#: bugreport.c
-#, c-format
-msgid "uname() failed with error '%s' (%d)\n"
-msgstr "uname() ist fehlgeschlagen mit Fehler '%s' (%d)\n"
-
-#: bugreport.c
-msgid "compiler info: "
-msgstr "Compiler Info: "
-
-#: bugreport.c
-msgid "libc info: "
-msgstr "libc Info: "
-
-#: bugreport.c
-msgid "not run from a git repository - no hooks to show\n"
-msgstr "nicht in einem Git-Repository ausgeführt - keine Hooks zum Anzeigen\n"
-
-#: bugreport.c
-msgid "git bugreport [-o|--output-directory <file>] [-s|--suffix <format>]"
-msgstr "git bugreport [-o|--output-directory <Datei>] [-s|--suffix <Format>]"
-
-#: bugreport.c
-msgid ""
-"Thank you for filling out a Git bug report!\n"
-"Please answer the following questions to help us understand your issue.\n"
-"\n"
-"What did you do before the bug happened? (Steps to reproduce your issue)\n"
-"\n"
-"What did you expect to happen? (Expected behavior)\n"
-"\n"
-"What happened instead? (Actual behavior)\n"
-"\n"
-"What's different between what you expected and what actually happened?\n"
-"\n"
-"Anything else you want to add:\n"
-"\n"
-"Please review the rest of the bug report below.\n"
-"You can delete any lines you don't wish to share.\n"
-msgstr ""
-"Vielen Dank für das Ausfüllen eines Git-Fehlerberichts!\n"
-"Bitte antworten Sie auf die folgenden Fragen, um uns dabei zu helfen, Ihr\n"
-"Problem zu verstehen.\n"
-"\n"
-"Was haben Sie gemacht, bevor der Fehler auftrat? (Schritte, um Ihr Fehler\n"
-"zu reproduzieren)\n"
-"\n"
-"Was haben Sie erwartet, was passieren soll? (Erwartetes Verhalten)\n"
-"\n"
-"Was ist stattdessen passiert? (Wirkliches Verhalten)\n"
-"\n"
-"Was ist der Unterschied zwischen dem, was Sie erwartet haben und was\n"
-"wirklich passiert ist?\n"
-"\n"
-"Sonstige Anmerkungen, die Sie hinzufügen möchten:\n"
-"\n"
-"Bitte überprüfen Sie den restlichen Teil des Fehlerberichts unten.\n"
-"Sie können jede Zeile löschen, die Sie nicht mitteilen möchten.\n"
-
-#: bugreport.c
-msgid "specify a destination for the bugreport file"
-msgstr "Speicherort für die Datei des Fehlerberichts angeben"
-
-#: bugreport.c
-msgid "specify a strftime format suffix for the filename"
-msgstr "Dateiendung im strftime-Format für den Dateinamen angeben"
-
-#: bugreport.c
-#, c-format
-msgid "could not create leading directories for '%s'"
-msgstr "konnte vorangehende Verzeichnisse für '%s' nicht erstellen"
-
-#: bugreport.c
-msgid "System Info"
-msgstr "System Info"
-
-#: bugreport.c
-msgid "Enabled Hooks"
-msgstr "Aktivierte Hooks"
-
-#: bugreport.c
-#, c-format
-msgid "couldn't create a new file at '%s'"
-msgstr "konnte keine neue Datei unter '%s' erstellen"
-
-#: bugreport.c
-#, c-format
-msgid "unable to write to %s"
-msgstr "konnte nicht nach %s schreiben"
-
-#: bugreport.c
-#, c-format
-msgid "Created new report at '%s'.\n"
-msgstr "Neuer Bericht unter '%s' erstellt.\n"
-
-#: fast-import.c
-#, c-format
-msgid "Missing from marks for submodule '%s'"
-msgstr "Fehlende 'from'-Markierungen für Submodul '%s'"
-
-#: fast-import.c
-#, c-format
-msgid "Missing to marks for submodule '%s'"
-msgstr "Fehlende 'to'-Markierungen für Submodul '%s'"
-
-#: fast-import.c
-#, c-format
-msgid "Expected 'mark' command, got %s"
-msgstr "'mark' Befehl erwartet, '%s' bekommen"
-
-#: fast-import.c
-#, c-format
-msgid "Expected 'to' command, got %s"
-msgstr "'to' Befehl erwartet, '%s' bekommen"
-
-#: fast-import.c
-msgid "Expected format name:filename for submodule rewrite option"
-msgstr "Format 'Name:Dateiname' für Submodul-Rewrite-Option erwartet"
-
-#: fast-import.c
-#, c-format
-msgid "feature '%s' forbidden in input without --allow-unsafe-features"
-msgstr "Feature '%s' verboten in Eingabe ohne Option --allow-unsafe-features"
-
 #: http-fetch.c
 #, c-format
 msgid "argument to --packfile must be a valid hash (got '%s')"
 msgstr "Argument für --packfile muss ein gültiger Hash sein ('%s' erhalten)"
 
-#: credential-cache--daemon.c
-#, c-format
-msgid ""
-"The permissions on your socket directory are too loose; other\n"
-"users may be able to read your cached credentials. Consider running:\n"
-"\n"
-"\tchmod 0700 %s"
-msgstr ""
-"Die Berechtigungen auf Ihr Socket-Verzeichnis sind zu schwach; andere\n"
-"Nutzer könnten Ihre zwischengespeicherten Anmeldeinformationen lesen.\n"
-"Ziehen Sie in Betracht\n"
-"\n"
-"\tchmod 0700 %s\n"
-"\n"
-"auszuführen."
-
-#: credential-cache--daemon.c
-msgid "print debugging messages to stderr"
-msgstr "Meldungen zur Fehlersuche in Standard-Fehlerausgabe ausgeben"
+#: http-fetch.c
+msgid "not a git repository"
+msgstr "kein Git-Repository"
 
 #: t/helper/test-reach.c
 #, c-format
@@ -23340,8 +23718,8 @@ msgid "be more quiet"
 msgstr "weniger Ausgaben"
 
 #: parse-options.h
-msgid "use <n> digits to display SHA-1s"
-msgstr "benutze <n> Ziffern zur Anzeige von SHA-1s"
+msgid "use <n> digits to display object names"
+msgstr "benutze <Anzahl> Ziffern zur Anzeige von Objektnamen"
 
 #: parse-options.h
 msgid "how to strip spaces and #comments from message"
@@ -23690,6 +24068,10 @@ msgid "Simple UNIX mbox splitter program"
 msgstr "einfaches UNIX mbox Splitter-Programm"
 
 #: command-list.h
+msgid "Run tasks to optimize Git repository data"
+msgstr "Aufgaben ausführen, um Git-Repository-Daten zu optimieren"
+
+#: command-list.h
 msgid "Join two or more development histories together"
 msgstr "zwei oder mehr Entwicklungszweige zusammenführen"
 
@@ -24013,6 +24395,10 @@ msgid "A Git core tutorial for developers"
 msgstr "eine Git Anleitung für Entwickler"
 
 #: command-list.h
+msgid "Providing usernames and passwords to Git"
+msgstr "Bereitstellung von Benutzernamen und Passwörtern für Git"
+
+#: command-list.h
 msgid "Git for CVS users"
 msgstr "Git für CVS Benutzer"
 
@@ -24050,6 +24436,10 @@ msgid "Git namespaces"
 msgstr "Git Namensbereiche"
 
 #: command-list.h
+msgid "Helper programs to interact with remote repositories"
+msgstr "Hilfsprogramme zur Interaktion mit Remote-Repositories"
+
+#: command-list.h
 msgid "Git Repository Layout"
 msgstr "Git Repository Aufbau"
 
@@ -24072,17 +24462,6 @@ msgstr "eine einführende Anleitung zu Git"
 #: command-list.h
 msgid "An overview of recommended workflows with Git"
 msgstr "Eine Übersicht über empfohlene Arbeitsabläufe mit Git"
-
-#: git-bisect.sh
-msgid "You need to start by \"git bisect start\""
-msgstr "Sie müssen mit \"git bisect start\" beginnen."
-
-#. TRANSLATORS: Make sure to include [Y] and [n] in your
-#. translation. The program will only accept English input
-#. at this point.
-#: git-bisect.sh
-msgid "Do you want me to do it for you [Y/n]? "
-msgstr "Wollen Sie, dass ich es für Sie mache [Y/n]? "
 
 #: git-bisect.sh
 #, sh-format
@@ -24361,32 +24740,6 @@ msgstr "Submodul-Pfad '$displaypath': '$command $sha1'"
 #, sh-format
 msgid "Failed to recurse into submodule path '$displaypath'"
 msgstr "Fehler bei Rekursion in Submodul-Pfad '$displaypath'"
-
-#: git-submodule.sh
-msgid "The --cached option cannot be used with the --files option"
-msgstr ""
-"Die Optionen --cached und --files können nicht gemeinsam verwendet werden."
-
-#: git-submodule.sh
-#, sh-format
-msgid "unexpected mode $mod_dst"
-msgstr "unerwarteter Modus $mod_dst"
-
-#: git-submodule.sh
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commit $sha1_src"
-msgstr "  Warnung: $display_name beinhaltet nicht Commit $sha1_src"
-
-#: git-submodule.sh
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commit $sha1_dst"
-msgstr "  Warnung: $display_name beinhaltet nicht Commit $sha1_dst"
-
-#: git-submodule.sh
-#, sh-format
-msgid "  Warn: $display_name doesn't contain commits $sha1_src and $sha1_dst"
-msgstr ""
-"  Warnung: $display_name beinhaltet nicht die Commits $sha1_src und $sha1_dst"
 
 #: git-parse-remote.sh
 #, sh-format
@@ -25175,6 +25528,18 @@ msgstr "'%s.final' enthält die verfasste E-Mail.\n"
 #: git-send-email.perl
 msgid "--dump-aliases incompatible with other options\n"
 msgstr "--dump-aliases ist mit anderen Optionen inkompatibel\n"
+
+#: git-send-email.perl
+msgid ""
+"fatal: found configuration options for 'sendmail'\n"
+"git-send-email is configured with the sendemail.* options - note the 'e'.\n"
+"Set sendemail.forbidSendmailVariables to false to disable this check.\n"
+msgstr ""
+"fatal: Konfigurations-Optionen für 'sendmail' gefunden\n"
+"git-send-email wird über die Optionen sendemail.* konfiguriert - beachten "
+"Sie das 'e'.\n"
+"Setzen Sie sendemail.forbidSendmailVariables auf 'false', um diese Prüfung "
+"zu deaktivieren.\n"
 
 #: git-send-email.perl
 msgid "Cannot run git format-patch from outside a repository\n"
