@@ -1,7 +1,7 @@
 # Bulgarian translation of git po-file.
-# Copyright (C) 2014, 2015, 2016, 2017, 2018, 2019, 2020 Alexander Shopov <ash@kambanaria.org>.
+# Copyright (C) 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Alexander Shopov <ash@kambanaria.org>.
 # This file is distributed under the same license as the git package.
-# Alexander Shopov <ash@kambanaria.org>, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
+# Alexander Shopov <ash@kambanaria.org>, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 #
 # ========================
 # DICTIONARY TO MERGE IN GIT GUI
@@ -38,6 +38,7 @@
 # graft присадка
 # grafted repository хранилище с присаждане
 # replace refs заместващи указатели
+# replace objects заместващи обекти
 # embedded repository вградено/вътрешно хранилище (добавянето му е грешка)
 # thin pack съкратен пакет
 # pack file пакетен файл
@@ -149,6 +150,8 @@
 # identity самоличност, информация за
 # boundary commit гранично подаване
 # integrate (changes) внасяне (на промени)
+# overflow data данни за отместването
+# reverse index обратен индекс (а не обърнат, за да не се бърка с reverse key index)
 # ------------------------
 # „$var“ - може да не сработва за shell има gettext и eval_gettext - проверка - намират се лесно по „$
 # ------------------------
@@ -165,10 +168,10 @@
 # for i in `sort -u FILES`; do cnt=`grep $i FILES | wc -l`; echo $cnt $i ;done | sort -n
 msgid ""
 msgstr ""
-"Project-Id-Version: git 2.30\n"
+"Project-Id-Version: git 2.31\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-12-21 07:10+0800\n"
-"PO-Revision-Date: 2020-12-22 17:48+0100\n"
+"POT-Creation-Date: 2021-03-04 22:41+0800\n"
+"PO-Revision-Date: 2021-03-05 12:11+0100\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -1271,7 +1274,7 @@ msgstr "неуспешно прилагане на кръпка: „%s:%ld“"
 msgid "cannot checkout %s"
 msgstr "„%s“ не може да се изтегли"
 
-#: apply.c midx.c setup.c
+#: apply.c midx.c pack-revindex.c setup.c
 #, c-format
 msgid "failed to read %s"
 msgstr "файлът „%s“ не може да бъде прочетен"
@@ -1968,7 +1971,7 @@ msgstr "„%s“ e както „%s“, така и „%s“\n"
 #, c-format
 msgid ""
 "No testable commit found.\n"
-"Maybe you started with bad path parameters?\n"
+"Maybe you started with bad path arguments?\n"
 msgstr ""
 "Липсва подходящо за тестване подаване.\n"
 "Проверете параметрите за пътищата.\n"
@@ -2229,10 +2232,6 @@ msgid "pack-objects died"
 msgstr "Командата „git pack-objects“ не завърши успешно"
 
 #: bundle.c
-msgid "rev-list died"
-msgstr "Командата „git rev-list“ не завърши успешно"
-
-#: bundle.c
 #, c-format
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr ""
@@ -2260,11 +2259,30 @@ msgstr "Създаването на празна пратка е невъзмо�
 #: bundle.c
 #, c-format
 msgid "cannot create '%s'"
-msgstr "Файлът „%s“ не може да бъде създаден"
+msgstr "файлът „%s“ не може да бъде създаден"
 
 #: bundle.c
 msgid "index-pack died"
-msgstr "Командата „git index-pack“ не завърши успешно"
+msgstr "командата „git index-pack“ не завърши успешно"
+
+#: chunk-format.c
+msgid "terminating chunk id appears earlier than expected"
+msgstr "идентификаторът за краен откъс се явява по-рано от очакваното"
+
+#: chunk-format.c
+#, c-format
+msgid "improper chunk offset(s) %<PRIx64> and %<PRIx64>"
+msgstr "неправилно отместване на откъс/и %<PRIx64> и %<PRIx64>"
+
+#: chunk-format.c
+#, c-format
+msgid "duplicate chunk ID %<PRIx32> found"
+msgstr "повтарящ се идентификатор на откъс %<PRIx32>"
+
+#: chunk-format.c
+#, c-format
+msgid "final chunk has non-zero id %<PRIx32>"
+msgstr "ненулев идентификатор за краен откъс %<PRIx32>"
 
 #: color.c
 #, c-format
@@ -2277,7 +2295,7 @@ msgstr "неправилна версия на контролна сума"
 
 #: commit-graph.c
 msgid "commit-graph file is too small"
-msgstr "файлът с гра̀фа на подаванията е твърде малък"
+msgstr "файлът за гра̀фа с подаванията е твърде малък"
 
 #: commit-graph.c
 #, c-format
@@ -2298,16 +2316,6 @@ msgstr "версията на контролната сума на гра̀фа 
 #, c-format
 msgid "commit-graph file is too small to hold %u chunks"
 msgstr "файлът с гра̀фа на подаванията е твърде малък, за да съдържа %u откъси"
-
-#: commit-graph.c
-#, c-format
-msgid "commit-graph improper chunk offset %08x%08x"
-msgstr "неправилно отместване на откъс: %08x%08x"
-
-#: commit-graph.c
-#, c-format
-msgid "commit-graph chunk id %08x appears multiple times"
-msgstr "откъсът %08x се явява многократно"
 
 #: commit-graph.c
 msgid "commit-graph has no base graphs chunk"
@@ -2337,6 +2345,12 @@ msgstr ""
 msgid "could not find commit %s"
 msgstr "подаването „%s“ не може да бъде открито"
 
+#: commit-graph.c
+msgid "commit-graph requires overflow generation data but has none"
+msgstr ""
+"графът с подаванията изисква генериране на данни за отместването, но такива "
+"липсват"
+
 #: commit-graph.c builtin/am.c
 #, c-format
 msgid "unable to parse commit %s"
@@ -2358,6 +2372,10 @@ msgstr "Разширяване на достижимите подавания в
 #: commit-graph.c
 msgid "Clearing commit marks in commit graph"
 msgstr "Изчистване на отбелязванията на подаванията в гра̀фа с подаванията"
+
+#: commit-graph.c
+msgid "Computing commit graph topological levels"
+msgstr "Изчисляване на топологичните нива в гра̀фа с подаванията"
 
 #: commit-graph.c
 msgid "Computing commit graph generation numbers"
@@ -2525,10 +2543,10 @@ msgstr ""
 
 #: commit-graph.c
 #, c-format
-msgid "commit-graph generation for commit %s is %u != %u"
+msgid "commit-graph generation for commit %s is %<PRIuMAX> < %<PRIuMAX>"
 msgstr ""
-"номерът на поколението на подаване „%s“ в гра̀фа с подаванията е %u, а "
-"другаде е %u"
+"номерът на поколението на подаване „%s“ в гра̀фа с подаванията е %<PRIuMAX> < "
+"%<PRIuMAX>"
 
 #: commit-graph.c
 #, c-format
@@ -2636,6 +2654,21 @@ msgstr "относителните условни изрази за вмъква
 
 #: config.c
 #, c-format
+msgid "invalid config format: %s"
+msgstr "неправилен формат на настройка: %s"
+
+#: config.c
+#, c-format
+msgid "missing environment variable name for configuration '%.*s'"
+msgstr "липсва име на променлива на средата за настройката „%.*s“"
+
+#: config.c
+#, c-format
+msgid "missing environment variable '%s' for configuration '%.*s'"
+msgstr "липсва променлива на средата „%s“ за настройката „%.*s“"
+
+#: config.c
+#, c-format
 msgid "key does not contain a section: %s"
 msgstr "ключът не съдържа раздел: „%s“"
 
@@ -2655,6 +2688,10 @@ msgid "invalid key (newline): %s"
 msgstr "неправилен ключ (нов ред): „%s“"
 
 #: config.c
+msgid "empty config key"
+msgstr "празен ключ за настройка"
+
+#: config.c
 #, c-format
 msgid "bogus config parameter: %s"
 msgstr "неправилен конфигурационен параметър: „%s“"
@@ -2663,6 +2700,26 @@ msgstr "неправилен конфигурационен параметър: 
 #, c-format
 msgid "bogus format in %s"
 msgstr "неправилен формат в „%s“"
+
+#: config.c
+#, c-format
+msgid "bogus count in %s"
+msgstr "неправилен брой в „%s“"
+
+#: config.c
+#, c-format
+msgid "too many entries in %s"
+msgstr "прекалено много записи в „%s“"
+
+#: config.c
+#, c-format
+msgid "missing config key %s"
+msgstr "ключът за настройка „%s“ липсва"
+
+#: config.c
+#, c-format
+msgid "missing config value %s"
+msgstr "стойността за настройка „%s“ липсва"
 
 #: config.c
 #, c-format
@@ -2736,6 +2793,11 @@ msgstr "неправилна числова стойност „%s“ за „%s
 #, c-format
 msgid "bad numeric config value '%s' for '%s' in %s: %s"
 msgstr "неправилна числова стойност „%s“ за „%s“ в %s: %s"
+
+#: config.c
+#, c-format
+msgid "bad boolean config value '%s' for '%s'"
+msgstr "неправилна булева стойност „%s“ за „%s“"
 
 #: config.c
 #, c-format
@@ -3066,6 +3128,12 @@ msgstr ""
 "    git help pull"
 
 #: connect.c
+msgid "newline is forbidden in git:// hosts and repo paths"
+msgstr ""
+"знакът за нов ред не е позволен в адресите и в пътищата до хранилищата "
+"„git://“"
+
+#: connect.c
 msgid "ssh variant 'simple' does not support -4"
 msgstr "вариантът за „ssh“ — „simple“ (опростен), не поддържа опцията „-4“"
 
@@ -3361,6 +3429,11 @@ msgstr ""
 #, c-format
 msgid "Marked %d islands, done.\n"
 msgstr "Отбелязани са %d групи, работата приключи.\n"
+
+#: diff-merges.c
+#, c-format
+msgid "unknown value for --diff-merges: %s"
+msgstr "непозната стойност за опцията „--diff-merges“: „%s“"
 
 #: diff-lib.c
 msgid "--merge-base does not work with ranges"
@@ -3977,6 +4050,18 @@ msgid "control the order in which files appear in the output"
 msgstr "управление на подредбата на файловете в изхода"
 
 #: diff.c
+msgid "<path>"
+msgstr "ПЪТ"
+
+#: diff.c
+msgid "show the change in the specified path first"
+msgstr "първо извеждане на промяната в указания път"
+
+#: diff.c
+msgid "skip the output to the specified path"
+msgstr "прескачане на изхода към указания път"
+
+#: diff.c
 msgid "<object-id>"
 msgstr "ИДЕНТИФИКАТОР_НА_ОБЕКТ"
 
@@ -4028,6 +4113,11 @@ msgstr "файлът с подредбата на съответствията �
 #: diffcore-rename.c
 msgid "Performing inexact rename detection"
 msgstr "Търсене на преименувания на обекти съчетани с промени"
+
+#: diffcore-rotate.c
+#, c-format
+msgid "No such path '%s' in the diff"
+msgstr "Няма път на име „%s“ в разликата"
 
 #: dir.c
 #, c-format
@@ -4219,6 +4309,10 @@ msgstr "протоколна грешка: неправилна заглавна
 #, c-format
 msgid "fetch-pack: unable to fork off %s"
 msgstr "fetch-pack: не може да се създаде процес за „%s“"
+
+#: fetch-pack.c
+msgid "fetch-pack: invalid index-pack output"
+msgstr "fetch-pack: неправилен изход от командата „index-pack“"
 
 #: fetch-pack.c
 #, c-format
@@ -4717,8 +4811,249 @@ msgid "Unable to create '%s.lock': %s"
 msgstr "Файлът-ключалка „%s.lock“ не може да бъде създаден: %s"
 
 #: ls-refs.c
+#, c-format
+msgid "invalid value '%s' for lsrefs.unborn"
+msgstr "неправилна стойност „%s“ за „lsrefs.unborn“"
+
+#: ls-refs.c
 msgid "expected flush after ls-refs arguments"
 msgstr "след аргументите към „ls-refs“ се очаква изчистване на буферите"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr "Неуспешно сливане на подмодула „%s“ (не е изтеглен)"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr "Неуспешно сливане на подмодула „%s“ (няма подавания)"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr ""
+"Подмодулът „%s“ не може да бъде слят (базата за сливане не предшества "
+"подаванията)"
+
+#: merge-ort.c
+#, c-format
+msgid "Note: Fast-forwarding submodule %s to %s"
+msgstr "Бележка: Превъртане на подмодула „%s“ към „%s“"
+
+#: merge-ort.c
+#, c-format
+msgid "Failed to merge submodule %s"
+msgstr "Неуспешно сливане на подмодула „%s“"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"Failed to merge submodule %s, but a possible merge resolution exists:\n"
+"%s\n"
+msgstr ""
+"Неуспешно сливане на подмодула „%s“, но е открито възможно решение:\n"
+"%s\n"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+"Ако това е така, добавете го към индекса с команда като следната:\n"
+"\n"
+"    git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"Това приема предложеното.\n"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"Failed to merge submodule %s, but multiple possible merges exist:\n"
+"%s"
+msgstr ""
+"Неуспешно сливане на подмодула „%s“, но са открити множество решения:\n"
+"%s"
+
+#: merge-ort.c merge-recursive.c
+msgid "Failed to execute internal merge"
+msgstr "Неуспешно вътрешно сливане"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Unable to add %s to database"
+msgstr "„%s“ не може да се добави в базата с данни"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Auto-merging %s"
+msgstr "Автоматично сливане на „%s“"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+"КОНФЛИКТ (косвено преименуване на директория): следният файл или директория "
+"„%s“ не позволяват косвеното преименуване на следния път/ища: %s."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+"КОНФЛИКТ (косвено преименуване на директория): повече от един път "
+"съответства на „%s“.  Косвено преименуване на директория води до поставянето "
+"на тези пътища там: %s."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to rename %s to; it was "
+"renamed to multiple other directories, with no destination getting a "
+"majority of the files."
+msgstr ""
+"КОНФЛИКТ (раздвояване при преименуване на директория): Не е ясно как и къде "
+"да се преименува „%s“, защото е преместен в няколко нови директории, без "
+"никоя от тях да е по-честа цел."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: прескачане на преименуването на „%s“ на „%s“ в „%s“, защото "
+"„%s“ също е с променено име."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s added in %s inside a directory that was renamed in %s; "
+"moving it to %s."
+msgstr ""
+"Обновен път: „%s“ е добавен в „%s“ в директория, която е преименувана в "
+"„%s“.  Обектът се мести в „%s“."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
+"%s; moving it to %s."
+msgstr ""
+"Обновен път: „%s“ е преименуван на „%s“ в „%s“ в директория, която е "
+"преименувана в „%s“.  Обектът се мести в „%s“."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s added in %s inside a directory that was renamed "
+"in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+"КОНФЛИКТ (места на файлове): „%s“ е добавен в „%s“ в директория, която е "
+"преименувана в „%s“.  Предложението е да преместите обекта в „%s“."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
+"was renamed in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+"КОНФЛИКТ (места на файлове): „%s“ е преименуван на „%s“ в „%s“ в директория, "
+"която е преименувана в „%s“.  Предложението е да преместите обекта в „%s“."
+
+#: merge-ort.c
+#, c-format
+msgid "CONFLICT (rename/rename): %s renamed to %s in %s and to %s in %s."
+msgstr ""
+"КОНФЛИКТ (преименуване/преименуване): „%s“ е преименуван на „%s“ в клон „%s“ "
+"и на „%s“ в „%s“."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (rename involved in collision): rename of %s -> %s has content "
+"conflicts AND collides with another path; this may result in nested conflict "
+"markers."
+msgstr ""
+"КОНФЛИКТ (има и преименуване в промените): „%s“ е преименуван на „%s“, но "
+"има и промени в съдържанието, а и има съвпадение на пътя.  Може да се "
+"получат вложени маркери за конфликт."
+
+#: merge-ort.c
+#, c-format
+msgid "CONFLICT (rename/delete): %s renamed to %s in %s, but deleted in %s."
+msgstr ""
+"КОНФЛИКТ (преименуване/добавяне): „%s“ е преименуван на „%s“ в клон „%s“, а "
+"е изтрит в „%s“."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (file/directory): directory in the way of %s from %s; moving it to "
+"%s instead."
+msgstr ""
+"КОНФЛИКТ (файл/директория): директория на мястото на „%s“ от „%s“, вместо "
+"това се извършва преместване в „%s“."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (distinct types): %s had different types on each side; renamed %s "
+"of them so each can be recorded somewhere."
+msgstr ""
+"КОНФЛИКТ (различни обекти): „%s“ е различен вид обект в двата варианта, "
+"затова се извършва преименуване на %s, за да може и двата варианта да са "
+"отразени."
+
+#: merge-ort.c
+msgid "both"
+msgstr "двата"
+
+#: merge-ort.c
+msgid "one"
+msgstr "единия"
+
+#: merge-ort.c merge-recursive.c
+msgid "content"
+msgstr "съдържание"
+
+#: merge-ort.c merge-recursive.c
+msgid "add/add"
+msgstr "добавяне/добавяне"
+
+#: merge-ort.c merge-recursive.c
+msgid "submodule"
+msgstr "ПОДМОДУЛ"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "CONFLICT (%s): Merge conflict in %s"
+msgstr "КОНФЛИКТ (%s): Конфликт при сливане на „%s“"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (modify/delete): %s deleted in %s and modified in %s.  Version %s "
+"of %s left in tree."
+msgstr ""
+"КОНФЛИКТ (промяна/изтриване): „%s“ е изтрит в %s, а е променен в %s.  Версия "
+"%s на „%s“ е оставена в дървото."
+
+#. TRANSLATORS: The %s arguments are: 1) tree hash of a merge
+#. base, and 2-3) the trees for the two trees we're merging.
+#.
+#: merge-ort.c
+#, c-format
+msgid "collecting merge info failed for trees %s, %s, %s"
+msgstr "неуспешно събиране на информацията за сливането на „%s“, „%s“ и „%s“"
 
 #: merge-ort-wrappers.c merge-recursive.c
 #, c-format
@@ -4800,23 +5135,6 @@ msgstr ""
 
 #: merge-recursive.c
 #, c-format
-msgid "Failed to merge submodule %s (not checked out)"
-msgstr "Неуспешно сливане на подмодула „%s“ (не е изтеглен)"
-
-#: merge-recursive.c
-#, c-format
-msgid "Failed to merge submodule %s (commits not present)"
-msgstr "Неуспешно сливане на подмодула „%s“ (няма подавания)"
-
-#: merge-recursive.c
-#, c-format
-msgid "Failed to merge submodule %s (commits don't follow merge-base)"
-msgstr ""
-"Подмодулът „%s“ не може да бъде слят (базата за сливане не предшества "
-"подаванията)"
-
-#: merge-recursive.c
-#, c-format
 msgid "Fast-forwarding submodule %s to the following commit:"
 msgstr "Превъртане на подмодула „%s“ до следното подаване:"
 
@@ -4845,38 +5163,8 @@ msgstr ""
 
 #: merge-recursive.c
 #, c-format
-msgid ""
-"If this is correct simply add it to the index for example\n"
-"by using:\n"
-"\n"
-"  git update-index --cacheinfo 160000 %s \"%s\"\n"
-"\n"
-"which will accept this suggestion.\n"
-msgstr ""
-"Ако това е така, добавете го към индекса с команда като следната:\n"
-"\n"
-"    git update-index --cacheinfo 160000 %s \"%s\"\n"
-"\n"
-"Това приема предложеното.\n"
-
-#: merge-recursive.c
-#, c-format
 msgid "Failed to merge submodule %s (multiple merges found)"
 msgstr "Неуспешно сливане на подмодула „%s“ (открити са множество сливания)"
-
-#: merge-recursive.c
-msgid "Failed to execute internal merge"
-msgstr "Неуспешно вътрешно сливане"
-
-#: merge-recursive.c
-#, c-format
-msgid "Unable to add %s to database"
-msgstr "„%s“ не може да се добави в базата с данни"
-
-#: merge-recursive.c
-#, c-format
-msgid "Auto-merging %s"
-msgstr "Автоматично сливане на „%s“"
 
 #: merge-recursive.c
 #, c-format
@@ -4991,39 +5279,11 @@ msgstr ""
 #: merge-recursive.c
 #, c-format
 msgid ""
-"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
-"implicit directory rename(s) putting the following path(s) there: %s."
-msgstr ""
-"КОНФЛИКТ (косвено преименуване на директория): следният файл или директория "
-"„%s“ не позволяват косвеното преименуване на следния път/ища: %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
-"implicit directory renames tried to put these paths there: %s"
-msgstr ""
-"КОНФЛИКТ (косвено преименуване на директория): повече от един път "
-"съответства на „%s“.  Косвено преименуване на директория води до поставянето "
-"на тези пътища там: %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
 "CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
 ">%s in %s"
 msgstr ""
 "КОНФЛИКТ (преименуване/преименуване): „%s“ е преименуван на „%s“ в клон "
 "„%s“, а „%s“ е преименуван на „%s“ в „%s“"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
-"renamed."
-msgstr ""
-"ПРЕДУПРЕЖДЕНИЕ: прескачане на преименуването на „%s“ на „%s“ в „%s“, защото "
-"„%s“ също е с променено име."
 
 #: merge-recursive.c
 #, c-format
@@ -5044,67 +5304,14 @@ msgid "modified"
 msgstr "променен"
 
 #: merge-recursive.c
-msgid "content"
-msgstr "съдържание"
-
-#: merge-recursive.c
-msgid "add/add"
-msgstr "добавяне/добавяне"
-
-#: merge-recursive.c
 #, c-format
 msgid "Skipped %s (merged same as existing)"
 msgstr "Прескачане на „%s“ (слетият резултат е идентичен със сегашния)"
 
 #: merge-recursive.c
-msgid "submodule"
-msgstr "ПОДМОДУЛ"
-
-#: merge-recursive.c
-#, c-format
-msgid "CONFLICT (%s): Merge conflict in %s"
-msgstr "КОНФЛИКТ (%s): Конфликт при сливане на „%s“"
-
-#: merge-recursive.c
 #, c-format
 msgid "Adding as %s instead"
 msgstr "Добавяне като „%s“"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s added in %s inside a directory that was renamed in %s; "
-"moving it to %s."
-msgstr ""
-"Обновен път: „%s“ е добавен в „%s“ в директория, която е преименувана в "
-"„%s“.  Обектът се мести в „%s“."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s added in %s inside a directory that was renamed "
-"in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
-"КОНФЛИКТ (места на файлове): „%s“ е добавен в „%s“ в директория, която е "
-"преименувана в „%s“.  Предложението е да преместите обекта в „%s“."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
-"%s; moving it to %s."
-msgstr ""
-"Обновен път: „%s“ е преименуван на „%s“ в „%s“ в директория, която е "
-"преименувана в „%s“.  Обектът се мести в „%s“."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
-"was renamed in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
-"КОНФЛИКТ (места на файлове): „%s“ е преименуван на „%s“ в „%s“ в директория, "
-"която е преименувана в „%s“.  Предложението е да преместите обекта в „%s“."
 
 #: merge-recursive.c
 #, c-format
@@ -5161,7 +5368,7 @@ msgstr "сливането не върна подаване"
 msgid "Could not parse object '%s'"
 msgstr "Неуспешен анализ на обекта „%s“"
 
-#: merge-recursive.c builtin/merge.c
+#: merge-recursive.c builtin/merge.c builtin/stash.c
 msgid "Unable to write index."
 msgstr "Индексът не може да бъде прочетен"
 
@@ -5173,6 +5380,10 @@ msgstr "кешът не може да бъде прочетен"
 #: builtin/stash.c
 msgid "unable to write new index file"
 msgstr "неуспешно записване на новия индекс"
+
+#: midx.c
+msgid "multi-pack-index OID fanout is of the wrong size"
+msgstr "неправилен размер на откъс (OID fanout) на индекса за множество пакети"
 
 #: midx.c
 #, c-format
@@ -5195,16 +5406,6 @@ msgid "multi-pack-index hash version %u does not match version %u"
 msgstr ""
 "версията на контролната сума на индекса за множество пакети %u не съвпада с "
 "%u"
-
-#: midx.c
-msgid "invalid chunk offset (too large)"
-msgstr "неправилно (прекалено голямо) отместване на откъс"
-
-#: midx.c
-msgid "terminating multi-pack-index chunk id appears earlier than expected"
-msgstr ""
-"идентификаторът за краен откъс на индекс за множество пакети се явява по-"
-"рано от очакваното"
 
 #: midx.c
 msgid "multi-pack-index missing required pack-name chunk"
@@ -5268,10 +5469,6 @@ msgstr "пакетният файл за триене „%s“ не може д�
 #: midx.c
 msgid "no pack files to index."
 msgstr "няма пакетни файлове за индексиране"
-
-#: midx.c
-msgid "Writing chunks to multi-pack-index"
-msgstr "Запис на откъси към индекс за множество пакети"
 
 #: midx.c
 #, c-format
@@ -5412,6 +5609,368 @@ msgstr ""
 msgid "Bad %s value: '%s'"
 msgstr "Зададена е лоша стойност на променливата „%s“: „%s“"
 
+#: object-file.c
+#, c-format
+msgid "object directory %s does not exist; check .git/objects/info/alternates"
+msgstr ""
+"директорията за обекти „%s“ не съществува, проверете „.git/objects/info/"
+"alternates“"
+
+#: object-file.c
+#, c-format
+msgid "unable to normalize alternate object path: %s"
+msgstr "алтернативният път към обекти не може да бъде нормализиран: „%s“"
+
+#: object-file.c
+#, c-format
+msgid "%s: ignoring alternate object stores, nesting too deep"
+msgstr ""
+"%s: алтернативните хранилища за обекти се пренебрегват поради прекалено "
+"дълбоко влагане"
+
+#: object-file.c
+#, c-format
+msgid "unable to normalize object directory: %s"
+msgstr "директорията за обекти „%s“ не може да бъде нормализирана"
+
+#: object-file.c
+msgid "unable to fdopen alternates lockfile"
+msgstr "заключващият файл за алтернативите не може да се отвори с „fdopen“"
+
+#: object-file.c
+msgid "unable to read alternates file"
+msgstr "файлът с алтернативите не може да бъде прочетен"
+
+#: object-file.c
+msgid "unable to move new alternates file into place"
+msgstr "новият файл с алтернативите не може да бъде преместен на мястото му"
+
+#: object-file.c
+#, c-format
+msgid "path '%s' does not exist"
+msgstr "пътят „%s“ не съществува."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' as a linked checkout is not supported yet."
+msgstr "все още не се поддържа еталонно хранилище „%s“ като свързано."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is not a local repository."
+msgstr "еталонното хранилище „%s“ не е локално"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is shallow"
+msgstr "еталонното хранилище „%s“ е плитко"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is grafted"
+msgstr "еталонното хранилище „%s“ е с присаждане"
+
+#: object-file.c
+#, c-format
+msgid "invalid line while parsing alternate refs: %s"
+msgstr "неправилен ред при анализа на алтернативните указатели: „%s“"
+
+#: object-file.c
+#, c-format
+msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
+msgstr ""
+"неуспешен опит за „mmap“ %<PRIuMAX>, което е над позволеното %<PRIuMAX>"
+
+#: object-file.c
+msgid "mmap failed"
+msgstr "неуспешно изпълнение на „mmap“"
+
+#: object-file.c
+#, c-format
+msgid "object file %s is empty"
+msgstr "файлът с обектите „%s“ е празен"
+
+#: object-file.c
+#, c-format
+msgid "corrupt loose object '%s'"
+msgstr "непакетираният обект „%s“ е повреден"
+
+#: object-file.c
+#, c-format
+msgid "garbage at end of loose object '%s'"
+msgstr "грешни данни в края на непакетирания обект „%s“"
+
+#: object-file.c
+msgid "invalid object type"
+msgstr "неправилен вид обект"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack %s header with --allow-unknown-type"
+msgstr ""
+"заглавната част „%s“ не може да се разпакетира с опцията „--allow-unknown-"
+"type“"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack %s header"
+msgstr "заглавната част на „%s“ не може да бъде разпакетирана"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse %s header with --allow-unknown-type"
+msgstr ""
+"заглавната част „%s“ не може да се анализира с опцията „--allow-unknown-type“"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse %s header"
+msgstr "заглавната част на „%s“ не може да бъде анализирана"
+
+#: object-file.c
+#, c-format
+msgid "failed to read object %s"
+msgstr "обектът „%s“ не може да бъде прочетен"
+
+#: object-file.c
+#, c-format
+msgid "replacement %s not found for %s"
+msgstr "заместителят „%s“ на „%s“ не може да бъде открит"
+
+#: object-file.c
+#, c-format
+msgid "loose object %s (stored in %s) is corrupt"
+msgstr "непакетираният обект „%s“ (в „%s“) е повреден"
+
+#: object-file.c
+#, c-format
+msgid "packed object %s (stored in %s) is corrupt"
+msgstr "пакетираният обект „%s“ (в „%s“) е повреден"
+
+#: object-file.c
+#, c-format
+msgid "unable to write file %s"
+msgstr "файлът „%s“ не може да бъде записан"
+
+#: object-file.c
+#, c-format
+msgid "unable to set permission to '%s'"
+msgstr "правата за достъп до „%s“ не могат да бъдат зададени"
+
+#: object-file.c
+msgid "file write error"
+msgstr "грешка при запис на файл"
+
+#: object-file.c
+msgid "error when closing loose object file"
+msgstr "грешка при затварянето на файла с непакетиран обект"
+
+#: object-file.c
+#, c-format
+msgid "insufficient permission for adding an object to repository database %s"
+msgstr ""
+"няма права за добавяне на обект към базата от данни на хранилището „%s“"
+
+#: object-file.c
+msgid "unable to create temporary file"
+msgstr "не може да бъде създаден временен файл"
+
+#: object-file.c
+msgid "unable to write loose object file"
+msgstr "грешка при записа на файла с непакетиран обект"
+
+#: object-file.c
+#, c-format
+msgid "unable to deflate new object %s (%d)"
+msgstr "новият обект „%s“ не може да се компресира с „deflate“: %d"
+
+#: object-file.c
+#, c-format
+msgid "deflateEnd on object %s failed (%d)"
+msgstr "неуспешно приключване на „deflate“ върху „%s“: %d"
+
+#: object-file.c
+#, c-format
+msgid "confused by unstable object source data for %s"
+msgstr "грешка поради нестабилния източник данни за обектите „%s“"
+
+#: object-file.c builtin/pack-objects.c
+#, c-format
+msgid "failed utime() on %s"
+msgstr "неуспешно задаване на време на достъп/създаване чрез „utime“ на „%s“"
+
+#: object-file.c
+#, c-format
+msgid "cannot read object for %s"
+msgstr "обектът за „%s“ не може да се прочете"
+
+#: object-file.c
+msgid "corrupt commit"
+msgstr "повредено подаване"
+
+#: object-file.c
+msgid "corrupt tag"
+msgstr "повреден етикет"
+
+#: object-file.c
+#, c-format
+msgid "read error while indexing %s"
+msgstr "грешка при четене по време на индексиране на „%s“"
+
+#: object-file.c
+#, c-format
+msgid "short read while indexing %s"
+msgstr "непълно прочитане по време на индексиране на „%s“"
+
+#: object-file.c
+#, c-format
+msgid "%s: failed to insert into database"
+msgstr "„%s“ не може да се вмъкне в базата от данни"
+
+#: object-file.c
+#, c-format
+msgid "%s: unsupported file type"
+msgstr "неподдържан вид файл: „%s“"
+
+#: object-file.c
+#, c-format
+msgid "%s is not a valid object"
+msgstr "„%s“ е неправилен обект"
+
+#: object-file.c
+#, c-format
+msgid "%s is not a valid '%s' object"
+msgstr "„%s“ е неправилен обект от вид „%s“"
+
+#: object-file.c builtin/index-pack.c
+#, c-format
+msgid "unable to open %s"
+msgstr "обектът „%s“ не може да бъде отворен"
+
+#: object-file.c
+#, c-format
+msgid "hash mismatch for %s (expected %s)"
+msgstr "неправилна контролна сума за „%s“ (трябва да е %s)"
+
+#: object-file.c
+#, c-format
+msgid "unable to mmap %s"
+msgstr "неуспешно изпълнение на „mmap“ върху „%s“"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack header of %s"
+msgstr "заглавната част на „%s“ не може да бъде разпакетирана"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse header of %s"
+msgstr "заглавната част на „%s“ не може да бъде анализирана"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack contents of %s"
+msgstr "съдържанието на „%s“ не може да бъде разпакетирано"
+
+#: object-name.c
+#, c-format
+msgid "short object ID %s is ambiguous"
+msgstr "късият идентификатор на обект „%s“ не е еднозначен"
+
+#: object-name.c
+msgid "The candidates are:"
+msgstr "Възможностите са:"
+
+#: object-name.c
+msgid ""
+"Git normally never creates a ref that ends with 40 hex characters\n"
+"because it will be ignored when you just specify 40-hex. These refs\n"
+"may be created by mistake. For example,\n"
+"\n"
+"  git switch -c $br $(git rev-parse ...)\n"
+"\n"
+"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
+"examine these refs and maybe delete them. Turn this message off by\n"
+"running \"git config advice.objectNameWarning false\""
+msgstr ""
+"При нормална работа Git никога не създава указатели, които завършват\n"
+"с 40 шестнадесетични знака, защото стандартно те ще бъдат прескачани.\n"
+"Възможно е такива указатели да са създадени случайно.  Например:\n"
+"\n"
+"    git switch -c $BRANCH $(git rev-parse …)\n"
+"\n"
+"където стойността на променливата на средата BRANCH е празна, при което\n"
+"се създава подобен указател.  Прегледайте тези указатели и ги изтрийте.\n"
+"За да изключите това съобщение, изпълнете:\n"
+"\n"
+"    git config advice.objectNameWarning false"
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only goes back to %s"
+msgstr "журналът за „%.*s“ стига само до „%s“"
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only has %d entries"
+msgstr "журналът за „%.*s“ съдържа само %d записа"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' exists on disk, but not in '%.*s'"
+msgstr "пътят „%s“ съществува на диска, но не и в „%.*s“"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' exists, but not '%s'\n"
+"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
+msgstr ""
+"пътят „%s“ съществува на диска, но не е в „%s“\n"
+"Пробвайте с „%.*s:%s“, което е същото като „%.*s:./%s“."
+
+#: object-name.c
+#, c-format
+msgid "path '%s' does not exist in '%.*s'"
+msgstr "пътят „%s“ не съществува в „%.*s“"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not at stage %d\n"
+"hint: Did you mean ':%d:%s'?"
+msgstr ""
+"пътят „%s“ е в индекса, но не версия %d\n"
+"Пробвайте с „%d:%s“."
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not '%s'\n"
+"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
+msgstr ""
+"пътят „%s“ е в индекса, но не в „%s“\n"
+"Пробвайте с „%d:%s“, което е същото като „%d:./%s“."
+
+#: object-name.c
+#, c-format
+msgid "path '%s' exists on disk, but not in the index"
+msgstr "пътят „%s“ съществува на диска, но не е в индекса"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' does not exist (neither on disk nor in the index)"
+msgstr "пътят „%s“ не съществува нито на диска, нито в индекса"
+
+#: object-name.c
+msgid "relative path syntax can't be used outside working tree"
+msgstr "относителен път не може да се ползва извън работното дърво"
+
+#: object-name.c
+#, c-format
+msgid "invalid object name '%.*s'."
+msgstr "неправилно име на обект: „%.*s“"
+
 #: object.c
 #, c-format
 msgid "invalid object type \"%s\""
@@ -5441,6 +6000,57 @@ msgstr "разлика в контролната сума: „%s“"
 #, c-format
 msgid "unable to get size of %s"
 msgstr "размерът на „%s“ не може да бъде получен"
+
+#: pack-bitmap.c builtin/rev-list.c
+#, c-format
+msgid "unable to get disk usage of %s"
+msgstr "използваното място за „%s“ не може да бъде получено"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s is too small"
+msgstr "файлът с обратния индекс „%s“ е твърде малък"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s is corrupt"
+msgstr "файлът с обратния индекс „%s“ е повреден"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unknown signature"
+msgstr "непознат подпис за файла на обратния индекс „%s“"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported version %<PRIu32>"
+msgstr "версия %2$<PRIu32> на файла с обратен индекс „%1$s“ не се поддържа"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported hash id %<PRIu32>"
+msgstr ""
+"идентификатор на контролна сума %2$<PRIu32> на файла с обратен индекс „%1$s“ "
+"не се поддържа"
+
+#: pack-write.c
+msgid "cannot both write and verify reverse index"
+msgstr "обратният индекс не може едновременно да се записва и да се проверява"
+
+#: pack-write.c
+#, c-format
+msgid "could not stat: %s"
+msgstr "не може да се получи информация чрез „stat“ за „%s“"
+
+#: pack-write.c
+#, c-format
+msgid "failed to make %s readable"
+msgstr "не може да се дадат права за четене на „%s“"
+
+#: pack-write.c
+#, c-format
+msgid "could not write '%s' promisor file"
+msgstr "гарантиращият файл „%s“ не може да се запише"
 
 #: packfile.c
 msgid "offset before end of packfile (broken .idx?)"
@@ -5779,6 +6389,10 @@ msgstr "заглавната част на git „%.*s“ не може да с�
 #: range-diff.c
 msgid "failed to generate diff"
 msgstr "неуспешно търсене на разлика"
+
+#: range-diff.c
+msgid "--left-only and --right-only are mutually exclusive"
+msgstr "опциите „--left-only“ и „--right-only“ са несъвместими"
 
 #: range-diff.c
 #, c-format
@@ -6214,6 +6828,11 @@ msgstr "непознат аргумент за %%(subject): %s"
 
 #: ref-filter.c
 #, c-format
+msgid "expected %%(trailers:key=<value>)"
+msgstr "очаква се %%(trailers:КЛЮЧ=СТОЙНОСТ)"
+
+#: ref-filter.c
+#, c-format
 msgid "unknown %%(trailers) argument: %s"
 msgstr "непознат аргумент „%%(trailers)“: %s"
 
@@ -6335,22 +6954,32 @@ msgstr "неправилен форматиращ низ „%s“"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, rebasing %s"
-msgstr "извън клон, пребазиране на „%s“"
+msgid "(no branch, rebasing %s)"
+msgstr "(извън клон, пребазиране на „%s“)"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, rebasing detached HEAD %s"
-msgstr "извън клон, пребазиране на несвързан указател „HEAD“ при „%s“"
+msgid "(no branch, rebasing detached HEAD %s)"
+msgstr "(извън клон, пребазиране на несвързан указател „HEAD“ при „%s“)"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, bisect started on %s"
-msgstr "извън клон, двоично търсене от „%s“"
+msgid "(no branch, bisect started on %s)"
+msgstr "(извън клон, двоично търсене от „%s“)"
 
 #: ref-filter.c
-msgid "no branch"
-msgstr "извън клон"
+#, c-format
+msgid "(HEAD detached at %s)"
+msgstr "(указателят „HEAD“ не е свързан и е при „%s“)"
+
+#: ref-filter.c
+#, c-format
+msgid "(HEAD detached from %s)"
+msgstr "(указателят „HEAD“ не е свързан и е отделѐн от „%s“)"
+
+#: ref-filter.c
+msgid "(no branch)"
+msgstr "(извън клон)"
 
 #: ref-filter.c
 #, c-format
@@ -6893,11 +7522,6 @@ msgstr "дървото, сочено от „%s“, не може да бъде 
 #: revision.c
 msgid "--unpacked=<packfile> no longer supported"
 msgstr "опцията „--unpacked=ПАКЕТЕН_ФАЙЛ“ вече не се поддържа"
-
-#: revision.c
-#, c-format
-msgid "unknown value for --diff-merges: %s"
-msgstr "непозната стойност за опцията „--diff-merges“: „%s“"
 
 #: revision.c
 msgid "your current branch appears to be broken"
@@ -8075,368 +8699,6 @@ msgstr "неуспешно създаване на процес чрез „fork
 msgid "setsid failed"
 msgstr "неуспешно изпълнение на „setsid“"
 
-#: sha1-file.c
-#, c-format
-msgid "object directory %s does not exist; check .git/objects/info/alternates"
-msgstr ""
-"директорията за обекти „%s“ не съществува, проверете „.git/objects/info/"
-"alternates“"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to normalize alternate object path: %s"
-msgstr "алтернативният път към обекти не може да бъде нормализиран: „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: ignoring alternate object stores, nesting too deep"
-msgstr ""
-"%s: алтернативните хранилища за обекти се пренебрегват поради прекалено "
-"дълбоко влагане"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to normalize object directory: %s"
-msgstr "директорията за обекти „%s“ не може да бъде нормализирана"
-
-#: sha1-file.c
-msgid "unable to fdopen alternates lockfile"
-msgstr "заключващият файл за алтернативите не може да се отвори с „fdopen“"
-
-#: sha1-file.c
-msgid "unable to read alternates file"
-msgstr "файлът с алтернативите не може да бъде прочетен"
-
-#: sha1-file.c
-msgid "unable to move new alternates file into place"
-msgstr "новият файл с алтернативите не може да бъде преместен на мястото му"
-
-#: sha1-file.c
-#, c-format
-msgid "path '%s' does not exist"
-msgstr "пътят „%s“ не съществува."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' as a linked checkout is not supported yet."
-msgstr "все още не се поддържа еталонно хранилище „%s“ като свързано."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is not a local repository."
-msgstr "еталонното хранилище „%s“ не е локално"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is shallow"
-msgstr "еталонното хранилище „%s“ е плитко"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is grafted"
-msgstr "еталонното хранилище „%s“ е с присаждане"
-
-#: sha1-file.c
-#, c-format
-msgid "invalid line while parsing alternate refs: %s"
-msgstr "неправилен ред при анализа на алтернативните указатели: „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
-msgstr ""
-"неуспешен опит за „mmap“ %<PRIuMAX>, което е над позволеното %<PRIuMAX>"
-
-#: sha1-file.c
-msgid "mmap failed"
-msgstr "неуспешно изпълнение на „mmap“"
-
-#: sha1-file.c
-#, c-format
-msgid "object file %s is empty"
-msgstr "файлът с обектите „%s“ е празен"
-
-#: sha1-file.c
-#, c-format
-msgid "corrupt loose object '%s'"
-msgstr "непакетираният обект „%s“ е повреден"
-
-#: sha1-file.c
-#, c-format
-msgid "garbage at end of loose object '%s'"
-msgstr "грешни данни в края на непакетирания обект „%s“"
-
-#: sha1-file.c
-msgid "invalid object type"
-msgstr "неправилен вид обект"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack %s header with --allow-unknown-type"
-msgstr ""
-"заглавната част „%s“ не може да се разпакетира с опцията „--allow-unknown-"
-"type“"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack %s header"
-msgstr "заглавната част на „%s“ не може да бъде разпакетирана"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse %s header with --allow-unknown-type"
-msgstr ""
-"заглавната част „%s“ не може да се анализира с опцията „--allow-unknown-type“"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse %s header"
-msgstr "заглавната част на „%s“ не може да бъде анализирана"
-
-#: sha1-file.c
-#, c-format
-msgid "failed to read object %s"
-msgstr "обектът „%s“ не може да бъде прочетен"
-
-#: sha1-file.c
-#, c-format
-msgid "replacement %s not found for %s"
-msgstr "заместителят „%s“ на „%s“ не може да бъде открит"
-
-#: sha1-file.c
-#, c-format
-msgid "loose object %s (stored in %s) is corrupt"
-msgstr "непакетираният обект „%s“ (в „%s“) е повреден"
-
-#: sha1-file.c
-#, c-format
-msgid "packed object %s (stored in %s) is corrupt"
-msgstr "пакетираният обект „%s“ (в „%s“) е повреден"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to write file %s"
-msgstr "файлът „%s“ не може да бъде записан"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to set permission to '%s'"
-msgstr "правата за достъп до „%s“ не могат да бъдат зададени"
-
-#: sha1-file.c
-msgid "file write error"
-msgstr "грешка при запис на файл"
-
-#: sha1-file.c
-msgid "error when closing loose object file"
-msgstr "грешка при затварянето на файла с непакетиран обект"
-
-#: sha1-file.c
-#, c-format
-msgid "insufficient permission for adding an object to repository database %s"
-msgstr ""
-"няма права за добавяне на обект към базата от данни на хранилището „%s“"
-
-#: sha1-file.c
-msgid "unable to create temporary file"
-msgstr "не може да бъде създаден временен файл"
-
-#: sha1-file.c
-msgid "unable to write loose object file"
-msgstr "грешка при записа на файла с непакетиран обект"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to deflate new object %s (%d)"
-msgstr "новият обект „%s“ не може да се компресира с „deflate“: %d"
-
-#: sha1-file.c
-#, c-format
-msgid "deflateEnd on object %s failed (%d)"
-msgstr "неуспешно приключване на „deflate“ върху „%s“: %d"
-
-#: sha1-file.c
-#, c-format
-msgid "confused by unstable object source data for %s"
-msgstr "грешка поради нестабилния източник данни за обектите „%s“"
-
-#: sha1-file.c builtin/pack-objects.c
-#, c-format
-msgid "failed utime() on %s"
-msgstr "неуспешно задаване на време на достъп/създаване чрез „utime“ на „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "cannot read object for %s"
-msgstr "обектът за „%s“ не може да се прочете"
-
-#: sha1-file.c
-msgid "corrupt commit"
-msgstr "повредено подаване"
-
-#: sha1-file.c
-msgid "corrupt tag"
-msgstr "повреден етикет"
-
-#: sha1-file.c
-#, c-format
-msgid "read error while indexing %s"
-msgstr "грешка при четене по време на индексиране на „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "short read while indexing %s"
-msgstr "непълно прочитане по време на индексиране на „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: failed to insert into database"
-msgstr "„%s“ не може да се вмъкне в базата от данни"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: unsupported file type"
-msgstr "неподдържан вид файл: „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "%s is not a valid object"
-msgstr "„%s“ е неправилен обект"
-
-#: sha1-file.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "„%s“ е неправилен обект от вид „%s“"
-
-#: sha1-file.c builtin/index-pack.c
-#, c-format
-msgid "unable to open %s"
-msgstr "обектът „%s“ не може да бъде отворен"
-
-#: sha1-file.c
-#, c-format
-msgid "hash mismatch for %s (expected %s)"
-msgstr "неправилна контролна сума за „%s“ (трябва да е %s)"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to mmap %s"
-msgstr "неуспешно изпълнение на „mmap“ върху „%s“"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack header of %s"
-msgstr "заглавната част на „%s“ не може да бъде разпакетирана"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse header of %s"
-msgstr "заглавната част на „%s“ не може да бъде анализирана"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack contents of %s"
-msgstr "съдържанието на „%s“ не може да бъде разпакетирано"
-
-#: sha1-name.c
-#, c-format
-msgid "short SHA1 %s is ambiguous"
-msgstr "късият SHA1 „%s“ не е еднозначен"
-
-#: sha1-name.c
-msgid "The candidates are:"
-msgstr "Възможностите са:"
-
-#: sha1-name.c
-msgid ""
-"Git normally never creates a ref that ends with 40 hex characters\n"
-"because it will be ignored when you just specify 40-hex. These refs\n"
-"may be created by mistake. For example,\n"
-"\n"
-"  git switch -c $br $(git rev-parse ...)\n"
-"\n"
-"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
-"examine these refs and maybe delete them. Turn this message off by\n"
-"running \"git config advice.objectNameWarning false\""
-msgstr ""
-"При нормална работа Git никога не създава указатели, които завършват\n"
-"с 40 шестнадесетични знака, защото стандартно те ще бъдат прескачани.\n"
-"Възможно е такива указатели да са създадени случайно.  Например:\n"
-"\n"
-"    git switch -c $BRANCH $(git rev-parse …)\n"
-"\n"
-"където стойността на променливата на средата BRANCH е празна, при което\n"
-"се създава подобен указател.  Прегледайте тези указатели и ги изтрийте.\n"
-"За да изключите това съобщение, изпълнете:\n"
-"\n"
-"    git config advice.objectNameWarning false"
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only goes back to %s"
-msgstr "журналът за „%.*s“ стига само до „%s“"
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only has %d entries"
-msgstr "журналът за „%.*s“ съдържа само %d записа"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' exists on disk, but not in '%.*s'"
-msgstr "пътят „%s“ съществува на диска, но не и в „%.*s“"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' exists, but not '%s'\n"
-"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
-msgstr ""
-"пътят „%s“ съществува на диска, но не е в „%s“\n"
-"Пробвайте с „%.*s:%s“, което е същото като „%.*s:./%s“."
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' does not exist in '%.*s'"
-msgstr "пътят „%s“ не съществува в „%.*s“"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not at stage %d\n"
-"hint: Did you mean ':%d:%s'?"
-msgstr ""
-"пътят „%s“ е в индекса, но не версия %d\n"
-"Пробвайте с „%d:%s“."
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not '%s'\n"
-"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
-msgstr ""
-"пътят „%s“ е в индекса, но не в „%s“\n"
-"Пробвайте с „%d:%s“, което е същото като „%d:./%s“."
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' exists on disk, but not in the index"
-msgstr "пътят „%s“ съществува на диска, но не е в индекса"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' does not exist (neither on disk nor in the index)"
-msgstr "пътят „%s“ не съществува нито на диска, нито в индекса"
-
-#: sha1-name.c
-msgid "relative path syntax can't be used outside working tree"
-msgstr "относителен път не може да се ползва извън работното дърво"
-
-#: sha1-name.c
-#, c-format
-msgid "invalid object name '%.*s'."
-msgstr "неправилно име на обект: „%.*s“"
-
 #. TRANSLATORS: IEC 80000-13:2008 gibibyte
 #: strbuf.c
 #, c-format
@@ -8740,7 +9002,7 @@ msgstr "празна завършваща лексема в епилога „%.
 msgid "could not read input file '%s'"
 msgstr "входният файл „%s“ не може да бъде прочетен"
 
-#: trailer.c
+#: trailer.c builtin/mktag.c
 msgid "could not read from stdin"
 msgstr "от стандартния вход не може да се чете"
 
@@ -9417,6 +9679,10 @@ msgid "unable to locate repository; .git is not a file"
 msgstr "не може да се открие хранилище: „.git“ не е файл"
 
 #: worktree.c
+msgid "unable to locate repository; .git file does not reference a repository"
+msgstr "не може да се открие хранилище: файлът „.git“ не сочи към хранилище"
+
+#: worktree.c
 msgid "unable to locate repository; .git file broken"
 msgstr "не може да се открие хранилище: „.git“ е повреден"
 
@@ -9427,6 +9693,34 @@ msgstr "директорията „gitdir“ не може да се проче
 #: worktree.c
 msgid "gitdir incorrect"
 msgstr "неправилна директория „gitdir“"
+
+#: worktree.c
+msgid "not a valid directory"
+msgstr "не е валидна директория"
+
+#: worktree.c
+msgid "gitdir file does not exist"
+msgstr "файлът „gitdir“ не съществува"
+
+#: worktree.c
+#, c-format
+msgid "unable to read gitdir file (%s)"
+msgstr "файлът „gitdir“ не може да бъде прочетен (%s)"
+
+#: worktree.c
+#, c-format
+msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
+msgstr ""
+"изчитането върна по-малко байтове от очакваното (очаквани: %<PRIuMAX> байта, "
+"получени: %<PRIuMAX>)"
+
+#: worktree.c
+msgid "invalid gitdir file"
+msgstr "неправилен файл „gitdir“"
+
+#: worktree.c
+msgid "gitdir file points to non-existent location"
+msgstr "файлът „gitdir“ сочи несъществуващо местоположение"
 
 #: wrapper.c
 #, c-format
@@ -9859,6 +10153,14 @@ msgid "rebase in progress; onto "
 msgstr "извършвате пребазиране върху "
 
 #: wt-status.c
+msgid "HEAD detached at "
+msgstr "Указателят „HEAD“ не е свързан и е при "
+
+#: wt-status.c
+msgid "HEAD detached from "
+msgstr "Указателят „HEAD“ не е свързан и е отделѐн от "
+
+#: wt-status.c
 msgid "Not currently on any branch."
 msgstr "Извън всички клони."
 
@@ -9996,6 +10298,11 @@ msgstr "неуспешно изтриване на „%s“"
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr "git add [ОПЦИЯ…] [--] ПЪТ…"
+
+#: builtin/add.c
+#, c-format
+msgid "cannot chmod %cx '%s'"
+msgstr "правата на „%2$s“ не може да се зададат да са %1$cx"
 
 #: builtin/add.c
 #, c-format
@@ -10550,15 +10857,15 @@ msgid "skip the current patch"
 msgstr "прескачане на текущата кръпка"
 
 #: builtin/am.c
-msgid "restore the original branch and abort the patching operation."
+msgid "restore the original branch and abort the patching operation"
 msgstr ""
 "възстановяване на първоначалното състояние на клона и преустановяване на "
-"прилагането на кръпката."
+"прилагането на кръпката"
 
 #: builtin/am.c
-msgid "abort the patching operation but keep HEAD where it is."
+msgid "abort the patching operation but keep HEAD where it is"
 msgstr ""
-"преустановяване на прилагането на кръпката без промяна към кое сочи „HEAD“."
+"преустановяване на прилагането на кръпката без промяна към кое сочи „HEAD“"
 
 #: builtin/am.c
 msgid "show the patch being applied"
@@ -10661,19 +10968,6 @@ msgid "git bisect--helper --bisect-reset [<commit>]"
 msgstr "git bisect--helper --bisect-reset [ПОДАВАНЕ]"
 
 #: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-write [--no-log] <state> <revision> <good_term> "
-"<bad_term>"
-msgstr ""
-"git bisect--helper --bisect-write [--no-log] СЪСТОЯНИЕ ВЕРСИЯ ДОБРО ЛОШО"
-
-#: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-check-and-set-terms <command> <good_term> "
-"<bad_term>"
-msgstr "git bisect--helper --bisect-check-and-set-terms КОМАНДА ДОБРО"
-
-#: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-next-check <good_term> <bad_term> [<term>]"
 msgstr "git bisect--helper --bisect-next-check ЛОШО ДОБРО УПРАВЛЯВАЩА_ДУМА"
 
@@ -10699,16 +10993,20 @@ msgid "git bisect--helper --bisect-next"
 msgstr "git bisect--helper --bisect-next"
 
 #: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-auto-next"
-msgstr "git bisect--helper --bisect-auto-next"
-
-#: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-state (bad|new) [<rev>]"
 msgstr "git bisect--helper --bisect-reset (ЛОШО) [ВЕРСИЯ]"
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-state (good|old) [<rev>...]"
 msgstr "git bisect--helper --bisect-reset (ДОБРО) [ВЕРСИЯ…]"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-replay <filename>"
+msgstr "git bisect--helper --bisect-next ИМЕ_НА_ФАЙЛ"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-skip [(<rev>|<range>)...]"
+msgstr "git bisect--helper --bisect-reset [(ВЕРСИЯ|ДИАПАЗОН)…]"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -10908,17 +11206,26 @@ msgid "Bad rev input: %s"
 msgstr "Неправилна версия: „%s“"
 
 #: builtin/bisect--helper.c
+msgid "We are not bisecting."
+msgstr "В момента не се извършва двоично търсене."
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s'?? what are you talking about?"
+msgstr ""
+"Непозната команда „%s“.  Възможностите са: „start“, „skip“, „good“, „bad“ (и "
+"вариантите им)"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "cannot read file '%s' for replaying"
+msgstr ""
+"файлът „%s“ не може да бъде прочетен, за да се изпълнят командите от него "
+"наново"
+
+#: builtin/bisect--helper.c
 msgid "reset the bisection state"
 msgstr "изчистване на състоянието на двоичното търсене"
-
-#: builtin/bisect--helper.c
-msgid "write out the bisection state in BISECT_LOG"
-msgstr "запис на състоянието на двоичното търсене в „BISECT_LOG“"
-
-#: builtin/bisect--helper.c
-msgid "check and set terms in a bisection state"
-msgstr ""
-"проверка и задаване на управляващи думи към състоянието на двоичното търсене"
 
 #: builtin/bisect--helper.c
 msgid "check whether bad or good terms exist"
@@ -10937,14 +11244,20 @@ msgid "find the next bisection commit"
 msgstr "откриване на следващото подаване при двоично търсене"
 
 #: builtin/bisect--helper.c
-msgid "verify the next bisection state then checkout the next bisection commit"
-msgstr ""
-"проверка на следващото състояние и преминаване към следващото подаване при "
-"двоично търсене"
-
-#: builtin/bisect--helper.c
 msgid "mark the state of ref (or refs)"
 msgstr "задаване на състоянието на указателя/ите"
+
+#: builtin/bisect--helper.c
+msgid "list the bisection steps so far"
+msgstr "извеждане на стъпките на двоичното търсене досега"
+
+#: builtin/bisect--helper.c
+msgid "replay the bisection process from the given file"
+msgstr "наново изпълнение на двоичното търсене чрез дадения файл"
+
+#: builtin/bisect--helper.c
+msgid "skip some commits for checkout"
+msgstr "прескачане на някои подавания при изтегляне"
 
 #: builtin/bisect--helper.c
 msgid "no log for BISECT_WRITE"
@@ -10953,14 +11266,6 @@ msgstr "липсва запис за „BISECT_WRITE“"
 #: builtin/bisect--helper.c
 msgid "--bisect-reset requires either no argument or a commit"
 msgstr "опцията „--bisect-reset“ изисква или 0 аргументи, или 1 — подаване"
-
-#: builtin/bisect--helper.c
-msgid "--bisect-write requires either 4 or 5 arguments"
-msgstr "опцията „--bisect-write“ изисква 4 или 5 аргумента"
-
-#: builtin/bisect--helper.c
-msgid "--check-and-set-terms requires 3 arguments"
-msgstr "опцията „--check-and-set-terms“ изисква 3 аргумента"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-next-check requires 2 or 3 arguments"
@@ -10975,8 +11280,12 @@ msgid "--bisect-next requires 0 arguments"
 msgstr "опцията „--bisect-next“ не приема аргументи"
 
 #: builtin/bisect--helper.c
-msgid "--bisect-auto-next requires 0 arguments"
-msgstr "опцията „--bisect-auto-next“ не приема аргументи"
+msgid "--bisect-log requires 0 arguments"
+msgstr "опцията „--bisect-log“ не приема аргументи"
+
+#: builtin/bisect--helper.c
+msgid "no logfile given"
+msgstr "не е зададен журнален файл"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -11010,92 +11319,94 @@ msgid "cannot find revision %s to ignore"
 msgstr "версията за прескачане „%s“ не може да бъде открита"
 
 #: builtin/blame.c
-msgid "Show blame entries as we find them, incrementally"
-msgstr "Извеждане на авторството с намирането му, последователно"
+msgid "show blame entries as we find them, incrementally"
+msgstr "извеждане на авторството с намирането му, последователно"
 
 #: builtin/blame.c
-msgid "Do not show object names of boundary commits (Default: off)"
+msgid "do not show object names of boundary commits (Default: off)"
 msgstr ""
-"Без извеждане на имената на обектите за граничните подавания (стандартно "
+"без извеждане на имената на обектите за граничните подавания (стандартно "
 "опцията е изключена)"
 
 #: builtin/blame.c
-msgid "Do not treat root commits as boundaries (Default: off)"
+msgid "do not treat root commits as boundaries (Default: off)"
 msgstr ""
-"Началните подавания да не се считат за гранични (стандартно опцията е "
+"началните подавания да не се считат за гранични (стандартно опцията е "
 "изключена)"
 
 #: builtin/blame.c
-msgid "Show work cost statistics"
-msgstr "Извеждане на статистика за извършените действия"
+msgid "show work cost statistics"
+msgstr "извеждане на статистика за извършените действия"
+
+#: builtin/blame.c builtin/checkout.c builtin/clone.c builtin/commit-graph.c
+#: builtin/fetch.c builtin/merge.c builtin/multi-pack-index.c builtin/pull.c
+#: builtin/push.c builtin/send-pack.c
+msgid "force progress reporting"
+msgstr "извеждане на напредъка"
 
 #: builtin/blame.c
-msgid "Force progress reporting"
-msgstr "Принудително извеждане на напредъка"
+msgid "show output score for blame entries"
+msgstr "извеждане на допълнителна информация за определянето на авторството"
 
 #: builtin/blame.c
-msgid "Show output score for blame entries"
-msgstr "Извеждане на допълнителна информация за определянето на авторството"
-
-#: builtin/blame.c
-msgid "Show original filename (Default: auto)"
+msgid "show original filename (Default: auto)"
 msgstr ""
-"Извеждане на първоначалното име на файл (стандартно това е автоматично)"
+"извеждане на първоначалното име на файл (стандартно това е автоматично)"
 
 #: builtin/blame.c
-msgid "Show original linenumber (Default: off)"
+msgid "show original linenumber (Default: off)"
 msgstr ""
-"Извеждане на първоначалният номер на ред (стандартно опцията е изключена)"
+"извеждане на първоначалния номер на ред (стандартно опцията е изключена)"
 
 #: builtin/blame.c
-msgid "Show in a format designed for machine consumption"
-msgstr "Извеждане във формат за по-нататъшна обработка"
+msgid "show in a format designed for machine consumption"
+msgstr "извеждане във формат за по-нататъшна обработка"
 
 #: builtin/blame.c
-msgid "Show porcelain format with per-line commit information"
+msgid "show porcelain format with per-line commit information"
 msgstr ""
-"Извеждане във формат за команди от потребителско ниво с информация на всеки "
+"извеждане във формат за команди от потребителско ниво с информация на всеки "
 "ред"
 
 #: builtin/blame.c
-msgid "Use the same output mode as git-annotate (Default: off)"
+msgid "use the same output mode as git-annotate (Default: off)"
 msgstr ""
-"Използване на същия формат като „git-annotate“ (стандартно опцията е "
+"използване на същия формат като „git-annotate“ (стандартно опцията е "
 "изключена)"
 
 #: builtin/blame.c
-msgid "Show raw timestamp (Default: off)"
-msgstr "Извеждане на неформатирани времена (стандартно опцията е изключена)"
+msgid "show raw timestamp (Default: off)"
+msgstr "извеждане на неформатирани времена (стандартно опцията е изключена)"
 
 #: builtin/blame.c
-msgid "Show long commit SHA1 (Default: off)"
-msgstr "Извеждане на пълните суми по SHA1 (стандартно опцията е изключена)"
+msgid "show long commit SHA1 (Default: off)"
+msgstr "извеждане на пълните суми по SHA1 (стандартно опцията е изключена)"
 
 #: builtin/blame.c
-msgid "Suppress author name and timestamp (Default: off)"
-msgstr "Без име на автор и време на промяна (стандартно опцията е изключена)"
+msgid "suppress author name and timestamp (Default: off)"
+msgstr "без име на автор и време на промяна (стандартно опцията е изключена)"
 
 #: builtin/blame.c
-msgid "Show author email instead of name (Default: off)"
+msgid "show author email instead of name (Default: off)"
 msgstr ""
-"Извеждане на е-пощата на автора, а не името му (стандартно опцията е "
+"извеждане на е-пощата на автора, а не името му (стандартно опцията е "
 "изключена)"
 
 #: builtin/blame.c
-msgid "Ignore whitespace differences"
-msgstr "Без разлики в знаците за интервали"
+msgid "ignore whitespace differences"
+msgstr "без разлики в знаците за интервали"
 
 #: builtin/blame.c builtin/log.c
 msgid "rev"
 msgstr "ВЕРС"
 
 #: builtin/blame.c
-msgid "Ignore <rev> when blaming"
-msgstr "Прескачане на ВЕРСията при извеждане на авторството"
+msgid "ignore <rev> when blaming"
+msgstr "прескачане на ВЕРСията при извеждане на авторството"
 
 #: builtin/blame.c
-msgid "Ignore revisions from <file>"
-msgstr "Прескачане на версиите указани във ФАЙЛа при извеждане на авторството"
+msgid "ignore revisions from <file>"
+msgstr "прескачане на версиите указани във ФАЙЛа"
 
 #: builtin/blame.c
 msgid "color redundant metadata from previous line differently"
@@ -11107,31 +11418,31 @@ msgid "color lines by age"
 msgstr "оцветяване на редовете по възраст"
 
 #: builtin/blame.c
-msgid "Spend extra cycles to find better match"
-msgstr "Допълнителни изчисления за по-добри резултати"
+msgid "spend extra cycles to find better match"
+msgstr "допълнителни изчисления за по-добри резултати"
 
 #: builtin/blame.c
-msgid "Use revisions from <file> instead of calling git-rev-list"
-msgstr "Изчитане на версиите от ФАЙЛ, а не чрез изпълнение на „git-rev-list“"
+msgid "use revisions from <file> instead of calling git-rev-list"
+msgstr "изчитане на версиите от ФАЙЛа, а не чрез изпълнение на „git-rev-list“"
 
 #: builtin/blame.c
-msgid "Use <file>'s contents as the final image"
-msgstr "Използване на съдържанието на ФАЙЛа като крайно положение"
+msgid "use <file>'s contents as the final image"
+msgstr "използване на съдържанието на ФАЙЛа като крайно положение"
 
 #: builtin/blame.c
 msgid "score"
 msgstr "напасване на редовете"
 
 #: builtin/blame.c
-msgid "Find line copies within and across files"
+msgid "find line copies within and across files"
 msgstr ""
-"Търсене на копирани редове както в рамките на един файл, така и от един файл "
+"търсене на копирани редове както в рамките на един файл, така и от един файл "
 "към друг"
 
 #: builtin/blame.c
-msgid "Find line movements within and across files"
+msgid "find line movements within and across files"
 msgstr ""
-"Търсене на преместени редове както в рамките на един файл, така и от един "
+"търсене на преместени редове както в рамките на един файл, така и от един "
 "файл към друг"
 
 #: builtin/blame.c
@@ -11139,9 +11450,9 @@ msgid "range"
 msgstr "диапазон"
 
 #: builtin/blame.c
-msgid "Process only line range <start>,<end> or function :<funcname>"
+msgid "process only line range <start>,<end> or function :<funcname>"
 msgstr ""
-"Информация само за редовете в диапазона НАЧАЛО,КРАЙ или само на :ФУНКЦИЯта"
+"информация само за редовете в диапазона НАЧАЛО,КРАЙ или само на :ФУНКЦИЯта"
 
 #: builtin/blame.c
 msgid "--progress can't be used with --incremental or porcelain formats"
@@ -11258,16 +11569,6 @@ msgstr "следящият клон „%s“ не може да бъде отк�
 #, c-format
 msgid "branch '%s' not found."
 msgstr "клонът „%s“ не може да бъде открит."
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting remote-tracking branch '%s'"
-msgstr "Грешка при изтриването на следящия клон „%s“"
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting branch '%s'"
-msgstr "Грешка при изтриването на клона „%s“"
 
 #: builtin/branch.c
 #, c-format
@@ -12328,12 +12629,6 @@ msgstr ""
 msgid "missing branch or commit argument"
 msgstr "липсва аргумент — клон или подаване"
 
-#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
-#: builtin/merge.c builtin/multi-pack-index.c builtin/pull.c builtin/push.c
-#: builtin/send-pack.c
-msgid "force progress reporting"
-msgstr "извеждане на напредъка"
-
 #: builtin/checkout.c
 msgid "perform a 3-way merge with the new branch"
 msgstr "извършване на тройно сливане с новия клон"
@@ -13111,7 +13406,7 @@ msgid "dir"
 msgstr "директория"
 
 #: builtin/commit-graph.c
-msgid "The object directory to store the graph"
+msgid "the object directory to store the graph"
 msgstr "ДИРекторията_с_ОБЕКТИ за запазване на гра̀фа"
 
 #: builtin/commit-graph.c
@@ -14601,40 +14896,41 @@ msgstr ""
 "как да се обработват съобщенията за подаване, които са в друго кодиране"
 
 #: builtin/fast-export.c
-msgid "Dump marks to this file"
-msgstr "Запазване на маркерите в този ФАЙЛ"
+msgid "dump marks to this file"
+msgstr "запазване на маркерите в този ФАЙЛ"
 
 #: builtin/fast-export.c
-msgid "Import marks from this file"
-msgstr "Внасяне на маркерите от този ФАЙЛ"
+msgid "import marks from this file"
+msgstr "внасяне на маркерите от този ФАЙЛ"
 
 #: builtin/fast-export.c
-msgid "Import marks from this file if it exists"
-msgstr "Внасяне на маркерите от този ФАЙЛ, ако съществува"
+msgid "import marks from this file if it exists"
+msgstr "внасяне на маркерите от този ФАЙЛ, ако съществува"
 
 #: builtin/fast-export.c
-msgid "Fake a tagger when tags lack one"
-msgstr "Да се използва изкуствено име на човек при липса на задаващ етикета"
+msgid "fake a tagger when tags lack one"
+msgstr ""
+"да се използва изкуствено име на човек при липса на създател на етикета"
 
 #: builtin/fast-export.c
-msgid "Output full tree for each commit"
-msgstr "Извеждане на цялото дърво за всяко подаване"
+msgid "output full tree for each commit"
+msgstr "извеждане на цялото дърво за всяко подаване"
 
 #: builtin/fast-export.c
-msgid "Use the done feature to terminate the stream"
-msgstr "Използване на маркер за завършване на потока"
+msgid "use the done feature to terminate the stream"
+msgstr "използване на маркер за завършване на потока"
 
 #: builtin/fast-export.c
-msgid "Skip output of blob data"
-msgstr "Без извеждане на съдържанието на обектите-BLOB"
+msgid "skip output of blob data"
+msgstr "без извеждане на съдържанието на обектите-BLOB"
 
 #: builtin/fast-export.c builtin/log.c
 msgid "refspec"
 msgstr "УКАЗАТЕЛ_НА_ВЕРСИЯ"
 
 #: builtin/fast-export.c
-msgid "Apply refspec to exported refs"
-msgstr "Прилагане на УКАЗАТЕЛя_НА_ВЕРСИЯ към изнесените указатели"
+msgid "apply refspec to exported refs"
+msgstr "прилагане на УКАЗАТЕЛя_НА_ВЕРСИЯ към изнесените указатели"
 
 #: builtin/fast-export.c
 msgid "anonymize output"
@@ -14649,18 +14945,18 @@ msgid "convert <from> to <to> in anonymized output"
 msgstr "заместване ОТ със КЪМ в анонимизирания изход"
 
 #: builtin/fast-export.c
-msgid "Reference parents which are not in fast-export stream by object id"
+msgid "reference parents which are not in fast-export stream by object id"
 msgstr ""
-"Указване на родителите, които не са в потока на бързо изнасяне, с "
+"указване на родителите, които не са в потока на бързо изнасяне, с "
 "идентификатор на обект"
 
 #: builtin/fast-export.c
-msgid "Show original object ids of blobs/commits"
-msgstr "Извеждане на първоначалните идентификатори на обектите BLOB/подавяния"
+msgid "show original object ids of blobs/commits"
+msgstr "извеждане на първоначалните идентификатори на обектите BLOB/подавяния"
 
 #: builtin/fast-export.c
-msgid "Label tags with mark ids"
-msgstr "Задаване на идентификатори на маркери на етикетите"
+msgid "label tags with mark ids"
+msgstr "задаване на идентификатори на маркери на етикетите"
 
 #: builtin/fast-export.c
 msgid "--anonymize-map without --anonymize does not make sense"
@@ -14735,6 +15031,10 @@ msgstr "задаване на клон за следене за издърпва
 #: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
 msgstr "добавяне към „.git/FETCH_HEAD“ вместо замяна"
+
+#: builtin/fetch.c
+msgid "use atomic transaction to update references"
+msgstr "изискване на атомарни операции за обновяване на указателите"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "path to upload pack on remote end"
@@ -15084,6 +15384,11 @@ msgstr ""
 "настройката „extensions.partialClone“"
 
 #: builtin/fetch.c
+msgid "--atomic can only be used when fetching from one remote"
+msgstr ""
+"опцията „--atomic“ поддържа доставяне само от едно отдалечено хранилище"
+
+#: builtin/fetch.c
 msgid "--stdin can only be used when fetching from one remote"
 msgstr "опцията „--stdin“ поддържа доставяне само от едно отдалечено хранилище"
 
@@ -15405,7 +15710,7 @@ msgstr "допълнително да се проверяват пакетите
 msgid "check only connectivity"
 msgstr "проверка само на връзката"
 
-#: builtin/fsck.c
+#: builtin/fsck.c builtin/mktag.c
 msgid "enable more strict checking"
 msgstr "по-строги проверки"
 
@@ -15647,8 +15952,31 @@ msgid "failed to run 'git config'"
 msgstr "неуспешно изпълнение на „git config“"
 
 #: builtin/gc.c
-msgid "another process is scheduling background maintenance"
-msgstr "друг процес задава поддръжката на заден фон"
+#, c-format
+msgid "failed to expand path '%s'"
+msgstr "грешка при заместването на пътя „%s“"
+
+#: builtin/gc.c
+msgid "failed to start launchctl"
+msgstr "неуспешно стартиране на „launchctl“."
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to create directories for '%s'"
+msgstr "директориите за „%s“ не може да бъдат създадени"
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to bootstrap service %s"
+msgstr "услугата „%s“ не може се настрои първоначално"
+
+#: builtin/gc.c
+msgid "failed to create temp xml file"
+msgstr "неуспешно създаване на временен файл за xml"
+
+#: builtin/gc.c
+msgid "failed to start schtasks"
+msgstr "задачите за периодично изпълнение не може да се стартират"
 
 #: builtin/gc.c
 msgid "failed to run 'crontab -l'; your system might not support 'cron'"
@@ -15668,6 +15996,10 @@ msgstr "стандартният вход на „crontab“ не може да 
 #: builtin/gc.c
 msgid "'crontab' died"
 msgstr "процесът на „crontab“ умря"
+
+#: builtin/gc.c
+msgid "another process is scheduling background maintenance"
+msgstr "друг процес задава поддръжката на заден фон"
 
 #: builtin/gc.c
 msgid "failed to add repo to global config"
@@ -15902,10 +16234,6 @@ msgstr ""
 "извеждане на редове само от файловете, които напасват на всички шаблони"
 
 #: builtin/grep.c
-msgid "show parse tree for grep expression"
-msgstr "извеждане на дървото за анализ на регулярния израз"
-
-#: builtin/grep.c
 msgid "pager"
 msgstr "програма за преглед по страници"
 
@@ -15956,6 +16284,10 @@ msgstr "опцията „--open-files-in-pager“ изисква търсене
 #: builtin/grep.c
 msgid "--cached or --untracked cannot be used with --no-index"
 msgstr "опциите „--cached“ и „--untracked“ са несъвместими с „--no-index“"
+
+#: builtin/grep.c
+msgid "--untracked cannot be used with --cached"
+msgstr "опциите „--untracked“ и „--cached“ са несъвместими"
 
 #: builtin/grep.c
 msgid "--[no-]exclude-standard cannot be used for tracked contents"
@@ -16159,7 +16491,7 @@ msgstr "пакетният файл е прекалено голям за тек
 msgid "pack exceeds maximum allowed size"
 msgstr "пакетният файл надвишава максималния възможен размер"
 
-#: builtin/index-pack.c builtin/repack.c
+#: builtin/index-pack.c
 #, c-format
 msgid "unable to create '%s'"
 msgstr "пакетният файл „%s“ не може да бъде създаден"
@@ -16249,7 +16581,7 @@ msgstr "грешка при проверката на пакетирани об�
 #: builtin/index-pack.c
 #, c-format
 msgid "Not all child objects of %s are reachable"
-msgstr "Някои обекти, наследници на „%s“, не могат да бъдат достигнати"
+msgstr "Някои обекти, наследници на „%s“, не може да бъдат достигнати"
 
 #: builtin/index-pack.c
 msgid "failed to apply delta"
@@ -16331,8 +16663,8 @@ msgstr "локалният обект „%s“ е повреден"
 
 #: builtin/index-pack.c
 #, c-format
-msgid "packfile name '%s' does not end with '.pack'"
-msgstr "името на пакетния файл „%s“ не завършва на „.pack“"
+msgid "packfile name '%s' does not end with '.%s'"
+msgstr "името на пакетния файл „%s“ не завършва с „%s“"
 
 #: builtin/index-pack.c
 #, c-format
@@ -16354,6 +16686,10 @@ msgstr "пакетният файл не може да бъде запазен"
 
 #: builtin/index-pack.c
 msgid "cannot store index file"
+msgstr "файлът за индекса не може да бъде съхранен"
+
+#: builtin/index-pack.c
+msgid "cannot store reverse index file"
 msgstr "файлът за индекса не може да бъде съхранен"
 
 #: builtin/index-pack.c builtin/pack-objects.c
@@ -16655,9 +16991,9 @@ msgid "show source"
 msgstr "извеждане на изходния код"
 
 #: builtin/log.c
-msgid "Use mail map file"
+msgid "use mail map file"
 msgstr ""
-"Използване на файл за съответствията на имената и адресите на е-поща („."
+"използване на файл за съответствията на имената и адресите на е-поща („."
 "mailmap“)"
 
 #: builtin/log.c
@@ -16674,10 +17010,10 @@ msgstr "настройки на форма̀та на извежданата и�
 
 #: builtin/log.c
 msgid ""
-"Trace the evolution of line range <start>,<end> or function :<funcname> in "
+"trace the evolution of line range <start>,<end> or function :<funcname> in "
 "<file>"
 msgstr ""
-"Проследяване на еволюцията на диапазона от редове НАЧАЛО,КРАЙ или :ФУНКЦИЯта "
+"проследяване на еволюцията на диапазона от редове НАЧАЛО,КРАЙ или :ФУНКЦИЯта "
 "във ФАЙЛа"
 
 #: builtin/log.c
@@ -16839,8 +17175,8 @@ msgid "max length of output filename"
 msgstr "максимална дължина на име на всеки пакетен файл"
 
 #: builtin/log.c
-msgid "Use [RFC PATCH] instead of [PATCH]"
-msgstr "Използване на „[RFC PATCH]“ вместо „[PATCH]“"
+msgid "use [RFC PATCH] instead of [PATCH]"
+msgstr "използване на „[RFC PATCH]“ вместо „[PATCH]“"
 
 #: builtin/log.c
 msgid "cover-from-description-mode"
@@ -16853,8 +17189,8 @@ msgstr ""
 "клона"
 
 #: builtin/log.c
-msgid "Use [<prefix>] instead of [PATCH]"
-msgstr "Използване на този „[ПРЕФИКС]“ вместо „[PATCH]“"
+msgid "use [<prefix>] instead of [PATCH]"
+msgstr "използване на този „[ПРЕФИКС]“ вместо „[PATCH]“"
 
 #: builtin/log.c
 msgid "store resulting files in <dir>"
@@ -17180,6 +17516,10 @@ msgstr ""
 #: builtin/ls-files.c
 msgid "show debugging data"
 msgstr "извеждане на информацията за изчистване на грешки"
+
+#: builtin/ls-files.c
+msgid "suppress duplicate entries"
+msgstr "без повтаряне на записите"
 
 #: builtin/ls-remote.c
 msgid ""
@@ -17781,6 +18121,47 @@ msgstr ""
 "Автоматичното сливане завърши успешно.  Самото подаване не е извършено, "
 "защото бе зададена опцията „--no-commit“.\n"
 
+#: builtin/mktag.c
+msgid "git mktag"
+msgstr "git mktag"
+
+#: builtin/mktag.c
+#, c-format
+msgid "warning: tag input does not pass fsck: %s"
+msgstr "ПРЕДУПРЕЖДЕНИЕ: аргументът-етикет не минава проверка с „fsck“: %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "error: tag input does not pass fsck: %s"
+msgstr "ГРЕШКА: аргументът-етикет не минава проверка с „fsck“: %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "%d (FSCK_IGNORE?) should never trigger this callback"
+msgstr "%d (FSCK_IGNORE?) никога не трябва да задейства тази функция"
+
+#: builtin/mktag.c
+#, c-format
+msgid "could not read tagged object '%s'"
+msgstr "обектът с етикет не може да бъде прочетен: %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "object '%s' tagged as '%s', but is a '%s' type"
+msgstr "обектът „%s“ е с етикет за %s, но е %s"
+
+#: builtin/mktag.c
+msgid "tag on stdin did not pass our strict fsck check"
+msgstr "етикетът на стандартния вход не преминава строгата проверка с „fsck“"
+
+#: builtin/mktag.c
+msgid "tag on stdin did not refer to a valid object"
+msgstr "етикетът на стандартния вход не сочи към правилен обект"
+
+#: builtin/mktag.c builtin/tag.c
+msgid "unable to write tag file"
+msgstr "файлът за етикета не може да бъде запазен"
+
 #: builtin/mktree.c
 msgid "git mktree [-z] [--missing] [--batch]"
 msgstr "git mktree [-z] [--missing] [--batch]"
@@ -17819,7 +18200,8 @@ msgstr ""
 "при препакетиране пакетните файлове, които са с по-малък от този размер, да "
 "се обединяват в пакети с по-голям от този размер"
 
-#: builtin/multi-pack-index.c builtin/prune-packed.c
+#: builtin/multi-pack-index.c builtin/notes.c builtin/prune-packed.c
+#: builtin/tag.c
 msgid "too many arguments"
 msgstr "прекалено много аргументи"
 
@@ -18161,10 +18543,6 @@ msgstr ""
 "notes/“."
 
 #: builtin/notes.c
-msgid "too many parameters"
-msgstr "прекалено много параметри"
-
-#: builtin/notes.c
 #, c-format
 msgid "no note found for object %s."
 msgstr "няма бележки за обекта „%s“."
@@ -18223,8 +18601,8 @@ msgstr ""
 "опцията „--stdin“)"
 
 #: builtin/notes.c
-msgid "too few parameters"
-msgstr "прекалено малко параметри"
+msgid "too few arguments"
+msgstr "прекалено малко аргументи"
 
 #: builtin/notes.c
 #, c-format
@@ -18410,6 +18788,15 @@ msgstr ""
 
 #: builtin/pack-objects.c
 #, c-format
+msgid ""
+"write_reuse_object: could not locate %s, expected at offset %<PRIuMAX> in "
+"pack %s"
+msgstr ""
+"write_reuse_object: „%s“ не може да се открие, а се очакваше при отместване "
+"%<PRIuMAX> в пакетния файл „%s“"
+
+#: builtin/pack-objects.c
+#, c-format
 msgid "bad packed object CRC for %s"
 msgstr "лоша контролна сума за пакетирания обект „%s“"
 
@@ -18427,6 +18814,11 @@ msgstr "рекурсивна разлика за обект „%s“"
 #, c-format
 msgid "ordered %u objects, expected %<PRIu32>"
 msgstr "подредени бяха %u обекта, а се очакваха %<PRIu32>"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "expected object at offset %<PRIuMAX> in pack %s"
+msgstr "очаква се обект при отместване %<PRIuMAX> в пакетния файл „%s“"
 
 #: builtin/pack-objects.c
 msgid "disabling bitmap writing, packs are split due to pack.packSizeLimit"
@@ -18797,6 +19189,20 @@ msgstr ""
 "Общо: %<PRIu32> (разлики: %<PRIu32>), преизползвани: %<PRIu32> (разлики: "
 "%<PRIu32>), преизползвани при пакетиране: %<PRIu32>"
 
+#: builtin/pack-redundant.c
+msgid ""
+"'git pack-redundant' is nominated for removal.\n"
+"If you still use this command, please add an extra\n"
+"option, '--i-still-use-this', on the command line\n"
+"and let us know you still use it by sending an e-mail\n"
+"to <git@vger.kernel.org>.  Thanks.\n"
+msgstr ""
+"Командата „git pack-redundant“ е остаряла и предстои\n"
+"пълното ѝ премахване.  Ако все още я ползвате, добавете\n"
+"опцията „--i-still-use-this“ на командния ред и молим да\n"
+"ни известите с е-писмо до пощенския списък:\n"
+"<git@vger.kernel.org>.\n"
+
 #: builtin/pack-refs.c
 msgid "git pack-refs [<options>]"
 msgstr "git pack-refs [ОПЦИЯ…]"
@@ -18878,35 +19284,6 @@ msgstr "брой подмодули издърпани паралелно"
 #, c-format
 msgid "Invalid value for pull.ff: %s"
 msgstr "Неправилна стойност за „pull.ff“: „%s“"
-
-#: builtin/pull.c
-msgid ""
-"Pulling without specifying how to reconcile divergent branches is\n"
-"discouraged. You can squelch this message by running one of the following\n"
-"commands sometime before your next pull:\n"
-"\n"
-"  git config pull.rebase false  # merge (the default strategy)\n"
-"  git config pull.rebase true   # rebase\n"
-"  git config pull.ff only       # fast-forward only\n"
-"\n"
-"You can replace \"git config\" with \"git config --global\" to set a "
-"default\n"
-"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
-"or --ff-only on the command line to override the configured default per\n"
-"invocation.\n"
-msgstr ""
-"Не се насърчава издърпване без указване на стратегията за съгласуване на\n"
-"клоните.  За да заглушите това съобщение, изпълнете някоя от следните\n"
-"команди преди следващото издърпване:\n"
-"\n"
-"  git config pull.rebase false  # сливане (стандартна стратегия)\n"
-"  git config pull.rebase true   # пребазиране\n"
-"  git config pull.ff only       # само превъртане\n"
-"\n"
-"За да зададете стандартната настройка за всички свои хранилища, добавете и\n"
-"опцията „--global“.  За да укажете стратегия при конкретно издърпване,\n"
-"използвайте опциите „--rebase“, „--no-rebase“, „--ff-only“.  Те са с\n"
-"приоритет пред настройките.\n"
 
 #: builtin/pull.c
 msgid ""
@@ -18994,6 +19371,35 @@ msgstr "недостъпно подаване: %s"
 #: builtin/pull.c
 msgid "ignoring --verify-signatures for rebase"
 msgstr "без „--verify-signatures“ при пребазиране"
+
+#: builtin/pull.c
+msgid ""
+"Pulling without specifying how to reconcile divergent branches is\n"
+"discouraged. You can squelch this message by running one of the following\n"
+"commands sometime before your next pull:\n"
+"\n"
+"  git config pull.rebase false  # merge (the default strategy)\n"
+"  git config pull.rebase true   # rebase\n"
+"  git config pull.ff only       # fast-forward only\n"
+"\n"
+"You can replace \"git config\" with \"git config --global\" to set a "
+"default\n"
+"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
+"or --ff-only on the command line to override the configured default per\n"
+"invocation.\n"
+msgstr ""
+"Не се насърчава издърпване без указване на стратегията за съгласуване на\n"
+"клоните.  За да заглушите това съобщение, изпълнете някоя от следните\n"
+"команди преди следващото издърпване:\n"
+"\n"
+"  git config pull.rebase false  # сливане (стандартна стратегия)\n"
+"  git config pull.rebase true   # пребазиране\n"
+"  git config pull.ff only       # само превъртане\n"
+"\n"
+"За да зададете стандартната настройка за всички свои хранилища, добавете и\n"
+"опцията „--global“.  За да укажете стратегия при конкретно издърпване,\n"
+"използвайте опциите „--rebase“, „--no-rebase“, „--ff-only“.  Те са с\n"
+"приоритет пред настройките.\n"
 
 #: builtin/pull.c
 msgid "Updating an unborn branch with changes added to the index."
@@ -19396,9 +19802,17 @@ msgid "passed to 'git log'"
 msgstr "подава се на командата „git log“"
 
 #: builtin/range-diff.c
+msgid "only emit output related to the first range"
+msgstr "извеждане само на информацията за първия диапазон"
+
+#: builtin/range-diff.c
+msgid "only emit output related to the second range"
+msgstr "извеждане само на информацията за втория диапазон"
+
+#: builtin/range-diff.c
 #, c-format
-msgid "no .. in range: '%s'"
-msgstr "„..“ липсва в диапазона „%s“"
+msgid "not a commit range: '%s'"
+msgstr "не е диапазон с подавания: „%s“"
 
 #: builtin/range-diff.c
 msgid "single arg format must be symmetric range"
@@ -21611,38 +22025,36 @@ msgid "unknown group type: %s"
 msgstr "неизвестен вид група: %s"
 
 #: builtin/shortlog.c
-msgid "Group by committer rather than author"
-msgstr "Групиране по подаващ, а не по автор"
+msgid "group by committer rather than author"
+msgstr "групиране по подаващ, а не по автор"
 
 #: builtin/shortlog.c
 msgid "sort output according to the number of commits per author"
 msgstr "подредба на подаванията по броя подавания от автор"
 
 #: builtin/shortlog.c
-msgid "Suppress commit descriptions, only provides commit count"
-msgstr "Без описания на подаванията — да се показва само броя подавания"
+msgid "suppress commit descriptions, only provides commit count"
+msgstr "без описания на подаванията — да се показва само броя подавания"
 
 #: builtin/shortlog.c
-msgid "Show the email address of each author"
-msgstr "Извеждане на адреса на е-поща за всеки автор"
+msgid "show the email address of each author"
+msgstr "извеждане на адреса на е-поща за всеки автор"
 
 #: builtin/shortlog.c
 msgid "<w>[,<i1>[,<i2>]]"
 msgstr "<ШИРОЧИНА>[,<ОТСТЪП_1>[,<ОТСТЪП_2>]]"
 
 #: builtin/shortlog.c
-msgid "Linewrap output"
-msgstr ""
-"Пренасяне на редовете до тази обща ШИРОЧИНА (76), с ОТСТЪП_1 (6) за първия "
-"ред и ОТСТЪП_2 (9) за останалите"
+msgid "linewrap output"
+msgstr "пренасяне на редовете"
 
 #: builtin/shortlog.c
 msgid "field"
 msgstr "поле"
 
 #: builtin/shortlog.c
-msgid "Group by field"
-msgstr "Групиране по поле"
+msgid "group by field"
+msgstr "групиране по поле"
 
 #: builtin/shortlog.c
 msgid "too many arguments given outside repository"
@@ -22002,8 +22414,19 @@ msgid "%s is not a valid reference"
 msgstr "„%s“ е неправилно име за указател"
 
 #: builtin/stash.c
-msgid "git stash clear with parameters is unimplemented"
+msgid "git stash clear with arguments is unimplemented"
 msgstr "командата „git stash clear“ не поддържа аргументи"
+
+#: builtin/stash.c
+#, c-format
+msgid ""
+"WARNING: Untracked file in way of tracked file!  Renaming\n"
+"            %s -> %s\n"
+"         to make room.\n"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Неследен файл на мястото на следен!  Преименуване\n"
+"            „%s“ на „%s“\n"
+"         за да се направи място.\n"
 
 #: builtin/stash.c
 msgid "cannot apply a stash in the middle of a merge"
@@ -22228,12 +22651,12 @@ msgstr ""
 "."
 
 #: builtin/submodule--helper.c
-msgid "Suppress output of entering each submodule command"
-msgstr "Без извеждане на изход при въвеждането на всяка команда за подмодули"
+msgid "suppress output of entering each submodule command"
+msgstr "без извеждане на изход при въвеждането на всяка команда за подмодули"
 
 #: builtin/submodule--helper.c
-msgid "Recurse into nested submodules"
-msgstr "Рекурсивно обхождане на подмодулите"
+msgid "recurse into nested submodules"
+msgstr "рекурсивно обхождане на подмодулите"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper foreach [--quiet] [--recursive] [--] <command>"
@@ -22270,8 +22693,8 @@ msgstr ""
 "Неуспешно регистриране на режима на обновяване за пътя към подмодул „%s“"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output for initializing a submodule"
-msgstr "Без извеждане на информация при инициализирането на подмодул"
+msgid "suppress output for initializing a submodule"
+msgstr "без извеждане на информация при инициализирането на подмодул"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper init [<options>] [<path>]"
@@ -22293,20 +22716,16 @@ msgid "failed to recurse into submodule '%s'"
 msgstr "неуспешно рекурсивно обхождане на подмодула „%s“"
 
 #: builtin/submodule--helper.c
-msgid "Suppress submodule status output"
-msgstr "Без изход за състоянието на подмодула"
+msgid "suppress submodule status output"
+msgstr "без изход за състоянието на подмодула"
 
 #: builtin/submodule--helper.c
 msgid ""
-"Use commit stored in the index instead of the one stored in the submodule "
+"use commit stored in the index instead of the one stored in the submodule "
 "HEAD"
 msgstr ""
-"Използване на подаването указано в индекса, а не това от указателя „HEAD“ на "
+"използване на подаването указано в индекса, а не това от указателя „HEAD“ на "
 "подмодула"
-
-#: builtin/submodule--helper.c
-msgid "recurse into nested submodules"
-msgstr "рекурсивно обхождане на подмодулите"
 
 #: builtin/submodule--helper.c
 msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
@@ -22394,8 +22813,8 @@ msgid "failed to update remote for submodule '%s'"
 msgstr "отдалеченият адрес на подмодула „%s“ не може да бъде променен"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output of synchronizing submodule url"
-msgstr "Без извеждане на информация при синхронизирането на подмодул"
+msgid "suppress output of synchronizing submodule url"
+msgstr "без извеждане на информация при синхронизирането на подмодул"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper sync [--quiet] [--recursive] [<path>]"
@@ -22441,14 +22860,14 @@ msgid "Submodule '%s' (%s) unregistered for path '%s'\n"
 msgstr "Регистрацията на подмодула „%s“ (%s) за пътя „%s“ е премахната\n"
 
 #: builtin/submodule--helper.c
-msgid "Remove submodule working trees even if they contain local changes"
+msgid "remove submodule working trees even if they contain local changes"
 msgstr ""
-"Изтриване на работните дървета на подмодулите, дори когато те съдържат "
+"изтриване на работните дървета на подмодулите, дори когато те съдържат "
 "локални промени"
 
 #: builtin/submodule--helper.c
-msgid "Unregister all submodules"
-msgstr "Премахване на регистрациите на всички подмодули"
+msgid "unregister all submodules"
+msgstr "премахване на регистрациите на всички подмодули"
 
 #: builtin/submodule--helper.c
 msgid ""
@@ -22598,8 +23017,8 @@ msgstr ""
 "„none“ (нищо да не се прави)"
 
 #: builtin/submodule--helper.c
-msgid "Create a shallow clone truncated to the specified number of revisions"
-msgstr "Плитко клониране, отрязано до указания брой версии"
+msgid "create a shallow clone truncated to the specified number of revisions"
+msgstr "извършване на плитко клониране, отрязано до указания брой версии"
 
 #: builtin/submodule--helper.c
 msgid "parallel jobs"
@@ -22669,8 +23088,8 @@ msgid "please make sure that the .gitmodules file is in the working tree"
 msgstr "файлът „.gitmodules“ трябва да е в работното дърво"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output for setting url of a submodule"
-msgstr "Без извеждане на информация при задаването на адреса на подмодул"
+msgid "suppress output for setting url of a submodule"
+msgstr "без извеждане на информация при задаването на адреса на подмодул"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper set-url [--quiet] <path> <newurl>"
@@ -22809,10 +23228,6 @@ msgid "unable to sign the tag"
 msgstr "етикетът не може да бъде подписан"
 
 #: builtin/tag.c
-msgid "unable to write tag file"
-msgstr "файлът за етикета не може да бъде запазен"
-
-#: builtin/tag.c
 #, c-format
 msgid ""
 "You have created a nested tag. The object referred to by your new tag is\n"
@@ -22942,10 +23357,6 @@ msgstr "Опциите „--merged“ и „--no-merged“ изискват ре
 #: builtin/tag.c
 msgid "only one -F or -m option is allowed."
 msgstr "Опциите „-F“ и „-m“ са несъвместими."
-
-#: builtin/tag.c
-msgid "too many params"
-msgstr "Прекалено много аргументи"
 
 #: builtin/tag.c
 #, c-format
@@ -23368,34 +23779,6 @@ msgid "failed to delete '%s'"
 msgstr "неуспешно изтриване на „%s“"
 
 #: builtin/worktree.c
-msgid "not a valid directory"
-msgstr "не е валидна директория"
-
-#: builtin/worktree.c
-msgid "gitdir file does not exist"
-msgstr "файлът „gitdir“ не съществува"
-
-#: builtin/worktree.c
-#, c-format
-msgid "unable to read gitdir file (%s)"
-msgstr "файлът „gitdir“ не може да бъде прочетен (%s)"
-
-#: builtin/worktree.c
-#, c-format
-msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
-msgstr ""
-"изчитането върна по-малко байтове от очакваното (очаквани: %<PRIuMAX> байта, "
-"получени: %<PRIuMAX>)"
-
-#: builtin/worktree.c
-msgid "invalid gitdir file"
-msgstr "неправилен файл „gitdir“"
-
-#: builtin/worktree.c
-msgid "gitdir file points to non-existent location"
-msgstr "файлът „gitdir“ сочи несъществуващо местоположение"
-
-#: builtin/worktree.c
 #, c-format
 msgid "Removing %s/%s: %s"
 msgstr "Изтриване на „%s/%s“: %s"
@@ -23500,6 +23883,19 @@ msgstr "Опциите „-b“, „-B“ и „--detach“ са несъвме�
 #: builtin/worktree.c
 msgid "--[no-]track can only be used if a new branch is created"
 msgstr "„--[no-]track“ може да се използва само при създаването на нов клон"
+
+#: builtin/worktree.c
+msgid "show extended annotations and reasons, if available"
+msgstr "извеждане на подробни анотации и обяснения, ако такива са налични"
+
+#: builtin/worktree.c
+msgid "add 'prunable' annotation to worktrees older than <time>"
+msgstr ""
+"добавяне на анотация за окастряне на работните копия по-стари от това ВРЕМЕ"
+
+#: builtin/worktree.c
+msgid "--verbose and --porcelain are mutually exclusive"
+msgstr "опциите „--verbose“ и „--porcelain“ са несъвместими"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -23658,6 +24054,14 @@ msgstr "опцията „--packfile“ изисква валидна контр
 msgid "not a git repository"
 msgstr "не е хранилище на Git"
 
+#: http-fetch.c
+msgid "--packfile requires --index-pack-args"
+msgstr "опцията „--packfile“ изисква опция „--index-pack-args“"
+
+#: http-fetch.c
+msgid "--index-pack-args can only be used with --packfile"
+msgstr "опцията „--index-pack-args“ изисква опция „--packfile“"
+
 #: t/helper/test-fast-rebase.c
 msgid "unhandled options"
 msgstr "неподдържани опции"
@@ -23690,12 +24094,15 @@ msgid ""
 "           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
 "bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
+"           [--super-prefix=<path>] [--config-env=<name>=<envvar>]\n"
 "           <command> [<args>]"
 msgstr ""
 "git [--version] [--help] [-C ПЪТ] [-c ИМЕ=СТОЙНОСТ]\n"
 "           [--exec-path[=ПЪТ]] [--html-path] [--man-path] [--info-path]\n"
-"           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\n"
+"           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
+"bare]\n"
 "           [--git-dir=ПЪТ] [--work-tree=ПЪТ] [--namespace=ИМЕ]\n"
+"           [--super-prefix=ПЪТ] [--config-env=ИМЕ=ПРОМЕНЛИВА_НА_СРЕДАТА]\n"
 "           КОМАНДА [АРГ…]"
 
 #: git.c
@@ -24072,14 +24479,6 @@ msgstr ""
 "при възможност преизползване на решението на конфликта за обновяване на "
 "индекса"
 
-#: wt-status.h
-msgid "HEAD detached at "
-msgstr "Указателят „HEAD“ не е свързан и е при "
-
-#: wt-status.h
-msgid "HEAD detached from "
-msgstr "Указателят „HEAD“ не е свързан и е отделѐн от "
-
 #: command-list.h
 msgid "Add file contents to the index"
 msgstr "Добавяне на съдържанието на файла към индекса"
@@ -24425,8 +24824,8 @@ msgid "Write and verify multi-pack-indexes"
 msgstr "Запис и проверка на индексите за множество пакети"
 
 #: command-list.h
-msgid "Creates a tag object"
-msgstr "Създаване на обект-етикет"
+msgid "Creates a tag object with extra validation"
+msgstr "Създаване на обект-етикет с допълнителни проверки"
 
 #: command-list.h
 msgid "Build a tree-object from ls-tree formatted text"
@@ -24734,6 +25133,10 @@ msgid "Specifies intentionally untracked files to ignore"
 msgstr "Указване на неследени файлове, които да бъдат нарочно пренебрегвани"
 
 #: command-list.h
+msgid "Map author/committer names and/or E-Mail addresses"
+msgstr "Съответствия на имена на автор/подаващ и/или адреси на е-поща"
+
+#: command-list.h
 msgid "Defining submodule properties"
 msgstr "Дефиниране на свойствата на подмодулите"
 
@@ -24770,27 +25173,6 @@ msgid "An overview of recommended workflows with Git"
 msgstr "Общ преглед на препоръчваните начини за работа с Git"
 
 #: git-bisect.sh
-#, sh-format
-msgid "Bad rev input: $arg"
-msgstr "Неправилна версия: „${arg}“"
-
-#: git-bisect.sh
-msgid "No logfile given"
-msgstr "Не е зададен журнален файл"
-
-#: git-bisect.sh
-#, sh-format
-msgid "cannot read $file for replaying"
-msgstr ""
-"Журналният файл „${file}“ не може да бъде прочетен, за да се изпълнят "
-"командите от него наново"
-
-#: git-bisect.sh
-msgid "?? what are you talking about?"
-msgstr ""
-"Непозната команда.  Възможните варианти са: „start“, „good“, „bad“, „skip“"
-
-#: git-bisect.sh
 msgid "bisect run failed: no command provided."
 msgstr "неуспешно двоично търсене, не е зададена команда."
 
@@ -24825,10 +25207,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "успешно двоично търсене"
-
-#: git-bisect.sh
-msgid "We are not bisecting."
-msgstr "В момента не се извършва двоично търсене."
 
 #: git-merge-octopus.sh
 msgid ""
