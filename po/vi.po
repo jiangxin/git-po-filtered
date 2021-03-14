@@ -2,15 +2,15 @@
 # Bản dịch tiếng Việt dành cho GIT-CORE.
 # This file is distributed under the same license as the git-core package.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2012.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 # Đoàn Trần Công Danh <congdanhqx@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: git v2.30.0 rd2\n"
+"Project-Id-Version: git  v2.31.0-rc1 rd2\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-12-21 07:10+0800\n"
-"PO-Revision-Date: 2020-12-21 08:42+0700\n"
+"POT-Creation-Date: 2021-03-04 22:41+0800\n"
+"PO-Revision-Date: 2021-03-08 08:58+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -1094,7 +1094,7 @@ msgstr "gặp lỗi khi vá: %s:%ld"
 msgid "cannot checkout %s"
 msgstr "không thể lấy ra %s"
 
-#: apply.c midx.c setup.c
+#: apply.c midx.c pack-revindex.c setup.c
 #, c-format
 msgid "failed to read %s"
 msgstr "gặp lỗi khi đọc %s"
@@ -1781,7 +1781,7 @@ msgstr "%s là cả %s và %s\n"
 #, c-format
 msgid ""
 "No testable commit found.\n"
-"Maybe you started with bad path parameters?\n"
+"Maybe you started with bad path arguments?\n"
 msgstr ""
 "Không tìm thấy lần chuyển giao kiểm tra được nào.\n"
 "Có lẽ bạn bắt đầu với các tham số đường dẫn sai?\n"
@@ -2040,10 +2040,6 @@ msgid "pack-objects died"
 msgstr "đối tượng gói đã chết"
 
 #: bundle.c
-msgid "rev-list died"
-msgstr "rev-list đã chết"
-
-#: bundle.c
 #, c-format
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr "th.chiếu “%s” bị loại trừ bởi các tùy chọn rev-list"
@@ -2075,6 +2071,25 @@ msgstr "không thể tạo “%s”"
 #: bundle.c
 msgid "index-pack died"
 msgstr "mục lục gói đã chết"
+
+#: chunk-format.c
+msgid "terminating chunk id appears earlier than expected"
+msgstr "mã mảnh kết thúc sớm hơn bình thường"
+
+#: chunk-format.c
+#, c-format
+msgid "improper chunk offset(s) %<PRIx64> and %<PRIx64>"
+msgstr "bù mảnh không đúng cách %<PRIx64> và %<PRIx64>"
+
+#: chunk-format.c
+#, c-format
+msgid "duplicate chunk ID %<PRIx32> found"
+msgstr "tìm thấy ID của mảnh bị trùng lặp %<PRIx32>"
+
+#: chunk-format.c
+#, c-format
+msgid "final chunk has non-zero id %<PRIx32>"
+msgstr "mảnh cuối cùng có id không bằng không %<PRIx32>"
 
 #: color.c
 #, c-format
@@ -2110,16 +2125,6 @@ msgid "commit-graph file is too small to hold %u chunks"
 msgstr "tập tin đồ-thị-các-lần-chuyển-giao quá nhỏ để giữ %u mảnh dữ liệu"
 
 #: commit-graph.c
-#, c-format
-msgid "commit-graph improper chunk offset %08x%08x"
-msgstr "bù mảnh đồ-thị-các-lần-chuyển-giao không đúng chỗ %08x%08x"
-
-#: commit-graph.c
-#, c-format
-msgid "commit-graph chunk id %08x appears multiple times"
-msgstr "mã mảnh đồ-thị-các-lần-chuyển-giao %08x xuất hiện nhiều lần"
-
-#: commit-graph.c
 msgid "commit-graph has no base graphs chunk"
 msgstr "đồ-thị-các-lần-chuyển-giao có không có mảnh các đồ họa cơ sở"
 
@@ -2149,6 +2154,10 @@ msgstr ""
 msgid "could not find commit %s"
 msgstr "không thể tìm thấy lần chuyển giao %s"
 
+#: commit-graph.c
+msgid "commit-graph requires overflow generation data but has none"
+msgstr "commit-graph yêu cầu dữ liệu tạo tràn nhưng không có"
+
 #: commit-graph.c builtin/am.c
 #, c-format
 msgid "unable to parse commit %s"
@@ -2172,6 +2181,10 @@ msgstr ""
 #: commit-graph.c
 msgid "Clearing commit marks in commit graph"
 msgstr "Đang dọn dẹp các đánh dấu lần chuyển giao trong đồ thị lần chuyển giao"
+
+#: commit-graph.c
+msgid "Computing commit graph topological levels"
+msgstr "Đang tính mức hình học tô-pô tạo đồ thị các lần chuyển giao"
 
 #: commit-graph.c
 msgid "Computing commit graph generation numbers"
@@ -2343,8 +2356,10 @@ msgstr ""
 
 #: commit-graph.c
 #, c-format
-msgid "commit-graph generation for commit %s is %u != %u"
-msgstr "tạo đồ-thị-các-lần-chuyển-giao cho lần chuyển giao %s là %u != %u"
+msgid "commit-graph generation for commit %s is %<PRIuMAX> < %<PRIuMAX>"
+msgstr ""
+"tạo đồ-thị-các-lần-chuyển-giao cho lần chuyển giao %s là %<PRIuMAX> < "
+"%<PRIuMAX>"
 
 #: commit-graph.c
 #, c-format
@@ -2448,6 +2463,21 @@ msgstr "các điều kiện bao gồm cấu hình liên quan phải đến từ 
 
 #: config.c
 #, c-format
+msgid "invalid config format: %s"
+msgstr "định dạng cấu hình không hợp lệ: %s"
+
+#: config.c
+#, c-format
+msgid "missing environment variable name for configuration '%.*s'"
+msgstr "thiếu tên biến môi trường cho cấu hình '%.*s'"
+
+#: config.c
+#, c-format
+msgid "missing environment variable '%s' for configuration '%.*s'"
+msgstr "thiếu biến môi trường '%s' cho cấu hình '%.*s'"
+
+#: config.c
+#, c-format
 msgid "key does not contain a section: %s"
 msgstr "khóa không chứa một phần: %s"
 
@@ -2467,6 +2497,10 @@ msgid "invalid key (newline): %s"
 msgstr "khóa không hợp lệ (dòng mới): %s"
 
 #: config.c
+msgid "empty config key"
+msgstr "khóa cấu hình trống rỗng"
+
+#: config.c
 #, c-format
 msgid "bogus config parameter: %s"
 msgstr "tham số cấu hình không có thực: %s"
@@ -2475,6 +2509,26 @@ msgstr "tham số cấu hình không có thực: %s"
 #, c-format
 msgid "bogus format in %s"
 msgstr "định dạng không có thực trong %s"
+
+#: config.c
+#, c-format
+msgid "bogus count in %s"
+msgstr "số lượng không có thực trong %s"
+
+#: config.c
+#, c-format
+msgid "too many entries in %s"
+msgstr "quá nhiều mục tin trong %s"
+
+#: config.c
+#, c-format
+msgid "missing config key %s"
+msgstr "thiếu khóa cấu hình “%s”"
+
+#: config.c
+#, c-format
+msgid "missing config value %s"
+msgstr "thiếu giá trị cấu hình “%s”"
 
 #: config.c
 #, c-format
@@ -2550,6 +2604,11 @@ msgstr "sai giá trị bằng số của cấu hình “%s” cho “%s” trong
 #, c-format
 msgid "bad numeric config value '%s' for '%s' in %s: %s"
 msgstr "sai giá trị bằng số của cấu hình “%s” cho “%s” trong %s: %s"
+
+#: config.c
+#, c-format
+msgid "bad boolean config value '%s' for '%s'"
+msgstr "sai giá trị kiểu lô-gíc của cấu hình “%s” cho “%s”"
 
 #: config.c
 #, c-format
@@ -2870,6 +2929,10 @@ msgid "no path specified; see 'git help pull' for valid url syntax"
 msgstr "chưa chỉ định đường dẫn; xem'git help pull” để biết cú pháp url hợp lệ"
 
 #: connect.c
+msgid "newline is forbidden in git:// hosts and repo paths"
+msgstr "newline bị cấm trong các git:// máy chủ và đường dẫn repo"
+
+#: connect.c
 msgid "ssh variant 'simple' does not support -4"
 msgstr "ssh biến thể “simple” không hỗ trợ -4"
 
@@ -3144,6 +3207,11 @@ msgstr ""
 #, c-format
 msgid "Marked %d islands, done.\n"
 msgstr "Đã đánh dấu %d island, xong.\n"
+
+#: diff-merges.c
+#, c-format
+msgid "unknown value for --diff-merges: %s"
+msgstr "không hiểu giá trị cho --diff-merges: %s"
 
 #: diff-lib.c
 msgid "--merge-base does not work with ranges"
@@ -3742,6 +3810,18 @@ msgid "control the order in which files appear in the output"
 msgstr "điều khiển thứ tự xuát hiện các tập tin trong kết xuất"
 
 #: diff.c
+msgid "<path>"
+msgstr "<đường-dẫn>"
+
+#: diff.c
+msgid "show the change in the specified path first"
+msgstr "hiển thị các thay đổi trong đường dẫn đã cho đầu tiên"
+
+#: diff.c
+msgid "skip the output to the specified path"
+msgstr "bỏ qua đầu ra đến đường dẫn đã cho"
+
+#: diff.c
 msgid "<object-id>"
 msgstr "<mã-số-đối-tượng>"
 
@@ -3795,6 +3875,11 @@ msgstr "gặp lỗi khi đọc tập-tin-thứ-tự “%s”"
 #: diffcore-rename.c
 msgid "Performing inexact rename detection"
 msgstr "Đang thực hiện dò tìm đổi tên không chính xác"
+
+#: diffcore-rotate.c
+#, c-format
+msgid "No such path '%s' in the diff"
+msgstr "Không có đường dẫn %s trong diff"
 
 #: dir.c
 #, c-format
@@ -3982,6 +4067,10 @@ msgstr "lỗi giao thức: phần đầu gói bị sai"
 #, c-format
 msgid "fetch-pack: unable to fork off %s"
 msgstr "fetch-pack: không thể rẽ nhánh %s"
+
+#: fetch-pack.c
+msgid "fetch-pack: invalid index-pack output"
+msgstr "fetch-pack: kết xuất index-pack không hợp lệ"
 
 #: fetch-pack.c
 #, c-format
@@ -4461,8 +4550,246 @@ msgid "Unable to create '%s.lock': %s"
 msgstr "Không thể tạo “%s.lock”: %s"
 
 #: ls-refs.c
+#, c-format
+msgid "invalid value '%s' for lsrefs.unborn"
+msgstr "giá trị '%s' không hợp lệ cho lsrefs.unborn"
+
+#: ls-refs.c
 msgid "expected flush after ls-refs arguments"
 msgstr "cần đẩy dữ liệu lên đĩa sau tham số ls-refs (liệt kê tham chiếu)"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s” (không lấy ra được)"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s” (lần chuyển giao không hiện diện)"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr ""
+"Gặp lỗi khi hòa trộn mô-đun-con “%s” (lần chuyển giao không theo sau nền-hòa-"
+"trộn)"
+
+#: merge-ort.c
+#, c-format
+msgid "Note: Fast-forwarding submodule %s to %s"
+msgstr "Chú ý: Chuyển-tiếp-nhanh mô-đun-con “%s” sang “%s”"
+
+#: merge-ort.c
+#, c-format
+msgid "Failed to merge submodule %s"
+msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s”"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"Failed to merge submodule %s, but a possible merge resolution exists:\n"
+"%s\n"
+msgstr ""
+"Gặp lỗi khi hòa trộn mô-đun-con “%s”, nhưng có cách giải quyết:\n"
+"%s\n"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+"Nếu đây là đúng đơn giản thêm nó vào mục lục ví dụ\n"
+"bằng cách dùng:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"cái mà sẽ chấp nhận gợi ý này.\n"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"Failed to merge submodule %s, but multiple possible merges exist:\n"
+"%s"
+msgstr ""
+"Gặp lỗi khi hòa trộn mô-đun-con “%s”, nhưng có nhiều cách giải quyết:\n"
+"%s"
+
+#: merge-ort.c merge-recursive.c
+msgid "Failed to execute internal merge"
+msgstr "Gặp lỗi khi thực hiện trộn nội bộ"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Unable to add %s to database"
+msgstr "Không thể thêm %s vào cơ sở dữ liệu"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Auto-merging %s"
+msgstr "Tự-động-hòa-trộn %s"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+"XUNG ĐỘT: (ngầm đổi tên thư mục): Tập tin/thư mục đã sẵn có tại %s theo cách "
+"của các đổi tên thư mục ngầm đặt (các) đường dẫn sau ở đây: %s."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+"XUNG ĐỘT: (ngầm đổi tên thư mục): Không thể ánh xạ một đường dẫn thành %s; "
+"các đổi tên thư mục ngầm cố đặt các đường dẫn ở đây: %s"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to rename %s to; it was "
+"renamed to multiple other directories, with no destination getting a "
+"majority of the files."
+msgstr ""
+"XUNG ĐỘT: (thư mục đổi tên chia tách): Không rõ ràng nơi để đổi tên %s "
+"thành; nó đã bị đổi tên thành nhiều thư mục khác, với không đích đến nhận "
+"một phần nhiều của các tập tin."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
+msgstr ""
+"CẢNH BÁO: tránh áp dụng %s -> %s đổi thên thành %s, bởi vì bản thân %s cũng "
+"bị đổi tên."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s added in %s inside a directory that was renamed in %s; "
+"moving it to %s."
+msgstr ""
+"Đường dẫn đã được cập nhật: %s được thêm vào trong %s bên trong một thư mục "
+"đã được đổi tên trong %s; di chuyển nó đến %s."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
+"%s; moving it to %s."
+msgstr ""
+"Đường dẫn đã được cập nhật: %s được đổi tên thành %s trong %s, bên trong một "
+"thư mục đã được đổi tên trong %s; di chuyển nó đến %s."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s added in %s inside a directory that was renamed "
+"in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+"XUNG ĐỘT (vị trí tệp): %s được thêm vào trong %s trong một thư mục đã được "
+"đổi tên thành %s, đoán là nó nên được di chuyển đến %s."
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
+"was renamed in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+"XUNG ĐỘT (vị trí tệp): %s được đổi tên thành %s trong %s, bên trong một thư "
+"mục đã được đổi tên thành %s, đoán là nó nên được di chuyển đến %s."
+
+#: merge-ort.c
+#, c-format
+msgid "CONFLICT (rename/rename): %s renamed to %s in %s and to %s in %s."
+msgstr ""
+"XUNG ĐỘT (đổi-tên/đổi-tên): Đổi tên %s->%s trong %s và thành %s trong %s."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (rename involved in collision): rename of %s -> %s has content "
+"conflicts AND collides with another path; this may result in nested conflict "
+"markers."
+msgstr ""
+"XUNG ĐỘT (đổi tên liên quan đến va chạm): đổi tên %s -> %s xung đột nội dung "
+"VÀ va chạm với một đường dẫn khác; điều này có thể dẫn đến tạo ra các xung "
+"đột lồng nhau."
+
+#: merge-ort.c
+#, c-format
+msgid "CONFLICT (rename/delete): %s renamed to %s in %s, but deleted in %s."
+msgstr ""
+"XUNG ĐỘT (đổi-tên/xóa): Đổi tên %s->%s trong %s, nhưng lại bị xóa trong %s."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (file/directory): directory in the way of %s from %s; moving it to "
+"%s instead."
+msgstr ""
+"XUNG ĐỘT (tập tin/thư mục): thư mục theo cách của %s từ %s; thay vào đó, di "
+"chuyển nó đến %s."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (distinct types): %s had different types on each side; renamed %s "
+"of them so each can be recorded somewhere."
+msgstr ""
+"CONFLICT (các loại riêng biệt): %s có các loại khác nhau ở mỗi bên; được đổi "
+"tên %s trong số chúng để mỗi cái có thể được ghi lại ở đâu đó."
+
+#: merge-ort.c
+msgid "both"
+msgstr "cả hai"
+
+#: merge-ort.c
+msgid "one"
+msgstr "một"
+
+#: merge-ort.c merge-recursive.c
+msgid "content"
+msgstr "nội dung"
+
+#: merge-ort.c merge-recursive.c
+msgid "add/add"
+msgstr "thêm/thêm"
+
+#: merge-ort.c merge-recursive.c
+msgid "submodule"
+msgstr "mô-đun-con"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "CONFLICT (%s): Merge conflict in %s"
+msgstr "XUNG ĐỘT (%s): Xung đột hòa trộn trong %s"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (modify/delete): %s deleted in %s and modified in %s.  Version %s "
+"of %s left in tree."
+msgstr ""
+"XUNG ĐỘT (sửa/xóa): %s bị xóa trong %s và sửa trong %s. Phiên bản %s của %s "
+"còn lại trong cây (tree)."
+
+#. TRANSLATORS: The %s arguments are: 1) tree hash of a merge
+#. base, and 2-3) the trees for the two trees we're merging.
+#.
+#: merge-ort.c
+#, c-format
+msgid "collecting merge info failed for trees %s, %s, %s"
+msgstr "thu thập thông tin hòa trộn gặp lỗi cho cây %s, %s, %s"
 
 #: merge-ort-wrappers.c merge-recursive.c
 #, c-format
@@ -4541,23 +4868,6 @@ msgstr "không hiểu phải làm gì với %06o %s “%s”"
 
 #: merge-recursive.c
 #, c-format
-msgid "Failed to merge submodule %s (not checked out)"
-msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s” (không lấy ra được)"
-
-#: merge-recursive.c
-#, c-format
-msgid "Failed to merge submodule %s (commits not present)"
-msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s” (lần chuyển giao không hiện diện)"
-
-#: merge-recursive.c
-#, c-format
-msgid "Failed to merge submodule %s (commits don't follow merge-base)"
-msgstr ""
-"Gặp lỗi khi hòa trộn mô-đun-con “%s” (lần chuyển giao không theo sau nền-hòa-"
-"trộn)"
-
-#: merge-recursive.c
-#, c-format
 msgid "Fast-forwarding submodule %s to the following commit:"
 msgstr "Chuyển-tiếp-nhanh mô-đun-con “%s” đến lần chuyển giao sau đây:"
 
@@ -4584,39 +4894,8 @@ msgstr "Tìm thấy một giải pháp hòa trộn có thể cho mô-đun-con:\n
 
 #: merge-recursive.c
 #, c-format
-msgid ""
-"If this is correct simply add it to the index for example\n"
-"by using:\n"
-"\n"
-"  git update-index --cacheinfo 160000 %s \"%s\"\n"
-"\n"
-"which will accept this suggestion.\n"
-msgstr ""
-"Nếu đây là đúng đơn giản thêm nó vào mục lục ví dụ\n"
-"bằng cách dùng:\n"
-"\n"
-"  git update-index --cacheinfo 160000 %s \"%s\"\n"
-"\n"
-"cái mà sẽ chấp nhận gợi ý này.\n"
-
-#: merge-recursive.c
-#, c-format
 msgid "Failed to merge submodule %s (multiple merges found)"
 msgstr "Gặp lỗi khi hòa trộn mô-đun-con “%s” (thấy nhiều hòa trộn đa trùng)"
-
-#: merge-recursive.c
-msgid "Failed to execute internal merge"
-msgstr "Gặp lỗi khi thực hiện trộn nội bộ"
-
-#: merge-recursive.c
-#, c-format
-msgid "Unable to add %s to database"
-msgstr "Không thể thêm %s vào cơ sở dữ liệu"
-
-#: merge-recursive.c
-#, c-format
-msgid "Auto-merging %s"
-msgstr "Tự-động-hòa-trộn %s"
 
 #: merge-recursive.c
 #, c-format
@@ -4732,38 +5011,11 @@ msgstr ""
 #: merge-recursive.c
 #, c-format
 msgid ""
-"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
-"implicit directory rename(s) putting the following path(s) there: %s."
-msgstr ""
-"XUNG ĐỘT: (ngầm đổi tên thư mục): Tập tin/thư mục đã sẵn có tại %s theo cách "
-"của các đổi tên thư mục ngầm đặt (các) đường dẫn sau ở đây: %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
-"implicit directory renames tried to put these paths there: %s"
-msgstr ""
-"XUNG ĐỘT: (ngầm đổi tên thư mục): Không thể ánh xạ một đường dẫn thành %s; "
-"các đổi tên thư mục ngầm cố đặt các đường dẫn ở đây: %s"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
 "CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
 ">%s in %s"
 msgstr ""
 "XUNG ĐỘT (đổi-tên/đổi-tên): Đổi tên thư mục %s->%s trong %s. Đổi tên thư mục "
 "%s->%s trong %s"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
-"renamed."
-msgstr ""
-"CẢNH BÁO: tránh áp dụng %s -> %s đổi thên thành %s, bởi vì bản thân %s cũng "
-"bị đổi tên."
 
 #: merge-recursive.c
 #, c-format
@@ -4784,67 +5036,14 @@ msgid "modified"
 msgstr "đã sửa"
 
 #: merge-recursive.c
-msgid "content"
-msgstr "nội dung"
-
-#: merge-recursive.c
-msgid "add/add"
-msgstr "thêm/thêm"
-
-#: merge-recursive.c
 #, c-format
 msgid "Skipped %s (merged same as existing)"
 msgstr "Đã bỏ qua %s (đã có sẵn lần hòa trộn này)"
 
 #: merge-recursive.c
-msgid "submodule"
-msgstr "mô-đun-con"
-
-#: merge-recursive.c
-#, c-format
-msgid "CONFLICT (%s): Merge conflict in %s"
-msgstr "XUNG ĐỘT (%s): Xung đột hòa trộn trong %s"
-
-#: merge-recursive.c
 #, c-format
 msgid "Adding as %s instead"
 msgstr "Thay vào đó thêm vào %s"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s added in %s inside a directory that was renamed in %s; "
-"moving it to %s."
-msgstr ""
-"Đường dẫn đã được cập nhật: %s được thêm vào trong %s bên trong một thư mục "
-"đã được đổi tên trong %s; di chuyển nó đến %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s added in %s inside a directory that was renamed "
-"in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
-"XUNG ĐỘT (vị trí tệp): %s được thêm vào trong %s trong một thư mục đã được "
-"đổi tên thành %s, đoán là nó nên được di chuyển đến %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
-"%s; moving it to %s."
-msgstr ""
-"Đường dẫn đã được cập nhật: %s được đổi tên thành %s trong %s, bên trong một "
-"thư mục đã được đổi tên trong %s; di chuyển nó đến %s."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
-"was renamed in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
-"XUNG ĐỘT (vị trí tệp): %s được đổi tên thành %s trong %s, bên trong một thư "
-"mục đã được đổi tên thành %s, đoán là nó nên được di chuyển đến %s."
 
 #: merge-recursive.c
 #, c-format
@@ -4900,7 +5099,7 @@ msgstr "hòa trộn không trả về lần chuyển giao nào"
 msgid "Could not parse object '%s'"
 msgstr "Không thể phân tích đối tượng “%s”"
 
-#: merge-recursive.c builtin/merge.c
+#: merge-recursive.c builtin/merge.c builtin/stash.c
 msgid "Unable to write index."
 msgstr "Không thể ghi bảng mục lục."
 
@@ -4912,6 +5111,10 @@ msgstr "gặp lỗi khi đọc bộ nhớ đệm"
 #: builtin/stash.c
 msgid "unable to write new index file"
 msgstr "không thể ghi tập tin lưu bảng mục lục mới"
+
+#: midx.c
+msgid "multi-pack-index OID fanout is of the wrong size"
+msgstr "fanout OID nhiều gói chỉ mục có kích thước sai"
 
 #: midx.c
 #, c-format
@@ -4932,14 +5135,6 @@ msgstr "không nhận ra phiên bản %d của multi-pack-index"
 #, c-format
 msgid "multi-pack-index hash version %u does not match version %u"
 msgstr "phiên bản băm multi-pack-index %u không khớp phiên bản %u"
-
-#: midx.c
-msgid "invalid chunk offset (too large)"
-msgstr "khoảng bù đoạn không hợp lệ (quá lớn)"
-
-#: midx.c
-msgid "terminating multi-pack-index chunk id appears earlier than expected"
-msgstr "mã mảnh kết thúc multi-pack-index xuất hiện sớm hơn bình thường"
 
 #: midx.c
 msgid "multi-pack-index missing required pack-name chunk"
@@ -4998,10 +5193,6 @@ msgstr "đã không thấy tập tin gói %s để mà xóa"
 #: midx.c
 msgid "no pack files to index."
 msgstr "không có tập tin gói để đánh mục lục."
-
-#: midx.c
-msgid "Writing chunks to multi-pack-index"
-msgstr "Đang ghi các khúc vào multi-pack-index"
 
 #: midx.c
 #, c-format
@@ -5132,6 +5323,361 @@ msgstr "Từ chối ghi đè ghi chú trong %s (nằm ngoài refs/notes/)"
 msgid "Bad %s value: '%s'"
 msgstr "Giá trị %s sai: “%s”"
 
+#: object-file.c
+#, c-format
+msgid "object directory %s does not exist; check .git/objects/info/alternates"
+msgstr ""
+"thư mục đối tượng %s không tồn tại; kiểm tra .git/objects/info/alternates"
+
+#: object-file.c
+#, c-format
+msgid "unable to normalize alternate object path: %s"
+msgstr "không thể thường hóa đường dẫn đối tượng thay thế: “%s”"
+
+#: object-file.c
+#, c-format
+msgid "%s: ignoring alternate object stores, nesting too deep"
+msgstr "%s: đang bỏ qua kho đối tượng thay thế, lồng nhau quá sâu"
+
+#: object-file.c
+#, c-format
+msgid "unable to normalize object directory: %s"
+msgstr "không thể chuẩn hóa thư mục đối tượng: “%s”"
+
+#: object-file.c
+msgid "unable to fdopen alternates lockfile"
+msgstr "không thể fdopen tập tin khóa thay thế"
+
+#: object-file.c
+msgid "unable to read alternates file"
+msgstr "không thể đọc tập tin thay thế"
+
+#: object-file.c
+msgid "unable to move new alternates file into place"
+msgstr "không thể di chuyển tập tin thay thế vào chỗ"
+
+#: object-file.c
+#, c-format
+msgid "path '%s' does not exist"
+msgstr "đường dẫn “%s” không tồn tại"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' as a linked checkout is not supported yet."
+msgstr "kho tham chiếu “%s” như là lấy ra liên kết vẫn chưa được hỗ trợ."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is not a local repository."
+msgstr "kho tham chiếu “%s” không phải là một kho nội bộ."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is shallow"
+msgstr "kho tham chiếu “%s” là nông"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is grafted"
+msgstr "kho tham chiếu “%s” bị cấy ghép"
+
+#: object-file.c
+#, c-format
+msgid "invalid line while parsing alternate refs: %s"
+msgstr "dòng không hợp lệ trong khi phân tích các tham chiếu thay thế: %s"
+
+#: object-file.c
+#, c-format
+msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
+msgstr "đang cố để mmap %<PRIuMAX> vượt quá giới hạn %<PRIuMAX>"
+
+#: object-file.c
+msgid "mmap failed"
+msgstr "mmap gặp lỗi"
+
+#: object-file.c
+#, c-format
+msgid "object file %s is empty"
+msgstr "tập tin đối tượng %s trống rỗng"
+
+#: object-file.c
+#, c-format
+msgid "corrupt loose object '%s'"
+msgstr "đối tượng mất hỏng “%s”"
+
+#: object-file.c
+#, c-format
+msgid "garbage at end of loose object '%s'"
+msgstr "gặp rác tại cuối của đối tượng bị mất “%s”"
+
+#: object-file.c
+msgid "invalid object type"
+msgstr "kiểu đối tượng không hợp lệ"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack %s header with --allow-unknown-type"
+msgstr "không thể giải nén phần đầu gói %s với --allow-unknown-type"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack %s header"
+msgstr "không thể giải gói phần đầu %s"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse %s header with --allow-unknown-type"
+msgstr "không thể phân tích phần đầu gói %s với --allow-unknown-type"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse %s header"
+msgstr "không thể phân tích phần đầu của “%s”"
+
+#: object-file.c
+#, c-format
+msgid "failed to read object %s"
+msgstr "gặp lỗi khi đọc đối tượng “%s”"
+
+#: object-file.c
+#, c-format
+msgid "replacement %s not found for %s"
+msgstr "c%s thay thế không được tìm thấy cho %s"
+
+#: object-file.c
+#, c-format
+msgid "loose object %s (stored in %s) is corrupt"
+msgstr "đối tượng mất %s (được lưu trong %s) bị hỏng"
+
+#: object-file.c
+#, c-format
+msgid "packed object %s (stored in %s) is corrupt"
+msgstr "đối tượng đã đóng gói %s (được lưu trong %s) bị hỏng"
+
+#: object-file.c
+#, c-format
+msgid "unable to write file %s"
+msgstr "không thể ghi tập tin %s"
+
+#: object-file.c
+#, c-format
+msgid "unable to set permission to '%s'"
+msgstr "không thể đặt quyền thành “%s”"
+
+#: object-file.c
+msgid "file write error"
+msgstr "lỗi ghi tập tin"
+
+#: object-file.c
+msgid "error when closing loose object file"
+msgstr "gặp lỗi trong khi đóng tập tin đối tượng"
+
+#: object-file.c
+#, c-format
+msgid "insufficient permission for adding an object to repository database %s"
+msgstr ""
+"không đủ thẩm quyền để thêm một đối tượng vào cơ sở dữ liệu kho chứa %s"
+
+#: object-file.c
+msgid "unable to create temporary file"
+msgstr "không thể tạo tập tin tạm thời"
+
+#: object-file.c
+msgid "unable to write loose object file"
+msgstr "không thể ghi tập tin đối tượng đã mất"
+
+#: object-file.c
+#, c-format
+msgid "unable to deflate new object %s (%d)"
+msgstr "không thể xả nén đối tượng mới %s (%d)"
+
+#: object-file.c
+#, c-format
+msgid "deflateEnd on object %s failed (%d)"
+msgstr "deflateEnd trên đối tượng %s gặp lỗi (%d)"
+
+#: object-file.c
+#, c-format
+msgid "confused by unstable object source data for %s"
+msgstr "chưa rõ ràng baowir dữ liệu nguồn đối tượng không ổn định cho %s"
+
+#: object-file.c builtin/pack-objects.c
+#, c-format
+msgid "failed utime() on %s"
+msgstr "gặp lỗi utime() trên “%s”"
+
+#: object-file.c
+#, c-format
+msgid "cannot read object for %s"
+msgstr "không thể đọc đối tượng cho %s"
+
+#: object-file.c
+msgid "corrupt commit"
+msgstr "lần chuyển giao sai hỏng"
+
+#: object-file.c
+msgid "corrupt tag"
+msgstr "thẻ sai hỏng"
+
+#: object-file.c
+#, c-format
+msgid "read error while indexing %s"
+msgstr "gặp lỗi đọc khi đánh mục lục %s"
+
+#: object-file.c
+#, c-format
+msgid "short read while indexing %s"
+msgstr "không đọc ngắn khi đánh mục lục %s"
+
+#: object-file.c
+#, c-format
+msgid "%s: failed to insert into database"
+msgstr "%s: gặp lỗi khi thêm vào cơ sở dữ liệu"
+
+#: object-file.c
+#, c-format
+msgid "%s: unsupported file type"
+msgstr "%s: kiểu tập tin không được hỗ trợ"
+
+#: object-file.c
+#, c-format
+msgid "%s is not a valid object"
+msgstr "%s không phải là một đối tượng hợp lệ"
+
+#: object-file.c
+#, c-format
+msgid "%s is not a valid '%s' object"
+msgstr "%s không phải là một đối tượng “%s” hợp lệ"
+
+#: object-file.c builtin/index-pack.c
+#, c-format
+msgid "unable to open %s"
+msgstr "không thể mở %s"
+
+#: object-file.c
+#, c-format
+msgid "hash mismatch for %s (expected %s)"
+msgstr "mã băm không khớp cho %s (cần %s)"
+
+#: object-file.c
+#, c-format
+msgid "unable to mmap %s"
+msgstr "không thể mmap %s"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack header of %s"
+msgstr "không thể giải gói phần đầu của “%s”"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse header of %s"
+msgstr "không thể phân tích phần đầu của “%s”"
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack contents of %s"
+msgstr "không thể giải gói nội dung của “%s”"
+
+#: object-name.c
+#, c-format
+msgid "short object ID %s is ambiguous"
+msgstr "mã đối tượng dạng rút gọn %s chưa rõ ràng"
+
+#: object-name.c
+msgid "The candidates are:"
+msgstr "Các ứng cử là:"
+
+#: object-name.c
+msgid ""
+"Git normally never creates a ref that ends with 40 hex characters\n"
+"because it will be ignored when you just specify 40-hex. These refs\n"
+"may be created by mistake. For example,\n"
+"\n"
+"  git switch -c $br $(git rev-parse ...)\n"
+"\n"
+"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
+"examine these refs and maybe delete them. Turn this message off by\n"
+"running \"git config advice.objectNameWarning false\""
+msgstr ""
+"Git thường không bao giờ tạo tham chiếu mà nó kết thúc với 40 ký tự hex\n"
+"bởi vì nó sẽ bị bỏ qua khi bạn chỉ định 40-hex. Những tham chiếu này\n"
+"có lẽ được tạo ra bởi một sai sót nào đó. Ví dụ,\n"
+"\n"
+"  git switch -c $br $(git rev-parse …)\n"
+"\n"
+"với \"$br\" không hiểu lý do vì sao trống rỗng và một tham chiếu 40-hex được "
+"tạo ra.\n"
+"Xin hãy kiểm tra những tham chiếu này và có thể xóa chúng đi. Tắt lời nhắn "
+"này\n"
+"bằng cách chạy lệnh \"git config advice.objectNameWarning false\""
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only goes back to %s"
+msgstr "nhật ký cho “%.*s” chỉ trở lại đến %s"
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only has %d entries"
+msgstr "nhật ký cho “%.*s” chỉ có %d mục"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' exists on disk, but not in '%.*s'"
+msgstr "đường dẫn “%s” có ở trên đĩa, nhưng không trong “%.*s”"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' exists, but not '%s'\n"
+"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
+msgstr ""
+"đường dẫn “%s” tồn tại, nhưng không phải “%s”\n"
+"gợi ý: Có phải ý bạn là “%.*s:%s” aka “%.*s:./%s”?"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' does not exist in '%.*s'"
+msgstr "đường dẫn “%s” không tồn tại trong “%.*s”"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not at stage %d\n"
+"hint: Did you mean ':%d:%s'?"
+msgstr ""
+"đường dẫn “%s” nằm trong chỉ mục, nhưng không phải ở giai đoạn %d\n"
+"gợi ý: Có phải ý bạn là “:%d:%s”?"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not '%s'\n"
+"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
+msgstr ""
+"đường dẫn “%s” nằm trong chỉ mục, nhưng không phải “%s”\n"
+"gợi ý: Có phải ý bạn là “:% d:%s “ aka “:%d:./%s”?"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' exists on disk, but not in the index"
+msgstr "đường dẫn “%s” tồn tại trên đĩa, nhưng không có trong chỉ mục"
+
+#: object-name.c
+#, c-format
+msgid "path '%s' does not exist (neither on disk nor in the index)"
+msgstr "đường dẫn “%s” không tồn tại (không trên đĩa cũng không trong mục lục)"
+
+#: object-name.c
+msgid "relative path syntax can't be used outside working tree"
+msgstr "cú pháp đường dẫn tương đối không thể thể dùng ngoài cây làm việc"
+
+#: object-name.c
+#, c-format
+msgid "invalid object name '%.*s'."
+msgstr "“%.*s” không phải là tên đối tượng hợp lệ."
+
 #: object.c
 #, c-format
 msgid "invalid object type \"%s\""
@@ -5161,6 +5707,55 @@ msgstr "mã băm không khớp %s"
 #, c-format
 msgid "unable to get size of %s"
 msgstr "không thể lấy kích cỡ của %s"
+
+#: pack-bitmap.c builtin/rev-list.c
+#, c-format
+msgid "unable to get disk usage of %s"
+msgstr "không thể dung lượng đĩa đã dùng của %s"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s is too small"
+msgstr "tập tin reverse-index %s quá nhỏ"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s is corrupt"
+msgstr "tập tin reverse-index %s bị hỏng"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unknown signature"
+msgstr "tập tin reverse-index %s có chữ ký chưa biết"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported version %<PRIu32>"
+msgstr "tệp chỉ mục ngược %s có phiên bản không được hỗ trợ %<PRIu32>"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported hash id %<PRIu32>"
+msgstr "tệp chỉ mục ngược %s có id mã băm không được hỗ trợ %<PRIu32>"
+
+#: pack-write.c
+msgid "cannot both write and verify reverse index"
+msgstr "không thể cùng lúc đọc và xác minh được bảng mục lục đảo ngược"
+
+#: pack-write.c
+#, c-format
+msgid "could not stat: %s"
+msgstr "không thể lấy thông tin thống kê: %s"
+
+#: pack-write.c
+#, c-format
+msgid "failed to make %s readable"
+msgstr "gặp lỗi làm cho %s đọc được"
+
+#: pack-write.c
+#, c-format
+msgid "could not write '%s' promisor file"
+msgstr "không thể ghi tập tin promisor “%s”"
 
 #: packfile.c
 msgid "offset before end of packfile (broken .idx?)"
@@ -5488,6 +6083,10 @@ msgstr "không thể phân tích cú pháp phần đầu git “%.*s”"
 #: range-diff.c
 msgid "failed to generate diff"
 msgstr "gặp lỗi khi tạo khác biệt"
+
+#: range-diff.c
+msgid "--left-only and --right-only are mutually exclusive"
+msgstr "--left-only và --right-only loại từ lẫn nhau"
 
 #: range-diff.c
 #, c-format
@@ -5915,6 +6514,11 @@ msgstr "tham số không được thừa nhận %%(subject): %s"
 
 #: ref-filter.c
 #, c-format
+msgid "expected %%(trailers:key=<value>)"
+msgstr "cần %%(trailers:key=<giá trị>)"
+
+#: ref-filter.c
+#, c-format
 msgid "unknown %%(trailers) argument: %s"
 msgstr "không hiểu tham số %%(trailers): %s"
 
@@ -6038,22 +6642,32 @@ msgstr "chuỗi định dạng dị hình %s"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, rebasing %s"
-msgstr "không nhánh, đang cải tổ %s"
+msgid "(no branch, rebasing %s)"
+msgstr "(không nhánh, đang cải tổ %s)"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, rebasing detached HEAD %s"
-msgstr "không nhánh, đang cải tổ HEAD %s đã tách rời"
+msgid "(no branch, rebasing detached HEAD %s)"
+msgstr "(không nhánh, đang cải tổ HEAD %s đã tách rời)"
 
 #: ref-filter.c
 #, c-format
-msgid "no branch, bisect started on %s"
-msgstr "không nhánh, di chuyển nửa bước được bắt đầu tại %s"
+msgid "(no branch, bisect started on %s)"
+msgstr "(không nhánh, di chuyển nửa bước được bắt đầu tại %s)"
 
 #: ref-filter.c
-msgid "no branch"
-msgstr "không nhánh"
+#, c-format
+msgid "(HEAD detached at %s)"
+msgstr "(HEAD được tách rời tại %s)"
+
+#: ref-filter.c
+#, c-format
+msgid "(HEAD detached from %s)"
+msgstr "(HEAD được tách rời từ %s)"
+
+#: ref-filter.c
+msgid "(no branch)"
+msgstr "(không nhánh)"
 
 #: ref-filter.c
 #, c-format
@@ -6593,11 +7207,6 @@ msgstr "gặp lỗi khi tìm cây của %s"
 #: revision.c
 msgid "--unpacked=<packfile> no longer supported"
 msgstr "--unpacked=<packfile> không còn được hỗ trợ nữa"
-
-#: revision.c
-#, c-format
-msgid "unknown value for --diff-merges: %s"
-msgstr "không hiểu giá trị cho --diff-merges: %s"
 
 #: revision.c
 msgid "your current branch appears to be broken"
@@ -7750,361 +8359,6 @@ msgstr "gặp lỗi khi rẽ nhánh tiến trình"
 msgid "setsid failed"
 msgstr "setsid gặp lỗi"
 
-#: sha1-file.c
-#, c-format
-msgid "object directory %s does not exist; check .git/objects/info/alternates"
-msgstr ""
-"thư mục đối tượng %s không tồn tại; kiểm tra .git/objects/info/alternates"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to normalize alternate object path: %s"
-msgstr "không thể thường hóa đường dẫn đối tượng thay thế: “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: ignoring alternate object stores, nesting too deep"
-msgstr "%s: đang bỏ qua kho đối tượng thay thế, lồng nhau quá sâu"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to normalize object directory: %s"
-msgstr "không thể chuẩn hóa thư mục đối tượng: “%s”"
-
-#: sha1-file.c
-msgid "unable to fdopen alternates lockfile"
-msgstr "không thể fdopen tập tin khóa thay thế"
-
-#: sha1-file.c
-msgid "unable to read alternates file"
-msgstr "không thể đọc tập tin thay thế"
-
-#: sha1-file.c
-msgid "unable to move new alternates file into place"
-msgstr "không thể di chuyển tập tin thay thế vào chỗ"
-
-#: sha1-file.c
-#, c-format
-msgid "path '%s' does not exist"
-msgstr "đường dẫn “%s” không tồn tại"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' as a linked checkout is not supported yet."
-msgstr "kho tham chiếu “%s” như là lấy ra liên kết vẫn chưa được hỗ trợ."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is not a local repository."
-msgstr "kho tham chiếu “%s” không phải là một kho nội bộ."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is shallow"
-msgstr "kho tham chiếu “%s” là nông"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is grafted"
-msgstr "kho tham chiếu “%s” bị cấy ghép"
-
-#: sha1-file.c
-#, c-format
-msgid "invalid line while parsing alternate refs: %s"
-msgstr "dòng không hợp lệ trong khi phân tích các tham chiếu thay thế: %s"
-
-#: sha1-file.c
-#, c-format
-msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
-msgstr "đang cố để mmap %<PRIuMAX> vượt quá giới hạn %<PRIuMAX>"
-
-#: sha1-file.c
-msgid "mmap failed"
-msgstr "mmap gặp lỗi"
-
-#: sha1-file.c
-#, c-format
-msgid "object file %s is empty"
-msgstr "tập tin đối tượng %s trống rỗng"
-
-#: sha1-file.c
-#, c-format
-msgid "corrupt loose object '%s'"
-msgstr "đối tượng mất hỏng “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "garbage at end of loose object '%s'"
-msgstr "gặp rác tại cuối của đối tượng bị mất “%s”"
-
-#: sha1-file.c
-msgid "invalid object type"
-msgstr "kiểu đối tượng không hợp lệ"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack %s header with --allow-unknown-type"
-msgstr "không thể giải nén phần đầu gói %s với --allow-unknown-type"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack %s header"
-msgstr "không thể giải gói phần đầu %s"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse %s header with --allow-unknown-type"
-msgstr "không thể phân tích phần đầu gói %s với --allow-unknown-type"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse %s header"
-msgstr "không thể phân tích phần đầu của “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "failed to read object %s"
-msgstr "gặp lỗi khi đọc đối tượng “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "replacement %s not found for %s"
-msgstr "c%s thay thế không được tìm thấy cho %s"
-
-#: sha1-file.c
-#, c-format
-msgid "loose object %s (stored in %s) is corrupt"
-msgstr "đối tượng mất %s (được lưu trong %s) bị hỏng"
-
-#: sha1-file.c
-#, c-format
-msgid "packed object %s (stored in %s) is corrupt"
-msgstr "đối tượng đã đóng gói %s (được lưu trong %s) bị hỏng"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to write file %s"
-msgstr "không thể ghi tập tin %s"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to set permission to '%s'"
-msgstr "không thể đặt quyền thành “%s”"
-
-#: sha1-file.c
-msgid "file write error"
-msgstr "lỗi ghi tập tin"
-
-#: sha1-file.c
-msgid "error when closing loose object file"
-msgstr "gặp lỗi trong khi đóng tập tin đối tượng"
-
-#: sha1-file.c
-#, c-format
-msgid "insufficient permission for adding an object to repository database %s"
-msgstr ""
-"không đủ thẩm quyền để thêm một đối tượng vào cơ sở dữ liệu kho chứa %s"
-
-#: sha1-file.c
-msgid "unable to create temporary file"
-msgstr "không thể tạo tập tin tạm thời"
-
-#: sha1-file.c
-msgid "unable to write loose object file"
-msgstr "không thể ghi tập tin đối tượng đã mất"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to deflate new object %s (%d)"
-msgstr "không thể xả nén đối tượng mới %s (%d)"
-
-#: sha1-file.c
-#, c-format
-msgid "deflateEnd on object %s failed (%d)"
-msgstr "deflateEnd trên đối tượng %s gặp lỗi (%d)"
-
-#: sha1-file.c
-#, c-format
-msgid "confused by unstable object source data for %s"
-msgstr "chưa rõ ràng baowir dữ liệu nguồn đối tượng không ổn định cho %s"
-
-#: sha1-file.c builtin/pack-objects.c
-#, c-format
-msgid "failed utime() on %s"
-msgstr "gặp lỗi utime() trên “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "cannot read object for %s"
-msgstr "không thể đọc đối tượng cho %s"
-
-#: sha1-file.c
-msgid "corrupt commit"
-msgstr "lần chuyển giao sai hỏng"
-
-#: sha1-file.c
-msgid "corrupt tag"
-msgstr "thẻ sai hỏng"
-
-#: sha1-file.c
-#, c-format
-msgid "read error while indexing %s"
-msgstr "gặp lỗi đọc khi đánh mục lục %s"
-
-#: sha1-file.c
-#, c-format
-msgid "short read while indexing %s"
-msgstr "không đọc ngắn khi đánh mục lục %s"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: failed to insert into database"
-msgstr "%s: gặp lỗi khi thêm vào cơ sở dữ liệu"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: unsupported file type"
-msgstr "%s: kiểu tập tin không được hỗ trợ"
-
-#: sha1-file.c
-#, c-format
-msgid "%s is not a valid object"
-msgstr "%s không phải là một đối tượng hợp lệ"
-
-#: sha1-file.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s không phải là một đối tượng “%s” hợp lệ"
-
-#: sha1-file.c builtin/index-pack.c
-#, c-format
-msgid "unable to open %s"
-msgstr "không thể mở %s"
-
-#: sha1-file.c
-#, c-format
-msgid "hash mismatch for %s (expected %s)"
-msgstr "mã băm không khớp cho %s (cần %s)"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to mmap %s"
-msgstr "không thể mmap %s"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack header of %s"
-msgstr "không thể giải gói phần đầu của “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse header of %s"
-msgstr "không thể phân tích phần đầu của “%s”"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack contents of %s"
-msgstr "không thể giải gói nội dung của “%s”"
-
-#: sha1-name.c
-#, c-format
-msgid "short SHA1 %s is ambiguous"
-msgstr "tóm lược SHA1 %s chưa rõ ràng"
-
-#: sha1-name.c
-msgid "The candidates are:"
-msgstr "Các ứng cử là:"
-
-#: sha1-name.c
-msgid ""
-"Git normally never creates a ref that ends with 40 hex characters\n"
-"because it will be ignored when you just specify 40-hex. These refs\n"
-"may be created by mistake. For example,\n"
-"\n"
-"  git switch -c $br $(git rev-parse ...)\n"
-"\n"
-"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
-"examine these refs and maybe delete them. Turn this message off by\n"
-"running \"git config advice.objectNameWarning false\""
-msgstr ""
-"Git thường không bao giờ tạo tham chiếu mà nó kết thúc với 40 ký tự hex\n"
-"bởi vì nó sẽ bị bỏ qua khi bạn chỉ định 40-hex. Những tham chiếu này\n"
-"có lẽ được tạo ra bởi một sai sót nào đó. Ví dụ,\n"
-"\n"
-"  git switch -c $br $(git rev-parse …)\n"
-"\n"
-"với \"$br\" không hiểu lý do vì sao trống rỗng và một tham chiếu 40-hex được "
-"tạo ra.\n"
-"Xin hãy kiểm tra những tham chiếu này và có thể xóa chúng đi. Tắt lời nhắn "
-"này\n"
-"bằng cách chạy lệnh \"git config advice.objectNameWarning false\""
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only goes back to %s"
-msgstr "nhật ký cho “%.*s” chỉ trở lại đến %s"
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only has %d entries"
-msgstr "nhật ký cho “%.*s” chỉ có %d mục"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' exists on disk, but not in '%.*s'"
-msgstr "đường dẫn “%s” có ở trên đĩa, nhưng không trong “%.*s”"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' exists, but not '%s'\n"
-"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
-msgstr ""
-"đường dẫn “%s” tồn tại, nhưng không phải “%s”\n"
-"gợi ý: Có phải ý bạn là “%.*s:%s” aka “%.*s:./%s”?"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' does not exist in '%.*s'"
-msgstr "đường dẫn “%s” không tồn tại trong “%.*s”"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not at stage %d\n"
-"hint: Did you mean ':%d:%s'?"
-msgstr ""
-"đường dẫn “%s” nằm trong chỉ mục, nhưng không phải ở giai đoạn %d\n"
-"gợi ý: Có phải ý bạn là “:%d:%s”?"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not '%s'\n"
-"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
-msgstr ""
-"đường dẫn “%s” nằm trong chỉ mục, nhưng không phải “%s”\n"
-"gợi ý: Có phải ý bạn là “:% d:%s “ aka “:%d:./%s”?"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' exists on disk, but not in the index"
-msgstr "đường dẫn “%s” tồn tại trên đĩa, nhưng không có trong chỉ mục"
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' does not exist (neither on disk nor in the index)"
-msgstr "đường dẫn “%s” không tồn tại (không trên đĩa cũng không trong mục lục)"
-
-#: sha1-name.c
-msgid "relative path syntax can't be used outside working tree"
-msgstr "cú pháp đường dẫn tương đối không thể thể dùng ngoài cây làm việc"
-
-#: sha1-name.c
-#, c-format
-msgid "invalid object name '%.*s'."
-msgstr "“%.*s” không phải là tên đối tượng hợp lệ."
-
 #. TRANSLATORS: IEC 80000-13:2008 gibibyte
 #: strbuf.c
 #, c-format
@@ -8405,7 +8659,7 @@ msgstr "thẻ thừa trống rỗng trong phần thừa “%.*s”"
 msgid "could not read input file '%s'"
 msgstr "không đọc được tập tin đầu vào “%s”"
 
-#: trailer.c
+#: trailer.c builtin/mktag.c
 msgid "could not read from stdin"
 msgstr "không thể đọc từ đầu vào tiêu chuẩn"
 
@@ -9092,6 +9346,10 @@ msgid "unable to locate repository; .git is not a file"
 msgstr "không thể phân bổ kho chứa; .git không phải là một tập tin"
 
 #: worktree.c
+msgid "unable to locate repository; .git file does not reference a repository"
+msgstr "không thể phân bổ kho chứa; tập tin .git tham chiếu đến một kho"
+
+#: worktree.c
 msgid "unable to locate repository; .git file broken"
 msgstr "không thể phân bổ kho chứa; tập tin .git bị hỏng"
 
@@ -9102,6 +9360,32 @@ msgstr "gitdir không thể đọc được"
 #: worktree.c
 msgid "gitdir incorrect"
 msgstr "gitdir không chính xác"
+
+#: worktree.c
+msgid "not a valid directory"
+msgstr "không phải thư mục hợp lệ"
+
+#: worktree.c
+msgid "gitdir file does not exist"
+msgstr "tập tin gitdir không tồn tại"
+
+#: worktree.c
+#, c-format
+msgid "unable to read gitdir file (%s)"
+msgstr "không thể đọc tập tin gitdir (%s)"
+
+#: worktree.c
+#, c-format
+msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
+msgstr "đọc ngắn (cần %<PRIuMAX> byte, đọc %<PRIuMAX>)"
+
+#: worktree.c
+msgid "invalid gitdir file"
+msgstr "tập tin gitdir (thư mục git) không hợp lệ"
+
+#: worktree.c
+msgid "gitdir file points to non-existent location"
+msgstr "tập tin gitdir chỉ đến vị trí không tồn tại"
 
 #: wrapper.c
 #, c-format
@@ -9532,6 +9816,14 @@ msgid "rebase in progress; onto "
 msgstr "rebase đang được thực hiện: lên trên "
 
 #: wt-status.c
+msgid "HEAD detached at "
+msgstr "HEAD được tách rời tại "
+
+#: wt-status.c
+msgid "HEAD detached from "
+msgstr "HEAD được tách rời từ "
+
+#: wt-status.c
 msgid "Not currently on any branch."
 msgstr "Hiện tại chẳng ở nhánh nào cả."
 
@@ -9672,6 +9964,11 @@ msgstr "gặp lỗi khi bỏ liên kết (unlink) “%s”"
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr "git add [<các tùy chọn>] [--]  <pathspec>…"
+
+#: builtin/add.c
+#, c-format
+msgid "cannot chmod %cx '%s'"
+msgstr "không thể chmod %cx '%s'"
 
 #: builtin/add.c
 #, c-format
@@ -10214,12 +10511,12 @@ msgid "skip the current patch"
 msgstr "bỏ qua miếng vá hiện hành"
 
 #: builtin/am.c
-msgid "restore the original branch and abort the patching operation."
-msgstr "phục hồi lại nhánh gốc và loại bỏ thao tác vá."
+msgid "restore the original branch and abort the patching operation"
+msgstr "phục hồi lại nhánh gốc và loại bỏ thao tác vá"
 
 #: builtin/am.c
-msgid "abort the patching operation but keep HEAD where it is."
-msgstr "bỏ qua thao tác vá nhưng vẫn giữ HEAD chỉ đến nó."
+msgid "abort the patching operation but keep HEAD where it is"
+msgstr "bỏ qua thao tác vá nhưng vẫn giữ HEAD nơi nó chỉ đến"
 
 #: builtin/am.c
 msgid "show the patch being applied"
@@ -10319,22 +10616,6 @@ msgid "git bisect--helper --bisect-reset [<commit>]"
 msgstr "git bisect--helper --bisect-reset [<lần_chuyển_giao>]"
 
 #: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-write [--no-log] <state> <revision> <good_term> "
-"<bad_term>"
-msgstr ""
-"git bisect--helper --bisect-write [--no-log] <state> <revision> <lúc_sai> "
-"<lúc_đúng>"
-
-#: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-check-and-set-terms <command> <good_term> "
-"<bad_term>"
-msgstr ""
-"git bisect--helper --bisect-check-and-set-terms <command> <lúc_sai> "
-"<lúc_đúng>"
-
-#: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-next-check <good_term> <bad_term> [<term>]"
 msgstr "git bisect--helper --bisect-next-check <lúc_sai> <lúc_đúng> [<term>]"
 
@@ -10361,16 +10642,20 @@ msgid "git bisect--helper --bisect-next"
 msgstr "git bisect--helper --bisect-next"
 
 #: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-auto-next"
-msgstr "git bisect--helper --bisect-auto-next"
-
-#: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-state (bad|new) [<rev>]"
 msgstr "git bisect--helper --bisect-state (bad|new) [<lần_chuyển_giao>]"
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-state (good|old) [<rev>...]"
 msgstr "git bisect--helper --bisect-reset (good|old) [<lần_chuyển_giao>…]"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-replay <filename>"
+msgstr "git bisect--helper --bisect-replay <tên_tập_tin>"
+
+#: builtin/bisect--helper.c
+msgid "git bisect--helper --bisect-skip [(<rev>|<range>)...]"
+msgstr "git bisect--helper --bisect-skip [(<rev>|<vùng>)...]"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -10566,16 +10851,22 @@ msgid "Bad rev input: %s"
 msgstr "Đầu vào rev sai: %s"
 
 #: builtin/bisect--helper.c
+msgid "We are not bisecting."
+msgstr "Chúng tôi không bisect."
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "'%s'?? what are you talking about?"
+msgstr "'%s'?? bạn đang nói gì thế?"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "cannot read file '%s' for replaying"
+msgstr "không thể đọc tập tin '%s' để thao diễn lại"
+
+#: builtin/bisect--helper.c
 msgid "reset the bisection state"
 msgstr "đặt lại trạng di chuyển nửa bước"
-
-#: builtin/bisect--helper.c
-msgid "write out the bisection state in BISECT_LOG"
-msgstr "ghi ra tình trạng di chuyển nửa bước trong BISECT_LOG"
-
-#: builtin/bisect--helper.c
-msgid "check and set terms in a bisection state"
-msgstr "kiểm tra và đặt thời điểm trong di chuyển nửa bước"
 
 #: builtin/bisect--helper.c
 msgid "check whether bad or good terms exist"
@@ -10594,13 +10885,20 @@ msgid "find the next bisection commit"
 msgstr "tìm lần chuyển giao không di chuyển phân đôi"
 
 #: builtin/bisect--helper.c
-msgid "verify the next bisection state then checkout the next bisection commit"
-msgstr ""
-"xác nhận trạng thái phân đôi kế sau đó lấy ra lần chuyển giao phân đôi kế"
-
-#: builtin/bisect--helper.c
 msgid "mark the state of ref (or refs)"
 msgstr "đánh dấu trạng thái ref (hoặc refs)"
+
+#: builtin/bisect--helper.c
+msgid "list the bisection steps so far"
+msgstr "liệt kê các bước bisection đi quá xa"
+
+#: builtin/bisect--helper.c
+msgid "replay the bisection process from the given file"
+msgstr "phát lại quá trình bisection từ tệp đã cho"
+
+#: builtin/bisect--helper.c
+msgid "skip some commits for checkout"
+msgstr "bỏ qua một số lần chuyển giao để lấy ra"
 
 #: builtin/bisect--helper.c
 msgid "no log for BISECT_WRITE"
@@ -10610,14 +10908,6 @@ msgstr "không có nhật ký cho BISECT_WRITE"
 msgid "--bisect-reset requires either no argument or a commit"
 msgstr ""
 "--bisect-reset requires không nhận đối số cũng không nhận lần chuyển giao"
-
-#: builtin/bisect--helper.c
-msgid "--bisect-write requires either 4 or 5 arguments"
-msgstr "--bisect-write cần 4 hoặc 5 tham số"
-
-#: builtin/bisect--helper.c
-msgid "--check-and-set-terms requires 3 arguments"
-msgstr "--check-and-set-terms cần 3 tham số"
 
 #: builtin/bisect--helper.c
 msgid "--bisect-next-check requires 2 or 3 arguments"
@@ -10632,8 +10922,12 @@ msgid "--bisect-next requires 0 arguments"
 msgstr "--bisect-next cần 0 tham số"
 
 #: builtin/bisect--helper.c
-msgid "--bisect-auto-next requires 0 arguments"
-msgstr "--bisect-auto-next cần 0 tham số"
+msgid "--bisect-log requires 0 arguments"
+msgstr "--bisect-log cần 0 tham số"
+
+#: builtin/bisect--helper.c
+msgid "no logfile given"
+msgstr "chưa chỉ ra tập tin ghi nhật ký"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -10667,82 +10961,84 @@ msgid "cannot find revision %s to ignore"
 msgstr "không thể tìm thấy điểm xét duyệt %s để mà bỏ qua"
 
 #: builtin/blame.c
-msgid "Show blame entries as we find them, incrementally"
-msgstr "Hiển thị các mục “blame” như là chúng ta thấy chúng, tăng dần"
+msgid "show blame entries as we find them, incrementally"
+msgstr "hiển thị các mục “blame” như là chúng ta thấy chúng, tăng dần"
 
 #: builtin/blame.c
-msgid "Do not show object names of boundary commits (Default: off)"
+msgid "do not show object names of boundary commits (Default: off)"
 msgstr ""
-"Đừng hiển thị tên đối tượng của những lần chuyển giao biên giới (Mặc định: "
+"đừng hiển thị tên đối tượng của những lần chuyển giao biên giới (Mặc định: "
 "off)"
 
 #: builtin/blame.c
-msgid "Do not treat root commits as boundaries (Default: off)"
-msgstr "Không coi các lần chuyển giao gốc là giới hạn (Mặc định: off)"
+msgid "do not treat root commits as boundaries (Default: off)"
+msgstr "không coi các lần chuyển giao gốc là giới hạn (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Show work cost statistics"
-msgstr "Hiển thị thống kê công sức làm việc"
+msgid "show work cost statistics"
+msgstr "hiển thị thống kê công sức làm việc"
+
+#: builtin/blame.c builtin/checkout.c builtin/clone.c builtin/commit-graph.c
+#: builtin/fetch.c builtin/merge.c builtin/multi-pack-index.c builtin/pull.c
+#: builtin/push.c builtin/send-pack.c
+msgid "force progress reporting"
+msgstr "ép buộc báo cáo tiến triển công việc"
 
 #: builtin/blame.c
-msgid "Force progress reporting"
-msgstr "Ép buộc báo cáo diễn biến công việc"
+msgid "show output score for blame entries"
+msgstr "hiển thị kết xuất điểm số cho các mục tin “blame”"
 
 #: builtin/blame.c
-msgid "Show output score for blame entries"
-msgstr "Hiển thị kết xuất điểm số có các mục tin “blame”"
+msgid "show original filename (Default: auto)"
+msgstr "hiển thị tên tập tin gốc (Mặc định: auto)"
 
 #: builtin/blame.c
-msgid "Show original filename (Default: auto)"
-msgstr "Hiển thị tên tập tin gốc (Mặc định: auto)"
+msgid "show original linenumber (Default: off)"
+msgstr "hiển thị số dòng gốc (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Show original linenumber (Default: off)"
-msgstr "Hiển thị số dòng gốc (Mặc định: off)"
+msgid "show in a format designed for machine consumption"
+msgstr "hiển thị ở định dạng đã thiết kế cho dùng bằng máy"
 
 #: builtin/blame.c
-msgid "Show in a format designed for machine consumption"
-msgstr "Hiển thị ở định dạng đã thiết kế cho sự tiêu dùng bằng máy"
+msgid "show porcelain format with per-line commit information"
+msgstr "hiển thị định dạng “porcelain” với thông tin chuyển giao mỗi dòng"
 
 #: builtin/blame.c
-msgid "Show porcelain format with per-line commit information"
-msgstr "Hiển thị định dạng “porcelain” với thông tin chuyển giao mỗi dòng"
+msgid "use the same output mode as git-annotate (Default: off)"
+msgstr "dùng cùng chế độ xuất ra với git-annotate (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Use the same output mode as git-annotate (Default: off)"
-msgstr "Dùng cùng chế độ xuất ra với git-annotate (Mặc định: off)"
+msgid "show raw timestamp (Default: off)"
+msgstr "hiển thị dấu vết thời gian dạng thô (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Show raw timestamp (Default: off)"
-msgstr "Hiển thị dấu vết thời gian dạng thô (Mặc định: off)"
+msgid "show long commit SHA1 (Default: off)"
+msgstr "hiển thị SHA1 của lần chuyển giao dạng dài (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Show long commit SHA1 (Default: off)"
-msgstr "Hiển thị SHA1 của lần chuyển giao dạng dài (Mặc định: off)"
+msgid "suppress author name and timestamp (Default: off)"
+msgstr "không hiển thị tên tác giả và dấu vết thời gian (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Suppress author name and timestamp (Default: off)"
-msgstr "Không hiển thị tên tác giả và dấu vết thời gian (Mặc định: off)"
+msgid "show author email instead of name (Default: off)"
+msgstr "hiển thị thư điện tử của tác giả thay cho tên (Mặc định: off)"
 
 #: builtin/blame.c
-msgid "Show author email instead of name (Default: off)"
-msgstr "Hiển thị thư điện tử của tác giả thay vì tên (Mặc định: off)"
-
-#: builtin/blame.c
-msgid "Ignore whitespace differences"
-msgstr "Bỏ qua các khác biệt do khoảng trắng gây ra"
+msgid "ignore whitespace differences"
+msgstr "bỏ qua các khác biệt do khoảng trắng gây ra"
 
 #: builtin/blame.c builtin/log.c
 msgid "rev"
 msgstr "rev"
 
 #: builtin/blame.c
-msgid "Ignore <rev> when blaming"
-msgstr "Bỏ qua <rev> khi blame"
+msgid "ignore <rev> when blaming"
+msgstr "bỏ qua <rev> khi blame"
 
 #: builtin/blame.c
-msgid "Ignore revisions from <file>"
-msgstr "Bỏ qua các điểm xét duyệt từ <tập tin>"
+msgid "ignore revisions from <file>"
+msgstr "bỏ qua các điểm xét duyệt từ <tập tin>"
 
 #: builtin/blame.c
 msgid "color redundant metadata from previous line differently"
@@ -10753,37 +11049,37 @@ msgid "color lines by age"
 msgstr "các dòng màu theo tuổi"
 
 #: builtin/blame.c
-msgid "Spend extra cycles to find better match"
-msgstr "Tiêu thụ thêm năng tài nguyên máy móc để tìm kiếm tốt hơn nữa"
+msgid "spend extra cycles to find better match"
+msgstr "tiêu thụ thêm năng tài nguyên máy móc để tìm kiếm tốt hơn nữa"
 
 #: builtin/blame.c
-msgid "Use revisions from <file> instead of calling git-rev-list"
+msgid "use revisions from <file> instead of calling git-rev-list"
 msgstr ""
-"Sử dụng điểm xét duyệt (revision) từ <tập tin> thay vì gọi “git-rev-list”"
+"sử dụng các điểm xét duyệt (revision) từ <tập tin> thay vì gọi “git-rev-list”"
 
 #: builtin/blame.c
-msgid "Use <file>'s contents as the final image"
-msgstr "Sử dụng nội dung của <tập tin> như là ảnh cuối cùng"
+msgid "use <file>'s contents as the final image"
+msgstr "sử dụng nội dung của <tập tin> như là ảnh cuối cùng"
 
 #: builtin/blame.c
 msgid "score"
 msgstr "điểm số"
 
 #: builtin/blame.c
-msgid "Find line copies within and across files"
-msgstr "Tìm các bản sao chép dòng trong và ngang qua tập tin"
+msgid "find line copies within and across files"
+msgstr "tìm các bản sao chép dòng trong và ngang qua tập tin"
 
 #: builtin/blame.c
-msgid "Find line movements within and across files"
-msgstr "Tìm các di chuyển dòng trong và ngang qua tập tin"
+msgid "find line movements within and across files"
+msgstr "tìm các di chuyển dòng trong và ngang qua tập tin"
 
 #: builtin/blame.c
 msgid "range"
 msgstr "vùng"
 
 #: builtin/blame.c
-msgid "Process only line range <start>,<end> or function :<funcname>"
-msgstr "Xử lý chỉ dòng vùng <đầu>,<cuối> hoặc tính năng :<funcname>"
+msgid "process only line range <start>,<end> or function :<funcname>"
+msgstr "xử lý chỉ dòng vùng <đầu>,<cuối> hoặc tính năng :<funcname>"
 
 #: builtin/blame.c
 msgid "--progress can't be used with --incremental or porcelain formats"
@@ -10898,16 +11194,6 @@ msgstr "không tìm thấy nhánh theo dõi máy chủ “%s”."
 #, c-format
 msgid "branch '%s' not found."
 msgstr "không tìm thấy nhánh “%s”."
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting remote-tracking branch '%s'"
-msgstr "Gặp lỗi khi đang xóa nhánh theo dõi máy chủ “%s”"
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting branch '%s'"
-msgstr "Gặp lỗi khi xóa bỏ nhánh “%s”"
 
 #: builtin/branch.c
 #, c-format
@@ -11942,12 +12228,6 @@ msgstr "Không thể chuyển nhánh đến một thứ không phải là lần 
 msgid "missing branch or commit argument"
 msgstr "thiếu tham số là nhánh hoặc lần chuyển giao"
 
-#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
-#: builtin/merge.c builtin/multi-pack-index.c builtin/pull.c builtin/push.c
-#: builtin/send-pack.c
-msgid "force progress reporting"
-msgstr "ép buộc báo cáo tiến triển công việc"
-
 #: builtin/checkout.c
 msgid "perform a 3-way merge with the new branch"
 msgstr "thực hiện hòa trộn kiểu 3-way với nhánh mới"
@@ -12712,8 +12992,8 @@ msgid "dir"
 msgstr "tmục"
 
 #: builtin/commit-graph.c
-msgid "The object directory to store the graph"
-msgstr "Thư mục đối tượng để lưu đồ thị"
+msgid "the object directory to store the graph"
+msgstr "thư mục đối tượng để lưu đồ thị"
 
 #: builtin/commit-graph.c
 msgid "if the commit-graph is split, only verify the tip file"
@@ -14183,40 +14463,40 @@ msgstr ""
 "chọn bộ xử lý cho các ghi chú của lần chuyển giao theo một bộ mã thay thế"
 
 #: builtin/fast-export.c
-msgid "Dump marks to this file"
-msgstr "Đổ các đánh dấu này vào tập-tin"
+msgid "dump marks to this file"
+msgstr "đổ các đánh dấu này vào tập-tin"
 
 #: builtin/fast-export.c
-msgid "Import marks from this file"
-msgstr "Nhập vào đánh dấu từ tập tin này"
+msgid "import marks from this file"
+msgstr "nhập vào đánh dấu từ tập tin này"
 
 #: builtin/fast-export.c
-msgid "Import marks from this file if it exists"
-msgstr "Nhập vào đánh dấu từ tập tin sẵn có"
+msgid "import marks from this file if it exists"
+msgstr "nhập vào đánh dấu từ tập tin sẵn có"
 
 #: builtin/fast-export.c
-msgid "Fake a tagger when tags lack one"
-msgstr "Làm giả một cái thẻ khi thẻ bị thiếu một cái"
+msgid "fake a tagger when tags lack one"
+msgstr "làm giả một cái thẻ khi thẻ bị thiếu một cái"
 
 #: builtin/fast-export.c
-msgid "Output full tree for each commit"
-msgstr "Xuất ra toàn bộ cây cho mỗi lần chuyển giao"
+msgid "output full tree for each commit"
+msgstr "xuất ra toàn bộ cây cho mỗi lần chuyển giao"
 
 #: builtin/fast-export.c
-msgid "Use the done feature to terminate the stream"
-msgstr "Sử dụng tính năng done để chấm dứt luồng dữ liệu"
+msgid "use the done feature to terminate the stream"
+msgstr "sử dụng tính năng done để chấm dứt luồng dữ liệu"
 
 #: builtin/fast-export.c
-msgid "Skip output of blob data"
-msgstr "Bỏ qua kết xuất của dữ liệu blob"
+msgid "skip output of blob data"
+msgstr "bỏ qua kết xuất của dữ liệu blob"
 
 #: builtin/fast-export.c builtin/log.c
 msgid "refspec"
 msgstr "refspec"
 
 #: builtin/fast-export.c
-msgid "Apply refspec to exported refs"
-msgstr "Áp dụng refspec cho refs đã xuất"
+msgid "apply refspec to exported refs"
+msgstr "áp dụng refspec cho refs đã xuất"
 
 #: builtin/fast-export.c
 msgid "anonymize output"
@@ -14231,18 +14511,18 @@ msgid "convert <from> to <to> in anonymized output"
 msgstr "chuyển đổi <from> sang <to> đầu ra ẩn danh"
 
 #: builtin/fast-export.c
-msgid "Reference parents which are not in fast-export stream by object id"
+msgid "reference parents which are not in fast-export stream by object id"
 msgstr ""
-"Các cha mẹ tham chiếu cái mà k trong luồng dữ liệu fast-export bởi mã id đối "
-"tượng"
+"các cha mẹ tham chiếu cái mà không trong luồng dữ liệu fast-export bởi mã id "
+"đối tượng"
 
 #: builtin/fast-export.c
-msgid "Show original object ids of blobs/commits"
-msgstr "Hiển thị các mã id nguyên gốc của blobs/commits"
+msgid "show original object ids of blobs/commits"
+msgstr "hiển thị các mã id nguyên gốc của blobs/commits"
 
 #: builtin/fast-export.c
-msgid "Label tags with mark ids"
-msgstr "Gắn nhãn thẻ ID dấu"
+msgid "label tags with mark ids"
+msgstr "gắn thẻ với các mã ID đánh dấu"
 
 #: builtin/fast-export.c
 msgid "--anonymize-map without --anonymize does not make sense"
@@ -14318,6 +14598,10 @@ msgstr "đặt thượng nguồn cho git pull/fetch"
 #: builtin/fetch.c builtin/pull.c
 msgid "append to .git/FETCH_HEAD instead of overwriting"
 msgstr "nối thêm vào .git/FETCH_HEAD thay vì ghi đè lên nó"
+
+#: builtin/fetch.c
+msgid "use atomic transaction to update references"
+msgstr "sử dụng giao dịch hạt nhân bên phía máy chủ"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "path to upload pack on remote end"
@@ -14663,6 +14947,10 @@ msgstr ""
 "partialclone"
 
 #: builtin/fetch.c
+msgid "--atomic can only be used when fetching from one remote"
+msgstr "--atomic chỉ có thể dùng khi lấy về từ một máy chủ"
+
+#: builtin/fetch.c
 msgid "--stdin can only be used when fetching from one remote"
 msgstr "--stdin chỉ có thể dùng khi lấy về từ một máy chủ"
 
@@ -14986,7 +15274,7 @@ msgstr "cũng cân nhắc đến các đối tượng gói và thay thế"
 msgid "check only connectivity"
 msgstr "chỉ kiểm tra kết nối"
 
-#: builtin/fsck.c
+#: builtin/fsck.c builtin/mktag.c
 msgid "enable more strict checking"
 msgstr "cho phép kiểm tra hạn chế hơn"
 
@@ -15218,8 +15506,31 @@ msgid "failed to run 'git config'"
 msgstr "gặp lỗi khi chạy “git config”"
 
 #: builtin/gc.c
-msgid "another process is scheduling background maintenance"
-msgstr "một tiến trình khác được lập kế hoạch chạy nền để bảo trì"
+#, c-format
+msgid "failed to expand path '%s'"
+msgstr "gặp lỗi khi khai triển đường dẫn “%s”"
+
+#: builtin/gc.c
+msgid "failed to start launchctl"
+msgstr "gặp lỗi khi khởi chạy launchctl"
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to create directories for '%s'"
+msgstr "gặp lỗi khi tạo thư mục cho \"%s\""
+
+#: builtin/gc.c
+#, c-format
+msgid "failed to bootstrap service %s"
+msgstr "gặp lỗi khi mồi dịch vụ %s"
+
+#: builtin/gc.c
+msgid "failed to create temp xml file"
+msgstr "gặp lỗi khi tạo tập tin xml tạm thời"
+
+#: builtin/gc.c
+msgid "failed to start schtasks"
+msgstr "gặp lỗi khi lấy thông tin thống kê về schtasks"
 
 #: builtin/gc.c
 msgid "failed to run 'crontab -l'; your system might not support 'cron'"
@@ -15237,6 +15548,10 @@ msgstr "gặp lỗi khi mở đầu vào tiêu chuẩn của “crontab”"
 #: builtin/gc.c
 msgid "'crontab' died"
 msgstr "“crontab” đã chết"
+
+#: builtin/gc.c
+msgid "another process is scheduling background maintenance"
+msgstr "một tiến trình khác được lập kế hoạch chạy nền để bảo trì"
 
 #: builtin/gc.c
 msgid "failed to add repo to global config"
@@ -15463,10 +15778,6 @@ msgid "show only matches from files that match all patterns"
 msgstr "chỉ hiển thị những cái khớp từ tập tin mà nó khớp toàn bộ các mẫu"
 
 #: builtin/grep.c
-msgid "show parse tree for grep expression"
-msgstr "hiển thị cây phân tích cú pháp cho biểu thức “grep” (tìm kiếm)"
-
-#: builtin/grep.c
 msgid "pager"
 msgstr "dàn trang"
 
@@ -15515,6 +15826,10 @@ msgstr "--open-files-in-pager chỉ làm việc trên cây-làm-việc"
 #: builtin/grep.c
 msgid "--cached or --untracked cannot be used with --no-index"
 msgstr "--cached hay --untracked không được sử dụng với --no-index"
+
+#: builtin/grep.c
+msgid "--untracked cannot be used with --cached"
+msgstr "--untracked không thể được sử dụng với tùy chọn --cached"
 
 #: builtin/grep.c
 msgid "--[no-]exclude-standard cannot be used for tracked contents"
@@ -15711,7 +16026,7 @@ msgstr "gói quá lớn so với định nghĩa hiện tại của kiểu off_t"
 msgid "pack exceeds maximum allowed size"
 msgstr "gói đã vượt quá cỡ tối đa được phép"
 
-#: builtin/index-pack.c builtin/repack.c
+#: builtin/index-pack.c
 #, c-format
 msgid "unable to create '%s'"
 msgstr "không thể tạo “%s”"
@@ -15871,8 +16186,8 @@ msgstr "đối tượng nội bộ %s bị hỏng"
 
 #: builtin/index-pack.c
 #, c-format
-msgid "packfile name '%s' does not end with '.pack'"
-msgstr "tên tập tin tập tin gói “%s” không được kết thúc bằng đuôi “.pack”"
+msgid "packfile name '%s' does not end with '.%s'"
+msgstr "tên tập tin tập tin gói “%s” không được kết thúc “.%s”"
 
 #: builtin/index-pack.c
 #, c-format
@@ -15895,6 +16210,10 @@ msgstr "không thể lưu tập tin gói"
 #: builtin/index-pack.c
 msgid "cannot store index file"
 msgstr "không thể lưu trữ tập tin ghi mục lục"
+
+#: builtin/index-pack.c
+msgid "cannot store reverse index file"
+msgstr "không thể lưu trữ tập tin ghi mục lục đảo ngược"
 
 #: builtin/index-pack.c builtin/pack-objects.c
 #, c-format
@@ -16188,8 +16507,8 @@ msgid "show source"
 msgstr "hiển thị mã nguồn"
 
 #: builtin/log.c
-msgid "Use mail map file"
-msgstr "Sử dụng tập tin ánh xạ thư"
+msgid "use mail map file"
+msgstr "sử dụng tập tin ánh xạ thư"
 
 #: builtin/log.c
 msgid "only decorate refs that match <pattern>"
@@ -16205,10 +16524,10 @@ msgstr "các tùy chọn trang trí"
 
 #: builtin/log.c
 msgid ""
-"Trace the evolution of line range <start>,<end> or function :<funcname> in "
+"trace the evolution of line range <start>,<end> or function :<funcname> in "
 "<file>"
 msgstr ""
-"Theo dõi sự tiến hóa của phạm vi <start><end> dòng, hoặc chức năng:"
+"theo dõi sự tiến hóa của phạm vi <start><end> dòng, hoặc chức năng:"
 "<funcname> trong <file>"
 
 #: builtin/log.c
@@ -16370,8 +16689,8 @@ msgid "max length of output filename"
 msgstr "chiều dài tên tập tin đầu ra tối đa"
 
 #: builtin/log.c
-msgid "Use [RFC PATCH] instead of [PATCH]"
-msgstr "Dùng [RFC VÁ] thay cho [VÁ]"
+msgid "use [RFC PATCH] instead of [PATCH]"
+msgstr "dùng [VÁ RFC] thay cho [VÁ]"
 
 #: builtin/log.c
 msgid "cover-from-description-mode"
@@ -16382,8 +16701,8 @@ msgid "generate parts of a cover letter based on a branch's description"
 msgstr "tạo ra các phần của một lá thư bao gồm dựa trên mô tả của nhánh"
 
 #: builtin/log.c
-msgid "Use [<prefix>] instead of [PATCH]"
-msgstr "Dùng [<tiền-tố>] thay cho [VÁ]"
+msgid "use [<prefix>] instead of [PATCH]"
+msgstr "dùng [<tiền-tố>] thay cho [VÁ]"
 
 #: builtin/log.c
 msgid "store resulting files in <dir>"
@@ -16699,6 +17018,10 @@ msgstr ""
 #: builtin/ls-files.c
 msgid "show debugging data"
 msgstr "hiển thị dữ liệu gỡ lỗi"
+
+#: builtin/ls-files.c
+msgid "suppress duplicate entries"
+msgstr "chặn các mục tin trùng lặp"
 
 #: builtin/ls-remote.c
 msgid ""
@@ -17290,6 +17613,49 @@ msgstr ""
 "Hòa trộn tự động đã trở nên tốt; bị dừng trước khi việc chuyển giao được yêu "
 "cầu\n"
 
+#: builtin/mktag.c
+msgid "git mktag"
+msgstr "git mktag"
+
+#: builtin/mktag.c
+#, c-format
+msgid "warning: tag input does not pass fsck: %s"
+msgstr "cảnh báo: đầu vào thẻ không qua kiểm tra fsck: %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "error: tag input does not pass fsck: %s"
+msgstr "lỗi: đầu vào thẻ không vượt qua fsck: %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "%d (FSCK_IGNORE?) should never trigger this callback"
+msgstr "%d (FSCK_IGNORE?) không bao giờ nên kích hoạt cuộc gọi ngược này"
+
+#: builtin/mktag.c
+#, c-format
+msgid "could not read tagged object '%s'"
+msgstr "không thể đọc đối tượng được đánh thẻ %s"
+
+#: builtin/mktag.c
+#, c-format
+msgid "object '%s' tagged as '%s', but is a '%s' type"
+msgstr "đối tượng %s được đánh thẻ là %s, không phải là kiểu %s"
+
+#: builtin/mktag.c
+msgid "tag on stdin did not pass our strict fsck check"
+msgstr ""
+"thẻ trên stdin đã không vượt qua kiểm tra fsck nghiêm ngặt của chúng tôi"
+
+#: builtin/mktag.c
+msgid "tag on stdin did not refer to a valid object"
+msgstr ""
+"thẻ trên đầu vào tiêu chuẩn không chỉ đến một lần chuyển giao hợp lệ nào cả"
+
+#: builtin/mktag.c builtin/tag.c
+msgid "unable to write tag file"
+msgstr "không thể ghi vào tập tin lưu thẻ"
+
 #: builtin/mktree.c
 msgid "git mktree [-z] [--missing] [--batch]"
 msgstr "git mktree [-z] [--missing] [--batch]"
@@ -17326,7 +17692,8 @@ msgstr ""
 "trong suốt quá trình đóng gói lại, gom các tập tin gói có kích cỡ nhỏ hơn "
 "vào một bó cái mà lớn hơn kích thước này"
 
-#: builtin/multi-pack-index.c builtin/prune-packed.c
+#: builtin/multi-pack-index.c builtin/notes.c builtin/prune-packed.c
+#: builtin/tag.c
 msgid "too many arguments"
 msgstr "có quá nhiều đối số"
 
@@ -17662,10 +18029,6 @@ msgid "refusing to %s notes in %s (outside of refs/notes/)"
 msgstr "từ chối %s ghi chú trong %s (nằm ngoài refs/notes/)"
 
 #: builtin/notes.c
-msgid "too many parameters"
-msgstr "quá nhiều đối số"
-
-#: builtin/notes.c
 #, c-format
 msgid "no note found for object %s."
 msgstr "không tìm thấy ghi chú cho đối tượng %s."
@@ -17722,7 +18085,7 @@ msgid "load rewriting config for <command> (implies --stdin)"
 msgstr "tải cấu hình chép lại cho <lệnh> (ngầm định là --stdin)"
 
 #: builtin/notes.c
-msgid "too few parameters"
+msgid "too few arguments"
 msgstr "quá ít đối số"
 
 #: builtin/notes.c
@@ -17908,6 +18271,15 @@ msgstr ""
 
 #: builtin/pack-objects.c
 #, c-format
+msgid ""
+"write_reuse_object: could not locate %s, expected at offset %<PRIuMAX> in "
+"pack %s"
+msgstr ""
+"write_reuse_object: không thể phân bổ %s, cần tại vị trí bù %<PRIuMAX> trong "
+"gói %s"
+
+#: builtin/pack-objects.c
+#, c-format
 msgid "bad packed object CRC for %s"
 msgstr "CRC của đối tượng gói sai với %s"
 
@@ -17925,6 +18297,11 @@ msgstr "dò thấy delta đệ quy cho đối tượng %s"
 #, c-format
 msgid "ordered %u objects, expected %<PRIu32>"
 msgstr "đã sắp xếp %u đối tượng, cần %<PRIu32>"
+
+#: builtin/pack-objects.c
+#, c-format
+msgid "expected object at offset %<PRIuMAX> in pack %s"
+msgstr "cần đối tượng tại khoảng bù %<PRIuMAX> trong gói: %s"
 
 #: builtin/pack-objects.c
 msgid "disabling bitmap writing, packs are split due to pack.packSizeLimit"
@@ -18274,6 +18651,20 @@ msgstr ""
 "Tổng %<PRIu32> (delta %<PRIu32>), dùng lại %<PRIu32> (delta %<PRIu32>), pack-"
 "reused %<PRIu32>"
 
+#: builtin/pack-redundant.c
+msgid ""
+"'git pack-redundant' is nominated for removal.\n"
+"If you still use this command, please add an extra\n"
+"option, '--i-still-use-this', on the command line\n"
+"and let us know you still use it by sending an e-mail\n"
+"to <git@vger.kernel.org>.  Thanks.\n"
+msgstr ""
+"'git pack-redundant' được đề cử để loại bỏ.\n"
+"Nếu bạn vẫn sử dụng lệnh này, vui lòng bổ sung\n"
+"thêm một tùy chọn, '--i-still-use-this', trên dòng lệnh\n"
+"và cho chúng tôi biết bạn vẫn sử dụng nó bằng cách gửi e-mail\n"
+"đến <git@vger.kernel.org>.  Cảm ơn.\n"
+
 #: builtin/pack-refs.c
 msgid "git pack-refs [<options>]"
 msgstr "git pack-refs [<các tùy chọn>]"
@@ -18355,39 +18746,6 @@ msgstr "số lượng mô-đun-con được đẩy lên đồng thời"
 #, c-format
 msgid "Invalid value for pull.ff: %s"
 msgstr "Giá trị không hợp lệ cho pull.ff: %s"
-
-#: builtin/pull.c
-msgid ""
-"Pulling without specifying how to reconcile divergent branches is\n"
-"discouraged. You can squelch this message by running one of the following\n"
-"commands sometime before your next pull:\n"
-"\n"
-"  git config pull.rebase false  # merge (the default strategy)\n"
-"  git config pull.rebase true   # rebase\n"
-"  git config pull.ff only       # fast-forward only\n"
-"\n"
-"You can replace \"git config\" with \"git config --global\" to set a "
-"default\n"
-"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
-"or --ff-only on the command line to override the configured default per\n"
-"invocation.\n"
-msgstr ""
-"Kéo mà không chỉ định làm thế nào để hòa giải các nhánh phân kỳ là khác nhau "
-"là\n"
-"không khuyến khích. Bạn có thể dịu thông báo này bằng cách chạy một trong "
-"những lệnh sau đây\n"
-"các lệnh thỉnh thoảng trước khi thực hiện lệnh pull tiếp theo của bạn:\n"
-"\n"
-"  git config pull.rebase false  # merge (chiến lược mặc định)\n"
-"  git config pull.rebase true   # rebase\n"
-"  git config pull.ff only       # fast-forward only\n"
-"\n"
-"Bạn có thể thay thế \"git config\" với \"git config --global\" để thiết lập "
-"mặc định\n"
-"ưu tiên cho tất cả các kho. Bạn cũng có thể chuyển qua --rebase, --no-"
-"rebase,\n"
-"hoặc --ff-only trên dòng lệnh để ghi đè mặc định được cấu hình cho mỗi\n"
-"lần gọi.\n"
 
 #: builtin/pull.c
 msgid ""
@@ -18476,6 +18834,39 @@ msgstr "không thể truy cập lần chuyển giao “%s”"
 #: builtin/pull.c
 msgid "ignoring --verify-signatures for rebase"
 msgstr "bỏ qua --verify-signatures khi rebase"
+
+#: builtin/pull.c
+msgid ""
+"Pulling without specifying how to reconcile divergent branches is\n"
+"discouraged. You can squelch this message by running one of the following\n"
+"commands sometime before your next pull:\n"
+"\n"
+"  git config pull.rebase false  # merge (the default strategy)\n"
+"  git config pull.rebase true   # rebase\n"
+"  git config pull.ff only       # fast-forward only\n"
+"\n"
+"You can replace \"git config\" with \"git config --global\" to set a "
+"default\n"
+"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
+"or --ff-only on the command line to override the configured default per\n"
+"invocation.\n"
+msgstr ""
+"Kéo mà không chỉ định làm thế nào để hòa giải các nhánh phân kỳ là khác nhau "
+"là\n"
+"không khuyến khích. Bạn có thể dịu thông báo này bằng cách chạy một trong "
+"những lệnh sau đây\n"
+"các lệnh thỉnh thoảng trước khi thực hiện lệnh pull tiếp theo của bạn:\n"
+"\n"
+"  git config pull.rebase false  # merge (chiến lược mặc định)\n"
+"  git config pull.rebase true   # rebase\n"
+"  git config pull.ff only       # fast-forward only\n"
+"\n"
+"Bạn có thể thay thế \"git config\" với \"git config --global\" để thiết lập "
+"mặc định\n"
+"ưu tiên cho tất cả các kho. Bạn cũng có thể chuyển qua --rebase, --no-"
+"rebase,\n"
+"hoặc --ff-only trên dòng lệnh để ghi đè mặc định được cấu hình cho mỗi\n"
+"lần gọi.\n"
 
 #: builtin/pull.c
 msgid "Updating an unborn branch with changes added to the index."
@@ -18872,9 +19263,17 @@ msgid "passed to 'git log'"
 msgstr "chuyển cho “git log”"
 
 #: builtin/range-diff.c
+msgid "only emit output related to the first range"
+msgstr "chỉ phát ra kết xuất liên quan đến vùng đầu tiên"
+
+#: builtin/range-diff.c
+msgid "only emit output related to the second range"
+msgstr "chỉ phát ra kết xuất liên quan đến vùng thứ hai"
+
+#: builtin/range-diff.c
 #, c-format
-msgid "no .. in range: '%s'"
-msgstr "không có .. trong vùng: “%s”"
+msgid "not a commit range: '%s'"
+msgstr "không phải là vùng chuyển giao: “%s”"
 
 #: builtin/range-diff.c
 msgid "single arg format must be symmetric range"
@@ -21036,36 +21435,36 @@ msgid "unknown group type: %s"
 msgstr "không nhận ra kiểu nhóm: %s"
 
 #: builtin/shortlog.c
-msgid "Group by committer rather than author"
-msgstr "Nhóm theo người chuyển giao thay vì tác giả"
+msgid "group by committer rather than author"
+msgstr "nhóm theo người chuyển giao thay vì tác giả"
 
 #: builtin/shortlog.c
 msgid "sort output according to the number of commits per author"
 msgstr "sắp xếp kết xuất tuân theo số lượng chuyển giao trên mỗi tác giả"
 
 #: builtin/shortlog.c
-msgid "Suppress commit descriptions, only provides commit count"
-msgstr "Chặn mọi mô tả lần chuyển giao, chỉ đưa ra số lượng lần chuyển giao"
+msgid "suppress commit descriptions, only provides commit count"
+msgstr "chặn mọi mô tả lần chuyển giao, chỉ đưa ra số lượng lần chuyển giao"
 
 #: builtin/shortlog.c
-msgid "Show the email address of each author"
-msgstr "Hiển thị thư điện tử cho từng tác giả"
+msgid "show the email address of each author"
+msgstr "hiển thị thư điện tử cho từng tác giả"
 
 #: builtin/shortlog.c
 msgid "<w>[,<i1>[,<i2>]]"
 msgstr "<w>[,<i1>[,<i2>]]"
 
 #: builtin/shortlog.c
-msgid "Linewrap output"
-msgstr "Ngắt dòng khi quá dài"
+msgid "linewrap output"
+msgstr "ngắt dòng khi quá dài"
 
 #: builtin/shortlog.c
 msgid "field"
 msgstr "trường"
 
 #: builtin/shortlog.c
-msgid "Group by field"
-msgstr "Nhóm theo trường"
+msgid "group by field"
+msgstr "nhóm theo trường"
 
 #: builtin/shortlog.c
 msgid "too many arguments given outside repository"
@@ -21419,9 +21818,19 @@ msgid "%s is not a valid reference"
 msgstr "“%s” không phải một tham chiếu hợp lệ"
 
 #: builtin/stash.c
-msgid "git stash clear with parameters is unimplemented"
+msgid "git stash clear with arguments is unimplemented"
+msgstr "git stash clear với các tham số là chưa được thực hiện"
+
+#: builtin/stash.c
+#, c-format
+msgid ""
+"WARNING: Untracked file in way of tracked file!  Renaming\n"
+"            %s -> %s\n"
+"         to make room.\n"
 msgstr ""
-"git stash clear với các tham số là chưa được thực hiện (không nhận đối số)"
+"CẢNH BÁO: Tệp chưa được theo dõi theo cách của tệp được theo dõi!  Đổi tên\n"
+"            %s -> %s\n"
+"         để nhường chỗ.\n"
 
 #: builtin/stash.c
 msgid "cannot apply a stash in the middle of a merge"
@@ -21643,12 +22052,12 @@ msgstr ""
 "."
 
 #: builtin/submodule--helper.c
-msgid "Suppress output of entering each submodule command"
-msgstr "Chặn kết xuất của từng lệnh mô-đun-con"
+msgid "suppress output of entering each submodule command"
+msgstr "chặn kết xuất của từng lệnh mô-đun-con"
 
 #: builtin/submodule--helper.c
-msgid "Recurse into nested submodules"
-msgstr "Đệ quy vào trong các mô-đun-con lồng nhau"
+msgid "recurse into nested submodules"
+msgstr "đệ quy vào trong mô-đun-con lồng nhau"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper foreach [--quiet] [--recursive] [--] <command>"
@@ -21684,8 +22093,8 @@ msgid "Failed to register update mode for submodule path '%s'"
 msgstr "Gặp lỗi khi đăng ký chế độ cập nhật cho đường dẫn mô-đun-con “%s”"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output for initializing a submodule"
-msgstr "Chặn kết xuất cho khởi tạo một mô-đun-con"
+msgid "suppress output for initializing a submodule"
+msgstr "chặn kết xuất của khởi tạo một mô-đun-con"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper init [<options>] [<path>]"
@@ -21709,20 +22118,16 @@ msgid "failed to recurse into submodule '%s'"
 msgstr "gặp lỗi khi đệ quy vào trong mô-đun-con “%s”"
 
 #: builtin/submodule--helper.c
-msgid "Suppress submodule status output"
-msgstr "Chặn két xuất tình trạng mô-đun-con"
+msgid "suppress submodule status output"
+msgstr "chặn kết xuất về tình trạng mô-đun-con"
 
 #: builtin/submodule--helper.c
 msgid ""
-"Use commit stored in the index instead of the one stored in the submodule "
+"use commit stored in the index instead of the one stored in the submodule "
 "HEAD"
 msgstr ""
-"Dùng lần chuyển giao lưu trong mục lục thay cho cái được lưu trong HEAD mô-"
+"dùng lần chuyển giao lưu trong mục lục thay cho cái được lưu trong HEAD mô-"
 "đun-con"
-
-#: builtin/submodule--helper.c
-msgid "recurse into nested submodules"
-msgstr "đệ quy vào trong mô-đun-con lồng nhau"
 
 #: builtin/submodule--helper.c
 msgid "git submodule status [--quiet] [--cached] [--recursive] [<path>...]"
@@ -21813,8 +22218,8 @@ msgid "failed to update remote for submodule '%s'"
 msgstr "gặp lỗi khi cập nhật cho mô-đun-con “%s”"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output of synchronizing submodule url"
-msgstr "Chặn kết xuất cho đồng bộ url mô-đun-con"
+msgid "suppress output of synchronizing submodule url"
+msgstr "chặn kết xuất của url mô-đun-con đồng bộ"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper sync [--quiet] [--recursive] [<path>]"
@@ -21859,12 +22264,12 @@ msgid "Submodule '%s' (%s) unregistered for path '%s'\n"
 msgstr "Mô-đun-con “%s” (%s) được đăng ký cho đường dẫn “%s”\n"
 
 #: builtin/submodule--helper.c
-msgid "Remove submodule working trees even if they contain local changes"
-msgstr "Gỡ bỏ cây làm việc của mô-đun-con ngay cả khi nó có thay đổi nội bộ"
+msgid "remove submodule working trees even if they contain local changes"
+msgstr "gỡ bỏ cây làm việc của mô-đun-con ngay cả khi nó có thay đổi nội bộ"
 
 #: builtin/submodule--helper.c
-msgid "Unregister all submodules"
-msgstr "Bỏ đăng ký tất cả các trong mô-đun-con"
+msgid "unregister all submodules"
+msgstr "bỏ đăng ký tất cả các trong mô-đun-con"
 
 #: builtin/submodule--helper.c
 msgid ""
@@ -22013,9 +22418,9 @@ msgid "rebase, merge, checkout or none"
 msgstr "rebase, merge, checkout hoặc không làm gì cả"
 
 #: builtin/submodule--helper.c
-msgid "Create a shallow clone truncated to the specified number of revisions"
+msgid "create a shallow clone truncated to the specified number of revisions"
 msgstr ""
-"Tạo một bản sao nông được cắt ngắn thành số lượng điểm xét duyệt đã cho"
+"tạo một bản sao nông được cắt ngắn thành số lượng điểm xét duyệt đã cho"
 
 #: builtin/submodule--helper.c
 msgid "parallel jobs"
@@ -22086,8 +22491,8 @@ msgid "please make sure that the .gitmodules file is in the working tree"
 msgstr "hãy đảm bảo rằng tập tin .gitmodules có trong cây làm việc"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output for setting url of a submodule"
-msgstr "Chặn kết xuất cho cài đặt url của một mô-đun-con"
+msgid "suppress output for setting url of a submodule"
+msgstr "chặn kết xuất cho cài đặt url của một mô-đun-con"
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper set-url [--quiet] <path> <newurl>"
@@ -22230,10 +22635,6 @@ msgid "unable to sign the tag"
 msgstr "không thể ký thẻ"
 
 #: builtin/tag.c
-msgid "unable to write tag file"
-msgstr "không thể ghi vào tập tin lưu thẻ"
-
-#: builtin/tag.c
 #, c-format
 msgid ""
 "You have created a nested tag. The object referred to by your new tag is\n"
@@ -22363,10 +22764,6 @@ msgstr ""
 #: builtin/tag.c
 msgid "only one -F or -m option is allowed."
 msgstr "chỉ có một tùy chọn -F hoặc -m là được phép."
-
-#: builtin/tag.c
-msgid "too many params"
-msgstr "quá nhiều đối số"
 
 #: builtin/tag.c
 #, c-format
@@ -22770,32 +23167,6 @@ msgid "failed to delete '%s'"
 msgstr "gặp lỗi khi xóa “%s”"
 
 #: builtin/worktree.c
-msgid "not a valid directory"
-msgstr "không phải thư mục hợp lệ"
-
-#: builtin/worktree.c
-msgid "gitdir file does not exist"
-msgstr "tập tin gitdir không tồn tại"
-
-#: builtin/worktree.c
-#, c-format
-msgid "unable to read gitdir file (%s)"
-msgstr "không thể đọc tập tin gitdir (%s)"
-
-#: builtin/worktree.c
-#, c-format
-msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
-msgstr "đọc ngắn (cần %<PRIuMAX> byte, đọc %<PRIuMAX>)"
-
-#: builtin/worktree.c
-msgid "invalid gitdir file"
-msgstr "tập tin gitdir (thư mục git) không hợp lệ"
-
-#: builtin/worktree.c
-msgid "gitdir file points to non-existent location"
-msgstr "tập tin gitdir chỉ đến vị trí không tồn tại"
-
-#: builtin/worktree.c
 #, c-format
 msgid "Removing %s/%s: %s"
 msgstr "Đang xóa %s/%s: %s"
@@ -22896,6 +23267,20 @@ msgstr "Các tùy chọn -b, -B, và --detach loại từ lẫn nhau"
 #: builtin/worktree.c
 msgid "--[no-]track can only be used if a new branch is created"
 msgstr "--[no-]track chỉ có thể được dùng nếu một nhánh mới được tạo"
+
+#: builtin/worktree.c
+msgid "show extended annotations and reasons, if available"
+msgstr "hiển thị chú thích và lý do mở rộng, nếu có"
+
+#: builtin/worktree.c
+msgid "add 'prunable' annotation to worktrees older than <time>"
+msgstr ""
+"thêm chú thích kiểu 'prunable' cho các cây làm việc hết hạn cũ hơn khoảng "
+"<thời gian>"
+
+#: builtin/worktree.c
+msgid "--verbose and --porcelain are mutually exclusive"
+msgstr "--verbose và --porcelain loại từ lẫn nhau"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -23048,6 +23433,15 @@ msgstr "tham số cho --packfile phải là một giá trị băm hợp lệ (nh
 msgid "not a git repository"
 msgstr "không phải là kho git"
 
+#: http-fetch.c
+#| msgid "--pathspec-file-nul requires --pathspec-from-file"
+msgid "--packfile requires --index-pack-args"
+msgstr "--packfile cần --index-pack-args"
+
+#: http-fetch.c
+msgid "--index-pack-args can only be used with --packfile"
+msgstr "--index-pack-args chỉ được dùng khi có --packfile"
+
 #: t/helper/test-fast-rebase.c
 msgid "unhandled options"
 msgstr "các tùy chọn được không xử lý"
@@ -23080,6 +23474,7 @@ msgid ""
 "           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
 "bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
+"           [--super-prefix=<path>] [--config-env=<name>=<envvar>]\n"
 "           <command> [<args>]"
 msgstr ""
 "git [--version] [--help] [-C </đường/dẫn/>] [-c <tên>=<giá trị>]\n"
@@ -23089,6 +23484,7 @@ msgstr ""
 "bare]\n"
 "           [--git-dir=</đường/dẫn/>] [--work-tree=</đường/dẫn/>] [--"
 "namespace=<tên>]\n"
+"           [--super-prefix=</đường/dẫn/>] [--config-env=<tên>=<envvar>]\n"
 "           <lệnh> [<các tham số>]"
 
 #: git.c
@@ -23452,14 +23848,6 @@ msgstr "tên trường cần sắp xếp"
 msgid "update the index with reused conflict resolution if possible"
 msgstr "cập nhật bảng mục lục với phân giải xung đột dùng lại nếu được"
 
-#: wt-status.h
-msgid "HEAD detached at "
-msgstr "HEAD được tách rời tại "
-
-#: wt-status.h
-msgid "HEAD detached from "
-msgstr "HEAD được tách rời từ "
-
 #: command-list.h
 msgid "Add file contents to the index"
 msgstr "Thêm nội dung tập tin vào bảng mục lục"
@@ -23804,8 +24192,8 @@ msgid "Write and verify multi-pack-indexes"
 msgstr "Ghi và thẩm tra các multi-pack-indexes"
 
 #: command-list.h
-msgid "Creates a tag object"
-msgstr "Tạo một đối tượng thẻ"
+msgid "Creates a tag object with extra validation"
+msgstr "Tạo một đối tượng thẻ với kiểm tra mở rộng"
 
 #: command-list.h
 msgid "Build a tree-object from ls-tree formatted text"
@@ -24113,6 +24501,10 @@ msgid "Specifies intentionally untracked files to ignore"
 msgstr "Chỉ định các tập tin không cần theo dõi"
 
 #: command-list.h
+msgid "Map author/committer names and/or E-Mail addresses"
+msgstr "Ánh xạ tên tác giả/người chuyển giao và/hoặc địa chỉ E-Mail"
+
+#: command-list.h
 msgid "Defining submodule properties"
 msgstr "Định nghĩa thuộc tính mô-đun-con"
 
@@ -24149,24 +24541,6 @@ msgid "An overview of recommended workflows with Git"
 msgstr "Tổng quan về luồng công việc khuyến nghị nên dùng với Git"
 
 #: git-bisect.sh
-#, sh-format
-msgid "Bad rev input: $arg"
-msgstr "Đầu vào rev sai: $arg"
-
-#: git-bisect.sh
-msgid "No logfile given"
-msgstr "Chưa chỉ ra tập tin ghi nhật ký"
-
-#: git-bisect.sh
-#, sh-format
-msgid "cannot read $file for replaying"
-msgstr "không thể đọc $file để thao diễn lại"
-
-#: git-bisect.sh
-msgid "?? what are you talking about?"
-msgstr "?? bạn đang nói gì thế?"
-
-#: git-bisect.sh
 msgid "bisect run failed: no command provided."
 msgstr "bisect chạy gặp lỗi: không đưa ra lệnh."
 
@@ -24200,10 +24574,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "bisect chạy thành công"
-
-#: git-bisect.sh
-msgid "We are not bisecting."
-msgstr "Chúng tôi không bisect."
 
 #: git-merge-octopus.sh
 msgid ""
@@ -25508,6 +25878,102 @@ msgstr "Bỏ qua %s với hậu tố sao lưu dự phòng “%s”.\n"
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
+#~ msgid "repository contains replace objects; skipping commit-graph"
+#~ msgstr ""
+#~ "kho lưu trữ chứa các đối tượng thay thế; bỏ qua sơ đồ lần chuyển giao"
+
+#~ msgid "repository contains (deprecated) grafts; skipping commit-graph"
+#~ msgstr ""
+#~ "kho lưu trữ chứa các mối ghép (đã lạc hậu); bỏ qua sơ đồ các lần chuyển "
+#~ "giao"
+
+#~ msgid "repository is shallow; skipping commit-graph"
+#~ msgstr "kho nguồn là nông, nên bỏ qua commit-graph"
+
+#, c-format
+#~ msgid "commit-graph improper chunk offset %08x%08x"
+#~ msgstr "bù mảnh đồ-thị-các-lần-chuyển-giao không đúng chỗ %08x%08x"
+
+#, c-format
+#~ msgid "commit-graph chunk id %08x appears multiple times"
+#~ msgstr "mã mảnh đồ-thị-các-lần-chuyển-giao %08x xuất hiện nhiều lần"
+
+#~ msgid "invalid chunk offset (too large)"
+#~ msgstr "khoảng bù đoạn không hợp lệ (quá lớn)"
+
+#~ msgid "Writing chunks to multi-pack-index"
+#~ msgstr "Đang ghi các khúc vào multi-pack-index"
+
+#~ msgid "rev-list died"
+#~ msgstr "rev-list đã chết"
+
+#~ msgid ""
+#~ "git bisect--helper --bisect-write [--no-log] <state> <revision> "
+#~ "<good_term> <bad_term>"
+#~ msgstr ""
+#~ "git bisect--helper --bisect-write [--no-log] <state> <revision> <lúc_sai> "
+#~ "<lúc_đúng>"
+
+#~ msgid ""
+#~ "git bisect--helper --bisect-check-and-set-terms <command> <good_term> "
+#~ "<bad_term>"
+#~ msgstr ""
+#~ "git bisect--helper --bisect-check-and-set-terms <command> <lúc_sai> "
+#~ "<lúc_đúng>"
+
+#~ msgid "git bisect--helper --bisect-auto-next"
+#~ msgstr "git bisect--helper --bisect-auto-next"
+
+#~ msgid "write out the bisection state in BISECT_LOG"
+#~ msgstr "ghi ra tình trạng di chuyển nửa bước trong BISECT_LOG"
+
+#~ msgid "check and set terms in a bisection state"
+#~ msgstr "kiểm tra và đặt thời điểm trong di chuyển nửa bước"
+
+#~ msgid ""
+#~ "verify the next bisection state then checkout the next bisection commit"
+#~ msgstr ""
+#~ "xác nhận trạng thái phân đôi kế sau đó lấy ra lần chuyển giao phân đôi kế"
+
+#~ msgid "--bisect-write requires either 4 or 5 arguments"
+#~ msgstr "--bisect-write cần 4 hoặc 5 tham số"
+
+#~ msgid "--check-and-set-terms requires 3 arguments"
+#~ msgstr "--check-and-set-terms cần 3 tham số"
+
+#~ msgid "--bisect-auto-next requires 0 arguments"
+#~ msgstr "--bisect-auto-next cần 0 tham số"
+
+#~ msgid "Force progress reporting"
+#~ msgstr "Ép buộc báo cáo diễn biến công việc"
+
+#, c-format
+#~ msgid "Error deleting remote-tracking branch '%s'"
+#~ msgstr "Gặp lỗi khi đang xóa nhánh theo dõi máy chủ “%s”"
+
+#, c-format
+#~ msgid "Error deleting branch '%s'"
+#~ msgstr "Gặp lỗi khi xóa bỏ nhánh “%s”"
+
+#~ msgid "show parse tree for grep expression"
+#~ msgstr "hiển thị cây phân tích cú pháp cho biểu thức “grep” (tìm kiếm)"
+
+#~ msgid "too many parameters"
+#~ msgstr "quá nhiều đối số"
+
+#~ msgid "too few parameters"
+#~ msgstr "quá ít đối số"
+
+#~ msgid "Recurse into nested submodules"
+#~ msgstr "Đệ quy vào trong các mô-đun-con lồng nhau"
+
+#~ msgid "too many params"
+#~ msgstr "quá nhiều đối số"
+
+#, sh-format
+#~ msgid "Bad rev input: $arg"
+#~ msgstr "Đầu vào rev sai: $arg"
+
 #~ msgid "Counting distinct commits in commit graph"
 #~ msgstr "Đang đếm các lần chuyển giao khác nhau trong đồ thị lần chuyển giao"
 
@@ -25545,9 +26011,6 @@ msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
 #~ msgid "git bisect--helper --write-terms <bad_term> <good_term>"
 #~ msgstr "git bisect--helper --write-terms <bad_term> <good_term>"
-
-#~ msgid "git bisect--helper --bisect-clean-state"
-#~ msgstr "git bisect--helper --bisect-clean-state"
 
 #~ msgid "git bisect--helper --bisect-autostart"
 #~ msgstr "git bisect--helper --bisect-autostart"
@@ -26018,12 +26481,6 @@ msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
 #~ msgid "Server supports ofs-delta"
 #~ msgstr "Máy chủ hỗ trợ ofs-delta"
-
-#~ msgid "(HEAD detached at %s)"
-#~ msgstr "(HEAD được tách rời tại %s)"
-
-#~ msgid "(HEAD detached from %s)"
-#~ msgstr "(HEAD được tách rời từ %s)"
 
 #~ msgid "Checking out files"
 #~ msgstr "Đang lấy ra các tập tin"
@@ -27230,9 +27687,6 @@ msgstr "Bạn có thực sự muốn gửi %s? [y|N](có/KHÔNG): "
 
 #~ msgid "--detach cannot be used with -b/-B/--orphan"
 #~ msgstr "--detach không thể được sử dụng với tùy chọn -b/-B/--orphan"
-
-#~ msgid "--detach cannot be used with -t"
-#~ msgstr "--detach không thể được sử dụng với tùy chọn -t"
 
 #~ msgid "--orphan and -b|-B are mutually exclusive"
 #~ msgstr "Tùy chọn --orphan và -b|-B loại từ lẫn nhau"
