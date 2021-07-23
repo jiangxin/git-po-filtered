@@ -134,7 +134,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2020-12-15 16:27+0800\n"
+"POT-Creation-Date: 2021-05-17 16:02+0800\n"
 "PO-Revision-Date: 2020-10-14 11:43+0100\n"
 "Last-Translator: Daniel Santos <hello@brighterdan.com>\n"
 "Language-Team: Git L10N Português <https://github.com/git-l10n-pt-PT/>\n"
@@ -947,6 +947,19 @@ msgid "Exiting because of unfinished merge."
 msgstr "Saindo devido a juntar inacabado."
 
 #: advice.c
+#, c-format
+msgid ""
+"The following pathspecs didn't match any eligible path, but they do match "
+"index\n"
+"entries outside the current sparse checkout:\n"
+msgstr ""
+
+#: advice.c
+msgid ""
+"Disable or modify the sparsity rules if you intend to update such entries."
+msgstr ""
+
+#: advice.c
 #, fuzzy, c-format
 msgid ""
 "Note: switching to '%s'.\n"
@@ -1009,10 +1022,6 @@ msgstr "opção de ignorar whitespace desconhecida '%s'"
 #: apply.c
 msgid "--reject and --3way cannot be used together."
 msgstr "--reject e --3way só podem ser usados separadamente."
-
-#: apply.c
-msgid "--cached and --3way cannot be used together."
-msgstr "--cached e --3way só podem ser usados separadamente."
 
 #: apply.c
 msgid "--3way outside a repository"
@@ -1238,7 +1247,7 @@ msgstr "patch falhou: %s:%ld"
 msgid "cannot checkout %s"
 msgstr "incapaz de checkout %s"
 
-#: apply.c midx.c setup.c
+#: apply.c midx.c pack-revindex.c setup.c
 #, c-format
 msgid "failed to read %s"
 msgstr "falha a ler %s"
@@ -1264,12 +1273,13 @@ msgid "%s: does not match index"
 msgstr "%s: no index há correspondência nenhuma"
 
 #: apply.c
-msgid "repository lacks the necessary blob to fall back on 3-way merge."
+#, fuzzy
+msgid "repository lacks the necessary blob to perform 3-way merge."
 msgstr "repositório falta o blob necessário para recorrer à tri-junção."
 
 #: apply.c
-#, c-format
-msgid "Falling back to three-way merge...\n"
+#, fuzzy, c-format
+msgid "Performing three-way merge...\n"
 msgstr "A recorrer a integração com 3 pontos...\n"
 
 #: apply.c
@@ -1278,8 +1288,8 @@ msgid "cannot read the current contents of '%s'"
 msgstr "incapaz ler conteúdo atual de '%s'"
 
 #: apply.c
-#, c-format
-msgid "Failed to fall back on three-way merge...\n"
+#, fuzzy, c-format
+msgid "Failed to perform three-way merge...\n"
 msgstr "Falha a recorrer a integração com 3 pontos...\n"
 
 #: apply.c
@@ -1291,6 +1301,11 @@ msgstr "Patch aplicado a '%s' com conflitos.\n"
 #, c-format
 msgid "Applied patch to '%s' cleanly.\n"
 msgstr "Patch aplicado a '%s' com sucesso.\n"
+
+#: apply.c
+#, fuzzy, c-format
+msgid "Falling back to direct application...\n"
+msgstr "A recorrer a integração com 3 pontos...\n"
 
 #: apply.c
 msgid "removal patch leaves file contents"
@@ -1548,7 +1563,8 @@ msgid "also apply the patch (use with --stat/--summary/--check)"
 msgstr "aplicar o patch também (use com --stat/--summary/--check)"
 
 #: apply.c
-msgid "attempt three-way merge if a patch does not apply"
+#, fuzzy
+msgid "attempt three-way merge, fall back on normal patch if that fails"
 msgstr "tentar tri-junção se um patch submete-se de maneira nenhuma"
 
 #: apply.c
@@ -1928,10 +1944,10 @@ msgid "%s was both %s and %s\n"
 msgstr "%s era %s e %s em simultâneo\n"
 
 #: bisect.c
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "No testable commit found.\n"
-"Maybe you started with bad path parameters?\n"
+"Maybe you started with bad path arguments?\n"
 msgstr ""
 "Nenhum commit testável encontrado.\n"
 "Talvez tenha começado com parâmetros de caminho incorretos?\n"
@@ -2192,10 +2208,6 @@ msgid "pack-objects died"
 msgstr "pack-objects terminaram inesperadamente"
 
 #: bundle.c
-msgid "rev-list died"
-msgstr "rev-list terminou inesperadamente"
-
-#: bundle.c
 #, c-format
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr "a referência '%s' é excluída pelas opções de rev-list"
@@ -2227,6 +2239,25 @@ msgstr "incapaz criar '%s'"
 #: bundle.c
 msgid "index-pack died"
 msgstr "index-pack terminou inesperadamente"
+
+#: chunk-format.c
+msgid "terminating chunk id appears earlier than expected"
+msgstr ""
+
+#: chunk-format.c
+#, c-format
+msgid "improper chunk offset(s) %<PRIx64> and %<PRIx64>"
+msgstr ""
+
+#: chunk-format.c
+#, c-format
+msgid "duplicate chunk ID %<PRIx32> found"
+msgstr ""
+
+#: chunk-format.c
+#, c-format
+msgid "final chunk has non-zero id %<PRIx32>"
+msgstr ""
 
 #: color.c
 #, c-format
@@ -2263,16 +2294,6 @@ msgid "commit-graph file is too small to hold %u chunks"
 msgstr ""
 
 #: commit-graph.c
-#, c-format
-msgid "commit-graph improper chunk offset %08x%08x"
-msgstr ""
-
-#: commit-graph.c
-#, c-format
-msgid "commit-graph chunk id %08x appears multiple times"
-msgstr ""
-
-#: commit-graph.c
 msgid "commit-graph has no base graphs chunk"
 msgstr ""
 
@@ -2299,6 +2320,10 @@ msgstr ""
 msgid "could not find commit %s"
 msgstr "incapaz encontrar commit %s"
 
+#: commit-graph.c
+msgid "commit-graph requires overflow generation data but has none"
+msgstr ""
+
 #: commit-graph.c builtin/am.c
 #, c-format
 msgid "unable to parse commit %s"
@@ -2320,6 +2345,11 @@ msgstr ""
 #: commit-graph.c
 msgid "Clearing commit marks in commit graph"
 msgstr ""
+
+#: commit-graph.c
+#, fuzzy
+msgid "Computing commit graph topological levels"
+msgstr "mostrar commits em ordem topológica"
 
 #: commit-graph.c
 msgid "Computing commit graph generation numbers"
@@ -2353,10 +2383,6 @@ msgstr ""
 
 #: commit-graph.c
 msgid "Finding commits for commit graph among packed objects"
-msgstr ""
-
-#: commit-graph.c
-msgid "Counting distinct commits in commit graph"
 msgstr ""
 
 #: commit-graph.c
@@ -2415,11 +2441,6 @@ msgstr ""
 
 #: commit-graph.c
 msgid "attempting to write a commit-graph, but 'core.commitGraph' is disabled"
-msgstr ""
-
-#: commit-graph.c
-#, c-format
-msgid "the commit graph format cannot write %d commits"
 msgstr ""
 
 #: commit-graph.c
@@ -2489,7 +2510,7 @@ msgstr ""
 
 #: commit-graph.c
 #, c-format
-msgid "commit-graph generation for commit %s is %u != %u"
+msgid "commit-graph generation for commit %s is %<PRIuMAX> < %<PRIuMAX>"
 msgstr ""
 
 #: commit-graph.c
@@ -2582,6 +2603,21 @@ msgstr ""
 
 #: config.c
 #, fuzzy, c-format
+msgid "invalid config format: %s"
+msgstr "formato de ref inválido: %s"
+
+#: config.c
+#, c-format
+msgid "missing environment variable name for configuration '%.*s'"
+msgstr ""
+
+#: config.c
+#, c-format
+msgid "missing environment variable '%s' for configuration '%.*s'"
+msgstr ""
+
+#: config.c
+#, fuzzy, c-format
 msgid "key does not contain a section: %s"
 msgstr "chave contém secção nenhuma: %s"
 
@@ -2601,6 +2637,11 @@ msgid "invalid key (newline): %s"
 msgstr "linha de identidade inválida: %s"
 
 #: config.c
+#, fuzzy
+msgid "empty config key"
+msgstr "usar ficheiro de configuração do repositório"
+
+#: config.c
 #, fuzzy, c-format
 msgid "bogus config parameter: %s"
 msgstr "parâmetros insuficientes"
@@ -2609,6 +2650,26 @@ msgstr "parâmetros insuficientes"
 #, fuzzy, c-format
 msgid "bogus format in %s"
 msgstr "cadeia malformada %s"
+
+#: config.c
+#, fuzzy, c-format
+msgid "bogus count in %s"
+msgstr "cadeia malformada %s"
+
+#: config.c
+#, fuzzy, c-format
+msgid "too many entries in %s"
+msgstr "Demasiados argumentos."
+
+#: config.c
+#, fuzzy, c-format
+msgid "missing config key %s"
+msgstr "ficheiro config inválido %s"
+
+#: config.c
+#, fuzzy, c-format
+msgid "missing config value %s"
+msgstr "valor inválido de %s"
 
 #: config.c
 #, c-format
@@ -2686,6 +2747,11 @@ msgstr ""
 #, c-format
 msgid "bad numeric config value '%s' for '%s' in %s: %s"
 msgstr "valor numérico '%s' da configuração '%s' incorreto em %s: %s"
+
+#: config.c
+#, fuzzy, c-format
+msgid "bad boolean config value '%s' for '%s'"
+msgstr "valor numérico '%s' da configuração '%s' incorreto: %s"
 
 #: config.c
 #, c-format
@@ -3008,6 +3074,10 @@ msgid "no path specified; see 'git help pull' for valid url syntax"
 msgstr ""
 
 #: connect.c
+msgid "newline is forbidden in git:// hosts and repo paths"
+msgstr ""
+
+#: connect.c
 msgid "ssh variant 'simple' does not support -4"
 msgstr ""
 
@@ -3287,6 +3357,11 @@ msgstr ""
 #, c-format
 msgid "Marked %d islands, done.\n"
 msgstr ""
+
+#: diff-merges.c
+#, fuzzy, c-format
+msgid "unknown value for --diff-merges: %s"
+msgstr "valor desconhecido '%s' da chave '%s'"
 
 #: diff-lib.c
 msgid "--merge-base does not work with ranges"
@@ -3894,6 +3969,22 @@ msgstr "mostrar outros ficheiros na saída"
 
 #: diff.c
 #, fuzzy
+msgid "<path>"
+msgstr "path"
+
+#: diff.c
+#, fuzzy
+msgid "show the change in the specified path first"
+msgstr ""
+"escrever o ficheiro de índice do pacote na versão de formato especificada"
+
+#: diff.c
+#, fuzzy
+msgid "skip the output to the specified path"
+msgstr "Repor a HEAD atual no estado especificado"
+
+#: diff.c
+#, fuzzy
 msgid "<object-id>"
 msgstr "objeto"
 
@@ -3947,6 +4038,11 @@ msgstr "falha ao ler o ficheiro de comando '%s'"
 #: diffcore-rename.c
 msgid "Performing inexact rename detection"
 msgstr "Deteção de mudança de nome inexata em curso"
+
+#: diffcore-rotate.c
+#, fuzzy, c-format
+msgid "No such path '%s' in the diff"
+msgstr "path %s inexistente em %s"
 
 #: dir.c
 #, fuzzy, c-format
@@ -4142,6 +4238,10 @@ msgid "fetch-pack: unable to fork off %s"
 msgstr "fetch-pack: incapaz de aforquilhar %s"
 
 #: fetch-pack.c
+msgid "fetch-pack: invalid index-pack output"
+msgstr ""
+
+#: fetch-pack.c
 #, c-format
 msgid "%s failed"
 msgstr "%s falhou"
@@ -4184,6 +4284,11 @@ msgstr "Servidor insustenta formato de objeto deste repositório"
 #: fetch-pack.c
 msgid "no common commits"
 msgstr "commits comuns nenhuns"
+
+#: fetch-pack.c builtin/clone.c
+#, fuzzy
+msgid "source repository is shallow, reject to clone."
+msgstr "o repositório de origem é raso, --local ignorado"
 
 #: fetch-pack.c
 msgid "git fetch-pack: fetch failed."
@@ -4274,6 +4379,11 @@ msgstr "corresponde a remote head nenhuma"
 #: fetch-pack.c builtin/clone.c
 msgid "remote did not send all necessary objects"
 msgstr "remoto faltou enviar todos objetos necessários"
+
+#: fetch-pack.c
+#, fuzzy
+msgid "unexpected 'ready' from remote"
+msgstr "fim de ficheiro inesperado"
 
 #: fetch-pack.c
 #, c-format
@@ -4556,6 +4666,11 @@ msgstr ""
 
 #: list-objects-filter-options.c
 #, fuzzy, c-format
+msgid "'%s' for 'object:type=<type>' isnot a valid object type"
+msgstr "'%s' em '%s' é carimbo de data/hora inválido"
+
+#: list-objects-filter-options.c
+#, fuzzy, c-format
 msgid "invalid filter-spec '%s'"
 msgstr "ficheiro inválido: '%s'"
 
@@ -4626,8 +4741,237 @@ msgid "Unable to create '%s.lock': %s"
 msgstr "Incapaz de criar '%s.lock': %s"
 
 #: ls-refs.c
+#, fuzzy, c-format
+msgid "invalid value '%s' for lsrefs.unborn"
+msgstr "valor inválido de %s"
+
+#: ls-refs.c
 msgid "expected flush after ls-refs arguments"
 msgstr ""
+
+#: mailinfo.c
+msgid "quoted CRLF detected"
+msgstr ""
+
+#: mailinfo.c builtin/am.c builtin/mailinfo.c
+#, fuzzy, c-format
+msgid "bad action '%s' for '%s'"
+msgstr "incapaz copiar '%s' para '%s'"
+
+#: merge-ort.c merge-recursive.c
+#, fuzzy, c-format
+msgid "Failed to merge submodule %s (not checked out)"
+msgstr "Falha ao registar o submódulo '$sm_path'"
+
+#: merge-ort.c merge-recursive.c
+#, fuzzy, c-format
+msgid "Failed to merge submodule %s (commits not present)"
+msgstr "Falha ao registar o submódulo '$sm_path'"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Failed to merge submodule %s (commits don't follow merge-base)"
+msgstr ""
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid "Note: Fast-forwarding submodule %s to %s"
+msgstr "Avanço-rápido para $sha1"
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid "Failed to merge submodule %s"
+msgstr "falha a percorrer recursivamente dentro de submódulo '%s'"
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid ""
+"Failed to merge submodule %s, but a possible merge resolution exists:\n"
+"%s\n"
+msgstr "Falha ao registar o submódulo '$sm_path'"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"If this is correct simply add it to the index for example\n"
+"by using:\n"
+"\n"
+"  git update-index --cacheinfo 160000 %s \"%s\"\n"
+"\n"
+"which will accept this suggestion.\n"
+msgstr ""
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid ""
+"Failed to merge submodule %s, but multiple possible merges exist:\n"
+"%s"
+msgstr "Falha ao registar o submódulo '$sm_path'"
+
+#: merge-ort.c merge-recursive.c
+msgid "Failed to execute internal merge"
+msgstr "Falha ao executar integração interna"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Unable to add %s to database"
+msgstr "Incapaz de adicionar %s à base de dados"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "Auto-merging %s"
+msgstr "A integrar automaticamente %s"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
+"implicit directory rename(s) putting the following path(s) there: %s."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
+"implicit directory renames tried to put these paths there: %s"
+msgstr ""
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (directory rename split): Unclear where to rename %s to; it was "
+"renamed to multiple other directories, with no destination getting a "
+"majority of the files."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
+"renamed."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s added in %s inside a directory that was renamed in %s; "
+"moving it to %s."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
+"%s; moving it to %s."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s added in %s inside a directory that was renamed "
+"in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid ""
+"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
+"was renamed in %s, suggesting it should perhaps be moved to %s."
+msgstr ""
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid "CONFLICT (rename/rename): %s renamed to %s in %s and to %s in %s."
+msgstr ""
+"CONFLITO (mudar nome/mudar nome): Mudar de nome %s->%s em %s. Mudar o nome "
+"%s->%s em %s"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (rename involved in collision): rename of %s -> %s has content "
+"conflicts AND collides with another path; this may result in nested conflict "
+"markers."
+msgstr ""
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid "CONFLICT (rename/delete): %s renamed to %s in %s, but deleted in %s."
+msgstr ""
+"CONFLITO (mudar nome/adicionar): Mudar o nome %s->%s em %s. %s adicionado em "
+"%s"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "cannot read object %s"
+msgstr "incapaz ler objeto %s"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "object %s is not a blob"
+msgstr "objeto %s é blob nenhum"
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (file/directory): directory in the way of %s from %s; moving it to "
+"%s instead."
+msgstr ""
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (distinct types): %s had different types on each side; renamed both "
+"of them so each can be recorded somewhere."
+msgstr ""
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"CONFLICT (distinct types): %s had different types on each side; renamed one "
+"of them so each can be recorded somewhere."
+msgstr ""
+
+#: merge-ort.c merge-recursive.c
+msgid "content"
+msgstr "conteúdo"
+
+#: merge-ort.c merge-recursive.c
+msgid "add/add"
+msgstr "adicionar/adicionar"
+
+#: merge-ort.c merge-recursive.c
+msgid "submodule"
+msgstr "submódulo"
+
+#: merge-ort.c merge-recursive.c
+#, c-format
+msgid "CONFLICT (%s): Merge conflict in %s"
+msgstr "CONFLITO (%s): conflito de integração em %s"
+
+#: merge-ort.c
+#, fuzzy, c-format
+msgid ""
+"CONFLICT (modify/delete): %s deleted in %s and modified in %s.  Version %s "
+"of %s left in tree."
+msgstr ""
+"CONFLITO (%s/eliminar): %s eliminado em %s e %s em %s. Versão de %s de %s "
+"deixada na árvore."
+
+#: merge-ort.c
+#, c-format
+msgid ""
+"Note: %s not up to date and in way of checking out conflicted version; old "
+"copy renamed to %s"
+msgstr ""
+
+#. TRANSLATORS: The %s arguments are: 1) tree hash of a merge
+#. base, and 2-3) the trees for the two trees we're merging.
+#.
+#: merge-ort.c
+#, fuzzy, c-format
+msgid "collecting merge info failed for trees %s, %s, %s"
+msgstr "falha ao abrir '%s': %s"
 
 #: merge-ort-wrappers.c merge-recursive.c
 #, fuzzy, c-format
@@ -4639,10 +4983,10 @@ msgstr ""
 "integrar:\n"
 "%%s"
 
-#: merge-ort-wrappers.c merge-recursive.c
-#, fuzzy, c-format
-msgid "Already up to date!"
-msgstr "Já está atualizado!"
+#: merge-ort-wrappers.c merge-recursive.c builtin/merge.c
+#, fuzzy
+msgid "Already up to date."
+msgstr "Já está atualizado."
 
 #: merge-recursive.c
 msgid "(bad commit)\n"
@@ -4703,21 +5047,6 @@ msgid "do not know what to do with %06o %s '%s'"
 msgstr "desconheço que fazer com %06o %s '%s'"
 
 #: merge-recursive.c
-#, fuzzy, c-format
-msgid "Failed to merge submodule %s (not checked out)"
-msgstr "Falha ao registar o submódulo '$sm_path'"
-
-#: merge-recursive.c
-#, fuzzy, c-format
-msgid "Failed to merge submodule %s (commits not present)"
-msgstr "Falha ao registar o submódulo '$sm_path'"
-
-#: merge-recursive.c
-#, c-format
-msgid "Failed to merge submodule %s (commits don't follow merge-base)"
-msgstr ""
-
-#: merge-recursive.c
 #, c-format
 msgid "Fast-forwarding submodule %s to the following commit:"
 msgstr ""
@@ -4743,33 +5072,8 @@ msgstr ""
 
 #: merge-recursive.c
 #, c-format
-msgid ""
-"If this is correct simply add it to the index for example\n"
-"by using:\n"
-"\n"
-"  git update-index --cacheinfo 160000 %s \"%s\"\n"
-"\n"
-"which will accept this suggestion.\n"
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
 msgid "Failed to merge submodule %s (multiple merges found)"
 msgstr ""
-
-#: merge-recursive.c
-msgid "Failed to execute internal merge"
-msgstr "Falha ao executar integração interna"
-
-#: merge-recursive.c
-#, c-format
-msgid "Unable to add %s to database"
-msgstr "Incapaz de adicionar %s à base de dados"
-
-#: merge-recursive.c
-#, c-format
-msgid "Auto-merging %s"
-msgstr "A integrar automaticamente %s"
 
 #: merge-recursive.c
 #, fuzzy, c-format
@@ -4878,20 +5182,6 @@ msgid ""
 msgstr ""
 
 #: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (implicit dir rename): Existing file/dir at %s in the way of "
-"implicit directory rename(s) putting the following path(s) there: %s."
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (implicit dir rename): Cannot map more than one path to %s; "
-"implicit directory renames tried to put these paths there: %s"
-msgstr ""
-
-#: merge-recursive.c
 #, fuzzy, c-format
 msgid ""
 "CONFLICT (rename/rename): Rename directory %s->%s in %s. Rename directory %s-"
@@ -4899,23 +5189,6 @@ msgid ""
 msgstr ""
 "CONFLITO (mudar nome/mudar nome): Mudar de nome %s->%s em %s. Mudar o nome "
 "%s->%s em %s"
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"WARNING: Avoiding applying %s -> %s rename to %s, because %s itself was "
-"renamed."
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid "cannot read object %s"
-msgstr "incapaz ler objeto %s"
-
-#: merge-recursive.c
-#, c-format
-msgid "object %s is not a blob"
-msgstr "objeto %s é blob nenhum"
 
 #: merge-recursive.c
 msgid "modify"
@@ -4926,59 +5199,14 @@ msgid "modified"
 msgstr "modificado"
 
 #: merge-recursive.c
-msgid "content"
-msgstr "conteúdo"
-
-#: merge-recursive.c
-msgid "add/add"
-msgstr "adicionar/adicionar"
-
-#: merge-recursive.c
 #, c-format
 msgid "Skipped %s (merged same as existing)"
 msgstr "%s ignorado (integrado é igual ao existente)"
 
 #: merge-recursive.c
-msgid "submodule"
-msgstr "submódulo"
-
-#: merge-recursive.c
-#, c-format
-msgid "CONFLICT (%s): Merge conflict in %s"
-msgstr "CONFLITO (%s): conflito de integração em %s"
-
-#: merge-recursive.c
 #, c-format
 msgid "Adding as %s instead"
 msgstr "A adicionar como %s, em alternativa."
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s added in %s inside a directory that was renamed in %s; "
-"moving it to %s."
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s added in %s inside a directory that was renamed "
-"in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"Path updated: %s renamed to %s in %s, inside a directory that was renamed in "
-"%s; moving it to %s."
-msgstr ""
-
-#: merge-recursive.c
-#, c-format
-msgid ""
-"CONFLICT (file location): %s renamed to %s in %s, inside a directory that "
-"was renamed in %s, suggesting it should perhaps be moved to %s."
-msgstr ""
 
 #: merge-recursive.c
 #, c-format
@@ -5034,7 +5262,7 @@ msgstr "junção retornou commit nenhum"
 msgid "Could not parse object '%s'"
 msgstr "Incapaz de analisar objeto '%s'"
 
-#: merge-recursive.c builtin/merge.c
+#: merge-recursive.c builtin/merge.c builtin/stash.c
 msgid "Unable to write index."
 msgstr "Incapaz de escrever no index."
 
@@ -5046,6 +5274,11 @@ msgstr "falha ao ler a cache"
 #: builtin/stash.c
 msgid "unable to write new index file"
 msgstr "incapaz escrever novo ficheiro index"
+
+#: midx.c
+#, fuzzy
+msgid "multi-pack-index OID fanout is of the wrong size"
+msgstr "versão %d de multi-pack-index é irreconhecível"
 
 #: midx.c
 #, c-format
@@ -5065,14 +5298,6 @@ msgstr "versão %d de multi-pack-index é irreconhecível"
 #: midx.c
 #, c-format
 msgid "multi-pack-index hash version %u does not match version %u"
-msgstr ""
-
-#: midx.c
-msgid "invalid chunk offset (too large)"
-msgstr ""
-
-#: midx.c
-msgid "terminating multi-pack-index chunk id appears earlier than expected"
 msgstr ""
 
 #: midx.c
@@ -5120,6 +5345,11 @@ msgstr "falha ao abrir '%s'"
 msgid "failed to locate object %d in packfile"
 msgstr "Falha ao criar os ficheiros de saída"
 
+#: midx.c builtin/index-pack.c
+#, fuzzy
+msgid "cannot store reverse index file"
+msgstr "incapaz guardar ficheiro index"
+
 #: midx.c
 msgid "Adding packfiles to multi-pack-index"
 msgstr ""
@@ -5130,13 +5360,24 @@ msgid "did not see pack-file %s to drop"
 msgstr ""
 
 #: midx.c
+#, fuzzy, c-format
+msgid "unknown preferred pack: '%s'"
+msgstr "Subcomando desconhecido: %s"
+
+#: midx.c
+#, fuzzy, c-format
+msgid "preferred pack '%s' is expired"
+msgstr "o repositório de referência '%s' está enxertado"
+
+#: midx.c
 #, fuzzy
 msgid "no pack files to index."
 msgstr "pack files nenhuns para index."
 
-#: midx.c
-msgid "Writing chunks to multi-pack-index"
-msgstr ""
+#: midx.c builtin/clean.c
+#, c-format
+msgid "failed to remove %s"
+msgstr "falha ao remover %s"
 
 #: midx.c
 #, fuzzy, c-format
@@ -5270,6 +5511,367 @@ msgstr "Reescrita de notas em %s (fora de refs/notes/) recusada"
 msgid "Bad %s value: '%s'"
 msgstr "Valor incorreto de %s: '%s'"
 
+#: object-file.c
+#, c-format
+msgid "object directory %s does not exist; check .git/objects/info/alternates"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to normalize alternate object path: %s"
+msgstr "incapaz normalizar path de objeto alternativo: %s"
+
+#: object-file.c
+#, c-format
+msgid "%s: ignoring alternate object stores, nesting too deep"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to normalize object directory: %s"
+msgstr "incapaz normalizar pasta de objeto: %s"
+
+#: object-file.c
+#, fuzzy
+msgid "unable to fdopen alternates lockfile"
+msgstr "incapaz de fdopen lockfile alternativo"
+
+#: object-file.c
+#, fuzzy
+msgid "unable to read alternates file"
+msgstr "incapaz ler ficheiro alternativo"
+
+#: object-file.c
+#, fuzzy
+msgid "unable to move new alternates file into place"
+msgstr "incapaz mover novo ficheiro alternativo para o sítio"
+
+#: object-file.c
+#, c-format
+msgid "path '%s' does not exist"
+msgstr "caminho '%s' é inexistente"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' as a linked checkout is not supported yet."
+msgstr ""
+"repositório referência '%s' como uma checkout ligada ainda é insustentado."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is not a local repository."
+msgstr "repositório referência '%s' é repositório local nenhum."
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is shallow"
+msgstr "o repositório de referência '%s' é raso"
+
+#: object-file.c
+#, c-format
+msgid "reference repository '%s' is grafted"
+msgstr "o repositório de referência '%s' está enxertado"
+
+#: object-file.c
+#, c-format
+msgid "invalid line while parsing alternate refs: %s"
+msgstr ""
+
+#: object-file.c
+#, c-format
+msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
+msgstr ""
+
+#: object-file.c
+#, fuzzy
+msgid "mmap failed"
+msgstr "%s falhou"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "object file %s is empty"
+msgstr "objeto local %s corrompido"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "corrupt loose object '%s'"
+msgstr "objeto solto '%s' corrupto"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "garbage at end of loose object '%s'"
+msgstr "lixo no fim de objeto solto '%s'"
+
+#: object-file.c
+#, fuzzy
+msgid "invalid object type"
+msgstr "tipo de objeto incorreto."
+
+#: object-file.c
+#, c-format
+msgid "unable to unpack %s header with --allow-unknown-type"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to unpack %s header"
+msgstr "incapaz desempacotar cabeçalho %s"
+
+#: object-file.c
+#, c-format
+msgid "unable to parse %s header with --allow-unknown-type"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to parse %s header"
+msgstr "incapaz processar cabeçalho %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "failed to read object %s"
+msgstr "falha ao ler o objeto '%s'."
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "replacement %s not found for %s"
+msgstr "%s substituto, por encontrar para %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "loose object %s (stored in %s) is corrupt"
+msgstr "objeto local %s corrompido"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "packed object %s (stored in %s) is corrupt"
+msgstr "objeto local %s corrompido"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to write file %s"
+msgstr "incapaz escrever ficheiro %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to set permission to '%s'"
+msgstr "incapaz definir permissão para '%s'"
+
+#: object-file.c
+#, fuzzy
+msgid "file write error"
+msgstr "falha ao escrever para rev-list"
+
+#: object-file.c
+#, fuzzy
+msgid "error when closing loose object file"
+msgstr "erro ao fechar ficheiro de pacote"
+
+#: object-file.c
+#, c-format
+msgid "insufficient permission for adding an object to repository database %s"
+msgstr ""
+
+#: object-file.c
+#, fuzzy
+msgid "unable to create temporary file"
+msgstr "incapaz criar ficheiro temporário"
+
+#: object-file.c
+#, fuzzy
+msgid "unable to write loose object file"
+msgstr "incapaz escrever ficheiro objeto solto"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to deflate new object %s (%d)"
+msgstr "incapaz esvaziar objeto novo %s (%d)"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "deflateEnd on object %s failed (%d)"
+msgstr "falha de fstat de %s"
+
+#: object-file.c
+#, c-format
+msgid "confused by unstable object source data for %s"
+msgstr ""
+
+#: object-file.c builtin/pack-objects.c
+#, fuzzy, c-format
+msgid "failed utime() on %s"
+msgstr "falha ao abrir '%s'"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "cannot read object for %s"
+msgstr "incapaz ler objeto para %s"
+
+#: object-file.c
+#, fuzzy
+msgid "corrupt commit"
+msgstr "substituir autor do commit"
+
+#: object-file.c
+#, fuzzy
+msgid "corrupt tag"
+msgstr "mostrar tags"
+
+#: object-file.c
+#, c-format
+msgid "read error while indexing %s"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "short read while indexing %s"
+msgstr "leitura curta enquanto indexando %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "%s: failed to insert into database"
+msgstr "%s: falhou inserir na base de dados"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "%s: unsupported file type"
+msgstr "%s: tipo ficheiro insustentado"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "%s is not a valid object"
+msgstr "%s é objeto inválido"
+
+#: object-file.c
+#, c-format
+msgid "%s is not a valid '%s' object"
+msgstr "%s é um objeto inválido '%s'"
+
+#: object-file.c builtin/index-pack.c
+#, c-format
+msgid "unable to open %s"
+msgstr "incapaz abrir %s"
+
+#: object-file.c
+#, c-format
+msgid "hash mismatch for %s (expected %s)"
+msgstr ""
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to mmap %s"
+msgstr "incapaz mmap %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to unpack header of %s"
+msgstr "incapaz desempacotar cabeçalho de %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to parse header of %s"
+msgstr "incapaz processar cabeçalho de %s"
+
+#: object-file.c
+#, fuzzy, c-format
+msgid "unable to unpack contents of %s"
+msgstr "incapaz desempacotar conteúdo de %s"
+
+#: object-name.c
+#, fuzzy, c-format
+msgid "short object ID %s is ambiguous"
+msgstr "SHA1 curto %s é ambíguo"
+
+#: object-name.c
+msgid "The candidates are:"
+msgstr "Os candidatos são:"
+
+#: object-name.c
+#, fuzzy
+msgid ""
+"Git normally never creates a ref that ends with 40 hex characters\n"
+"because it will be ignored when you just specify 40-hex. These refs\n"
+"may be created by mistake. For example,\n"
+"\n"
+"  git switch -c $br $(git rev-parse ...)\n"
+"\n"
+"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
+"examine these refs and maybe delete them. Turn this message off by\n"
+"running \"git config advice.objectNameWarning false\""
+msgstr ""
+"Normalmente o Git nunca cria refs que terminem em 40 caracteres\n"
+"hexadecimais, porque será ignorada quando apenas se indica 40-hex.\n"
+"Poderam-se criar estas refs por engano. Como no exemplo,\n"
+"\n"
+"  git switch -c $br $(git rev-parse ...)\n"
+"\n"
+"onde \"$br\" fica vazio e uma ref de 40-hex é criada. Por favor\n"
+"examine estas refs e talvez apague-as. Desative esta mensagem\n"
+"executando \"git config advice.objectNameWarning false\""
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only goes back to %s"
+msgstr ""
+
+#: object-name.c
+#, c-format
+msgid "log for '%.*s' only has %d entries"
+msgstr ""
+
+#: object-name.c
+#, fuzzy, c-format
+msgid "path '%s' exists on disk, but not in '%.*s'"
+msgstr "O caminho '%s' está dentro do submódulo '%.*s'"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' exists, but not '%s'\n"
+"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
+msgstr ""
+
+#: object-name.c
+#, fuzzy, c-format
+msgid "path '%s' does not exist in '%.*s'"
+msgstr "caminho '%s' é inexistente em '%.*s'"
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not at stage %d\n"
+"hint: Did you mean ':%d:%s'?"
+msgstr ""
+
+#: object-name.c
+#, c-format
+msgid ""
+"path '%s' is in the index, but not '%s'\n"
+"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
+msgstr ""
+
+#: object-name.c
+#, c-format
+msgid "path '%s' exists on disk, but not in the index"
+msgstr ""
+
+#: object-name.c
+#, fuzzy, c-format
+msgid "path '%s' does not exist (neither on disk nor in the index)"
+msgstr "caminho '%s' é inexistente (quer no disco quer no index)"
+
+#: object-name.c
+#, fuzzy
+msgid "relative path syntax can't be used outside working tree"
+msgstr ""
+"Os caminhos relativos só podem ser usados a partir do topo da árvore de "
+"trabalho"
+
+#: object-name.c
+#, fuzzy, c-format
+msgid "invalid object name '%.*s'."
+msgstr "Nome de objeto inválido: '%s'."
+
 #: object.c
 #, fuzzy, c-format
 msgid "invalid object type \"%s\""
@@ -5299,6 +5901,56 @@ msgstr ""
 #, fuzzy, c-format
 msgid "unable to get size of %s"
 msgstr "incapaz obter tamanho de %s"
+
+#: pack-bitmap.c builtin/rev-list.c
+#, fuzzy, c-format
+msgid "unable to get disk usage of %s"
+msgstr "incapaz obter tamanho de %s"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s is too small"
+msgstr ""
+
+#: pack-revindex.c
+#, fuzzy, c-format
+msgid "reverse-index file %s is corrupt"
+msgstr "ficheiro de índice corrompido"
+
+#: pack-revindex.c
+#, fuzzy, c-format
+msgid "reverse-index file %s has unknown signature"
+msgstr "adicionar uma assinatura"
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported version %<PRIu32>"
+msgstr ""
+
+#: pack-revindex.c
+#, c-format
+msgid "reverse-index file %s has unsupported hash id %<PRIu32>"
+msgstr ""
+
+#: pack-write.c
+#, fuzzy
+msgid "cannot both write and verify reverse index"
+msgstr "incapaz ler o index"
+
+#: pack-write.c
+#, fuzzy, c-format
+msgid "could not stat: %s"
+msgstr "incapaz obter estatutário %s"
+
+#: pack-write.c
+#, fuzzy, c-format
+msgid "failed to make %s readable"
+msgstr "falha a analisar %s"
+
+#: pack-write.c
+#, fuzzy, c-format
+msgid "could not write '%s' promisor file"
+msgstr "incapaz escrever '%s'"
 
 #: packfile.c
 msgid "offset before end of packfile (broken .idx?)"
@@ -5539,8 +6191,8 @@ msgid "packet write failed - data exceeds max packet size"
 msgstr ""
 
 #: pkt-line.c
-#, fuzzy
-msgid "packet write failed"
+#, fuzzy, c-format
+msgid "packet write failed: %s"
 msgstr "escrita de pacote falhou"
 
 #: pkt-line.c
@@ -5599,6 +6251,11 @@ msgstr ""
 msgid "promisor remote name cannot begin with '/': %s"
 msgstr ""
 
+#: protocol-caps.c
+#, fuzzy
+msgid "object-info: expected flush after arguments"
+msgstr "--continue supõe argumento nenhum"
+
 #: prune-packed.c
 msgid "Removing duplicate objects"
 msgstr "A remover objetos duplicados"
@@ -5634,6 +6291,11 @@ msgstr "incapaz analisar cabeçalho git '%.*s'"
 #, fuzzy
 msgid "failed to generate diff"
 msgstr "falha ao criar o ficheiro %s"
+
+#: range-diff.c
+#, fuzzy
+msgid "--left-only and --right-only are mutually exclusive"
+msgstr "-b, -B e --orphan são mutuamente exclusivos"
 
 #: range-diff.c
 #, fuzzy, c-format
@@ -5814,6 +6476,11 @@ msgstr ""
 msgid "could not close '%s'"
 msgstr "incapaz fechar '%s'"
 
+#: read-cache.c
+#, fuzzy
+msgid "failed to convert to a sparse-index"
+msgstr "falha ao limpar o índice"
+
 #: read-cache.c sequencer.c
 #, fuzzy, c-format
 msgid "could not stat '%s'"
@@ -5866,7 +6533,10 @@ msgid ""
 "r, reword <commit> = use commit, but edit the commit message\n"
 "e, edit <commit> = use commit, but stop for amending\n"
 "s, squash <commit> = use commit, but meld into previous commit\n"
-"f, fixup <commit> = like \"squash\", but discard this commit's log message\n"
+"f, fixup [-C | -c] <commit> = like \"squash\" but keep only the previous\n"
+"                   commit's log message, unless -C is used, in which case\n"
+"                   keep only this commit's message; -c is same as -C but\n"
+"                   opens the editor\n"
 "x, exec <command> = run command (the rest of the line) using shell\n"
 "b, break = stop here (continue rebase later with 'git rebase --continue')\n"
 "d, drop <commit> = remove commit\n"
@@ -5875,7 +6545,7 @@ msgid ""
 "m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]\n"
 ".       create a merge commit using the original merge commit's\n"
 ".       message (or the oneline, if no original merge commit was\n"
-".       specified). Use -c <commit> to reword the commit message.\n"
+".       specified); use -c <commit> to reword the commit message\n"
 "\n"
 "These lines can be re-ordered; they are executed from top to bottom.\n"
 msgstr ""
@@ -6049,6 +6719,11 @@ msgid "unrecognized %%(subject) argument: %s"
 msgstr "argumento %%(subject) desconhecido: %s"
 
 #: ref-filter.c
+#, c-format
+msgid "expected %%(trailers:key=<value>)"
+msgstr ""
+
+#: ref-filter.c
 #, fuzzy, c-format
 msgid "unknown %%(trailers) argument: %s"
 msgstr "argumento %%(trailers) desconhecido: %s"
@@ -6171,22 +6846,32 @@ msgstr "cadeia malformada %s"
 
 #: ref-filter.c
 #, fuzzy, c-format
-msgid "no branch, rebasing %s"
+msgid "(no branch, rebasing %s)"
 msgstr "(ramo nenhum, rebaseando %s)"
 
 #: ref-filter.c
 #, fuzzy, c-format
-msgid "no branch, rebasing detached HEAD %s"
+msgid "(no branch, rebasing detached HEAD %s)"
 msgstr "(ramo nenhum, rebaseando HEAD solta %s)"
 
 #: ref-filter.c
 #, fuzzy, c-format
-msgid "no branch, bisect started on %s"
+msgid "(no branch, bisect started on %s)"
 msgstr "(ramo nenhum, bisseção iniciada em %s)"
 
 #: ref-filter.c
+#, c-format
+msgid "(HEAD detached at %s)"
+msgstr "(HEAD destacada em %s)"
+
+#: ref-filter.c
+#, c-format
+msgid "(HEAD detached from %s)"
+msgstr "(HEAD destacada de %s)"
+
+#: ref-filter.c
 #, fuzzy
-msgid "no branch"
+msgid "(no branch)"
 msgstr "(ramo nenhum)"
 
 #: ref-filter.c
@@ -6233,6 +6918,21 @@ msgstr "opção '%s' tem apontar para um commit"
 #, fuzzy, c-format
 msgid "%s does not point to a valid object!"
 msgstr "'%s' aponta para objeto válido nenhum!"
+
+#: refs.c
+#, c-format
+msgid ""
+"Using '%s' as the name for the initial branch. This default branch name\n"
+"is subject to change. To configure the initial branch name to use in all\n"
+"of your new repositories, which will suppress this warning, call:\n"
+"\n"
+"\tgit config --global init.defaultBranch <name>\n"
+"\n"
+"Names commonly chosen instead of 'master' are 'main', 'trunk' and\n"
+"'development'. The just-created branch can be renamed via this command:\n"
+"\n"
+"\tgit branch -m <name>\n"
+msgstr ""
 
 #: refs.c
 #, fuzzy, c-format
@@ -6687,11 +7387,6 @@ msgid "--unpacked=<packfile> no longer supported"
 msgstr ""
 
 #: revision.c
-#, fuzzy, c-format
-msgid "unknown value for --diff-merges: %s"
-msgstr "valor desconhecido '%s' da chave '%s'"
-
-#: revision.c
 msgid "your current branch appears to be broken"
 msgstr "o ramo atual parece estar danificado"
 
@@ -6738,6 +7433,15 @@ msgstr "descompactação remota falhou: %s"
 #: send-pack.c
 msgid "failed to sign the push certificate"
 msgstr "falha ao assinar o certificado de publicação"
+
+#: send-pack.c
+#, fuzzy
+msgid "send-pack: unable to fork off fetch subprocess"
+msgstr "fetch-pack: incapaz de aforquilhar %s"
+
+#: send-pack.c
+msgid "push negotiation failed; proceeding anyway with push"
+msgstr ""
 
 #: send-pack.c
 #, fuzzy
@@ -7082,10 +7786,33 @@ msgstr "incapaz processar commit parente %s"
 msgid "unknown command: %d"
 msgstr "comando desconhecido: %d"
 
+#: sequencer.c git-rebase--preserve-merges.sh
+msgid "This is the 1st commit message:"
+msgstr "Esta é a 1ª mensagem de commit:"
+
+#: sequencer.c
+#, c-format
+msgid "This is the commit message #%d:"
+msgstr "Esta é a mensagem de commit nº%d:"
+
+#: sequencer.c
+msgid "The 1st commit message will be skipped:"
+msgstr "A 1ª mensagem de commit será ignorada:"
+
+#: sequencer.c
+#, c-format
+msgid "The commit message #%d will be skipped:"
+msgstr "A mensagem de commit #%d será ignorada:"
+
 #: sequencer.c
 #, c-format
 msgid "This is a combination of %d commits."
 msgstr "Isto é a combinação de %d commits."
+
+#: sequencer.c
+#, c-format
+msgid "cannot write '%s'"
+msgstr "incapaz escrever '%s'"
 
 #: sequencer.c
 msgid "need a HEAD to fixup"
@@ -7101,27 +7828,8 @@ msgstr "incapaz ler mensagem de commit de HEAD"
 
 #: sequencer.c
 #, c-format
-msgid "cannot write '%s'"
-msgstr "incapaz escrever '%s'"
-
-#: sequencer.c git-rebase--preserve-merges.sh
-msgid "This is the 1st commit message:"
-msgstr "Esta é a 1ª mensagem de commit:"
-
-#: sequencer.c
-#, c-format
 msgid "could not read commit message of %s"
 msgstr "incapaz ler mensagem de commit de %s"
-
-#: sequencer.c
-#, c-format
-msgid "This is the commit message #%d:"
-msgstr "Esta é a mensagem de commit nº%d:"
-
-#: sequencer.c
-#, c-format
-msgid "The commit message #%d will be skipped:"
-msgstr "A mensagem de commit #%d será ignorada:"
 
 #: sequencer.c
 msgid "your index file is unmerged."
@@ -7839,371 +8547,24 @@ msgstr "falha ao abrir /dev/null"
 msgid "fork failed"
 msgstr "falha ao invocar fseek"
 
-#: setup.c
+#: setup.c t/helper/test-simple-ipc.c
 #, fuzzy
 msgid "setsid failed"
 msgstr "falha ao executar o comando stash"
 
-#: sha1-file.c
-#, c-format
-msgid "object directory %s does not exist; check .git/objects/info/alternates"
+#: sparse-index.c
+msgid "attempting to use sparse-index without cone mode"
 msgstr ""
 
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to normalize alternate object path: %s"
-msgstr "incapaz normalizar path de objeto alternativo: %s"
-
-#: sha1-file.c
-#, c-format
-msgid "%s: ignoring alternate object stores, nesting too deep"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to normalize object directory: %s"
-msgstr "incapaz normalizar pasta de objeto: %s"
-
-#: sha1-file.c
+#: sparse-index.c
 #, fuzzy
-msgid "unable to fdopen alternates lockfile"
-msgstr "incapaz de fdopen lockfile alternativo"
+msgid "unable to update cache-tree, staying full"
+msgstr "incapaz atualizar árvore de cache"
 
-#: sha1-file.c
-#, fuzzy
-msgid "unable to read alternates file"
-msgstr "incapaz ler ficheiro alternativo"
-
-#: sha1-file.c
-#, fuzzy
-msgid "unable to move new alternates file into place"
-msgstr "incapaz mover novo ficheiro alternativo para o sítio"
-
-#: sha1-file.c
+#: sparse-index.c
 #, c-format
-msgid "path '%s' does not exist"
-msgstr "caminho '%s' é inexistente"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' as a linked checkout is not supported yet."
+msgid "index entry is a directory, but not sparse (%08x)"
 msgstr ""
-"repositório referência '%s' como uma checkout ligada ainda é insustentado."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is not a local repository."
-msgstr "repositório referência '%s' é repositório local nenhum."
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is shallow"
-msgstr "o repositório de referência '%s' é raso"
-
-#: sha1-file.c
-#, c-format
-msgid "reference repository '%s' is grafted"
-msgstr "o repositório de referência '%s' está enxertado"
-
-#: sha1-file.c
-#, c-format
-msgid "invalid line while parsing alternate refs: %s"
-msgstr ""
-
-#: sha1-file.c
-#, c-format
-msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy
-msgid "mmap failed"
-msgstr "%s falhou"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "object file %s is empty"
-msgstr "objeto local %s corrompido"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "corrupt loose object '%s'"
-msgstr "objeto solto '%s' corrupto"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "garbage at end of loose object '%s'"
-msgstr "lixo no fim de objeto solto '%s'"
-
-#: sha1-file.c
-#, fuzzy
-msgid "invalid object type"
-msgstr "tipo de objeto incorreto."
-
-#: sha1-file.c
-#, c-format
-msgid "unable to unpack %s header with --allow-unknown-type"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to unpack %s header"
-msgstr "incapaz desempacotar cabeçalho %s"
-
-#: sha1-file.c
-#, c-format
-msgid "unable to parse %s header with --allow-unknown-type"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to parse %s header"
-msgstr "incapaz processar cabeçalho %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "failed to read object %s"
-msgstr "falha ao ler o objeto '%s'."
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "replacement %s not found for %s"
-msgstr "%s substituto, por encontrar para %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "loose object %s (stored in %s) is corrupt"
-msgstr "objeto local %s corrompido"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "packed object %s (stored in %s) is corrupt"
-msgstr "objeto local %s corrompido"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to write file %s"
-msgstr "incapaz escrever ficheiro %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to set permission to '%s'"
-msgstr "incapaz definir permissão para '%s'"
-
-#: sha1-file.c
-#, fuzzy
-msgid "file write error"
-msgstr "falha ao escrever para rev-list"
-
-#: sha1-file.c
-#, fuzzy
-msgid "error when closing loose object file"
-msgstr "erro ao fechar ficheiro de pacote"
-
-#: sha1-file.c
-#, c-format
-msgid "insufficient permission for adding an object to repository database %s"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy
-msgid "unable to create temporary file"
-msgstr "incapaz criar ficheiro temporário"
-
-#: sha1-file.c
-#, fuzzy
-msgid "unable to write loose object file"
-msgstr "incapaz escrever ficheiro objeto solto"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to deflate new object %s (%d)"
-msgstr "incapaz esvaziar objeto novo %s (%d)"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "deflateEnd on object %s failed (%d)"
-msgstr "falha de fstat de %s"
-
-#: sha1-file.c
-#, c-format
-msgid "confused by unstable object source data for %s"
-msgstr ""
-
-#: sha1-file.c builtin/pack-objects.c
-#, fuzzy, c-format
-msgid "failed utime() on %s"
-msgstr "falha ao abrir '%s'"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "cannot read object for %s"
-msgstr "incapaz ler objeto para %s"
-
-#: sha1-file.c
-#, fuzzy
-msgid "corrupt commit"
-msgstr "substituir autor do commit"
-
-#: sha1-file.c
-#, fuzzy
-msgid "corrupt tag"
-msgstr "mostrar tags"
-
-#: sha1-file.c
-#, c-format
-msgid "read error while indexing %s"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "short read while indexing %s"
-msgstr "leitura curta enquanto indexando %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "%s: failed to insert into database"
-msgstr "%s: falhou inserir na base de dados"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "%s: unsupported file type"
-msgstr "%s: tipo ficheiro insustentado"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "%s is not a valid object"
-msgstr "%s é objeto inválido"
-
-#: sha1-file.c
-#, c-format
-msgid "%s is not a valid '%s' object"
-msgstr "%s é um objeto inválido '%s'"
-
-#: sha1-file.c builtin/index-pack.c
-#, c-format
-msgid "unable to open %s"
-msgstr "incapaz abrir %s"
-
-#: sha1-file.c
-#, c-format
-msgid "hash mismatch for %s (expected %s)"
-msgstr ""
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to mmap %s"
-msgstr "incapaz mmap %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to unpack header of %s"
-msgstr "incapaz desempacotar cabeçalho de %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to parse header of %s"
-msgstr "incapaz processar cabeçalho de %s"
-
-#: sha1-file.c
-#, fuzzy, c-format
-msgid "unable to unpack contents of %s"
-msgstr "incapaz desempacotar conteúdo de %s"
-
-#: sha1-name.c
-#, c-format
-msgid "short SHA1 %s is ambiguous"
-msgstr "SHA1 curto %s é ambíguo"
-
-#: sha1-name.c
-msgid "The candidates are:"
-msgstr "Os candidatos são:"
-
-#: sha1-name.c
-#, fuzzy
-msgid ""
-"Git normally never creates a ref that ends with 40 hex characters\n"
-"because it will be ignored when you just specify 40-hex. These refs\n"
-"may be created by mistake. For example,\n"
-"\n"
-"  git switch -c $br $(git rev-parse ...)\n"
-"\n"
-"where \"$br\" is somehow empty and a 40-hex ref is created. Please\n"
-"examine these refs and maybe delete them. Turn this message off by\n"
-"running \"git config advice.objectNameWarning false\""
-msgstr ""
-"Normalmente o Git nunca cria refs que terminem em 40 caracteres\n"
-"hexadecimais, porque será ignorada quando apenas se indica 40-hex.\n"
-"Poderam-se criar estas refs por engano. Como no exemplo,\n"
-"\n"
-"  git switch -c $br $(git rev-parse ...)\n"
-"\n"
-"onde \"$br\" fica vazio e uma ref de 40-hex é criada. Por favor\n"
-"examine estas refs e talvez apague-as. Desative esta mensagem\n"
-"executando \"git config advice.objectNameWarning false\""
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only goes back to %s"
-msgstr ""
-
-#: sha1-name.c
-#, c-format
-msgid "log for '%.*s' only has %d entries"
-msgstr ""
-
-#: sha1-name.c
-#, fuzzy, c-format
-msgid "path '%s' exists on disk, but not in '%.*s'"
-msgstr "O caminho '%s' está dentro do submódulo '%.*s'"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' exists, but not '%s'\n"
-"hint: Did you mean '%.*s:%s' aka '%.*s:./%s'?"
-msgstr ""
-
-#: sha1-name.c
-#, fuzzy, c-format
-msgid "path '%s' does not exist in '%.*s'"
-msgstr "caminho '%s' é inexistente em '%.*s'"
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not at stage %d\n"
-"hint: Did you mean ':%d:%s'?"
-msgstr ""
-
-#: sha1-name.c
-#, c-format
-msgid ""
-"path '%s' is in the index, but not '%s'\n"
-"hint: Did you mean ':%d:%s' aka ':%d:./%s'?"
-msgstr ""
-
-#: sha1-name.c
-#, c-format
-msgid "path '%s' exists on disk, but not in the index"
-msgstr ""
-
-#: sha1-name.c
-#, fuzzy, c-format
-msgid "path '%s' does not exist (neither on disk nor in the index)"
-msgstr "caminho '%s' é inexistente (quer no disco quer no index)"
-
-#: sha1-name.c
-#, fuzzy
-msgid "relative path syntax can't be used outside working tree"
-msgstr ""
-"Os caminhos relativos só podem ser usados a partir do topo da árvore de "
-"trabalho"
-
-#: sha1-name.c
-#, fuzzy, c-format
-msgid "invalid object name '%.*s'."
-msgstr "Nome de objeto inválido: '%s'."
 
 #. TRANSLATORS: IEC 80000-13:2008 gibibyte
 #: strbuf.c
@@ -8478,6 +8839,11 @@ msgstr "incapaz iniciar ls-files em .."
 msgid "ls-tree returned unexpected return code %d"
 msgstr "ls-tree retornou código de retorno inesperado %d"
 
+#: symlinks.c
+#, fuzzy, c-format
+msgid "failed to lstat '%s'"
+msgstr "falha ao invocar stat de '%s'"
+
 #: trailer.c
 #, c-format
 msgid "running trailer command '%s' failed"
@@ -8503,7 +8869,7 @@ msgstr "token terminador vazio no terminador '%.*s'"
 msgid "could not read input file '%s'"
 msgstr "incapaz ler ficheiro de entrada '%s'"
 
-#: trailer.c
+#: trailer.c builtin/mktag.c
 msgid "could not read from stdin"
 msgstr "incapaz ler da entrada padrão"
 
@@ -8603,6 +8969,10 @@ msgstr "opção insustentado pelo protocolo"
 #: transport-helper.c
 #, c-format
 msgid "can't connect to subservice %s"
+msgstr ""
+
+#: transport-helper.c transport.c
+msgid "--negotiate-only requires protocol v2"
 msgstr ""
 
 #: transport-helper.c
@@ -8746,6 +9116,11 @@ msgstr ""
 #: transport.c
 msgid "server options require protocol version 2 or later"
 msgstr ""
+
+#: transport.c
+#, fuzzy
+msgid "server does not support wait-for-done"
+msgstr "Servidor insustenta --deepen"
 
 #: transport.c
 #, fuzzy
@@ -9085,6 +9460,11 @@ msgstr ""
 msgid "Updating index flags"
 msgstr "A atualizar %s"
 
+#: unpack-trees.c
+#, c-format
+msgid "worktree and untracked commit have duplicate entries: %s"
+msgstr ""
+
 #: upload-pack.c
 msgid "expected flush after fetch arguments"
 msgstr ""
@@ -9184,6 +9564,11 @@ msgstr "incapaz localizar repositório; .git é diferente de ficheiro"
 
 #: worktree.c
 #, fuzzy
+msgid "unable to locate repository; .git file does not reference a repository"
+msgstr "incapaz localizar repositório; .git é diferente de ficheiro"
+
+#: worktree.c
+#, fuzzy
 msgid "unable to locate repository; .git file broken"
 msgstr "incapaz localizar repositório; .git está quebrado"
 
@@ -9194,6 +9579,38 @@ msgstr ""
 #: worktree.c
 msgid "gitdir incorrect"
 msgstr ""
+
+#: worktree.c
+#, fuzzy
+msgid "not a valid directory"
+msgstr "nome de objeto inválido: %s"
+
+#: worktree.c
+#, fuzzy
+msgid "gitdir file does not exist"
+msgstr "ficheiro gitdir é inexistente"
+
+#: worktree.c
+#, fuzzy, c-format
+msgid "unable to read gitdir file (%s)"
+msgstr "incapaz ler ficheiro gitdir (%s)"
+
+#: worktree.c
+#, c-format
+msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
+msgstr ""
+
+#: worktree.c
+#, fuzzy
+msgid "invalid gitdir file"
+msgstr "linha de Data inválida"
+
+#: worktree.c
+#, fuzzy
+msgid "gitdir file points to non-existent location"
+msgstr ""
+"A remover worktrees/%s: o ficheiro gitdir aponta para uma localização "
+"inexistente"
 
 #: wrapper.c
 #, c-format
@@ -9620,6 +10037,14 @@ msgid "rebase in progress; onto "
 msgstr "rebase em curso; sobre "
 
 #: wt-status.c
+msgid "HEAD detached at "
+msgstr "HEAD destacada em "
+
+#: wt-status.c
+msgid "HEAD detached from "
+msgstr "HEAD destacada de "
+
+#: wt-status.c
 msgid "Not currently on any branch."
 msgstr "Atualmente em ramo nenhum."
 
@@ -9746,6 +10171,26 @@ msgstr "além disso, teu index contém alterações por memorizar."
 msgid "cannot %s: Your index contains uncommitted changes."
 msgstr "incapaz efetuar %s: teu index contém alterações por memorizar."
 
+#: compat/simple-ipc/ipc-unix-socket.c
+#, fuzzy
+msgid "could not send IPC command"
+msgstr "incapaz encontrar commit %s"
+
+#: compat/simple-ipc/ipc-unix-socket.c
+#, fuzzy
+msgid "could not read IPC response"
+msgstr "incapaz de ler ref %s"
+
+#: compat/simple-ipc/ipc-unix-socket.c
+#, fuzzy, c-format
+msgid "could not start accept_thread '%s'"
+msgstr "incapaz obter estatutário de ficheiro '%s'"
+
+#: compat/simple-ipc/ipc-unix-socket.c
+#, fuzzy, c-format
+msgid "could not start worker[0] for '%s'"
+msgstr "incapaz analisar log para '%s'"
+
 #: compat/precompose_utf8.c builtin/clone.c
 #, c-format
 msgid "failed to unlink '%s'"
@@ -9754,6 +10199,11 @@ msgstr "falha ao unlink '%s'"
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr "git add [<opções>] [--] <caminho>..."
+
+#: builtin/add.c
+#, fuzzy, c-format
+msgid "cannot chmod %cx '%s'"
+msgstr "incapaz chdir para '%s'"
 
 #: builtin/add.c
 #, c-format
@@ -9909,6 +10359,11 @@ msgstr ""
 #: builtin/add.c
 msgid "adding files failed"
 msgstr "falha ao adicionar ficheiros"
+
+#: builtin/add.c
+#, fuzzy
+msgid "--dry-run is incompatible with --interactive/--patch"
+msgstr "--first-parent é incompatível com --bisect"
 
 #: builtin/add.c builtin/commit.c
 #, fuzzy
@@ -10235,6 +10690,11 @@ msgid "strip everything before a scissors line"
 msgstr "retirar todo o conteúdo antes da linha de tesoura"
 
 #: builtin/am.c
+#, fuzzy
+msgid "pass it through git-mailinfo"
+msgstr "transmitir ao git-apply"
+
+#: builtin/am.c
 msgid "pass it through git-apply"
 msgstr "transmitir ao git-apply"
 
@@ -10270,11 +10730,12 @@ msgid "skip the current patch"
 msgstr "ignorar o patch atual"
 
 #: builtin/am.c
-msgid "restore the original branch and abort the patching operation."
+#, fuzzy
+msgid "restore the original branch and abort the patching operation"
 msgstr "restaurar o ramo original e abortar a operação de patch."
 
 #: builtin/am.c
-msgid "abort the patching operation but keep HEAD where it is."
+msgid "abort the patching operation but keep HEAD where it is"
 msgstr ""
 
 #: builtin/am.c
@@ -10379,18 +10840,6 @@ msgid "git bisect--helper --bisect-reset [<commit>]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-write [--no-log] <state> <revision> <good_term> "
-"<bad_term>"
-msgstr ""
-
-#: builtin/bisect--helper.c
-msgid ""
-"git bisect--helper --bisect-check-and-set-terms <command> <good_term> "
-"<bad_term>"
-msgstr ""
-
-#: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-next-check <good_term> <bad_term> [<term>]"
 msgstr ""
 
@@ -10417,17 +10866,22 @@ msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
 #, fuzzy
-msgid "git bisect--helper --bisect-auto-next"
-msgstr "git bisect--helper --next-all [--no-checkout]"
-
-#: builtin/bisect--helper.c
-#, fuzzy
 msgid "git bisect--helper --bisect-state (bad|new) [<rev>]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
 #, fuzzy
 msgid "git bisect--helper --bisect-state (good|old) [<rev>...]"
+msgstr "git bisect--helper --next-all [--no-checkout]"
+
+#: builtin/bisect--helper.c
+#, fuzzy
+msgid "git bisect--helper --bisect-replay <filename>"
+msgstr "git bisect--helper --next-all [--no-checkout]"
+
+#: builtin/bisect--helper.c
+#, fuzzy
+msgid "git bisect--helper --bisect-skip [(<rev>|<range>)...]"
 msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #: builtin/bisect--helper.c
@@ -10629,17 +11083,28 @@ msgid "Bad rev input: %s"
 msgstr "Revisão incorreta na entrada: $arg"
 
 #: builtin/bisect--helper.c
+#, fuzzy, c-format
+msgid "Bad rev input (not a commit): %s"
+msgstr "Revisão incorreta na entrada: $arg"
+
+#: builtin/bisect--helper.c
+msgid "We are not bisecting."
+msgstr "Estamos bissetando nada."
+
+#: builtin/bisect--helper.c
+#, fuzzy, c-format
+msgid "'%s'?? what are you talking about?"
+msgstr "?? de que é que estás a falar?"
+
+#: builtin/bisect--helper.c
+#, fuzzy, c-format
+msgid "cannot read file '%s' for replaying"
+msgstr "incapaz ler $file para reproduzir"
+
+#: builtin/bisect--helper.c
 #, fuzzy
 msgid "reset the bisection state"
 msgstr "remover uma secção: nome"
-
-#: builtin/bisect--helper.c
-msgid "write out the bisection state in BISECT_LOG"
-msgstr ""
-
-#: builtin/bisect--helper.c
-msgid "check and set terms in a bisection state"
-msgstr ""
 
 #: builtin/bisect--helper.c
 msgid "check whether bad or good terms exist"
@@ -10660,12 +11125,22 @@ msgid "find the next bisection commit"
 msgstr "encontra próximo commit de bisecção"
 
 #: builtin/bisect--helper.c
-msgid "verify the next bisection state then checkout the next bisection commit"
+msgid "mark the state of ref (or refs)"
 msgstr ""
 
 #: builtin/bisect--helper.c
-msgid "mark the state of ref (or refs)"
+#, fuzzy
+msgid "list the bisection steps so far"
+msgstr "remover uma secção: nome"
+
+#: builtin/bisect--helper.c
+msgid "replay the bisection process from the given file"
 msgstr ""
+
+#: builtin/bisect--helper.c
+#, fuzzy
+msgid "skip some commits for checkout"
+msgstr "'%s' tem commit checked out nenhum"
 
 #: builtin/bisect--helper.c
 msgid "no log for BISECT_WRITE"
@@ -10673,15 +11148,6 @@ msgstr ""
 
 #: builtin/bisect--helper.c
 msgid "--bisect-reset requires either no argument or a commit"
-msgstr ""
-
-#: builtin/bisect--helper.c
-#, fuzzy
-msgid "--bisect-write requires either 4 or 5 arguments"
-msgstr ":strip= requer um inteiro positivo como argumento"
-
-#: builtin/bisect--helper.c
-msgid "--check-and-set-terms requires 3 arguments"
 msgstr ""
 
 #: builtin/bisect--helper.c
@@ -10700,8 +11166,13 @@ msgstr "--bisect-next requer 0 argumentos"
 
 #: builtin/bisect--helper.c
 #, fuzzy
-msgid "--bisect-auto-next requires 0 arguments"
-msgstr "--bisect-auto-next requer 0 argumentos"
+msgid "--bisect-log requires 0 arguments"
+msgstr "--bisect-next requer 0 argumentos"
+
+#: builtin/bisect--helper.c
+#, fuzzy
+msgid "no logfile given"
+msgstr "Nenhum ficheiro de log fornecido"
 
 #: builtin/blame.c
 msgid "git blame [<options>] [<rev-opts>] [<rev>] [--] <file>"
@@ -10736,70 +11207,86 @@ msgid "cannot find revision %s to ignore"
 msgstr ""
 
 #: builtin/blame.c
-msgid "Show blame entries as we find them, incrementally"
+#, fuzzy
+msgid "show blame entries as we find them, incrementally"
 msgstr ""
 "Mostrar entradas de culpa à medida que forem encontradas, incrementalmente"
 
 #: builtin/blame.c
 #, fuzzy
-msgid "Do not show object names of boundary commits (Default: off)"
+msgid "do not show object names of boundary commits (Default: off)"
 msgstr "Mostar SHA-1 dos commits limite em branco (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Do not treat root commits as boundaries (Default: off)"
+#, fuzzy
+msgid "do not treat root commits as boundaries (Default: off)"
 msgstr "Tratar commits raiz como limite nenhum (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Show work cost statistics"
+#, fuzzy
+msgid "show work cost statistics"
 msgstr "Mostrar estatísticas de custo de atividade"
 
-#: builtin/blame.c
-msgid "Force progress reporting"
-msgstr "Forçar informação de progresso"
+#: builtin/blame.c builtin/checkout.c builtin/clone.c builtin/commit-graph.c
+#: builtin/fetch.c builtin/merge.c builtin/multi-pack-index.c builtin/pull.c
+#: builtin/push.c builtin/send-pack.c
+msgid "force progress reporting"
+msgstr "forçar informação de progresso"
 
 #: builtin/blame.c
-msgid "Show output score for blame entries"
+#, fuzzy
+msgid "show output score for blame entries"
 msgstr "Mostrar a pontuação das entradas de culpa"
 
 #: builtin/blame.c
-msgid "Show original filename (Default: auto)"
+#, fuzzy
+msgid "show original filename (Default: auto)"
 msgstr "Mostrar o nome do ficheiro original (Predefinição: auto)"
 
 #: builtin/blame.c
-msgid "Show original linenumber (Default: off)"
+#, fuzzy
+msgid "show original linenumber (Default: off)"
 msgstr "Mostrar números de linha originais (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Show in a format designed for machine consumption"
+#, fuzzy
+msgid "show in a format designed for machine consumption"
 msgstr "Mostrar em formato próprio para ser consumo por uma máquina"
 
 #: builtin/blame.c
-msgid "Show porcelain format with per-line commit information"
+#, fuzzy
+msgid "show porcelain format with per-line commit information"
 msgstr "Mostrar em formato de porcelana com informações de commit por linha"
 
 #: builtin/blame.c
-msgid "Use the same output mode as git-annotate (Default: off)"
+#, fuzzy
+msgid "use the same output mode as git-annotate (Default: off)"
 msgstr "Usar o mesmo modo de saída que git-annotate (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Show raw timestamp (Default: off)"
+#, fuzzy
+msgid "show raw timestamp (Default: off)"
 msgstr "Mostrar carimbo de data/hora em bruto (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Show long commit SHA1 (Default: off)"
+#, fuzzy
+msgid "show long commit SHA1 (Default: off)"
 msgstr "Mostrar SHA1 longo de commit (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Suppress author name and timestamp (Default: off)"
+#, fuzzy
+msgid "suppress author name and timestamp (Default: off)"
 msgstr ""
 "Suprimir nome de autor e carimbo de data/hora (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Show author email instead of name (Default: off)"
+#, fuzzy
+msgid "show author email instead of name (Default: off)"
 msgstr "Mostrar o email do autor em vez do nome (Predefinição: desativado)"
 
 #: builtin/blame.c
-msgid "Ignore whitespace differences"
+#, fuzzy
+msgid "ignore whitespace differences"
 msgstr "Ignorar as diferenças de espaço em branco"
 
 #: builtin/blame.c builtin/log.c
@@ -10809,12 +11296,12 @@ msgstr "reverter"
 
 #: builtin/blame.c
 #, fuzzy
-msgid "Ignore <rev> when blaming"
+msgid "ignore <rev> when blaming"
 msgstr "ignorar o índice ao verificar"
 
 #: builtin/blame.c
 #, fuzzy
-msgid "Ignore revisions from <file>"
+msgid "ignore revisions from <file>"
 msgstr "ler mensagem de um ficheiro"
 
 #: builtin/blame.c
@@ -10826,15 +11313,18 @@ msgid "color lines by age"
 msgstr ""
 
 #: builtin/blame.c
-msgid "Spend extra cycles to find better match"
+#, fuzzy
+msgid "spend extra cycles to find better match"
 msgstr "Despender ciclos extra para encontrar uma melhor correspondência"
 
 #: builtin/blame.c
-msgid "Use revisions from <file> instead of calling git-rev-list"
+#, fuzzy
+msgid "use revisions from <file> instead of calling git-rev-list"
 msgstr "Usar revisões do <ficheiro> em vez de invocar git-rev-list"
 
 #: builtin/blame.c
-msgid "Use <file>'s contents as the final image"
+#, fuzzy
+msgid "use <file>'s contents as the final image"
 msgstr "Usar o conteúdo do <ficheiro> como imagem final"
 
 #: builtin/blame.c
@@ -10842,11 +11332,13 @@ msgid "score"
 msgstr "pontuação"
 
 #: builtin/blame.c
-msgid "Find line copies within and across files"
+#, fuzzy
+msgid "find line copies within and across files"
 msgstr "Localizar linhas copiadas dentro e entre ficheiros"
 
 #: builtin/blame.c
-msgid "Find line movements within and across files"
+#, fuzzy
+msgid "find line movements within and across files"
 msgstr "Localizar linhas movidas dentro e entre ficheiros"
 
 #: builtin/blame.c
@@ -10856,7 +11348,7 @@ msgstr "intervalo"
 
 #: builtin/blame.c
 #, fuzzy
-msgid "Process only line range <start>,<end> or function :<funcname>"
+msgid "process only line range <start>,<end> or function :<funcname>"
 msgstr "Processar apenas o intervalo de linhas n,m, a cantar de 1"
 
 #: builtin/blame.c
@@ -10975,16 +11467,6 @@ msgstr "ramo de monitorização remoto '%s' por encontrar."
 #, c-format
 msgid "branch '%s' not found."
 msgstr "ramo '%s' por encontrar."
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting remote-tracking branch '%s'"
-msgstr "Erro a eliminar o ramo de monitorização remoto '%s'"
-
-#: builtin/branch.c
-#, c-format
-msgid "Error deleting branch '%s'"
-msgstr "Erro a eliminar ramo '%s'"
 
 #: builtin/branch.c
 #, c-format
@@ -11622,6 +12104,20 @@ msgstr "incapaz processar contato: %s"
 msgid "no contacts specified"
 msgstr "contato nenhum especificado"
 
+#: builtin/checkout--worker.c
+#, fuzzy
+msgid "git checkout--worker [<options>]"
+msgstr "git checkout [<opções>] <ramo>"
+
+#: builtin/checkout--worker.c builtin/checkout-index.c builtin/column.c
+#: builtin/submodule--helper.c builtin/worktree.c
+msgid "string"
+msgstr "cadeia"
+
+#: builtin/checkout--worker.c builtin/checkout-index.c
+msgid "when creating files, prepend <string>"
+msgstr "preceder <cadeia> ao criar ficheiros"
+
 #: builtin/checkout-index.c
 msgid "git checkout-index [<options>] [--] [<file>...]"
 msgstr "git checkout-index [<opções>] [--] [<ficheiro>...]"
@@ -11658,15 +12154,6 @@ msgstr "ler lista de caminhos da entrada padrão"
 #: builtin/checkout-index.c
 msgid "write the content to temporary files"
 msgstr "escrever o conteúdo em ficheiros temporários"
-
-#: builtin/checkout-index.c builtin/column.c builtin/submodule--helper.c
-#: builtin/worktree.c
-msgid "string"
-msgstr "cadeia"
-
-#: builtin/checkout-index.c
-msgid "when creating files, prepend <string>"
-msgstr "preceder <cadeia> ao criar ficheiros"
 
 #: builtin/checkout-index.c
 msgid "copy out the files from named stage"
@@ -12020,12 +12507,6 @@ msgstr "Incapaz mudar ramo para '%s', pois está fora de ser um commit"
 msgid "missing branch or commit argument"
 msgstr "Falta um nome dum ramo; tente -b"
 
-#: builtin/checkout.c builtin/clone.c builtin/commit-graph.c builtin/fetch.c
-#: builtin/merge.c builtin/multi-pack-index.c builtin/pull.c builtin/push.c
-#: builtin/send-pack.c
-msgid "force progress reporting"
-msgstr "forçar informação de progresso"
-
 #: builtin/checkout.c
 msgid "perform a 3-way merge with the new branch"
 msgstr "realizar uma integração com 3 pontos com o novo ramo"
@@ -12236,11 +12717,6 @@ msgid "Would skip repository %s\n"
 msgstr "Ignoraria o repositório %s\n"
 
 #: builtin/clean.c
-#, c-format
-msgid "failed to remove %s"
-msgstr "falha ao remover %s"
-
-#: builtin/clean.c
 #, fuzzy, c-format
 msgid "could not lstat %s\n"
 msgstr "incapaz lstat %s\n"
@@ -12390,6 +12866,11 @@ msgid "git clone [<options>] [--] <repo> [<dir>]"
 msgstr "git clone [<opções>] [--] <repo> [<dir>]"
 
 #: builtin/clone.c
+#, fuzzy
+msgid "don't clone shallow repository"
+msgstr "para clonar de um repositório local"
+
+#: builtin/clone.c
 msgid "don't create a checkout"
 msgstr "cria checkout nenhum"
 
@@ -12442,7 +12923,7 @@ msgid "use --reference only while cloning"
 msgstr "usar --reference apenas para clonar"
 
 #: builtin/clone.c builtin/column.c builtin/init-db.c builtin/merge-file.c
-#: builtin/pack-objects.c builtin/repack.c
+#: builtin/pack-objects.c builtin/repack.c t/helper/test-simple-ipc.c
 msgid "name"
 msgstr "nome"
 
@@ -12748,19 +13229,23 @@ msgid "layout to use"
 msgstr "esquema a usar"
 
 #: builtin/column.c
-msgid "Maximum width"
+#, fuzzy
+msgid "maximum width"
 msgstr "Largura máxima"
 
 #: builtin/column.c
-msgid "Padding space on left border"
+#, fuzzy
+msgid "padding space on left border"
 msgstr "Espaço de preenchimento na borda esquerda"
 
 #: builtin/column.c
-msgid "Padding space on right border"
+#, fuzzy
+msgid "padding space on right border"
 msgstr "Espaço de preenchimento na borda direita"
 
 #: builtin/column.c
-msgid "Padding space between columns"
+#, fuzzy
+msgid "padding space between columns"
 msgstr "Espaço de preenchimento entre colunas"
 
 #: builtin/column.c
@@ -12789,7 +13274,7 @@ msgid "dir"
 msgstr "dir"
 
 #: builtin/commit-graph.c
-msgid "The object directory to store the graph"
+msgid "the object directory to store the graph"
 msgstr ""
 
 #: builtin/commit-graph.c
@@ -13087,6 +13572,11 @@ msgid "could not read log file '%s'"
 msgstr "incapaz ler ficheiro de log '%s'"
 
 #: builtin/commit.c
+#, fuzzy, c-format
+msgid "cannot combine -m with --fixup:%s"
+msgstr "incapaz de combinar '--root' com '--fork-point'"
+
+#: builtin/commit.c
 msgid "could not read SQUASH_MSG"
 msgstr "incapaz ler SQUASH_MSG"
 
@@ -13169,6 +13659,11 @@ msgid "Cannot read index"
 msgstr "Incapaz ler index"
 
 #: builtin/commit.c
+#, fuzzy
+msgid "unable to pass trailers to --trailers"
+msgstr "incapaz processar cabeçalho de %s"
+
+#: builtin/commit.c
 msgid "Error building trees"
 msgstr "Erro ao construir árvores"
 
@@ -13196,6 +13691,27 @@ msgstr "Modo inválido de ficheiros por seguir '%s'"
 #: builtin/commit.c
 msgid "--long and -z are incompatible"
 msgstr "--long e -z são incompatíveis"
+
+#: builtin/commit.c
+#, fuzzy
+msgid "You are in the middle of a merge -- cannot reword."
+msgstr "Estás no meio de junção -- incapaz emendar."
+
+#: builtin/commit.c
+#, fuzzy
+msgid "You are in the middle of a cherry-pick -- cannot reword."
+msgstr "Estás no meio de cherry-pick -- incapaz emendar."
+
+#: builtin/commit.c
+#, c-format
+msgid "cannot combine reword option of --fixup with path '%s'"
+msgstr ""
+
+#: builtin/commit.c
+msgid ""
+"reword option of --fixup is mutually exclusive with --patch/--interactive/--"
+"all/--include/--only"
+msgstr ""
 
 #: builtin/commit.c
 msgid "Using both --reset-author and --author does not make sense"
@@ -13239,6 +13755,11 @@ msgstr "--reset-author só pode ser usado com -C, -c ou --amend."
 msgid "Only one of --include/--only/--all/--interactive/--patch can be used."
 msgstr ""
 "Apenas um entre --include/--only/--all/--interactive/--patch pode ser usado."
+
+#: builtin/commit.c
+#, fuzzy, c-format
+msgid "unknown option: --fixup=%s:%s"
+msgstr "desconheço opção: %s\n"
 
 #: builtin/commit.c
 #, fuzzy, c-format
@@ -13370,8 +13891,18 @@ msgstr "reutilizar e editar a mensagem de um commit especificado"
 msgid "reuse message from specified commit"
 msgstr "reutilizar a mensagem de um commit especificado"
 
+#. TRANSLATORS: Leave "[(amend|reword):]" as-is,
+#. and only translate <commit>.
+#.
 #: builtin/commit.c
-msgid "use autosquash formatted message to fixup specified commit"
+#, fuzzy
+msgid "[(amend|reword):]commit"
+msgstr "emendar o commit anterior"
+
+#: builtin/commit.c
+#, fuzzy
+msgid ""
+"use autosquash formatted message to fixup or amend/reword specified commit"
 msgstr ""
 "usar mensagem com formato autosquash para corrigir o commit especificado"
 
@@ -13383,6 +13914,14 @@ msgstr ""
 #: builtin/commit.c
 msgid "the commit is authored by me now (used with -C/-c/--amend)"
 msgstr "agora sou eu o autor do commit (usado com C/-c/--amend)"
+
+#: builtin/commit.c builtin/interpret-trailers.c
+msgid "trailer"
+msgstr "terminador"
+
+#: builtin/commit.c
+msgid "add custom trailer(s)"
+msgstr ""
 
 #: builtin/commit.c builtin/log.c builtin/merge.c builtin/pull.c
 #: builtin/revert.c
@@ -13473,6 +14012,11 @@ msgstr "A abortar o commit uma vez que a mensagem de commit está vazia.\n"
 #, c-format
 msgid "Aborting commit; you did not edit the message.\n"
 msgstr "Abortando commit; mensagem ficou por editar.\n"
+
+#: builtin/commit.c
+#, fuzzy, c-format
+msgid "Aborting commit due to empty commit message body.\n"
+msgstr "A abortar o commit uma vez que a mensagem de commit está vazia.\n"
 
 #: builtin/commit.c
 #, fuzzy
@@ -14256,32 +14800,38 @@ msgid "select handling of commit messages in an alternate encoding"
 msgstr "selecionar o tratamento de tags que apontem para objetos filtrados"
 
 #: builtin/fast-export.c
-msgid "Dump marks to this file"
+#, fuzzy
+msgid "dump marks to this file"
 msgstr "Capturar marcas neste ficheiro"
 
 #: builtin/fast-export.c
-msgid "Import marks from this file"
+#, fuzzy
+msgid "import marks from this file"
 msgstr "Importar marcas deste ficheiro"
 
 #: builtin/fast-export.c
 #, fuzzy
-msgid "Import marks from this file if it exists"
+msgid "import marks from this file if it exists"
 msgstr "Importar marcas deste ficheiro"
 
 #: builtin/fast-export.c
-msgid "Fake a tagger when tags lack one"
+#, fuzzy
+msgid "fake a tagger when tags lack one"
 msgstr "Falsear um \"tageador\" para quando falte um às tags"
 
 #: builtin/fast-export.c
-msgid "Output full tree for each commit"
+#, fuzzy
+msgid "output full tree for each commit"
 msgstr "Mostrar a árvore completa para cada commit"
 
 #: builtin/fast-export.c
-msgid "Use the done feature to terminate the stream"
+#, fuzzy
+msgid "use the done feature to terminate the stream"
 msgstr "Usar a funcionalidade done para terminar o fluxo"
 
 #: builtin/fast-export.c
-msgid "Skip output of blob data"
+#, fuzzy
+msgid "skip output of blob data"
 msgstr "Ignorar a exibição de dados de blob"
 
 #: builtin/fast-export.c builtin/log.c
@@ -14289,7 +14839,8 @@ msgid "refspec"
 msgstr "especificador de referência"
 
 #: builtin/fast-export.c
-msgid "Apply refspec to exported refs"
+#, fuzzy
+msgid "apply refspec to exported refs"
 msgstr "Aplicar o especificador de referência a referências exportadas"
 
 #: builtin/fast-export.c
@@ -14305,15 +14856,15 @@ msgid "convert <from> to <to> in anonymized output"
 msgstr ""
 
 #: builtin/fast-export.c
-msgid "Reference parents which are not in fast-export stream by object id"
+msgid "reference parents which are not in fast-export stream by object id"
 msgstr ""
 
 #: builtin/fast-export.c
-msgid "Show original object ids of blobs/commits"
+msgid "show original object ids of blobs/commits"
 msgstr ""
 
 #: builtin/fast-export.c
-msgid "Label tags with mark ids"
+msgid "label tags with mark ids"
 msgstr ""
 
 #: builtin/fast-export.c
@@ -14393,6 +14944,11 @@ msgstr "definir o ramo a montante usado com git pull/status"
 msgid "append to .git/FETCH_HEAD instead of overwriting"
 msgstr "acrescentar a .git/FETCH_HEAD em vez de substituir"
 
+#: builtin/fetch.c
+#, fuzzy
+msgid "use atomic transaction to update references"
+msgstr "solicitar transação atómica no servidor remoto"
+
 #: builtin/fetch.c builtin/pull.c
 msgid "path to upload pack on remote end"
 msgstr "caminho para o comando upload pack no remoto"
@@ -14417,6 +14973,10 @@ msgstr "buscar tag nenhuma (--no-tags)"
 #: builtin/fetch.c
 msgid "number of submodules fetched in parallel"
 msgstr "número de submódulos obtidos em paralelo"
+
+#: builtin/fetch.c
+msgid "modify the refspec to place all refs within refs/prefetch/"
+msgstr ""
 
 #: builtin/fetch.c builtin/pull.c
 msgid "prune remote-tracking branches no longer on remote"
@@ -14483,6 +15043,10 @@ msgstr "especificar mapa de referências"
 
 #: builtin/fetch.c builtin/pull.c
 msgid "report that we have only objects reachable from this object"
+msgstr ""
+
+#: builtin/fetch.c
+msgid "do not fetch a packfile; instead, print ancestors of negotiation tips"
 msgstr ""
 
 #: builtin/fetch.c
@@ -14721,10 +15285,23 @@ msgid "Fetching a group and specifying refspecs does not make sense"
 msgstr "Buscar um grupo e especificar refspecs faz sentido nenhum"
 
 #: builtin/fetch.c
+msgid "must supply remote when using --negotiate-only"
+msgstr ""
+
+#: builtin/fetch.c
+msgid "Protocol does not support --negotiate-only, exiting."
+msgstr ""
+
+#: builtin/fetch.c
 msgid ""
 "--filter can only be used with the remote configured in extensions."
 "partialclone"
 msgstr ""
+
+#: builtin/fetch.c
+#, fuzzy
+msgid "--atomic can only be used when fetching from one remote"
+msgstr "A opção --exec só pode ser usada em conjunto com --remote"
 
 #: builtin/fetch.c
 #, fuzzy
@@ -15056,7 +15633,7 @@ msgstr "considerar também pacotes e objetos sobressalente"
 msgid "check only connectivity"
 msgstr "verificar só a conetividade"
 
-#: builtin/fsck.c
+#: builtin/fsck.c builtin/mktag.c
 msgid "enable more strict checking"
 msgstr "ativar verificação mais rigorosa"
 
@@ -15206,7 +15783,7 @@ msgstr "falha ao escrever objeto de commit"
 
 #: builtin/gc.c
 #, fuzzy
-msgid "failed to fill remotes"
+msgid "failed to prefetch remotes"
 msgstr "falha ao remover %s"
 
 #: builtin/gc.c
@@ -15293,8 +15870,34 @@ msgid "failed to run 'git config'"
 msgstr "falha ao escrever para '%s'"
 
 #: builtin/gc.c
-msgid "another process is scheduling background maintenance"
-msgstr ""
+#, fuzzy, c-format
+msgid "failed to expand path '%s'"
+msgstr "falha ao criar o caminho '%s'%s"
+
+#: builtin/gc.c
+#, fuzzy
+msgid "failed to start launchctl"
+msgstr "Falha ao iniciar emacsclient."
+
+#: builtin/gc.c
+#, fuzzy, c-format
+msgid "failed to create directories for '%s'"
+msgstr "falha ao criar o diretório '%s'"
+
+#: builtin/gc.c
+#, fuzzy, c-format
+msgid "failed to bootstrap service %s"
+msgstr "falha ao remover %s"
+
+#: builtin/gc.c
+#, fuzzy
+msgid "failed to create temp xml file"
+msgstr "Falha ao criar os ficheiros de saída"
+
+#: builtin/gc.c
+#, fuzzy
+msgid "failed to start schtasks"
+msgstr "falha ao invocar stat de %s"
 
 #: builtin/gc.c
 msgid "failed to run 'crontab -l'; your system might not support 'cron'"
@@ -15311,6 +15914,10 @@ msgstr "falha ao abrir '%s'"
 
 #: builtin/gc.c
 msgid "'crontab' died"
+msgstr ""
+
+#: builtin/gc.c
+msgid "another process is scheduling background maintenance"
 msgstr ""
 
 #: builtin/gc.c
@@ -15546,10 +16153,6 @@ msgstr ""
 "mostrar apenas correspondências de ficheiro que tenham todos os padrões"
 
 #: builtin/grep.c
-msgid "show parse tree for grep expression"
-msgstr "mostrar árvore de analise da expressões grep"
-
-#: builtin/grep.c
 msgid "pager"
 msgstr "paginador"
 
@@ -15601,6 +16204,11 @@ msgstr "--open-files-in-pager só funciona na árvore de trabalho"
 #: builtin/grep.c
 #, fuzzy
 msgid "--cached or --untracked cannot be used with --no-index"
+msgstr "--cached ou --untracked proibidos serem usados com --no-index"
+
+#: builtin/grep.c
+#, fuzzy
+msgid "--untracked cannot be used with --cached"
 msgstr "--cached ou --untracked proibidos serem usados com --no-index"
 
 #: builtin/grep.c
@@ -15806,7 +16414,7 @@ msgstr "pacote demasiado grande para a definição atual de off_t"
 msgid "pack exceeds maximum allowed size"
 msgstr "o pacote excede o tamanho máximo permitido"
 
-#: builtin/index-pack.c builtin/repack.c
+#: builtin/index-pack.c
 #, c-format
 msgid "unable to create '%s'"
 msgstr "incapaz criar '%s'"
@@ -15969,8 +16577,8 @@ msgid "local object %s is corrupt"
 msgstr "objeto local %s corrompido"
 
 #: builtin/index-pack.c
-#, c-format
-msgid "packfile name '%s' does not end with '.pack'"
+#, fuzzy, c-format
+msgid "packfile name '%s' does not end with '.%s'"
 msgstr "ao nome de ficheiro de pacote '%s' falta terminar em '.pack'"
 
 #: builtin/index-pack.c
@@ -16266,10 +16874,6 @@ msgid "do not treat --- specially"
 msgstr ""
 
 #: builtin/interpret-trailers.c
-msgid "trailer"
-msgstr "terminador"
-
-#: builtin/interpret-trailers.c
 msgid "trailer(s) to add"
 msgstr "terminadores a adicionar"
 
@@ -16300,7 +16904,8 @@ msgid "show source"
 msgstr "mostrar origem"
 
 #: builtin/log.c
-msgid "Use mail map file"
+#, fuzzy
+msgid "use mail map file"
 msgstr "usar ficheiro de mapeamento de correio"
 
 #: builtin/log.c
@@ -16318,10 +16923,11 @@ msgid "decorate options"
 msgstr "opções de decoração"
 
 #: builtin/log.c
+#, fuzzy
 msgid ""
-"Trace the evolution of line range <start>,<end> or function :<funcname> in "
+"trace the evolution of line range <start>,<end> or function :<funcname> in "
 "<file>"
-msgstr ""
+msgstr "Processar apenas o intervalo de linhas n,m, a cantar de 1"
 
 #: builtin/log.c
 #, fuzzy
@@ -16484,6 +17090,10 @@ msgid "start numbering patches at <n> instead of 1"
 msgstr "começar a numerar os patches em <n> em vez de 1"
 
 #: builtin/log.c
+msgid "reroll-count"
+msgstr ""
+
+#: builtin/log.c
 msgid "mark the series as Nth re-roll"
 msgstr "marcar a série como a n-ésima reiteração"
 
@@ -16493,7 +17103,8 @@ msgid "max length of output filename"
 msgstr "tamanho máximo de cada ficheiro de pacote gerado"
 
 #: builtin/log.c
-msgid "Use [RFC PATCH] instead of [PATCH]"
+#, fuzzy
+msgid "use [RFC PATCH] instead of [PATCH]"
 msgstr "Usar [RFC PATCH] em vez de [PATCH]"
 
 #: builtin/log.c
@@ -16505,7 +17116,8 @@ msgid "generate parts of a cover letter based on a branch's description"
 msgstr ""
 
 #: builtin/log.c
-msgid "Use [<prefix>] instead of [PATCH]"
+#, fuzzy
+msgid "use [<prefix>] instead of [PATCH]"
 msgstr "usar [<prefixo>] em vez de [PATCH]"
 
 #: builtin/log.c
@@ -16628,7 +17240,7 @@ msgstr ""
 msgid "show changes against <refspec> in cover letter or single patch"
 msgstr ""
 
-#: builtin/log.c
+#: builtin/log.c builtin/range-diff.c
 msgid "percentage by which creation is weighted"
 msgstr ""
 
@@ -16828,6 +17440,11 @@ msgstr ""
 msgid "show debugging data"
 msgstr "mostrar dados de depuração"
 
+#: builtin/ls-files.c
+#, fuzzy
+msgid "suppress duplicate entries"
+msgstr "suprimir a cadeias de caracteres de nomes"
+
 #: builtin/ls-remote.c
 msgid ""
 "git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<exec>]\n"
@@ -16910,6 +17527,59 @@ msgstr "usar nomes de caminho completos"
 msgid "list entire tree; not just current directory (implies --full-name)"
 msgstr ""
 "listar toda árvore; e para além do diretório atual (implica --full-name)"
+
+#. TRANSLATORS: keep <> in "<" mail ">" info.
+#: builtin/mailinfo.c
+#, fuzzy
+msgid "git mailinfo [<options>] <msg> <patch> < mail >info"
+msgstr "git merge [<opções>] <msg> HEAD <commit>"
+
+#: builtin/mailinfo.c
+#, fuzzy
+msgid "keep subject"
+msgstr "manter objetos inalcançáveis"
+
+#: builtin/mailinfo.c
+msgid "keep non patch brackets in subject"
+msgstr ""
+
+#: builtin/mailinfo.c
+#, fuzzy
+msgid "copy Message-ID to the end of commit message"
+msgstr "Esta é a 2ª mensagem de commit:"
+
+#: builtin/mailinfo.c
+msgid "re-code metadata to i18n.commitEncoding"
+msgstr ""
+
+#: builtin/mailinfo.c
+msgid "disable charset re-coding of metadata"
+msgstr ""
+
+#: builtin/mailinfo.c
+msgid "encoding"
+msgstr ""
+
+#: builtin/mailinfo.c
+msgid "re-code metadata to this encoding"
+msgstr ""
+
+#: builtin/mailinfo.c
+msgid "use scissors"
+msgstr ""
+
+#: builtin/mailinfo.c
+#, fuzzy
+msgid "<action>"
+msgstr "ação"
+
+#: builtin/mailinfo.c
+msgid "action when quoted CR is found"
+msgstr ""
+
+#: builtin/mailinfo.c
+msgid "use headers in message's body"
+msgstr ""
 
 #: builtin/mailsplit.c
 #, c-format
@@ -17167,7 +17837,8 @@ msgid "read-tree failed"
 msgstr "falha ao executar o comando read-tree"
 
 #: builtin/merge.c
-msgid " (nothing to squash)"
+#, fuzzy
+msgid "Already up to date. (nothing to squash)"
 msgstr " (nada para esmagar)"
 
 #: builtin/merge.c
@@ -17364,11 +18035,6 @@ msgid "refusing to merge unrelated histories"
 msgstr "recusando juntar históricos diferentes"
 
 #: builtin/merge.c
-#, fuzzy
-msgid "Already up to date."
-msgstr "Já está atualizado."
-
-#: builtin/merge.c
 #, c-format
 msgid "Updating %s..%s\n"
 msgstr "Atualizando %s..%s\n"
@@ -17382,11 +18048,6 @@ msgstr "A tentar integração mesmo trivial no interior do índice...\n"
 #, c-format
 msgid "Nope.\n"
 msgstr "Nada.\n"
-
-#: builtin/merge.c
-#, fuzzy
-msgid "Already up to date. Yeeah!"
-msgstr "Já está atualizado. Sim!"
 
 #: builtin/merge.c
 msgid "Not possible to fast-forward, aborting."
@@ -17422,6 +18083,48 @@ msgstr "A usar %s para preparar resolução manual.\n"
 msgid "Automatic merge went well; stopped before committing as requested\n"
 msgstr "Merge automática correu bem; parei antes de commitar como pedido\n"
 
+#: builtin/mktag.c
+msgid "git mktag"
+msgstr ""
+
+#: builtin/mktag.c
+#, fuzzy, c-format
+msgid "warning: tag input does not pass fsck: %s"
+msgstr "aviso: `:include:` insustentado: %s\n"
+
+#: builtin/mktag.c
+#, c-format
+msgid "error: tag input does not pass fsck: %s"
+msgstr ""
+
+#: builtin/mktag.c
+#, c-format
+msgid "%d (FSCK_IGNORE?) should never trigger this callback"
+msgstr ""
+
+#: builtin/mktag.c
+#, fuzzy, c-format
+msgid "could not read tagged object '%s'"
+msgstr "incapaz ler objeto %s"
+
+#: builtin/mktag.c
+#, fuzzy, c-format
+msgid "object '%s' tagged as '%s', but is a '%s' type"
+msgstr "objeto %s é %s, é %s nenhum(a)"
+
+#: builtin/mktag.c
+msgid "tag on stdin did not pass our strict fsck check"
+msgstr ""
+
+#: builtin/mktag.c
+#, fuzzy
+msgid "tag on stdin did not refer to a valid object"
+msgstr "'%s' aponta para objeto válido nenhum!"
+
+#: builtin/mktag.c builtin/tag.c
+msgid "unable to write tag file"
+msgstr "incapaz escrever ficheiro de tag"
+
 #: builtin/mktree.c
 msgid "git mktree [-z] [--missing] [--batch]"
 msgstr "git mktree [-z] [--missing] [--batch]"
@@ -17439,28 +18142,41 @@ msgid "allow creation of more than one tree"
 msgstr "permitir a criação de mais do que uma árvore"
 
 #: builtin/multi-pack-index.c
-msgid ""
-"git multi-pack-index [<options>] (write|verify|expire|repack --batch-"
-"size=<size>)"
-msgstr ""
+#, fuzzy
+msgid "git multi-pack-index [<options>] write [--preferred-pack=<pack>]"
+msgstr "git update-index [<opções>] [--] [<ficheiro>...]"
+
+#: builtin/multi-pack-index.c
+#, fuzzy
+msgid "git multi-pack-index [<options>] verify"
+msgstr "git upload-pack [<opções>] <dir>"
+
+#: builtin/multi-pack-index.c
+#, fuzzy
+msgid "git multi-pack-index [<options>] expire"
+msgstr "git upload-pack [<opções>] <dir>"
+
+#: builtin/multi-pack-index.c
+#, fuzzy
+msgid "git multi-pack-index [<options>] repack [--batch-size=<size>]"
+msgstr "git update-index [<opções>] [--] [<ficheiro>...]"
 
 #: builtin/multi-pack-index.c
 msgid "object directory containing set of packfile and pack-index pairs"
 msgstr ""
 
 #: builtin/multi-pack-index.c
+msgid "preferred-pack"
+msgstr ""
+
+#: builtin/multi-pack-index.c
+msgid "pack for reuse when computing a multi-pack bitmap"
+msgstr ""
+
+#: builtin/multi-pack-index.c
 msgid ""
 "during repack, collect pack-files of smaller size into a batch that is "
 "larger than this size"
-msgstr ""
-
-#: builtin/multi-pack-index.c builtin/prune-packed.c
-#, fuzzy
-msgid "too many arguments"
-msgstr "Demasiados argumentos."
-
-#: builtin/multi-pack-index.c
-msgid "--batch-size option is only for 'repack' subcommand"
 msgstr ""
 
 #: builtin/multi-pack-index.c
@@ -17790,9 +18506,10 @@ msgstr "falha ao copiar notas de '%s' para '%s'"
 msgid "refusing to %s notes in %s (outside of refs/notes/)"
 msgstr "foi recusado efetuar %s de notas em %s (fora de refs/notes/)"
 
-#: builtin/notes.c
-msgid "too many parameters"
-msgstr "demasiados parâmetros"
+#: builtin/notes.c builtin/prune-packed.c builtin/tag.c
+#, fuzzy
+msgid "too many arguments"
+msgstr "Demasiados argumentos."
 
 #: builtin/notes.c
 #, c-format
@@ -17851,8 +18568,9 @@ msgid "load rewriting config for <command> (implies --stdin)"
 msgstr "carregar configuração de reescrita do <comando> (implica --stdin)"
 
 #: builtin/notes.c
-msgid "too few parameters"
-msgstr "parâmetros insuficientes"
+#, fuzzy
+msgid "too few arguments"
+msgstr "Demasiados argumentos."
 
 #: builtin/notes.c
 #, c-format
@@ -18034,6 +18752,13 @@ msgstr ""
 "objetos>]"
 
 #: builtin/pack-objects.c
+#, c-format
+msgid ""
+"write_reuse_object: could not locate %s, expected at offset %<PRIuMAX> in "
+"pack %s"
+msgstr ""
+
+#: builtin/pack-objects.c
 #, fuzzy, c-format
 msgid "bad packed object CRC for %s"
 msgstr "ignorar objetos compactados"
@@ -18052,6 +18777,11 @@ msgstr "delta recursivo detetado para objeto %s"
 #, c-format
 msgid "ordered %u objects, expected %<PRIu32>"
 msgstr ""
+
+#: builtin/pack-objects.c
+#, fuzzy, c-format
+msgid "expected object at offset %<PRIuMAX> in pack %s"
+msgstr "pacote com objeto incorreto no offset %<PRIuMAX>: %s"
 
 #: builtin/pack-objects.c
 msgid "disabling bitmap writing, packs are split due to pack.packSizeLimit"
@@ -18142,6 +18872,16 @@ msgstr ""
 msgid ""
 "object already configured in another uploadpack.blobpackfileuri (got '%s')"
 msgstr ""
+
+#: builtin/pack-objects.c
+#, fuzzy, c-format
+msgid "could not get type of object %s in pack %s"
+msgstr "incapaz obter tipo de objeto %s"
+
+#: builtin/pack-objects.c
+#, fuzzy, c-format
+msgid "could not find pack '%s'"
+msgstr "incapaz acabar '%s'"
 
 #: builtin/pack-objects.c
 #, c-format
@@ -18278,6 +19018,11 @@ msgid "include objects referred to by the index"
 msgstr "incluir objetos referenciados pelo índice"
 
 #: builtin/pack-objects.c
+#, fuzzy
+msgid "read packs from stdin"
+msgstr "ler atualizações da entrada padrão"
+
+#: builtin/pack-objects.c
 msgid "output pack to stdout"
 msgstr "gerar pacote para a saída padrão"
 
@@ -18398,6 +19143,16 @@ msgstr "usar --filter com --stdout"
 
 #: builtin/pack-objects.c
 #, fuzzy
+msgid "cannot use --filter with --stdin-packs"
+msgstr "usar --filter com --stdout"
+
+#: builtin/pack-objects.c
+#, fuzzy
+msgid "cannot use internal rev list with --stdin-packs"
+msgstr "incapaz especificar pathnames com --stdin"
+
+#: builtin/pack-objects.c
+#, fuzzy
 msgid "Enumerating objects"
 msgstr "A escrever objetos"
 
@@ -18406,6 +19161,15 @@ msgstr "A escrever objetos"
 msgid ""
 "Total %<PRIu32> (delta %<PRIu32>), reused %<PRIu32> (delta %<PRIu32>), pack-"
 "reused %<PRIu32>"
+msgstr ""
+
+#: builtin/pack-redundant.c
+msgid ""
+"'git pack-redundant' is nominated for removal.\n"
+"If you still use this command, please add an extra\n"
+"option, '--i-still-use-this', on the command line\n"
+"and let us know you still use it by sending an e-mail\n"
+"to <git@vger.kernel.org>.  Thanks.\n"
 msgstr ""
 
 #: builtin/pack-refs.c
@@ -18495,23 +19259,6 @@ msgstr "Valor inválido de pull.ff: %s"
 
 #: builtin/pull.c
 msgid ""
-"Pulling without specifying how to reconcile divergent branches is\n"
-"discouraged. You can squelch this message by running one of the following\n"
-"commands sometime before your next pull:\n"
-"\n"
-"  git config pull.rebase false  # merge (the default strategy)\n"
-"  git config pull.rebase true   # rebase\n"
-"  git config pull.ff only       # fast-forward only\n"
-"\n"
-"You can replace \"git config\" with \"git config --global\" to set a "
-"default\n"
-"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
-"or --ff-only on the command line to override the configured default per\n"
-"invocation.\n"
-msgstr ""
-
-#: builtin/pull.c
-msgid ""
 "There is no candidate for rebasing against among the refs that you just "
 "fetched."
 msgstr "As refs que obteste tem candidato nenhum para onde rebasear."
@@ -18592,6 +19339,23 @@ msgstr "incapaz acessar commit %s"
 #: builtin/pull.c
 msgid "ignoring --verify-signatures for rebase"
 msgstr "ignorado --verify-signatures para rebase"
+
+#: builtin/pull.c
+msgid ""
+"Pulling without specifying how to reconcile divergent branches is\n"
+"discouraged. You can squelch this message by running one of the following\n"
+"commands sometime before your next pull:\n"
+"\n"
+"  git config pull.rebase false  # merge (the default strategy)\n"
+"  git config pull.rebase true   # rebase\n"
+"  git config pull.ff only       # fast-forward only\n"
+"\n"
+"You can replace \"git config\" with \"git config --global\" to set a "
+"default\n"
+"preference for all repositories. You can also pass --rebase, --no-rebase,\n"
+"or --ff-only on the command line to override the configured default per\n"
+"invocation.\n"
+msgstr ""
 
 #: builtin/pull.c
 msgid "Updating an unborn branch with changes added to the index."
@@ -18960,10 +19724,6 @@ msgid "git range-diff [<options>] <base> <old-tip> <new-tip>"
 msgstr "git mv [<opções>] <origem>... <destino>"
 
 #: builtin/range-diff.c
-msgid "Percentage by which creation is weighted"
-msgstr ""
-
-#: builtin/range-diff.c
 #, fuzzy
 msgid "use simple diff colors"
 msgstr "usar a ferramenta diff especificada"
@@ -18978,8 +19738,18 @@ msgid "passed to 'git log'"
 msgstr ""
 
 #: builtin/range-diff.c
+#, fuzzy
+msgid "only emit output related to the first range"
+msgstr "mostrar apenas commits fora do primeiro ramo"
+
+#: builtin/range-diff.c
+#, fuzzy
+msgid "only emit output related to the second range"
+msgstr "mostrar os caminhos relativamente ao diretório superior do projeto"
+
+#: builtin/range-diff.c
 #, fuzzy, c-format
-msgid "no .. in range: '%s'"
+msgid "not a commit range: '%s'"
 msgstr "ramo inexistente: '%s'"
 
 #: builtin/range-diff.c
@@ -19517,14 +20287,6 @@ msgstr ""
 #: builtin/rebase.c
 msgid "apply all changes, even those already present upstream"
 msgstr ""
-
-#: builtin/rebase.c
-msgid ""
-"the rebase.useBuiltin support has been removed!\n"
-"See its entry in 'git help config' for details."
-msgstr ""
-"o suporte a rebase.useBuiltin foi removido!\n"
-"Vê essa entry em 'git help config' para detalhes."
 
 #: builtin/rebase.c
 #, fuzzy
@@ -20384,6 +21146,21 @@ msgid "could not finish pack-objects to repack promisor objects"
 msgstr ""
 
 #: builtin/repack.c
+#, fuzzy, c-format
+msgid "cannot open index for %s"
+msgstr "incapaz opendir '%s'"
+
+#: builtin/repack.c
+#, c-format
+msgid "pack %s too large to consider in geometric progression"
+msgstr ""
+
+#: builtin/repack.c
+#, c-format
+msgid "pack %s too large to roll up"
+msgstr ""
+
+#: builtin/repack.c
 msgid "pack everything in a single pack"
 msgstr "compactar tudo num único pacote"
 
@@ -20469,12 +21246,21 @@ msgid "do not repack this pack"
 msgstr "criar pacotes finos"
 
 #: builtin/repack.c
+msgid "find a geometric progression with factor <N>"
+msgstr ""
+
+#: builtin/repack.c
 msgid "cannot delete packs in a precious-objects repo"
 msgstr "incapaz apagar pacotes num repo de precious-objects"
 
 #: builtin/repack.c
 msgid "--keep-unreachable and -A are incompatible"
 msgstr "--keep-unreachable e -A são incompatíveis"
+
+#: builtin/repack.c
+#, fuzzy
+msgid "--geometric is incompatible with -A, -a"
+msgstr "--long é incompatível com --abbrev=0"
 
 #: builtin/repack.c
 msgid "Nothing new to pack."
@@ -21181,7 +21967,8 @@ msgid "unknown group type: %s"
 msgstr "Tipo desconhecido: %d"
 
 #: builtin/shortlog.c
-msgid "Group by committer rather than author"
+#, fuzzy
+msgid "group by committer rather than author"
 msgstr "agrupar por committer em vez de autor"
 
 #: builtin/shortlog.c
@@ -21189,11 +21976,13 @@ msgid "sort output according to the number of commits per author"
 msgstr "ordenar saída de acordo com o número de commits por autor"
 
 #: builtin/shortlog.c
-msgid "Suppress commit descriptions, only provides commit count"
+#, fuzzy
+msgid "suppress commit descriptions, only provides commit count"
 msgstr "suprimir a descrição dos commits, fornecer apenas o número de commits"
 
 #: builtin/shortlog.c
-msgid "Show the email address of each author"
+#, fuzzy
+msgid "show the email address of each author"
 msgstr "Mostrar o endereço de e-mail de cada autor"
 
 #: builtin/shortlog.c
@@ -21201,7 +21990,8 @@ msgid "<w>[,<i1>[,<i2>]]"
 msgstr ""
 
 #: builtin/shortlog.c
-msgid "Linewrap output"
+#, fuzzy
+msgid "linewrap output"
 msgstr "ajustar linhas"
 
 #: builtin/shortlog.c
@@ -21209,7 +21999,7 @@ msgid "field"
 msgstr ""
 
 #: builtin/shortlog.c
-msgid "Group by field"
+msgid "group by field"
 msgstr ""
 
 #: builtin/shortlog.c
@@ -21434,12 +22224,21 @@ msgid "failed to set extensions.worktreeConfig setting"
 msgstr ""
 
 #: builtin/sparse-checkout.c
-msgid "git sparse-checkout init [--cone]"
+msgid "git sparse-checkout init [--cone] [--[no-]sparse-index]"
 msgstr ""
 
 #: builtin/sparse-checkout.c
 msgid "initialize the sparse-checkout in cone mode"
 msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid "toggle the use of a sparse index"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+#, fuzzy
+msgid "failed to modify sparse-index config"
+msgstr "falha ao ler o ficheiro de comando '%s'"
 
 #: builtin/sparse-checkout.c
 #, c-format
@@ -21564,8 +22363,17 @@ msgid "%s is not a valid reference"
 msgstr "%s é referência inválida"
 
 #: builtin/stash.c
-msgid "git stash clear with parameters is unimplemented"
+#, fuzzy
+msgid "git stash clear with arguments is unimplemented"
 msgstr "git stash clear com parâmetros está por implementar"
+
+#: builtin/stash.c
+#, c-format
+msgid ""
+"WARNING: Untracked file in way of tracked file!  Renaming\n"
+"            %s -> %s\n"
+"         to make room.\n"
+msgstr ""
 
 #: builtin/stash.c
 #, fuzzy
@@ -21629,6 +22437,26 @@ msgstr "A pilha é guarda no caso de precisar dela de novo."
 #: builtin/stash.c
 msgid "No branch name specified"
 msgstr "Nenhum nome de ramo especificado"
+
+#: builtin/stash.c
+#, fuzzy
+msgid "failed to parse tree"
+msgstr "falha a analisar %s"
+
+#: builtin/stash.c
+#, fuzzy
+msgid "failed to unpack trees"
+msgstr "falha ao descompactar o objeto árvore HEAD"
+
+#: builtin/stash.c
+#, fuzzy
+msgid "include untracked files in the stash"
+msgstr "incluir nos arrumos ficheiros por monitorizar"
+
+#: builtin/stash.c
+#, fuzzy
+msgid "only show untracked files in the stash"
+msgstr "incluir nos arrumos ficheiros por monitorizar"
 
 #: builtin/stash.c
 #, fuzzy, c-format
@@ -21793,12 +22621,12 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Suppress output of entering each submodule command"
+msgid "suppress output of entering each submodule command"
 msgstr "Suprimir a saída ao inicializar um submódulo"
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Recurse into nested submodules"
+msgid "recurse into nested submodules"
 msgstr "percorrer submódulos recursivamente"
 
 #: builtin/submodule--helper.c
@@ -21835,7 +22663,8 @@ msgid "Failed to register update mode for submodule path '%s'"
 msgstr "Falha ao registar o modo de atualização do caminho de submódulo '%s'"
 
 #: builtin/submodule--helper.c
-msgid "Suppress output for initializing a submodule"
+#, fuzzy
+msgid "suppress output for initializing a submodule"
 msgstr "Suprimir a saída ao inicializar um submódulo"
 
 #: builtin/submodule--helper.c
@@ -21861,19 +22690,15 @@ msgstr "falha a percorrer recursivamente dentro de submódulo '%s'"
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Suppress submodule status output"
+msgid "suppress submodule status output"
 msgstr "preceder isto ao caminho do submódulo"
 
 #: builtin/submodule--helper.c
-msgid ""
-"Use commit stored in the index instead of the one stored in the submodule "
-"HEAD"
-msgstr ""
-
-#: builtin/submodule--helper.c
 #, fuzzy
-msgid "recurse into nested submodules"
-msgstr "percorrer submódulos recursivamente"
+msgid ""
+"use commit stored in the index instead of the one stored in the submodule "
+"HEAD"
+msgstr "extrair <ramo> em vez da HEAD do remoto"
 
 #: builtin/submodule--helper.c
 #, fuzzy
@@ -21964,7 +22789,7 @@ msgstr "Falha ao registar o modo de atualização do caminho de submódulo '%s'"
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Suppress output of synchronizing submodule url"
+msgid "suppress output of synchronizing submodule url"
 msgstr "Suprimir a saída ao inicializar um submódulo"
 
 #: builtin/submodule--helper.c
@@ -22011,12 +22836,12 @@ msgid "Submodule '%s' (%s) unregistered for path '%s'\n"
 msgstr "Submódulo '%s' (%s) unregistred para caminho '%s'\n"
 
 #: builtin/submodule--helper.c
-msgid "Remove submodule working trees even if they contain local changes"
+msgid "remove submodule working trees even if they contain local changes"
 msgstr ""
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Unregister all submodules"
+msgid "unregister all submodules"
 msgstr "percorrer submódulos recursivamente"
 
 #: builtin/submodule--helper.c
@@ -22161,7 +22986,8 @@ msgid "rebase, merge, checkout or none"
 msgstr "rebase, merge, checkout ou none"
 
 #: builtin/submodule--helper.c
-msgid "Create a shallow clone truncated to the specified number of revisions"
+#, fuzzy
+msgid "create a shallow clone truncated to the specified number of revisions"
 msgstr "criar um clone raso, truncado ao número especificado de revisões"
 
 #: builtin/submodule--helper.c
@@ -22240,7 +23066,7 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 #, fuzzy
-msgid "Suppress output for setting url of a submodule"
+msgid "suppress output for setting url of a submodule"
 msgstr "Suprimir a saída ao inicializar um submódulo"
 
 #: builtin/submodule--helper.c
@@ -22389,10 +23215,6 @@ msgid "unable to sign the tag"
 msgstr "incapaz assinar a tag"
 
 #: builtin/tag.c
-msgid "unable to write tag file"
-msgstr "incapaz escrever ficheiro de tag"
-
-#: builtin/tag.c
 #, c-format
 msgid ""
 "You have created a nested tag. The object referred to by your new tag is\n"
@@ -22518,10 +23340,6 @@ msgstr "as opções --merged e --no-merged só são permitidas no modo lista"
 #: builtin/tag.c
 msgid "only one -F or -m option is allowed."
 msgstr "só é permitido um opção -F ou -m."
-
-#: builtin/tag.c
-msgid "too many params"
-msgstr "demasiado parâmetros"
 
 #: builtin/tag.c
 #, c-format
@@ -22932,38 +23750,6 @@ msgid "failed to delete '%s'"
 msgstr "falha ao executar '%s'"
 
 #: builtin/worktree.c
-#, fuzzy
-msgid "not a valid directory"
-msgstr "nome de objeto inválido: %s"
-
-#: builtin/worktree.c
-#, fuzzy
-msgid "gitdir file does not exist"
-msgstr "ficheiro gitdir é inexistente"
-
-#: builtin/worktree.c
-#, fuzzy, c-format
-msgid "unable to read gitdir file (%s)"
-msgstr "incapaz ler ficheiro gitdir (%s)"
-
-#: builtin/worktree.c
-#, c-format
-msgid "short read (expected %<PRIuMAX> bytes, read %<PRIuMAX>)"
-msgstr ""
-
-#: builtin/worktree.c
-#, fuzzy
-msgid "invalid gitdir file"
-msgstr "linha de Data inválida"
-
-#: builtin/worktree.c
-#, fuzzy
-msgid "gitdir file points to non-existent location"
-msgstr ""
-"A remover worktrees/%s: o ficheiro gitdir aponta para uma localização "
-"inexistente"
-
-#: builtin/worktree.c
 #, fuzzy, c-format
 msgid "Removing %s/%s: %s"
 msgstr "A remover %s"
@@ -23065,6 +23851,20 @@ msgstr "-b, -B e --detach são mutuamente exclusivos"
 #, fuzzy
 msgid "--[no-]track can only be used if a new branch is created"
 msgstr "A ação --edit-todo só pode ser usada durante um rebase interativo."
+
+#: builtin/worktree.c
+msgid "show extended annotations and reasons, if available"
+msgstr ""
+
+#: builtin/worktree.c
+#, fuzzy
+msgid "add 'prunable' annotation to worktrees older than <time>"
+msgstr "expirar árvores de trabalho mais antigos que <tempo>"
+
+#: builtin/worktree.c
+#, fuzzy
+msgid "--verbose and --porcelain are mutually exclusive"
+msgstr "-b, -B e --orphan são mutuamente exclusivos"
 
 #: builtin/worktree.c
 msgid "reason for locking"
@@ -23199,45 +23999,6 @@ msgstr "escrever objeto árvore do subdiretório <prefixo>"
 msgid "only useful for debugging"
 msgstr "apenas útil para depuração"
 
-#: http-fetch.c
-#, c-format
-msgid "argument to --packfile must be a valid hash (got '%s')"
-msgstr ""
-
-#: http-fetch.c
-#, fuzzy
-msgid "not a git repository"
-msgstr "é repositório git nenhum"
-
-#: t/helper/test-fast-rebase.c
-#, fuzzy
-msgid "unhandled options"
-msgstr "Opções gerais"
-
-#: t/helper/test-fast-rebase.c
-#, fuzzy
-msgid "error preparing revisions"
-msgstr "Erro ao rematar %s."
-
-#: t/helper/test-reach.c
-#, fuzzy, c-format
-msgid "commit %s is not marked reachable"
-msgstr "commit %s está a ser tratado como inalcançável"
-
-#: t/helper/test-reach.c
-msgid "too many commits marked reachable"
-msgstr ""
-
-#: t/helper/test-serve-v2.c
-#, fuzzy
-msgid "test-tool serve-v2 [<options>]"
-msgstr "git rebase--helper [<opções>]"
-
-#: t/helper/test-serve-v2.c
-#, fuzzy
-msgid "exit immediately after advertising capabilities"
-msgstr "sair imediatamente depois do anúncio inicial da referência"
-
 #: git.c
 msgid ""
 "git [--version] [--help] [-C <path>] [-c <name>=<value>]\n"
@@ -23245,6 +24006,7 @@ msgid ""
 "           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--"
 "bare]\n"
 "           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n"
+"           [--super-prefix=<path>] [--config-env=<name>=<envvar>]\n"
 "           <command> [<args>]"
 msgstr ""
 
@@ -23284,6 +24046,11 @@ msgstr "--super-prefix recebeu prefixo nenhum\n"
 #: git.c
 #, c-format
 msgid "-c expects a configuration string\n"
+msgstr ""
+
+#: git.c
+#, c-format
+msgid "no config key given for --config-env\n"
 msgstr ""
 
 #: git.c
@@ -23361,6 +24128,162 @@ msgstr ""
 #, fuzzy, c-format
 msgid "failed to run command '%s': %s\n"
 msgstr "incapaz de executar comando '%s': %s\n"
+
+#: http-fetch.c
+#, c-format
+msgid "argument to --packfile must be a valid hash (got '%s')"
+msgstr ""
+
+#: http-fetch.c
+#, fuzzy
+msgid "not a git repository"
+msgstr "é repositório git nenhum"
+
+#: http-fetch.c
+msgid "--packfile requires --index-pack-args"
+msgstr ""
+
+#: http-fetch.c
+#, fuzzy
+msgid "--index-pack-args can only be used with --packfile"
+msgstr "-N só pode ser usado com --mixed"
+
+#: t/helper/test-fast-rebase.c
+#, fuzzy
+msgid "unhandled options"
+msgstr "Opções gerais"
+
+#: t/helper/test-fast-rebase.c
+#, fuzzy
+msgid "error preparing revisions"
+msgstr "Erro ao rematar %s."
+
+#: t/helper/test-reach.c
+#, fuzzy, c-format
+msgid "commit %s is not marked reachable"
+msgstr "commit %s está a ser tratado como inalcançável"
+
+#: t/helper/test-reach.c
+msgid "too many commits marked reachable"
+msgstr ""
+
+#: t/helper/test-serve-v2.c
+#, fuzzy
+msgid "test-tool serve-v2 [<options>]"
+msgstr "git rebase--helper [<opções>]"
+
+#: t/helper/test-serve-v2.c
+#, fuzzy
+msgid "exit immediately after advertising capabilities"
+msgstr "sair imediatamente depois do anúncio inicial da referência"
+
+#: t/helper/test-simple-ipc.c
+#, c-format
+msgid "socket/pipe already in use: '%s'"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+#, fuzzy, c-format
+msgid "could not start server on: '%s'"
+msgstr "incapaz obter estatutário de ficheiro '%s'"
+
+#: t/helper/test-simple-ipc.c
+msgid "could not spawn daemon in the background"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+#, fuzzy
+msgid "waitpid failed"
+msgstr "falha ao executar o comando stash"
+
+#: t/helper/test-simple-ipc.c
+msgid "daemon not online yet"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+#, fuzzy
+msgid "daemon failed to start"
+msgstr "falha ao invocar stat de %s"
+
+#: t/helper/test-simple-ipc.c
+msgid "waitpid is confused"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "daemon has not shutdown yet"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc is-active    [<name>] [<options>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc run-daemon   [<name>] [<threads>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc start-daemon [<name>] [<threads>] [<max-wait>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc stop-daemon  [<name>] [<max-wait>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc send         [<name>] [<token>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "test-helper simple-ipc sendbytes    [<name>] [<bytecount>] [<byte>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid ""
+"test-helper simple-ipc multiple     [<name>] [<threads>] [<bytecount>] "
+"[<batchsize>]"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "name or pathname of unix domain socket"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "named-pipe name"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "number of threads in server thread pool"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "seconds to wait for daemon to start or stop"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "number of bytes"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+#, fuzzy
+msgid "number of requests per thread"
+msgstr "incapaz criar thread: %s"
+
+#: t/helper/test-simple-ipc.c
+#, fuzzy
+msgid "byte"
+msgstr "bytes"
+
+#: t/helper/test-simple-ipc.c
+msgid "ballast character"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "token"
+msgstr ""
+
+#: t/helper/test-simple-ipc.c
+msgid "command token to send to the server"
+msgstr ""
 
 #: http.c
 #, c-format
@@ -23613,14 +24536,6 @@ msgstr "nome do campo pelo qual ordernar"
 msgid "update the index with reused conflict resolution if possible"
 msgstr ""
 "atualizar o índice com resoluções de conflitos reutilizadas se possível"
-
-#: wt-status.h
-msgid "HEAD detached at "
-msgstr "HEAD destacada em "
-
-#: wt-status.h
-msgid "HEAD detached from "
-msgstr "HEAD destacada de "
 
 #: command-list.h
 msgid "Add file contents to the index"
@@ -23978,7 +24893,7 @@ msgstr ""
 
 #: command-list.h
 #, fuzzy
-msgid "Creates a tag object"
+msgid "Creates a tag object with extra validation"
 msgstr "outro objeto tag"
 
 #: command-list.h
@@ -24316,6 +25231,10 @@ msgstr ""
 "Especificar ficheiros por monitorizar intencionalmente, para serem ignorados"
 
 #: command-list.h
+msgid "Map author/committer names and/or E-Mail addresses"
+msgstr ""
+
+#: command-list.h
 msgid "Defining submodule properties"
 msgstr "Definir propriedades de submódulos"
 
@@ -24354,24 +25273,6 @@ msgid "An overview of recommended workflows with Git"
 msgstr "Uma descrição geral dos fluxos de trabalho recomendados para o Git"
 
 #: git-bisect.sh
-#, sh-format
-msgid "Bad rev input: $arg"
-msgstr "Rev incorreta na entrada: $arg"
-
-#: git-bisect.sh
-msgid "No logfile given"
-msgstr "Nenhum ficheiro de log fornecido"
-
-#: git-bisect.sh
-#, sh-format
-msgid "cannot read $file for replaying"
-msgstr "incapaz ler $file para reproduzir"
-
-#: git-bisect.sh
-msgid "?? what are you talking about?"
-msgstr "?? de que é que estás a falar?"
-
-#: git-bisect.sh
 msgid "bisect run failed: no command provided."
 msgstr ""
 
@@ -24405,10 +25306,6 @@ msgstr ""
 #: git-bisect.sh
 msgid "bisect run success"
 msgstr "bissecção concluída com sucesso"
-
-#: git-bisect.sh
-msgid "We are not bisecting."
-msgstr "Estamos bissetando nada."
 
 #: git-merge-octopus.sh
 msgid ""
@@ -25334,6 +26231,11 @@ msgid "local time offset greater than or equal to 24 hours\n"
 msgstr "a diferença de tempo local é maior ou igual a 24 horas\n"
 
 #: git-send-email.perl
+#, perl-format
+msgid "fatal: command '%s' died with exit code %d"
+msgstr ""
+
+#: git-send-email.perl
 msgid "the editor exited uncleanly, aborting everything"
 msgstr "o editor saiu com erros, abortar tudo"
 
@@ -25418,15 +26320,6 @@ msgstr ""
 #, perl-format
 msgid "Failed to opendir %s: %s"
 msgstr "Falha ao abrir diretório %s: %s"
-
-#: git-send-email.perl
-#, perl-format
-msgid ""
-"fatal: %s: %s\n"
-"warning: no patches were sent\n"
-msgstr ""
-"fatal: %s: %s\n"
-"aviso: enviado patch nenhum\n"
 
 #: git-send-email.perl
 msgid ""
@@ -25675,14 +26568,28 @@ msgid "invalid transfer encoding"
 msgstr "codificação de transferência inválida"
 
 #: git-send-email.perl
+#, fuzzy, perl-format
+msgid ""
+"fatal: %s: rejected by sendemail-validate hook\n"
+"%s\n"
+"warning: no patches were sent\n"
+msgstr ""
+"fatal: %s: %s\n"
+"aviso: enviado patch nenhum\n"
+
+#: git-send-email.perl
 #, perl-format
 msgid "unable to open %s: %s\n"
 msgstr "incapaz abrir %s: %s\n"
 
 #: git-send-email.perl
-#, perl-format
-msgid "%s: patch contains a line longer than 998 characters"
-msgstr "%s: o patch contém uma linha mais longa que 998 carateres"
+#, fuzzy, perl-format
+msgid ""
+"fatal: %s:%d is longer than 998 characters\n"
+"warning: no patches were sent\n"
+msgstr ""
+"fatal: %s: %s\n"
+"aviso: enviado patch nenhum\n"
 
 #: git-send-email.perl
 #, perl-format
@@ -25694,6 +26601,74 @@ msgstr "Saltar %s com sufixo de backup '%s'.\n"
 #, perl-format
 msgid "Do you really want to send %s? [y|N]: "
 msgstr "Deseja mesmo enviar %s? [y|N]: "
+
+#~ msgid "--cached and --3way cannot be used together."
+#~ msgstr "--cached e --3way só podem ser usados separadamente."
+
+#~ msgid "rev-list died"
+#~ msgstr "rev-list terminou inesperadamente"
+
+#, fuzzy, c-format
+#~ msgid "Already up to date!"
+#~ msgstr "Já está atualizado!"
+
+#, fuzzy
+#~ msgid "git bisect--helper --bisect-auto-next"
+#~ msgstr "git bisect--helper --next-all [--no-checkout]"
+
+#, fuzzy
+#~ msgid "--bisect-write requires either 4 or 5 arguments"
+#~ msgstr ":strip= requer um inteiro positivo como argumento"
+
+#, fuzzy
+#~ msgid "--bisect-auto-next requires 0 arguments"
+#~ msgstr "--bisect-auto-next requer 0 argumentos"
+
+#~ msgid "Force progress reporting"
+#~ msgstr "Forçar informação de progresso"
+
+#, c-format
+#~ msgid "Error deleting remote-tracking branch '%s'"
+#~ msgstr "Erro a eliminar o ramo de monitorização remoto '%s'"
+
+#, c-format
+#~ msgid "Error deleting branch '%s'"
+#~ msgstr "Erro a eliminar ramo '%s'"
+
+#~ msgid "show parse tree for grep expression"
+#~ msgstr "mostrar árvore de analise da expressões grep"
+
+#, fuzzy
+#~ msgid "Already up to date. Yeeah!"
+#~ msgstr "Já está atualizado. Sim!"
+
+#~ msgid "too many parameters"
+#~ msgstr "demasiados parâmetros"
+
+#~ msgid "too few parameters"
+#~ msgstr "parâmetros insuficientes"
+
+#~ msgid ""
+#~ "the rebase.useBuiltin support has been removed!\n"
+#~ "See its entry in 'git help config' for details."
+#~ msgstr ""
+#~ "o suporte a rebase.useBuiltin foi removido!\n"
+#~ "Vê essa entry em 'git help config' para detalhes."
+
+#, fuzzy
+#~ msgid "Recurse into nested submodules"
+#~ msgstr "percorrer submódulos recursivamente"
+
+#~ msgid "too many params"
+#~ msgstr "demasiado parâmetros"
+
+#, sh-format
+#~ msgid "Bad rev input: $arg"
+#~ msgstr "Rev incorreta na entrada: $arg"
+
+#, perl-format
+#~ msgid "%s: patch contains a line longer than 998 characters"
+#~ msgstr "%s: o patch contém uma linha mais longa que 998 carateres"
 
 #~ msgid "store only"
 #~ msgstr "armazenar apenas"
@@ -25722,10 +26697,6 @@ msgstr "Deseja mesmo enviar %s? [y|N]: "
 
 #, fuzzy
 #~ msgid "git bisect--helper --next-all"
-#~ msgstr "git bisect--helper --next-all [--no-checkout]"
-
-#, fuzzy
-#~ msgid "git bisect--helper --bisect-clean-state"
 #~ msgstr "git bisect--helper --next-all [--no-checkout]"
 
 #, fuzzy
@@ -25828,14 +26799,6 @@ msgstr "Deseja mesmo enviar %s? [y|N]: "
 #, c-format
 #~ msgid "positive value expected objectname:short=%s"
 #~ msgstr "valor positivo esperado objectname:short=%s"
-
-#, c-format
-#~ msgid "(HEAD detached at %s)"
-#~ msgstr "(HEAD destacada em %s)"
-
-#, c-format
-#~ msgid "(HEAD detached from %s)"
-#~ msgstr "(HEAD destacada de %s)"
 
 #~ msgid "Internal error"
 #~ msgstr "Erro interno"
@@ -26206,9 +27169,6 @@ msgstr "Deseja mesmo enviar %s? [y|N]: "
 #~ msgid "insanely long object directory %.*s"
 #~ msgstr "diretório de objetos demasiado longo %.*s"
 
-#~ msgid "git merge [<options>] <msg> HEAD <commit>"
-#~ msgstr "git merge [<opções>] <msg> HEAD <commit>"
-
 #~ msgid "tag name too long: %.*s..."
 #~ msgstr "o nome da tag é demasiado longo: %.*s..."
 
@@ -26311,9 +27271,6 @@ msgstr "Deseja mesmo enviar %s? [y|N]: "
 #~ msgstr ""
 #~ "valor numérico '%s' da configuração '%s' incorreto em %s: unidade inválida"
 
-#~ msgid "This is the 2nd commit message:"
-#~ msgstr "Esta é a 2ª mensagem de commit:"
-
 #~ msgid "This is the 3rd commit message:"
 #~ msgstr "Esta é a 3ª mensagem de commit:"
 
@@ -26349,9 +27306,6 @@ msgstr "Deseja mesmo enviar %s? [y|N]: "
 
 #~ msgid "This is the ${n}rd commit message:"
 #~ msgstr "Esta é a ${n}ª mensagem de commit:"
-
-#~ msgid "The 1st commit message will be skipped:"
-#~ msgstr "A 1ª mensagem de commit será ignorada:"
 
 #~ msgid "The 2nd commit message will be skipped:"
 #~ msgstr "A 2ª mensagem de commit será ignorada:"
