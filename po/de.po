@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2021-05-17 16:02+0800\n"
+"POT-Creation-Date: 2021-08-03 17:06+0800\n"
 "PO-Revision-Date: 2021-05-23 18:32+0200\n"
 "Last-Translator: Matthias Rüster <matthias.ruester@gmail.com>\n"
 "Language-Team: Matthias Rüster <matthias.ruester@gmail.com>\n"
@@ -2813,8 +2813,8 @@ msgstr "fstat auf %s fehlgeschlagen"
 
 #: config.c
 #, c-format
-msgid "unable to mmap '%s'"
-msgstr "mmap für '%s' fehlgeschlagen"
+msgid "unable to mmap '%s'%s"
+msgstr "mmap für '%s'(%s) fehlgeschlagen"
 
 #: config.c
 #, c-format
@@ -3344,7 +3344,7 @@ msgid ""
 "'dimmed-zebra', 'plain'"
 msgstr ""
 "\"color moved\"-Einstellung muss eines von diesen sein: 'no', 'default', "
-"'blocks', 'zebra', 'dimmed_zebra', 'plain'"
+"'blocks', 'zebra', 'dimmed-zebra', 'plain'"
 
 #: diff.c
 #, c-format
@@ -3390,6 +3390,21 @@ msgstr ""
 #: diff.c
 msgid "-G, -S and --find-object are mutually exclusive"
 msgstr "-G, -S und --find-object schließen sich gegenseitig aus"
+
+#: diff.c
+msgid ""
+"-G and --pickaxe-regex are mutually exclusive, use --pickaxe-regex with -S"
+msgstr ""
+"-G und --pickaxe-regex schließen sich gegenseitig aus. Benutzen Sie\n"
+"--pickaxe-regex mit -S."
+
+#: diff.c
+msgid ""
+"---pickaxe-all and --find-object are mutually exclusive, use --pickaxe-all "
+"with -G and -S"
+msgstr ""
+"---pickaxe-all und --find-object schließen sich gegenseitig aus. Benutzen\n"
+"Sie --pickaxe-all mit -G und -S."
 
 #: diff.c
 msgid "--follow requires exactly one pathspec"
@@ -3943,9 +3958,9 @@ msgid "Output to a specific file"
 msgstr "Ausgabe zu einer bestimmten Datei"
 
 #: diff.c
-msgid "inexact rename detection was skipped due to too many files."
+msgid "exhaustive rename detection was skipped due to too many files."
 msgstr ""
-"ungenaue Erkennung für Umbenennungen wurde aufgrund zu vieler Dateien\n"
+"genaue Erkennung für Umbenennungen wurde aufgrund zu vieler Dateien\n"
 "übersprungen."
 
 #: diff.c
@@ -3977,7 +3992,7 @@ msgstr "Pfad '%s' nicht im Diff gefunden"
 #: dir.c
 #, c-format
 msgid "pathspec '%s' did not match any file(s) known to git"
-msgstr "Pfadspezifikation '%s' stimmt mit keinen git-bekannten Dateien überein"
+msgstr "Pfadspezifikation '%s' stimmt mit keinen Git bekannten Dateien überein"
 
 #: dir.c
 #, c-format
@@ -4333,8 +4348,8 @@ msgstr "gpg beim Signieren der Daten fehlgeschlagen"
 
 #: graph.c
 #, c-format
-msgid "ignore invalid color '%.*s' in log.graphColors"
-msgstr "Ignoriere ungültige Farbe '%.*s' in log.graphColors"
+msgid "ignored invalid color '%.*s' in log.graphColors"
+msgstr "ungültige Farbe '%.*s' in log.graphColors ignoriert"
 
 #: grep.c
 msgid ""
@@ -4595,7 +4610,7 @@ msgstr "Keine Unterstützung für sparse:path Filter mehr"
 
 #: list-objects-filter-options.c
 #, c-format
-msgid "'%s' for 'object:type=<type>' isnot a valid object type"
+msgid "'%s' for 'object:type=<type>' is not a valid object type"
 msgstr "'%s' für 'object:type=<Typ>' ist kein gültiger Objekttyp"
 
 #: list-objects-filter-options.c
@@ -5343,6 +5358,11 @@ msgid "cannot store reverse index file"
 msgstr "kann Reverse-Index-Datei nicht speichern"
 
 #: midx.c
+msgid "ignoring existing multi-pack-index; checksum mismatch"
+msgstr ""
+"ignoriere existierenden multi-pack-index; Prüfsumme stimmt nicht überein"
+
+#: midx.c
 msgid "Adding packfiles to multi-pack-index"
 msgstr "Packdateien zum multi-pack-index hinzufügen"
 
@@ -5378,6 +5398,10 @@ msgstr "Fehler beim Löschen des multi-pack-index bei %s"
 #: midx.c
 msgid "multi-pack-index file exists, but failed to parse"
 msgstr "multi-pack-index-Datei existiert, aber das Parsen schlug fehl"
+
+#: midx.c
+msgid "incorrect checksum"
+msgstr "Prüfsumme nicht korrekt"
 
 #: midx.c
 msgid "Looking for referenced packfiles"
@@ -5577,8 +5601,9 @@ msgid "attempting to mmap %<PRIuMAX> over limit %<PRIuMAX>"
 msgstr "Versuche mmap %<PRIuMAX> über Limit %<PRIuMAX>."
 
 #: object-file.c
-msgid "mmap failed"
-msgstr "mmap fehlgeschlagen"
+#, c-format
+msgid "mmap failed%s"
+msgstr "mmap fehlgeschlagen%s"
 
 #: object-file.c
 #, c-format
@@ -5953,6 +5978,11 @@ msgstr "Offset vor Ende der Packdatei (fehlerhafte Indexdatei?)"
 
 #: packfile.c
 #, c-format
+msgid "packfile %s cannot be mapped%s"
+msgstr "Packdatei %s kann nicht gemappt werden%s"
+
+#: packfile.c
+#, c-format
 msgid "offset before start of pack index for %s (corrupt index?)"
 msgstr "Offset vor Beginn des Pack-Index für %s (beschädigter Index?)"
 
@@ -6164,8 +6194,8 @@ msgid "unable to write delim packet"
 msgstr "konnte Delim-Paket nicht schreiben"
 
 #: pkt-line.c
-msgid "unable to write stateless separator packet"
-msgstr "konnte zustandsloses Separator-Paket nicht schreiben"
+msgid "unable to write response end packet"
+msgstr "konnte Antwort-Endpaket nicht schreiben"
 
 #: pkt-line.c
 msgid "flush packet write failed"
@@ -6438,8 +6468,8 @@ msgstr "%s: Index-Datei ist kleiner als erwartet."
 
 #: read-cache.c
 #, c-format
-msgid "%s: unable to map index file"
-msgstr "%s: Konnte Index-Datei nicht einlesen."
+msgid "%s: unable to map index file%s"
+msgstr "%s: Konnte Index-Datei nicht mappen%s"
 
 #: read-cache.c
 #, c-format
@@ -8485,7 +8515,7 @@ msgid "unable to set up work tree using invalid config"
 msgstr ""
 "Konnte Arbeitsverzeichnis mit ungültiger Konfiguration nicht einrichten."
 
-#: setup.c
+#: setup.c builtin/rev-parse.c
 msgid "this operation must be run in a work tree"
 msgstr "Diese Operation muss in einem Arbeitsverzeichnis ausgeführt werden."
 
@@ -8495,12 +8525,16 @@ msgid "Expected git repo version <= %d, found %d"
 msgstr "Erwartete Git-Repository-Version <= %d, %d gefunden"
 
 #: setup.c
-msgid "unknown repository extensions found:"
-msgstr "Unbekannte Repository-Erweiterungen gefunden:"
+msgid "unknown repository extension found:"
+msgid_plural "unknown repository extensions found:"
+msgstr[0] "Unbekannte Repository-Erweiterung gefunden:"
+msgstr[1] "Unbekannte Repository-Erweiterungen gefunden:"
 
 #: setup.c
-msgid "repo version is 0, but v1-only extensions found:"
-msgstr "Repository-Version ist 0, aber Erweiterungen nur für v1 gefunden:"
+msgid "repo version is 0, but v1-only extension found:"
+msgid_plural "repo version is 0, but v1-only extensions found:"
+msgstr[0] "Repository-Version ist 0, aber Erweiterung nur für v1 gefunden:"
+msgstr[1] "Repository-Version ist 0, aber Erweiterungen nur für v1 gefunden:"
 
 #: setup.c
 #, c-format
@@ -8921,7 +8955,7 @@ msgstr "leerer Anhang-Token in Anhang '%.*s'"
 msgid "could not read input file '%s'"
 msgstr "Konnte Eingabe-Datei '%s' nicht lesen"
 
-#: trailer.c builtin/mktag.c
+#: trailer.c builtin/mktag.c imap-send.c
 msgid "could not read from stdin"
 msgstr "konnte nicht von der Standard-Eingabe lesen"
 
@@ -9159,7 +9193,7 @@ msgstr "Konnte Paket '%s' nicht lesen."
 #: transport.c
 #, c-format
 msgid "transport: invalid depth option '%s'"
-msgstr "transport: ungültige --depth Option '%s'"
+msgstr "transport: ungültige depth Option '%s'"
 
 #: transport.c
 msgid "see protocol.version in 'git help config' for more details"
@@ -10099,6 +10133,10 @@ msgid "  (use \"git bisect reset\" to get back to the original branch)"
 msgstr ""
 "  (benutzen Sie \"git bisect reset\", um zum ursprünglichen Branch "
 "zurückzukehren)"
+
+#: wt-status.c
+msgid "You are in a sparse checkout."
+msgstr "Sie befinden sich in einem partiellen Checkout."
 
 #: wt-status.c
 #, c-format
@@ -12214,7 +12252,7 @@ msgstr "git checkout-index [<Optionen>] [--] [<Datei>...]"
 
 #: builtin/checkout-index.c
 msgid "stage should be between 1 and 3 or all"
-msgstr "--stage sollte zwischen 1 und 3 oder 'all' sein"
+msgstr "stage sollte zwischen 1 und 3 oder 'all' sein"
 
 #: builtin/checkout-index.c
 msgid "check out all files in the index"
@@ -12986,7 +13024,7 @@ msgstr "ein Bare-Repository erstellen"
 
 #: builtin/clone.c
 msgid "create a mirror repository (implies bare)"
-msgstr "ein Spiegelarchiv erstellen (impliziert --bare)"
+msgstr "ein Spiegelarchiv erstellen (impliziert bare)"
 
 #: builtin/clone.c
 msgid "to clone from a local repository"
@@ -13329,6 +13367,10 @@ msgstr ""
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local wird ignoriert"
+
+#: builtin/clone.c
+msgid "remote transport reported error"
+msgstr "Remoteübertragung meldete Fehler"
 
 #: builtin/clone.c
 #, c-format
@@ -13722,6 +13764,48 @@ msgid "could not write commit template"
 msgstr "Konnte Commit-Vorlage nicht schreiben"
 
 #: builtin/commit.c
+#, c-format
+msgid ""
+"Please enter the commit message for your changes. Lines starting\n"
+"with '%c' will be ignored.\n"
+msgstr ""
+"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen,\n"
+"die mit '%c' beginnen, werden ignoriert.\n"
+
+#: builtin/commit.c
+#, c-format
+msgid ""
+"Please enter the commit message for your changes. Lines starting\n"
+"with '%c' will be ignored, and an empty message aborts the commit.\n"
+msgstr ""
+"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen,\n"
+"die mit '%c' beginnen, werden ignoriert, und eine leere Beschreibung\n"
+"bricht den Commit ab.\n"
+
+#: builtin/commit.c
+#, c-format
+msgid ""
+"Please enter the commit message for your changes. Lines starting\n"
+"with '%c' will be kept; you may remove them yourself if you want to.\n"
+msgstr ""
+"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen,\n"
+"die mit '%c' beginnen, werden beibehalten; wenn Sie möchten, können Sie\n"
+"diese entfernen.\n"
+
+#: builtin/commit.c
+#, c-format
+msgid ""
+"Please enter the commit message for your changes. Lines starting\n"
+"with '%c' will be kept; you may remove them yourself if you want to.\n"
+"An empty message aborts the commit.\n"
+msgstr ""
+"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen, "
+"die\n"
+"mit '%c' beginnen, werden beibehalten; wenn Sie möchten, können Sie diese "
+"entfernen.\n"
+"Eine leere Beschreibung bricht den Commit ab.\n"
+
+#: builtin/commit.c
 msgid ""
 "\n"
 "It looks like you may be committing a merge.\n"
@@ -13748,29 +13832,6 @@ msgstr ""
 "Falls das nicht korrekt ist, führen Sie bitte\n"
 "\tgit update-ref -d CHERRY_PICK_HEAD\n"
 "aus und versuchen Sie es erneut.\n"
-
-#: builtin/commit.c
-#, c-format
-msgid ""
-"Please enter the commit message for your changes. Lines starting\n"
-"with '%c' will be ignored, and an empty message aborts the commit.\n"
-msgstr ""
-"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen,\n"
-"die mit '%c' beginnen, werden ignoriert, und eine leere Beschreibung\n"
-"bricht den Commit ab.\n"
-
-#: builtin/commit.c
-#, c-format
-msgid ""
-"Please enter the commit message for your changes. Lines starting\n"
-"with '%c' will be kept; you may remove them yourself if you want to.\n"
-"An empty message aborts the commit.\n"
-msgstr ""
-"Bitte geben Sie eine Commit-Beschreibung für Ihre Änderungen ein. Zeilen, "
-"die\n"
-"mit '%c' beginnen, werden beibehalten; wenn Sie möchten, können Sie diese "
-"entfernen.\n"
-"Eine leere Beschreibung bricht den Commit ab.\n"
 
 #: builtin/commit.c
 #, c-format
@@ -13855,19 +13916,19 @@ msgstr "--reset-author und --author können nicht gemeinsam verwendet werden"
 
 #: builtin/commit.c
 msgid "You have nothing to amend."
-msgstr "Sie haben nichts für \"--amend\"."
+msgstr "Sie haben nichts zum Nachbessern."
 
 #: builtin/commit.c
 msgid "You are in the middle of a merge -- cannot amend."
-msgstr "Ein Merge ist im Gange -- kann \"--amend\" nicht ausführen."
+msgstr "Ein Merge ist im Gange -- Nachbesserung nicht möglich."
 
 #: builtin/commit.c
 msgid "You are in the middle of a cherry-pick -- cannot amend."
-msgstr "\"cherry-pick\" ist im Gange -- kann \"--amend\" nicht ausführen."
+msgstr "\"cherry-pick\" ist im Gange -- Nachbesserung nicht möglich."
 
 #: builtin/commit.c
 msgid "You are in the middle of a rebase -- cannot amend."
-msgstr "Ein Rebase ist im Gange -- kann \"--amend\" nicht ausführen."
+msgstr "Ein Rebase ist im Gange -- Nachbesserung nicht möglich."
 
 #: builtin/commit.c
 msgid "Options --squash and --fixup cannot be used together"
@@ -13884,7 +13945,7 @@ msgstr "Die Option -m kann nicht mit -c/-C/-F kombiniert werden."
 
 #: builtin/commit.c
 msgid "--reset-author can be used only with -C, -c or --amend."
-msgstr "--reset--author kann nur mit -C, -c oder --amend verwendet werden"
+msgstr "--reset-author kann nur mit -C, -c oder --amend verwendet werden"
 
 #: builtin/commit.c
 msgid "Only one of --include/--only/--all/--interactive/--patch can be used."
@@ -14425,7 +14486,7 @@ msgid ""
 msgstr ""
 "--worktree kann nicht mit mehreren Arbeitsverzeichnissen verwendet werden,\n"
 "außer die Konfigurationserweiterung worktreeConfig ist aktiviert. Bitte\n"
-"lesen Sie die Sektion \"CONFIGURATION_FILE\" in \"git help worktree\" für "
+"lesen Sie die Sektion \"CONFIGURATION FILE\" in \"git help worktree\" für "
 "Details"
 
 #: builtin/config.c
@@ -14484,8 +14545,8 @@ msgid ""
 "       Use a regexp, --add or --replace-all to change %s."
 msgstr ""
 "kann nicht mehrere Werte mit einem einzigen Wert überschreiben\n"
-"       Benutzen Sie einen regulären Ausdruck, --add oder --replace, um %s\n"
-"       zu ändern."
+"       Benutzen Sie einen regulären Ausdruck, --add oder --replace-all, um\n"
+"       %s zu ändern."
 
 #: builtin/config.c
 #, c-format
@@ -15267,7 +15328,7 @@ msgid ""
 msgstr ""
 "Normalerweise zeigt 'fetch' welche Branches eine erzwungene Aktualisierung\n"
 "hatten, aber diese Überprüfung wurde deaktiviert. Um diese wieder zu\n"
-"aktivieren, nutzen Sie die Option '--show-forced-updated' oder führen\n"
+"aktivieren, nutzen Sie die Option '--show-forced-updates' oder führen\n"
 "Sie 'git config fetch.showForcedUpdates true' aus."
 
 #: builtin/fetch.c
@@ -15290,10 +15351,9 @@ msgstr "%s hat nicht alle erforderlichen Objekte gesendet\n"
 
 #: builtin/fetch.c
 #, c-format
-msgid "reject %s because shallow roots are not allowed to be updated"
+msgid "rejected %s because shallow roots are not allowed to be updated"
 msgstr ""
-"%s wurde zurückgewiesen, da Root-Commits von Repositories mit "
-"unvollständiger\n"
+"%s zurückgewiesen, da Root-Commits von Repositories mit unvollständiger\n"
 "Historie (shallow) nicht aktualisiert werden dürfen."
 
 #: builtin/fetch.c
@@ -15396,6 +15456,10 @@ msgstr ""
 #: builtin/fetch.c
 msgid "You need to specify a tag name."
 msgstr "Sie müssen den Namen des Tags angeben."
+
+#: builtin/fetch.c
+msgid "--negotiate-only needs one or more --negotiate-tip=*"
+msgstr "--negotiate-only benötigt einen oder mehrere --negotiate-tip=*"
 
 #: builtin/fetch.c
 msgid "Negative depth in --deepen is not supported"
@@ -17811,14 +17875,6 @@ msgid "git merge [<options>] [<commit>...]"
 msgstr "git merge [<Optionen>] [<Commit>...]"
 
 #: builtin/merge.c
-msgid "git merge --abort"
-msgstr "git merge --abort"
-
-#: builtin/merge.c
-msgid "git merge --continue"
-msgstr "git merge --continue"
-
-#: builtin/merge.c
 msgid "switch `m' requires a value"
 msgstr "Schalter 'm' erfordert einen Wert."
 
@@ -19047,7 +19103,7 @@ msgstr "konnte loses Objekt nicht erzwingen"
 msgid "not a rev '%s'"
 msgstr "'%s' ist kein Commit"
 
-#: builtin/pack-objects.c
+#: builtin/pack-objects.c builtin/rev-parse.c
 #, c-format
 msgid "bad revision '%s'"
 msgstr "ungültiger Commit '%s'"
@@ -19649,6 +19705,13 @@ msgstr ""
 "Der aktuelle Branch %s hat mehrere Upstream-Branches, \"push\" verweigert."
 
 #: builtin/push.c
+msgid ""
+"You didn't specify any refspecs to push, and push.default is \"nothing\"."
+msgstr ""
+"Sie haben keine Refspec für \"push\" angegeben, und push.default ist "
+"\"nothing\"."
+
+#: builtin/push.c
 #, c-format
 msgid ""
 "You are pushing to remote '%s', which is not the upstream of\n"
@@ -19658,13 +19721,6 @@ msgstr ""
 "Sie versenden nach '%s', welches kein Upstream-Repository Ihres aktuellen\n"
 "Branches '%s' ist, ohne anzugeben, was versendet werden soll, um welchen\n"
 "Remote-Branch zu aktualisieren."
-
-#: builtin/push.c
-msgid ""
-"You didn't specify any refspecs to push, and push.default is \"nothing\"."
-msgstr ""
-"Sie haben keine Refspec für \"push\" angegeben, und push.default ist "
-"\"nothing\"."
 
 #: builtin/push.c
 msgid ""
@@ -20415,8 +20471,7 @@ msgstr "versuchen, Rebase mit Merges auszuführen, statt diese zu überspringen"
 
 #: builtin/rebase.c
 msgid "use 'merge-base --fork-point' to refine upstream"
-msgstr ""
-"'git merge-base --fork-point' benutzen, um Upstream-Branch zu bestimmen"
+msgstr "'merge-base --fork-point' benutzen, um Upstream-Branch zu bestimmen"
 
 #: builtin/rebase.c
 msgid "use the given merge strategy"
@@ -20442,7 +20497,7 @@ msgstr ""
 
 #: builtin/rebase.c
 msgid "It looks like 'git am' is in progress. Cannot rebase."
-msgstr "'git-am' scheint im Gange zu sein. Kann Rebase nicht durchführen."
+msgstr "'git am' scheint im Gange zu sein. Kann Rebase nicht durchführen."
 
 #: builtin/rebase.c
 msgid ""
@@ -20873,7 +20928,7 @@ msgstr ""
 #: builtin/remote.c
 #, c-format
 msgid "unknown mirror argument: %s"
-msgstr "unbekanntes Argument für Option --mirror: %s"
+msgstr "unbekanntes Argument für Option mirror: %s"
 
 #: builtin/remote.c
 msgid "fetch the remote branches"
@@ -21838,7 +21893,7 @@ msgstr "'%s'-Reset ist in einem Bare-Repository nicht erlaubt"
 
 #: builtin/reset.c
 msgid "-N can only be used with --mixed"
-msgstr "-N kann nur mit -mixed benutzt werden"
+msgstr "-N kann nur mit --mixed benutzt werden"
 
 #: builtin/reset.c
 msgid "Unstaged changes after reset:"
@@ -21902,6 +21957,18 @@ msgstr ""
 "Ausgabe in Langform mit Argumenten an den Optionen (getrennt durch '=')"
 
 #: builtin/rev-parse.c
+msgid "premature end of input"
+msgstr "frühzeitiges Ende der Eingabe"
+
+#: builtin/rev-parse.c
+msgid "no usage string given before the `--' separator"
+msgstr "kein Verwendungstext vor dem `--' Separator angegeben"
+
+#: builtin/rev-parse.c
+msgid "Needed a single revision"
+msgstr "Benötigte einen einzelnen Commit"
+
+#: builtin/rev-parse.c
 msgid ""
 "git rev-parse --parseopt [<options>] -- [<args>...]\n"
 "   or: git rev-parse --sq-quote [<arg>...]\n"
@@ -21915,6 +21982,50 @@ msgstr ""
 "\n"
 "Führen Sie \"git rev-parse --parseopt -h\" für weitere Informationen bei "
 "erster Verwendung aus."
+
+#: builtin/rev-parse.c
+msgid "--resolve-git-dir requires an argument"
+msgstr "--resolve-git-dir benötigt ein Argument"
+
+#: builtin/rev-parse.c
+#, c-format
+msgid "not a gitdir '%s'"
+msgstr "kein Git-Verzeichnis '%s'"
+
+#: builtin/rev-parse.c
+msgid "--git-path requires an argument"
+msgstr "--git-path benötigt ein Argument"
+
+#: builtin/rev-parse.c
+msgid "-n requires an argument"
+msgstr "-n benötigt ein Argument"
+
+#: builtin/rev-parse.c
+msgid "--path-format requires an argument"
+msgstr "--path-format benötigt ein Argument"
+
+#: builtin/rev-parse.c
+#, c-format
+msgid "unknown argument to --path-format: %s"
+msgstr "unbekanntes Argument für --path-format: %s"
+
+#: builtin/rev-parse.c
+msgid "--default requires an argument"
+msgstr "--default benötigt ein Argument"
+
+#: builtin/rev-parse.c
+msgid "--prefix requires an argument"
+msgstr "--prefix benötigt ein Argument"
+
+#: builtin/rev-parse.c
+#, c-format
+msgid "unknown mode for --abbrev-ref: %s"
+msgstr "unbekannter Modus für --abbrev-ref: %s"
+
+#: builtin/rev-parse.c
+#, c-format
+msgid "unknown mode for --show-object-format: %s"
+msgstr "unbekannter Modus für --show-object-format: %s"
 
 #: builtin/revert.c
 msgid "git revert [<options>] <commit-ish>..."
@@ -22478,10 +22589,6 @@ msgid "git stash branch <branchname> [<stash>]"
 msgstr "git stash branch <Branch> [<Stash>]"
 
 #: builtin/stash.c
-msgid "git stash clear"
-msgstr "git stash clear"
-
-#: builtin/stash.c
 msgid ""
 "git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]\n"
 "          [-u|--include-untracked] [-a|--all] [-m|--message <message>]\n"
@@ -22916,8 +23023,8 @@ msgstr ""
 "benutze den Commit, der im Index gespeichert ist, statt vom Submodul HEAD"
 
 #: builtin/submodule--helper.c
-msgid "to compare the commit in the index with that in the submodule HEAD"
-msgstr "um den Commit aus dem Index mit dem im Submodul HEAD zu vergleichen"
+msgid "compare the commit in the index with that in the submodule HEAD"
+msgstr "den Commit aus dem Index mit dem im Submodul HEAD vergleichen"
 
 #: builtin/submodule--helper.c
 msgid "skip submodules with 'ignore_config' value set to 'all'"
@@ -23192,7 +23299,7 @@ msgstr "git submodule--helper update-clone [--prefix=<Pfad>] [<Pfad>...]"
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
-msgstr "Fehlerhafter Wert für --update Parameter"
+msgstr "Fehlerhafter Wert für update Parameter"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -23986,6 +24093,10 @@ msgid "could not create directory of '%s'"
 msgstr "Konnte Verzeichnis '%s' nicht erstellen."
 
 #: builtin/worktree.c
+msgid "initializing"
+msgstr "initialisiere"
+
+#: builtin/worktree.c
 #, c-format
 msgid "Preparing worktree (new branch '%s')"
 msgstr "Bereite Arbeitsverzeichnis vor (neuer Branch '%s')"
@@ -24028,6 +24139,10 @@ msgid "keep the new working tree locked"
 msgstr "das neue Arbeitsverzeichnis gesperrt lassen"
 
 #: builtin/worktree.c
+msgid "reason for locking"
+msgstr "Sperrgrund"
+
+#: builtin/worktree.c
 msgid "set up tracking mode (see git-branch(1))"
 msgstr "Modus zum Folgen von Branches einstellen (siehe git-branch(1))"
 
@@ -24040,6 +24155,14 @@ msgstr ""
 #: builtin/worktree.c
 msgid "-b, -B, and --detach are mutually exclusive"
 msgstr "-b, -B und --detach schließen sich gegenseitig aus"
+
+#: builtin/worktree.c
+msgid "--reason requires --lock"
+msgstr "--reason benötigt --lock"
+
+#: builtin/worktree.c
+msgid "added with --lock"
+msgstr "mit --lock hinzugefügt"
 
 #: builtin/worktree.c
 msgid "--[no-]track can only be used if a new branch is created"
@@ -24058,10 +24181,6 @@ msgstr ""
 #: builtin/worktree.c
 msgid "--verbose and --porcelain are mutually exclusive"
 msgstr "--verbose und --porcelain schließen sich gegenseitig aus"
-
-#: builtin/worktree.c
-msgid "reason for locking"
-msgstr "Sperrgrund"
 
 #: builtin/worktree.c
 #, c-format
@@ -24589,8 +24708,8 @@ msgid "shouldn't have EOF when not gentle on EOF"
 msgstr "sollte kein EOF haben, wenn nicht behutsam mit EOF"
 
 #: remote-curl.c
-msgid "remote server sent stateless separator"
-msgstr "Server sendete zustandslosen Separator"
+msgid "remote server sent unexpected response end packet"
+msgstr "Remote Server sendete unerwartetes Antwort-Endpaket"
 
 #: remote-curl.c
 msgid "unable to rewind rpc post data - try increasing http.postBuffer"
