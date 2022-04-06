@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2022-01-17 08:31+0800\n"
+"POT-Creation-Date: 2022-04-06 14:40+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -765,10 +765,11 @@ msgstr ""
 msgid "unrecognized whitespace ignore option '%s'"
 msgstr ""
 
-#: apply.c archive.c range-diff.c revision.c builtin/add.c builtin/branch.c
-#: builtin/checkout.c builtin/clone.c builtin/commit.c builtin/describe.c
-#: builtin/diff-tree.c builtin/difftool.c builtin/fast-export.c builtin/fetch.c
-#: builtin/index-pack.c builtin/init-db.c builtin/log.c builtin/ls-files.c
+#: apply.c archive.c parse-options.c range-diff.c revision.c builtin/add.c
+#: builtin/branch.c builtin/checkout.c builtin/clone.c builtin/commit.c
+#: builtin/describe.c builtin/diff-tree.c builtin/difftool.c
+#: builtin/fast-export.c builtin/fetch.c builtin/help.c builtin/index-pack.c
+#: builtin/init-db.c builtin/log.c builtin/ls-files.c builtin/merge-base.c
 #: builtin/merge.c builtin/pack-objects.c builtin/push.c builtin/rebase.c
 #: builtin/repack.c builtin/reset.c builtin/rev-list.c builtin/show-branch.c
 #: builtin/stash.c builtin/submodule--helper.c builtin/tag.c builtin/worktree.c
@@ -1407,10 +1408,6 @@ msgid "git archive [<options>] <tree-ish> [<path>...]"
 msgstr ""
 
 #: archive.c
-msgid "git archive --list"
-msgstr ""
-
-#: archive.c
 msgid ""
 "git archive --remote <repo> [--exec <cmd>] [<options>] <tree-ish> [<path>...]"
 msgstr ""
@@ -1525,8 +1522,9 @@ msgid "Unexpected option --remote"
 msgstr ""
 
 #: archive.c fetch-pack.c revision.c builtin/add.c builtin/checkout.c
-#: builtin/commit.c builtin/fast-export.c builtin/index-pack.c builtin/log.c
-#: builtin/reset.c builtin/rm.c builtin/stash.c builtin/worktree.c http-fetch.c
+#: builtin/clone.c builtin/commit.c builtin/fast-export.c builtin/index-pack.c
+#: builtin/log.c builtin/reset.c builtin/rm.c builtin/stash.c
+#: builtin/worktree.c http-fetch.c
 #, c-format
 msgid "the option '%s' requires '%s'"
 msgstr ""
@@ -1748,7 +1746,37 @@ msgstr ""
 
 #: branch.c
 #, c-format
-msgid "not tracking: ambiguous information for ref %s"
+msgid "not tracking: ambiguous information for ref '%s'"
+msgstr ""
+
+#. TRANSLATORS: This is a line listing a remote with duplicate
+#. refspecs in the advice message below. For RTL languages you'll
+#. probably want to swap the "%s" and leading "  " space around.
+#.
+#. TRANSLATORS: This is line item of ambiguous object output
+#. from describe_ambiguous_object() above. For RTL languages
+#. you'll probably want to swap the "%s" and leading " " space
+#. around.
+#.
+#: branch.c object-name.c
+#, c-format
+msgid "  %s\n"
+msgstr ""
+
+#. TRANSLATORS: The second argument is a \n-delimited list of
+#. duplicate refspecs, composed above.
+#.
+#: branch.c
+#, c-format
+msgid ""
+"There are multiple remotes whose fetch refspecs map to the remote\n"
+"tracking ref '%s':\n"
+"%s\n"
+"This is typically a configuration error.\n"
+"\n"
+"To support setting up tracking branches, ensure that\n"
+"different remotes' fetch refspecs map into different\n"
+"tracking namespaces."
 msgstr ""
 
 #: branch.c
@@ -1805,6 +1833,23 @@ msgstr ""
 
 #: branch.c
 #, c-format
+msgid "submodule '%s': unable to find submodule"
+msgstr ""
+
+#: branch.c
+#, c-format
+msgid ""
+"You may try updating the submodules using 'git checkout %s && git submodule "
+"update --init'"
+msgstr ""
+
+#: branch.c
+#, c-format
+msgid "submodule '%s': cannot create branch '%s'"
+msgstr ""
+
+#: branch.c
+#, c-format
 msgid "'%s' is already checked out at '%s'"
 msgstr ""
 
@@ -1849,7 +1894,7 @@ msgstr ""
 #: bundle.c
 #, c-format
 msgid "The bundle contains this ref:"
-msgid_plural "The bundle contains these %d refs:"
+msgid_plural "The bundle contains these %<PRIuMAX> refs:"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1860,7 +1905,7 @@ msgstr ""
 #: bundle.c
 #, c-format
 msgid "The bundle requires this ref:"
-msgid_plural "The bundle requires these %d refs:"
+msgid_plural "The bundle requires these %<PRIuMAX> refs:"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1881,6 +1926,11 @@ msgstr ""
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr ""
 
+#: bundle.c builtin/log.c builtin/shortlog.c
+#, c-format
+msgid "unrecognized argument: %s"
+msgstr ""
+
 #: bundle.c
 #, c-format
 msgid "unsupported bundle version %d"
@@ -1889,11 +1939,6 @@ msgstr ""
 #: bundle.c
 #, c-format
 msgid "cannot write bundle version %d with algorithm %s"
-msgstr ""
-
-#: bundle.c builtin/log.c builtin/shortlog.c
-#, c-format
-msgid "unrecognized argument: %s"
 msgstr ""
 
 #: bundle.c
@@ -1991,7 +2036,7 @@ msgstr ""
 msgid "commit-graph requires overflow generation data but has none"
 msgstr ""
 
-#: commit-graph.c builtin/am.c
+#: commit-graph.c builtin/am.c builtin/checkout.c builtin/clone.c
 #, c-format
 msgid "unable to parse commit %s"
 msgstr ""
@@ -2031,8 +2076,8 @@ msgstr ""
 
 #: commit-graph.c
 #, c-format
-msgid "Finding commits for commit graph in %d pack"
-msgid_plural "Finding commits for commit graph in %d packs"
+msgid "Finding commits for commit graph in %<PRIuMAX> pack"
+msgid_plural "Finding commits for commit graph in %<PRIuMAX> packs"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -2058,7 +2103,7 @@ msgstr ""
 msgid "failed to write correct number of base graph ids"
 msgstr ""
 
-#: commit-graph.c midx.c
+#: commit-graph.c midx.c builtin/sparse-checkout.c
 #, c-format
 msgid "unable to create leading directories of %s"
 msgstr ""
@@ -2230,6 +2275,14 @@ msgstr ""
 msgid "memory exhausted"
 msgstr ""
 
+#: compat/terminal.c
+msgid "cannot resume in the background, please use 'fg' to resume"
+msgstr ""
+
+#: compat/terminal.c
+msgid "cannot restore terminal settings"
+msgstr ""
+
 #: config.c
 #, c-format
 msgid ""
@@ -2251,6 +2304,12 @@ msgstr ""
 
 #: config.c
 msgid "relative config include conditionals must come from files"
+msgstr ""
+
+#: config.c
+msgid ""
+"remote URLs cannot be configured in file directly or indirectly included by "
+"includeIf.hasconfig:remote.*.url"
 msgstr ""
 
 #: config.c
@@ -2397,6 +2456,16 @@ msgstr ""
 
 #: config.c
 #, c-format
+msgid "invalid value for variable %s"
+msgstr ""
+
+#: config.c
+#, c-format
+msgid "ignoring unknown core.fsync component '%s'"
+msgstr ""
+
+#: config.c
+#, c-format
 msgid "bad boolean config value '%s' for '%s'"
 msgstr ""
 
@@ -2422,6 +2491,15 @@ msgstr ""
 
 #: config.c
 msgid "core.commentChar should only be one character"
+msgstr ""
+
+#: config.c
+#, c-format
+msgid "ignoring unknown core.fsyncMethod value '%s'"
+msgstr ""
+
+#: config.c
+msgid "core.fsyncObjectFiles is deprecated; use core.fsync instead"
 msgstr ""
 
 #: config.c
@@ -2988,9 +3066,11 @@ msgstr ""
 msgid "Marked %d islands, done.\n"
 msgstr ""
 
-#: diff-merges.c
+#: diff-merges.c gpg-interface.c ls-refs.c parallel-checkout.c sequencer.c
+#: setup.c builtin/am.c builtin/blame.c builtin/fetch.c builtin/pack-objects.c
+#: builtin/pull.c
 #, c-format
-msgid "unknown value for --diff-merges: %s"
+msgid "invalid value for '%s': '%s'"
 msgstr ""
 
 #: diff-lib.c
@@ -3069,12 +3149,12 @@ msgstr ""
 msgid "external diff died, stopping at %s"
 msgstr ""
 
-#: diff.c
+#: diff.c parse-options.c
 #, c-format
 msgid "options '%s', '%s', '%s', and '%s' cannot be used together"
 msgstr ""
 
-#: diff.c builtin/difftool.c builtin/log.c builtin/worktree.c
+#: diff.c parse-options.c builtin/worktree.c
 #, c-format
 msgid "options '%s', '%s', and '%s' cannot be used together"
 msgstr ""
@@ -3602,7 +3682,7 @@ msgid "<file>"
 msgstr ""
 
 #: diff.c
-msgid "Output to a specific file"
+msgid "output to a specific file"
 msgstr ""
 
 #: diff.c
@@ -3785,7 +3865,7 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: fetch-pack.c progress.c
+#: fetch-pack.c progress.h
 msgid "done"
 msgstr ""
 
@@ -3914,12 +3994,20 @@ msgstr ""
 msgid "error processing acks: %d"
 msgstr ""
 
+#. TRANSLATORS: The parameter will be 'ready', a protocol
+#. keyword.
+#.
 #: fetch-pack.c
-msgid "expected packfile to be sent after 'ready'"
+#, c-format
+msgid "expected packfile to be sent after '%s'"
 msgstr ""
 
+#. TRANSLATORS: The parameter will be 'ready', a protocol
+#. keyword.
+#.
 #: fetch-pack.c
-msgid "expected no other sections to be sent after no 'ready'"
+#, c-format
+msgid "expected no other sections to be sent after no '%s'"
 msgstr ""
 
 #: fetch-pack.c
@@ -3966,6 +4054,25 @@ msgstr ""
 #: fetch-pack.c
 #, c-format
 msgid "Server does not allow request for unadvertised object %s"
+msgstr ""
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "fsmonitor_ipc__send_query: invalid path '%s'"
+msgstr ""
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "fsmonitor_ipc__send_query: unspecified error on '%s'"
+msgstr ""
+
+#: fsmonitor-ipc.c
+msgid "fsmonitor--daemon is not running"
+msgstr ""
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "could not send '%s' command to fsmonitor--daemon"
 msgstr ""
 
 #: gpg-interface.c
@@ -4149,15 +4256,15 @@ msgid "The Git concept guides are:"
 msgstr ""
 
 #: help.c
-msgid "See 'git help <command>' to read about a specific subcommand"
-msgstr ""
-
-#: help.c
 msgid "External commands"
 msgstr ""
 
 #: help.c
 msgid "Command aliases"
+msgstr ""
+
+#: help.c
+msgid "See 'git help <command>' to read about a specific subcommand"
 msgstr ""
 
 #: help.c
@@ -4230,6 +4337,11 @@ msgstr[1] ""
 msgid ""
 "The '%s' hook was ignored because it's not set as executable.\n"
 "You can disable this warning with `git config advice.ignoredHook false`."
+msgstr ""
+
+#: hook.c
+#, c-format
+msgid "Couldn't start hook '%s'\n"
 msgstr ""
 
 #: ident.c
@@ -4363,11 +4475,6 @@ msgstr ""
 #: lockfile.c
 #, c-format
 msgid "Unable to create '%s.lock': %s"
-msgstr ""
-
-#: ls-refs.c
-#, c-format
-msgid "invalid value '%s' for lsrefs.unborn"
 msgstr ""
 
 #: ls-refs.c
@@ -5001,6 +5108,10 @@ msgid "no pack files to index."
 msgstr ""
 
 #: midx.c
+msgid "refusing to write multi-pack .bitmap without any objects"
+msgstr ""
+
+#: midx.c
 msgid "could not write multi-pack bitmap"
 msgstr ""
 
@@ -5394,13 +5505,82 @@ msgstr ""
 msgid "unable to unpack contents of %s"
 msgstr ""
 
+#. TRANSLATORS: This is a line of ambiguous object
+#. output shown when we cannot look up or parse the
+#. object in question. E.g. "deadbeef [bad object]".
+#.
+#: object-name.c
+#, c-format
+msgid "%s [bad object]"
+msgstr ""
+
+#. TRANSLATORS: This is a line of ambiguous commit
+#. object output. E.g.:
+#. *
+#.    "deadbeef commit 2021-01-01 - Some Commit Message"
+#.
+#: object-name.c
+#, c-format
+msgid "%s commit %s - %s"
+msgstr ""
+
+#. TRANSLATORS: This is a line of ambiguous
+#. tag object output. E.g.:
+#. *
+#.    "deadbeef tag 2022-01-01 - Some Tag Message"
+#. *
+#. The second argument is the YYYY-MM-DD found
+#. in the tag.
+#. *
+#. The third argument is the "tag" string
+#. from object.c.
+#.
+#: object-name.c
+#, c-format
+msgid "%s tag %s - %s"
+msgstr ""
+
+#. TRANSLATORS: This is a line of ambiguous
+#. tag object output where we couldn't parse
+#. the tag itself. E.g.:
+#. *
+#.    "deadbeef [bad tag, could not parse it]"
+#.
+#: object-name.c
+#, c-format
+msgid "%s [bad tag, could not parse it]"
+msgstr ""
+
+#. TRANSLATORS: This is a line of ambiguous <type>
+#. object output. E.g. "deadbeef tree".
+#.
+#: object-name.c
+#, c-format
+msgid "%s tree"
+msgstr ""
+
+#. TRANSLATORS: This is a line of ambiguous <type>
+#. object output. E.g. "deadbeef blob".
+#.
+#: object-name.c
+#, c-format
+msgid "%s blob"
+msgstr ""
+
 #: object-name.c
 #, c-format
 msgid "short object ID %s is ambiguous"
 msgstr ""
 
+#. TRANSLATORS: The argument is the list of ambiguous
+#. objects composed in show_ambiguous_object(). See
+#. its "TRANSLATORS" comments for details.
+#.
 #: object-name.c
-msgid "The candidates are:"
+#, c-format
+msgid ""
+"The candidates are:\n"
+"%s"
 msgstr ""
 
 #: object-name.c
@@ -5469,6 +5649,11 @@ msgstr ""
 
 #: object-name.c
 msgid "relative path syntax can't be used outside working tree"
+msgstr ""
+
+#: object-name.c
+#, c-format
+msgid "<object>:<path> required, only <object> '%s' given"
 msgstr ""
 
 #: object-name.c
@@ -6093,6 +6278,10 @@ msgstr ""
 msgid "broken index, expect %s in %s, got %s"
 msgstr ""
 
+#: read-cache.c
+msgid "cannot write split index for a sparse index"
+msgstr ""
+
 #: read-cache.c strbuf.c wrapper.c builtin/merge.c
 #, c-format
 msgid "could not close '%s'"
@@ -6466,6 +6655,16 @@ msgstr ""
 #: ref-filter.c
 #, c-format
 msgid "option `%s' must point to a commit"
+msgstr ""
+
+#: reflog.c
+#, c-format
+msgid "not a reflog: %s"
+msgstr ""
+
+#: reflog.c
+#, c-format
+msgid "no reflog for '%s'"
 msgstr ""
 
 #: refs.c
@@ -6935,6 +7134,10 @@ msgstr ""
 #: revision.c
 #, c-format
 msgid "your current branch '%s' does not have any commits yet"
+msgstr ""
+
+#: revision.c
+msgid "object filtering requires --objects"
 msgstr ""
 
 #: revision.c
@@ -7448,11 +7651,6 @@ msgstr ""
 
 #: sequencer.c
 msgid "cannot revert during a cherry-pick."
-msgstr ""
-
-#: sequencer.c
-#, c-format
-msgid "invalid value for %s: %s"
 msgstr ""
 
 #: sequencer.c
@@ -8012,6 +8210,10 @@ msgstr ""
 msgid "index entry is a directory, but not sparse (%08x)"
 msgstr ""
 
+#: split-index.c
+msgid "cannot use split index with a sparse index"
+msgstr ""
+
 #. TRANSLATORS: IEC 80000-13:2008 gibibyte
 #: strbuf.c
 #, c-format
@@ -8088,9 +8290,9 @@ msgstr ""
 msgid "ignoring '%s' which may be interpreted as a command-line option: %s"
 msgstr ""
 
-#: submodule-config.c
+#: submodule-config.c builtin/push.c builtin/send-pack.c
 #, c-format
-msgid "invalid value for %s"
+msgid "invalid value for '%s'"
 msgstr ""
 
 #: submodule-config.c
@@ -8177,6 +8379,16 @@ msgstr ""
 #: submodule.c
 #, c-format
 msgid "Could not access submodule '%s'\n"
+msgstr ""
+
+#: submodule.c
+#, c-format
+msgid "Could not access submodule '%s' at commit %s\n"
+msgstr ""
+
+#: submodule.c
+#, c-format
+msgid "Fetching submodule %s%s at commit %s\n"
 msgstr ""
 
 #: submodule.c
@@ -8959,6 +9171,20 @@ msgstr ""
 msgid "gitdir file points to non-existent location"
 msgstr ""
 
+#: worktree.c
+#, c-format
+msgid "unable to set %s in '%s'"
+msgstr ""
+
+#: worktree.c
+#, c-format
+msgid "unable to unset %s in '%s'"
+msgstr ""
+
+#: worktree.c
+msgid "failed to set extensions.worktreeConfig setting"
+msgstr ""
+
 #: wrapper.c
 #, c-format
 msgid "could not setenv '%s'"
@@ -9198,8 +9424,8 @@ msgstr ""
 
 #: wt-status.c
 #, c-format
-msgid "Last command done (%d command done):"
-msgid_plural "Last commands done (%d commands done):"
+msgid "Last command done (%<PRIuMAX> command done):"
+msgid_plural "Last commands done (%<PRIuMAX> commands done):"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9214,8 +9440,8 @@ msgstr ""
 
 #: wt-status.c
 #, c-format
-msgid "Next command to do (%d remaining command):"
-msgid_plural "Next commands to do (%d remaining commands):"
+msgid "Next command to do (%<PRIuMAX> remaining command):"
+msgid_plural "Next commands to do (%<PRIuMAX> remaining commands):"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9521,6 +9747,14 @@ msgstr ""
 msgid "failed to unlink '%s'"
 msgstr ""
 
+#: compat/fsmonitor/fsm-listen-darwin.c
+msgid "Unable to create FSEventStream."
+msgstr ""
+
+#: compat/fsmonitor/fsm-listen-darwin.c
+msgid "Failed to start the FSEventStream"
+msgstr ""
+
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr ""
@@ -9651,10 +9885,6 @@ msgid "warn when adding an embedded repository"
 msgstr ""
 
 #: builtin/add.c
-msgid "backend for `git stash -p`"
-msgstr ""
-
-#: builtin/add.c
 #, c-format
 msgid ""
 "You've added another git repository inside your current repository.\n"
@@ -9709,11 +9939,6 @@ msgid ""
 "Maybe you wanted to say 'git add .'?\n"
 "Turn this message off by running\n"
 "\"git config advice.addEmptyPathspec false\""
-msgstr ""
-
-#: builtin/am.c
-#, c-format
-msgid "Invalid value for --empty: %s"
 msgstr ""
 
 #: builtin/am.c
@@ -9928,16 +10153,6 @@ msgstr ""
 
 #: builtin/am.c
 #, c-format
-msgid "Invalid value for --patch-format: %s"
-msgstr ""
-
-#: builtin/am.c
-#, c-format
-msgid "Invalid value for --show-current-patch: %s"
-msgstr ""
-
-#: builtin/am.c
-#, c-format
 msgid "options '%s=%s' and '%s=%s' cannot be used together"
 msgstr ""
 
@@ -10012,8 +10227,9 @@ msgstr ""
 msgid "n"
 msgstr ""
 
-#: builtin/am.c builtin/branch.c builtin/bugreport.c builtin/for-each-ref.c
-#: builtin/replace.c builtin/tag.c builtin/verify-tag.c
+#: builtin/am.c builtin/branch.c builtin/bugreport.c builtin/cat-file.c
+#: builtin/for-each-ref.c builtin/ls-tree.c builtin/replace.c builtin/tag.c
+#: builtin/verify-tag.c
 msgid "format"
 msgstr ""
 
@@ -10143,19 +10359,9 @@ msgstr ""
 
 #: builtin/bisect--helper.c
 msgid ""
-"git bisect--helper --bisect-terms [--term-good | --term-old | --term-bad | --"
-"term-new]"
-msgstr ""
-
-#: builtin/bisect--helper.c
-msgid ""
 "git bisect--helper --bisect-start [--term-{new,bad}=<term> --term-{old,good}"
 "=<term>] [--no-checkout] [--first-parent] [<bad> [<good>...]] [--] "
 "[<paths>...]"
-msgstr ""
-
-#: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-next"
 msgstr ""
 
 #: builtin/bisect--helper.c
@@ -10172,10 +10378,6 @@ msgstr ""
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-skip [(<rev>|<range>)...]"
-msgstr ""
-
-#: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-visualize"
 msgstr ""
 
 #: builtin/bisect--helper.c
@@ -10389,12 +10591,22 @@ msgid "cannot read file '%s' for replaying"
 msgstr ""
 
 #: builtin/bisect--helper.c
+#, c-format
+msgid "running %s\n"
+msgstr ""
+
+#: builtin/bisect--helper.c
 msgid "bisect run failed: no command provided."
 msgstr ""
 
 #: builtin/bisect--helper.c
 #, c-format
-msgid "running %s\n"
+msgid "unable to verify '%s' on good revision"
+msgstr ""
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "bogus exit code %d for good revision"
 msgstr ""
 
 #: builtin/bisect--helper.c
@@ -10469,7 +10681,7 @@ msgid "visualize the bisection"
 msgstr ""
 
 #: builtin/bisect--helper.c
-msgid "use <cmd>... to automatically bisect."
+msgid "use <cmd>... to automatically bisect"
 msgstr ""
 
 #: builtin/bisect--helper.c
@@ -10515,15 +10727,6 @@ msgstr ""
 
 #: builtin/blame.c
 #, c-format
-msgid "invalid color '%s' in color.blame.repeatedLines"
-msgstr ""
-
-#: builtin/blame.c
-msgid "invalid value for blame.coloring"
-msgstr ""
-
-#: builtin/blame.c
-#, c-format
 msgid "cannot find revision %s to ignore"
 msgstr ""
 
@@ -10545,7 +10748,7 @@ msgstr ""
 
 #: builtin/blame.c builtin/checkout.c builtin/clone.c builtin/commit-graph.c
 #: builtin/fetch.c builtin/merge.c builtin/multi-pack-index.c builtin/pull.c
-#: builtin/push.c builtin/send-pack.c
+#: builtin/push.c builtin/remote.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr ""
 
@@ -10677,7 +10880,13 @@ msgid "git branch [<options>] [-r | -a] [--merged] [--no-merged]"
 msgstr ""
 
 #: builtin/branch.c
-msgid "git branch [<options>] [-l] [-f] <branch-name> [<start-point>]"
+msgid ""
+"git branch [<options>] [-f] [--recurse-submodules] <branch-name> [<start-"
+"point>]"
+msgstr ""
+
+#: builtin/branch.c
+msgid "git branch [<options>] [-l] [<pattern>...]"
 msgstr ""
 
 #: builtin/branch.c
@@ -10850,7 +11059,7 @@ msgstr ""
 msgid "suppress informational messages"
 msgstr ""
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/checkout.c builtin/submodule--helper.c
 msgid "set branch tracking configuration"
 msgstr ""
 
@@ -10926,7 +11135,7 @@ msgstr ""
 msgid "show current branch name"
 msgstr ""
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/submodule--helper.c
 msgid "create the branch's reflog"
 msgstr ""
 
@@ -10962,12 +11171,27 @@ msgstr ""
 msgid "sorting and filtering are case insensitive"
 msgstr ""
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c builtin/verify-tag.c
+#: builtin/branch.c builtin/ls-files.c
+msgid "recurse through submodules"
+msgstr ""
+
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-tree.c builtin/tag.c
+#: builtin/verify-tag.c
 msgid "format to use for the output"
 msgstr ""
 
 #: builtin/branch.c builtin/clone.c
 msgid "HEAD not found below refs/heads!"
+msgstr ""
+
+#: builtin/branch.c
+msgid ""
+"branch with --recurse-submodules can only be used if submodule."
+"propagateBranches is enabled"
+msgstr ""
+
+#: builtin/branch.c
+msgid "--recurse-submodules can only be used to create branches"
 msgstr ""
 
 #: builtin/branch.c
@@ -11183,15 +11407,31 @@ msgid "Unknown subcommand: %s"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid ""
-"git cat-file (-t [--allow-unknown-type] | -s [--allow-unknown-type] | -e | -"
-"p | <type> | --textconv | --filters) [--path=<path>] <object>"
+msgid "flush is only for --buffer mode"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid ""
-"git cat-file (--batch[=<format>] | --batch-check[=<format>]) [--follow-"
-"symlinks] [--textconv | --filters]"
+msgid "empty command in input"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "whitespace before command: '%s'"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "%s requires arguments"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "%s takes no arguments"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "unknown command: '%s'"
 msgstr ""
 
 #: builtin/cat-file.c
@@ -11199,11 +11439,49 @@ msgid "only one batch option may be specified"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "<type> can be one of: blob, tree, commit, tag"
+msgid "git cat-file <type> <object>"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "show object type"
+msgid "git cat-file (-e | -p) <object>"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "git cat-file (-t | -s) [--allow-unknown-type] <object>"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid ""
+"git cat-file (--batch | --batch-check | --batch-command) [--batch-all-"
+"objects]\n"
+"             [--buffer] [--follow-symlinks] [--unordered]\n"
+"             [--textconv | --filters]"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid ""
+"git cat-file (--textconv | --filters)\n"
+"             [<rev>:<path|tree-ish> | --path=<path|tree-ish> <rev>]"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "Check object existence or emit object contents"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "check if <object> exists"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "pretty-print <object> content"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "Emit [broken] object attributes"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "show object type (one of 'blob', 'tree', 'commit', 'tag', ...)"
 msgstr ""
 
 #: builtin/cat-file.c
@@ -11211,31 +11489,31 @@ msgid "show object size"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "exit with zero when there's no error"
-msgstr ""
-
-#: builtin/cat-file.c
-msgid "pretty-print object's content"
-msgstr ""
-
-#: builtin/cat-file.c
-msgid "for blob objects, run textconv on object's content"
-msgstr ""
-
-#: builtin/cat-file.c
-msgid "for blob objects, run filters on object's content"
-msgstr ""
-
-#: builtin/cat-file.c
-msgid "blob"
-msgstr ""
-
-#: builtin/cat-file.c
-msgid "use a specific path for --textconv/--filters"
-msgstr ""
-
-#: builtin/cat-file.c
 msgid "allow -s and -t to work with broken/corrupt objects"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "Batch objects requested on stdin (or --batch-all-objects)"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "show full <object> or <rev> contents"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "like --batch, but don't emit <contents>"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "read commands from stdin"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "with --batch[-check]: ignores stdin, batches all known objects"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "Change or optimize batch output"
 msgstr ""
 
 #: builtin/cat-file.c
@@ -11243,23 +11521,76 @@ msgid "buffer --batch output"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "show info and content of objects fed from the standard input"
+msgid "follow in-tree symlinks"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "show info about objects fed from the standard input"
+msgid "do not order objects before emitting them"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "follow in-tree symlinks (used with --batch or --batch-check)"
+msgid ""
+"Emit object (blob or tree) with conversion or filter (stand-alone, or with "
+"batch)"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "show all objects with --batch or --batch-check"
+msgid "run textconv on object's content"
 msgstr ""
 
 #: builtin/cat-file.c
-msgid "do not order --batch-all-objects output"
+msgid "run filters on object's content"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "blob|tree"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "use a <path> for (--textconv | --filters); Not with 'batch'"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'%s=<%s>' needs '%s' or '%s'"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "path|tree-ish"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'%s' requires a batch mode"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'-%c' is incompatible with batch mode"
+msgstr ""
+
+#: builtin/cat-file.c
+msgid "batch modes take no arguments"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "<rev> required with '%s'"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "<object> required with '-%c'"
+msgstr ""
+
+#: builtin/cat-file.c builtin/notes.c builtin/prune-packed.c
+#: builtin/receive-pack.c builtin/tag.c
+msgid "too many arguments"
+msgstr ""
+
+#: builtin/cat-file.c
+#, c-format
+msgid "only two arguments allowed in <type> <object> mode, not %d"
 msgstr ""
 
 #: builtin/check-attr.c
@@ -11362,6 +11693,10 @@ msgstr ""
 
 #: builtin/checkout-index.c
 msgid "check out all files in the index"
+msgstr ""
+
+#: builtin/checkout-index.c
+msgid "do not skip files with skip-worktree set"
 msgstr ""
 
 #: builtin/checkout-index.c
@@ -11652,6 +11987,11 @@ msgstr ""
 
 #: builtin/checkout.c
 msgid ""
+"If you want to detach HEAD at the commit, try again with the --detach option."
+msgstr ""
+
+#: builtin/checkout.c
+msgid ""
 "cannot switch branch while merging\n"
 "Consider \"git merge --quit\" or \"git worktree add\"."
 msgstr ""
@@ -11726,10 +12066,6 @@ msgstr ""
 
 #: builtin/checkout.c builtin/worktree.c
 msgid "detach HEAD at named commit"
-msgstr ""
-
-#: builtin/checkout.c
-msgid "set up tracking mode (see git-pull(1))"
 msgstr ""
 
 #: builtin/checkout.c
@@ -12172,6 +12508,10 @@ msgid "use IPv6 addresses only"
 msgstr ""
 
 #: builtin/clone.c
+msgid "apply partial clone filters to submodules"
+msgstr ""
+
+#: builtin/clone.c
 msgid "any cloned submodules will use their remote-tracking branch"
 msgstr ""
 
@@ -12346,6 +12686,10 @@ msgstr ""
 
 #: builtin/clone.c
 msgid "--local is ignored"
+msgstr ""
+
+#: builtin/clone.c
+msgid "cannot clone from filtered bundle"
 msgstr ""
 
 #: builtin/clone.c
@@ -12812,10 +13156,6 @@ msgid "reword option of '%s' and '%s' cannot be used together"
 msgstr ""
 
 #: builtin/commit.c
-msgid "Using both --reset-author and --author does not make sense"
-msgstr ""
-
-#: builtin/commit.c
 msgid "You have nothing to amend."
 msgstr ""
 
@@ -12832,23 +13172,7 @@ msgid "You are in the middle of a rebase -- cannot amend."
 msgstr ""
 
 #: builtin/commit.c
-msgid "Options --squash and --fixup cannot be used together"
-msgstr ""
-
-#: builtin/commit.c
-msgid "Only one of -c/-C/-F/--fixup can be used."
-msgstr ""
-
-#: builtin/commit.c
-msgid "Option -m cannot be combined with -c/-C/-F."
-msgstr ""
-
-#: builtin/commit.c
 msgid "--reset-author can be used only with -C, -c or --amend."
-msgstr ""
-
-#: builtin/commit.c
-msgid "Only one of --include/--only/--all/--interactive/--patch can be used."
 msgstr ""
 
 #: builtin/commit.c
@@ -13219,6 +13543,10 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+#: builtin/config.c builtin/env--helper.c builtin/hash-object.c
+msgid "type"
+msgstr ""
+
 #: builtin/config.c builtin/env--helper.c
 msgid "value is given this type"
 msgstr ""
@@ -13415,10 +13743,6 @@ msgstr ""
 #: builtin/config.c
 #, c-format
 msgid "no such section: %s"
-msgstr ""
-
-#: builtin/count-objects.c
-msgid "git count-objects [-v] [-H | --human-readable]"
 msgstr ""
 
 #: builtin/count-objects.c
@@ -13751,10 +14075,6 @@ msgstr ""
 msgid "git env--helper --type=[bool|ulong] <options> <env-var>"
 msgstr ""
 
-#: builtin/env--helper.c builtin/hash-object.c
-msgid "type"
-msgstr ""
-
 #: builtin/env--helper.c
 msgid "default for git_env_*(...) to fall back on"
 msgstr ""
@@ -13776,7 +14096,7 @@ msgid ""
 msgstr ""
 
 #: builtin/fast-export.c
-msgid "git fast-export [rev-list-opts]"
+msgid "git fast-export [<rev-list-opts>]"
 msgstr ""
 
 #: builtin/fast-export.c
@@ -14002,6 +14322,10 @@ msgid "convert to a complete repository"
 msgstr ""
 
 #: builtin/fetch.c
+msgid "re-fetch without negotiating common commits"
+msgstr ""
+
+#: builtin/fetch.c
 msgid "prepend this to submodule path output"
 msgstr ""
 
@@ -14049,11 +14373,6 @@ msgstr ""
 
 #: builtin/fetch.c
 msgid "couldn't find remote ref HEAD"
-msgstr ""
-
-#: builtin/fetch.c
-#, c-format
-msgid "configuration fetch.output contains invalid value %s"
 msgstr ""
 
 #: builtin/fetch.c
@@ -14240,7 +14559,7 @@ msgid "you need to specify a tag name"
 msgstr ""
 
 #: builtin/fetch.c
-msgid "--negotiate-only needs one or more --negotiate-tip=*"
+msgid "--negotiate-only needs one or more --negotiation-tip=*"
 msgstr ""
 
 #: builtin/fetch.c
@@ -14644,6 +14963,118 @@ msgstr ""
 #: builtin/fsck.c
 #, c-format
 msgid "invalid parameter: expected sha1, got '%s'"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon start [<options>]"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon run [<options>]"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon stop"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon status"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "value of '%s' out of range: %d"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "value of '%s' not bool or int: %d"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor-daemon is watching '%s'\n"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor-daemon is not watching '%s'\n"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "could not create fsmonitor cookie '%s'"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor: cookie_result '%d' != SEEN"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "could not start IPC thread pool on '%s'"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "could not start fsmonitor listener thread"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "could not initialize listener thread"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor--daemon is already running '%s'"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "running fsmonitor-daemon in '%s'\n"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "starting fsmonitor-daemon in '%s'\n"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon failed to start"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon not online yet"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon terminated"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "detach from console"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "use <n> ipc worker threads"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "max seconds to wait for background daemon startup"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "invalid 'ipc-threads' value (%d)"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "Unhandled subcommand '%s'"
+msgstr ""
+
+#: builtin/fsmonitor--daemon.c
+msgid "fsmonitor--daemon not supported on this platform"
 msgstr ""
 
 #: builtin/gc.c
@@ -15186,14 +15617,6 @@ msgid "--open-files-in-pager only works on the worktree"
 msgstr ""
 
 #: builtin/grep.c
-msgid "--cached or --untracked cannot be used with --no-index"
-msgstr ""
-
-#: builtin/grep.c
-msgid "--untracked cannot be used with --cached"
-msgstr ""
-
-#: builtin/grep.c
 msgid "--[no-]exclude-standard cannot be used for tracked contents"
 msgstr ""
 
@@ -15205,10 +15628,6 @@ msgstr ""
 msgid ""
 "git hash-object [-t <type>] [-w] [--path=<file> | --no-filters] [--stdin] "
 "[--] <file>..."
-msgstr ""
-
-#: builtin/hash-object.c
-msgid "git hash-object  --stdin-paths"
 msgstr ""
 
 #: builtin/hash-object.c
@@ -15241,6 +15660,14 @@ msgid "print all available commands"
 msgstr ""
 
 #: builtin/help.c
+msgid "show external commands in --all"
+msgstr ""
+
+#: builtin/help.c
+msgid "show aliases in --all"
+msgstr ""
+
+#: builtin/help.c
 msgid "exclude guides"
 msgstr ""
 
@@ -15269,17 +15696,7 @@ msgid "print all configuration variable names"
 msgstr ""
 
 #: builtin/help.c
-msgid ""
-"git help [-a|--all] [--[no-]verbose]]\n"
-"         [[-i|--info] [-m|--man] [-w|--web]] [<command>]"
-msgstr ""
-
-#: builtin/help.c
-msgid "git help [-g|--guides]"
-msgstr ""
-
-#: builtin/help.c
-msgid "git help [-c|--config]"
+msgid "git help [[-i|--info] [-m|--man] [-w|--web]] [<command>]"
 msgstr ""
 
 #: builtin/help.c
@@ -15343,7 +15760,13 @@ msgid "bad alias.%s string: %s"
 msgstr ""
 
 #: builtin/help.c
-msgid "this option doesn't take any other arguments"
+#, c-format
+msgid "the '%s' option doesn't take any non-option arguments"
+msgstr ""
+
+#: builtin/help.c
+msgid ""
+"the '--no-[external-commands|aliases]' options can only be used with '--all'"
 msgstr ""
 
 #: builtin/help.c
@@ -15353,6 +15776,14 @@ msgstr ""
 
 #: builtin/help.c
 msgid "'git help config' for more information"
+msgstr ""
+
+#: builtin/hook.c
+msgid "git hook run [--ignore-missing] <hook-name> [-- <hook-args>]"
+msgstr ""
+
+#: builtin/hook.c
+msgid "silently ignore missing requested <hook-name>"
 msgstr ""
 
 #: builtin/index-pack.c
@@ -15393,8 +15824,9 @@ msgstr ""
 msgid "pack too large for current definition of off_t"
 msgstr ""
 
-#: builtin/index-pack.c builtin/unpack-objects.c
-msgid "pack exceeds maximum allowed size"
+#: builtin/index-pack.c
+#, c-format
+msgid "pack exceeds maximum allowed size (%s)"
 msgstr ""
 
 #: builtin/index-pack.c
@@ -15875,6 +16307,10 @@ msgid "Final output: %d %s\n"
 msgstr ""
 
 #: builtin/log.c
+msgid "unable to create temporary object directory"
+msgstr ""
+
+#: builtin/log.c
 #, c-format
 msgid "git show %s: bad file"
 msgstr ""
@@ -16176,6 +16612,10 @@ msgid "--check does not make sense"
 msgstr ""
 
 #: builtin/log.c
+msgid "--remerge-diff does not make sense"
+msgstr ""
+
+#: builtin/log.c
 msgid "--interdiff requires --cover-letter or single patch"
 msgstr ""
 
@@ -16313,10 +16753,6 @@ msgid "make the output relative to the project top directory"
 msgstr ""
 
 #: builtin/ls-files.c
-msgid "recurse through submodules"
-msgstr ""
-
-#: builtin/ls-files.c
 msgid "if any <file> is not in the index, treat this as an error"
 msgstr ""
 
@@ -16388,6 +16824,26 @@ msgid "git ls-tree [<options>] <tree-ish> [<path>...]"
 msgstr ""
 
 #: builtin/ls-tree.c
+#, c-format
+msgid "could not get object info about '%s'"
+msgstr ""
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: element '%s' does not start with '('"
+msgstr ""
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: element '%s' does not end in ')'"
+msgstr ""
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: %%%.*s"
+msgstr ""
+
+#: builtin/ls-tree.c
 msgid "only show trees"
 msgstr ""
 
@@ -16412,11 +16868,19 @@ msgid "list only filenames"
 msgstr ""
 
 #: builtin/ls-tree.c
+msgid "list only objects"
+msgstr ""
+
+#: builtin/ls-tree.c
 msgid "use full path names"
 msgstr ""
 
 #: builtin/ls-tree.c
 msgid "list entire tree; not just current directory (implies --full-name)"
+msgstr ""
+
+#: builtin/ls-tree.c
+msgid "--format can't be combined with other format-altering options"
 msgstr ""
 
 #. TRANSLATORS: keep <> in "<" mail ">" info.
@@ -16466,6 +16930,10 @@ msgstr ""
 
 #: builtin/mailinfo.c
 msgid "use headers in message's body"
+msgstr ""
+
+#: builtin/mailsplit.c
+msgid "reading patches from stdin/tty..."
 msgstr ""
 
 #: builtin/mailsplit.c
@@ -16934,10 +17402,6 @@ msgid "Automatic merge went well; stopped before committing as requested\n"
 msgstr ""
 
 #: builtin/mktag.c
-msgid "git mktag"
-msgstr ""
-
-#: builtin/mktag.c
 #, c-format
 msgid "warning: tag input does not pass fsck: %s"
 msgstr ""
@@ -16972,10 +17436,6 @@ msgstr ""
 
 #: builtin/mktag.c builtin/tag.c
 msgid "unable to write tag file"
-msgstr ""
-
-#: builtin/mktree.c
-msgid "git mktree [-z] [--missing] [--batch]"
 msgstr ""
 
 #: builtin/mktree.c
@@ -17143,7 +17603,7 @@ msgid "git name-rev [<options>] --all"
 msgstr ""
 
 #: builtin/name-rev.c
-msgid "git name-rev [<options>] --stdin"
+msgid "git name-rev [<options>] --annotate-stdin"
 msgstr ""
 
 #: builtin/name-rev.c
@@ -17167,7 +17627,11 @@ msgid "list all commits reachable from all refs"
 msgstr ""
 
 #: builtin/name-rev.c
-msgid "read from stdin"
+msgid "deprecated: use annotate-stdin instead"
+msgstr ""
+
+#: builtin/name-rev.c
+msgid "annotate text from stdin"
 msgstr ""
 
 #: builtin/name-rev.c
@@ -17209,14 +17673,6 @@ msgstr ""
 #: builtin/notes.c
 msgid ""
 "git notes [--ref <notes-ref>] merge [-v | -q] [-s <strategy>] <notes-ref>"
-msgstr ""
-
-#: builtin/notes.c
-msgid "git notes merge --commit [-v | -q]"
-msgstr ""
-
-#: builtin/notes.c
-msgid "git notes merge --abort [-v | -q]"
 msgstr ""
 
 #: builtin/notes.c
@@ -17277,10 +17733,6 @@ msgstr ""
 
 #: builtin/notes.c
 msgid "git notes prune [<options>]"
-msgstr ""
-
-#: builtin/notes.c
-msgid "git notes get-ref"
 msgstr ""
 
 #: builtin/notes.c
@@ -17350,10 +17802,6 @@ msgstr ""
 #: builtin/notes.c
 #, c-format
 msgid "refusing to %s notes in %s (outside of refs/notes/)"
-msgstr ""
-
-#: builtin/notes.c builtin/prune-packed.c builtin/receive-pack.c builtin/tag.c
-msgid "too many arguments"
 msgstr ""
 
 #: builtin/notes.c
@@ -17727,10 +18175,6 @@ msgid ""
 msgstr ""
 
 #: builtin/pack-objects.c
-msgid "invalid value for --missing"
-msgstr ""
-
-#: builtin/pack-objects.c
 msgid "cannot open pack index"
 msgstr ""
 
@@ -17989,10 +18433,6 @@ msgstr ""
 msgid "prune loose refs (default)"
 msgstr ""
 
-#: builtin/prune-packed.c
-msgid "git prune-packed [-n | --dry-run] [-q | --quiet]"
-msgstr ""
-
 #: builtin/prune.c
 msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
 msgstr ""
@@ -18011,11 +18451,6 @@ msgstr ""
 
 #: builtin/prune.c
 msgid "cannot prune in a precious-objects repo"
-msgstr ""
-
-#: builtin/pull.c
-#, c-format
-msgid "Invalid value for %s: %s"
 msgstr ""
 
 #: builtin/pull.c
@@ -18056,11 +18491,6 @@ msgstr ""
 
 #: builtin/pull.c
 msgid "number of submodules pulled in parallel"
-msgstr ""
-
-#: builtin/pull.c
-#, c-format
-msgid "Invalid value for pull.ff: %s"
 msgstr ""
 
 #: builtin/pull.c
@@ -18571,10 +19001,6 @@ msgid ""
 msgstr ""
 
 #: builtin/rebase.c
-msgid "git rebase --continue | --abort | --skip | --edit-todo"
-msgstr ""
-
-#: builtin/rebase.c
 #, c-format
 msgid "could not create temporary %s"
 msgstr ""
@@ -18630,6 +19056,11 @@ msgid ""
 "    %s\n"
 "\n"
 "As a result, git cannot rebase them."
+msgstr ""
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not switch to %s"
 msgstr ""
 
 #: builtin/rebase.c
@@ -18928,11 +19359,6 @@ msgid "Please commit or stash them."
 msgstr ""
 
 #: builtin/rebase.c
-#, c-format
-msgid "could not switch to %s"
-msgstr ""
-
-#: builtin/rebase.c
 msgid "HEAD is up to date."
 msgstr ""
 
@@ -19020,16 +19446,21 @@ msgid "you must specify a directory"
 msgstr ""
 
 #: builtin/reflog.c
-msgid ""
-"git reflog expire [--expire=<time>] [--expire-unreachable=<time>] [--"
-"rewrite] [--updateref] [--stale-fix] [--dry-run | -n] [--verbose] [--all] "
-"<refs>..."
+msgid "git reflog [show] [<log-options>] [<ref>]"
 msgstr ""
 
 #: builtin/reflog.c
 msgid ""
-"git reflog delete [--rewrite] [--updateref] [--dry-run | -n] [--verbose] "
-"<refs>..."
+"git reflog expire [--expire=<time>] [--expire-unreachable=<time>]\n"
+"                  [--rewrite] [--updateref] [--stale-fix]\n"
+"                  [--dry-run | -n] [--verbose] [--all [--single-worktree] | "
+"<refs>...]"
+msgstr ""
+
+#: builtin/reflog.c
+msgid ""
+"git reflog delete [--rewrite] [--updateref]\n"
+"                  [--dry-run | -n] [--verbose] <ref>@{<specifier>}..."
 msgstr ""
 
 #: builtin/reflog.c
@@ -19038,7 +19469,50 @@ msgstr ""
 
 #: builtin/reflog.c
 #, c-format
-msgid "'%s' is not a valid timestamp"
+msgid "invalid timestamp '%s' given to '--%s'"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "do not actually prune any entries"
+msgstr ""
+
+#: builtin/reflog.c
+msgid ""
+"rewrite the old SHA1 with the new SHA1 of the entry that now precedes it"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "update the reference to the value of the top reflog entry"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "print extra information on screen"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "timestamp"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "prune entries older than the specified time"
+msgstr ""
+
+#: builtin/reflog.c
+msgid ""
+"prune entries older than <time> that are not reachable from the current tip "
+"of the branch"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "prune any reflog entries that point to broken commits"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "process the reflogs of all references"
+msgstr ""
+
+#: builtin/reflog.c
+msgid "limits processing to reflogs from the current worktree only"
 msgstr ""
 
 #: builtin/reflog.c
@@ -19057,25 +19531,7 @@ msgstr ""
 
 #: builtin/reflog.c
 #, c-format
-msgid "not a reflog: %s"
-msgstr ""
-
-#: builtin/reflog.c
-#, c-format
-msgid "no reflog for '%s'"
-msgstr ""
-
-#: builtin/reflog.c
-#, c-format
 msgid "invalid ref format: %s"
-msgstr ""
-
-#: builtin/reflog.c
-msgid "git reflog [ show | expire | delete | exists ]"
-msgstr ""
-
-#: builtin/remote.c
-msgid "git remote [-v | --verbose]"
 msgstr ""
 
 #: builtin/remote.c
@@ -19085,7 +19541,7 @@ msgid ""
 msgstr ""
 
 #: builtin/remote.c
-msgid "git remote rename <old> <new>"
+msgid "git remote rename [--[no-]progress] <old> <new>"
 msgstr ""
 
 #: builtin/remote.c
@@ -19263,6 +19719,10 @@ msgid ""
 "Not updating non-default fetch refspec\n"
 "\t%s\n"
 "\tPlease update the configuration manually if necessary."
+msgstr ""
+
+#: builtin/remote.c
+msgid "Renaming remote references"
 msgstr ""
 
 #: builtin/remote.c
@@ -19746,10 +20206,6 @@ msgid "git replace [-f] --graft <commit> [<parent>...]"
 msgstr ""
 
 #: builtin/replace.c
-msgid "git replace [-f] --convert-graft-file"
-msgstr ""
-
-#: builtin/replace.c
 msgid "git replace -d <object>..."
 msgstr ""
 
@@ -20049,6 +20505,10 @@ msgid "be quiet, only report errors"
 msgstr ""
 
 #: builtin/reset.c
+msgid "skip refreshing the index after reset"
+msgstr ""
+
+#: builtin/reset.c
 msgid "reset HEAD and index"
 msgstr ""
 
@@ -20099,10 +20559,8 @@ msgstr ""
 #: builtin/reset.c
 #, c-format
 msgid ""
-"\n"
-"It took %.2f seconds to enumerate unstaged changes after reset.  You can\n"
-"use '--quiet' to avoid this.  Set the config setting reset.quiet to true\n"
-"to make this the default.\n"
+"It took %.2f seconds to refresh the index after reset.  You can use\n"
+"'--no-refresh' to avoid this."
 msgstr ""
 
 #: builtin/reset.c
@@ -20112,10 +20570,6 @@ msgstr ""
 
 #: builtin/reset.c
 msgid "Could not write new index file."
-msgstr ""
-
-#: builtin/rev-list.c
-msgid "object filtering requires --objects"
 msgstr ""
 
 #: builtin/rev-list.c
@@ -20635,10 +21089,6 @@ msgid "git sparse-checkout (init|list|set|add|reapply|disable) <options>"
 msgstr ""
 
 #: builtin/sparse-checkout.c
-msgid "git sparse-checkout list"
-msgstr ""
-
-#: builtin/sparse-checkout.c
 msgid "this worktree is not sparse"
 msgstr ""
 
@@ -20663,19 +21113,11 @@ msgid "failed to create directory for sparse-checkout file"
 msgstr ""
 
 #: builtin/sparse-checkout.c
-msgid "unable to upgrade repository format to enable worktreeConfig"
-msgstr ""
-
-#: builtin/sparse-checkout.c
-msgid "failed to set extensions.worktreeConfig setting"
+msgid "failed to initialize worktree config"
 msgstr ""
 
 #: builtin/sparse-checkout.c
 msgid "failed to modify sparse-index config"
-msgstr ""
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout init [--cone] [--[no-]sparse-index]"
 msgstr ""
 
 #: builtin/sparse-checkout.c
@@ -20710,7 +21152,46 @@ msgid "existing sparse-checkout patterns do not use cone mode"
 msgstr ""
 
 #: builtin/sparse-checkout.c
-msgid "git sparse-checkout add (--stdin | <patterns>)"
+msgid "please run from the toplevel directory in non-cone mode"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid "specify directories rather than patterns (no leading slash)"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid ""
+"specify directories rather than patterns.  If your directory starts with a "
+"'!', pass --skip-checks"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid ""
+"specify directories rather than patterns.  If your directory really has any "
+"of '*?[]\\' in it, pass --skip-checks"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+#, c-format
+msgid ""
+"'%s' is not a directory; to treat it as a directory anyway, rerun with --"
+"skip-checks"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+#, c-format
+msgid ""
+"pass a leading slash before paths such as '%s' if you want a single file "
+"(see NON-CONE PROBLEMS in the git-sparse-checkout manual)."
+msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid "git sparse-checkout add [--skip-checks] (--stdin | <patterns>)"
+msgstr ""
+
+#: builtin/sparse-checkout.c
+msgid ""
+"skip some sanity checks on the given paths that might give false positives"
 msgstr ""
 
 #: builtin/sparse-checkout.c
@@ -20723,20 +21204,12 @@ msgstr ""
 
 #: builtin/sparse-checkout.c
 msgid ""
-"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] (--stdin | "
-"<patterns>)"
-msgstr ""
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout reapply [--[no-]cone] [--[no-]sparse-index]"
+"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] [--skip-checks] "
+"(--stdin | <patterns>)"
 msgstr ""
 
 #: builtin/sparse-checkout.c
 msgid "must be in a sparse-checkout to reapply sparsity patterns"
-msgstr ""
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout disable"
 msgstr ""
 
 #: builtin/sparse-checkout.c
@@ -21010,20 +21483,6 @@ msgstr ""
 msgid "include ignore files"
 msgstr ""
 
-#: builtin/stash.c
-msgid ""
-"the stash.useBuiltin support has been removed!\n"
-"See its entry in 'git help config' for details."
-msgstr ""
-
-#: builtin/stripspace.c
-msgid "git stripspace [-s | --strip-comments]"
-msgstr ""
-
-#: builtin/stripspace.c
-msgid "git stripspace [-c | --comment-lines]"
-msgstr ""
-
 #: builtin/stripspace.c
 msgid "skip and remove all lines starting with comment character"
 msgstr ""
@@ -21035,10 +21494,6 @@ msgstr ""
 #: builtin/submodule--helper.c
 #, c-format
 msgid "Expecting a full ref name, got %s"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "submodule--helper print-default-remote takes no arguments"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21357,8 +21812,8 @@ msgstr ""
 #: builtin/submodule--helper.c
 msgid ""
 "git submodule--helper clone [--prefix=<path>] [--quiet] [--reference "
-"<repository>] [--name <name>] [--depth <depth>] [--single-branch] --url "
-"<url> --path <path>"
+"<repository>] [--name <name>] [--depth <depth>] [--single-branch] [--filter "
+"<filter-spec>]--url <url> --path <path>"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21453,6 +21908,58 @@ msgid ""
 msgstr ""
 
 #: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"Submodule (%s) branch configured to inherit branch from superproject, but "
+"the superproject is not on any branch"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not get a repository handle for submodule '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to find current revision in submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to fetch in submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to find %s revision in submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Failed to recurse into submodule path '%s'"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "force checkout updates"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "initialize uninitialized submodules before update"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "use SHA-1 of submodule's remote tracking branch"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "traverse submodules recursively"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "don't fetch new objects from the remote site"
+msgstr ""
+
+#: builtin/submodule--helper.c
 msgid "path into the working tree"
 msgstr ""
 
@@ -21481,63 +21988,15 @@ msgid "don't print cloning progress"
 msgstr ""
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper update-clone [--prefix=<path>] [<path>...]"
+msgid ""
+"git submodule [--quiet] update [--init [--filter=<filter-spec>]] [--remote] "
+"[-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--[no-]recommend-"
+"shallow] [--reference <repository>] [--recursive] [--[no-]single-branch] "
+"[--] [<path>...]"
 msgstr ""
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "suppress output for update by rebase or merge"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "force checkout updates"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "don't fetch new objects from the remote site"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "overrides update mode in case the repository is a fresh clone"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "depth for shallow fetch"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "sha1"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "SHA1 expected by superproject"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "subsha1"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "SHA1 of submodule's HEAD"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "git submodule--helper run-update-procedure [<options>] <path>"
-msgstr ""
-
-#: builtin/submodule--helper.c
-#, c-format
-msgid ""
-"Submodule (%s) branch configured to inherit branch from superproject, but "
-"the superproject is not on any branch"
-msgstr ""
-
-#: builtin/submodule--helper.c
-#, c-format
-msgid "could not get a repository handle for submodule '%s'"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21562,10 +22021,6 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 msgid "git submodule--helper config --unset <name>"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "git submodule--helper config --check-writeable"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21599,6 +22054,29 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 msgid "--branch or --default required"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "print only error messages"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "force creation"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid "show whether the branch would be created"
+msgstr ""
+
+#: builtin/submodule--helper.c
+msgid ""
+"git submodule--helper create-branch [-f|--force] [--create-reflog] [-q|--"
+"quiet] [-t|--track] [-n|--dry-run] <name> <start_oid> <start_name>"
+msgstr ""
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "creating branch '%s'"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21663,10 +22141,6 @@ msgstr ""
 
 #: builtin/submodule--helper.c
 msgid "allow adding an otherwise ignored submodule path"
-msgstr ""
-
-#: builtin/submodule--helper.c
-msgid "print only error messages"
 msgstr ""
 
 #: builtin/submodule--helper.c
@@ -21906,6 +22380,10 @@ msgstr ""
 #: builtin/tag.c
 #, c-format
 msgid "Updated tag '%s' (was %s)\n"
+msgstr ""
+
+#: builtin/unpack-objects.c
+msgid "pack exceeds maximum allowed size"
 msgstr ""
 
 #: builtin/unpack-objects.c
@@ -22179,10 +22657,6 @@ msgid "read updates from stdin"
 msgstr ""
 
 #: builtin/update-server-info.c
-msgid "git update-server-info [--force]"
-msgstr ""
-
-#: builtin/update-server-info.c
 msgid "update the info files from scratch"
 msgstr ""
 
@@ -22263,6 +22737,10 @@ msgid "git worktree remove [<options>] <worktree>"
 msgstr ""
 
 #: builtin/worktree.c
+msgid "git worktree repair [<path>...]"
+msgstr ""
+
+#: builtin/worktree.c
 msgid "git worktree unlock <path>"
 msgstr ""
 
@@ -22301,6 +22779,21 @@ msgstr ""
 msgid ""
 "'%s' is a missing but already registered worktree;\n"
 "use '%s -f' to override, or 'prune' or 'remove' to clear"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to copy '%s' to '%s'; sparse-checkout may not work correctly"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to copy worktree config from '%s' to '%s'"
+msgstr ""
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to unset '%s' in '%s'"
 msgstr ""
 
 #: builtin/worktree.c
@@ -22378,6 +22871,10 @@ msgstr ""
 
 #: builtin/worktree.c
 msgid "add 'prunable' annotation to worktrees older than <time>"
+msgstr ""
+
+#: builtin/worktree.c
+msgid "terminate records with a NUL character"
 msgstr ""
 
 #: builtin/worktree.c
@@ -23056,8 +23553,21 @@ msgid "scalar verbose [-v | --verbose] [--build-options]"
 msgstr ""
 
 #: contrib/scalar/scalar.c
+msgid "-C requires a <directory>"
+msgstr ""
+
+#: contrib/scalar/scalar.c
+#, c-format
+msgid "could not change to '%s'"
+msgstr ""
+
+#: contrib/scalar/scalar.c
+msgid "-c requires a <key>=<value> argument"
+msgstr ""
+
+#: contrib/scalar/scalar.c
 msgid ""
-"scalar <command> [<options>]\n"
+"scalar [-C <directory>] [-c <key>=<value>] <command> [<options>]\n"
 "\n"
 "Commands:\n"
 msgstr ""
@@ -23356,6 +23866,10 @@ msgid "Display help information about Git"
 msgstr ""
 
 #: command-list.h
+msgid "Run git hooks"
+msgstr ""
+
+#: command-list.h
 msgid "Server side implementation of Git over HTTP"
 msgstr ""
 
@@ -23612,7 +24126,7 @@ msgid "List references in a local repository"
 msgstr ""
 
 #: command-list.h
-msgid "Initialize and modify the sparse-checkout"
+msgid "Reduce your working tree to a subset of tracked files"
 msgstr ""
 
 #: command-list.h
@@ -23835,28 +24349,6 @@ msgstr ""
 
 #: git-merge-octopus.sh
 msgid "Simple merge did not work, trying automatic merge."
-msgstr ""
-
-#: git-submodule.sh
-#, sh-format
-msgid "Unable to find current revision in submodule path '$displaypath'"
-msgstr ""
-
-#: git-submodule.sh
-#, sh-format
-msgid "Unable to fetch in submodule path '$sm_path'"
-msgstr ""
-
-#: git-submodule.sh
-#, sh-format
-msgid ""
-"Unable to find current ${remote_name}/${branch} revision in submodule path "
-"'$sm_path'"
-msgstr ""
-
-#: git-submodule.sh
-#, sh-format
-msgid "Failed to recurse into submodule path '$displaypath'"
 msgstr ""
 
 #: git-sh-setup.sh
@@ -24468,10 +24960,7 @@ msgstr ""
 
 #: git-send-email.perl
 #, perl-format
-msgid ""
-"fatal: %s: rejected by sendemail-validate hook\n"
-"%s\n"
-"warning: no patches were sent\n"
+msgid "fatal: %s: rejected by %s hook\n"
 msgstr ""
 
 #: git-send-email.perl
