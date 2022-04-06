@@ -90,8 +90,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Git Turkish Localization Project\n"
 "Report-Msgid-Bugs-To: Git Mailing List <git@vger.kernel.org>\n"
-"POT-Creation-Date: 2022-01-17 08:34+0800\n"
-"PO-Revision-Date: 2022-01-11 18:00+0300\n"
+"POT-Creation-Date: 2022-04-06 14:40+0800\n"
+"PO-Revision-Date: 2022-04-06 16:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish (https://github.com/bitigchi/git-po/)\n"
 "Language: tr\n"
@@ -954,10 +954,11 @@ msgstr "tanımlanamayan boşluk seçeneği '%s'"
 msgid "unrecognized whitespace ignore option '%s'"
 msgstr "tanımlanamayan boşluk yok sayma seçeneği '%s'"
 
-#: apply.c archive.c range-diff.c revision.c builtin/add.c builtin/branch.c
-#: builtin/checkout.c builtin/clone.c builtin/commit.c builtin/describe.c
-#: builtin/diff-tree.c builtin/difftool.c builtin/fast-export.c builtin/fetch.c
-#: builtin/index-pack.c builtin/init-db.c builtin/log.c builtin/ls-files.c
+#: apply.c archive.c parse-options.c range-diff.c revision.c builtin/add.c
+#: builtin/branch.c builtin/checkout.c builtin/clone.c builtin/commit.c
+#: builtin/describe.c builtin/diff-tree.c builtin/difftool.c
+#: builtin/fast-export.c builtin/fetch.c builtin/help.c builtin/index-pack.c
+#: builtin/init-db.c builtin/log.c builtin/ls-files.c builtin/merge-base.c
 #: builtin/merge.c builtin/pack-objects.c builtin/push.c builtin/rebase.c
 #: builtin/repack.c builtin/reset.c builtin/rev-list.c builtin/show-branch.c
 #: builtin/stash.c builtin/submodule--helper.c builtin/tag.c builtin/worktree.c
@@ -1605,10 +1606,6 @@ msgid "git archive [<options>] <tree-ish> [<path>...]"
 msgstr "git archive [<seçenekler>] <ağacımsı> [<yol>...]"
 
 #: archive.c
-msgid "git archive --list"
-msgstr "git archive --list"
-
-#: archive.c
 msgid ""
 "git archive --remote <repo> [--exec <cmd>] [<options>] <tree-ish> [<path>...]"
 msgstr ""
@@ -1724,8 +1721,9 @@ msgid "Unexpected option --remote"
 msgstr "Beklenmedik seçenek --remote"
 
 #: archive.c fetch-pack.c revision.c builtin/add.c builtin/checkout.c
-#: builtin/commit.c builtin/fast-export.c builtin/index-pack.c builtin/log.c
-#: builtin/reset.c builtin/rm.c builtin/stash.c builtin/worktree.c http-fetch.c
+#: builtin/clone.c builtin/commit.c builtin/fast-export.c builtin/index-pack.c
+#: builtin/log.c builtin/reset.c builtin/rm.c builtin/stash.c
+#: builtin/worktree.c http-fetch.c
 #, c-format
 msgid "the option '%s' requires '%s'"
 msgstr "'%s' seçeneği '%s' gerektiriyor"
@@ -1976,8 +1974,46 @@ msgstr ""
 
 #: branch.c
 #, c-format
-msgid "not tracking: ambiguous information for ref %s"
-msgstr "izlenmiyor: %s başvurusu için belirsiz bilgi"
+msgid "not tracking: ambiguous information for ref '%s'"
+msgstr "izlenmiyor: '%s' başvurusu için belirsiz bilgi"
+
+#. TRANSLATORS: This is a line listing a remote with duplicate
+#. refspecs in the advice message below. For RTL languages you'll
+#. probably want to swap the "%s" and leading "  " space around.
+#.
+#. TRANSLATORS: This is line item of ambiguous object output
+#. from describe_ambiguous_object() above. For RTL languages
+#. you'll probably want to swap the "%s" and leading " " space
+#. around.
+#.
+#: branch.c object-name.c
+#, c-format
+msgid "  %s\n"
+msgstr "  %s\n"
+
+#. TRANSLATORS: The second argument is a \n-delimited list of
+#. duplicate refspecs, composed above.
+#.
+#: branch.c
+#, c-format
+msgid ""
+"There are multiple remotes whose fetch refspecs map to the remote\n"
+"tracking ref '%s':\n"
+"%s\n"
+"This is typically a configuration error.\n"
+"\n"
+"To support setting up tracking branches, ensure that\n"
+"different remotes' fetch refspecs map into different\n"
+"tracking namespaces."
+msgstr ""
+"Getirme başvuru belirteçleri, '%s' uzak izleyen başvurusuna\n"
+"eşlemlenen birden çok uzak konum var:\n"
+"%s\n"
+"Bu, genelde bir yapılandırma hatasıdır.\n"
+"\n"
+"İzleyen dalları ayarlamayı desteklemek için, farklı uzak\n"
+"konumların getirme belirteçlerinin değişik izleme ad alanlarına\n"
+"eşlemlendiğinden emin olun."
 
 #: branch.c
 #, c-format
@@ -2041,6 +2077,25 @@ msgstr "geçerli bir dal noktası değil: '%s'"
 
 #: branch.c
 #, c-format
+msgid "submodule '%s': unable to find submodule"
+msgstr "'%s' altmodülü: altmodül bulunamıyor"
+
+#: branch.c
+#, c-format
+msgid ""
+"You may try updating the submodules using 'git checkout %s && git submodule "
+"update --init'"
+msgstr ""
+"Altmodülleri güncellemeyi 'git checkout %s && git submodule update --init' "
+"kullanarak deneyebilirsiniz."
+
+#: branch.c
+#, c-format
+msgid "submodule '%s': cannot create branch '%s'"
+msgstr "'%s' altmodülü: '%s' dalı oluşturulamıyor"
+
+#: branch.c
+#, c-format
 msgid "'%s' is already checked out at '%s'"
 msgstr "'%s' çıkışı '%s' konumunda halihazırda yapılmış"
 
@@ -2085,9 +2140,9 @@ msgstr "bir demeti doğrulamak için bir depo gerekiyor"
 #: bundle.c
 #, c-format
 msgid "The bundle contains this ref:"
-msgid_plural "The bundle contains these %d refs:"
-msgstr[0] "Demet şu başvuruyu içeriyor:"
-msgstr[1] "Demet şu %d başvuruyu içeriyor:"
+msgid_plural "The bundle contains these %<PRIuMAX> refs:"
+msgstr[0] "Demet bu başvuruyu içeriyor:"
+msgstr[1] "Demet bu %<PRIuMAX> başvuruyu içeriyor:"
 
 #: bundle.c
 msgid "The bundle records a complete history."
@@ -2096,9 +2151,9 @@ msgstr "Demet tam bir geçmiş kaydını yazar."
 #: bundle.c
 #, c-format
 msgid "The bundle requires this ref:"
-msgid_plural "The bundle requires these %d refs:"
-msgstr[0] "Demet şu işlemeyi gerektiriyor:"
-msgstr[1] "Demet şu %d işlemeyi gerektiriyor:"
+msgid_plural "The bundle requires these %<PRIuMAX> refs:"
+msgstr[0] "Demet bu başvuruyu gerektiriyor:"
+msgstr[1] "Demet bu %<PRIuMAX> başvuruyu gerektiriyor:"
 
 #: bundle.c
 msgid "unable to dup bundle descriptor"
@@ -2117,6 +2172,11 @@ msgstr "pack-objects sonlandı"
 msgid "ref '%s' is excluded by the rev-list options"
 msgstr "'%s' başvurusu revizyon listesi seçenekleri tarafından dışlandı"
 
+#: bundle.c builtin/log.c builtin/shortlog.c
+#, c-format
+msgid "unrecognized argument: %s"
+msgstr "tanımlanamayan argüman: %s"
+
 #: bundle.c
 #, c-format
 msgid "unsupported bundle version %d"
@@ -2126,11 +2186,6 @@ msgstr "desteklenmeyen demet sürümü %d"
 #, c-format
 msgid "cannot write bundle version %d with algorithm %s"
 msgstr "demet sürümü %d, %s algoritması ile yazılamıyor"
-
-#: bundle.c builtin/log.c builtin/shortlog.c
-#, c-format
-msgid "unrecognized argument: %s"
-msgstr "tanımlanamayan argüman: %s"
 
 #: bundle.c
 msgid "Refusing to create empty bundle."
@@ -2227,7 +2282,7 @@ msgstr "%s işlemesi bulunamadı"
 msgid "commit-graph requires overflow generation data but has none"
 msgstr "commit-graph, taşım oluşturma verisi gerektiriyor; ancak hiç yok"
 
-#: commit-graph.c builtin/am.c
+#: commit-graph.c builtin/am.c builtin/checkout.c builtin/clone.c
 #, c-format
 msgid "unable to parse commit %s"
 msgstr "%s işlemesi ayrıştırılamıyor"
@@ -2268,10 +2323,10 @@ msgstr "Başvurulmuş işlemeler toplanıyor"
 
 #: commit-graph.c
 #, c-format
-msgid "Finding commits for commit graph in %d pack"
-msgid_plural "Finding commits for commit graph in %d packs"
-msgstr[0] "%d pakette işleme grafiği için işlemeler bulunuyor"
-msgstr[1] "%d pakette işleme grafiği için işlemeler bulunuyor"
+msgid "Finding commits for commit graph in %<PRIuMAX> pack"
+msgid_plural "Finding commits for commit graph in %<PRIuMAX> packs"
+msgstr[0] "%<PRIuMAX> pakette işleme grafiği için işlemeler bulunuyor"
+msgstr[1] "%<PRIuMAX> pakette işleme grafiği için işlemeler bulunuyor"
 
 #: commit-graph.c
 #, c-format
@@ -2295,7 +2350,7 @@ msgstr "İşleme grafiğindeki ek sınırlar bulunuyor"
 msgid "failed to write correct number of base graph ids"
 msgstr "temel grafiği numaralarının doğru sayısı yazılamadı"
 
-#: commit-graph.c midx.c
+#: commit-graph.c midx.c builtin/sparse-checkout.c
 #, c-format
 msgid "unable to create leading directories of %s"
 msgstr "%s öncü dizinleri oluşturulamıyor"
@@ -2490,6 +2545,14 @@ msgstr ""
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
+#: compat/terminal.c
+msgid "cannot resume in the background, please use 'fg' to resume"
+msgstr "arka planda sürdürülemiyor, sürdürmek için 'fg' kullanın"
+
+#: compat/terminal.c
+msgid "cannot restore terminal settings"
+msgstr "uçbirim ayarları geri yüklenemiyor"
+
 #: config.c
 #, c-format
 msgid ""
@@ -2517,6 +2580,14 @@ msgstr "göreceli yapılandırma içermeleri dosyalardan gelmeli"
 #: config.c
 msgid "relative config include conditionals must come from files"
 msgstr "göreceli yapılandırma içerme koşulluları dosyalardan gelmeli"
+
+#: config.c
+msgid ""
+"remote URLs cannot be configured in file directly or indirectly included by "
+"includeIf.hasconfig:remote.*.url"
+msgstr ""
+"uzak URL'ler dosya içinde doğrudan veya başka türlü includeIf.hasconfig:"
+"remote.*.url kullanarak yapılandırılamaz"
 
 #: config.c
 #, c-format
@@ -2670,6 +2741,16 @@ msgstr "hatalı sayısal yapılandırma değeri '%s', '%s' için (%s içinde): %
 
 #: config.c
 #, c-format
+msgid "invalid value for variable %s"
+msgstr "%s değişkeni için geçersiz değer"
+
+#: config.c
+#, c-format
+msgid "ignoring unknown core.fsync component '%s'"
+msgstr "bilinmeyen core.fsync bileşeni '%s' yok sayılıyor"
+
+#: config.c
+#, c-format
 msgid "bad boolean config value '%s' for '%s'"
 msgstr "hatalı Boole yapılandırma değeri '%s', '%s' için"
 
@@ -2696,6 +2777,15 @@ msgstr "hatalı zlib sıkıştırma düzeyi %d"
 #: config.c
 msgid "core.commentChar should only be one character"
 msgstr "core.commentChar yalnızca bir karakter olmalı"
+
+#: config.c
+#, c-format
+msgid "ignoring unknown core.fsyncMethod value '%s'"
+msgstr "bilinmeyen core.fsyncMethod değeri '%s' yok sayılıyor"
+
+#: config.c
+msgid "core.fsyncObjectFiles is deprecated; use core.fsync instead"
+msgstr "core.fsyncObjectFiles artık kullanılmıyor; yerine core.fsync kullanın"
 
 #: config.c
 #, c-format
@@ -3166,7 +3256,7 @@ msgstr "şu anahtar için yetki araması atlanıyor: credential.%s"
 
 #: credential.c
 msgid "refusing to work with credential missing host field"
-msgstr "anamakine bilgisi eksik yetki ile çalışma reddediliyor"
+msgstr "ana makine bilgisi eksik yetki ile çalışma reddediliyor"
 
 #: credential.c
 msgid "refusing to work with credential missing protocol field"
@@ -3281,10 +3371,12 @@ msgstr ""
 msgid "Marked %d islands, done.\n"
 msgstr "%d delta adası imlendi, bitti.\n"
 
-#: diff-merges.c
+#: diff-merges.c gpg-interface.c ls-refs.c parallel-checkout.c sequencer.c
+#: setup.c builtin/am.c builtin/blame.c builtin/fetch.c builtin/pack-objects.c
+#: builtin/pull.c
 #, c-format
-msgid "unknown value for --diff-merges: %s"
-msgstr "--diff-merges için bilinmeyen değer: %s"
+msgid "invalid value for '%s': '%s'"
+msgstr "'%s' için geçersiz değer: '%s'"
 
 #: diff-lib.c
 msgid "--merge-base does not work with ranges"
@@ -3372,12 +3464,12 @@ msgstr ""
 msgid "external diff died, stopping at %s"
 msgstr "dış diff sonlandı, %s konumunda durdu"
 
-#: diff.c
+#: diff.c parse-options.c
 #, c-format
 msgid "options '%s', '%s', '%s', and '%s' cannot be used together"
 msgstr "'%s', '%s', '%s' ve '%s' seçenekleri birlikte kullanılamaz"
 
-#: diff.c builtin/difftool.c builtin/log.c builtin/worktree.c
+#: diff.c parse-options.c builtin/worktree.c
 #, c-format
 msgid "options '%s', '%s', and '%s' cannot be used together"
 msgstr "'%s', '%s' ve '%s' seçenekleri birlikte kullanılamaz"
@@ -3927,8 +4019,8 @@ msgid "<file>"
 msgstr "<dosya>"
 
 #: diff.c
-msgid "Output to a specific file"
-msgstr "belirli bir dosyaya çıktı ver"
+msgid "output to a specific file"
+msgstr "belirli bir dosyaya çıktıla"
 
 #: diff.c
 msgid "exhaustive rename detection was skipped due to too many files."
@@ -4118,7 +4210,7 @@ msgstr "geçersiz işleme %s"
 msgid "giving up"
 msgstr "vazgeçiliyor"
 
-#: fetch-pack.c progress.c
+#: fetch-pack.c progress.h
 msgid "done"
 msgstr "bitti"
 
@@ -4247,13 +4339,21 @@ msgstr "beklenmedik alındı satırı: '%s'"
 msgid "error processing acks: %d"
 msgstr "alındılar işlenirken hata: %d"
 
+#. TRANSLATORS: The parameter will be 'ready', a protocol
+#. keyword.
+#.
 #: fetch-pack.c
-msgid "expected packfile to be sent after 'ready'"
-msgstr "paket dosyasının 'ready'den sonra gönderilmesi gerekiyordu"
+#, c-format
+msgid "expected packfile to be sent after '%s'"
+msgstr "paket dosyasının '%s' ögesinden sonra gönderilmesi bekleniyordu"
 
+#. TRANSLATORS: The parameter will be 'ready', a protocol
+#. keyword.
+#.
 #: fetch-pack.c
-msgid "expected no other sections to be sent after no 'ready'"
-msgstr "'ready' \"yok\" iken başka hiçbir bölümün gönderilmemesi gerekiyordu"
+#, c-format
+msgid "expected no other sections to be sent after no '%s'"
+msgstr "'%s' \"yok\" iken başka hiçbir bölümün gönderilmemesi bekleniyordu"
 
 #: fetch-pack.c
 #, c-format
@@ -4300,6 +4400,25 @@ msgstr "böyle bir uzak başvuru yok: %s"
 #, c-format
 msgid "Server does not allow request for unadvertised object %s"
 msgstr "Sunucu %s tanıtılmamış nesnesi için isteğe izin vermiyor"
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "fsmonitor_ipc__send_query: invalid path '%s'"
+msgstr "fsmonitor_ipc__send_query: geçersiz yol '%s'"
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "fsmonitor_ipc__send_query: unspecified error on '%s'"
+msgstr "fsmonitor_ipc__send_query: '%s' üzerinde belirtilmemiş hata"
+
+#: fsmonitor-ipc.c
+msgid "fsmonitor--daemon is not running"
+msgstr "fsmonitor--daemon çalışmıyor"
+
+#: fsmonitor-ipc.c
+#, c-format
+msgid "could not send '%s' command to fsmonitor--daemon"
+msgstr "fsmonitor--daemon'a '%s' komutu gönderilemedi"
 
 #: gpg-interface.c
 msgid "could not create temporary file"
@@ -4495,16 +4614,16 @@ msgid "The Git concept guides are:"
 msgstr "Git konsept kılavuzları şunlardır:"
 
 #: help.c
-msgid "See 'git help <command>' to read about a specific subcommand"
-msgstr "Belirli bir altkomut üzerine okumak için 'git help <komut>' kullanın"
-
-#: help.c
 msgid "External commands"
 msgstr "Dış komutlar"
 
 #: help.c
 msgid "Command aliases"
 msgstr "Komut armaları"
+
+#: help.c
+msgid "See 'git help <command>' to read about a specific subcommand"
+msgstr "Belirli bir altkomut üzerine okumak için 'git help <komut>' kullanın"
 
 #: help.c
 #, c-format
@@ -4590,6 +4709,11 @@ msgid ""
 msgstr ""
 "'%s' kancası yok sayıldı; çünkü bir çalıştırılabilir olarak ayarlanmamış.\n"
 "Bu uyarıyı 'git config advice.ignoredHook false' ile kapatabilirsiniz."
+
+#: hook.c
+#, c-format
+msgid "Couldn't start hook '%s'\n"
+msgstr "'%s' kancası başlatılamadı\n"
 
 #: ident.c
 msgid "Author identity unknown\n"
@@ -4713,8 +4837,8 @@ msgstr "'%s' girdisi (%s ağacında) ağaç kipine iye; ancak bir ağaç değil"
 #, c-format
 msgid "entry '%s' in tree %s has blob mode, but is not a blob"
 msgstr ""
-"'%s' girdisi (%s ağacında) ikili nesne kipine iye; ancak bir ikili geniş "
-"nesne değil"
+"'%s' girdisi (%s ağacında) ikili nesne kipine iye; ancak bir ikili nesne "
+"değil"
 
 #: list-objects.c
 #, c-format
@@ -4744,11 +4868,6 @@ msgstr ""
 #, c-format
 msgid "Unable to create '%s.lock': %s"
 msgstr "'%s.lock' oluşturulamıyor: %s"
-
-#: ls-refs.c
-#, c-format
-msgid "invalid value '%s' for lsrefs.unborn"
-msgstr "lsrefs.unborn için '%s' geçersiz değeri"
 
 #: ls-refs.c
 #, c-format
@@ -4791,7 +4910,7 @@ msgstr "Not: %s altmodülü %s yönüne ileri sarılıyor"
 #: merge-ort.c
 #, c-format
 msgid "Failed to merge submodule %s"
-msgstr "'%s' altmodülünü birleştirilemedi"
+msgstr "'%s' altmodülü birleştirilemedi"
 
 #: merge-ort.c
 #, c-format
@@ -4934,7 +5053,7 @@ msgid ""
 msgstr ""
 "ÇAKIŞMA (yeniden adlandırma çarpışması): %s -> %s yeniden adlandırmasının "
 "içerik çakışmaları var ve başka bir yolla çarpışıyor; bu iç içe geçmiş "
-"çakışmaimleyicilerine neden olabilir."
+"çakışma imleyicilerine neden olabilir."
 
 #: merge-ort.c
 #, c-format
@@ -5459,6 +5578,10 @@ msgid "no pack files to index."
 msgstr "indekslenecek paket dosyası yok."
 
 #: midx.c
+msgid "refusing to write multi-pack .bitmap without any objects"
+msgstr "bir nesne olmadan multi-pack .bitmap yazımı reddediliyor"
+
+#: midx.c
 msgid "could not write multi-pack bitmap"
 msgstr "çoklu paket biteşlem yazılamadı"
 
@@ -5857,14 +5980,85 @@ msgstr "%s üstbilgisi ayrıştırılamıyor"
 msgid "unable to unpack contents of %s"
 msgstr "%s içeriği açılamıyor"
 
+#. TRANSLATORS: This is a line of ambiguous object
+#. output shown when we cannot look up or parse the
+#. object in question. E.g. "deadbeef [bad object]".
+#.
+#: object-name.c
+#, c-format
+msgid "%s [bad object]"
+msgstr "%s [hatalı nesne]"
+
+#. TRANSLATORS: This is a line of ambiguous commit
+#. object output. E.g.:
+#. *
+#.    "deadbeef commit 2021-01-01 - Some Commit Message"
+#.
+#: object-name.c
+#, c-format
+msgid "%s commit %s - %s"
+msgstr "%s %s işlemesi - %s"
+
+#. TRANSLATORS: This is a line of ambiguous
+#. tag object output. E.g.:
+#. *
+#.    "deadbeef tag 2022-01-01 - Some Tag Message"
+#. *
+#. The second argument is the YYYY-MM-DD found
+#. in the tag.
+#. *
+#. The third argument is the "tag" string
+#. from object.c.
+#.
+#: object-name.c
+#, c-format
+msgid "%s tag %s - %s"
+msgstr "%s %s etiketi - %s"
+
+#. TRANSLATORS: This is a line of ambiguous
+#. tag object output where we couldn't parse
+#. the tag itself. E.g.:
+#. *
+#.    "deadbeef [bad tag, could not parse it]"
+#.
+#: object-name.c
+#, c-format
+msgid "%s [bad tag, could not parse it]"
+msgstr "%s [hatalı etiket, ayrıştırılamadı]"
+
+#. TRANSLATORS: This is a line of ambiguous <type>
+#. object output. E.g. "deadbeef tree".
+#.
+#: object-name.c
+#, c-format
+msgid "%s tree"
+msgstr "%s ağacı"
+
+#. TRANSLATORS: This is a line of ambiguous <type>
+#. object output. E.g. "deadbeef blob".
+#.
+#: object-name.c
+#, c-format
+msgid "%s blob"
+msgstr "%s ikili nesnesi"
+
 #: object-name.c
 #, c-format
 msgid "short object ID %s is ambiguous"
-msgstr "kısa nesne ID'si %s belirsiz"
+msgstr "kısa nesne kimliği %s belirsiz"
 
+#. TRANSLATORS: The argument is the list of ambiguous
+#. objects composed in show_ambiguous_object(). See
+#. its "TRANSLATORS" comments for details.
+#.
 #: object-name.c
-msgid "The candidates are:"
-msgstr "Adaylar:"
+#, c-format
+msgid ""
+"The candidates are:\n"
+"%s"
+msgstr ""
+"Adaylar:\n"
+"%s"
 
 #: object-name.c
 msgid ""
@@ -5949,6 +6143,11 @@ msgstr "'%s' diye bir yol yok (ne diskte ne de indekste)"
 #: object-name.c
 msgid "relative path syntax can't be used outside working tree"
 msgstr "göreceli yol sözdizimi çalışma ağacı dışında kullanılamaz"
+
+#: object-name.c
+#, c-format
+msgid "<object>:<path> required, only <object> '%s' given"
+msgstr "<nesne>:<yol> gerekiyor, yalnızca <nesne> '%s' verildi"
 
 #: object-name.c
 #, c-format
@@ -6355,15 +6554,15 @@ msgstr "--pretty biçimi ayrıştırılamıyor"
 
 #: promisor-remote.c
 msgid "promisor-remote: unable to fork off fetch subprocess"
-msgstr "promisor-remote: getirme altişlemi çatallanamıyor"
+msgstr "promisor-remote: getirme alt süreci çatallanamıyor"
 
 #: promisor-remote.c
 msgid "promisor-remote: could not write to fetch subprocess"
-msgstr "promisor-remote: getirme altişlemine yazılamıyor"
+msgstr "promisor-remote: getirme alt sürecine yazılamıyor"
 
 #: promisor-remote.c
 msgid "promisor-remote: could not close stdin to fetch subprocess"
-msgstr "promisor-remote: altişlemi getirmek için stdin kapatılamıyor"
+msgstr "promisor-remote: alt sürecine getirmek için stdin kapatılamıyor"
 
 #: promisor-remote.c
 #, c-format
@@ -6579,6 +6778,10 @@ msgstr "paylaşılan indeks '%s' tazelenemedi"
 #, c-format
 msgid "broken index, expect %s in %s, got %s"
 msgstr "bozuk indeks, %s bekleniyordu (%s içinde), %s alındı"
+
+#: read-cache.c
+msgid "cannot write split index for a sparse index"
+msgstr "bir aralıklı indeks için bölünmüş indeks yazılamıyor"
 
 #: read-cache.c strbuf.c wrapper.c builtin/merge.c
 #, c-format
@@ -7005,6 +7208,16 @@ msgstr "hatalı oluşturulmuş nesne adı %s"
 msgid "option `%s' must point to a commit"
 msgstr "'%s' bir işlemeye işaret etmeli"
 
+#: reflog.c
+#, c-format
+msgid "not a reflog: %s"
+msgstr "bir başvuru günlüğü değil: %s"
+
+#: reflog.c
+#, c-format
+msgid "no reflog for '%s'"
+msgstr "'%s' için başvuru günlüğü yok"
+
 #: refs.c
 #, c-format
 msgid "%s does not point to a valid object!"
@@ -7030,8 +7243,9 @@ msgstr ""
 "\n"
 "\tgit config --global init.defaultBranch <ad>\n"
 "\n"
-"'master' yerine kullanılan diğer yaygın dal adları 'main', 'trunk' ve/veya\n"
-"'development'tır. Yeni oluşturulan dal şu komutla yeniden adlandırılabilir:\n"
+"'master' yerine kullanılan diğer yaygın dal adları 'main', 'trunk'\n"
+"ve/veya 'development'tır. Yeni oluşturulan dal şu komutla yeniden\n"
+"adlandırılabilir:\n"
 "\n"
 "\tgit branch -m <ad>\n"
 
@@ -7512,6 +7726,10 @@ msgid "your current branch '%s' does not have any commits yet"
 msgstr "geçerli dalınız '%s' içinde henüz bir işleme yok"
 
 #: revision.c
+msgid "object filtering requires --objects"
+msgstr "nesne süzme --objects gerektiriyor"
+
+#: revision.c
 msgid "-L does not yet support diff formats besides -p and -s"
 msgstr "-L, -p ve -s dışında başka diff biçimlerini henüz desteklemiyor"
 
@@ -7540,7 +7758,7 @@ msgstr "itme sertifikası imzalanamadı"
 
 #: send-pack.c
 msgid "send-pack: unable to fork off fetch subprocess"
-msgstr "send-pack: getirme altişlemi çatallanamıyor"
+msgstr "send-pack: getirme alt süreci çatallanamıyor"
 
 #: send-pack.c
 msgid "push negotiation failed; proceeding anyway with push"
@@ -8073,11 +8291,6 @@ msgstr "bir geri al sırasında seç-al yapılamıyor"
 #: sequencer.c
 msgid "cannot revert during a cherry-pick."
 msgstr "bir seç-al sırasında geri al yapılamıyor"
-
-#: sequencer.c
-#, c-format
-msgid "invalid value for %s: %s"
-msgstr "%s için geçersiz değer: %s"
 
 #: sequencer.c
 msgid "unusable squash-onto"
@@ -8684,6 +8897,10 @@ msgstr "setsid başarısız"
 msgid "index entry is a directory, but not sparse (%08x)"
 msgstr "indeks girdisi bir dizin; ancak aralıklı değil (%08x)"
 
+#: split-index.c
+msgid "cannot use split index with a sparse index"
+msgstr "bir aralıklı indeksle bölünmüş indeks kullanılamıyor"
+
 #. TRANSLATORS: IEC 80000-13:2008 gibibyte
 #: strbuf.c
 #, c-format
@@ -8761,10 +8978,10 @@ msgid "ignoring '%s' which may be interpreted as a command-line option: %s"
 msgstr ""
 "'%s' bir komut satırı seçeneği olarak yorumlanabileceğinden yok sayılıyor: %s"
 
-#: submodule-config.c
+#: submodule-config.c builtin/push.c builtin/send-pack.c
 #, c-format
-msgid "invalid value for %s"
-msgstr "%s için geçersiz değer"
+msgid "invalid value for '%s'"
+msgstr "'%s' için geçersiz değer"
 
 #: submodule-config.c
 #, c-format
@@ -8857,6 +9074,16 @@ msgstr "%s%s altmodülü getiriliyor\n"
 #, c-format
 msgid "Could not access submodule '%s'\n"
 msgstr "'%s' altmodülüne erişilemedi\n"
+
+#: submodule.c
+#, c-format
+msgid "Could not access submodule '%s' at commit %s\n"
+msgstr "'%s' altmodülüne %s işlemesinde erişilemedi\n"
+
+#: submodule.c
+#, c-format
+msgid "Fetching submodule %s%s at commit %s\n"
+msgstr "%s%s altmodülü %s işlemesinde getiriliyor\n"
 
 #: submodule.c
 #, c-format
@@ -9721,6 +9948,20 @@ msgstr "geçersiz gitdir dosyası"
 msgid "gitdir file points to non-existent location"
 msgstr "gitdir dosyası var olmayan bir konuma işaret ediyor"
 
+#: worktree.c
+#, c-format
+msgid "unable to set %s in '%s'"
+msgstr "%s, '%s' içinde ayarlanamıyor"
+
+#: worktree.c
+#, c-format
+msgid "unable to unset %s in '%s'"
+msgstr "%s, '%s' içinde ayarı kaldırılamıyor"
+
+#: worktree.c
+msgid "failed to set extensions.worktreeConfig setting"
+msgstr "extensions.worktreeConfig yapılandırması ayarlanamadı"
+
 #: wrapper.c
 #, c-format
 msgid "could not setenv '%s'"
@@ -9974,10 +10215,10 @@ msgstr "Yerine getirilen bir komut yok."
 
 #: wt-status.c
 #, c-format
-msgid "Last command done (%d command done):"
-msgid_plural "Last commands done (%d commands done):"
-msgstr[0] "Son yerine getirilen komut (toplamda %d komut):"
-msgstr[1] "Son yerine getirilen komutlar (toplamda %d komut):"
+msgid "Last command done (%<PRIuMAX> command done):"
+msgid_plural "Last commands done (%<PRIuMAX> commands done):"
+msgstr[0] "Son yerine getirilen komut (%<PRIuMAX> komut yapıldı):"
+msgstr[1] "Son yerine getirilen komutlar (%<PRIuMAX> komut yapıldı):"
 
 #: wt-status.c
 #, c-format
@@ -9990,10 +10231,10 @@ msgstr "Kalan komut yok."
 
 #: wt-status.c
 #, c-format
-msgid "Next command to do (%d remaining command):"
-msgid_plural "Next commands to do (%d remaining commands):"
-msgstr[0] "Sıradaki yerine getirilecek komut (%d kalan komut):"
-msgstr[1] "Sıradaki yerine getirilecek komutlar (%d kalan komut):"
+msgid "Next command to do (%<PRIuMAX> remaining command):"
+msgid_plural "Next commands to do (%<PRIuMAX> remaining commands):"
+msgstr[0] "Sıradaki yerine getirilecek komut (%<PRIuMAX> kalan komut):"
+msgstr[1] "Sıradaki yerine getirilecek komutlar (%<PRIuMAX> kalan komut):"
 
 #: wt-status.c
 msgid "  (use \"git rebase --edit-todo\" to view and edit)"
@@ -10314,6 +10555,14 @@ msgstr "'%s' için worker[0] başlatılamadı"
 msgid "failed to unlink '%s'"
 msgstr "'%s' bağlantısı kesilemedi"
 
+#: compat/fsmonitor/fsm-listen-darwin.c
+msgid "Unable to create FSEventStream."
+msgstr "FSEventStream oluşturulamadı."
+
+#: compat/fsmonitor/fsm-listen-darwin.c
+msgid "Failed to start the FSEventStream"
+msgstr "FSEventStream başlatılamadı"
+
 #: builtin/add.c
 msgid "git add [<options>] [--] <pathspec>..."
 msgstr "git add [<seçenekler>] [--] <yol-blrtç>..."
@@ -10448,10 +10697,6 @@ msgid "warn when adding an embedded repository"
 msgstr "gömülü bir depo eklenirken uyar"
 
 #: builtin/add.c
-msgid "backend for `git stash -p`"
-msgstr "'git stash -p' için arka uç"
-
-#: builtin/add.c
 #, c-format
 msgid ""
 "You've added another git repository inside your current repository.\n"
@@ -10526,11 +10771,6 @@ msgstr ""
 "'git add .' mı demek istediniz?\n"
 "Bu iletiyi 'git config advice.addEmptyPathspec false'\n"
 "yaparak kapatabilirsiniz."
-
-#: builtin/am.c
-#, c-format
-msgid "Invalid value for --empty: %s"
-msgstr "--empty için geçersiz değer: %s"
 
 #: builtin/am.c
 msgid "could not parse author script"
@@ -10690,7 +10930,7 @@ msgstr "Kirli indeks: Yamalar uygulanamıyor (kirli: %s)"
 #: builtin/am.c
 #, c-format
 msgid "Skipping: %.*s"
-msgstr "Applying: %.*s"
+msgstr "Atlanıyor: %.*s"
 
 #: builtin/am.c
 #, c-format
@@ -10763,16 +11003,6 @@ msgid ""
 msgstr ""
 "Son 'am' başarısızlığından bu yana HEAD'i hareket ettirmiş görünüyorsunuz.\n"
 "ORIG_HEAD'e geri sarılmıyor."
-
-#: builtin/am.c
-#, c-format
-msgid "Invalid value for --patch-format: %s"
-msgstr "Geçersiz --patch-format değeri: %s"
-
-#: builtin/am.c
-#, c-format
-msgid "Invalid value for --show-current-patch: %s"
-msgstr "--show-current-patch için geçersiz değer: %s"
 
 #: builtin/am.c
 #, c-format
@@ -10851,8 +11081,9 @@ msgstr "git-apply aracılığıyla geçir"
 msgid "n"
 msgstr "n"
 
-#: builtin/am.c builtin/branch.c builtin/bugreport.c builtin/for-each-ref.c
-#: builtin/replace.c builtin/tag.c builtin/verify-tag.c
+#: builtin/am.c builtin/branch.c builtin/bugreport.c builtin/cat-file.c
+#: builtin/for-each-ref.c builtin/ls-tree.c builtin/replace.c builtin/tag.c
+#: builtin/verify-tag.c
 msgid "format"
 msgstr "biçim"
 
@@ -10987,14 +11218,6 @@ msgstr "git bisect--helper --bisect-reset [<işleme>]"
 
 #: builtin/bisect--helper.c
 msgid ""
-"git bisect--helper --bisect-terms [--term-good | --term-old | --term-bad | --"
-"term-new]"
-msgstr ""
-"git bisect--helper --bisect-terms [--term-good | --term-old | --term-bad | --"
-"term-new]"
-
-#: builtin/bisect--helper.c
-msgid ""
 "git bisect--helper --bisect-start [--term-{new,bad}=<term> --term-{old,good}"
 "=<term>] [--no-checkout] [--first-parent] [<bad> [<good>...]] [--] "
 "[<paths>...]"
@@ -11002,10 +11225,6 @@ msgstr ""
 "git bisect--helper --bisect-start [--term-{new,bad}=<terim> --term-{old,good}"
 "=<terim>] [--no-checkout] [--first-parent] [<kötü> [<iyi>...]] [--] "
 "[<yollar>...]"
-
-#: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-next"
-msgstr "git bisect--helper --bisect-next"
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-state (bad|new) [<rev>]"
@@ -11022,10 +11241,6 @@ msgstr "git bisect--helper --bisect-replay <dosyaadı>"
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-skip [(<rev>|<range>)...]"
 msgstr "git bisect--helper --bisect-skip [(<rev>|<erim>)...]"
-
-#: builtin/bisect--helper.c
-msgid "git bisect--helper --bisect-visualize"
-msgstr "git bisect--helper --bisect-visualize"
 
 #: builtin/bisect--helper.c
 msgid "git bisect--helper --bisect-run <cmd>..."
@@ -11248,13 +11463,23 @@ msgid "cannot read file '%s' for replaying"
 msgstr "'%s' dosyası yeniden oynatım için okunamıyor"
 
 #: builtin/bisect--helper.c
+#, c-format
+msgid "running %s\n"
+msgstr "%s çalıştırılıyor\n"
+
+#: builtin/bisect--helper.c
 msgid "bisect run failed: no command provided."
 msgstr "ikili arama başarısız: Komut verilmedi."
 
 #: builtin/bisect--helper.c
 #, c-format
-msgid "running %s\n"
-msgstr "%s çalıştırılıyor\n"
+msgid "unable to verify '%s' on good revision"
+msgstr "'%s', iyi revizyonda doğrulanamadı"
+
+#: builtin/bisect--helper.c
+#, c-format
+msgid "bogus exit code %d for good revision"
+msgstr "iyi revizyon için anlamsız %d çıkış kodu"
 
 #: builtin/bisect--helper.c
 #, c-format
@@ -11331,7 +11556,7 @@ msgid "visualize the bisection"
 msgstr "ikili aramayı görselleştir"
 
 #: builtin/bisect--helper.c
-msgid "use <cmd>... to automatically bisect."
+msgid "use <cmd>... to automatically bisect"
 msgstr "kendiliğinden ikili aramak için <komut>... kullan"
 
 #: builtin/bisect--helper.c
@@ -11377,15 +11602,6 @@ msgstr "bir renk ile bitmeli"
 
 #: builtin/blame.c
 #, c-format
-msgid "invalid color '%s' in color.blame.repeatedLines"
-msgstr "color.blame.repeatedLines içinde geçersiz renk '%s'"
-
-#: builtin/blame.c
-msgid "invalid value for blame.coloring"
-msgstr "blame.coloring için geçersiz değer"
-
-#: builtin/blame.c
-#, c-format
 msgid "cannot find revision %s to ignore"
 msgstr "yok saymak için %s revizyonu bulunamıyor"
 
@@ -11407,7 +11623,7 @@ msgstr "iş maliyet istatistiklerini göster"
 
 #: builtin/blame.c builtin/checkout.c builtin/clone.c builtin/commit-graph.c
 #: builtin/fetch.c builtin/merge.c builtin/multi-pack-index.c builtin/pull.c
-#: builtin/push.c builtin/send-pack.c
+#: builtin/push.c builtin/remote.c builtin/send-pack.c
 msgid "force progress reporting"
 msgstr "durum belirtmeyi zorla"
 
@@ -11540,8 +11756,16 @@ msgid "git branch [<options>] [-r | -a] [--merged] [--no-merged]"
 msgstr "git branch [<seçenekler>] [-r | -a] [--merged] [--no-merged]"
 
 #: builtin/branch.c
-msgid "git branch [<options>] [-l] [-f] <branch-name> [<start-point>]"
-msgstr "git branch [<seçenekler>] [-l] [-f] <dal-adı> [<başlama-noktası>]"
+msgid ""
+"git branch [<options>] [-f] [--recurse-submodules] <branch-name> [<start-"
+"point>]"
+msgstr ""
+"git branch [<seçenekler>] [-f] [--recurse-submodules] <dal-adı> [<başlangıç-"
+"noktası>]"
+
+#: builtin/branch.c
+msgid "git branch [<options>] [-l] [<pattern>...]"
+msgstr "git branch [<seçenekler>] [-l] [<dizgi>...]"
 
 #: builtin/branch.c
 msgid "git branch [<options>] [-r] (-d | -D) <branch-name>..."
@@ -11722,7 +11946,7 @@ msgstr "sağlamayı ve konuyu göster, üstkaynak dalı için iki kez ver"
 msgid "suppress informational messages"
 msgstr "bilgi iletilerini gizle"
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/checkout.c builtin/submodule--helper.c
 msgid "set branch tracking configuration"
 msgstr "dal izleme yapılandırmasını ayarla"
 
@@ -11798,7 +12022,7 @@ msgstr "dal adlarını listele"
 msgid "show current branch name"
 msgstr "geçerli dal adını göster"
 
-#: builtin/branch.c
+#: builtin/branch.c builtin/submodule--helper.c
 msgid "create the branch's reflog"
 msgstr "dalın başvuru günlüğünü oluştur"
 
@@ -11834,13 +12058,30 @@ msgstr "yalnızca nesnenin dallarını yazdır"
 msgid "sorting and filtering are case insensitive"
 msgstr "sıralama ve süzme BÜYÜK/küçük harf duyarlı değildir"
 
-#: builtin/branch.c builtin/for-each-ref.c builtin/tag.c builtin/verify-tag.c
+#: builtin/branch.c builtin/ls-files.c
+msgid "recurse through submodules"
+msgstr "altmodüller içinden özyinele"
+
+#: builtin/branch.c builtin/for-each-ref.c builtin/ls-tree.c builtin/tag.c
+#: builtin/verify-tag.c
 msgid "format to use for the output"
 msgstr "çıktı için kullanılacak biçim"
 
 #: builtin/branch.c builtin/clone.c
 msgid "HEAD not found below refs/heads!"
 msgstr "HEAD, refs/heads altında bulunamadı!"
+
+#: builtin/branch.c
+msgid ""
+"branch with --recurse-submodules can only be used if submodule."
+"propagateBranches is enabled"
+msgstr ""
+"--recurse-submodules ile dallanma, yalnızca submodule.propagateBranches "
+"etkinleştirilmişse kullanılabilir"
+
+#: builtin/branch.c
+msgid "--recurse-submodules can only be used to create branches"
+msgstr "--recurse-submodules, yalnızca dal oluşturmada kullanılabilir"
 
 #: builtin/branch.c
 msgid "branch name required"
@@ -12066,7 +12307,7 @@ msgstr "%s tamam\n"
 
 #: builtin/bundle.c
 msgid "Need a repository to unbundle."
-msgstr "Demeti çözmek için bir depo gerekiyoriyor."
+msgstr "Demeti çözmek için bir depo gerekiyor."
 
 #: builtin/bundle.c
 msgid "Unbundling objects"
@@ -12078,89 +12319,201 @@ msgid "Unknown subcommand: %s"
 msgstr "Bilinmeyen altkomut: %s"
 
 #: builtin/cat-file.c
-msgid ""
-"git cat-file (-t [--allow-unknown-type] | -s [--allow-unknown-type] | -e | -"
-"p | <type> | --textconv | --filters) [--path=<path>] <object>"
-msgstr ""
-"git cat-file (-t [--allow-unknown-type] | -s [--allow-unknown-type] | -e | -"
-"p | <tür> | --textconv | --filters) [--path=<yol>] <nesne>"
+msgid "flush is only for --buffer mode"
+msgstr "floş, yalnızca --buffer kipi içindir"
 
 #: builtin/cat-file.c
-msgid ""
-"git cat-file (--batch[=<format>] | --batch-check[=<format>]) [--follow-"
-"symlinks] [--textconv | --filters]"
-msgstr ""
-"git cat-file (--batch[=<biçim>] | --batch-check[=<biçim>]) [--follow-"
-"symlinks] [--textconv | --filters]"
+msgid "empty command in input"
+msgstr "girdide boş komut"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "whitespace before command: '%s'"
+msgstr "komuttan önce boşluk: '%s'"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "%s requires arguments"
+msgstr "%s, argümanlar gerektiriyor"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "%s takes no arguments"
+msgstr "%s, bir argüman almıyor"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "unknown command: '%s'"
+msgstr "bilinmeyen komut: '%s'"
 
 #: builtin/cat-file.c
 msgid "only one batch option may be specified"
 msgstr "yalnızca bir toplu iş seçeneği belirtilebilir"
 
 #: builtin/cat-file.c
-msgid "<type> can be one of: blob, tree, commit, tag"
-msgstr "<tür> yalnızca şunlardan biri olabilir: blob, tree, commit, tag"
+msgid "git cat-file <type> <object>"
+msgstr "git cat-file <tür> <nesne>"
 
 #: builtin/cat-file.c
-msgid "show object type"
-msgstr "nesne türünü göster"
+msgid "git cat-file (-e | -p) <object>"
+msgstr "git cat-file (-e | -p) <nesne>"
+
+#: builtin/cat-file.c
+msgid "git cat-file (-t | -s) [--allow-unknown-type] <object>"
+msgstr "git cat-file (-t | -s) [--allow-unknown-type] <nesne>"
+
+#: builtin/cat-file.c
+msgid ""
+"git cat-file (--batch | --batch-check | --batch-command) [--batch-all-"
+"objects]\n"
+"             [--buffer] [--follow-symlinks] [--unordered]\n"
+"             [--textconv | --filters]"
+msgstr ""
+"git cat-file (--batch | --batch-check | --batch-command) [--batch-all-"
+"objects]\n"
+"             [--buffer] [--follow-symlinks] [--unordered]\n"
+"             [--textconv | --filters]"
+
+#: builtin/cat-file.c
+msgid ""
+"git cat-file (--textconv | --filters)\n"
+"             [<rev>:<path|tree-ish> | --path=<path|tree-ish> <rev>]"
+msgstr ""
+"git cat-file (--textconv | --filters)\n"
+"             [<başvuru>:<yol|ağacımsı> | --path=<yol|ağacımsı> <revizyon>]"
+
+#: builtin/cat-file.c
+msgid "Check object existence or emit object contents"
+msgstr "Nesne varlığını denetle veya nesne içeriğini yay"
+
+#: builtin/cat-file.c
+msgid "check if <object> exists"
+msgstr "<nesne> varlığını denetle"
+
+#: builtin/cat-file.c
+msgid "pretty-print <object> content"
+msgstr "<nesne> içeriğini okunabilir yap"
+
+#: builtin/cat-file.c
+msgid "Emit [broken] object attributes"
+msgstr "[Hatalı] nesne özniteliklerini yay"
+
+#: builtin/cat-file.c
+msgid "show object type (one of 'blob', 'tree', 'commit', 'tag', ...)"
+msgstr "nesne türünü göster (türler: 'blob', 'tree', 'commit', 'tag', ...)"
 
 #: builtin/cat-file.c
 msgid "show object size"
 msgstr "nesne boyutunu göster"
 
 #: builtin/cat-file.c
-msgid "exit with zero when there's no error"
-msgstr "hata yoksa sıfır koduyla çık"
-
-#: builtin/cat-file.c
-msgid "pretty-print object's content"
-msgstr "nesne içeriğini okunabilir biçimde göster"
-
-#: builtin/cat-file.c
-msgid "for blob objects, run textconv on object's content"
-msgstr "ikili nesneler için nesne içeriği üzerinde textconv çalıştır"
-
-#: builtin/cat-file.c
-msgid "for blob objects, run filters on object's content"
-msgstr "ikili nesneler için nesne içeriği üzerinde süzgeçler çalıştır"
-
-#: builtin/cat-file.c
-msgid "blob"
-msgstr "ikili nesne"
-
-#: builtin/cat-file.c
-msgid "use a specific path for --textconv/--filters"
-msgstr "--textconv/--filters için belirli bir yol kullan"
-
-#: builtin/cat-file.c
 msgid "allow -s and -t to work with broken/corrupt objects"
 msgstr "-s ve -t'nin bozuk/hasar görmüş nesnelerle çalışmasına izin ver"
+
+#: builtin/cat-file.c
+msgid "Batch objects requested on stdin (or --batch-all-objects)"
+msgstr "Toplu iş nesneleri stdin'de istendi (veya --batch-all-objects)"
+
+#: builtin/cat-file.c
+msgid "show full <object> or <rev> contents"
+msgstr "tam <nesne> veya <revizyon> içeriğini göster"
+
+#: builtin/cat-file.c
+msgid "like --batch, but don't emit <contents>"
+msgstr "--batch gibi; ancak <içerik> yayma"
+
+#: builtin/cat-file.c
+msgid "read commands from stdin"
+msgstr "komutları stdin'den oku"
+
+#: builtin/cat-file.c
+msgid "with --batch[-check]: ignores stdin, batches all known objects"
+msgstr ""
+"--batch[-check] ile stdin'i yok sayar, bilinen tüm nesneleri bir araya "
+"getirir"
+
+#: builtin/cat-file.c
+msgid "Change or optimize batch output"
+msgstr "Toplu iş çıktısını değiştir veya eniyile"
 
 #: builtin/cat-file.c
 msgid "buffer --batch output"
 msgstr "--batch çıktısını arabelleğe al"
 
 #: builtin/cat-file.c
-msgid "show info and content of objects fed from the standard input"
-msgstr "standart girdi'den beslenen nesnelerin bilgisini ve içeriğini göster"
+msgid "follow in-tree symlinks"
+msgstr "ağaç içi sembolik bağları izle"
 
 #: builtin/cat-file.c
-msgid "show info about objects fed from the standard input"
-msgstr "standart girdi'den beslenen nesneler hakkında bilgi göster"
+msgid "do not order objects before emitting them"
+msgstr "onları yaymadan önce nesneleri sıralama"
 
 #: builtin/cat-file.c
-msgid "follow in-tree symlinks (used with --batch or --batch-check)"
+msgid ""
+"Emit object (blob or tree) with conversion or filter (stand-alone, or with "
+"batch)"
 msgstr ""
-"ağaç içi sembolik bağları izle (--batch veya --batch-check ile kullanılır)"
+"Nesneyi (ikili veya ağaç), dönüştürme veya süzgeçle yay (tek veya toplu)"
 
 #: builtin/cat-file.c
-msgid "show all objects with --batch or --batch-check"
-msgstr "--batch veya --batch-check ile olan tüm nesneleri göster"
+msgid "run textconv on object's content"
+msgstr "nesnenin içeriği üzerinde textconv çalıştır"
 
 #: builtin/cat-file.c
-msgid "do not order --batch-all-objects output"
-msgstr "--batch-all-objects çıktısını sıralama"
+msgid "run filters on object's content"
+msgstr "nesnenin içeriği üzerinde süzgeçler çalıştır"
+
+#: builtin/cat-file.c
+msgid "blob|tree"
+msgstr "ikili nesne/ağaç"
+
+#: builtin/cat-file.c
+msgid "use a <path> for (--textconv | --filters); Not with 'batch'"
+msgstr ""
+"(--textconv | --filters) için bir <yol> kullan; ancak 'batch' ile değil"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'%s=<%s>' needs '%s' or '%s'"
+msgstr "'%s=<%s>' için '%s' veya '%s' gerekiyor"
+
+#: builtin/cat-file.c
+msgid "path|tree-ish"
+msgstr "yol|ağacımsı"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'%s' requires a batch mode"
+msgstr "'%s' bir toplu iş kipi gerektiriyor"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "'-%c' is incompatible with batch mode"
+msgstr "'-%c', toplu iş kipi ile uyumsuz"
+
+#: builtin/cat-file.c
+msgid "batch modes take no arguments"
+msgstr "toplu iş kipleri argüman almaz"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "<rev> required with '%s'"
+msgstr "<revizyon>, '%s' ile gerekiyor"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "<object> required with '-%c'"
+msgstr "<nesne>, '-%c' ile gerekiyor"
+
+#: builtin/cat-file.c builtin/notes.c builtin/prune-packed.c
+#: builtin/receive-pack.c builtin/tag.c
+msgid "too many arguments"
+msgstr "çok fazla argüman"
+
+#: builtin/cat-file.c
+#, c-format
+msgid "only two arguments allowed in <type> <object> mode, not %d"
+msgstr "<tür> <nesne> kipinde yalnızca iki argümana izin veriliyor, %d değil"
 
 #: builtin/check-attr.c
 msgid "git check-attr [-a | --all | <attr>...] [--] <pathname>..."
@@ -12263,6 +12616,10 @@ msgstr "stage 1 ve 3 arasında veya tümü olmalıdır"
 #: builtin/checkout-index.c
 msgid "check out all files in the index"
 msgstr "indeksteki tüm dosyaları çıkış yap"
+
+#: builtin/checkout-index.c
+msgid "do not skip files with skip-worktree set"
+msgstr "skip-worktree kümesiyle dosyaları atlama"
 
 #: builtin/checkout-index.c
 msgid "force overwrite of existing files"
@@ -12582,6 +12939,12 @@ msgstr "bir dal bekleniyordu, '%s' işlemesi alındı"
 
 #: builtin/checkout.c
 msgid ""
+"If you want to detach HEAD at the commit, try again with the --detach option."
+msgstr ""
+"HEAD'i işlemede ayırmak istiyorsanız --detach seçeneğiyle yeniden deneyin."
+
+#: builtin/checkout.c
+msgid ""
 "cannot switch branch while merging\n"
 "Consider \"git merge --quit\" or \"git worktree add\"."
 msgstr ""
@@ -12667,10 +13030,6 @@ msgstr "çakışma stili (birleştirme, diff3 veya zdiff3)"
 #: builtin/checkout.c builtin/worktree.c
 msgid "detach HEAD at named commit"
 msgstr "adı verilen işlemede HEAD'i ayır"
-
-#: builtin/checkout.c
-msgid "set up tracking mode (see git-pull(1))"
-msgstr "izleme kipini ayarla (bilgi için: git-pull(1))"
 
 #: builtin/checkout.c
 msgid "force checkout (throw away local modifications)"
@@ -13139,6 +13498,10 @@ msgid "use IPv6 addresses only"
 msgstr "yalnızca IPv6 adresleri kullan"
 
 #: builtin/clone.c
+msgid "apply partial clone filters to submodules"
+msgstr "altmodüllere kısımsal klon süzgeçlerini uygula"
+
+#: builtin/clone.c
 msgid "any cloned submodules will use their remote-tracking branch"
 msgstr "klonlanan herhangi bir altmodül kendi uzak izleme dallarını kullanacak"
 
@@ -13322,6 +13685,10 @@ msgstr "kaynak depo sığ, --local yok sayılıyor"
 #: builtin/clone.c
 msgid "--local is ignored"
 msgstr "--local yok sayıldı"
+
+#: builtin/clone.c
+msgid "cannot clone from filtered bundle"
+msgstr "süzülmüş demetten klonlanamıyor"
 
 #: builtin/clone.c
 msgid "remote transport reported error"
@@ -13838,10 +14205,6 @@ msgid "reword option of '%s' and '%s' cannot be used together"
 msgstr "'%s' ögesinin yeniden yazım seçeneği ve '%s' birlikte kullanılamaz"
 
 #: builtin/commit.c
-msgid "Using both --reset-author and --author does not make sense"
-msgstr "Hem --reset-author ve hem --author birlikte bir anlam ifade etmiyor"
-
-#: builtin/commit.c
 msgid "You have nothing to amend."
 msgstr "Değiştirecek bir şeyiniz yok."
 
@@ -13859,27 +14222,9 @@ msgstr ""
 "Bir yeniden temellendirmenin tam ortasındasınız -- değiştirme yapılamıyor."
 
 #: builtin/commit.c
-msgid "Options --squash and --fixup cannot be used together"
-msgstr "--squash ve --fixup seçenekleri birlikte kullanılamaz"
-
-#: builtin/commit.c
-msgid "Only one of -c/-C/-F/--fixup can be used."
-msgstr "-c/-C/-F/--fixup arasından yalnızca bir tanesi kullanılabilir."
-
-#: builtin/commit.c
-msgid "Option -m cannot be combined with -c/-C/-F."
-msgstr "-m seçeneği -c/-C/-F ile birlikte kullanılamaz."
-
-#: builtin/commit.c
 msgid "--reset-author can be used only with -C, -c or --amend."
 msgstr ""
 "--reset-author yalnızca -C, -c veya --amend ile birlikte kullanılabilir."
-
-#: builtin/commit.c
-msgid "Only one of --include/--only/--all/--interactive/--patch can be used."
-msgstr ""
-"--include/--only/--all/--interactive/--patch arasından yalnızca bir tanesi "
-"kullanılabilir."
 
 #: builtin/commit.c
 #, c-format
@@ -14266,6 +14611,10 @@ msgstr "renk ayarını bul: yuva [stdout tty]"
 msgid "Type"
 msgstr "Tür"
 
+#: builtin/config.c builtin/env--helper.c builtin/hash-object.c
+msgid "type"
+msgstr "tür"
+
 #: builtin/config.c builtin/env--helper.c
 msgid "value is given this type"
 msgstr "değer bu türde verildi"
@@ -14479,10 +14828,6 @@ msgstr ""
 #, c-format
 msgid "no such section: %s"
 msgstr "böyle bir bölüm yok: %s"
-
-#: builtin/count-objects.c
-msgid "git count-objects [-v] [-H | --human-readable]"
-msgstr "git count-objects [-v] [-H | --human-readable]"
 
 #: builtin/count-objects.c
 msgid "print sizes in human readable format"
@@ -14830,10 +15175,6 @@ msgstr "--extcmd=<komut> için bir <komut> verilmedi"
 msgid "git env--helper --type=[bool|ulong] <options> <env-var>"
 msgstr "git env--helper --type=[bool|ulong] <seçenekler> <ortam-dğşkn>"
 
-#: builtin/env--helper.c builtin/hash-object.c
-msgid "type"
-msgstr "tür"
-
 #: builtin/env--helper.c
 msgid "default for git_env_*(...) to fall back on"
 msgstr "git_env_*(...)'ın geri çekileceği öntanımlı"
@@ -14859,8 +15200,8 @@ msgstr ""
 "bekliyor, '%s' değil"
 
 #: builtin/fast-export.c
-msgid "git fast-export [rev-list-opts]"
-msgstr "git fast-export [rev-list-opts]"
+msgid "git fast-export [<rev-list-opts>]"
+msgstr "git fast-export [<revizyon-listesi-seçenekleri>]"
 
 #: builtin/fast-export.c
 msgid "Error: Cannot export nested tags unless --mark-tags is specified."
@@ -15092,6 +15433,10 @@ msgid "convert to a complete repository"
 msgstr "tam bir depoya dönüştür"
 
 #: builtin/fetch.c
+msgid "re-fetch without negotiating common commits"
+msgstr "ortak işlemeleri pazarlık etmeden yeniden getir"
+
+#: builtin/fetch.c
 msgid "prepend this to submodule path output"
 msgstr "bunu altmodül yol çıktısının başına ekle"
 
@@ -15144,11 +15489,6 @@ msgstr "başvuru belirteçlerini stdin'den oku"
 #: builtin/fetch.c
 msgid "couldn't find remote ref HEAD"
 msgstr "uzak HEAD başvurusu bulunamadı"
-
-#: builtin/fetch.c
-#, c-format
-msgid "configuration fetch.output contains invalid value %s"
-msgstr "fetch.output yapılandırması geçersiz değer içeriyor: %s"
 
 #: builtin/fetch.c
 #, c-format
@@ -15349,9 +15689,8 @@ msgid "you need to specify a tag name"
 msgstr "bir etiket adı belirtmeniz gerekiyor"
 
 #: builtin/fetch.c
-msgid "--negotiate-only needs one or more --negotiate-tip=*"
-msgstr ""
-"--negotiate-only'nin bir veya daha çok --negotiate-tip=* gereksinimi var"
+msgid "--negotiate-only needs one or more --negotiation-tip=*"
+msgstr "--negotiate-only'e bir veya daha çok --negotiation-tip=* gerekiyor"
 
 #: builtin/fetch.c
 msgid "negative depth in --deepen is not supported"
@@ -15762,6 +16101,118 @@ msgstr "%s: nesne kayıp"
 #, c-format
 msgid "invalid parameter: expected sha1, got '%s'"
 msgstr "geçersiz parametre: sha1 bekleniyordu, '%s' alındı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon start [<options>]"
+msgstr "git fsmonitor--daemon start [<seçenekler>]"
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon run [<options>]"
+msgstr "git fsmonitor--daemon run [<seçenekler>]"
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon stop"
+msgstr "git fsmonitor--daemon stop"
+
+#: builtin/fsmonitor--daemon.c
+msgid "git fsmonitor--daemon status"
+msgstr "git fsmonitor--daemon status"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "value of '%s' out of range: %d"
+msgstr "'%s' değeri erim dışında: %d"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "value of '%s' not bool or int: %d"
+msgstr "'%s' değeri Boole veya tamsayı değil: %d"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor-daemon is watching '%s'\n"
+msgstr "fsmonitor-daemon, '%s' ögesini izliyor\n"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor-daemon is not watching '%s'\n"
+msgstr "fsmonitor-daemon, '%s' ögesini izlemiyor\n"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "could not create fsmonitor cookie '%s'"
+msgstr "fsmonitor çerezi '%s' oluşturulamadı"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor: cookie_result '%d' != SEEN"
+msgstr "fsmonitor: cookie_result '%d' != SEEN"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "could not start IPC thread pool on '%s'"
+msgstr "'%s' üzerinde IPC iş parçacığı havuzu başlatılamadı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "could not start fsmonitor listener thread"
+msgstr "fsmonitor dinleyici iş parçacığı başlatılamadı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "could not initialize listener thread"
+msgstr "dinleyici iş parçacığı ilklendirilemedi"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "fsmonitor--daemon is already running '%s'"
+msgstr "fsmonitor--daemon, halihazırda '%s' çalıştırıyor"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "running fsmonitor-daemon in '%s'\n"
+msgstr "fsmonitor-daemon '%s' içinde çalışıyor\n"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "starting fsmonitor-daemon in '%s'\n"
+msgstr "'%s' içinde fsmonitor-daemon başlatılıyor\n"
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon failed to start"
+msgstr "ardalan süreci başlatılamadı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon not online yet"
+msgstr "ardalan süreci henüz çalışmaya başlamadı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "daemon terminated"
+msgstr "ardalan süreci sonlandırıldı"
+
+#: builtin/fsmonitor--daemon.c
+msgid "detach from console"
+msgstr "konsoldan ayrıl"
+
+#: builtin/fsmonitor--daemon.c
+msgid "use <n> ipc worker threads"
+msgstr "<n> ipc işçisi iş parçacığı kullan"
+
+#: builtin/fsmonitor--daemon.c
+msgid "max seconds to wait for background daemon startup"
+msgstr "ardalan sürecinin başlaması için beklenecek en çok saniye"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "invalid 'ipc-threads' value (%d)"
+msgstr "geçersiz 'ipc-threads' değeri (%d)"
+
+#: builtin/fsmonitor--daemon.c
+#, c-format
+msgid "Unhandled subcommand '%s'"
+msgstr "İşlenmemiş altkomut '%s'"
+
+#: builtin/fsmonitor--daemon.c
+msgid "fsmonitor--daemon not supported on this platform"
+msgstr "fsmonitor--daemon bu platformda desteklenmiyor"
 
 #: builtin/gc.c
 msgid "git gc [<options>]"
@@ -16314,14 +16765,6 @@ msgid "--open-files-in-pager only works on the worktree"
 msgstr "--open-files-in-pager yalnızca çalışma ağacında çalışır"
 
 #: builtin/grep.c
-msgid "--cached or --untracked cannot be used with --no-index"
-msgstr "--cached veya --untracked, --no-index ile birlikte kullanılamıyor"
-
-#: builtin/grep.c
-msgid "--untracked cannot be used with --cached"
-msgstr "--untracked, --cached ile birlikte kullanılamıyor"
-
-#: builtin/grep.c
 msgid "--[no-]exclude-standard cannot be used for tracked contents"
 msgstr "--[no-]exclude-standard, izlenen içerik için kullanılamıyor"
 
@@ -16336,10 +16779,6 @@ msgid ""
 msgstr ""
 "git hash-object [-t <tür>] [-w] [--path=<dosya> | --no-filters] [--stdin] "
 "[--] <dosya>..."
-
-#: builtin/hash-object.c
-msgid "git hash-object  --stdin-paths"
-msgstr "git hash-object  --stdin-paths"
 
 #: builtin/hash-object.c
 msgid "object type"
@@ -16373,6 +16812,14 @@ msgid "print all available commands"
 msgstr "tüm kullanılabilir komutları yazdır"
 
 #: builtin/help.c
+msgid "show external commands in --all"
+msgstr "--all içinde dış komutları göster"
+
+#: builtin/help.c
+msgid "show aliases in --all"
+msgstr "--all içinde armaları göster"
+
+#: builtin/help.c
 msgid "exclude guides"
 msgstr "kılavuzları hariç tut"
 
@@ -16401,20 +16848,8 @@ msgid "print all configuration variable names"
 msgstr "tüm yapılandırma değişkenleri adlarını yazdır"
 
 #: builtin/help.c
-msgid ""
-"git help [-a|--all] [--[no-]verbose]]\n"
-"         [[-i|--info] [-m|--man] [-w|--web]] [<command>]"
-msgstr ""
-"git help [-a|--all] [--[no-]verbose]]\n"
-"         [[-i|--info] [-m|--man] [-w|--web]] [<komut>]"
-
-#: builtin/help.c
-msgid "git help [-g|--guides]"
-msgstr "git help [-g|--guides]"
-
-#: builtin/help.c
-msgid "git help [-c|--config]"
-msgstr "git help [-c|--config]"
+msgid "git help [[-i|--info] [-m|--man] [-w|--web]] [<command>]"
+msgstr "git help [[-i|--info] [-m|--man] [-w|--web]] [<komutlar>]"
 
 #: builtin/help.c
 #, c-format
@@ -16481,8 +16916,15 @@ msgid "bad alias.%s string: %s"
 msgstr "hatalı alias.%s dizisi: %s"
 
 #: builtin/help.c
-msgid "this option doesn't take any other arguments"
-msgstr "bu seçenek başka bir argüman daha almıyor"
+#, c-format
+msgid "the '%s' option doesn't take any non-option arguments"
+msgstr "'%s', seçenek olmayan bir argüman almıyor"
+
+#: builtin/help.c
+msgid ""
+"the '--no-[external-commands|aliases]' options can only be used with '--all'"
+msgstr ""
+"'--no-[external-commands|aliases]', yalnızca '--all' ile kullanılabilir"
 
 #: builtin/help.c
 #, c-format
@@ -16492,6 +16934,14 @@ msgstr "kullanım: %s%s"
 #: builtin/help.c
 msgid "'git help config' for more information"
 msgstr "ek bilgi için: 'git help config'"
+
+#: builtin/hook.c
+msgid "git hook run [--ignore-missing] <hook-name> [-- <hook-args>]"
+msgstr "git hook run [--ignore-missing] <kanca-adı> [-- <kanca-argümanları>]"
+
+#: builtin/hook.c
+msgid "silently ignore missing requested <hook-name>"
+msgstr "istenen eksik <kanca-adı> sessizce yok sayılıyor"
 
 #: builtin/index-pack.c
 #, c-format
@@ -16531,9 +16981,10 @@ msgstr "kullanılabilir olandan daha çok bayt kullanıldı"
 msgid "pack too large for current definition of off_t"
 msgstr "paket off_t'nin geçerli tanımı için çok büyük"
 
-#: builtin/index-pack.c builtin/unpack-objects.c
-msgid "pack exceeds maximum allowed size"
-msgstr "paket izin verilen en büyük boyutu aşıyor"
+#: builtin/index-pack.c
+#, c-format
+msgid "pack exceeds maximum allowed size (%s)"
+msgstr "paket izin verilen en büyük boyutu aşıyor (%s)"
 
 #: builtin/index-pack.c
 msgid "pack signature mismatch"
@@ -17021,6 +17472,10 @@ msgid "Final output: %d %s\n"
 msgstr "Son çıktı: %d %s\n"
 
 #: builtin/log.c
+msgid "unable to create temporary object directory"
+msgstr "geçici nesne dizini oluşturulamıyor"
+
+#: builtin/log.c
 #, c-format
 msgid "git show %s: bad file"
 msgstr "git show %s: hatalı dosya"
@@ -17328,6 +17783,10 @@ msgid "--check does not make sense"
 msgstr "--check bir anlam ifade etmiyor"
 
 #: builtin/log.c
+msgid "--remerge-diff does not make sense"
+msgstr "--remerge-diff bir anlam ifade etmiyor"
+
+#: builtin/log.c
 msgid "--interdiff requires --cover-letter or single patch"
 msgstr "--interdiff, --cover-letter veya tek yama gerektiriyor"
 
@@ -17465,10 +17924,6 @@ msgid "make the output relative to the project top directory"
 msgstr "çıktıyı en üst proje dizinine göreceli olarak yap"
 
 #: builtin/ls-files.c
-msgid "recurse through submodules"
-msgstr "altmodüller içinden özyinele"
-
-#: builtin/ls-files.c
 msgid "if any <file> is not in the index, treat this as an error"
 msgstr "eğer bir <dosya> indekste değilse bunu bir hata olarak gör"
 
@@ -17543,6 +17998,26 @@ msgid "git ls-tree [<options>] <tree-ish> [<path>...]"
 msgstr "git ls-tree [<seçenekler>] <ağacımsı> [<yol>...]"
 
 #: builtin/ls-tree.c
+#, c-format
+msgid "could not get object info about '%s'"
+msgstr "'%s' hakkında nesne bilgisi alınamadı"
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: element '%s' does not start with '('"
+msgstr "hatalı ls-tree biçimi: '%s' ögesi '(' ile başlamıyor"
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: element '%s' does not end in ')'"
+msgstr "hatalı ls-tree biçimi: '%s' ögesi ')' ile sonlanmıyor"
+
+#: builtin/ls-tree.c
+#, c-format
+msgid "bad ls-tree format: %%%.*s"
+msgstr "hatalı ls-tree biçimi: %%%.*s"
+
+#: builtin/ls-tree.c
 msgid "only show trees"
 msgstr "yalnızca ağaçları göster"
 
@@ -17567,12 +18042,20 @@ msgid "list only filenames"
 msgstr "yalnızca dosya adlarını listele"
 
 #: builtin/ls-tree.c
+msgid "list only objects"
+msgstr "yalnızca nesneleri listele"
+
+#: builtin/ls-tree.c
 msgid "use full path names"
 msgstr "tam yol adlarını kullan"
 
 #: builtin/ls-tree.c
 msgid "list entire tree; not just current directory (implies --full-name)"
 msgstr "yalnızca geçerli dizini değil tüm ağacı listele (--full-name ima eder)"
+
+#: builtin/ls-tree.c
+msgid "--format can't be combined with other format-altering options"
+msgstr "--format, diğer format-altering seçenekleriyle birlikte kullanılamaz"
 
 #. TRANSLATORS: keep <> in "<" mail ">" info.
 #: builtin/mailinfo.c
@@ -17622,6 +18105,10 @@ msgstr "alıntılanmış CR bulunduğu zaman yapılacak eylem"
 #: builtin/mailinfo.c
 msgid "use headers in message's body"
 msgstr "ileti gövdesinde üstbilgi kullan"
+
+#: builtin/mailsplit.c
+msgid "reading patches from stdin/tty..."
+msgstr "yamalar stdin/tty'den okunuyor..."
 
 #: builtin/mailsplit.c
 #, c-format
@@ -18104,10 +18591,6 @@ msgstr ""
 "Otomatik birleştirme iyi geçti; istendiği üzere gönderme öncesinde durdu.\n"
 
 #: builtin/mktag.c
-msgid "git mktag"
-msgstr "git mktag"
-
-#: builtin/mktag.c
 #, c-format
 msgid "warning: tag input does not pass fsck: %s"
 msgstr "uyarı: etiket girdisi fsck'den geçemiyor: %s"
@@ -18143,10 +18626,6 @@ msgstr "stdin üzerindeki etiket geçerli bir nesneye başvurmuyor"
 #: builtin/mktag.c builtin/tag.c
 msgid "unable to write tag file"
 msgstr "etiket dosyası yazılamıyor"
-
-#: builtin/mktree.c
-msgid "git mktree [-z] [--missing] [--batch]"
-msgstr "git mktree [-z] [--missing] [--batch]"
 
 #: builtin/mktree.c
 msgid "input is NUL terminated"
@@ -18319,8 +18798,8 @@ msgid "git name-rev [<options>] --all"
 msgstr "git name-rev [<seçenekler>] --all"
 
 #: builtin/name-rev.c
-msgid "git name-rev [<options>] --stdin"
-msgstr "git name-rev [<seçenekler>] --stdin"
+msgid "git name-rev [<options>] --annotate-stdin"
+msgstr "git name-rev [<seçenekler>] --annotate-stdin"
 
 #: builtin/name-rev.c
 msgid "print only ref-based names (no object names)"
@@ -18343,8 +18822,12 @@ msgid "list all commits reachable from all refs"
 msgstr "tüm başvurulardan ulaşılabilir olan tüm işlemeleri listele"
 
 #: builtin/name-rev.c
-msgid "read from stdin"
-msgstr "stdin'den oku"
+msgid "deprecated: use annotate-stdin instead"
+msgstr "kullanılmıyor: Yerine annotate-stdin kullanın"
+
+#: builtin/name-rev.c
+msgid "annotate text from stdin"
+msgstr "metne stdin'den açıklama ekle"
 
 #: builtin/name-rev.c
 msgid "allow to print `undefined` names (default)"
@@ -18391,14 +18874,6 @@ msgid ""
 "git notes [--ref <notes-ref>] merge [-v | -q] [-s <strategy>] <notes-ref>"
 msgstr ""
 "git notes [--ref <not-bşvr>] merge [-v | -q] [-s <strateji>] <not-bşvr>"
-
-#: builtin/notes.c
-msgid "git notes merge --commit [-v | -q]"
-msgstr "git notes merge --commit [-v | -q]"
-
-#: builtin/notes.c
-msgid "git notes merge --abort [-v | -q]"
-msgstr "git notes merge --abort [-v | -q]"
 
 #: builtin/notes.c
 msgid "git notes [--ref <notes-ref>] remove [<object>...]"
@@ -18459,10 +18934,6 @@ msgstr "git notes remove [<nesne>]"
 #: builtin/notes.c
 msgid "git notes prune [<options>]"
 msgstr "git notes prune [<seçenekler>]"
-
-#: builtin/notes.c
-msgid "git notes get-ref"
-msgstr "git notes get-ref"
 
 #: builtin/notes.c
 msgid "Write/edit the notes for the following object:"
@@ -18532,10 +19003,6 @@ msgstr "notlar '%s' konumundan '%s' konumuna kopyalanamadı"
 #, c-format
 msgid "refusing to %s notes in %s (outside of refs/notes/)"
 msgstr "notları %s yapma (%s içinde) reddediliyor (refs/notes/ dışında)"
-
-#: builtin/notes.c builtin/prune-packed.c builtin/receive-pack.c builtin/tag.c
-msgid "too many arguments"
-msgstr "çok fazla argüman"
 
 #: builtin/notes.c
 #, c-format
@@ -18934,10 +19401,6 @@ msgstr ""
 "%s"
 
 #: builtin/pack-objects.c
-msgid "invalid value for --missing"
-msgstr "--missing için geçersiz değer"
-
-#: builtin/pack-objects.c
 msgid "cannot open pack index"
 msgstr "paket indeksi açılamıyor"
 
@@ -19207,10 +19670,6 @@ msgstr "her şeyi paketle"
 msgid "prune loose refs (default)"
 msgstr "gevşek başvuruları buda (öntanımlı)"
 
-#: builtin/prune-packed.c
-msgid "git prune-packed [-n | --dry-run] [-q | --quiet]"
-msgstr "git prune-packed [-n | --dry-run] [-q | --quiet]"
-
 #: builtin/prune.c
 msgid "git prune [-n] [-v] [--progress] [--expire <time>] [--] [<head>...]"
 msgstr ""
@@ -19231,11 +19690,6 @@ msgstr "promisor paket dosyalarının dışındaki nesnelere taramayı kısıtla
 #: builtin/prune.c
 msgid "cannot prune in a precious-objects repo"
 msgstr "bir precious-objects deposu içinde budama yapılamıyor"
-
-#: builtin/pull.c
-#, c-format
-msgid "Invalid value for %s: %s"
-msgstr "%s için geçersiz değer: %s"
 
 #: builtin/pull.c
 msgid "git pull [<options>] [<repository> [<refspec>...]]"
@@ -19276,11 +19730,6 @@ msgstr "zorla yerel dalın üzerine yaz"
 #: builtin/pull.c
 msgid "number of submodules pulled in parallel"
 msgstr "paralelde çekilen altmodüllerin sayısı"
-
-#: builtin/pull.c
-#, c-format
-msgid "Invalid value for pull.ff: %s"
-msgstr "pull.ff için geçersiz değer: %s"
 
 #: builtin/pull.c
 msgid ""
@@ -19563,7 +20012,8 @@ msgstr ""
 "Güncellemeler reddedildi; çünkü geçerli dalınızın ucu kendisinin\n"
 "uzak konum karşıtından geride. Yeniden itmeden önce uzak konumdaki\n"
 "değişiklikleri entegre edin (örn. 'git pull ...').\n"
-"Ayrıntılar için 'git push --help' içinde 'Notes about fast-forwards'a bakın."
+"Ayrıntılar için 'git push --help' içinde 'Notes about fast-forwards'a\n"
+"bakın."
 
 #: builtin/push.c
 msgid ""
@@ -19574,8 +20024,9 @@ msgid ""
 msgstr ""
 "Güncellemeler reddedildi; çünkü itilmiş bir dal ucu kendisinin\n"
 "uzak konum karşıtından geride. Yeniden itmeden önce bu dalı çıkış\n"
-"yapın ve uzak konumdaki değişiklikleri entegre edin (örn. 'git pull ...').\n"
-"Ayrıntılar için 'git push --help' içinde 'Notes about fast-forwards'a bakın."
+"yapın ve uzak konumdaki değişiklikleri entegre edin (örn. 'git pull\n"
+"...'). Ayrıntılar için 'git push --help' içinde 'Notes about\n"
+"fast-forwards'a bakın."
 
 #: builtin/push.c
 msgid ""
@@ -19589,7 +20040,8 @@ msgstr ""
 "değişiklikler var. Bu genelde başka bir deponun aynı başvuruya itmesinden\n"
 "dolayı olur. Yeniden itmeden önce uzak konumdaki değişiklikleri entegre\n"
 "etmek isteyebilirsiniz (örn. 'git pull ...').\n"
-"Ayrıntılar için 'git push --help' içinde 'Notes about fast-forwards'a bakın."
+"Ayrıntılar için 'git push --help' içinde 'Notes about fast-forwards'a\n"
+"bakın."
 
 #: builtin/push.c
 msgid "Updates were rejected because the tag already exists in the remote."
@@ -19886,10 +20338,6 @@ msgstr ""
 "[<dal>]"
 
 #: builtin/rebase.c
-msgid "git rebase --continue | --abort | --skip | --edit-todo"
-msgstr "git rebase --continue | --abort | --skip | --edit-todo"
-
-#: builtin/rebase.c
 #, c-format
 msgid "could not create temporary %s"
 msgstr "geçici %s oluşturulamadı"
@@ -19935,10 +20383,10 @@ msgid ""
 "abort\"."
 msgstr ""
 "Tüm çakışmaları el ile çözün, onları \"git add/rm <çakışan-dosyalar>\"\n"
-"ile tamam olarak imleyin, ardından \"git rebase --continue\" çalıştırın.\n"
-"Bunun yerine bu işlemeyi atlayabilirsiniz: \"git rebase --skip\" yapın.\n"
-"İptal edip \"git rebase\" öncesine geri dönmek için \"git rebase --abort\"\n"
-"çalıştırın."
+"ile tamam olarak imleyin, ardından \"git rebase --continue\"\n"
+"çalıştırın. Bunun yerine bu işlemeyi atlayabilirsiniz: \"git rebase\n"
+"--skip\" yapın. İptal edip \"git rebase\" öncesine geri dönmek için\n"
+"\"git rebase --abort\" çalıştırın."
 
 #: builtin/rebase.c
 #, c-format
@@ -19958,6 +20406,11 @@ msgstr ""
 "\t%s\n"
 "\n"
 "Bunun sonucu olarak git onları yeniden temellendiremiyor."
+
+#: builtin/rebase.c
+#, c-format
+msgid "could not switch to %s"
+msgstr "şuraya geçilemedi: %s"
 
 #: builtin/rebase.c
 #, c-format
@@ -20284,11 +20737,6 @@ msgid "Please commit or stash them."
 msgstr "Lütfen onları işleyin veya zulalayın."
 
 #: builtin/rebase.c
-#, c-format
-msgid "could not switch to %s"
-msgstr "şuraya geçilemedi: %s"
-
-#: builtin/rebase.c
 msgid "HEAD is up to date."
 msgstr "HEAD güncel."
 
@@ -20399,22 +20847,28 @@ msgid "you must specify a directory"
 msgstr "bir dizin belirtmelisiniz"
 
 #: builtin/reflog.c
-msgid ""
-"git reflog expire [--expire=<time>] [--expire-unreachable=<time>] [--"
-"rewrite] [--updateref] [--stale-fix] [--dry-run | -n] [--verbose] [--all] "
-"<refs>..."
-msgstr ""
-"git reflog expire [--expire=<zaman>] [--expire-unreachable=<zaman>] [--"
-"rewrite] [--updateref] [--stale-fix] [--dry-run | -n] [--verbose] [--all] "
-"<başvurular>..."
+msgid "git reflog [show] [<log-options>] [<ref>]"
+msgstr "git reflog [show] [<günlük-seçenekleri>] [<başvuru>]"
 
 #: builtin/reflog.c
 msgid ""
-"git reflog delete [--rewrite] [--updateref] [--dry-run | -n] [--verbose] "
-"<refs>..."
+"git reflog expire [--expire=<time>] [--expire-unreachable=<time>]\n"
+"                  [--rewrite] [--updateref] [--stale-fix]\n"
+"                  [--dry-run | -n] [--verbose] [--all [--single-worktree] | "
+"<refs>...]"
 msgstr ""
-"git reflog delete [--rewrite] [--updateref] [--dry-run | -n] [--verbose] "
-"<başvurular>..."
+"git reflog expire [--expire=<zaman>] [--expire-unreachable=<zaman>]\n"
+"                  [--rewrite] [--updateref] [--stale-fix]\n"
+"                  [--dry-run | -n] [--verbose] [--all [--single-worktree] | "
+"<zaman>...]"
+
+#: builtin/reflog.c
+msgid ""
+"git reflog delete [--rewrite] [--updateref]\n"
+"                  [--dry-run | -n] [--verbose] <ref>@{<specifier>}..."
+msgstr ""
+"git reflog delete [--rewrite] [--updateref]\n"
+"                  [--dry-run | -n] [--verbose] <başvuru>@{<belirteç>}..."
 
 #: builtin/reflog.c
 msgid "git reflog exists <ref>"
@@ -20422,8 +20876,54 @@ msgstr "git reflog exists <başvuru>"
 
 #: builtin/reflog.c
 #, c-format
-msgid "'%s' is not a valid timestamp"
-msgstr "'%s' geçerli bir zaman damgası değil"
+msgid "invalid timestamp '%s' given to '--%s'"
+msgstr "geçersiz zaman damgası '%s', '--%s' argümanına verildi"
+
+#: builtin/reflog.c
+msgid "do not actually prune any entries"
+msgstr "özünde, hiçbir girdiyi budama"
+
+#: builtin/reflog.c
+msgid ""
+"rewrite the old SHA1 with the new SHA1 of the entry that now precedes it"
+msgstr ""
+"eski SHA-1'i, onun öncesinde gelen girdinin yeni SHA-1'i ile üzerine yaz"
+
+#: builtin/reflog.c
+msgid "update the reference to the value of the top reflog entry"
+msgstr "başvuruyu, en üst başvuru günlüğü girdisinin değerine güncelle"
+
+#: builtin/reflog.c
+msgid "print extra information on screen"
+msgstr "ekranda ek bilgi yazdır"
+
+#: builtin/reflog.c
+msgid "timestamp"
+msgstr "zaman damgası"
+
+#: builtin/reflog.c
+msgid "prune entries older than the specified time"
+msgstr "belirtilen zamandan daha eski girdileri buda"
+
+#: builtin/reflog.c
+msgid ""
+"prune entries older than <time> that are not reachable from the current tip "
+"of the branch"
+msgstr ""
+"dalın geçerli ucundan erişilemeyen ve <zaman>'dan daha eski girdileri buda"
+
+#: builtin/reflog.c
+msgid "prune any reflog entries that point to broken commits"
+msgstr "hatalı işlemelere işaret eden tüm başvuru günlüğü girdilerini buda"
+
+#: builtin/reflog.c
+msgid "process the reflogs of all references"
+msgstr "tüm başvuruların başvuru günlüklerini işle"
+
+#: builtin/reflog.c
+msgid "limits processing to reflogs from the current worktree only"
+msgstr ""
+"başvuru günlüklerine işlemeyi yalnızca geçerli çalışma ağacına sınırlar"
 
 #: builtin/reflog.c
 #, c-format
@@ -20441,26 +20941,8 @@ msgstr "silmek için bir başvuru günlüğü belirtilmedi"
 
 #: builtin/reflog.c
 #, c-format
-msgid "not a reflog: %s"
-msgstr "bir başvuru günlüğü değil: %s"
-
-#: builtin/reflog.c
-#, c-format
-msgid "no reflog for '%s'"
-msgstr "'%s' için başvuru günlüğü yok"
-
-#: builtin/reflog.c
-#, c-format
 msgid "invalid ref format: %s"
 msgstr "geçersiz başvuru biçimi: %s"
-
-#: builtin/reflog.c
-msgid "git reflog [ show | expire | delete | exists ]"
-msgstr "git reflog [ show | expire | delete | exists ]"
-
-#: builtin/remote.c
-msgid "git remote [-v | --verbose]"
-msgstr "git remote [-v | --verbose]"
 
 #: builtin/remote.c
 msgid ""
@@ -20471,8 +20953,8 @@ msgstr ""
 "mirror=<getir|it>] <ad> <url>"
 
 #: builtin/remote.c
-msgid "git remote rename <old> <new>"
-msgstr "git remote rename <eski> <yeni>"
+msgid "git remote rename [--[no-]progress] <old> <new>"
+msgstr "git remote rename [--[no-]progress] <eski> <yeni>"
 
 #: builtin/remote.c
 msgid "git remote remove <name>"
@@ -20662,6 +21144,10 @@ msgstr ""
 "Öntanımlı olmayan getirme başvuru belirteci güncellenmiyor.\n"
 "\t%s\n"
 "\tLütfen gerekirse yapılandırmayı el ile güncelleyin."
+
+#: builtin/remote.c
+msgid "Renaming remote references"
+msgstr "Uzak konum başvuruları yeniden adlandırılıyor"
 
 #: builtin/remote.c
 #, c-format
@@ -21155,10 +21641,6 @@ msgid "git replace [-f] --graft <commit> [<parent>...]"
 msgstr "git replace [-f] --graft <işleme> [<üst-öge>...]"
 
 #: builtin/replace.c
-msgid "git replace [-f] --convert-graft-file"
-msgstr "git replace [-f] --convert-graft-file"
-
-#: builtin/replace.c
 msgid "git replace -d <object>..."
 msgstr "git replace -d <nesne>..."
 
@@ -21469,6 +21951,10 @@ msgid "be quiet, only report errors"
 msgstr "sessiz ol, yalnızca hataları bildir"
 
 #: builtin/reset.c
+msgid "skip refreshing the index after reset"
+msgstr "sıfırlama sonrası indeksi yenilemeyi atla"
+
+#: builtin/reset.c
 msgid "reset HEAD and index"
 msgstr "HEAD'i ve indeksi sıfırla"
 
@@ -21522,15 +22008,12 @@ msgstr "Sıfırlama sonrasında hazırlanmamış değişiklikler:"
 #: builtin/reset.c
 #, c-format
 msgid ""
-"\n"
-"It took %.2f seconds to enumerate unstaged changes after reset.  You can\n"
-"use '--quiet' to avoid this.  Set the config setting reset.quiet to true\n"
-"to make this the default.\n"
+"It took %.2f seconds to refresh the index after reset.  You can use\n"
+"'--no-refresh' to avoid this."
 msgstr ""
-"\n"
-"Sıfırlama sonrasında hazırlanmamış değişiklikleri ortaya dökme %.2f saniye\n"
-"sürdü. Bundan kaçınmak için --quiet kullanabilir, öntanımlı yapmak içinse\n"
-"reset.quiet yapılandırma değişkenini 'true' olarak değiştirebilirsiniz.\n"
+"Sıfırlamadan sonra indeksi yenilemek %.2f saniye sürdü. Bundan kaçınmak "
+"için\n"
+"'--no-refresh' kullanabilirsiniz."
 
 #: builtin/reset.c
 #, c-format
@@ -21540,10 +22023,6 @@ msgstr "İndeks dosyası '%s' revizyonuna sıfırlanamadı."
 #: builtin/reset.c
 msgid "Could not write new index file."
 msgstr "Yeni indeks dosyası yazılamadı."
-
-#: builtin/rev-list.c
-msgid "object filtering requires --objects"
-msgstr "nesne süzme --objects gerektiriyor"
 
 #: builtin/rev-list.c
 msgid "rev-list does not support display of notes"
@@ -22087,10 +22566,6 @@ msgid "git sparse-checkout (init|list|set|add|reapply|disable) <options>"
 msgstr "git sparse-checkout (init|list|set|add|reapply|disable) <seçenekler>"
 
 #: builtin/sparse-checkout.c
-msgid "git sparse-checkout list"
-msgstr "git sparse-checkout list"
-
-#: builtin/sparse-checkout.c
 msgid "this worktree is not sparse"
 msgstr "bu çalışma ağacı aralıklı değil"
 
@@ -22118,20 +22593,12 @@ msgid "failed to create directory for sparse-checkout file"
 msgstr "aralıklı çıkış dosyası için dizin oluşturulamadı"
 
 #: builtin/sparse-checkout.c
-msgid "unable to upgrade repository format to enable worktreeConfig"
-msgstr "depo biçimi worktreeConfig etkinleştirmesi için yükseltilemiyor"
-
-#: builtin/sparse-checkout.c
-msgid "failed to set extensions.worktreeConfig setting"
-msgstr "extensions.worktreeConfig yapılandırması ayarlanamadı"
+msgid "failed to initialize worktree config"
+msgstr "çalışma ağacı yapılandırması ilklendirilemedi"
 
 #: builtin/sparse-checkout.c
 msgid "failed to modify sparse-index config"
 msgstr "sparse-index yapılandırması değiştirilemedi"
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout init [--cone] [--[no-]sparse-index]"
-msgstr "git sparse-checkout init [--cone] [--[no-]sparse-index]"
 
 #: builtin/sparse-checkout.c
 msgid "initialize the sparse-checkout in cone mode"
@@ -22165,8 +22632,55 @@ msgid "existing sparse-checkout patterns do not use cone mode"
 msgstr "mevcut aralıklı çıkış dizgileri koni kipini kullanmıyor"
 
 #: builtin/sparse-checkout.c
-msgid "git sparse-checkout add (--stdin | <patterns>)"
-msgstr "git sparse-checkout add (--stdin | <dizgiler>)"
+msgid "please run from the toplevel directory in non-cone mode"
+msgstr "koni dışı kipte en üst düzey dizinden çalıştırın"
+
+#: builtin/sparse-checkout.c
+msgid "specify directories rather than patterns (no leading slash)"
+msgstr "dizgiler yerine dizinleri belirt (önünde eğik çizgi yok)"
+
+#: builtin/sparse-checkout.c
+msgid ""
+"specify directories rather than patterns.  If your directory starts with a "
+"'!', pass --skip-checks"
+msgstr ""
+"dizgiler yerine dizinleri belirt; dizininiz bir '!' ile başlıyorsa --skip-"
+"checks'i geç"
+
+#: builtin/sparse-checkout.c
+msgid ""
+"specify directories rather than patterns.  If your directory really has any "
+"of '*?[]\\' in it, pass --skip-checks"
+msgstr ""
+"dizgiler yerine dizinleri belirt; dizininizin içinde '*?[[\\' varsa --skip-"
+"checks'i geç"
+
+#: builtin/sparse-checkout.c
+#, c-format
+msgid ""
+"'%s' is not a directory; to treat it as a directory anyway, rerun with --"
+"skip-checks"
+msgstr ""
+"%s, bir dizin değil; yine de bir dizinmiş gibi davranmak için --skip-checks "
+"ile yeniden çalıştır"
+
+#: builtin/sparse-checkout.c
+#, c-format
+msgid ""
+"pass a leading slash before paths such as '%s' if you want a single file "
+"(see NON-CONE PROBLEMS in the git-sparse-checkout manual)."
+msgstr ""
+"tek bir dosya istiyorsanız yollardan önce bir eğik çizgi geçirin ('%s' gibi) "
+"git-sparse-checkout kılavuzunda NON-CONE PROBLEMS'a bakın)"
+
+#: builtin/sparse-checkout.c
+msgid "git sparse-checkout add [--skip-checks] (--stdin | <patterns>)"
+msgstr "git sparse-checkout add [--skip-checks] (--stdin | <dizgiler>)"
+
+#: builtin/sparse-checkout.c
+msgid ""
+"skip some sanity checks on the given paths that might give false positives"
+msgstr "yanlış pozitif verebilen yollarda düzgünlük denetimlerini atla"
 
 #: builtin/sparse-checkout.c
 msgid "read patterns from standard in"
@@ -22178,25 +22692,17 @@ msgstr "kendisine eklenecek bir aralıklı çıkış yok"
 
 #: builtin/sparse-checkout.c
 msgid ""
-"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] (--stdin | "
-"<patterns>)"
+"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] [--skip-checks] "
+"(--stdin | <patterns>)"
 msgstr ""
-"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] (--stdin | "
-"<dizgiler>)"
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout reapply [--[no-]cone] [--[no-]sparse-index]"
-msgstr "git sparse-checkout reapply [--[no-]cone] [--[no-]sparse-index]"
+"git sparse-checkout set [--[no-]cone] [--[no-]sparse-index] [--skip-checks] "
+"(--stdin | <dizgiler>)"
 
 #: builtin/sparse-checkout.c
 msgid "must be in a sparse-checkout to reapply sparsity patterns"
 msgstr ""
 "aralıklılık dizgilerinin yeniden uygulanması için bir aralıklı çıkış içinde "
 "olmalı"
-
-#: builtin/sparse-checkout.c
-msgid "git sparse-checkout disable"
-msgstr "git sparse-checkout disable"
 
 #: builtin/sparse-checkout.c
 msgid "error while refreshing working directory"
@@ -22486,22 +22992,6 @@ msgstr "zulada izlenmeyen dosyaları içer"
 msgid "include ignore files"
 msgstr "yok sayma dosyalarını içer"
 
-#: builtin/stash.c
-msgid ""
-"the stash.useBuiltin support has been removed!\n"
-"See its entry in 'git help config' for details."
-msgstr ""
-"stash.useBuiltin desteği kaldırıldı!\n"
-"Ayrıntılar için 'git help config' içindeki girdisine bakın."
-
-#: builtin/stripspace.c
-msgid "git stripspace [-s | --strip-comments]"
-msgstr "git stripspace [-s | --strip-comments]"
-
-#: builtin/stripspace.c
-msgid "git stripspace [-c | --comment-lines]"
-msgstr "git stripspace [-c | --comment-lines]"
-
 #: builtin/stripspace.c
 msgid "skip and remove all lines starting with comment character"
 msgstr "yorum karakteri ile başlayan tüm satırları atla ve kaldır"
@@ -22514,10 +23004,6 @@ msgstr "her satırın başına yorum karakteri ve boşluk koy"
 #, c-format
 msgid "Expecting a full ref name, got %s"
 msgstr "Tam bir başvuru adı bekleniyordu, %s alındı"
-
-#: builtin/submodule--helper.c
-msgid "submodule--helper print-default-remote takes no arguments"
-msgstr "submodule--helper print-default-remote argümanı almaz"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -22855,11 +23341,12 @@ msgstr "boş olmayan dizine klonlamaya izin verme"
 #: builtin/submodule--helper.c
 msgid ""
 "git submodule--helper clone [--prefix=<path>] [--quiet] [--reference "
-"<repository>] [--name <name>] [--depth <depth>] [--single-branch] --url "
-"<url> --path <path>"
+"<repository>] [--name <name>] [--depth <depth>] [--single-branch] [--filter "
+"<filter-spec>]--url <url> --path <path>"
 msgstr ""
 "git submodule--helper clone [--prefix=<yol>] [--quiet] [--reference <depo>] "
-"[--name <ad>] [--depth <derinlik>] [--single-branch] --url <url> --path <yol>"
+"[--name <ad>] [--depth <derinlik>] [--single-branch] [--filter <süzgeç-"
+"belirteci>]--url <url> --path <yol>"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -22957,6 +23444,60 @@ msgstr ""
 "doğrudan getirilmesi başarısız oldu."
 
 #: builtin/submodule--helper.c
+#, c-format
+msgid ""
+"Submodule (%s) branch configured to inherit branch from superproject, but "
+"the superproject is not on any branch"
+msgstr ""
+"Altmodül (%s) dalı süperproje dalından devralmak üzere yapılandırıldı; ancak "
+"süperproje herhangi bir dalda değil"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "could not get a repository handle for submodule '%s'"
+msgstr "'%s' altmodülü için depo tutacağı alınamadı"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to find current revision in submodule path '%s'"
+msgstr "'%s' altmodül yolunda geçerli revizyon bulunamadı"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to fetch in submodule path '%s'"
+msgstr "'%s' altmodül yolunda getirme yapılamadı"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Unable to find %s revision in submodule path '%s'"
+msgstr "%s revizyonu, '%s' altmodül yolunda bulunamadı"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "Failed to recurse into submodule path '%s'"
+msgstr "'%s' altmodül yoluna özyineleme yapılamadı"
+
+#: builtin/submodule--helper.c
+msgid "force checkout updates"
+msgstr "güncellemeleri zorla çıkış yap"
+
+#: builtin/submodule--helper.c
+msgid "initialize uninitialized submodules before update"
+msgstr "güncellemeden önce ilklendirilmemiş altmodülleri ilklendir"
+
+#: builtin/submodule--helper.c
+msgid "use SHA-1 of submodule's remote tracking branch"
+msgstr "altmodül uzak izleme dalının SHA-1'ini kullan"
+
+#: builtin/submodule--helper.c
+msgid "traverse submodules recursively"
+msgstr "altmodülleri özyineli basamaklandır"
+
+#: builtin/submodule--helper.c
+msgid "don't fetch new objects from the remote site"
+msgstr "yeni nesneleri uzak konumdan getirme"
+
+#: builtin/submodule--helper.c
 msgid "path into the working tree"
 msgstr "çalışma ağacına giden yol"
 
@@ -22985,67 +23526,20 @@ msgid "don't print cloning progress"
 msgstr "klonlama işlemini yazdırma"
 
 #: builtin/submodule--helper.c
-msgid "git submodule--helper update-clone [--prefix=<path>] [<path>...]"
-msgstr "git submodule--helper update-clone [--prefix=<yol>] [<yol>...]"
+msgid ""
+"git submodule [--quiet] update [--init [--filter=<filter-spec>]] [--remote] "
+"[-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--[no-]recommend-"
+"shallow] [--reference <repository>] [--recursive] [--[no-]single-branch] "
+"[--] [<path>...]"
+msgstr ""
+"git submodule [--quiet] update [--init [--filter=<süzgeç-blrtç>]] [--remote] "
+"[-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--[no-]recommend-"
+"shallow] [--reference <depo>] [--recursive] [--[no-]single-branch] [--] "
+"[<yol>...]"
 
 #: builtin/submodule--helper.c
 msgid "bad value for update parameter"
 msgstr "güncelleme parametresi için hatalı değer"
-
-#: builtin/submodule--helper.c
-msgid "suppress output for update by rebase or merge"
-msgstr "güncelleme çıktısını yeniden temellendirme veya birleştirme ile sustur"
-
-#: builtin/submodule--helper.c
-msgid "force checkout updates"
-msgstr "güncellemeleri zorla çıkış yap"
-
-#: builtin/submodule--helper.c
-msgid "don't fetch new objects from the remote site"
-msgstr "yeni nesneleri uzak konumdan getirme"
-
-#: builtin/submodule--helper.c
-msgid "overrides update mode in case the repository is a fresh clone"
-msgstr ""
-"deponun taze bir klon olması durumunda güncelleme kipini geçersiz kılar"
-
-#: builtin/submodule--helper.c
-msgid "depth for shallow fetch"
-msgstr "sığ getirme derinliği"
-
-#: builtin/submodule--helper.c
-msgid "sha1"
-msgstr "sha1"
-
-#: builtin/submodule--helper.c
-msgid "SHA1 expected by superproject"
-msgstr "superproject tarafından SHA1 bekleniyordu"
-
-#: builtin/submodule--helper.c
-msgid "subsha1"
-msgstr "subsha1"
-
-#: builtin/submodule--helper.c
-msgid "SHA1 of submodule's HEAD"
-msgstr "altmodülün HEAD'inin SHA1'i"
-
-#: builtin/submodule--helper.c
-msgid "git submodule--helper run-update-procedure [<options>] <path>"
-msgstr "git submodule--helper run-update-procedure [<seçenekler>] [<yol>]"
-
-#: builtin/submodule--helper.c
-#, c-format
-msgid ""
-"Submodule (%s) branch configured to inherit branch from superproject, but "
-"the superproject is not on any branch"
-msgstr ""
-"Altmodül (%s) dalı süperproje dalından devralmak üzere yapılandırıldı; ancak "
-"süperproje herhangi bir dalda değil"
-
-#: builtin/submodule--helper.c
-#, c-format
-msgid "could not get a repository handle for submodule '%s'"
-msgstr "'%s' altmodülü için depo tutacağı alınamadı"
 
 #: builtin/submodule--helper.c
 msgid "recurse into submodules"
@@ -23070,10 +23564,6 @@ msgstr "git submodule--helper config <ad> [<değer>]"
 #: builtin/submodule--helper.c
 msgid "git submodule--helper config --unset <name>"
 msgstr "git submodule--helper config --unset <ad>"
-
-#: builtin/submodule--helper.c
-msgid "git submodule--helper config --check-writeable"
-msgstr "git submodule--helper config --check-writeable"
 
 #: builtin/submodule--helper.c
 msgid "please make sure that the .gitmodules file is in the working tree"
@@ -23108,6 +23598,32 @@ msgstr ""
 #: builtin/submodule--helper.c
 msgid "--branch or --default required"
 msgstr "--branch veya --default gerekli"
+
+#: builtin/submodule--helper.c
+msgid "print only error messages"
+msgstr "yalnızca hata iletilerini yazdır"
+
+#: builtin/submodule--helper.c
+msgid "force creation"
+msgstr "oluşturmayı zorla"
+
+#: builtin/submodule--helper.c
+msgid "show whether the branch would be created"
+msgstr "dalın oluşturulup oluşturulmayacağını göster"
+
+#: builtin/submodule--helper.c
+msgid ""
+"git submodule--helper create-branch [-f|--force] [--create-reflog] [-q|--"
+"quiet] [-t|--track] [-n|--dry-run] <name> <start_oid> <start_name>"
+msgstr ""
+"git submodule--helper create-branch [-f|--force] [--create-reflog] [-q|--"
+"quiet] [-t|--track] [-n|--dry-run] <ad> <başlangıç-nesne-kimliği> <başlangıç-"
+"adı>"
+
+#: builtin/submodule--helper.c
+#, c-format
+msgid "creating branch '%s'"
+msgstr "'%s' dalı oluşturuluyor"
 
 #: builtin/submodule--helper.c
 #, c-format
@@ -23178,10 +23694,6 @@ msgstr "altmodül olarak eklenecek depo dalı"
 #: builtin/submodule--helper.c
 msgid "allow adding an otherwise ignored submodule path"
 msgstr "başka bir durumda yok sayılan altmodül yolunun eklenmesine izin ver"
-
-#: builtin/submodule--helper.c
-msgid "print only error messages"
-msgstr "yalnızca hata iletilerini yazdır"
 
 #: builtin/submodule--helper.c
 msgid "borrow the objects from reference repositories"
@@ -23441,6 +23953,10 @@ msgstr "'%s' etiketi halihazırda var"
 #, c-format
 msgid "Updated tag '%s' (was %s)\n"
 msgstr "'%s' etiketi güncellendi (%s idi)\n"
+
+#: builtin/unpack-objects.c
+msgid "pack exceeds maximum allowed size"
+msgstr "paket izin verilen en büyük boyutu aşıyor"
 
 #: builtin/unpack-objects.c
 msgid "Unpacking objects"
@@ -23726,10 +24242,6 @@ msgid "read updates from stdin"
 msgstr "güncellemeleri stdin'den oku"
 
 #: builtin/update-server-info.c
-msgid "git update-server-info [--force]"
-msgstr "git update-server-info [--force]"
-
-#: builtin/update-server-info.c
 msgid "update the info files from scratch"
 msgstr "bilgi dosyalarını en baştan güncelle"
 
@@ -23810,6 +24322,10 @@ msgid "git worktree remove [<options>] <worktree>"
 msgstr "git worktree remove [<seçenekler>] <ç-ağacı>"
 
 #: builtin/worktree.c
+msgid "git worktree repair [<path>...]"
+msgstr "git worktree repair [<yol>...]"
+
+#: builtin/worktree.c
 msgid "git worktree unlock <path>"
 msgstr "git worktree unlock <yol>"
 
@@ -23854,6 +24370,21 @@ msgid ""
 msgstr ""
 "'%s' eksik; ancak halihazırda kaydı yapılmış bir çalışma ağacı;\n"
 "geçersiz kılmak için '%s -f', temizlemek için 'prune' veya 'remove' kullanın"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to copy '%s' to '%s'; sparse-checkout may not work correctly"
+msgstr "'%s' -> '%s' kopyalanamadı; aralıklı çıkış düzgün çalışmayabilir"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to copy worktree config from '%s' to '%s'"
+msgstr "çalışma ağacı yapılandırması '%s' -> '%s' konumuna kopyalanamadı"
+
+#: builtin/worktree.c
+#, c-format
+msgid "failed to unset '%s' in '%s'"
+msgstr "'%s' ayarı, '%s' içinde kaldırılamadı"
 
 #: builtin/worktree.c
 #, c-format
@@ -23931,6 +24462,10 @@ msgstr "varsa genişletilmiş açıklamaları ve nedenleri göster"
 #: builtin/worktree.c
 msgid "add 'prunable' annotation to worktrees older than <time>"
 msgstr "<zaman>'dan eski çalışma ağaçlarına 'budanabilir' açıklama ekle"
+
+#: builtin/worktree.c
+msgid "terminate records with a NUL character"
+msgstr "kayıtları bir NUL karakteriyle sonlandır"
 
 #: builtin/worktree.c
 #, c-format
@@ -24277,7 +24812,7 @@ msgstr "sunucu iş parçacığı havuzundaki iş parçacığı sayısı"
 
 #: t/helper/test-simple-ipc.c
 msgid "seconds to wait for daemon to start or stop"
-msgstr "arka plan servisinin başlaaması veya durması için beklenecek saniye"
+msgstr "ardalan sürecinin başlaması veya durması için beklenecek saniye"
 
 #: t/helper/test-simple-ipc.c
 msgid "number of bytes"
@@ -24645,12 +25180,25 @@ msgid "scalar verbose [-v | --verbose] [--build-options]"
 msgstr "scalar verbose [-v | --verbose] [--build-options]"
 
 #: contrib/scalar/scalar.c
+msgid "-C requires a <directory>"
+msgstr "-C, bir <dizin> gerektiriyor"
+
+#: contrib/scalar/scalar.c
+#, c-format
+msgid "could not change to '%s'"
+msgstr "'%s' olarak değiştirilemedi"
+
+#: contrib/scalar/scalar.c
+msgid "-c requires a <key>=<value> argument"
+msgstr "-c, bir <anahtar>=<değer> argümanı gerektiriyor"
+
+#: contrib/scalar/scalar.c
 msgid ""
-"scalar <command> [<options>]\n"
+"scalar [-C <directory>] [-c <key>=<value>] <command> [<options>]\n"
 "\n"
 "Commands:\n"
 msgstr ""
-"scalar <komut> [<seçenekler>]\n"
+"scalar [-C <dizin>] [-c <anahtar>=<değer>] <komut> [<seçenekler>]\n"
 "\n"
 "Komutlar:\n"
 
@@ -24851,7 +25399,7 @@ msgstr "Bir CVS çıkışına tek bir işlemeyi dışa aktar"
 
 #: command-list.h
 msgid "Salvage your data out of another SCM people love to hate"
-msgstr "'Tiskindiğiniz' başka bir KDY'den verileri kurtar"
+msgstr "'Tiskindiğiniz' başka bir KDY'den verinizi kurtarın"
 
 #: command-list.h
 msgid "A CVS server emulator for Git"
@@ -24949,6 +25497,10 @@ msgstr "Sağlamayı hesapla ve isteğe göre dosyadan ikili oluştur"
 #: command-list.h
 msgid "Display help information about Git"
 msgstr "Git yardım bilgisini görüntüle"
+
+#: command-list.h
+msgid "Run git hooks"
+msgstr "Git kancalarını çalıştır"
 
 #: command-list.h
 msgid "Server side implementation of Git over HTTP"
@@ -25207,8 +25759,8 @@ msgid "List references in a local repository"
 msgstr "Yerel bir depodaki başvuruları listele"
 
 #: command-list.h
-msgid "Initialize and modify the sparse-checkout"
-msgstr "Aralıklı çıkışı ilklendir ve güncelle"
+msgid "Reduce your working tree to a subset of tracked files"
+msgstr "Çalışma ağacını izlenen dosyaların bir alt kümesine küçült"
 
 #: command-list.h
 msgid "Add file contents to the staging area"
@@ -25434,30 +25986,6 @@ msgstr "$pretty_name ile yalın birleştirme deneniyor"
 #: git-merge-octopus.sh
 msgid "Simple merge did not work, trying automatic merge."
 msgstr "Yalın birleştirme işe yaramadı, otomatik birleştirme deneniyor."
-
-#: git-submodule.sh
-#, sh-format
-msgid "Unable to find current revision in submodule path '$displaypath'"
-msgstr "'$displaypath' altmodül yolunda geçerli revizyon bulunamadı"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Unable to fetch in submodule path '$sm_path'"
-msgstr "'$sm_path' altmodül yolunda getirme yapılamadı"
-
-#: git-submodule.sh
-#, sh-format
-msgid ""
-"Unable to find current ${remote_name}/${branch} revision in submodule path "
-"'$sm_path'"
-msgstr ""
-"'$sm_path' altmodül yolunda geçerli ${remote_name}/${branch} revizyonu "
-"bulunamadı"
-
-#: git-submodule.sh
-#, sh-format
-msgid "Failed to recurse into submodule path '$displaypath'"
-msgstr "'$displaypath' altmodül yoluna özyinelenemedi"
 
 #: git-sh-setup.sh
 #, sh-format
@@ -26176,14 +26704,8 @@ msgstr "geçersiz aktarım kodlaması"
 
 #: git-send-email.perl
 #, perl-format
-msgid ""
-"fatal: %s: rejected by sendemail-validate hook\n"
-"%s\n"
-"warning: no patches were sent\n"
-msgstr ""
-"onulmaz: %s: sendemail-validate kancası tarafından reddedildi\n"
-"%s\n"
-"uyarı: hiçbir yama gönderilmedi\n"
+msgid "fatal: %s: rejected by %s hook\n"
+msgstr "onulmaz: %s: %s kanca tarafından reddedildi\n"
 
 #: git-send-email.perl
 #, perl-format
